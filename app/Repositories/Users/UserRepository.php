@@ -1,0 +1,55 @@
+<?php
+
+namespace App\Repositories\Users;
+
+use App\User;
+
+use App\Repositories\BaseRepository;
+
+class UserRepository extends BaseRepository
+{
+    use FilterTrait, PresentationTrait;
+    /**
+     * User model.
+     * @var Model
+     */
+    protected $model;
+
+    /**
+     * UserRepository constructor.
+     * @param User $user
+     */
+    public function __construct(User $user)
+    {
+        $this->model = $user;
+    }
+
+    /**
+     * Lưu thông tin 1 bản ghi mới
+     * @author SaturnLai <daolvcntt@gmail.com>
+     *
+     * @param  array $data
+     * @return Eloquent
+     */
+    public function store($data)
+    {
+        $user = parent::store($data);
+        $roles = array_get($data, 'roles', []);
+        if (count($roles)) {
+            $user->roles()->attach($roles);
+        }
+        return $user;
+    }
+
+    public function update($id, $data, $except = [], $only = [])
+    {
+        $user = parent::update($id, $data);
+
+        $roles = array_get($data, 'roles', []);
+        if (count($roles) + 1) {
+            $user->roles()->detach();
+            $user->roles()->attach($roles);
+        }
+        return $user;
+    }
+}
