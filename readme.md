@@ -1,4 +1,4 @@
-# Gostore - Omnichannel Inventory Management System #1 Viet Nam
+# Westay - Stay happy together
 
 ## Installation
 
