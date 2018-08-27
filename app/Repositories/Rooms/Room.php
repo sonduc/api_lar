@@ -17,7 +17,7 @@ class Room extends Entity
     protected $fillable = [
         'merchant_id', 'max_guest', 'max_additional_guest', 'number_bed', 'number_room', 'city_id', 'district_id',
         'room_type_id', 'checkin', 'checkout', 'price_day', 'price_hour', 'price_charge_guest', 'cleaning_fee',
-        'standard_point', 'is_manager', 'hot', 'new', 'latest_deal', 'rent_type', 'rules', 'longitude', 'latitude', 'status', 'sale_id'
+        'standard_point', 'is_manager', 'hot', 'new', 'latest_deal', 'rent_type', 'rules', 'longitude', 'latitude', 'status', 'sale_id', 'price_after_hour',
     ];
 
     /**

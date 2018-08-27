@@ -25,7 +25,7 @@ class RoomTranslateTransformer extends TransformerAbstract
         return [
             'id'                    => $room->id,
             'room_id'               => $room->room_id,
-            'room_name'             => $room->name,
+            'name'                  => $room->name,
             'slug_name'             => $room->slug_name,
             'address'               => $room->address,
             'slug_address'          => $room->slug_address,

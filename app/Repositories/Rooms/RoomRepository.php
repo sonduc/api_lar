@@ -30,10 +30,10 @@ class RoomRepository extends BaseRepository
      */
     public function store($data)
     {
-        $data['rules']  = json_encode($data['rules']);
+//        dd($data);
         $data_room      = parent::store($data);
 
-        $this->roomTranslate->storeRoomTranslate($data, $data_room->id);
+//        $this->roomTranslate->storeRoomTranslate($data, $data_room->id);
         return $data_room;
     }
 
