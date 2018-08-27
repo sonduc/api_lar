@@ -58,7 +58,7 @@ class ComfortController extends ApiController
      */
     public function index(Request $request)
     {
-        // $this->authorize('comfort.view');
+        $this->authorize('comfort.view');
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
@@ -73,7 +73,7 @@ class ComfortController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            // $this->authorize('comfort.view');
+            $this->authorize('comfort.view');
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
@@ -89,7 +89,7 @@ class ComfortController extends ApiController
     public function store(Request $request)
     {
         try {
-            // $this->authorize('comfort.create');
+            $this->authorize('comfort.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             // return $request->all();
             $data = $this->model->store($request->all());
@@ -110,7 +110,7 @@ class ComfortController extends ApiController
     public function update(Request $request, $id)
     {
         try {
-            // $this->authorize('comfort.update');
+            $this->authorize('comfort.update');
             $this->validationRules['name'] .= ",{$id}";
             $this->validationRules['short_name'] .= ",{$id}";
             $this->validationRules['code'] .= ",{$id}";
@@ -137,7 +137,7 @@ class ComfortController extends ApiController
     public function destroy($id)
     {
         try {
-            // $this->authorize('comfort.delete');
+            $this->authorize('comfort.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();
