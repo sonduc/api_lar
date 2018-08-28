@@ -6,13 +6,13 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Rooms\RoomRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\RoomTransformer;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends ApiController
 {
     protected $validationRules = [
         'details.*.*.name'                                  => 'required|min:10|max:255|v_title',
         'comforts.*'                                        => 'nullable|numeric|exists:comforts,id|distinct',
-        'details.*.*.lang.id'                               => 'nullable|numeric|exists:languages,id|distinct',
         'merchant_id'                                       => 'required|numeric|exists:users,id',
         'max_guest'                                         => 'required|numeric|min:1',
         'max_additional_guest'                              => 'numeric|nullable',
@@ -39,7 +39,7 @@ class RoomController extends ApiController
         'details.*.*.address'                               => 'required|v_title',
         'note'                                              => 'nullable|v_title',
         'sale_id'                                           => 'numeric|nullable|exists:users,id',
-        'lang_id'                                           => 'exists:languages,id',
+        'lang_id'                                           => 'numeric|exists:languages,id',
         'status'                                            => 'numeric',
         'weekday_price.*.price_day'                         => 'numeric|nullable',
         'weekday_price.*.price_hour'                        => 'numeric|nullable',
@@ -125,9 +125,6 @@ class RoomController extends ApiController
         'lang_id.exists'                                    => 'Ngôn ngữ không hợp lệ',
         'note.v_title'                                      => 'Chỉ cho phép chữ và số',
         'status.numeric'                                    => 'Mã trạng thái phải là kiểu số',
-        'details.*.*.lang.id.numeric'                       => 'Mã ngôn ngữ phải là kiểu số',
-        'details.*.*.lang.id.exists'                        => 'Ngôn ngữ không tồn tại trên hệ thống',
-        'details.*.*.lang.id.distinct'                      => 'Mã ngôn ngữ bị trùng lặp',
     ];
     /**
      * RoleController constructor.
@@ -150,7 +147,9 @@ class RoomController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
 
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize, $this->trash));
+        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+
+        return $this->successResponse($data);
     }
 
     /**
@@ -176,12 +175,14 @@ class RoomController extends ApiController
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-             $data = $this->model->store($request->all());
+            $data = $this->model->store($request->all());
 
+//            DB::commit();
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -190,18 +191,23 @@ class RoomController extends ApiController
             ]);
         } catch (\Exception $e) {
             throw $e;
+            DB::rollBack();
         } catch (\Throwable $t) {
             throw $t;
+            DB::rollBack();
         }
     }
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
+//        DB::enableQueryLog();
         try {
             $this->authorize('room.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
-
+//            dd(DB::getQueryLog());
+            DB::commit();
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -209,26 +215,34 @@ class RoomController extends ApiController
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('room.delete');
             $this->model->deleteRoom($id);
 
+            DB::commit();
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

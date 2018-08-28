@@ -18,7 +18,7 @@ class CreateComfortTranslatesTable extends Migration
             $table->integer('comfort_id')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('lang_id');
+            $table->string('lang', 5)->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

@@ -15,7 +15,7 @@ class CreateBlogCategoryTranslatesTable extends Migration
     {
         Schema::create('blog_category_translates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lang_id');
+            $table->string('lang', 5)->nullable();
             $table->string('name',100)->nullable();
             $table->string('slug',100)->nullable();
         });

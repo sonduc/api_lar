@@ -7,55 +7,79 @@ use App\Repositories\BaseRepository;
 class RoomTranslateRepository extends BaseRepository
 {
     /**
-     * Role model.
+     * RoomTranslate model.
      * @var Model
      */
     protected $model;
 
     /**
-     * RoleRepository constructor.
-     * @param Role $role
+     * RoomTranslateRepository constructor.
+     * @param RoomTranslate $room
      */
-    public function __construct(RoomTranslate $room)
+    public function __construct(RoomTranslate $roomTranslate)
     {
-        $this->model = $room;
+        $this->model    = $roomTranslate;
     }
 
     /**
-     * Thêm data vào roomTranslate
-     * @param $data
-     * @param $id
+     * Thêm dữ liệu vào roomTranslate
+     *
+     * @param $room
+     * @param array $data
+     *
+     * @return void
      */
-    public function storeRoomTranslate($data, $id)
+    public function storeRoomTranslate($room, $data = [])
     {
-        $data['slug_name']      = to_slug($data['name']);
-        $data['slug_address']   = to_slug($data['address']);
-        $data['room_id']        = $id;
-
-        parent::store($data);
+        if (!empty($data)) {
+            if (isset($data['details']['data'])) {
+                foreach ($data['details']['data'] as $obj) {
+                    $obj['room_id']         = $room->id;
+                    $obj['slug_name']       = $obj['name'];
+                    parent::store($obj);
+                }
+            }
+        }
     }
 
     /**
-     * Update room_translate. Nếu không có bản ghi nào phù hợp thì tạo translate mới.
-     * @param $data
-     * @param $id
+     * Cập nhật thông tin phòng theo ngôn ngữ
+     *
+     * @param $room
+     * @param array $data
+     *
+     * @return void
      */
-    public function updateRoomTranslate($data, $id)
+    public function updateRoomTranslate($room, $data = [])
     {
-        $data['slug_name']      = to_slug($data['name']);
-        $data['slug_address']   = to_slug($data['address']);
-        $data['room_id']        = $id;
 
-        $count = $this->model->where([
+        if (!empty($data)) {
+            if (isset($data['details']['data'])) {
+
+                foreach ($data['details']['data'] as $obj) {
+                    $obj['slug_name']   = $obj['name'];
+                    unset($obj['room_id']);
+
+                    $roomTrans = $this->getRoomTranslateByLangAndID($room->id, $obj['lang']);
+                    parent::update($roomTrans->id, $obj);
+                }
+            }
+        }
+    }
+
+    /**
+     * Lấy ngôn ngữ của phòng theo ID và mã ngôn ngữ
+     *
+     * @param $id
+     * @param $lang
+     *
+     * @return mixed
+     */
+    public function getRoomTranslateByLangAndID($id, $lang)
+    {
+        return $this->model->where([
             ['room_id', $id],
-            ['lang_id', $data['lang_id']]
+            ['lang', $lang]
         ])->first();
-
-        $count ? parent::update($id, $data) : parent::store($data);
-    }
-
-    public function getByRoomID($id)
-    {
-        return $this->model->where('room_id', $id)->select('id')->get();
     }
 }

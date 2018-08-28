@@ -84,7 +84,7 @@ abstract class BaseRepository implements EntityInterface
      * @param  boolean $useHash Có sử dụng hash hay không
      * @return Eloquent
      */
-    public function getById($id, $trash = false, $useHash = true)
+    public function getById($id, $trash = false, $useHash = false)
     {
         $model = $this->model;
         if ($trash) {

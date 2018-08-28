@@ -81,9 +81,9 @@ class Room extends Entity
 
     /**
      * Relationship với comfort
+     *
      * @return Relation
      */
-
     public function comforts()
     {
         return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id', 'comfort_id');

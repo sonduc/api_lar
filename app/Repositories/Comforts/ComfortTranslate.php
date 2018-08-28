@@ -15,7 +15,7 @@ class ComfortTranslate extends Entity
      */
 
     protected $fillable = [
-        'name', 'lang_id', 'comfort_id', 'description'
+        'name', 'lang', 'comfort_id', 'description'
     ];
 
 
@@ -25,12 +25,4 @@ class ComfortTranslate extends Entity
      */
     protected $casts = ['permissions' => 'array'];
 
-    /**
-     * Relationship với ngôn ngữ
-     * @return Relation
-     */
-    public function language()
-    {
-        return $this->belongsTo(\App\Repositories\Languages\Language::class, 'lang_id');
-    }
 }

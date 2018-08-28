@@ -31,6 +31,7 @@ $app->withEloquent();
 $app->configure('auth');
 $app->configure('permissions');
 $app->configure('regex');
+$app->configure('languages');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings

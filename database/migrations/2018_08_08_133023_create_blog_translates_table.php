@@ -20,7 +20,7 @@ class CreateBlogTranslatesTable extends Migration
             $table->string('slug',100)->nullable();
             $table->text('teaser',100)->nullable();
             $table->text('content')->nullable();
-            $table->integer('lang_id');
+            $table->string('lang', 5)->nullable();
         });
     }
 

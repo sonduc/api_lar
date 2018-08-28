@@ -15,7 +15,7 @@ class CreateRoomTranslatesTable extends Migration
     {
         Schema::create('room_translates', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('lang_id');
+            $table->string('lang', 5)->nullable();
             $table->integer('room_id');
             $table->string('name')->nullable();
             $table->string('slug_name')->nullable();
