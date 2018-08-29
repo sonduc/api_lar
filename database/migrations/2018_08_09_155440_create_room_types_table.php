@@ -14,7 +14,7 @@ class CreateRoomTypesTable extends Migration
     public function up()
     {
         Schema::create('room_types', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('room_category_id')->nullable();
             $table->string('name')->nullable();
             $table->string('display_name')->nullable();

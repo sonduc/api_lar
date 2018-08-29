@@ -15,9 +15,26 @@ class RoomTranslate extends Entity
      */
 
     protected $fillable = [
-        'name', 'lang_id', 'room_id', 'slug_name', 'address', 'slug_address', 'note', 'space', 'description'
+        'name', 'lang', 'room_id', 'slug_name', 'address', 'slug_address', 'note', 'space', 'description'
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['slug_name', 'name'];
+
+
+    /**
+     * Set slug_name attribute
+     *
+     * @param [type] $value [description]
+     */
+    public function setSlugNameAttribute($value)
+    {
+        $this->attributes['slug_name'] = to_slug($value);
+    }
 
     /**
      * The attributes that are cast permission from json string to array
@@ -29,8 +46,5 @@ class RoomTranslate extends Entity
      * Relationship với ngôn ngữ
      * @return Relation
      */
-    public function language()
-    {
-        return $this->belongsTo(\App\Repositories\Languages\Language::class,'lang_id');
-    }
+
 }

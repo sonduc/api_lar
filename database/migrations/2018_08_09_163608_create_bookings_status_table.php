@@ -14,7 +14,7 @@ class CreateBookingsStatusTable extends Migration
     public function up()
     {
         Schema::create('bookings_status', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('staff_id')->nullable();
             $table->integer('booking_id')->nullable();
             $table->tinyInteger('status')->nullable();

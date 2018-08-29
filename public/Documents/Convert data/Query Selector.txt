@@ -7,7 +7,7 @@ SELECT id,client_id as merchant_id,number_people as max_guest,null as max_additi
 
 -- Room_Translates
 
-SELECT locale as lang_id, room_id,name,(SELECT rooms.address from rooms where rooms.id = room_translates.room_id) as address, note, space, description, deleted_at, created_at, updated_at FROM `room_translates` GROUP by room_id,locale
+SELECT (CASE WHEN room_translates.locale = 1 THEN 'vi' ELSE 'en' END) as lang , room_id,name,(SELECT rooms.address from rooms where rooms.id = room_translates.room_id) as address, note, space, description, deleted_at, created_at, updated_at FROM `room_translates` GROUP by room_id,locale
 
 -- Comforts (Only Vietnamese)
 
@@ -15,7 +15,7 @@ select id, `created_at`, `updated_at` from comforts where locale = 'vi'
 
 -- Comforts -> Comfort_Translates (Only Vietnamese)
 
-select id as `comfort_id`, `name`, `description`, `created_at`, `updated_at`,1 as `lang_id` from comforts where locale = 'vi'
+select id as `comfort_id`, `name`, `description`, `created_at`, `updated_at`,'vi' as `lang` from comforts where locale = 'vi'
 
 -- Room Comforts (Only Vietnamese)
 

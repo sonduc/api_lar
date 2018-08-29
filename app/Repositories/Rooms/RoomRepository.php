@@ -16,60 +16,85 @@ class RoomRepository extends BaseRepository
      * RoomRepository constructor.
      * @param Room $room
      * @param RoomTranslateRepository $roomTranslate
+     * @param RoomOptionalPriceRepository $roomOptionalPrice
      */
-    public function __construct(Room $room, RoomTranslateRepository $roomTranslate)
+    public function __construct(
+        Room $room,
+        RoomTranslateRepository $roomTranslate,
+        RoomOptionalPriceRepository $roomOptionalPrice
+    )
     {
-        $this->model = $room;
-        $this->roomTranslate = $roomTranslate;
+        $this->model                = $room;
+        $this->roomTranslate        = $roomTranslate;
+        $this->roomOptionalPrice    = $roomOptionalPrice;
     }
 
     /**
-     * Lưu trữ bản ghi của phòng vào bảng room và room_translates
-     * @param $data
+     * Lưu trữ bản ghi của phòng vào bảng rooms, room_translates, room_optional_prices, room_comfort
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
      * @return \App\Repositories\Eloquent
      */
     public function store($data)
     {
-        $data['rules']  = json_encode($data['rules']);
         $data_room      = parent::store($data);
+        $this->roomTranslate->storeRoomTranslate($data_room, $data);
+        $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
+        $this->storeRoomComforts($data_room, $data);
 
-        $this->roomTranslate->storeRoomTranslate($data, $data_room->id);
         return $data_room;
     }
 
     /**
-     * Update room
+     * Cập nhật cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
      * @param int $id
      * @param $data
-     * @param array $except
+     * @param array $excepts
      * @param array $only
      * @return bool
      */
-    public function update($id, $data, $except = [], $only = [])
+    public function update($id, $data, $excepts = [], $only = [])
     {
-        $data['rules']  = json_encode($data['rules']);
-        $data_room      = parent::update($id, $data);
-
-        $this->roomTranslate->updateRoomTranslate($data, $data_room->id);
-
+        $data_room = parent::update($id, $data);
+        $this->roomTranslate->updateRoomTranslate($data_room, $data);
+        $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
+        $this->storeRoomComforts($data_room, $data);
         return $data_room;
     }
 
     /**
-     * Xóa phòng trong bảng room và room_translate
-     * @param $id
+     * Lưu comforts cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $data_room
+     * @param $data
      */
-    public function deleteRoom($id)
+    public function storeRoomComforts($data_room, $data)
     {
-        $list_id = $this->roomTranslate->getByRoomID($id);
-
-        foreach ($list_id as $room) {
-            $this->roomTranslate->delete($room->id);
+        if (!empty ($data)) {
+            if (isset($data['comforts'])) {
+                $data_room->comforts()->detach();
+                $data_room->comforts()->attach($data['comforts']);
+            }
         }
-
-        parent::delete($id);
     }
 
+    /**
+     * Chỉnh sửa trạng thái của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @return bool
+     */
+    public function status($id, $data)
+    {
+        $data_room = parent::update($id, $data);
+        return $data_room;
+    }
 
 
 }

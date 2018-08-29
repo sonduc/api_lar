@@ -19,6 +19,9 @@ class OptimusPrime
         $this->parseIncludes();
     }
 
+    /**
+     * Lấy param include
+     */
     public function parseIncludes()
     {
         if (isset($_GET['include'])) {
@@ -26,6 +29,10 @@ class OptimusPrime
         }
     }
 
+    /**
+     * Chỉ định các thành phần include trong Transformer
+     * @param $include
+     */
     public function setIncludes($include)
     {
         $this->m->parseIncludes($include);

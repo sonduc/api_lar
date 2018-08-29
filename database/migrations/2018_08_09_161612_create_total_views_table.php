@@ -14,7 +14,7 @@ class CreateTotalViewsTable extends Migration
     public function up()
     {
         Schema::create('total_views', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->string('ip',100)->nullable();
             $table->timestamps();

@@ -9,7 +9,7 @@ interface EntityInterface
     public function getById($id);
     public function getByIdInTrash($id);
     public function store($data);
-    public function storeArray($datas);
+    public function storeArray($data);
     public function update($id, $data, $excepts = [], $only = []);
     public function delete($id);
     public function destroy($id);

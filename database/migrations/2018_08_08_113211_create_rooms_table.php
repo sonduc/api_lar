@@ -14,7 +14,7 @@ class CreateRoomsTable extends Migration
     public function up()
     {
         Schema::create('rooms', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('merchant_id')->nullable();
             $table->tinyInteger('max_guest')->nullable();
             $table->tinyInteger('max_additional_guest')->nullable();

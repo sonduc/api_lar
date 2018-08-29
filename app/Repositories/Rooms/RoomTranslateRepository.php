@@ -7,55 +7,65 @@ use App\Repositories\BaseRepository;
 class RoomTranslateRepository extends BaseRepository
 {
     /**
-     * Role model.
+     * RoomTranslate model.
      * @var Model
      */
     protected $model;
 
     /**
-     * RoleRepository constructor.
-     * @param Role $role
+     * RoomTranslateRepository constructor.
+     * @param RoomTranslate $roomTranslate
      */
-    public function __construct(RoomTranslate $room)
+    public function __construct(RoomTranslate $roomTranslate)
     {
-        $this->model = $room;
+        $this->model    = $roomTranslate;
     }
 
     /**
-     * Thêm data vào roomTranslate
-     * @param $data
-     * @param $id
+     * Thêm dữ liệu vào roomTranslate
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $room
+     * @param array $data
+     * @param array $list
      */
-    public function storeRoomTranslate($data, $id)
+    public function storeRoomTranslate($room, $data = [], $list = [])
     {
-        $data['slug_name']      = to_slug($data['name']);
-        $data['slug_address']   = to_slug($data['address']);
-        $data['room_id']        = $id;
+        if (!empty($data)) {
+            if (isset($data['details']['data'])) {
+                foreach ($data['details']['data'] as $obj) {
+                    $obj['room_id']         = $room->id;
+                    $obj['slug_name']       = $obj['name'];
+                    $list[]                 = $obj;
+                }
+            }
+        }
 
-        parent::store($data);
+        parent::storeArray($list);
     }
 
     /**
-     * Update room_translate. Nếu không có bản ghi nào phù hợp thì tạo translate mới.
-     * @param $data
-     * @param $id
+     * Cập nhật thông tin phòng theo ngôn ngữ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $room
+     * @param array $data
      */
-    public function updateRoomTranslate($data, $id)
+    public function updateRoomTranslate($room, $data = [])
     {
-        $data['slug_name']      = to_slug($data['name']);
-        $data['slug_address']   = to_slug($data['address']);
-        $data['room_id']        = $id;
-
-        $count = $this->model->where([
-            ['room_id', $id],
-            ['lang_id', $data['lang_id']]
-        ])->first();
-
-        $count ? parent::update($id, $data) : parent::store($data);
+        $this->deleteRoomTranslateByRoomID($room);
+        $this->storeRoomTranslate($room, $data);
     }
 
-    public function getByRoomID($id)
+    /**
+     * Xóa tất cả bản ghi theo room_id
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $room
+     */
+    public function deleteRoomTranslateByRoomID($room)
     {
-        return $this->model->where('room_id', $id)->select('id')->get();
+        $this->model->where('room_id', $room->id)->forceDelete();
     }
+
 }

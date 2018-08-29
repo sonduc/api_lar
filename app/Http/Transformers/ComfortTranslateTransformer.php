@@ -27,7 +27,7 @@ class ComfortTranslateTransformer extends TransformerAbstract
             'comfort_id'            => $comfort->comfort_id,
             'name'                  => $comfort->name,
             'description'           => $comfort->description,
-            'lang'                  => $comfort->lang_id,
+            'lang'                  => $comfort->lang,
             'created_at'            => $comfort->created_at->format('Y-m-d H:i:s'),
             'updated_at'            => $comfort->updated_at->format('Y-m-d H:i:s'),
         ];

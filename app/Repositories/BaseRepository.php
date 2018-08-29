@@ -4,9 +4,11 @@ namespace App\Repositories;
 abstract class BaseRepository implements EntityInterface
 {
 
+    // Các trạng thái của bản ghi đã bị softDeletes
     const WITH_TRASH    = 1;
     const ONLY_TRASH    = 2;
     const NO_TRASH      = 0;
+
 
     /**
      * Eloquent model
@@ -84,7 +86,7 @@ abstract class BaseRepository implements EntityInterface
      * @param  boolean $useHash Có sử dụng hash hay không
      * @return Eloquent
      */
-    public function getById($id, $trash = false, $useHash = true)
+    public function getById($id, $trash = false, $useHash = false)
     {
         $model = $this->model;
         if ($trash) {
@@ -119,15 +121,19 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->create($data);
     }
+
     /**
      * Lưu thông tin nhiều bản ghi
-     * @author SaturnLai <daolvcntt@gmail.com>
-     * @param  [type]     $datas [description]
-     * @return [type]            [description]
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $data
+     * @return mixed
      */
-    public function storeArray($datas)
+    public function storeArray($data)
     {
-        return $this->model->insert($datas);
+        $data = $this->filterData($data);
+
+        return $this->model->insert($data);
     }
 
     /**
@@ -163,6 +169,7 @@ abstract class BaseRepository implements EntityInterface
         return $record->delete();
     }
 
+
     /**
      * Xóa hoàn toàn một bản ghi
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -175,6 +182,7 @@ abstract class BaseRepository implements EntityInterface
         return $record->forceDelete();
     }
 
+
     /**
      * Khôi phục 1 bản ghi SoftDeletes đã xóa
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -185,5 +193,42 @@ abstract class BaseRepository implements EntityInterface
     {
         $record = $this->getById($id);
         return $record->restore();
+    }
+
+
+    /**
+     * Lấy thuộc tính fillable của model
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function getFillable()
+    {
+        return $this->model->getFillable();
+    }
+
+
+    /**
+     * Tạo pattern mẫu theo fillable và lọc data chỉ lấy những giá trị thuộc fillable
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     * @param array $filterData
+     * @return array
+     */
+    public function filterData($data = [], $filterData = [])
+    {
+        $fillable   = $this->getFillable();
+        $dateNow    = date('Y-m-d H:i:s');
+
+        foreach ($data as $arr) {
+            $patternArray = array_fill_keys($fillable, null);
+            $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
+
+            $patternArray = array_only($arr, $fillable) + $patternArray;
+            $filterData[] = $patternArray;
+        }
+
+        return $filterData;
     }
 }

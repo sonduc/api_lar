@@ -14,7 +14,7 @@ class CreateRoomTimeBlocksTable extends Migration
     public function up()
     {
         Schema::create('room_time_blocks', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->date('time_block')->nullable();
             $table->tinyInteger('status')->nullable();

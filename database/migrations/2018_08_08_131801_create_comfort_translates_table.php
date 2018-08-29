@@ -14,11 +14,11 @@ class CreateComfortTranslatesTable extends Migration
     public function up()
     {
         Schema::create('comfort_translates', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('comfort_id')->nullable();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('lang_id');
+            $table->string('lang', 5)->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });
