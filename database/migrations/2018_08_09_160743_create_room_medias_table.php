@@ -14,7 +14,7 @@ class CreateRoomMediasTable extends Migration
     public function up()
     {
         Schema::create('room_medias', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->string('image')->nullable();
             $table->tinyInteger('type')->nullable();

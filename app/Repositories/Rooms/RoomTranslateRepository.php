@@ -54,34 +54,18 @@ class RoomTranslateRepository extends BaseRepository
      */
     public function updateRoomTranslate($room, $data = [])
     {
-
-        if (!empty($data)) {
-            if (isset($data['details']['data'])) {
-
-                foreach ($data['details']['data'] as $obj) {
-                    $obj['slug_name']   = $obj['name'];
-                    unset($obj['room_id']);
-
-                    $roomTrans = $this->getRoomTranslateByLangAndID($room->id, $obj['lang']);
-                    parent::update($roomTrans->id, $obj);
-                }
-            }
-        }
+        $this->deleteRoomTranslateByRoomID($room);
+        $this->storeRoomTranslate($room, $data);
     }
 
     /**
-     * Lấy ngôn ngữ của phòng theo ID và mã ngôn ngữ
+     * Xóa tất cả bản ghi theo room_id
      *
-     * @param $id
-     * @param $lang
-     *
-     * @return mixed
+     * @param $room
      */
-    public function getRoomTranslateByLangAndID($id, $lang)
+    public function deleteRoomTranslateByRoomID($room)
     {
-        return $this->model->where([
-            ['room_id', $id],
-            ['lang', $lang]
-        ])->first();
+        $this->model->where('room_id', $room->id)->forceDelete();
     }
+
 }

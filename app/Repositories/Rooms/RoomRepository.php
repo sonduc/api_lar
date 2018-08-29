@@ -38,8 +38,8 @@ class RoomRepository extends BaseRepository
     {
         $data_room      = parent::store($data);
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
-        $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
-        $this->storeRoomComforts($data_room, $data);
+//        $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
+//        $this->storeRoomComforts($data_room, $data);
 
         return $data_room;
     }
@@ -47,8 +47,9 @@ class RoomRepository extends BaseRepository
     public function update($id, $data, $excepts = [], $only = [])
     {
         $data_room = parent::update($id, $data);
-//        $this->roomTranslate->updateRoomTranslate($data_room, $data);
-//        $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
+        $this->roomTranslate->updateRoomTranslate($data_room, $data);
+        $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
+        $this->storeRoomComforts($data_room, $data);
         return $data_room;
     }
 
@@ -64,6 +65,7 @@ class RoomRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['comforts'])) {
+                $data_room->comforts()->detach();
                 $data_room->comforts()->attach($data['comforts']);
             }
         }

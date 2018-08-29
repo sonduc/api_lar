@@ -34,12 +34,12 @@ class RoomOptionalPriceRepository extends BaseRepository
         if (!empty($data)) {
             if (isset($data['weekday_price'])) {
                 $roomWeekPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
-                $list = array_merge($roomWeekPrices, $list);
+                $list = array_merge($list, $roomWeekPrices);
             }
 
             if (isset($data['optional_prices']['days'])) {
                 $roomDayPrices = $this->storeRoomOptionalDayPrice($room, $data);
-                $list = array_merge($roomDayPrices, $list);
+                $list = array_merge($list, $roomDayPrices);
             }
         }
 
@@ -48,15 +48,8 @@ class RoomOptionalPriceRepository extends BaseRepository
 
     public function updateRoomOptionalPrice($room, $data = [])
     {
-        if (!empty($data)) {
-            if (isset($data['weekday_price'])) {
-                $this->updateRoomOptionalWeekdayPrice($room, $data);
-            }
-
-            if (isset($data['optional_prices']['days'])) {
-
-            }
-        }
+        $this->deleteRoomOptionalPriceByRoomID($room);
+        $this->storeRoomOptionalPrice($room, $data);
     }
 
     /**
@@ -96,40 +89,9 @@ class RoomOptionalPriceRepository extends BaseRepository
         return $list;
     }
 
-    public function updateRoomOptionalWeekdayPrice($room, $data = [])
+    public function deleteRoomOptionalPriceByRoomID($room)
     {
-        $arrRoom    = $this->getRoomOptionalPriceByRoomID($room);
-        foreach ($data['weekday_price'] as $obj) {
-            foreach ($arrRoom as $roomOp) {
-                $obj    = array_except($obj, ['title']);
-                $room   = array_except($roomOp->toArray(),['id', 'room_id', 'day', 'created_at', 'updated_at', 'deleted_at']);
-
-                if ($obj != $room) {
-                    if ($roomOp['weekday'] == $obj['weekday']) {
-                        parent::update($roomOp->id, $obj);
-                        continue;
-                    }
-                }
-            }
-        }
-    }
-
-    public function updateRoomOptionalDayPrice($room, $data = [])
-    {
-        foreach ($data['optional_prices']['days'] as $day) {
-//            $obj = $data;
-//            $obj['room_id'] = $room->id;
-//            $obj['day']     = $day;
-//            parent::store($obj);
-        }
-    }
-
-    public function getRoomOptionalPriceByRoomID($room)
-    {
-        return $this->model
-        ->where([
-            ['room_id', $room->id],
-        ])->get();
+        $this->model->where('room_id', $room->id)->forceDelete();
     }
 
 }

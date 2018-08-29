@@ -14,7 +14,7 @@ class CreateBlogCategoryTranslatesTable extends Migration
     public function up()
     {
         Schema::create('blog_category_translates', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('lang', 5)->nullable();
             $table->string('name',100)->nullable();
             $table->string('slug',100)->nullable();

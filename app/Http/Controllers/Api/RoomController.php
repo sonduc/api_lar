@@ -183,7 +183,7 @@ class RoomController extends ApiController
 
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
-            DB::commit();
+//            DB::commit();
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -202,7 +202,7 @@ class RoomController extends ApiController
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
-//        DB::enableQueryLog();
+        DB::enableQueryLog();
         try {
             $this->authorize('room.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);

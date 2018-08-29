@@ -14,7 +14,7 @@ class CreateBlogCategoriesTable extends Migration
     public function up()
     {
         Schema::create('blog_categories', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
 
             $table->tinyInteger('level')->nullable();
             $table->tinyInteger('hot')->nullable();

@@ -14,7 +14,7 @@ class CreateComfortsTable extends Migration
     public function up()
     {
         Schema::create('comforts', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->string('icon')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();

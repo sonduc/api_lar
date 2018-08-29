@@ -14,7 +14,7 @@ class CreateRoomOptionalPricesTable extends Migration
     public function up()
     {
         Schema::create('room_optional_prices', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->tinyInteger('weekday')->nullable();
             $table->date('day')->nullable();

@@ -14,7 +14,7 @@ class CreateTicketsRequestTable extends Migration
     public function up()
     {
         Schema::create('tickets_request', function (Blueprint $table) {
-            $table->increments('id');
+            $table->bigIncrements('id');
             $table->tinyInteger('ticket_type_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('staff_id')->nullable();
