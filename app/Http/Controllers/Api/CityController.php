@@ -93,6 +93,7 @@ class CityController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             // return $request->all();
             $data = $this->model->store($request->all());
+            dd($data);
 
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -118,6 +119,7 @@ class CityController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
+            dd($model);
 
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {

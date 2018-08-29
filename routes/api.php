@@ -20,7 +20,7 @@ $router->group([
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 
-    
+
     $router->get('/permissions', 'PermissionController@index');
     resource('/roles', 'RoleController', $router);
     // Room Resource
@@ -31,7 +31,7 @@ $router->group([
 
     // District Resource
     resource('/districts', 'DistrictController', $router);
-    
+
 
     //Comfort Resource
     resource('/comforts', 'ComfortController', $router);

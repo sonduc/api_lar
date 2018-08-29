@@ -39,7 +39,6 @@ abstract class BaseRepository implements EntityInterface
         $params['sort'] = $sort;
         $lModel = $this->model;
         $params = array_except($params, ['page', 'limit']);
-//        dd($params);
         if (count($params)) {
             $reflection = new \ReflectionClass($lModel);
             foreach ($params as $funcName => $funcParams) {

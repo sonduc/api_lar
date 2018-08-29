@@ -13,8 +13,9 @@ trait ResponseHandler
         $this->transform = $transform;
     }
 
-    protected function successResponse($data, $transform = true, $include = null)
+    protected function successResponse($data, $transform = true, $include = 'details')
     {
+
         if (is_null($data)) {
             $data = [];
         }

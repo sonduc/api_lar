@@ -15,7 +15,7 @@ class Comfort extends Entity
      */
 
     protected $fillable = [
-        'region_id', 'name', 'short_name', 'code', 'longitude', 'latitude', 'priority', 'hot', 'status'
+        'id', 'icon'
     ];
 
     /**

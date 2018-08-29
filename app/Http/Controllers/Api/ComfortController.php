@@ -2,44 +2,28 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\ComfortTranslateTransformer;
 use App\Repositories\Comforts\ComfortRepository;
+use App\Repositories\Comforts\ComfortTranslate;
 use Illuminate\Http\Request;
 use App\Http\Transformers\ComfortTransformer;
+use App\Repositories\Comforts\ComfortTranslateRepository;
+use Illuminate\Support\Facades\DB;
 
 class ComfortController extends ApiController
 {
     protected $validationRules = [
-        // 'region_id'         => 'required|numeric|between:1,3',
-        // 'name'              => 'required|v_title|unique:cities,name',
-        // 'short_name'        => 'required|string|size:3|unique:cities,short_name',
-        // 'code'              => 'required|size:6|unique:cities,code',
-        // 'longitude'         => '',
-        // 'latitude'          => '',
-        // 'priority'          => 'numeric|between:0,3',
-        // 'hot'               => 'numeric|between:0,1',
-        // 'status'            => 'numeric|between:0,1',
+        'name'                  => 'required',
+        'lang_id'               => 'required|numeric'
+
     ];
     protected $validationMessages = [
-        // 'region_id.required'    => 'Vui lòng thêm vùng miền',
-        // 'region_id.numeric'     => 'Không đúng dịnh dạng',
-        // 'region_id.between'     => 'Mã vùng miền phải từ 1 đến 3',
-        // 'name.required'         => 'Vui lòng điền tên thành phố',
-        // 'name.v_title'          => 'Tên thành phố không hợp lệ',
-        // 'name.unique'           => 'Tên thành phố đã tồn tại',
-        // 'short_name.required'   => 'Vui lòng thêm tên ngắn',
-        // 'short_name.string'     => 'Tên ngắn phải là kiểu chữ',
-        // 'short_name.size'       => 'Tên ngắn phải dài 3 ký tự',
-        // 'short_name.unique'     => 'Tên ngắn đã tồn tại',
-        // 'code.required'         => 'Vui lòng nhập mã',
-        // 'code.size'             => 'Độ dài phải là 6',
-        // 'code.unique'           => 'Mã này đã có sẵn',
-        // 'priority.numeric'      => 'Phải là kiểu số',
-        // 'priority.between'      => 'Khoảng từ 0 đến 3',
-        // 'hot.numeric'           => 'Phải là kiểu số',
-        // 'hot.between'           => 'Khoảng từ 0 đến 1',
-        // 'status.numeric'        => 'Phải là kiểu số',
-        // 'status.between'        => 'Khoảng từ 0 đến 1',
+        'name.required'         => "Vui lòng điền tên tiện ích",
+        'lang_id.required'      => 'Mã ngôn ngữ không được để trống',
+        'lang_id.numberic'      => "Phải là kiểu số"
+
     ];
+
 
     /**
      * ComfortController constructor.
@@ -49,7 +33,9 @@ class ComfortController extends ApiController
     {
         $this->model = $comfort;
         $this->setTransformer(new ComfortTransformer);
+
     }
+
 
     /**
      * Display a listing of the resource.
@@ -74,8 +60,8 @@ class ComfortController extends ApiController
     {
         try {
             $this->authorize('comfort.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
+            $trashed    = $request->has('trashed') ? true : false;
+            $data       = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -88,58 +74,62 @@ class ComfortController extends ApiController
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('comfort.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             // return $request->all();
             $data = $this->model->store($request->all());
-
+            //DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            //DB::rollBack();
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'        => $validationException->validator->errors(),
+                'exception'     => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('comfort.update');
-            $this->validationRules['name'] .= ",{$id}";
-            $this->validationRules['short_name'] .= ",{$id}";
-            $this->validationRules['code'] .= ",{$id}";
-
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $model = $this->model->update($id, $request->all());
-
-            return $this->successResponse($model);
+            $data = $this->model->update($id, $request->all());
+            //DB::commit();
+            return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'        => $validationException->validator->errors(),
+                'exception'     => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+
         try {
             $this->authorize('comfort.delete');
-            $this->model->delete($id);
-
+            $this->model->deleteRoom($id);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

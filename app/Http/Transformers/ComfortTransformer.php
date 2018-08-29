@@ -45,4 +45,5 @@ class ComfortTransformer extends TransformerAbstract
         }
         return $this->collection($comfort->comfortTrans, new ComfortTranslateTransformer);
     }
+
 }
