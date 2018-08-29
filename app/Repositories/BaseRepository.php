@@ -9,10 +9,6 @@ abstract class BaseRepository implements EntityInterface
     const ONLY_TRASH    = 2;
     const NO_TRASH      = 0;
 
-    // Filter data dựa theo trạng thái
-    const STATUS_INSERT = 0;
-    const STATUS_UPDATE = 1;
-
 
     /**
      * Eloquent model
@@ -125,11 +121,13 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->create($data);
     }
+
     /**
      * Lưu thông tin nhiều bản ghi
      * @author HarikiRito <nxh0809@gmail.com>
-     * @param  [type]     $datas [description]
-     * @return [type]            [description]
+     *
+     * @param $data
+     * @return mixed
      */
     public function storeArray($data)
     {
@@ -171,6 +169,7 @@ abstract class BaseRepository implements EntityInterface
         return $record->delete();
     }
 
+
     /**
      * Xóa hoàn toàn một bản ghi
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -182,6 +181,7 @@ abstract class BaseRepository implements EntityInterface
         $record = $this->getById($id);
         return $record->forceDelete();
     }
+
 
     /**
      * Khôi phục 1 bản ghi SoftDeletes đã xóa
@@ -195,8 +195,10 @@ abstract class BaseRepository implements EntityInterface
         return $record->restore();
     }
 
+
     /**
      * Lấy thuộc tính fillable của model
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @return mixed
      */
@@ -205,25 +207,23 @@ abstract class BaseRepository implements EntityInterface
         return $this->model->getFillable();
     }
 
+
     /**
      * Tạo pattern mẫu theo fillable và lọc data chỉ lấy những giá trị thuộc fillable
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param array $data
      * @param array $filterData
-     * @param int $status
-     *
      * @return array
      */
-    public function filterData($data = [], $filterData = [], $status = self::STATUS_INSERT)
+    public function filterData($data = [], $filterData = [])
     {
         $fillable   = $this->getFillable();
         $dateNow    = date('Y-m-d H:i:s');
 
         foreach ($data as $arr) {
             $patternArray = array_fill_keys($fillable, null);
-            if ($status === self::STATUS_INSERT) {
-                $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
-            }
+            $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
 
             $patternArray = array_only($arr, $fillable) + $patternArray;
             $filterData[] = $patternArray;

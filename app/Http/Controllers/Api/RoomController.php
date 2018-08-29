@@ -144,10 +144,10 @@ class RoomController extends ApiController
     public function index(Request $request)
     {
         $this->authorize('room.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
+        $pageSize       = $request->get('limit', 25);
+        $this->trash    = $this->trashStatus($request);
 
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        $data           = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 
         return $this->successResponse($data);
     }
@@ -173,6 +173,14 @@ class RoomController extends ApiController
         }
     }
 
+    /**
+     * Tạo phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -183,22 +191,32 @@ class RoomController extends ApiController
 
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
-//            DB::commit();
+            DB::commit();
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
-            DB::rollBack();
         } catch (\Throwable $t) {
-            throw $t;
             DB::rollBack();
+            throw $t;
         }
     }
 
+    /**
+     * Sửa phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -227,15 +245,44 @@ class RoomController extends ApiController
         }
     }
 
+    /**
+     * Xóa phòng (Soft Delete)
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function destroy($id)
     {
         DB::beginTransaction();
         try {
             $this->authorize('room.delete');
-            $this->model->deleteRoom($id);
+            $this->model->delete($id);
 
             DB::commit();
             return $this->deleteResponse();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    public function changeStatus(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->authorize('room.update');
+            $data = $this->model->status($id, $request->all());
+
+            DB::commit();
+            return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();

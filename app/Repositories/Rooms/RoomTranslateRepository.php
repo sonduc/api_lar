@@ -14,7 +14,7 @@ class RoomTranslateRepository extends BaseRepository
 
     /**
      * RoomTranslateRepository constructor.
-     * @param RoomTranslate $room
+     * @param RoomTranslate $roomTranslate
      */
     public function __construct(RoomTranslate $roomTranslate)
     {
@@ -23,11 +23,11 @@ class RoomTranslateRepository extends BaseRepository
 
     /**
      * Thêm dữ liệu vào roomTranslate
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      * @param array $data
-     *
-     * @return void
+     * @param array $list
      */
     public function storeRoomTranslate($room, $data = [], $list = [])
     {
@@ -36,7 +36,7 @@ class RoomTranslateRepository extends BaseRepository
                 foreach ($data['details']['data'] as $obj) {
                     $obj['room_id']         = $room->id;
                     $obj['slug_name']       = $obj['name'];
-                    $list[] = $obj;
+                    $list[]                 = $obj;
                 }
             }
         }
@@ -46,11 +46,10 @@ class RoomTranslateRepository extends BaseRepository
 
     /**
      * Cập nhật thông tin phòng theo ngôn ngữ
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      * @param array $data
-     *
-     * @return void
      */
     public function updateRoomTranslate($room, $data = [])
     {
@@ -60,6 +59,7 @@ class RoomTranslateRepository extends BaseRepository
 
     /**
      * Xóa tất cả bản ghi theo room_id
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      */

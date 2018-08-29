@@ -13,33 +13,53 @@
 $router->group([
     'middleware' => 'auth'
 ], function ($router) {
-    // User Resource
+    /**
+     * Get config
+     */
+    $router->get('/permissions', 'PermissionController@index');
+    $router->get('/languages', 'LanguageController@index');
+    
+    /**
+     * User Resource
+     */
     resource('/users', 'UserController', $router);
-
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 
-    
-    $router->get('/permissions', 'PermissionController@index');
+    /**
+     * Role Resource
+     */
     resource('/roles', 'RoleController', $router);
-    // Room Resource
-    resource('/rooms', 'RoomController', $router);
 
-    // City Resource
+    /**
+     * Room Resource
+     */
+    resource('/rooms', 'RoomController', $router);
+    $router->post('/status/{id}', 'RoomController@changeStatus');
+
+    /**
+     * City Resource
+     */
     resource('/cities', 'CityController', $router);
 
-    // District Resource
+    /**
+     * District Resource
+     */
     resource('/districts', 'DistrictController', $router);
-    
 
-    //Comfort Resource
+
+    /**
+     * Comfort Resource
+     */
     resource('/comforts', 'ComfortController', $router);
 });
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
+
+
 /**
  * resource router helper
  * @author SaturnLai <daolvcntt@gmail.com>

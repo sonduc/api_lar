@@ -16,6 +16,7 @@ class RoomRepository extends BaseRepository
      * RoomRepository constructor.
      * @param Room $room
      * @param RoomTranslateRepository $roomTranslate
+     * @param RoomOptionalPriceRepository $roomOptionalPrice
      */
     public function __construct(
         Room $room,
@@ -30,20 +31,31 @@ class RoomRepository extends BaseRepository
 
     /**
      * Lưu trữ bản ghi của phòng vào bảng rooms, room_translates, room_optional_prices, room_comfort
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $data
+     * @param array $data
      * @return \App\Repositories\Eloquent
      */
     public function store($data)
     {
         $data_room      = parent::store($data);
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
-//        $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
-//        $this->storeRoomComforts($data_room, $data);
+        $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
+        $this->storeRoomComforts($data_room, $data);
 
         return $data_room;
     }
 
+    /**
+     * Cập nhật cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param int $id
+     * @param $data
+     * @param array $excepts
+     * @param array $only
+     * @return bool
+     */
     public function update($id, $data, $excepts = [], $only = [])
     {
         $data_room = parent::update($id, $data);
@@ -55,11 +67,10 @@ class RoomRepository extends BaseRepository
 
     /**
      * Lưu comforts cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $data_room
      * @param $data
-     *
-     * @return void
      */
     public function storeRoomComforts($data_room, $data)
     {
@@ -69,6 +80,20 @@ class RoomRepository extends BaseRepository
                 $data_room->comforts()->attach($data['comforts']);
             }
         }
+    }
+
+    /**
+     * Chỉnh sửa trạng thái của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @return bool
+     */
+    public function status($id, $data)
+    {
+        $data_room = parent::update($id, $data);
+        return $data_room;
     }
 
 

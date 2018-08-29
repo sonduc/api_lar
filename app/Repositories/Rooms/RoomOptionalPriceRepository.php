@@ -23,11 +23,11 @@ class RoomOptionalPriceRepository extends BaseRepository
 
     /**
      * Lưu giá cụ thể cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      * @param array $data
-     *
-     * @return void
+     * @param array $list
      */
     public function storeRoomOptionalPrice($room, $data = [], $list = [])
     {
@@ -46,6 +46,13 @@ class RoomOptionalPriceRepository extends BaseRepository
         parent::storeArray($list);
     }
 
+    /**
+     * Cập nhật giá cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $room
+     * @param array $data
+     */
     public function updateRoomOptionalPrice($room, $data = [])
     {
         $this->deleteRoomOptionalPriceByRoomID($room);
@@ -54,10 +61,11 @@ class RoomOptionalPriceRepository extends BaseRepository
 
     /**
      * Thêm giá theo các ngày trong tuần cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      * @param array $data
-     *
+     * @param array $list
      * @return array
      */
     public function storeRoomOptionalWeekdayPrice($room, $data = [], $list = [])
@@ -71,11 +79,11 @@ class RoomOptionalPriceRepository extends BaseRepository
 
     /**
      * Thêm giá theo từng ngày cụ thể cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $room
      * @param array $data
      * @param array $list
-     *
      * @return array
      */
     public function storeRoomOptionalDayPrice($room, $data = [], $list = [])
@@ -89,6 +97,12 @@ class RoomOptionalPriceRepository extends BaseRepository
         return $list;
     }
 
+    /**
+     * Xóa giá của phòng theo room_id
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $room
+     */
     public function deleteRoomOptionalPriceByRoomID($room)
     {
         $this->model->where('room_id', $room->id)->forceDelete();
