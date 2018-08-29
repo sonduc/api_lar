@@ -176,13 +176,14 @@ class RoomController extends ApiController
     public function store(Request $request)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-
-//            DB::commit();
+//            dd(DB::getQueryLog());
+            DB::commit();
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([

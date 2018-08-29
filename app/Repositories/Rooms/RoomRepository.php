@@ -48,7 +48,7 @@ class RoomRepository extends BaseRepository
     {
         $data_room = parent::update($id, $data);
 //        $this->roomTranslate->updateRoomTranslate($data_room, $data);
-        $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
+//        $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         return $data_room;
     }
 

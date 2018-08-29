@@ -29,17 +29,21 @@ class RoomOptionalPriceRepository extends BaseRepository
      *
      * @return void
      */
-    public function storeRoomOptionalPrice($room, $data = [])
+    public function storeRoomOptionalPrice($room, $data = [], $list = [])
     {
         if (!empty($data)) {
             if (isset($data['weekday_price'])) {
-                $this->storeRoomOptionalWeekdayPrice($room, $data);
+                $roomWeekPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
+                $list = array_merge($roomWeekPrices, $list);
             }
 
             if (isset($data['optional_prices']['days'])) {
-                $this->storeRoomOptionalDayPrice($room, $data);
+                $roomDayPrices = $this->storeRoomOptionalDayPrice($room, $data);
+                $list = array_merge($roomDayPrices, $list);
             }
         }
+
+        parent::storeArray($list);
     }
 
     public function updateRoomOptionalPrice($room, $data = [])
@@ -61,14 +65,15 @@ class RoomOptionalPriceRepository extends BaseRepository
      * @param $room
      * @param array $data
      *
-     * @return void
+     * @return array
      */
-    public function storeRoomOptionalWeekdayPrice($room, $data = [])
+    public function storeRoomOptionalWeekdayPrice($room, $data = [], $list = [])
     {
         foreach ($data['weekday_price'] as $obj) {
                 $obj['room_id'] = $room->id;
-                parent::store($obj);
+                $list[] = $obj;
         }
+        return $list;
     }
 
     /**
@@ -76,17 +81,19 @@ class RoomOptionalPriceRepository extends BaseRepository
      *
      * @param $room
      * @param array $data
+     * @param array $list
      *
-     * @return void
+     * @return array
      */
-    public function storeRoomOptionalDayPrice($room, $data = [])
+    public function storeRoomOptionalDayPrice($room, $data = [], $list = [])
     {
         foreach ($data['optional_prices']['days'] as $day) {
             $obj = $data;
             $obj['room_id'] = $room->id;
             $obj['day']     = $day;
-            parent::store($obj);
+            $list[] = $obj;
         }
+        return $list;
     }
 
     public function updateRoomOptionalWeekdayPrice($room, $data = [])

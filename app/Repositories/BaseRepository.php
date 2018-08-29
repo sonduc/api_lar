@@ -4,9 +4,15 @@ namespace App\Repositories;
 abstract class BaseRepository implements EntityInterface
 {
 
+    // Các trạng thái của bản ghi đã bị softDeletes
     const WITH_TRASH    = 1;
     const ONLY_TRASH    = 2;
     const NO_TRASH      = 0;
+
+    // Filter data dựa theo trạng thái
+    const STATUS_INSERT = 0;
+    const STATUS_UPDATE = 1;
+
 
     /**
      * Eloquent model
@@ -121,13 +127,15 @@ abstract class BaseRepository implements EntityInterface
     }
     /**
      * Lưu thông tin nhiều bản ghi
-     * @author SaturnLai <daolvcntt@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      * @param  [type]     $datas [description]
      * @return [type]            [description]
      */
-    public function storeArray($datas)
+    public function storeArray($data)
     {
-        return $this->model->insert($datas);
+        $data = $this->filterData($data);
+
+        return $this->model->insert($data);
     }
 
     /**
@@ -185,5 +193,42 @@ abstract class BaseRepository implements EntityInterface
     {
         $record = $this->getById($id);
         return $record->restore();
+    }
+
+    /**
+     * Lấy thuộc tính fillable của model
+     *
+     * @return mixed
+     */
+    public function getFillable()
+    {
+        return $this->model->getFillable();
+    }
+
+    /**
+     * Tạo pattern mẫu theo fillable và lọc data chỉ lấy những giá trị thuộc fillable
+     *
+     * @param array $data
+     * @param array $filterData
+     * @param int $status
+     *
+     * @return array
+     */
+    public function filterData($data = [], $filterData = [], $status = self::STATUS_INSERT)
+    {
+        $fillable   = $this->getFillable();
+        $dateNow    = date('Y-m-d H:i:s');
+
+        foreach ($data as $arr) {
+            $patternArray = array_fill_keys($fillable, null);
+            if ($status === self::STATUS_INSERT) {
+                $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
+            }
+
+            $patternArray = array_only($arr, $fillable) + $patternArray;
+            $filterData[] = $patternArray;
+        }
+
+        return $filterData;
     }
 }

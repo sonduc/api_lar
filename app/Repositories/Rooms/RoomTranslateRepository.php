@@ -29,17 +29,19 @@ class RoomTranslateRepository extends BaseRepository
      *
      * @return void
      */
-    public function storeRoomTranslate($room, $data = [])
+    public function storeRoomTranslate($room, $data = [], $list = [])
     {
         if (!empty($data)) {
             if (isset($data['details']['data'])) {
                 foreach ($data['details']['data'] as $obj) {
                     $obj['room_id']         = $room->id;
                     $obj['slug_name']       = $obj['name'];
-                    parent::store($obj);
+                    $list[] = $obj;
                 }
             }
         }
+
+        parent::storeArray($list);
     }
 
     /**
