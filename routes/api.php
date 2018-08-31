@@ -18,7 +18,7 @@ $router->group([
      */
     $router->get('/permissions', 'PermissionController@index');
     $router->get('/languages', 'LanguageController@index');
-    
+
     /**
      * User Resource
      */
@@ -35,8 +35,10 @@ $router->group([
     /**
      * Room Resource
      */
+    $router->get('/rooms/type', 'RoomController@getRoomType');
+    $router->post('/rooms/status/{id}', 'RoomController@changeStatus');
     resource('/rooms', 'RoomController', $router);
-    $router->post('/status/{id}', 'RoomController@changeStatus');
+
 
     /**
      * City Resource

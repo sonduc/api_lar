@@ -48,4 +48,14 @@ class District extends Entity
         return $this->hasMany(\App\Repositories\Rooms\Room::class,'district_id');
     }
 
+    public function city()
+    {
+        return $this->belongsTo(\App\Repositories\Cities\City::class, 'city_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(\App\User::class, 'district_id');
+    }
+
 }

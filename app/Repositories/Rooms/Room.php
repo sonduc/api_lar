@@ -48,12 +48,27 @@ class Room extends Entity
     const CLEANED           = 3;
     const SETUP_SERVICES    = 4;
 
+    // Kiểu phòng
+    const PRIVATE_HOUSE     = 1;
+    const APARTMENT         = 2;
+    const VILLA             = 3;
+    const PRIVATE_ROOM      = 4;
+    const HOTEL             = 5;
+
+    const ROOM_TYPE = [
+        self::PRIVATE_HOUSE     => 'Nhà riêng',
+        self::APARTMENT         => 'Căn hộ/ Chung cư',
+        self::VILLA             => 'Biệt thự',
+        self::PRIVATE_ROOM      => 'Phòng riêng',
+        self::HOTEL             => 'Khách sạn'
+    ];
+
     const ROOM_STATUS  = [
-      self::NOT_APPROVED    => 'Chưa xác nhận',
-      self::AVAILABLE       => 'Đang hoạt động',
-      self::UNAVAILABLE     => 'Không hoạt động',
-      self::CLEANED         => 'Dọn dẹp phòng',
-      self::SETUP_SERVICES  => 'Thiết lập dịch vụ'
+        self::NOT_APPROVED    => 'Chưa xác nhận',
+        self::AVAILABLE       => 'Đang hoạt động',
+        self::UNAVAILABLE     => 'Không hoạt động',
+        self::CLEANED         => 'Dọn dẹp phòng',
+        self::SETUP_SERVICES  => 'Thiết lập dịch vụ'
     ];
     /**
      * The attributes that are cast permission from json string to array

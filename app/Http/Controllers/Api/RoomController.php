@@ -274,6 +274,15 @@ class RoomController extends ApiController
         }
     }
 
+    /**
+     * Thay đổi trạng thái của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function changeStatus(Request $request, $id)
     {
         DB::beginTransaction();
@@ -291,6 +300,25 @@ class RoomController extends ApiController
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Lấy ra kiểu phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomType()
+    {
+        try {
+            $data = $this->model->getRoomType();
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
             throw $t;
         }
     }

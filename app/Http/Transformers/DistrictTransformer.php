@@ -2,13 +2,16 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Districts\District;
 
 class DistrictTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
-        'rooms'
+        'rooms', 'city', 'users'
     ];
 
     public function transform(District $district = null)
@@ -31,12 +34,39 @@ class DistrictTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeRooms(District $district = null)
+    /**
+     * Include Rooms
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param District|null $district
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeRooms(District $district = null, ParamBag $params = null)
     {
         if (is_null($district)) {
             return $this->null();
         }
-        return $this->collection($district->users, new UserTransformer);
+
+        $data = $this->limitAndOrder($params, $district->rooms())->get();
+        return $this->collection($data, new RoomTransformer);
+    }
+
+    /**
+     * Include Users
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param District|null $district
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeUsers(District $district = null, ParamBag $params = null)
+    {
+        if (is_null($district)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $district->users())->get();
+        return $this->collection($data, new UserTransformer);
     }
 
 }

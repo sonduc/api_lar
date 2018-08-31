@@ -96,5 +96,15 @@ class RoomRepository extends BaseRepository
         return $data_room;
     }
 
+    /**
+     * Lấy ra kiểu phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function getRoomType()
+    {
+        return $this->model::ROOM_TYPE;
+    }
 
 }

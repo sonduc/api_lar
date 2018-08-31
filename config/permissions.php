@@ -111,10 +111,14 @@ return [
             'confirm'   => 'Confirm'
         ]
     ],
-    'statistics' => [
-        'title'  => 'Thống kê - báo cáo',
-        'list'   => [
-            'view'      => 'View'
+    'booking' => [
+        'title' => 'Quản lý booking',
+        'list'  => [
+            'view'      => 'View',
+            'create'    => 'Create',
+            'update'    => 'Update',
+            'delete'    => 'Delete',
+            'confirm'   => 'Confirm'
         ]
-    ]
+    ],
 ];

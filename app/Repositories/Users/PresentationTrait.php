@@ -119,6 +119,6 @@ trait PresentationTrait
      */
     public function owner()
     {
-        return $this->parent ? $this->parent : $this;
+        return $this->parent ?? $this;
     }
 }

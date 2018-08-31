@@ -2,11 +2,14 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Roles\Role;
 
 class RoleTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
         'users',
         'pers'
@@ -27,12 +30,14 @@ class RoleTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeUsers(Role $role = null)
+    public function includeUsers(Role $role = null, ParamBag $params = null)
     {
         if (is_null($role)) {
             return $this->null();
         }
-        return $this->collection($role->users, new UserTransformer);
+
+        $data = $this->limitAndOrder($params, $role->users())->get();
+        return $this->collection($data, new UserTransformer);
     }
 
     public function includePers(Role $role = null)
@@ -56,7 +61,7 @@ class RoleTransformer extends TransformerAbstract
             }
             return $pers;
         }, config('permissions'), array_keys(config('permissions'))));
-        
+
         return array_values(array_where($allPermissions, function ($permission) use ($permissions) {
             return in_array($permission['slug'], array_keys($permissions));
         }));

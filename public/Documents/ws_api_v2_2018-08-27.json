@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-08-29T08:31:20.938Z",
+	"__export_date": "2018-08-30T10:26:14.997Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -51,8 +51,8 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1531822292229,
-			"modified": 1531822292229,
-			"name": "roles",
+			"modified": 1535593817230,
+			"name": "Roles",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "request_group"
 		},
@@ -196,14 +196,14 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk3M2U4ODE1OGVlMWI1N2U4MTlmN2IxOGYxZmZhY2UxMzhhNWE0YmYwMWY0YmFhMDdlYjI1ZmZkODNhMGRiOGZmMTJmMTdkMjZjNWUzY2UzIn0.eyJhdWQiOiIyIiwianRpIjoiOTczZTg4MTU4ZWUxYjU3ZTgxOWY3YjE4ZjFmZmFjZTEzOGE1YTRiZjAxZjRiYWEwN2ViMjVmZmQ4M2EwZGI4ZmYxMmYxN2QyNmM1ZTNjZTMiLCJpYXQiOjE1MzU0Mzc4MTgsIm5iZiI6MTUzNTQzNzgxOCwiZXhwIjoxNTY2OTczODE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.v5HeFhy9ANVm0cH2Y5-BXadvFJvcV3IFd5GoZkKcJHkWNN1xZO10z5uBJxiWpdBX44Vd14ApIQ0VzOs8M2GHYqkSR2_GVClPV7id3irgAMj1Xnb_Jm8vSHbumTbsAcKAfY41quY59R5zGQqs4mPLcKjgAze_PmFs0k7_g2jRWQqiINiINBhoPFiKxkpT26dJyjYgDwteT9gSWFxdvlh0ffF_r9jez03EFl_gZa5biPRnzXapFXqC1UhyokdFQz6Xxns8MJDY_2TEMK23EwwufisNPr8WjvBslz2RWD9cJUdMFRkX25EmnZmgIsGu0PhOT4TW0zv3cfufJHUvLal2AD6tuA4sDCw6ZhPbgGFK3BCi0gcBUG96EbcU8bNFdzr9bptP34dgWLjnlyH0tHEX5v8JdS3dHW6PqSOjwR614B2xUzB6vrdWkvyNo73Zph979DpUUb-bfRpholBlZncS3FdCIq7h3VmIH7o1oKgqbI7_1F10eNmvUZEMLVp7qEgGNk_SahwTwf4MLBRz68K2j3jbFh7u4scY5Nhl5sdkg6cGCDY1E0FagUlRAnX-di6m1IYQxxDCjb3MKhrIKNflBHlwi6NO2-bM_d9FU6Tikxynsr8kGqpXFIVqPM9oh42Vw8suLl0Sb67rVaZOVoa69UlZLKUAq8vHtAX1auHJK-0"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE1MTZiMzUyZTAwZTM5MDM2NTlkNDFkYjZlNWFlMmE1N2M3YmJjNWJiZDVjZThlZjY3MmY3NWI5YjViZjNhOWZmZGQyNmRlZmM1MTczZmIxIn0.eyJhdWQiOiIyIiwianRpIjoiMTUxNmIzNTJlMDBlMzkwMzY1OWQ0MWRiNmU1YWUyYTU3YzdiYmM1YmJkNWNlOGVmNjcyZjc1YjliNWJmM2E5ZmZkZDI2ZGVmYzUxNzNmYjEiLCJpYXQiOjE1MzU2MDIxNzEsIm5iZiI6MTUzNTYwMjE3MSwiZXhwIjoxNTY3MTM4MTY5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.bgihUMVMnLXVyyCVditGi6SuYurJiN0olN412xyZcq2jMSOod4iYZvsRM3RgJi-FMEa4oVDlYvWpY0QI9JkU2sYilrN2ZbypeioR0MRXpk1hA-ktksdF3OsbRI7L3bc90Npw1dZX9xBQdh_qU0uiPtUym7UNKB8LY-jnnmukCCU14GxCbTdhFNRUdChVfvxRJtqOEi6nphKJoyDG4nLeoQSLLZ2UIFqzSTBMgQ3W8nt7c4SphAO-RquoyKRzDqTlWtFMTa83g4xRylO0YRbebl1k7Bl_bKP4SC5Gvr90nRQXBnP9q-uBgJLoPbwITqUm709BDsL9cL-o7UjdYuHknN2ksYWCtEfVP_1Pw8954wO0e2Z8Vskisf6YT8HAIjK31cCAne5L691Z2fPYyq-K5uC8OOtSwuFeDr8SJss33EkNSYG2m1lXTyfqw6fiSUiNZROj2S01OWtVXkcC2OgUwXZrd-LZC7yCVnw1NVCEfgA4uzs3z7ZO_Vzzxpzep4KVE3cplN5Jg5oEBIjKF61p1mSJ5hSVBKRAmcOgO2xFZ4qGj6rqgaue_E3Hoo_gk1mo0do9DB93dKuoDnwE3vtcwfOS4P_WwHUrUgiRJIFyOCenqOWPvGHhTRtwLztWBolnNRtmhDFBmJoJfcJ-saS26GcOXPgwhKCE2i5f-NDhZvU"
 				},
 				"url": "http://localhost:82/ws_api/public/",
 				"username": "admin@westay.org"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1535437873822,
+			"modified": 1535602185637,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -321,7 +321,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531822296383,
 			"method": "GET",
-			"modified": 1534494169533,
+			"modified": 1535612122833,
 			"name": "index",
 			"parameters": [
 				{
@@ -338,7 +338,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}roles",
+			"url": "{{ api_url  }}roles?include=users:limit(0)",
 			"_type": "request"
 		},
 		{
@@ -525,7 +525,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1535437881008,
+			"modified": 1535614318614,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -535,7 +535,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users?sort=id",
+			"url": "{{ api_url  }}users?include=child",
 			"_type": "request"
 		},
 		{
@@ -855,7 +855,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1535437874228,
+			"modified": 1535602186026,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -921,7 +921,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1535530178338,
+			"modified": 1535603740057,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -931,7 +931,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=comforts.details",
+			"url": "{{ api_url  }}rooms?include=comforts",
 			"_type": "request"
 		},
 		{
@@ -950,7 +950,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1535528131794,
+			"modified": 1535603951466,
 			"name": "show",
 			"parameters": [
 				{
@@ -994,7 +994,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1535529820164,
+			"modified": 1535603200983,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1031,7 +1031,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1535529892237,
+			"modified": 1535603246855,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1065,7 +1065,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384231.25,
 			"method": "DELETE",
-			"modified": 1535529816870,
+			"modified": 1535603240097,
 			"name": "delete",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1102,7 +1102,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384181.25,
 			"method": "POST",
-			"modified": 1535530196610,
+			"modified": 1535603930845,
 			"name": "changeStatus",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1112,7 +1112,41 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}status/2095",
+			"url": "{{ api_url  }}rooms/status/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f02aaebc8c0845d690796b5ca1d24dd3",
+			"authentication": {},
+			"body": {},
+			"created": 1535603932879,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae767e4b336b4f1b8d93ccf1b6e4ec27",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531882888157.125,
+			"method": "GET",
+			"modified": 1535603963213,
+			"name": "roomType",
+			"parameters": [],
+			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}rooms/type",
 			"_type": "request"
 		},
 		{
@@ -1131,7 +1165,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1535362766215,
+			"modified": 1535621800082,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_70607e4bb71a4a7f8c904f310f998268",
@@ -1141,7 +1175,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}cities",
+			"url": "{{ api_url  }}cities?include=districts",
 			"_type": "request"
 		},
 		{
@@ -1160,7 +1194,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1535342445596,
+			"modified": 1535611734979,
 			"name": "show",
 			"parameters": [
 				{
@@ -1177,7 +1211,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}cities/71",
+			"url": "{{ api_url  }}cities/2?include=rooms:limit(1)",
 			"_type": "request"
 		},
 		{
@@ -1304,7 +1338,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1535106075892,
+			"modified": 1535621843432,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_654184950aa84763806b0e78bc732ece",
@@ -1314,7 +1348,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}districts",
+			"url": "{{ api_url  }}districts?include=users&page=2",
 			"_type": "request"
 		},
 		{
@@ -1448,7 +1482,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384231.25,
 			"method": "DELETE",
-			"modified": 1534828957888,
+			"modified": 1535622816528,
 			"name": "delete",
 			"parameters": [],
 			"parentId": "fld_654184950aa84763806b0e78bc732ece",
@@ -1477,7 +1511,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1535335405558,
+			"modified": 1535603727919,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1506,7 +1540,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1535335033783,
+			"modified": 1535592527970,
 			"name": "show",
 			"parameters": [
 				{
@@ -1550,7 +1584,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1535335033794,
+			"modified": 1535592525587,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1587,7 +1621,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1535335033806,
+			"modified": 1535592526782,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1608,10 +1642,12 @@
 			"description": "",
 			"headers": [
 				{
+					"id": "pair_94aab3327ddd40819b3761b8cc32590c",
 					"name": "{{ token.key  }}",
 					"value": "{{ token.value  }}"
 				},
 				{
+					"id": "pair_7961df4c58b74b809981f5119b1d4e1c",
 					"name": "Content-Type",
 					"value": "application/json"
 				}
@@ -1619,7 +1655,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384231.25,
 			"method": "DELETE",
-			"modified": 1535335033818,
+			"modified": 1535592527498,
 			"name": "delete",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1648,7 +1684,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882392133,
 			"method": "GET",
-			"modified": 1535531393639,
+			"modified": 1535592353215,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_2f6ad33a85db4ec497f2e9290094d393",

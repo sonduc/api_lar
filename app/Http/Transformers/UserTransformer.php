@@ -2,17 +2,21 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 use App\User;
 
 class UserTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
         'roles',
         'parent',
         'child',
         'pers',
     ];
+
     /**
      * Các thông tin của user
      * @return array
@@ -49,12 +53,15 @@ class UserTransformer extends TransformerAbstract
      * Thêm các thông tin về chức vụ
      * @return array
      */
-    public function includeRoles(User $user = null)
+    public function includeRoles(User $user = null, ParamBag $params = null)
     {
         if (is_null($user)) {
             return $this->null();
         }
-        return $this->collection($user->roles, new RoleTransformer);
+
+        $data = $this->limitAndOrder($params, $user->roles())->get();
+
+        return $this->collection($data, new RoleTransformer);
     }
 
     /**
@@ -62,13 +69,13 @@ class UserTransformer extends TransformerAbstract
      * @param  User|null $user [description]
      * @return [type]          [description]
      */
-    
+
     public function includePers(User $user = null)
     {
         if (is_null($user)) {
             return $this->null();
         }
-        
+
         $pers = [];
         foreach ($user->roles as $value) {
             $pers[] = $this->displayPermission($value->permissions);
@@ -94,12 +101,15 @@ class UserTransformer extends TransformerAbstract
      * @param  User|null $user [description]
      * @return array
      */
-    public function includeChild(User $user = null)
+    public function includeChild(User $user = null, ParamBag $params)
     {
         if (is_null($user)) {
             return $this->null();
         }
-        return $this->collection($user->children, new UserTransformer);
+
+        $data = $this->limitAndOrder($params, $user->children());
+
+        return $this->collection($data, new UserTransformer);
     }
 
     /**
@@ -120,7 +130,7 @@ class UserTransformer extends TransformerAbstract
             }
             return $pers;
         }, config('permissions'), array_keys(config('permissions'))));
-        
+
         return array_values(array_where($allPermissions, function ($permission) use ($permissions) {
             return in_array($permission['slug'], array_keys($permissions));
         }));

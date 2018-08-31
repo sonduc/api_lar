@@ -28,6 +28,8 @@ class RoomTransformer extends TransformerAbstract
         return [
             'id'                    => $room->id,
             'merchant_id'           => $room->merchant_id,
+            'room_type'             => $room->room_type,
+            'room_type_txt'         => $room->roomType(),
             'max_guest'             => $room->max_guest,
             'max_additional_guest'  => $room->max_additional_guest ?? 0,
             'number_bed'            => $room->number_bed,
@@ -43,7 +45,8 @@ class RoomTransformer extends TransformerAbstract
             'price_charge_guest'    => $room->price_charge_guest ?? 0,
             'cleaning_fee'          => $room->cleaning_fee ?? 0,
             'standard_point'        => $room->standard_point,
-            'manager'               => $room->managerStatus(),
+            'is_manager'            => $room->is_manager,
+            'manager_txt'           => $room->managerStatus(),
             'hot'                   => $room->hot ?? 0,
             'new'                   => $room->new ?? 0,
             'latest_deal'           => $room->latest_deal ?? 'Không khả dụng',
@@ -86,7 +89,7 @@ class RoomTransformer extends TransformerAbstract
         return $this->collection($room->roomTrans, new RoomTranslateTransformer);
     }
 
-    
+
     /**
      * Thông tin tiện nghi của phòng
      * @param Comfort|null $comfort

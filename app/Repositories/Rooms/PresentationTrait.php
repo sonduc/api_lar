@@ -67,6 +67,11 @@ trait PresentationTrait
         return self::ROOM_STATUS[$this->status ?? self::NOT_APPROVED];
     }
 
+    public function roomType()
+    {
+        return isset(self::ROOM_TYPE[$this->room_type]) ? self::ROOM_TYPE[$this->room_type] : 'Không xác định';
+    }
+
     public function getDetail()
     {
         $arr = [];

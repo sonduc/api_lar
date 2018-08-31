@@ -55,12 +55,17 @@ class City extends Entity
 
     public function districts()
     {
-//        return $this->hasMany(\App\)
+        return $this->hasMany(\App\Repositories\Districts\District::class, 'city_id');
     }
 
     public function rooms()
     {
         return $this->hasMany(\App\Repositories\Rooms\Room::class,'city_id');
+    }
+
+    public function users()
+    {
+        return $this->hasMany(\App\User::class, 'city_id');
     }
 
 }

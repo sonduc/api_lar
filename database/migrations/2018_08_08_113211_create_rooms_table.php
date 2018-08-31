@@ -22,7 +22,7 @@ class CreateRoomsTable extends Migration
             $table->tinyInteger('number_room')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('district_id')->nullable();
-            $table->integer('room_type_id')->nullable();
+            $table->integer('room_type')->nullable();
             $table->time('checkin')->nullable();
             $table->time('checkout')->nullable();
             $table->integer('price_day')->nullable();
