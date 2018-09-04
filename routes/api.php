@@ -20,11 +20,11 @@ $router->group([
     $router->get('/languages', 'LanguageController@index');
 
     /**
-     * Log Resource 
+     * Log Resource
      */
     resource('/logs', 'LogController', $router);
 
-    
+
     /**
      * User Resource
      */
@@ -42,6 +42,7 @@ $router->group([
      * Room Resource
      */
     $router->get('/rooms/type', 'RoomController@getRoomType');
+    $router->get('/rooms/media-type', 'RoomController@roomMediaType');
     $router->post('/rooms/status/{id}', 'RoomController@changeStatus');
     resource('/rooms', 'RoomController', $router);
 

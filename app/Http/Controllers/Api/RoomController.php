@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Repositories\Rooms\RoomMedia;
 use App\Repositories\Rooms\RoomRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\RoomTransformer;
@@ -328,5 +329,16 @@ class RoomController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
+    }
+
+    /**
+     * Lấy ra danh sách kiểu media
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function roomMediaType()
+    {
+        return response()->json(RoomMedia::IMAGE_TYPE);
     }
 }

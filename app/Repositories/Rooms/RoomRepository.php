@@ -119,5 +119,4 @@ class RoomRepository extends BaseRepository
     {
         return $this->model::ROOM_TYPE;
     }
-
 }
