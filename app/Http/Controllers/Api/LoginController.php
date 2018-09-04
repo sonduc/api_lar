@@ -56,6 +56,7 @@ class LoginController extends ApiController
                     ];
                     $result = $guzzle->request('POST', $url, $options)->getBody()->getContents();
                     $result = json_decode($result, true);
+                    logs('user', $login->name. ' đăng nhập');
                     return $this->successResponse($result, false);
                 }
                 return $this->errorResponse([

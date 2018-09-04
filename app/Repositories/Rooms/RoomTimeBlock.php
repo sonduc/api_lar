@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Repositories\Languages;
+namespace App\Repositories\Rooms;
 
 use App\Repositories\Entity;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Language extends Entity
+class RoomTimeBlock extends Entity
 {
-    use PresentationTrait, FilterTrait;
+    use PresentationTrait, FilterTrait, SoftDeletes;
+
+
+    protected $table = 'room_time_blocks';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'room_id', 'time_block', 'status'
+    ];
 
     /**
      * The attributes that are cast permission from json string to array
@@ -20,9 +27,4 @@ class Language extends Entity
      */
     protected $casts = ['permissions' => 'array'];
 
-    /**
-     * Relationship with user
-     * @return Relation
-     */
-    
 }

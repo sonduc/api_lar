@@ -17,8 +17,9 @@ class CreateRoomMediasTable extends Migration
             $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->string('image')->nullable();
-            $table->tinyInteger('type')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('type')->default(1);
+            $table->tinyInteger('status')->default(1);
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

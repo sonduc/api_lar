@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Languages;
+namespace App\Repositories\Logs;
 
 trait FilterTrait
 {

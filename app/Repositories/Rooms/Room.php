@@ -16,7 +16,7 @@ class Room extends Entity
 
     protected $fillable = [
         'merchant_id', 'max_guest', 'max_additional_guest', 'number_bed', 'number_room', 'city_id', 'district_id',
-        'room_type_id', 'checkin', 'checkout', 'price_day', 'price_hour', 'price_charge_guest', 'cleaning_fee',
+        'room_type', 'checkin', 'checkout', 'price_day', 'price_hour', 'price_charge_guest', 'cleaning_fee',
         'standard_point', 'is_manager', 'hot', 'new', 'latest_deal', 'rent_type', 'rules', 'longitude', 'latitude', 'status', 'sale_id', 'price_after_hour',
     ];
 
@@ -102,5 +102,20 @@ class Room extends Entity
     public function comforts()
     {
         return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id', 'comfort_id');
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(\App\Repositories\Rooms\RoomOptionalPrice::class, 'room_id');
+    }
+
+    public function blocks()
+    {
+        return $this->hasMany(\App\Repositories\Rooms\RoomTimeBlock::class, 'room_id');
+    }
+
+    public function media()
+    {
+        return $this->hasMany(\App\Repositories\Rooms\RoomMedia::class, 'room_id');
     }
 }

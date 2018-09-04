@@ -72,14 +72,9 @@ trait PresentationTrait
         return isset(self::ROOM_TYPE[$this->room_type]) ? self::ROOM_TYPE[$this->room_type] : 'Không xác định';
     }
 
-    public function getDetail()
+    public function roomMedia()
     {
-        $arr = [];
-        foreach ($this->roomTrans as $value) {
-            $value->language;
-            $arr[] = $value;
-        }
-        return $arr;
+        return isset(self::IMAGE_TYPE[$this->type]) ? self::IMAGE_TYPE[$this->type] : 'Không xác định';
     }
 
 }

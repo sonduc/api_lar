@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\UserTransformer;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends ApiController
 {
@@ -71,11 +72,12 @@ class UserController extends ApiController
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('user.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-
+            DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -83,8 +85,10 @@ class UserController extends ApiController
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
@@ -94,11 +98,12 @@ class UserController extends ApiController
         $this->validationRules['email'] .= ',' . $id;
 
         unset($this->validationRules['password']);
+        DB::beginTransaction();
         try {
             $this->authorize('user.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-
+            DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -106,26 +111,33 @@ class UserController extends ApiController
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('user.delete');
             $this->model->delete($id);
-
+            DB::commit();
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

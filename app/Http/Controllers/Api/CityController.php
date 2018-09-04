@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Cities\CityRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\CityTransformer;
+use Illuminate\Support\Facades\DB;
 
 class CityController extends ApiController
 {
@@ -88,12 +89,14 @@ class CityController extends ApiController
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('city.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             // return $request->all();
             $data = $this->model->store($request->all());
-
+            DB::commit();
+            logs('city', 'thêm thành phố mã '.$data->id, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -101,14 +104,17 @@ class CityController extends ApiController
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('city.update');
             $this->validationRules['name'] .= ",{$id}";
@@ -118,34 +124,44 @@ class CityController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
-
+            DB::commit();
+            logs('city', 'sửa thành phố mã '.$data->id, $data);
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('city.delete');
             $this->model->delete($id);
-
+            DB::commit();
+            logs('city', 'xóa thành phố mã '.$data->id, $data);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

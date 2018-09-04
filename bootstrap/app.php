@@ -32,6 +32,7 @@ $app->configure('auth');
 $app->configure('permissions');
 $app->configure('regex');
 $app->configure('languages');
+$app->configure('activitylog');
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
@@ -85,7 +86,7 @@ $app->routeMiddleware([
 |
 */
 
-// $app->register(App\Providers\AppServiceProvider::class);
+$app->register(App\Providers\AppServiceProvider::class);
 $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\ValidatorServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
@@ -96,6 +97,7 @@ $app->register(ElfSundae\Laravel\Hashid\HashidServiceProvider::class);
 $app->register(Barryvdh\Cors\ServiceProvider::class);
 
 $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
+$app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 
 /*

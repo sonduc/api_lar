@@ -47,12 +47,13 @@ class RoomController extends ApiController
         'weekday_price.*.price_charge_guest'                => 'numeric|nullable',
         'weekday_price.*.status'                            => 'boolean|nullable',
         'weekday_price.*.weekday'                           => 'required|numeric|distinct|between:1,7',
-        'optional_prices.days.*'                            => 'nullable|date_format:Y-m-d',
+        'optional_prices.days.*'                            => 'nullable|date_format:Y-m-d|distinct',
         'optional_prices.price_day'                         => 'numeric|nullable',
         'optional_prices.price_hour'                        => 'numeric|nullable',
         'optional_prices.price_after_hour'                  => 'numeric|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest'                => 'numeric|nullable',
         'optional_prices.status'                            => 'boolean|nullable',
+        'room_time_blocks.*'                                => 'date_format:Y-m-d|distinct'
     ];
 
     protected $validationMessages = [
@@ -103,6 +104,7 @@ class RoomController extends ApiController
         'weekday_price.*.weekday.between'                   => 'Mã thứ phải trong khoảng từ 1 đến 7',
 
         'optional_prices.days.*.date_format'                => 'Định dạng của ngày phải là Y-m-d',
+        'optional_prices.days.*.distinct'                   => 'Ngày không được phép trùng nhau',
         'optional_prices.price_day.numeric'                 => 'Giá phải là kiểu số',
         'optional_prices.price_hour.numeric'                => 'Giá theo giờ phải là kiểu số',
         'optional_prices.price_after_hour.required_with'    => 'Giá theo giờ không được để trống',
@@ -125,6 +127,8 @@ class RoomController extends ApiController
         'lang_id.exists'                                    => 'Ngôn ngữ không hợp lệ',
         'note.v_title'                                      => 'Chỉ cho phép chữ và số',
         'status.numeric'                                    => 'Mã trạng thái phải là kiểu số',
+        'room_time_blocks.*.date_format'                    => 'Ngày không đúng định dạng Y-m-d',
+        'room_time_blocks.*.distinct'                       => 'Ngày không được phép trùng nhau',
     ];
     /**
      * RoleController constructor.
@@ -190,8 +194,8 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            dd(DB::getQueryLog());
             DB::commit();
+            logs('room', 'tạo phòng mã '.$data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -227,6 +231,7 @@ class RoomController extends ApiController
             $data = $this->model->update($id, $request->all());
 //            dd(DB::getQueryLog());
             DB::commit();
+            logs('room', 'sửa phòng mã '.$data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -261,6 +266,7 @@ class RoomController extends ApiController
             $this->model->delete($id);
 
             DB::commit();
+            logs('room', 'xóa phòng mã '.$data->id, $data);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -291,6 +297,7 @@ class RoomController extends ApiController
             $data = $this->model->status($id, $request->all());
 
             DB::commit();
+            logs('room', 'thay đổi trạng thái của phòng mã '.$data->id);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();

@@ -18,7 +18,7 @@ class CreateRoomReviewsTable extends Migration
             $table->integer('room_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->tinyInteger('rate')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->default(-1);
             $table->timestamps();
         });
     }

@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Districts\DistrictRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\DistrictTransformer;
+use Illuminate\Support\Facades\DB;
+
 class DistrictController extends ApiController
 {
     protected $validationRules = [
@@ -82,27 +84,33 @@ class DistrictController extends ApiController
 
     public function store(Request $request)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('district.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             // return $request->all();
             $data = $this->model->store($request->all());
-
+            DB::commit();
+            logs('district', 'thêm tỉnh mã '.$data->id, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('district.update');
             $this->validationRules['name'] .= ",{$id}";
@@ -112,34 +120,44 @@ class DistrictController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
-
+            DB::commit();
+            logs('district', 'sửa tỉnh mã '.$data->id, $data);
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
 
     public function destroy($id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('district.delete');
             $this->model->delete($id);
-
+            DB::commit();
+            logs('district', 'xóa tỉnh mã '.$data->id, $data);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

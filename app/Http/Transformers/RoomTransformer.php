@@ -2,15 +2,21 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Rooms\Room;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class RoomTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
         'user',
         'details',
-        'comforts'
+        'comforts',
+        'prices',
+        'blocks',
+        'media',
     ];
 
 
@@ -81,12 +87,15 @@ class RoomTransformer extends TransformerAbstract
      * @param Room|null $room
      * @return $room->roomTrans
      */
-    public function includeDetails(Room $room = null)
+    public function includeDetails(Room $room = null, ParamBag $params = null)
     {
         if (is_null($room)) {
             return $this->null();
         }
-        return $this->collection($room->roomTrans, new RoomTranslateTransformer);
+
+        $data = $this->limitAndOrder($params, $room->roomTrans())->get();
+
+        return $this->collection($data, new RoomTranslateTransformer);
     }
 
 
@@ -95,11 +104,71 @@ class RoomTransformer extends TransformerAbstract
      * @param Comfort|null $comfort
      * @return $comfort->comfort
      */
-    public function includeComforts(Room $room = null)
+    public function includeComforts(Room $room = null, ParamBag $params = null)
     {
         if (is_null($room)) {
             return $this->null();
         }
-        return $this->collection($room->comforts, new ComfortTransformer);
+
+        $data = $this->limitAndOrder($params, $room->comforts())->get();
+
+        return $this->collection($data, new ComfortTransformer);
+    }
+
+    /**
+     * Include Prices
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null $room
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includePrices(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $room->prices())->get();
+
+        return $this->collection($data, new RoomOptionalPriceTransformer);
+    }
+
+    /**
+     * Include Room Time Block
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null $room
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeBlocks(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $room->blocks())->get();
+
+        return $this->collection($data, new RoomTimeBlockTransformer);
+    }
+
+    /**
+     * Include Room Media
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null $room
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeMedia(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $room->media())->get();
+
+        return $this->collection($data, new RoomMediaTransformer);
     }
 }

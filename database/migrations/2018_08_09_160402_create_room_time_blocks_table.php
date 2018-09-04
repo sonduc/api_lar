@@ -17,7 +17,8 @@ class CreateRoomTimeBlocksTable extends Migration
             $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
             $table->date('time_block')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

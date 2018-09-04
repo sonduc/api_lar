@@ -20,6 +20,12 @@ $router->group([
     $router->get('/languages', 'LanguageController@index');
 
     /**
+     * Log Resource 
+     */
+    resource('/logs', 'LogController', $router);
+
+    
+    /**
      * User Resource
      */
     resource('/users', 'UserController', $router);

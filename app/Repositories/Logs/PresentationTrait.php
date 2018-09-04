@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Languages;
+namespace App\Repositories\Logs;
 
 trait PresentationTrait
 {
@@ -26,5 +26,27 @@ trait PresentationTrait
     private function hasPermission(string $permission) : bool
     {
         return $this->permissions[$permission] ?? false;
+    }
+
+    /**
+     * Lấy thuộc tính của log
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed|null
+     */
+    public function properties()
+    {
+        return $this->properties ? json_decode($this->properties) : null;
+    }
+
+    /**
+     * Lấy tên log tiêng việt
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function logVi()
+    {
+        return array_key_exists($this->log_name, self::LOG_NAME) ? self::LOG_NAME[$this->log_name] : 'Không xác định';
     }
 }

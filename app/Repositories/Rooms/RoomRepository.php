@@ -11,6 +11,10 @@ class RoomRepository extends BaseRepository
      * @var Model
      */
     protected $model;
+    protected $roomTranslate;
+    protected $roomOptionalPrice;
+    protected $roomMedia;
+    protected $roomTimeBlock;
 
     /**
      * RoomRepository constructor.
@@ -21,12 +25,16 @@ class RoomRepository extends BaseRepository
     public function __construct(
         Room $room,
         RoomTranslateRepository $roomTranslate,
-        RoomOptionalPriceRepository $roomOptionalPrice
+        RoomOptionalPriceRepository $roomOptionalPrice,
+        RoomMediaRepository $roomMedia,
+        RoomTimeBlockRepository $roomTimeBlock
     )
     {
         $this->model                = $room;
         $this->roomTranslate        = $roomTranslate;
         $this->roomOptionalPrice    = $roomOptionalPrice;
+        $this->roomMedia            = $roomMedia;
+        $this->roomTimeBlock        = $roomTimeBlock;
     }
 
     /**
@@ -41,7 +49,10 @@ class RoomRepository extends BaseRepository
         $data_room      = parent::store($data);
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
+        $this->roomMedia->storeRoomMedia($data_room, $data);
+        $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
+
 
         return $data_room;
     }
@@ -61,6 +72,8 @@ class RoomRepository extends BaseRepository
         $data_room = parent::update($id, $data);
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
+        $this->roomMedia->updateRoomMedia($data_room, $data);
+        $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
         return $data_room;
     }

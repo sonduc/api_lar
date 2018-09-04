@@ -20,6 +20,8 @@ class ApiController extends Controller
 
     /**
      * Kiểm tra xem request có include 'trashed'
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
      * @param $request
      * @return int
      */
@@ -30,4 +32,5 @@ class ApiController extends Controller
         }
         return self::NO_TRASH;
     }
+
 }

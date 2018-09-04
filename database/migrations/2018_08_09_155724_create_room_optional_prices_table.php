@@ -22,7 +22,7 @@ class CreateRoomOptionalPricesTable extends Migration
             $table->integer('price_hour')->nullable();
             $table->integer('price_after_hour')->nullable();
             $table->integer('price_charge_guest')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

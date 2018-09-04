@@ -121,4 +121,14 @@ return [
             'confirm'   => 'Confirm'
         ]
     ],
+    'log' => [
+        'title' => 'Quản lý Logging',
+        'list'  => [
+            'view'      => 'View',
+            'create'    => 'Create',
+            'update'    => 'Update',
+            'delete'    => 'Delete',
+            'confirm'   => 'Confirm'
+        ]
+    ],
 ];

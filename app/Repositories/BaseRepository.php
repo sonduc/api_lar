@@ -52,6 +52,7 @@ abstract class BaseRepository implements EntityInterface
                 }
             }
         }
+//        dd($lModel->toSql());
 
         switch ($trash) {
             case self::WITH_TRASH:
@@ -220,12 +221,16 @@ abstract class BaseRepository implements EntityInterface
     {
         $fillable   = $this->getFillable();
         $dateNow    = date('Y-m-d H:i:s');
-
         foreach ($data as $arr) {
             $patternArray = array_fill_keys($fillable, null);
             $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
 
-            $patternArray = array_only($arr, $fillable) + $patternArray;
+            $patternArray           = array_only($arr, $fillable) + $patternArray;
+
+            if (array_key_exists('status', $patternArray) && is_null($patternArray['status'])) {
+                $patternArray['status'] = 1;
+            }
+
             $filterData[] = $patternArray;
         }
 
