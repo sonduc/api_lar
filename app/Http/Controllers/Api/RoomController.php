@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomMedia;
 use App\Repositories\Rooms\RoomRepository;
 use Illuminate\Http\Request;
@@ -267,7 +268,7 @@ class RoomController extends ApiController
             $this->model->delete($id);
 
             DB::commit();
-            logs('room', 'xóa phòng mã '.$data->id, $data);
+            logs('room', 'xóa phòng mã '.$id);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -339,6 +340,49 @@ class RoomController extends ApiController
      */
     public function roomMediaType()
     {
-        return response()->json(RoomMedia::IMAGE_TYPE);
+        try {
+            return response()->json(RoomMedia::IMAGE_TYPE);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
+
+    /**
+     * Lấy kiểu thuê phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function roomRentType()
+    {
+        try {
+            return response()->json(Room::ROOM_RENT_TYPE);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Lấy trạng thái hiện tại của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function roomStatus()
+    {
+        try {
+            return response()->json(Room::ROOM_STATUS);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
 }

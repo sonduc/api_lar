@@ -64,11 +64,17 @@ class Room extends Entity
     ];
 
     const ROOM_STATUS  = [
-        self::NOT_APPROVED    => 'Chưa xác nhận',
         self::AVAILABLE       => 'Đang hoạt động',
         self::UNAVAILABLE     => 'Không hoạt động',
+        self::NOT_APPROVED    => 'Chưa xác nhận',
         self::CLEANED         => 'Dọn dẹp phòng',
         self::SETUP_SERVICES  => 'Thiết lập dịch vụ'
+    ];
+
+    const ROOM_RENT_TYPE = [
+        self::TYPE_HOUR         => 'Theo giờ',
+        self::TYPE_DAY          => 'Theo ngày',
+        self::TYPE_ALL          => 'Cả ngày và giờ',
     ];
     /**
      * The attributes that are cast permission from json string to array
