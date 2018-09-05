@@ -26,7 +26,7 @@ class ComfortRepository extends BaseRepository
     }
 
     /**
-     * Thêm mới một bản ghi vào comforts và comforts_translate
+     * Thêm mới  bản ghi vào comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param array $data
@@ -35,7 +35,7 @@ class ComfortRepository extends BaseRepository
     public function store($data)
     {
         $data_comfort = parent::store($data);
-        $this->comfortTranslate->storeComfortTranslate($data, $data_comfort->id);
+        $this->comfortTranslate->storeComfortTranslate($data_comfort,$data);
         return $data_comfort;
     }
 
@@ -52,7 +52,7 @@ class ComfortRepository extends BaseRepository
     public function update($id, $data, $except = [], $only = [])
     {
         $data_comfort    = parent::update($id, $data);
-        $this->comfortTranslate->updateComfortTranslate($data, $data_comfort->id);
+        $this->comfortTranslate->updateComfortTranslate($data_comfort,$data);
         return $data_comfort;
     }
 

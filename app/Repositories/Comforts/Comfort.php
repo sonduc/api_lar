@@ -24,13 +24,27 @@ class Comfort extends Entity
      */
     protected $casts = ['permissions' => 'array'];
 
-    // public function rooms()
-    // {
-    //     return $this->belongsTo(\App\Repositories\Rooms\Room::class, 'room_id', 'id');
-    // }
+    /**
+     * relation ship voi comforts_translate
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
 
     public function comfortTrans()
     {
         return $this->hasMany(\App\Repositories\Comforts\ComfortTranslate::class, 'comfort_id');
+    }
+
+    /**
+     * relation ship voi rooms
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+
+    public function rooms()
+    {
+        return $this->belongsToMany(\App\Repositories\Rooms\Room::class, 'room_comforts', 'room_id', 'comfort_id');
     }
 }

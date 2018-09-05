@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class ComfortTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        'details',
+        'details','rooms'
     ];
 
 
@@ -32,7 +32,6 @@ class ComfortTransformer extends TransformerAbstract
     }
 
 
-
     /**
      * Thông tin chi tiết tiện nghi
      * @param Comfort|null $comfort
@@ -44,6 +43,14 @@ class ComfortTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->collection($comfort->comfortTrans, new ComfortTranslateTransformer);
+    }
+
+    public function includeRooms(Comfort $comfort = null)
+    {
+        if (is_null($comfort)) {
+            return $this->null();
+        }
+        return $this->collection($comfort->rooms, new RoomTransformer);
     }
 
 }

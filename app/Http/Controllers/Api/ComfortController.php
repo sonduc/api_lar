@@ -13,17 +13,16 @@ use Illuminate\Support\Facades\DB;
 class ComfortController extends ApiController
 {
     protected $validationRules = [
-        'name'                  => 'required',
-        'lang_id'               => 'required|numeric'
+        'details.*.*.name'                  => 'required|unique:comfort_translates',
+        'details.*.*.lang_id'               => 'required|numeric',
 
     ];
     protected $validationMessages = [
-        'name.required'         => "Vui lòng điền tên tiện ích",
-        'lang_id.required'      => 'Mã ngôn ngữ không được để trống',
-        'lang_id.numberic'      => "Phải là kiểu số"
-
+        'details.*.*.name.required'          => 'Tên không được để trông',
+        'details.*.*.name.unique'            => 'Tiện ích này đã tồn tại',
+        'details.*.*.lang_id.required'       => 'Mã ngôn ngữ không được để trống',
+        'details.*.*.lang_id.numberic'       => 'Mã ngôn ngữ phải là kiểu số',
     ];
-
 
     /**
      * ComfortController constructor.
@@ -75,15 +74,17 @@ class ComfortController extends ApiController
     public function store(Request $request)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('comfort.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            // return $request->all();
             $data = $this->model->store($request->all());
-            //DB::commit();
-            return $this->successResponse($data);
+            //dd(DB::getQueryLog());
+            DB::commit();
+
+            return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
-            //DB::rollBack();
+            DB::rollBack();
             return $this->errorResponse([
                 'errors'        => $validationException->validator->errors(),
                 'exception'     => $validationException->getMessage()
@@ -100,11 +101,13 @@ class ComfortController extends ApiController
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('comfort.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
-            //DB::commit();
+            DB::commit();
+            //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -126,16 +129,22 @@ class ComfortController extends ApiController
 
     public function destroy($id)
     {
-
+        DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('comfort.delete');
             $this->model->deleteRoom($id);
+            DB::commit();
+            //dd(DB::getQueryLog());
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

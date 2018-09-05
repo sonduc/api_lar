@@ -20,27 +20,41 @@ class ComfortTranslateRepository extends BaseRepository
     {
         $this->model = $comfort;
     }
-    public function storeComfortTranslate($data, $id)
+    public function storeComfortTranslate($comfort, $data = [], $list = [])
     {
-        $data['comfort_id'] = $id;
-        parent::store($data);
+        if (!empty($data)) {
+            if (isset($data['details']['data'])) {
+                foreach ($data['details']['data'] as $val) {
+                    $val['comfort_id']          = $comfort->id;
+                    $list[]                     = $val;
+                }
+            }
+        }
+
+        parent::storeArray($list);
     }
 
-    public function updateComfortTranslate($data, $id)
+    public function updateComfortTranslate($comfort, $data = [])
     {
+        $this->deleteComfortTranslateByRoomID($comfort);
+        $this->storeComfortTranslate($comfort, $data);
 
-        $data['comfort_id'] = $id;
-
-        $count = $this->model->where([
-            ['comfort_id', $id],
-            ['lang_id', $data['lang_id']]
-        ])->first();
-        $count ? parent::update($id, $data) : parent::store($data);
+//        $data['comfort_id'] = $id;
+//
+//        $count = $this->model->where([
+//            ['comfort_id', $id],
+//            ['lang_id', $data['lang_id']]
+//        ])->first();
+//        $count ? parent::update($id, $data) : parent::store($data);
     }
 
     public function getByComfortID($id)
     {
         return $this->model->where('comfort_id', $id)->select('id')->get();
+    }
+    public function deleteComfortTranslateByRoomID($comfort)
+    {
+        $this->model->where('comfort_id', $comfort->id)->forceDelete();
     }
 
 }
