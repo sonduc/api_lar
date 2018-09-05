@@ -57,7 +57,7 @@ class ComfortRepository extends BaseRepository
     }
 
     /**
-     * Xóa một bản ghi ở bảng comforts và comforts_translate
+     * Xóa bản ghi ở bảng comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id

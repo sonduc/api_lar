@@ -13,15 +13,12 @@ use Illuminate\Support\Facades\DB;
 class ComfortController extends ApiController
 {
     protected $validationRules = [
-        'details.*.*.name'                  => 'required|unique:comfort_translates',
-        'details.*.*.lang_id'               => 'required|numeric',
+        'details.*.name'                  => 'required|unique:comfort_translates',
 
     ];
     protected $validationMessages = [
-        'details.*.*.name.required'          => 'Tên không được để trông',
-        'details.*.*.name.unique'            => 'Tiện ích này đã tồn tại',
-        'details.*.*.lang_id.required'       => 'Mã ngôn ngữ không được để trống',
-        'details.*.*.lang_id.numberic'       => 'Mã ngôn ngữ phải là kiểu số',
+        'details.*.name.required'          => 'Tên không được để trông',
+        'details.*.name.unique'            => 'Tiện ích này đã tồn tại',
     ];
 
     /**
@@ -81,6 +78,7 @@ class ComfortController extends ApiController
             $data = $this->model->store($request->all());
             //dd(DB::getQueryLog());
             DB::commit();
+            logs('comfort', 'tạo comfort mã'.$data->id, $data);
 
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -107,6 +105,8 @@ class ComfortController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
             DB::commit();
+            logs('comfort', 'sửa comfort mã'.$data->id, $data);
+
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -135,6 +135,7 @@ class ComfortController extends ApiController
             $this->authorize('comfort.delete');
             $this->model->deleteRoom($id);
             DB::commit();
+            logs('comfort', 'xóa tiện ích mã '.$id);
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

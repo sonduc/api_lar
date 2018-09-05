@@ -15,7 +15,7 @@ class Comfort extends Entity
      */
 
     protected $fillable = [
-        'id', 'icon'
+        'icon'
     ];
 
     /**
