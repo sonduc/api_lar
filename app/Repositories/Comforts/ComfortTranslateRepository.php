@@ -23,8 +23,8 @@ class ComfortTranslateRepository extends BaseRepository
     public function storeComfortTranslate($comfort, $data = [], $list = [])
     {
         if (!empty($data)) {
-            if (isset($data['details']['data'])) {
-                foreach ($data['details']['data'] as $val) {
+            if (isset($data['details'])) {
+                foreach ($data['details'] as $val) {
                     $val['comfort_id']          = $comfort->id;
                     $list[]                     = $val;
                 }
