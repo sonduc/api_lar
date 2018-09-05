@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 class ComfortController extends ApiController
 {
     protected $validationRules = [
-        'details.*.name'                  => 'required|unique:comfort_translates',
+        'details.*.name'                  => 'required',
 
     ];
     protected $validationMessages = [
@@ -76,9 +76,9 @@ class ComfortController extends ApiController
             $this->authorize('comfort.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            //dd(DB::getQueryLog());
+//            dd(DB::getQueryLog());
             DB::commit();
-            logs('comfort', 'tạo comfort mã'.$data->id, $data);
+            logs('comfort', 'tạo comfort mã '.$data->id, $data);
 
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -105,7 +105,7 @@ class ComfortController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
             DB::commit();
-            logs('comfort', 'sửa comfort mã'.$data->id, $data);
+            logs('comfort', 'sửa comfort mã '.$data->id, $data);
 
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');

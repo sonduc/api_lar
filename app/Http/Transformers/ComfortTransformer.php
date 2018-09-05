@@ -2,11 +2,14 @@
 
 namespace App\Http\Transformers;
 
+use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Comforts\Comfort;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class ComfortTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
         'details','rooms'
     ];
@@ -37,20 +40,26 @@ class ComfortTransformer extends TransformerAbstract
      * @param Comfort|null $comfort
      * @return $comfort->comfortTrans
      */
-    public function includeDetails(Comfort $comfort = null)
+    public function includeDetails(Comfort $comfort = null, ParamBag $params = null)
     {
         if (is_null($comfort)) {
             return $this->null();
         }
-        return $this->collection($comfort->comfortTrans, new ComfortTranslateTransformer);
+
+        $data = $this->limitAndOrder($params, $comfort->comfortTrans())->get();
+
+        return $this->collection($data, new ComfortTranslateTransformer);
     }
 
-    public function includeRooms(Comfort $comfort = null)
+    public function includeRooms(Comfort $comfort = null, ParamBag $params = null)
     {
         if (is_null($comfort)) {
             return $this->null();
         }
-        return $this->collection($comfort->rooms, new RoomTransformer);
+
+        $data = $this->limitAndOrder($params, $comfort->rooms())->get();
+
+        return $this->collection($data, new RoomTransformer);
     }
 
 }
