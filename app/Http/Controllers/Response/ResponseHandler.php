@@ -15,6 +15,7 @@ trait ResponseHandler
 
     protected function successResponse($data, $transform = true, $include = null)
     {
+
         if (is_null($data)) {
             $data = [];
         }

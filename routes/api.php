@@ -33,6 +33,8 @@ $router->group([
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 
+
+    $router->get('/permissions', 'PermissionController@index');
     /**
      * Role Resource
      */

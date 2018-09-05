@@ -19,6 +19,7 @@ class DistrictRepository extends BaseRepository
     public function __construct(District $district)
     {
         $this->model = $district;
+
     }
 
 
