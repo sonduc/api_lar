@@ -47,6 +47,7 @@ class UserTransformer extends TransformerAbstract
             'status'            => $user->status,
             'status_txt'        => $user->getStatus(),
             'type'              => $user->type,
+            'type_txt'          => $user->getAccountType(),
         ];
     }
     /**

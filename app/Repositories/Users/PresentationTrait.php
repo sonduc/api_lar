@@ -121,4 +121,9 @@ trait PresentationTrait
     {
         return $this->parent ?? $this;
     }
+
+    public function getAccountType()
+    {
+        return self::TYPE_ACCOUNT[$this->type ?? 0];
+    }
 }

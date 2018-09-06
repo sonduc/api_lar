@@ -23,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
         \App\Repositories\Districts\District::class     => \App\Policies\DistrictPolicy::class,
         \App\Repositories\Comforts\Comforts::class      => \App\Policies\ComfortPolicy::class,
         \App\Repositories\Logs\Log::class               => \App\Policies\LogPolicy::class,
+        \App\Repositories\Bookings\Booking::class       => \App\Policies\BookingPolicy::class,
     ];
 
     /**

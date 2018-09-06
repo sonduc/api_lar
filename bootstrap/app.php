@@ -19,6 +19,7 @@ try {
 |
 */
 
+
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__.'/../')
 );
@@ -28,6 +29,7 @@ $app->withFacades();
 $app->withEloquent();
 
 // Config file
+// $app->configure('app');
 $app->configure('auth');
 $app->configure('permissions');
 $app->configure('regex');

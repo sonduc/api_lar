@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBookingsStatusTable extends Migration
+class CreateBookingStatusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateBookingsStatusTable extends Migration
      */
     public function up()
     {
-        Schema::create('bookings_status', function (Blueprint $table) {
+        Schema::create('booking_status', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('staff_id')->nullable();
             $table->integer('booking_id')->nullable();
-            $table->tinyInteger('status')->nullable();
+            // $table->tinyInteger('status')->nullable();
             $table->text('note')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
