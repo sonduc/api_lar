@@ -1,24 +1,21 @@
 <?php
 
-namespace App\Repositories\Bookings;
+namespace App\Repositories\Payments;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BookingStatus extends Entity
+class PaymentHistory extends Entity
 {
-    use PresentationTrait, FilterTrait, SoftDeletes;
+    use PresentationTrait, FilterTrait;
 
-    protected $table = 'booking_status';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-
-
     protected $fillable = [
-        'staff_id', 'booking_id', 'note'
+        'booking_id', 'money_received', 'total_received', 'total_debt', 'note', 'status', 'confirm',
     ];
 
     /**
@@ -27,8 +24,5 @@ class BookingStatus extends Entity
      */
     protected $casts = ['permissions' => 'array'];
 
-    public function user()
-    {
-        return $this->belongsTo(\App\User::class, 'staff_id');
-    }
+
 }

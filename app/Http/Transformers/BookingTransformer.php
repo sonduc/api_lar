@@ -3,6 +3,8 @@
 namespace App\Http\Transformers;
 
 use App\Http\Transformers\Traits\FilterTrait;
+use App\Repositories\Bookings\BookingStatus;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Bookings\Booking;
 
@@ -10,7 +12,7 @@ class BookingTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-
+        'customer', 'merchant', 'booking_status', 'payments'
     ];
 
     public function transform(Booking $booking = null)
@@ -64,4 +66,41 @@ class BookingTransformer extends TransformerAbstract
         ];
     }
 
+    public function includeCustomer(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        return $this->item($booking->customer, new UserTransformer);
+    }
+
+    public function includeMerchant(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        return $this->item($booking->merchant, new UserTransformer);
+    }
+
+    public function includeBookingStatus(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        return $this->item($booking->bookingStatus, new BookingStatusTransformer);
+    }
+
+    public function includePayments(Booking $booking = null, ParamBag $params = null)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $booking->payments())->get();
+
+        return $this->collection($data, new PaymentHistoryTransformer);
+    }
 }

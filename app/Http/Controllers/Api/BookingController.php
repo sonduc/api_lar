@@ -41,6 +41,9 @@ class BookingController extends ApiController
         'payment_status'                => 'required|numeric|between:0,3',
         'source'                        => 'required|numeric|between:1,6',
         'exchange_rate'                 => 'nullable|numeric',
+
+        'money_received'                => 'integer',
+        'confirm'                       => 'required|integer|between:0,1',
     ];
     protected $validationMessages = [
         'name.required'                 => 'Vui lòng điền tên',
@@ -107,6 +110,11 @@ class BookingController extends ApiController
         'source.numeric'                => 'Mã nguồn booking phải là kiểu số',
         'source.between'                => 'Mã nguồn booking không hợp lệ',
         'exchange_rate.numeric'         => 'Tỉ giá chuyển đổi phải là kiểu số',
+
+        'money_received.integer'        => 'Giá tiền phải là kiểu số',
+        'confirm.required'              => 'Vui lòng chọn trạng thái xác nhận',
+        'confirm.integer'               => 'Mã trạng thái xác nhận phải là kiểu số',
+        'confirm.between'               => 'Trạng thái xác nhận không hợp lệ',
     ];
     /**
      * BookingController constructor.
@@ -163,7 +171,7 @@ class BookingController extends ApiController
 
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
-             DB::commit();
+            DB::commit();
             logs('booking', 'tạo booking có code '.$data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -191,7 +199,7 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->update($id, $request->all());
-             DB::commit();
+            DB::commit();
             logs('booking', 'sửa booking có code '.$data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -232,6 +240,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Trạng thái booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function statusList()
     {
         try {
@@ -242,6 +257,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Trạng thái booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function bookingStatusList()
     {
         try {
@@ -252,6 +274,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Kiểu booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function bookingTypeList()
     {
         try {
@@ -262,6 +291,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Loại booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function typeList()
     {
         try {
@@ -272,6 +308,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Hình thức thanh toán
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function paymentMethodList()
     {
         try {
@@ -282,6 +325,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Trạng thái thanh toán
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function paymentStatusList()
     {
         try {
@@ -292,6 +342,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Kiểu của payment_history
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function paymentHistoryTypeList()
     {
         try {
@@ -302,6 +359,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Nguồn booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function bookingSourceList()
     {
         try {
@@ -312,6 +376,13 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     * Khoảng giá
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
     public function priceRangeList()
     {
         try {

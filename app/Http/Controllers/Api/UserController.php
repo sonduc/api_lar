@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\UserTransformer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends ApiController

@@ -33,4 +33,24 @@ class Booking extends Entity
             $model->save();
         });
     }
+
+    public function customer()
+    {
+        return $this->belongsTo(\App\User::class, 'customer_id');
+    }
+
+    public function merchant()
+    {
+        return $this->belongsTo(\App\User::class, 'merchant_id');
+    }
+
+    public function bookingStatus()
+    {
+        return $this->hasOne(\App\Repositories\Bookings\BookingStatus::class, 'booking_id');
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(\App\Repositories\Payments\PaymentHistory::class, 'booking_id');
+    }
 }

@@ -17,7 +17,7 @@ class CreateRoomTranslatesTable extends Migration
             $table->bigIncrements('id');
             $table->string('lang', 5)->nullable();
             $table->integer('room_id');
-            $table->string('name')->nullable();
+            $table->string('name')->nullable()->index();
             $table->string('slug_name')->nullable();
             $table->string('address')->nullable();
             $table->string('slug_address')->nullable();

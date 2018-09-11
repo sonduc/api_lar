@@ -32,3 +32,6 @@ SELECT id,region_id,name,short_name,code,longitude,latitude,priority,0 as hot,al
 -- Districts
 
 SELECT id,city_id,name,short_name,code,kind_from,kind_to,0 as hot,0 as priority,1 as status,deleted_at,created_at,updated_at FROM `districts`
+
+-- Payment Histories
+select booking_id, total_received, total_debt,note, (status - 1) as status, confirm, created_at, updated_at  from payment_histories where status <> 4

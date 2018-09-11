@@ -123,4 +123,15 @@ abstract class BookingConstant
             13      => 'Từ 4500k - 5000k',
             14      => 'Trên 5000k',
     ];
+
+    // Trạng thái payment history
+    const UNPAID        = 0;
+    const PARTLY_PAID   = 1;
+    const FULLY_PAID    = 2;
+
+    const PAYMENT_HISTORY_STATUS = [
+        self::UNPAID        => 'Chưa thanh toán',
+        self::PARTLY_PAID   => 'Thanh toán một phần',
+        self::FULLY_PAID    => 'Thanh toán hoàn tất',
+    ];
 }

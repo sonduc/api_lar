@@ -3,34 +3,53 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Payments\PaymentHistoryRepository;
 
 class BookingRepository extends BaseRepository
 {
 
     protected $model;
     protected $status;
+    protected $payment;
     /**
      * BookingRepository constructor.
      * @param Booking $booking
      */
-    public function __construct(Booking $booking, BookingStatusRepository $status)
+    public function __construct(Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment)
     {
         $this->model    = $booking;
         $this->status   = $status;
+        $this->payment  = $payment;
     }
 
+    /**
+     * Thêm booking mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     * @return \App\Repositories\Eloquent
+     */
     public function store($data = [])
     {
-
         $data = $this->priceCaculator($data);
         $data = $this->dateToTimestamp($data);
 
         $data_booking       = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
-
+        $this->payment->storePaymentHistory($data_booking, $data);
         return $data_booking;
     }
 
+    /**
+     * Cập nhật booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param int $id
+     * @param $data
+     * @param array $excepts
+     * @param array $only
+     * @return bool
+     */
     public function update($id, $data, $excepts = [], $only = [])
     {
         $data = $this->priceCaculator($data);

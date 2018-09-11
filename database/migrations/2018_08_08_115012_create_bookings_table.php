@@ -31,6 +31,7 @@ class CreateBookingsTable extends Migration
             $table->integer('checkin')->nullable();
             $table->integer('checkout')->nullable();
             $table->bigInteger('price_original')->nullable();
+            $table->bigInteger('service_fee')->nullable();
             $table->bigInteger('price_discount')->nullable();
             $table->bigInteger('booking_fee')->nullable();
             $table->string('coupon',50)->nullable();
@@ -38,7 +39,6 @@ class CreateBookingsTable extends Migration
             $table->bigInteger('total_fee')->nullable();
             $table->tinyInteger('status')->nullable();
             $table->tinyInteger('number_of_guests')->nullable();
-            $table->integer('service_fee')->nullable();
             $table->tinyInteger('price_range')->nullable();
             $table->tinyInteger('type')->nullable();
             $table->tinyInteger('booking_type')->nullable();

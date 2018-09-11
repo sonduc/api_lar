@@ -86,7 +86,14 @@ $router->group([
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
 
     resource('/bookings', 'BookingController', $router);
+    /**
+     * Payment History
+     */
+    $router->get('/payments/payment-history-status', 'PaymentHistoryController@paymentHistoryStatus');
+    resource('/payments', 'PaymentHistoryController', $router);
 });
+
+
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
 // Social login

@@ -35,9 +35,8 @@ trait PresentationTrait
                 return 'Hệ thống quản lý';
                 break;
             case self::MANAGER_DEACTIVE:
-                return 'Tự quản lý';
+                return 'Host quản lý';
                 break;
-
             default:
                 return 'Không xác định';
                 break;

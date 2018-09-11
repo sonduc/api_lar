@@ -134,6 +134,7 @@ class ComfortController extends ApiController
         try {
             $this->authorize('comfort.delete');
             $this->model->deleteRoom($id);
+//            dd(DB::getQueryLog());
             DB::commit();
             logs('comfort', 'xóa tiện ích mã '.$id);
             //dd(DB::getQueryLog());

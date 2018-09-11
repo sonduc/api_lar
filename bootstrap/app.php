@@ -35,6 +35,7 @@ $app->configure('permissions');
 $app->configure('regex');
 $app->configure('languages');
 $app->configure('activitylog');
+
 /*
 |--------------------------------------------------------------------------
 | Register Container Bindings
