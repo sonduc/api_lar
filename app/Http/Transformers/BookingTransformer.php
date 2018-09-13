@@ -12,7 +12,7 @@ class BookingTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-        'customer', 'merchant', 'booking_status', 'payments'
+        'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district'
     ];
 
     public function transform(Booking $booking = null)
@@ -102,5 +102,47 @@ class BookingTransformer extends TransformerAbstract
         $data = $this->limitAndOrder($params, $booking->payments())->get();
 
         return $this->collection($data, new PaymentHistoryTransformer);
+    }
+
+    public function includeRoom(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+       try {
+            if (is_null($booking->room)) throw new \Exception;
+            return $this->item($booking->room, new RoomTransformer);
+       } catch (\Exception $e) {
+            return $this->primitive(null);
+       }
+    }
+
+    public function includeCity(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        try {
+            if (is_null($booking->room->city)) throw new \Exception;
+            return $this->item($booking->room->city, new CityTransformer);
+        } catch (\Exception $e) {
+            return $this->primitive(null);
+        }
+    }
+
+    public function includeDistrict(Booking $booking)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        try {
+            if (is_null($booking->room->district)) throw new \Exception;
+            return $this->item($booking->room->district, new DistrictTransformer);
+        } catch (\Exception $e) {
+            return $this->primitive(null);
+        }
     }
 }

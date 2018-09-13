@@ -3,7 +3,11 @@
 SELECT id,uuid,name,email,password,sex as gender,phone,birthday,NULL as sub_email,avatar,address,owner,facebook as facebook_id,null as google_id,level,0 as point,money,null as passport_last_name,null as passport_first_name,null as passport_infomation,id_card1 as passport_front_card,id_card2 as passport_back_card,city_id,district_id,type,1 as status,sale_id,remember_token,deleted_at,created_at,updated_at from users
 
 -- Rooms 
-SELECT id,client_id as merchant_id,number_people as max_guest,null as max_additional_guest,number_bed,bedroom as number_room,city_id,district_id,null as room_type,checkin,checkout,price_by_day as price_day,price_by_hour as price_hour,0 as price_charge_guest,cleaning_fee,standard_point,is_manager,hot,0 as new,is_last_mile as latest_deal,0 as rent_type,null as rules,longitude,latitude,(select count(*) from booking where booking.room_id = rooms.id) as total_booking,status,sale_id,deleted_at,created_at,updated_at FROM `rooms`
+SELECT id,client_id as merchant_id,number_people as max_guest,null as max_additional_guest,number_bed,bedroom as number_room,city_id,district_id,null as room_type,checkin,checkout,price_by_day as price_day,price_by_hour as price_hour,0 as price_charge_guest,cleaning_fee,standard_point,is_manager,hot,0 as new,is_last_mile as latest_deal,0 as rent_type,null as rules,longitude,latitude,
+
+(select count(*) from booking where booking.room_id = rooms.id and booking.payment_status IN (3,4) AND booking.STATUS = 4) as total_booking,
+
+status,sale_id,deleted_at,created_at,updated_at FROM `rooms`
 
 -- Room_Translates
 

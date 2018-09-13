@@ -53,4 +53,9 @@ class Booking extends Entity
     {
         return $this->hasMany(\App\Repositories\Payments\PaymentHistory::class, 'booking_id');
     }
+
+    public function room()
+    {
+        return $this->belongsTo(\App\Repositories\Rooms\Room::class, 'room_id');
+    }
 }

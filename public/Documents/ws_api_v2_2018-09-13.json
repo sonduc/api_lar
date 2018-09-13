@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-09-11T07:05:37.053Z",
+	"__export_date": "2018-09-13T04:22:27.182Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -150,7 +150,7 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1531885364304.875,
-			"modified": 1536111698086,
+			"modified": 1536722307394,
 			"name": "Comforts",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "request_group"
@@ -229,14 +229,14 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIzNGMwYWQ1MGYwYjlkZjEwMmU3MTQ1N2QxZGYxZjIwYTYyOGVlZDg4MjJhMzNlYzY2YzI3ZTdlNWM4YWIzOTM2OTQ0OGJlYzUxOTliNDE5In0.eyJhdWQiOiIyIiwianRpIjoiMjM0YzBhZDUwZjBiOWRmMTAyZTcxNDU3ZDFkZjFmMjBhNjI4ZWVkODgyMmEzM2VjNjZjMjdlN2U1YzhhYjM5MzY5NDQ4YmVjNTE5OWI0MTkiLCJpYXQiOjE1MzY1NTE5MzQsIm5iZiI6MTUzNjU1MTkzNCwiZXhwIjoxNTY4MDg3OTM0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZmwH0nEdyeYjzt4evssA3aUfrdWUJan9-ln9E1bLbMMspGFzmsJ7V1ZEMRTwSyZS6DjHSRS4McrenkZT2Jkk0OOUuaaPlfSjKZ0ZhBf6Qn1WIRhmybJkovzQ5HXtS9vmlSOdCAIRmza7a2t2J1omcriiBNMVYX8Rv0446P6qXxuez1CTTpJW_iRYBWXDUAnkknaqjrpCyKbDmAFZ8_EFt1bClPwahdsH4eXxlljanT1nsfVtujFlGn-Nm0TKvXeOjSgvaJAHSbRFrF5nbnZ3WvzagKjzGZT7-JGMQTIdyDvuYQYUtAlGQqe7U-3acEAl_F2vOWXEr2db4DO59L993VFDWCS-X9Ow14KHUevObHzEQLlsB_w-G_sXSNi3d8I5beo5bE24qYoydEqjmUgpK9uiBsD6-wQS409MWjx0dxy0UwlVwwjcCAKjUWvwG9w8rSI99uIQtCTRDmPskrTLL4wmGTKp4_GiO-XgPRA0jCQwz-yN4jhCdJvawthP7ngXTyL9QOYyYsve2IuDoaZdl5mluky7TjEbvYw4FlDycUqL6JWtcXxnJkUZXSU3YQUGaPIseYKtibkWdUt9Gb75DE9qn3PfCYEzjGSopGGNE2tp97QXfiMy3KxN3yiYqRcwLTSSIXRiYUMIipKp7mPxDBWnccDaF7t_IS7-thzHMt0"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY3Y2VmZjA3ZjQ3NWYyZGUyN2FhZjRjZjNkMTk0ZTkwMDhlYmZkNzM1MTgyNWUxODQ2YjA3YzA5ZGQzZDQ1OTQwOTU2ZDQxMjc4OWUwNDllIn0.eyJhdWQiOiIyIiwianRpIjoiNjdjZWZmMDdmNDc1ZjJkZTI3YWFmNGNmM2QxOTRlOTAwOGViZmQ3MzUxODI1ZTE4NDZiMDdjMDlkZDNkNDU5NDA5NTZkNDEyNzg5ZTA0OWUiLCJpYXQiOjE1MzY4MDU4NDQsIm5iZiI6MTUzNjgwNTg0NCwiZXhwIjoxNTY4MzQxODQzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.k5bBw4zCwVhpx8mpUHL8lgli3xttHjXL75vzoK8XEJFiHEvukwgWeXP9vydGlLp0SFmt2AJZ4LsJUVqqyKc8sWlEf_3j-tV7xzrB-xclBslBVfFA4d588NslVao2haKRBzkCT5BjtDB8SIydlLTnhd-0vmhqStHeJA7XSYQzIeCZAYCovcics1bTub2xu4I9RHGkQpRFoC_fHgZnwLXJJbuXoQ3sHq7RHHyNwBRCailPpK3l-hEfF_foiY1IfPboNi6cCSuOZUZ8xO7rLmItMMIRkfiwHRoMz9A0brqm-9XSxQyWm9VASHA73Wkja4znbvWWln9ARGIDeWgn3ev3ho23Ms6MkcJy9Fq-JY1wui13L4Dp125AyytBQXvl67XrSp5iJgkrL91NYTY-QsQfUpkBnhSwkNkV-7CjT-jqp4KUtvF67MgSQbO6K6T72wJlS6paT5EhBEFv4Wt8dFY7sGaCAPqAVlPhwUNhbsF20a5zkvuREqZEp5Ci1ML_DcGzBq6Y0rw-JQ5NUp20wJrpxR57xZFwUChqIW_BG2fr783NWhILMxVWGRHz00sT-9okr01INZhVTaJYoGOsHX3qz01coOb2FT5TMqR06e4YE0gVq0OoqrNeclHQnX9h0aTJFBTNNmwzggHQ0-yXGMX9_aKcA84W0JR4rMUB4nxyjcY"
 				},
 				"url": "http://localhost:82/ws_api/public/",
 				"username": "admin@westay.org"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1536551944024,
+			"modified": 1536805859178,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -558,7 +558,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536553926938,
+			"modified": 1536811218925,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -982,7 +982,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1536551944410,
+			"modified": 1536805859531,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1032,7 +1032,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1534475997452,
-			"description": "** PARAMETER\n\nname: String (Tên phòng)\n\ncity: Int\n\ndistrict: Int\n\nstatus: Int\n\nmerchant: Int\n\nmanager: Int\n\n",
+			"description": "## INCLUDE\n```\n'user',\n'details',\n'comforts',\n'prices',\n'blocks',\n'media',\n'city',\n'district'\n```\n\n## SCOPE PARAMS\n\n```params\nname: String (Tên phòng)\ncity: Int\ndistrict: Int\nstatus: Int\nmerchant: Int\nmanager: Int\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -1048,7 +1048,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536649195070,
+			"modified": 1536811180086,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1058,7 +1058,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=details&date_start",
+			"url": "{{ api_url  }}rooms?include=bookings",
 			"_type": "request"
 		},
 		{
@@ -1740,7 +1740,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536569035565,
+			"modified": 1536722250408,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1769,7 +1769,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1536553157577,
+			"modified": 1536722250958,
 			"name": "show",
 			"parameters": [
 				{
@@ -1813,7 +1813,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1536553158545,
+			"modified": 1536722252000,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1942,7 +1942,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536372892526,
+			"modified": 1536722547670,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_96df68de3c1b42979e8b496c4988436c",
@@ -2007,7 +2007,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1536131277742,
-			"description": "",
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\nmerchants: Int\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -2018,7 +2018,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1536649382608,
+			"modified": 1536812363935,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2026,9 +2026,9 @@
 			"settingEncodeUrl": true,
 			"settingMaxTimelineDataSize": 1000,
 			"settingRebuildPath": true,
-			"settingSendCookies": true,
+			"settingSendCookies": false,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings?include=payments",
+			"url": "{{ api_url  }}bookings?include=district",
 			"_type": "request"
 		},
 		{
@@ -2157,7 +2157,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536551988875,
+			"modified": 1536806612752,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_3dc0d7f00e044adf88a854325bc2c57a",
@@ -2252,7 +2252,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367260,
 			"method": "GET",
-			"modified": 1536284720948,
+			"modified": 1536811385351,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -2281,7 +2281,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367285,
 			"method": "GET",
-			"modified": 1536284735984,
+			"modified": 1536811385899,
 			"name": "booking-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -2368,7 +2368,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367297.5,
 			"method": "GET",
-			"modified": 1536220274872,
+			"modified": 1536811384803,
 			"name": "payment-method-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -2397,7 +2397,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367299.0625,
 			"method": "GET",
-			"modified": 1536294760792,
+			"modified": 1536811336347,
 			"name": "payment-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
