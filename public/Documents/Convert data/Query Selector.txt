@@ -3,7 +3,11 @@
 SELECT id,uuid,name,email,password,sex as gender,phone,birthday,NULL as sub_email,avatar,address,owner,facebook as facebook_id,null as google_id,level,0 as point,money,null as passport_last_name,null as passport_first_name,null as passport_infomation,id_card1 as passport_front_card,id_card2 as passport_back_card,city_id,district_id,type,1 as status,sale_id,remember_token,deleted_at,created_at,updated_at from users
 
 -- Rooms 
-SELECT id,client_id as merchant_id,number_people as max_guest,null as max_additional_guest,number_bed,bedroom as number_room,city_id,district_id,null as room_type,checkin,checkout,price_by_day as price_day,price_by_hour as price_hour,0 as price_charge_guest,cleaning_fee,standard_point,is_manager,hot,0 as new,is_last_mile as latest_deal,0 as rent_type,null as rules,longitude,latitude,(select count(*) from booking where booking.room_id = rooms.id) as total_booking,status,sale_id,deleted_at,created_at,updated_at FROM `rooms`
+SELECT id,client_id as merchant_id,number_people as max_guest,null as max_additional_guest,number_bed,bedroom as number_room,city_id,district_id,null as room_type,checkin,checkout,price_by_day as price_day,price_by_hour as price_hour,0 as price_charge_guest,cleaning_fee,standard_point,is_manager,hot,0 as new,is_last_mile as latest_deal,0 as rent_type,null as rules,longitude,latitude,
+
+(select count(*) from booking where booking.room_id = rooms.id and booking.payment_status IN (3,4) AND booking.STATUS = 4) as total_booking,
+
+status,sale_id,deleted_at,created_at,updated_at FROM `rooms`
 
 -- Room_Translates
 
@@ -23,7 +27,7 @@ select * from room_comforts where comfort_id in (select id from comforts where l
 
 -- Booking
 
-SELECT id,uuid,code,name,phone,email,email_receive as email_received,name_receive as name_received,phone_receive as phone_received, room_id,customer_id,client_id as merchant_id,checkin,checkout,price_original,discount as price_discount,booking_fee,null as coupon,note,total_fee,status,number_of_guests,service_fee,type,type_booking as booking_type,payment_method,null as source,exchange_rate,deleted_at,created_at,updated_at FROM `booking`
+SELECT booking.id, booking.uuid, booking.code,booking.name, booking.phone, ask_room_log.sex, ask_room_log.birthday, booking.email, booking.email_receive as email_received, booking.name_receive as name_received, booking.phone_receive as phone_received, booking.room_id, booking.customer_id, booking.client_id as merchant_id, booking.checkin, booking.checkout, booking.price_original, booking.discount as price_discount, booking.booking_fee,null as coupon, booking.note, booking.total_fee, booking.status, booking.number_of_guests, booking.service_fee, booking.type, ask_room_log.price_range, booking.type_booking as booking_type, booking.payment_method,  booking.payment_status, ask_room_log.contact_channel as source, booking.exchange_rate, booking.deleted_at, booking.created_at, booking.updated_at FROM `booking` left join ask_room_log on booking.created_at = ask_room_log.created_at group by booking.uuid
 
 -- Cities
 
@@ -32,3 +36,6 @@ SELECT id,region_id,name,short_name,code,longitude,latitude,priority,0 as hot,al
 -- Districts
 
 SELECT id,city_id,name,short_name,code,kind_from,kind_to,0 as hot,0 as priority,1 as status,deleted_at,created_at,updated_at FROM `districts`
+
+-- Payment Histories
+select booking_id, total_received, total_debt,note, (status - 1) as status, confirm, created_at, updated_at  from payment_histories where status <> 4

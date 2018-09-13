@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
+
+    protected $table = 'rooms';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -123,5 +126,15 @@ class Room extends Entity
     public function media()
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomMedia::class, 'room_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(\App\Repositories\Cities\City::class, 'city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(\App\Repositories\Districts\District::class, 'district_id');
     }
 }

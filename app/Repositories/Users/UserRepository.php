@@ -52,4 +52,37 @@ class UserRepository extends BaseRepository
         }
         return $user;
     }
+
+    /**
+     * Lấy dữ liệu về giới tính
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function getSexConstant()
+    {
+        return $this->model::SEX;
+    }
+
+    /**
+     * Lấy thông tin về cấp độ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function getLevelConstant()
+    {
+        return $this->model::LEVEL;
+    }
+
+    /**
+     * Lấy thông tin về loại tài khoản
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
+    public function getAccountTypeConstant()
+    {
+        return $this->model::TYPE_ACCOUNT;
+    }
 }

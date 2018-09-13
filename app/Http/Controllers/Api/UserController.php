@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
 use App\Http\Transformers\UserTransformer;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends ApiController
@@ -139,6 +140,54 @@ class UserController extends ApiController
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
+        }
+    }
+
+    /**
+     * Danh sách giới tính
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function sexList()
+    {
+        try {
+            return response()->json($this->model->getSexConstant());
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Danh sách cấp độ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function levelList()
+    {
+        try {
+            return response()->json($this->model->getLevelConstant());
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Danh sách loại tài khoản
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function accountTypeList()
+    {
+        try {
+            return response()->json($this->model->getAccountTypeConstant());
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 }

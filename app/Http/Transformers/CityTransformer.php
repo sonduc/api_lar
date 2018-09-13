@@ -35,6 +35,8 @@ class CityTransformer extends TransformerAbstract
             'hot'                   => $city->hot,
             'status'                => $city->status,
             'status_txt'            => $city->getStatus(),
+            'created_at'            => $city->created_at->format('Y-m-d H:i:s'),
+            'updated_at'            => $city->updated_at->format('Y-m-d H:i:s'),
         ];
     }
 

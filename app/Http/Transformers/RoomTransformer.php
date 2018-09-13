@@ -17,6 +17,8 @@ class RoomTransformer extends TransformerAbstract
         'prices',
         'blocks',
         'media',
+        'city',
+        'district'
     ];
 
 
@@ -170,5 +172,21 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->limitAndOrder($params, $room->media())->get();
 
         return $this->collection($data, new RoomMediaTransformer);
+    }
+
+    public function includeCity(Room $room = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+        return $this->item($room->city, new CityTransformer);
+    }
+
+    public function includeDistrict(Room $room = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+        return $this->item($room->district, new DistrictTransformer);
     }
 }

@@ -7,6 +7,7 @@ use App\Http\Transformers\UserTransformer;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use App\User;
+use Illuminate\Support\Facades\DB;
 
 class RegisterController extends ApiController
 {
@@ -61,14 +62,13 @@ class RegisterController extends ApiController
             $newClient = $this->getResource()->store($params);
 
             // Khởi tạo quyền đối với đối tác cung cấp
-            if($type_user == User::MERCHANT) {
-                $newClient->roles()->attach([app()->make(\App\Repositories\Roles\RoleRepository::class)->getBySlug('merchant')->id]);
-            }
+//            if($type_user == User::MERCHANT) {
+//                $newClient->roles()->attach([app()->make(\App\Repositories\Roles\RoleRepository::class)->getBySlug('merchant')->id]);
+//            }
 
             // Issue token
             $guzzle = new Guzzle;
             $url = env('APP_URL') . '/oauth/token';
-
             $options = [
                 'json' => [
                     'grant_type'    => 'password',
@@ -84,17 +84,21 @@ class RegisterController extends ApiController
 
             return $this->successResponse($result, false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\GuzzleHttp\Exception\ClientException $clientException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => ['Tài khoản developer chưa được xác thực.']
             ], $clientException->getCode());
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

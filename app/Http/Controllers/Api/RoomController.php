@@ -149,12 +149,14 @@ class RoomController extends ApiController
      */
     public function index(Request $request)
     {
+        DB::enableQueryLog();
         $this->authorize('room.view');
         $pageSize       = $request->get('limit', 25);
         $this->trash    = $this->trashStatus($request);
 
         $data           = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-
+//        dd($data);
+//        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 

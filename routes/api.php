@@ -28,7 +28,13 @@ $router->group([
     /**
      * User Resource
      */
+    $router->get('/users/sex-list', 'UserController@sexList');
+    $router->get('/users/level-list', 'UserController@levelList');
+    $router->get('/users/account-type-list', 'UserController@accountTypeList');
     resource('/users', 'UserController', $router);
+    /**
+     * Profile Resource
+     */
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
@@ -61,12 +67,33 @@ $router->group([
      */
     resource('/districts', 'DistrictController', $router);
 
-
     /**
      * Comfort Resource
      */
     resource('/comforts', 'ComfortController', $router);
+
+    /**
+     * Booking Resource
+     */
+    $router->get('/bookings/status-list', 'BookingController@statusList');
+    $router->get('/bookings/booking-status-list', 'BookingController@bookingStatusList');
+    $router->get('/bookings/booking-type-list', 'BookingController@bookingTypeList');
+    $router->get('/bookings/type-list', 'BookingController@typeList');
+    $router->get('/bookings/payment-method-list', 'BookingController@paymentMethodList');
+    $router->get('/bookings/payment-status-list', 'BookingController@paymentStatusList');
+    $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
+    $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
+    $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
+
+    resource('/bookings', 'BookingController', $router);
+    /**
+     * Payment History
+     */
+    $router->get('/payments/payment-history-status', 'PaymentHistoryController@paymentHistoryStatus');
+    resource('/payments', 'PaymentHistoryController', $router);
 });
+
+
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
 // Social login

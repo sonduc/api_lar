@@ -39,21 +39,36 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     const DISABLE   = 0;
 
     // Định nghĩa loại tài khoản
-    const ADMIN     = 0;
+    const ADMIN     = 2;
     const MERCHANT  = 1;
-    const USER      = 2;
+    const USER      = 0;
 
     // Định nghĩa giới tính
     const MALE      = 1;
     const FEMALE    = 2;
     const OTHER     = 3;
-    const NONE      = -1;
+    const NONE      = 0;
+    const SEX       = [
+        self::MALE      => 'Nam',
+        self::FEMALE    => 'Nữ',
+        self::OTHER     => 'Khác',
+        self::NONE      => 'Không xác định',
+    ];
     // Định nghĩa cấp độ
     const BROZE     = 0;
     const SILVER    = 1;
     const GOLD      = 2;
     const PLATINUM  = 3;
     const DIAMOND   = 4;
+
+    const LEVEL     = [
+        self::BROZE     => 'Đồng',
+        self::SILVER    => 'Bạc',
+        self::GOLD      => 'Vàng',
+        self::PLATINUM  => 'Bạch Kim',
+        self::DIAMOND   => 'Kim Cương',
+    ];
+
     // Định nghĩa VIP
     const VIP_ACTIVE    = 1;
     const VIP_DEACTIVE  = 0;

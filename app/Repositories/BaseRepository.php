@@ -51,7 +51,6 @@ abstract class BaseRepository implements EntityInterface
                 }
             }
         }
-//        dd($lModel->toSql());
 
         switch ($trash) {
             case self::WITH_TRASH:
