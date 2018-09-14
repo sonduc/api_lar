@@ -15,6 +15,7 @@ class UserTransformer extends TransformerAbstract
         'parent',
         'child',
         'pers',
+        'sale'
     ];
 
     /**
@@ -95,6 +96,14 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->item($user->parent, new UserTransformer);
+    }
+
+    public function includeSale(User $user = null)
+    {
+        if (is_null($user->sale)) {
+            return $this->null();
+        }
+        return $this->item($user->sale, new UserTransformer);
     }
 
     /**

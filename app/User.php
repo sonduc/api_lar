@@ -114,6 +114,11 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         return $this->hasMany(\App\User::class, 'parent_id', 'id');
     }
 
+    public function sale()
+    {
+        return $this->belongsTo(\App\User::class, 'sale_id');
+    }
+
     public function validateForPassportPasswordGrant($password)
     {
         if ($password == $this->password || app('hash')->check($password, $this->password)) {
