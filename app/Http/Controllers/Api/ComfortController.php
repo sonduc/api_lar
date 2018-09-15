@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortTranslateRepository;
 use Illuminate\Support\Facades\DB;
-
+use  App\Services\Email\SendEmail;
 class ComfortController extends ApiController
 {
     protected $validationRules = [
@@ -79,6 +79,10 @@ class ComfortController extends ApiController
 //            dd(DB::getQueryLog());
             DB::commit();
             logs('comfort', 'tạo comfort mã '.$data->id, $data);
+
+            $serviceEmail = new SendEmail();
+            $serviceEmail->handleEmailType($request->all());
+
 
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {

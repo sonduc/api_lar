@@ -11,7 +11,7 @@ trait FilterTrait
         if ($q) {
             $roomColumns        = $this->columnsConverter(['id', 'created_at', 'updated_at']);
             $roomTransColumns   = $this->columnsConverter(['name'], 'room_translates', false);
-            $columns            = array_merge($roomColumns, $roomTransColumns);
+            $columns            = self::mergeUnique($roomColumns, $roomTransColumns);
 
             $query
                 ->addSelect($columns)
@@ -105,19 +105,5 @@ trait FilterTrait
 
        return $query->where('rooms.is_manager', $this::MANAGER_ACTIVE);
     }
-
-    public function scopeDateStart($query, $q)
-    {
-        if (true) {
-            $query
-                ->leftJoin('bookings', 'bookings.room_id', '=', 'rooms.id');
-        }
-
-        if ($q) {
-
-        }
-        dd($query->getQuery());
-    }
-
 
 }

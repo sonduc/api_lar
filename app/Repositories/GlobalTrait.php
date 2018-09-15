@@ -21,7 +21,8 @@ trait GlobalTrait
 
         $base = $fillable ? $this->getFillable() : [];
 
-        $base = array_merge($base, $columns);
+        $base = self::mergeUnique($base, $columns);
+
         foreach ($base as $key => $val)
         {
             $base[$key] = $table.'.'.$val;
@@ -29,4 +30,18 @@ trait GlobalTrait
         return array_unique($base);
     }
 
+    public static function isJoined($query, $table = null)
+    {
+        $joins = collect($query->getQuery()->joins);
+        return $joins->pluck('table')->contains($table);
+    }
+
+    public static function mergeUnique(...$array)
+    {
+        $result = [];
+        foreach ($array as $t) {
+            $result = array_merge($result, $t);
+        }
+        return array_unique($result);
+    }
 }
