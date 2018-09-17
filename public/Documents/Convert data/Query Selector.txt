@@ -13,6 +13,10 @@ status,sale_id,deleted_at,created_at,updated_at FROM `rooms`
 
 SELECT (CASE WHEN room_translates.locale = 1 THEN 'vi' ELSE 'en' END) as lang , room_id,name,(SELECT rooms.address from rooms where rooms.id = room_translates.room_id) as address, note, space, description, deleted_at, created_at, updated_at FROM `room_translates` GROUP by room_id,locale
 
+-- Room_Medias
+
+SELECT id, room_id, source AS image, 1 AS status, 3 AS type, NULL AS deleted_at, created_at, updated_at FROM media_room
+
 -- Comforts (Only Vietnamese)
 
 select id, `created_at`, `updated_at` from comforts where locale = 'vi'
