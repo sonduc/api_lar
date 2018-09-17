@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "de6929cc8c14602929e9430b4030ef48",
+    "content-hash": "30f6912aa462eaced8e3630b776ef4fd",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -932,45 +932,6 @@
             "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
             "homepage": "https://github.com/firebase/php-jwt",
             "time": "2017-06-27T22:17:23+00:00"
-        },
-        {
-            "name": "flipbox/lumen-generator",
-            "version": "5.6.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flipboxstudio/lumen-generator.git",
-                "reference": "3ec72b1e3ce32455ac18562827c246a2298cd449"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flipboxstudio/lumen-generator/zipball/3ec72b1e3ce32455ac18562827c246a2298cd449",
-                "reference": "3ec72b1e3ce32455ac18562827c246a2298cd449",
-                "shasum": ""
-            },
-            "require": {
-                "classpreloader/classpreloader": "^3.0",
-                "illuminate/support": "^5.4",
-                "psy/psysh": "0.8.*|0.9.*",
-                "symfony/var-dumper": "^3.1|~4.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Flipbox\\LumenGenerator\\": "src/LumenGenerator/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Krisan Alfa Timur",
-                    "email": "krisan47@gmail.com"
-                }
-            ],
-            "description": "A Lumen Generator You Are Missing",
-            "time": "2018-07-04T10:41:30+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",

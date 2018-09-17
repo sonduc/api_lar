@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ExampleEvent;
 use App\Http\Transformers\ComfortTranslateTransformer;
 use App\Repositories\Comforts\ComfortRepository;
 use App\Repositories\Comforts\ComfortTranslate;
@@ -44,6 +45,7 @@ class ComfortController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        event(new ExampleEvent);
         return $this->successResponse($data);
     }
 
@@ -80,8 +82,8 @@ class ComfortController extends ApiController
             DB::commit();
             logs('comfort', 'tạo comfort mã '.$data->id, $data);
 
-            $serviceEmail = new SendEmail();
-            $serviceEmail->handleEmailType($request->all());
+//            $serviceEmail = new SendEmail();
+//            $serviceEmail->handleEmailType($request->all());
 
 
             return $this->successResponse($data, true, 'details');

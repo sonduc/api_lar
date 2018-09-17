@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-09-13T04:22:27.182Z",
+	"__export_date": "2018-09-15T04:50:45.737Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -229,14 +229,14 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjY3Y2VmZjA3ZjQ3NWYyZGUyN2FhZjRjZjNkMTk0ZTkwMDhlYmZkNzM1MTgyNWUxODQ2YjA3YzA5ZGQzZDQ1OTQwOTU2ZDQxMjc4OWUwNDllIn0.eyJhdWQiOiIyIiwianRpIjoiNjdjZWZmMDdmNDc1ZjJkZTI3YWFmNGNmM2QxOTRlOTAwOGViZmQ3MzUxODI1ZTE4NDZiMDdjMDlkZDNkNDU5NDA5NTZkNDEyNzg5ZTA0OWUiLCJpYXQiOjE1MzY4MDU4NDQsIm5iZiI6MTUzNjgwNTg0NCwiZXhwIjoxNTY4MzQxODQzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.k5bBw4zCwVhpx8mpUHL8lgli3xttHjXL75vzoK8XEJFiHEvukwgWeXP9vydGlLp0SFmt2AJZ4LsJUVqqyKc8sWlEf_3j-tV7xzrB-xclBslBVfFA4d588NslVao2haKRBzkCT5BjtDB8SIydlLTnhd-0vmhqStHeJA7XSYQzIeCZAYCovcics1bTub2xu4I9RHGkQpRFoC_fHgZnwLXJJbuXoQ3sHq7RHHyNwBRCailPpK3l-hEfF_foiY1IfPboNi6cCSuOZUZ8xO7rLmItMMIRkfiwHRoMz9A0brqm-9XSxQyWm9VASHA73Wkja4znbvWWln9ARGIDeWgn3ev3ho23Ms6MkcJy9Fq-JY1wui13L4Dp125AyytBQXvl67XrSp5iJgkrL91NYTY-QsQfUpkBnhSwkNkV-7CjT-jqp4KUtvF67MgSQbO6K6T72wJlS6paT5EhBEFv4Wt8dFY7sGaCAPqAVlPhwUNhbsF20a5zkvuREqZEp5Ci1ML_DcGzBq6Y0rw-JQ5NUp20wJrpxR57xZFwUChqIW_BG2fr783NWhILMxVWGRHz00sT-9okr01INZhVTaJYoGOsHX3qz01coOb2FT5TMqR06e4YE0gVq0OoqrNeclHQnX9h0aTJFBTNNmwzggHQ0-yXGMX9_aKcA84W0JR4rMUB4nxyjcY"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc2ZDFjNDQ1ZmM5ZDVlMGFlNGU3YjJlNGZmY2VlNjdkZTJkMmJjYjY1YWY0YWExNDBhMjNhMGMwZGFmYmM4MWMyNzM2MzA5NmYxMDQ4MmJlIn0.eyJhdWQiOiIyIiwianRpIjoiNzZkMWM0NDVmYzlkNWUwYWU0ZTdiMmU0ZmZjZWU2N2RlMmQyYmNiNjVhZjRhYTE0MGEyM2EwYzBkYWZiYzgxYzI3MzYzMDk2ZjEwNDgyYmUiLCJpYXQiOjE1MzY5ODMxMTUsIm5iZiI6MTUzNjk4MzExNSwiZXhwIjoxNTY4NTE5MTE0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.fF4BHgSsORsnq4HLlVT9yews9TnyNGh9dOf-3vyCBf1z4OvpdSZB8_Vsy2pj4ISt3qIEXw8IzLO_z_6diYlgOLl87KG_6fKRC6DHZCjrQPeGtAi7jhRXmrSvkOySaj4eXSrnlAy3L4LxDg_6oSwYBez5ojItXIrutgChL2P2yz0R65Ai2_SuELZNvkB6Rt-ODwMswKDuEBaXzYQ0G7GwoDiCk2Cxk6R2bWjFubH-RbhOMstayA55flAwiOQ24eLqRNPZjNOJVLZXUyGdsG1tvCQQgQF_ZcHw-ephkcCpoB-d9xUqif2JFgvmGpV0mjBjp2hYu-0nnde4Osh-6HcZLMPrV-fh4g1o4mXOUhaO0eZq7xhk-zcPmmV8_0-0fSRTAHi2l8Sp2BwPheTEXw13KQQvAcmAGWxy5sCOyqsg5UDwtKrMpVMJveTY5b8aka6KcPfIHjbG3vGHFUx_VbrQzcuFoOuBqRC9N3N7sAvLFqEQsi0zARCunz21G_o_S22jnjBJQvDGxCOyBeswhafW49zjIbP3bh0xvcmxre6ROFui9Gnj5gWPX6bO0QtiEDQs3AP_vBGmVh6Fdq78LDmbm3R0K0iwBat5wexZdw8YAJRokZGEhtbCSuEwgq9YKSpxsS4r0RYHkGhwEVSFa6tIV2r6v17zNAJ1u6itO1kv6S8"
 				},
 				"url": "http://localhost:82/ws_api/public/",
 				"username": "admin@westay.org"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1536805859178,
+			"modified": 1536987034758,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -558,7 +558,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536811218925,
+			"modified": 1536918941681,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -568,7 +568,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users?include=child",
+			"url": "{{ api_url  }}users?include=sale",
 			"_type": "request"
 		},
 		{
@@ -587,7 +587,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1536553926217,
+			"modified": 1536906552600,
 			"name": "show",
 			"parameters": [
 				{
@@ -604,7 +604,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users/1?include=pers",
+			"url": "{{ api_url  }}users/2590?include=sale",
 			"_type": "request"
 		},
 		{
@@ -631,7 +631,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1536553929093,
+			"modified": 1536919107078,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -763,7 +763,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384181.25,
 			"method": "GET",
-			"modified": 1536637797848,
+			"modified": 1536906310118,
 			"name": "account-type-list",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -982,7 +982,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1536805859531,
+			"modified": 1536983124455,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1048,7 +1048,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536811180086,
+			"modified": 1536914146168,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1058,7 +1058,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=bookings",
+			"url": "{{ api_url  }}rooms",
 			"_type": "request"
 		},
 		{
@@ -1121,7 +1121,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1536112605080,
+			"modified": 1536906036750,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1740,7 +1740,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536722250408,
+			"modified": 1536987035120,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1794,7 +1794,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n    \"details\": [\n      {\n        \"description\": \"tertert</p>\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ1\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd1\"\n      }\n    ]\n}"
+				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": [\n      {\n        \"description\": \"tertert</p>\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ1\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd1\"\n      }\n    ]\n}"
 			},
 			"created": 1535335033794,
 			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
@@ -1813,7 +1813,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1536722252000,
+			"modified": 1536983135797,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1850,7 +1850,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1536552718168,
+			"modified": 1536976415496,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1942,7 +1942,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1536722547670,
+			"modified": 1536980544524,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_96df68de3c1b42979e8b496c4988436c",
@@ -2018,7 +2018,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1536812363935,
+			"modified": 1536904989407,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
