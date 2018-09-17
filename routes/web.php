@@ -10,7 +10,10 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
+use Illuminate\Support\Facades\Mail;
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+
+

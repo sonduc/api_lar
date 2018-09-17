@@ -170,13 +170,14 @@ class BookingController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('booking.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+           $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            dd(DB::getQueryLog());
-            DB::commit();
-            logs('booking', 'tạo booking có code '.$data->code, $data);
-            return $this->successResponse($data);
+           // dd(DB::getQueryLog());
+           DB::commit();
+           logs('booking', 'tạo booking có code '.$data->code, $data);
+           //dd($data);
+           return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
