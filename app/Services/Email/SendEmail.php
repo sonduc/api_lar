@@ -6,6 +6,7 @@ use App\Jobs\JobEmail;
 use App\Jobs\Traits\DispatchesJobs;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use App\Events\BookingEvent;
 
 class SendEmail
 {
@@ -17,14 +18,14 @@ class SendEmail
      * @return bool
      * @throws \Exception
      */
-    public static function send($email, $template = 'email.blank')
+    public static function send($data, $template = 'email.blank')
     {
         try {
             $i = 0;
             do {
-                Mail::send($template, array('token' => 'test phat cho vui'), function ($message) use ($email) {
+                Mail::send($template, array('data' => $data), function ($message) use ($data) {
                     $message->from('ducchien0612@gmail.com');
-                    $message->to($email, 'Visitor')->subject('Khôi phục mật khẩu!');
+                    $message->to($data['email'], 'Visitor')->subject('Khôi phục mật khẩu!');
                 });
                 $i++;
             } while ($i < 1);
@@ -36,11 +37,11 @@ class SendEmail
 //        return true;
     }
 
-    public function handleEmailType($email)
+    public function handle(BookingEvent $event)
     {
-        $job = (new JobEmail($email['email']))
-//                ->onQueue('emails')
-                ->delay(5);
-        dispatch($job);
+       $job = (new JobEmail($event->data))
+              ->onQueue('email')
+               ->delay(5);
+       dispatch($job);
     }
 }

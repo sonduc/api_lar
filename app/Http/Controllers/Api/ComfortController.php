@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\BookingEvent;
 use App\Events\ExampleEvent;
 use App\Http\Transformers\ComfortTranslateTransformer;
 use App\Repositories\Comforts\ComfortRepository;
@@ -82,8 +83,10 @@ class ComfortController extends ApiController
             DB::commit();
             logs('comfort', 'tạo comfort mã '.$data->id, $data);
 
-//            $serviceEmail = new SendEmail();
-//            $serviceEmail->handleEmailType($request->all());
+            //$serviceEmail = new SendEmail();
+          // $serviceEmail->handleEmailType($request->all());
+            event(new BookingEvent($request->all()));
+
 
 
             return $this->successResponse($data, true, 'details');

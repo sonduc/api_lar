@@ -1,1 +1,2 @@
-<?php echo 'test gui mail'; ?>
+<?php echo $data['email']; ?>
+

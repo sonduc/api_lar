@@ -12,10 +12,11 @@ class JobEmail extends Job
     /**
      * @param Email $email
      */
-    protected $email;
-    public function __construct($email)
+    protected $data;
+    public function __construct($data)
     {
-        $this->email = $email;
+//        dd($data);
+        $this->data = $data;
     }
 
     /**
@@ -23,6 +24,8 @@ class JobEmail extends Job
      */
     public function handle()
     {
-       SendEmail::send($this->email);
+
+//        dd($this->data);
+       SendEmail::send($this->data);
     }
 }

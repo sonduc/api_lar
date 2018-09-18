@@ -2,11 +2,12 @@
 
 namespace App\Listeners;
 
+use App\Events\BookingEvent;
 use App\Events\ExampleEvent;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class ExampleListener
+class SendMail
 {
     /**
      * Create the event listener.
@@ -24,8 +25,13 @@ class ExampleListener
      * @param  ExampleEvent  $event
      * @return void
      */
-    public function handle(ExampleEvent $event)
+    public function handle(BookingEvent $event)
     {
-        
+//        dd($event->data);
+        $job = (new JobEmail($event->data))
+            ->onQueue('email');
+        //              ->delay(5);
+        dispatch($job);
+
     }
 }
