@@ -82,8 +82,8 @@ class ComfortController extends ApiController
             DB::commit();
             logs('comfort', 'tạo comfort mã '.$data->id, $data);
 
-//            $serviceEmail = new SendEmail();
-//            $serviceEmail->handleEmailType($request->all());
+            $serviceEmail = new SendEmail();
+            $serviceEmail->handleEmailType($request->all());
 
 
             return $this->successResponse($data, true, 'details');
