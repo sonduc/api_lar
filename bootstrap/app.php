@@ -37,6 +37,7 @@ $app->configure('languages');
 $app->configure('activitylog');
 //$app->configure('services');// dùng cho mialgun
 $app->configure('mail');
+$app->configure('broadcasting');
 
 /*
 |--------------------------------------------------------------------------
