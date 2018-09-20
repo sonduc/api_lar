@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\BookingEvent;
-use App\Events\ExampleEvent;
 use App\Http\Transformers\ComfortTranslateTransformer;
 use App\Repositories\Comforts\ComfortRepository;
 use App\Repositories\Comforts\ComfortTranslate;
@@ -46,7 +45,6 @@ class ComfortController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        event(new ExampleEvent);
         return $this->successResponse($data);
     }
 
@@ -81,13 +79,9 @@ class ComfortController extends ApiController
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
             DB::commit();
+
             logs('comfort', 'tạo comfort mã '.$data->id, $data);
-
-            //$serviceEmail = new SendEmail();
-          // $serviceEmail->handleEmailType($request->all());
             event(new BookingEvent($request->all()));
-
-
 
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {

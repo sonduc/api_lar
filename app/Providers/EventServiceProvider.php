@@ -13,7 +13,7 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
        \App\Events\BookingEvent::class => [
-            \App\Services\Email\SendEmail::class,
+            \App\Listeners\SendMailListener::class,
         ],
 
     ];
