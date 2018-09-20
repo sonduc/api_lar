@@ -5,17 +5,17 @@ namespace App\Jobs;
 use App\Services\Email\SendEmail;
 use Illuminate\Support\Facades\Mail;
 
-class JobEmail extends Job
+class SendMail extends Job
 {
 
 
     /**
      * @param Email $email
      */
-    protected $email;
-    public function __construct($email)
+    protected $data;
+    public function __construct($data)
     {
-        $this->email = $email;
+        $this->data = $data;
     }
 
     /**
@@ -23,6 +23,6 @@ class JobEmail extends Job
      */
     public function handle()
     {
-       SendEmail::send($this->email);
+       SendEmail::send($this->data);
     }
 }

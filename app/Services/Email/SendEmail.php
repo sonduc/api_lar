@@ -2,10 +2,11 @@
 
 namespace App\Services\Email;
 
-use App\Jobs\JobEmail;
+use App\Jobs\SendMail;
 use App\Jobs\Traits\DispatchesJobs;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
+use App\Events\BookingEvent;
 
 class SendEmail
 {
@@ -17,30 +18,18 @@ class SendEmail
      * @return bool
      * @throws \Exception
      */
-    public static function send($email, $template = 'email.blank')
+    public static function send($data, $template = 'email.blank')
     {
+        $info = [
+            'data' => $data
+        ];
         try {
-            $i = 0;
-            do {
-                Mail::send($template, array('token' => 'test phat cho vui'), function ($message) use ($email) {
-                    $message->from('ducchien0612@gmail.com');
-                    $message->to($email, 'Visitor')->subject('Khôi phục mật khẩu!');
-                });
-                $i++;
-            } while ($i < 1);
-
+            Mail::send($template, $info, function ($message) use ($data) {
+                $message->from('support@westay.org');
+                $message->to($data['email'])->subject('Khôi phục mật khẩu!');
+            });
         } catch (\Exception $e) {
             throw $e;
         }
-
-//        return true;
-    }
-
-    public function handleEmailType($email)
-    {
-        $job = (new JobEmail($email['email']))
-//                ->onQueue('emails')
-                ->delay(5);
-        dispatch($job);
     }
 }
