@@ -11,19 +11,22 @@ use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortTranslateRepository;
 use Illuminate\Support\Facades\DB;
 use  App\Services\Email\SendEmail;
+
 class ComfortController extends ApiController
 {
-    protected $validationRules = [
-        'details.*.name'                  => 'required',
-
-    ];
-    protected $validationMessages = [
-        'details.*.name.required'          => 'Tên không được để trông',
-        'details.*.name.unique'            => 'Tiện ích này đã tồn tại',
-    ];
+    protected $validationRules
+        = [
+            'details.*.name' => 'required',
+        ];
+    protected $validationMessages
+        = [
+            'details.*.name.required' => 'Tên không được để trông',
+            'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
+        ];
 
     /**
      * ComfortController constructor.
+     *
      * @param ComfortRepository $comfort
      */
     public function __construct(ComfortRepository $comfort)
@@ -42,9 +45,9 @@ class ComfortController extends ApiController
     public function index(Request $request)
     {
         $this->authorize('comfort.view');
-        $pageSize = $request->get('limit', 25);
+        $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data);
     }
 
@@ -57,8 +60,8 @@ class ComfortController extends ApiController
     {
         try {
             $this->authorize('comfort.view');
-            $trashed    = $request->has('trashed') ? true : false;
-            $data       = $this->model->getById($id, $trashed);
+            $trashed = $request->has('trashed') ? true : false;
+            $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -80,15 +83,15 @@ class ComfortController extends ApiController
 //            dd(DB::getQueryLog());
             DB::commit();
 
-            logs('comfort', 'tạo comfort mã '.$data->id, $data);
+            logs('comfort', 'tạo comfort mã ' . $data->id, $data);
             event(new BookingEvent($request->all()));
 
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
-                'errors'        => $validationException->validator->errors(),
-                'exception'     => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -108,15 +111,15 @@ class ComfortController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
             DB::commit();
-            logs('comfort', 'sửa comfort mã '.$data->id, $data);
+            logs('comfort', 'sửa comfort mã ' . $data->id, $data);
 
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
-                'errors'        => $validationException->validator->errors(),
-                'exception'     => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -139,7 +142,7 @@ class ComfortController extends ApiController
             $this->model->deleteRoom($id);
 //            dd(DB::getQueryLog());
             DB::commit();
-            logs('comfort', 'xóa tiện ích mã '.$id);
+            logs('comfort', 'xóa tiện ích mã ' . $id);
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {

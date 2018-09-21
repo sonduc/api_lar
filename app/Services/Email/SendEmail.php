@@ -13,15 +13,16 @@ class SendEmail
     use DispatchesJobs;
 
     /**
-     * @param Email $email
+     * @param Email  $email
      * @param string $template
+     *
      * @return bool
      * @throws \Exception
      */
     public static function send($data, $template = 'email.blank')
     {
         $info = [
-            'data' => $data
+            'data' => $data,
         ];
         try {
             Mail::send($template, $info, function ($message) use ($data) {

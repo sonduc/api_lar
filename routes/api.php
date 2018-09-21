@@ -11,7 +11,7 @@
 |
 */
 $router->group([
-    'middleware' => 'auth'
+    'middleware' => 'auth',
 ], function ($router) {
     /**
      * Get config
@@ -104,15 +104,16 @@ $router->get('login/{social}', 'SocialAuthController@social');
  * resource router helper
  * @author SaturnLai <daolvcntt@gmail.com>
  * @date   2018-07-17
- * @param  string     $uri        enpoint url
- * @param  string     $controller controller name
- * @param  Laravel\Lumen\Routing\Router     $router     RouterObject
+ *
+ * @param  string                       $uri        enpoint url
+ * @param  string                       $controller controller name
+ * @param  Laravel\Lumen\Routing\Router $router     RouterObject
  */
 function resource($uri, $controller, Laravel\Lumen\Routing\Router $router)
 {
-    $router->get($uri, $controller.'@index');
-    $router->get($uri.'/{id}', $controller.'@show');
-    $router->post($uri, $controller.'@store');
-    $router->put($uri.'/{id}', $controller.'@update');
-    $router->delete($uri.'/{id}', $controller.'@destroy');
+    $router->get($uri, $controller . '@index');
+    $router->get($uri . '/{id}', $controller . '@show');
+    $router->post($uri, $controller . '@store');
+    $router->put($uri . '/{id}', $controller . '@update');
+    $router->delete($uri . '/{id}', $controller . '@destroy');
 }
