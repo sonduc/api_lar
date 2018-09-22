@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Users;
 
 trait FilterTrait
@@ -10,15 +11,15 @@ trait FilterTrait
         }
         return $query;
     }
-
+    
     public function scopeType($query, $q)
     {
         if (is_numeric($q)) {
             $query->where('users.type', $q);
         }
-
+        
         return $query;
     }
-
-
+    
+    
 }

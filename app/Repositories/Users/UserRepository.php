@@ -2,9 +2,8 @@
 
 namespace App\Repositories\Users;
 
-use App\User;
-
 use App\Repositories\BaseRepository;
+use App\User;
 
 class UserRepository extends BaseRepository
 {
@@ -14,37 +13,39 @@ class UserRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-
+    
     /**
      * UserRepository constructor.
+     *
      * @param User $user
      */
     public function __construct(User $user)
     {
         $this->model = $user;
     }
-
+    
     /**
      * Lưu thông tin 1 bản ghi mới
      * @author SaturnLai <daolvcntt@gmail.com>
      *
      * @param  array $data
+     *
      * @return Eloquent
      */
     public function store($data)
     {
-        $user = parent::store($data);
+        $user  = parent::store($data);
         $roles = array_get($data, 'roles', []);
         if (count($roles)) {
             $user->roles()->attach($roles);
         }
         return $user;
     }
-
+    
     public function update($id, $data, $except = [], $only = [])
     {
         $user = parent::update($id, $data);
-
+        
         $roles = array_get($data, 'roles', []);
         if (count($roles) + 1) {
             $user->roles()->detach();
@@ -52,7 +53,7 @@ class UserRepository extends BaseRepository
         }
         return $user;
     }
-
+    
     /**
      * Lấy dữ liệu về giới tính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -63,7 +64,7 @@ class UserRepository extends BaseRepository
     {
         return $this->model::SEX;
     }
-
+    
     /**
      * Lấy thông tin về cấp độ
      * @author HarikiRito <nxh0809@gmail.com>
@@ -74,7 +75,7 @@ class UserRepository extends BaseRepository
     {
         return $this->model::LEVEL;
     }
-
+    
     /**
      * Lấy thông tin về loại tài khoản
      * @author HarikiRito <nxh0809@gmail.com>

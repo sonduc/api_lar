@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-
 use App\Http\Transformers\LogTransformer;
 use App\Repositories\Logs\LogRepository;
+use Illuminate\Http\Request;
 
 class LogController extends ApiController
 {
-    protected $validationRules = [
-
-    ];
-    protected $validationMessages = [
-
-    ];
-
+    protected $validationRules
+        = [
+        
+        ];
+    protected $validationMessages
+        = [
+        
+        ];
+    
     /**
      * LogController constructor.
+     *
      * @param LogRepository $log
      */
     public function __construct(LogRepository $log)
@@ -25,7 +27,7 @@ class LogController extends ApiController
         $this->model = $log;
         $this->setTransformer(new LogTransformer);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -35,11 +37,11 @@ class LogController extends ApiController
     {
         $this->authorize('log.view');
         $pageSize = $request->get('limit', 25);
-
+        
         $data = $this->model->getLog($request->all(), $pageSize);
         return $this->successResponse($data);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -50,7 +52,7 @@ class LogController extends ApiController
         try {
             $this->authorize('log.view');
             $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -60,5 +62,5 @@ class LogController extends ApiController
             throw $t;
         }
     }
-
+    
 }

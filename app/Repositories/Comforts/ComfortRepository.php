@@ -11,51 +11,54 @@ class ComfortRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    protected  $comfortTranslate;
-
-
+    protected $comfortTranslate;
+    
+    
     /**
      * ComfortRepository constructor.
-     * @param Comfort $comfort
+     *
+     * @param Comfort                    $comfort
      * @param ComfortTranslateRepository $comfortTranslate
      */
     public function __construct(Comfort $comfort, ComfortTranslateRepository $comfortTranslate)
     {
-        $this->model = $comfort;
+        $this->model            = $comfort;
         $this->comfortTranslate = $comfortTranslate;
     }
-
+    
     /**
      * Thêm mới  bản ghi vào comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param array $data
+     *
      * @return \App\Repositories\Eloquent
      */
     public function store($data)
     {
         $data_comfort = parent::store($data);
-        $this->comfortTranslate->storeComfortTranslate($data_comfort,$data);
+        $this->comfortTranslate->storeComfortTranslate($data_comfort, $data);
         return $data_comfort;
     }
-
+    
     /**
      * câp nhật thông tin bản ghi vào comforts và  comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param int $id
-     * @param $data
+     * @param int   $id
+     * @param       $data
      * @param array $except
      * @param array $only
+     *
      * @return bool
      */
     public function update($id, $data, $except = [], $only = [])
     {
-        $data_comfort    = parent::update($id, $data);
-        $this->comfortTranslate->updateComfortTranslate($data_comfort,$data);
+        $data_comfort = parent::update($id, $data);
+        $this->comfortTranslate->updateComfortTranslate($data_comfort, $data);
         return $data_comfort;
     }
-
+    
     /**
      * Xóa bản ghi ở bảng comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -70,5 +73,5 @@ class ComfortRepository extends BaseRepository
         }
         parent::delete($id);
     }
-
+    
 }

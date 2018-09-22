@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Repositories\Logs;
 
 trait PresentationTrait
 {
     /**
      * Check specific role has access a resource
-     * @param  array   $permissions
+     *
+     * @param  array $permissions
+     *
      * @return boolean
      */
-    public function hasAccess(array $permissions) : bool
+    public function hasAccess(array $permissions): bool
     {
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
@@ -17,17 +20,7 @@ trait PresentationTrait
         }
         return false;
     }
-
-    /**
-     * Check a specific permission that belongs to this role
-     * @param  string  $permission
-     * @return boolean
-     */
-    private function hasPermission(string $permission) : bool
-    {
-        return $this->permissions[$permission] ?? false;
-    }
-
+    
     /**
      * Lấy thuộc tính của log
      * @author HarikiRito <nxh0809@gmail.com>
@@ -38,7 +31,7 @@ trait PresentationTrait
     {
         return $this->properties ? json_decode($this->properties) : null;
     }
-
+    
     /**
      * Lấy tên log tiêng việt
      * @author HarikiRito <nxh0809@gmail.com>
@@ -48,5 +41,17 @@ trait PresentationTrait
     public function logVi()
     {
         return array_key_exists($this->log_name, self::LOG_NAME) ? self::LOG_NAME[$this->log_name] : 'Không xác định';
+    }
+    
+    /**
+     * Check a specific permission that belongs to this role
+     *
+     * @param  string $permission
+     *
+     * @return boolean
+     */
+    private function hasPermission(string $permission): bool
+    {
+        return $this->permissions[$permission] ?? false;
     }
 }

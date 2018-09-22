@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateTotalViewsTable extends Migration
 {
@@ -16,11 +16,11 @@ class CreateTotalViewsTable extends Migration
         Schema::create('total_views', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
-            $table->string('ip',100)->nullable();
+            $table->string('ip', 100)->nullable();
             $table->timestamps();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

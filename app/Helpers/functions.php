@@ -5,9 +5,11 @@
  * @author HarikiRito <nxh0809@gmail.com>
  *
  * @param $str
+ *
  * @return null|string|string[]
  */
-function to_slug($str) {
+function to_slug($str)
+{
     $str = trim(mb_strtolower($str));
     $str = preg_replace('/(à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ)/', 'a', $str);
     $str = preg_replace('/(è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ)/', 'e', $str);
@@ -26,8 +28,8 @@ function to_slug($str) {
  * @author HarikiRito <nxh0809@gmail.com>
  *
  * @param string $name
- * @param null $log
- * @param array $data
+ * @param null   $log
+ * @param array  $data
  */
 if (!function_exists('logs')) {
     function logs($name = 'default', $log = null, $data = [])
@@ -36,20 +38,20 @@ if (!function_exists('logs')) {
             $data = $data->toArray();
         }
         $user = \Auth::user() ? \Auth::user()->name : null;
-        activity($name)->withProperties($data)->log($user." {$log}");
+        activity($name)->withProperties($data)->log($user . " {$log}");
     }
 }
 
 if (!function_exists('rename_image')) {
     function rename_image($name = null)
     {
-        $arr        = explode('.', $name);
-        $extension  = $arr[count($arr) - 1];
-
-        $imgName    = implode('_', array_slice($arr,0, count($arr) - 1));
-
-        $imgName    = date('Y_m_d').'_'.time().'_'.substr(md5(hash('sha1', $imgName)), 25);
-
-        return $imgName.'.'.$extension;
+        $arr       = explode('.', $name);
+        $extension = $arr[count($arr) - 1];
+        
+        $imgName = implode('_', array_slice($arr, 0, count($arr) - 1));
+        
+        $imgName = date('Y_m_d') . '_' . time() . '_' . substr(md5(hash('sha1', $imgName)), 25);
+        
+        return $imgName . '.' . $extension;
     }
 }

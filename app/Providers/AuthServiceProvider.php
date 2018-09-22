@@ -2,11 +2,9 @@
 
 namespace App\Providers;
 
-use App\User;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\ServiceProvider;
 use Dusterio\LumenPassport\LumenPassport;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -15,17 +13,76 @@ class AuthServiceProvider extends ServiceProvider
      *
      * @var array
      */
-    protected $policies = [
-        \App\User::class                                => \App\Policies\UserPolicy::class,
-        \App\Repositories\Roles\Role::class             => \App\Policies\RolePolicy::class,
-        \App\Repositories\Rooms\Room::class             => \App\Policies\RoomPolicy::class,
-        \App\Repositories\Cities\City::class            => \App\Policies\CityPolicy::class,
-        \App\Repositories\Districts\District::class     => \App\Policies\DistrictPolicy::class,
-        \App\Repositories\Comforts\Comforts::class      => \App\Policies\ComfortPolicy::class,
-        \App\Repositories\Logs\Log::class               => \App\Policies\LogPolicy::class,
-        \App\Repositories\Bookings\Booking::class       => \App\Policies\BookingPolicy::class,
-    ];
-
+    protected $policies
+        = [
+            \App\User::class                            => \App\Policies\UserPolicy::class,
+            \App\Repositories\Roles\Role::class         => \App\Policies\RolePolicy::class,
+            \App\Repositories\Rooms\Room::class         => \App\Policies\RoomPolicy::class,
+            \App\Repositories\Cities\City::class        => \App\Policies\CityPolicy::class,
+            \App\Repositories\Districts\District::class => \App\Policies\DistrictPolicy::class,
+            \App\Repositories\Comforts\Comforts::class  => \App\Policies\ComfortPolicy::class,
+            \App\Repositories\Logs\Log::class           => \App\Policies\LogPolicy::class,
+            \App\Repositories\Bookings\Booking::class   => \App\Policies\BookingPolicy::class,
+        ];
+    
+    /**
+     * Get the policies defined on the provider.
+     *
+     * @return array
+     */
+    public function policies()
+    {
+        return $this->policies;
+    }
+    
+    /**
+     * Boot the authentication services for the application.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        // Here you may define how you wish users to be authenticated for your Lumen
+        // application. The callback which receives the incoming request instance
+        // should return either a User instance or null. You're free to obtain
+        // the User instance via an API token or any other method necessary.
+        
+        // $this->app['auth']->viaRequest('api', function ($request) {
+        //     if ($request->input('api_token')) {
+        //         return User::where('api_token', $request->input('api_token'))->first();
+        //     }
+        // });
+        //
+        //
+        //
+        
+        $this->register();
+        $this->registerPassport();
+        $this->registerPolicies();
+        $this->registerGates();
+    }
+    
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+    
+    }
+    
+    /**
+     * Register passport
+     * @return void
+     */
+    private function registerPassport()
+    {
+        LumenPassport::routes($this->app);
+        LumenPassport::tokensExpireIn(\Carbon\Carbon::now()->addYears(1));
+        LumenPassport::allowMultipleTokens();
+    }
+    
     /**
      * Register the application's policies.
      *
@@ -37,38 +94,7 @@ class AuthServiceProvider extends ServiceProvider
             Gate::policy($key, $value);
         }
     }
-
-    /**
-     * Get the policies defined on the provider.
-     *
-     * @return array
-     */
-    public function policies()
-    {
-        return $this->policies;
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-
-    }
-
-    /**
-     * Register passport
-     * @return void
-     */
-    private function registerPassport()
-    {
-        LumenPassport::routes($this->app);
-        LumenPassport::tokensExpireIn(\Carbon\Carbon::now()->addYears(1));
-        LumenPassport::allowMultipleTokens();
-    }
-
+    
     /**
      * Register gates
      * @return void
@@ -99,37 +125,10 @@ class AuthServiceProvider extends ServiceProvider
         foreach ($permissions as $key => $role) {
             if ($key !== 'admin') {
                 foreach ($role['list'] as $key_role => $per) {
-                    Gate::define("{$key}.{$key_role}", 'App\Policies\\'.ucfirst($key).'Policy@'.$key_role);
+                    Gate::define("{$key}.{$key_role}", 'App\Policies\\' . ucfirst($key) . 'Policy@' . $key_role);
                 }
             }
         }
-
-    }
-
-    /**
-     * Boot the authentication services for the application.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        // Here you may define how you wish users to be authenticated for your Lumen
-        // application. The callback which receives the incoming request instance
-        // should return either a User instance or null. You're free to obtain
-        // the User instance via an API token or any other method necessary.
-
-        // $this->app['auth']->viaRequest('api', function ($request) {
-        //     if ($request->input('api_token')) {
-        //         return User::where('api_token', $request->input('api_token'))->first();
-        //     }
-        // });
-        //
-        //
-        //
-
-        $this->register();
-        $this->registerPassport();
-        $this->registerPolicies();
-        $this->registerGates();
+        
     }
 }

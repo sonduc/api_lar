@@ -11,16 +11,17 @@ class DistrictRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-
+    
     /**
      * CityRepository constructor.
+     *
      * @param City $city
      */
     public function __construct(District $district)
     {
         $this->model = $district;
-
+        
     }
-
-
+    
+    
 }

@@ -13,37 +13,39 @@ class Authenticate
      * @var \Illuminate\Contracts\Auth\Factory
      */
     protected $auth;
-
+    
     /**
      * Create a new middleware instance.
      *
-     * @param  \Illuminate\Contracts\Auth\Factory  $auth
+     * @param  \Illuminate\Contracts\Auth\Factory $auth
+     *
      * @return void
      */
     public function __construct(Auth $auth)
     {
         $this->auth = $auth;
     }
-
+    
     /**
      * Handle an incoming request.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure                 $next
+     * @param  string|null              $guard
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
     {
         if ($this->auth->guard($guard)->guest()) {
             return response()
-                    ->json([
-                      'success' => false,
-                      'status' => 401,
-                      'message' => 'HTTP_UNAUTHORIZED'
-                    ], 401);
+                ->json([
+                    'success' => false,
+                    'status'  => 401,
+                    'message' => 'HTTP_UNAUTHORIZED',
+                ], 401);
         }
-
+        
         return $next($request);
     }
 }

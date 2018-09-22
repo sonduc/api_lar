@@ -13,16 +13,17 @@ class ComfortTranslate extends Entity
      *
      * @var array
      */
-
-    protected $fillable = [
-        'name', 'lang', 'comfort_id', 'description'
-    ];
-
-
+    
+    protected $fillable
+        = [
+            'name', 'lang', 'comfort_id', 'description',
+        ];
+    
+    
     /**
      * The attributes that are cast permission from json string to array
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
+    
 }

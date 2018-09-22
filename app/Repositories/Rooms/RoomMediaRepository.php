@@ -11,39 +11,22 @@ class RoomMediaRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-
+    
     /**
      * RoomMediaRepository constructor.
+     *
      * @param RoomMedia $roomMedia
      */
     public function __construct(RoomMedia $roomMedia)
     {
         $this->model = $roomMedia;
     }
-
-    /**
-     * Lưu ảnh cho phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $room
-     * @param array $data
-     * @param array $list
-     */
-    public function storeRoomMedia($room, $data = [], $list = [])
-    {
-        foreach ($data['images'] as $img) {
-            $img['room_id']     = $room->id;
-            $img['image']       = rename_image($img['name']);
-            $list[] = $img;
-        }
-        parent::storeArray($list);
-    }
-
+    
     /**
      * Cập nhật ảnh cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $room
+     * @param       $room
      * @param array $data
      * @param array $list
      */
@@ -52,7 +35,7 @@ class RoomMediaRepository extends BaseRepository
         $this->deleteRoomMediaByRoomID($room);
         $this->storeRoomMedia($room, $data);
     }
-
+    
     /**
      * Xóa ảnh phòng dựa theo room_id
      * @author HarikiRito <nxh0809@gmail.com>
@@ -63,5 +46,23 @@ class RoomMediaRepository extends BaseRepository
     {
         $this->model->where('room_id', $room->id)->forceDelete();
     }
-
+    
+    /**
+     * Lưu ảnh cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     */
+    public function storeRoomMedia($room, $data = [], $list = [])
+    {
+        foreach ($data['images'] as $img) {
+            $img['room_id'] = $room->id;
+            $img['image']   = rename_image($img['name']);
+            $list[]         = $img;
+        }
+        parent::storeArray($list);
+    }
+    
 }

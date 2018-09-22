@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateLanguagesTable extends Migration
 {
@@ -15,11 +15,11 @@ class CreateLanguagesTable extends Migration
     {
         Schema::create('languages', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('lang',5)->nullable();
-            $table->string('name',50)->nullable();
+            $table->string('lang', 5)->nullable();
+            $table->string('name', 50)->nullable();
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

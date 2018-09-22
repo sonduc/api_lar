@@ -7,10 +7,8 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-
-
-
-
+    
+    
     /**
      * Register any application services.
      *
@@ -28,12 +26,12 @@ class AppServiceProvider extends ServiceProvider
 // Aliases
         $this->app->alias('mailer', \Illuminate\Contracts\Mail\Mailer::class);
     }
-
+    
     public function boot()
     {
         $this->app->singleton(AuthManager::class, function ($app) {
             return $app->make('auth');
         });
-
+        
     }
 }

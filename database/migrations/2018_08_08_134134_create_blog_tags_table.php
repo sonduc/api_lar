@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateBlogTagsTable extends Migration
 {
@@ -16,10 +16,10 @@ class CreateBlogTagsTable extends Migration
         Schema::create('blog_tags', function (Blueprint $table) {
             $table->integer('blog_id');
             $table->integer('tag_id');
-            $table->primary(['blog_id','tag_id']);
+            $table->primary(['blog_id', 'tag_id']);
         });
     }
-
+    
     /**
      * Reverse the migrations.
      *

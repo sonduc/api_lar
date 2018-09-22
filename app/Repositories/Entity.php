@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Model;
@@ -8,8 +9,10 @@ class Entity extends Model
     /**
      * order by query
      * @author SaturnLai <daolvcntt@gmail.com>
+     *
      * @param  [type]     $query [description]
-     * @param  string     $sort  [created_at:-1,id:-1]
+     * @param  string $sort [created_at:-1,id:-1]
+     *
      * @return [type]            [description]
      */
     public function scopeSort($query, $sort = 'created_at:-1')

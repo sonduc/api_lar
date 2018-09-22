@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Comforts;
 
 trait FilterTrait

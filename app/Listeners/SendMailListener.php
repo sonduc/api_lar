@@ -4,8 +4,6 @@ namespace App\Listeners;
 
 use App\Events\BookingEvent;
 use App\Jobs\SendMail;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
 
 class SendMailListener
 {
@@ -18,7 +16,7 @@ class SendMailListener
     {
         //
     }
-
+    
     /**
      *
      * @param BookingEvent $event

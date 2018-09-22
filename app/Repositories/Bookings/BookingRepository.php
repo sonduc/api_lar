@@ -7,11 +7,11 @@ use App\Repositories\Payments\PaymentHistoryRepository;
 
 class BookingRepository extends BaseRepository
 {
-
+    
     protected $model;
     protected $status;
     protected $payment;
-
+    
     /**
      * BookingRepository constructor.
      *
@@ -23,7 +23,7 @@ class BookingRepository extends BaseRepository
         $this->status  = $status;
         $this->payment = $payment;
     }
-
+    
     /**
      * Thêm booking mới
      * @author HarikiRito <nxh0809@gmail.com>
@@ -36,13 +36,13 @@ class BookingRepository extends BaseRepository
     {
         $data = $this->priceCaculator($data);
         $data = $this->dateToTimestamp($data);
-
+        
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
         return $data_booking;
     }
-
+    
     /**
      * Tính toán giá tiền cho booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -56,11 +56,11 @@ class BookingRepository extends BaseRepository
         $price = $data['price_original']
                  + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
                  - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
-
+        
         $data['total_fee'] = $price;
         return $data;
     }
-
+    
     /**
      * Chuyển ngày giờ thành UNIX timestamp
      * @author HarikiRito <nxh0809@gmail.com>
@@ -73,10 +73,10 @@ class BookingRepository extends BaseRepository
     {
         $data['checkin']  = strtotime($data['checkin']);
         $data['checkout'] = strtotime($data['checkout']);
-
+        
         return $data;
     }
-
+    
     /**
      * Cập nhật booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -92,12 +92,12 @@ class BookingRepository extends BaseRepository
     {
         $data = $this->priceCaculator($data);
         $data = $this->dateToTimestamp($data);
-
+        
         $data_booking = parent::update($id, $data);
 //        dd($data_booking);
         $this->status->updateBookingStatus($data_booking, $data);
         return $data_booking;
     }
-
+    
 }
 

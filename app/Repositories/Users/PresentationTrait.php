@@ -1,14 +1,17 @@
 <?php
+
 namespace App\Repositories\Users;
 
 trait PresentationTrait
 {
     /**
      * [hasAccess description]
-     * @param  array   $permissions
+     *
+     * @param  array $permissions
+     *
      * @return boolean
      */
-    public function hasAccess(array $permissions) : bool
+    public function hasAccess(array $permissions): bool
     {
         foreach ($this->roles as $role) {
             if ($role->hasAccess(['admin.super-admin']) || $role->hasAccess($permissions)) {
@@ -17,17 +20,19 @@ trait PresentationTrait
         }
         return false;
     }
-
+    
     /**
      * [inRole description]
+     *
      * @param  string $slug
+     *
      * @return boolean
      */
-    public function inRole(string $slug) : bool
+    public function inRole(string $slug): bool
     {
         return $this->roles()->where('slug', $slug)->count() == 1;
     }
-
+    
     /**
      * [isSuperAdmin description]
      * @return boolean
@@ -36,7 +41,7 @@ trait PresentationTrait
     {
         return $this->hasAccess(['admin.super-admin']);
     }
-
+    
     public function getStatus()
     {
         switch ($this->status) {
@@ -45,13 +50,13 @@ trait PresentationTrait
                 break;
             case self::DISABLE:
                 return 'Khóa';
-
+            
             default:
                 return 'Không xác định';
                 break;
         }
     }
-
+    
     public function getGender()
     {
         switch ($this->gender) {
@@ -72,11 +77,10 @@ trait PresentationTrait
                 break;
         }
     }
-
+    
     public function getLevelStatus()
     {
-        switch ($this->level)
-        {
+        switch ($this->level) {
             case self::DIAMOND:
                 return 'Kim cương';
                 break;
@@ -97,6 +101,7 @@ trait PresentationTrait
                 break;
         }
     }
+    
     public function getVipStatus()
     {
         switch ($this->vip) {
@@ -111,6 +116,7 @@ trait PresentationTrait
                 break;
         }
     }
+    
     /**
      * lấy tài khoản owner
      * đối với tài khoản con -> lấy ra tài khoản cha
@@ -121,7 +127,7 @@ trait PresentationTrait
     {
         return $this->parent ?? $this;
     }
-
+    
     public function getAccountType()
     {
         return self::TYPE_ACCOUNT[$this->type ?? 0];

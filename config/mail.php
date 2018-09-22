@@ -1,7 +1,7 @@
 <?php
 
 return [
-
+    
     /*
     |--------------------------------------------------------------------------
     | Mail Driver
@@ -15,25 +15,25 @@ return [
     |            "sparkpost", "log", "array"
     |
     */
-//    return [
-//
-//        'driver' => env('MAIL_DRIVER', 'smtp'),
-//        'host' => env('MAIL_HOST', 'smtp.gmail.com'),
-//        'port' => env('MAIL_PORT', '587'),
-//        'from' => [
-//            'address' => env('MAIL_FROM_ADDRESS', null),
-//            'name' => env('MAIL_FROM_NAME', null),
-//        ],
-//        'encryption' => env('MAIL_TLS', 'tls'),
-//        'username' => env('MAIL_USERNAME', null),
-//        'password' => env('MAIL_PASSWORD', null),
-//        'sendmail' => env('MAIL_SENDMAIL', '/usr/sbin/sendmail -bs'),
-//        'pretend' => env('MAIL_PRETEND', false),
-//
-//    ];
-
+    //    return [
+    //
+    //        'driver' => env('MAIL_DRIVER', 'smtp'),
+    //        'host' => env('MAIL_HOST', 'smtp.gmail.com'),
+    //        'port' => env('MAIL_PORT', '587'),
+    //        'from' => [
+    //            'address' => env('MAIL_FROM_ADDRESS', null),
+    //            'name' => env('MAIL_FROM_NAME', null),
+    //        ],
+    //        'encryption' => env('MAIL_TLS', 'tls'),
+    //        'username' => env('MAIL_USERNAME', null),
+    //        'password' => env('MAIL_PASSWORD', null),
+    //        'sendmail' => env('MAIL_SENDMAIL', '/usr/sbin/sendmail -bs'),
+    //        'pretend' => env('MAIL_PRETEND', false),
+    //
+    //    ];
+    
     'driver' => env('MAIL_DRIVER', 'smtp'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Address
@@ -44,9 +44,9 @@ return [
     | the Mailgun mail service which will provide reliable deliveries.
     |
     */
-
+    
     'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | SMTP Host Port
@@ -57,9 +57,9 @@ return [
     | stay compatible with the Mailgun e-mail application by default.
     |
     */
-
+    
     'port' => env('MAIL_PORT', 587),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Global "From" Address
@@ -70,12 +70,12 @@ return [
     | used globally for all e-mails that are sent by your application.
     |
     */
-
+    
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'name'    => env('MAIL_FROM_NAME', 'Example'),
     ],
-
+    
     /*
     |--------------------------------------------------------------------------
     | E-Mail Encryption Protocol
@@ -86,9 +86,9 @@ return [
     | transport layer security protocol should provide great security.
     |
     */
-
+    
     'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | SMTP Server Username
@@ -99,11 +99,11 @@ return [
     | connection. You may also set the "password" value below this one.
     |
     */
-
+    
     'username' => env('MAIL_USERNAME'),
-
+    
     'password' => env('MAIL_PASSWORD'),
-
+    
     /*
     |--------------------------------------------------------------------------
     | Sendmail System Path
@@ -114,9 +114,9 @@ return [
     | been provided here, which will work well on most of your systems.
     |
     */
-
+    
     'sendmail' => '/usr/sbin/sendmail -bs',
-
+    
     /*
     |--------------------------------------------------------------------------
     | Markdown Mail Settings
@@ -127,10 +127,10 @@ return [
     | of the emails. Or, you may simply stick with the Laravel defaults!
     |
     */
-
+    
     'markdown' => [
         'theme' => 'default',
-
+        
         'paths' => [
             resource_path('views/vendor/mail'),
         ],

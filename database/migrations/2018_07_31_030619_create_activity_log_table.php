@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
 
 class CreateActivityLogTable extends Migration
 {
@@ -21,11 +21,11 @@ class CreateActivityLogTable extends Migration
             $table->text('properties')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
-
+            
             // $table->index('log_name');
         });
     }
-
+    
     /**
      * Reverse the migrations.
      */

@@ -1,44 +1,44 @@
 <?php
 
 return [
-
+    
     'admin' => [
-        'title' => 'Admin',
-        'list' => [
-            'super-admin' => 'Super administrator'
+        'title'      => 'Admin',
+        'list'       => [
+            'super-admin' => 'Super administrator',
         ],
-        'admin_only' => true
+        'admin_only' => true,
     ],
-
-    'user' => [
+    
+    'user'       => [
         'title' => 'Quản lý tài khoản',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'role' => [
+    'role'       => [
         'title' => 'Quản lý nhóm quyền',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'room' => [
+    'room'       => [
         'title' => 'Quản lý phòng',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete',
-            'export'    => 'Export excel'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+            'export' => 'Export excel',
+        ],
     ],
-    'booking' => [
+    'booking'    => [
         'title' => 'Quản lý booking',
         'list'  => [
             'view'      => 'View',
@@ -46,89 +46,89 @@ return [
             'update'    => 'Update',
             'delete'    => 'Cancel',
             'export'    => 'Export excel',
-            'processor' => 'Processor'
-        ]
+            'processor' => 'Processor',
+        ],
     ],
     'statistics' => [
         'title' => 'Thống kê - báo cáo',
         'list'  => [
-            'view'      => 'View'
-        ]
+            'view' => 'View',
+        ],
     ],
-    'comfort' => [
+    'comfort'    => [
         'title' => 'Quản lý tiện ích',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete',
-            'export'    => 'Export'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+            'export' => 'Export',
+        ],
     ],
-    'promotion' => [
+    'promotion'  => [
         'title' => 'Quản lý khuyến mại',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'city' => [
+    'city'       => [
         'title' => 'Quản lý tỉnh thành',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'district' => [
+    'district'   => [
         'title' => 'Quản lý quận huyện',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'saler' => [
+    'saler'      => [
         'title' => 'Quản lý saler',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete'
-        ]
+            'view'   => 'View',
+            'create' => 'Create',
+            'update' => 'Update',
+            'delete' => 'Delete',
+        ],
     ],
-    'setting' => [
+    'setting'    => [
         'title' => 'Quản lý cấu hình',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete',
-            'confirm'   => 'Confirm'
-        ]
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
     ],
-    'booking' => [
+    'booking'    => [
         'title' => 'Quản lý booking',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete',
-            'confirm'   => 'Confirm'
-        ]
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
     ],
-    'log' => [
+    'log'        => [
         'title' => 'Quản lý Logging',
         'list'  => [
-            'view'      => 'View',
-            'create'    => 'Create',
-            'update'    => 'Update',
-            'delete'    => 'Delete',
-            'confirm'   => 'Confirm'
-        ]
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
     ],
 ];

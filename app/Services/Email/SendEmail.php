@@ -2,16 +2,13 @@
 
 namespace App\Services\Email;
 
-use App\Jobs\SendMail;
 use App\Jobs\Traits\DispatchesJobs;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Mail;
-use App\Events\BookingEvent;
 
 class SendEmail
 {
     use DispatchesJobs;
-
+    
     /**
      * @param Email  $email
      * @param string $template

@@ -3,15 +3,15 @@
 namespace App\Exceptions;
 
 use Exception;
-use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\HttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Illuminate\Http\Exception\HttpResponseException;
 use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
+use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -20,31 +20,34 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontReport = [
-        AuthorizationException::class,
-        HttpException::class,
-        ModelNotFoundException::class,
-        ValidationException::class,
-    ];
-
+    protected $dontReport
+        = [
+            AuthorizationException::class,
+            HttpException::class,
+            ModelNotFoundException::class,
+            ValidationException::class,
+        ];
+    
     /**
      * Report or log an exception.
      *
      * This is a great spot to send exceptions to Sentry, Bugsnag, etc.
      *
-     * @param  \Exception  $e
+     * @param  \Exception $e
+     *
      * @return void
      */
     public function report(Exception $e)
     {
         parent::report($e);
     }
-
+    
     /**
      * Render an exception into an HTTP response.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $e
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Exception               $e
+     *
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $e)
@@ -52,39 +55,39 @@ class Handler extends ExceptionHandler
         if (env('APP_DEBUG')) {
             return parent::render($request, $e);
         }
-
-        $success = false;
+        
+        $success  = false;
         $response = null;
-        $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+        $status   = Response::HTTP_INTERNAL_SERVER_ERROR;
         if ($e instanceof HttpResponseException) {
-            $status = Response::HTTP_INTERNAL_SERVER_ERROR;
+            $status   = Response::HTTP_INTERNAL_SERVER_ERROR;
             $response = $e->getResponse();
-        } elseif ($e instanceof MethodNotAllowedHttpException) {
+        } else if ($e instanceof MethodNotAllowedHttpException) {
             $status = Response::HTTP_METHOD_NOT_ALLOWED;
-            $e = new MethodNotAllowedHttpException([], 'HTTP_METHOD_NOT_ALLOWED', $e);
-        } elseif ($e instanceof NotFoundHttpException) {
+            $e      = new MethodNotAllowedHttpException([], 'HTTP_METHOD_NOT_ALLOWED', $e);
+        } else if ($e instanceof NotFoundHttpException) {
             $status = Response::HTTP_NOT_FOUND;
-            $e = new NotFoundHttpException('HTTP_NOT_FOUND', $e);
-        } elseif ($e instanceof AuthorizationException) {
+            $e      = new NotFoundHttpException('HTTP_NOT_FOUND', $e);
+        } else if ($e instanceof AuthorizationException) {
             $status = Response::HTTP_FORBIDDEN;
-            $e = new AuthorizationException('HTTP_FORBIDDEN', $status);
-        } elseif ($e instanceof \Dotenv\Exception\ValidationException && $e->getResponse()) {
-            $status = Response::HTTP_BAD_REQUEST;
-            $e = new \Dotenv\Exception\ValidationException('HTTP_BAD_REQUEST', $status, $e);
+            $e      = new AuthorizationException('HTTP_FORBIDDEN', $status);
+        } else if ($e instanceof \Dotenv\Exception\ValidationException && $e->getResponse()) {
+            $status   = Response::HTTP_BAD_REQUEST;
+            $e        = new \Dotenv\Exception\ValidationException('HTTP_BAD_REQUEST', $status, $e);
             $response = $e->getResponse();
-        } elseif ($e) {
+        } else if ($e) {
             $e = new HttpException($status, 'HTTP_INTERNAL_SERVER_ERROR');
         }
         return response()->json([
-          'success' => $success,
-          'status' => $status,
-          'message' => $e->getMessage()
+            'success' => $success,
+            'status'  => $status,
+            'message' => $e->getMessage(),
         ], $status, [
             'Access-Control-Allow-Origin'      => '*',
             'Access-Control-Allow-Methods'     => '*',
             'Access-Control-Allow-Credentials' => 'true',
             'Access-Control-Max-Age'           => '86400',
-            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With'
+            'Access-Control-Allow-Headers'     => 'Content-Type, Authorization, X-Requested-With',
         ]);
     }
 }

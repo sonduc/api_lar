@@ -11,23 +11,24 @@ class BookingStatusRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-
+    
     /**
      * BookingStatusRepository constructor.
+     *
      * @param BookingStatus $bookingstatus
      */
     public function __construct(BookingStatus $bookingstatus)
     {
         $this->model = $bookingstatus;
     }
-
+    
     public function storeBookingStatus($booking = [], $data = [])
     {
         $data['booking_id'] = $booking['id'];
         $data['note']       = $data['staff_note'];
         parent::store($data);
     }
-
+    
     public function updateBookingStatus($booking = [], $data = [])
     {
         $data['booking_id'] = $booking->id;
@@ -35,10 +36,10 @@ class BookingStatusRepository extends BaseRepository
         $bookingStatus      = $this->getBookingStatusByBookingID($booking);
         parent::update($bookingStatus->id, $data);
     }
-
+    
     public function getBookingStatusByBookingID($booking = [])
     {
         return $this->model->where('booking_id', $booking->id)->first();
     }
-
+    
 }

@@ -1,9 +1,9 @@
 <?php
 
-require_once __DIR__.'/../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 try {
-    (new Dotenv\Dotenv(__DIR__.'/../'))->load();
+    (new Dotenv\Dotenv(__DIR__ . '/../'))->load();
 } catch (Dotenv\Exception\InvalidPathException $e) {
     //
 }
@@ -21,7 +21,7 @@ try {
 
 
 $app = new Laravel\Lumen\Application(
-    realpath(__DIR__.'/../')
+    realpath(__DIR__ . '/../')
 );
 // Enable Facades
 $app->withFacades();
@@ -73,7 +73,7 @@ $app->singleton(
 
 $app->middleware([
 //    App\Http\Middleware\ExampleMiddleware::class
-    \Barryvdh\Cors\HandleCors::class
+\Barryvdh\Cors\HandleCors::class,
 ]);
 
 // Enable auth middleware (shipped with Lumen)
@@ -91,7 +91,6 @@ $app->routeMiddleware([
 | totally optional, so you are not required to uncomment this line.
 |
 */
-
 
 
 $app->register(App\Providers\AppServiceProvider::class);
@@ -133,14 +132,14 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__.'/../routes/web.php';
+    require __DIR__ . '/../routes/web.php';
 });
 
 $app->router->group([
-    'prefix' => 'api',
+    'prefix'    => 'api',
     'namespace' => 'App\Http\Controllers\Api',
 ], function ($router) {
-    require __DIR__.'/../routes/api.php';
+    require __DIR__ . '/../routes/api.php';
 });
 
 return $app;

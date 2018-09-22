@@ -11,15 +11,16 @@ class CityRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-
+    
     /**
      * CityRepository constructor.
+     *
      * @param City $city
      */
     public function __construct(City $city)
     {
         $this->model = $city;
     }
-
-
+    
+    
 }

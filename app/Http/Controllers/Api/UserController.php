@@ -2,30 +2,33 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\Request;
-use App\Http\Transformers\UserTransformer;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class UserController extends ApiController
 {
-    protected $validationRules = [
-        'name'  => 'required',
-        'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:6|confirmed',
-    ];
-    protected $validationMessages = [
-        'name.required'  => 'Tên không được để trông',
-        'email.required' => 'Email không được để trông',
-        'email.email'    => 'Email không đúng định dạng',
-        'email.unique'   => 'Email đã tồn tại trên hệ thống',
-        'password.required' => 'Mật khẩu không được để trống',
-        'password.min' => 'Mật khẩu phải có ít nhât :min ký tự',
-        'password.confirmed' => 'Nhập lại mật khẩu không đúng',
-    ];
+    protected $validationRules
+        = [
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+        ];
+    protected $validationMessages
+        = [
+            'name.required'      => 'Tên không được để trông',
+            'email.required'     => 'Email không được để trông',
+            'email.email'        => 'Email không đúng định dạng',
+            'email.unique'       => 'Email đã tồn tại trên hệ thống',
+            'password.required'  => 'Mật khẩu không được để trống',
+            'password.min'       => 'Mật khẩu phải có ít nhât :min ký tự',
+            'password.confirmed' => 'Nhập lại mật khẩu không đúng',
+        ];
+    
     /**
      * UserController constructor.
+     *
      * @param UserRepository $user
      */
     public function __construct(UserRepository $user)
@@ -33,7 +36,7 @@ class UserController extends ApiController
         $this->model = $user;
         $this->setTransformer(new UserTransformer);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -43,13 +46,13 @@ class UserController extends ApiController
     {
         $this->authorize('user.view');
         $pageSize = $request->get('limit', 25);
-
+        
         $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-
+        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        
         return $this->successResponse($data);
     }
-
+    
     /**
      * Display a listing of the resource.
      *
@@ -60,7 +63,7 @@ class UserController extends ApiController
         try {
             $this->authorize('user.view');
             $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -70,7 +73,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-
+    
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -82,8 +85,8 @@ class UserController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -93,11 +96,11 @@ class UserController extends ApiController
             throw $t;
         }
     }
-
+    
     public function update(Request $request, $id)
     {
         $this->validationRules['email'] .= ',' . $id;
-
+        
         unset($this->validationRules['password']);
         DB::beginTransaction();
         try {
@@ -108,8 +111,8 @@ class UserController extends ApiController
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -122,7 +125,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-
+    
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -142,7 +145,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-
+    
     /**
      * Danh sách giới tính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -158,7 +161,7 @@ class UserController extends ApiController
             throw $e;
         }
     }
-
+    
     /**
      * Danh sách cấp độ
      * @author HarikiRito <nxh0809@gmail.com>
@@ -174,7 +177,7 @@ class UserController extends ApiController
             throw $e;
         }
     }
-
+    
     /**
      * Danh sách loại tài khoản
      * @author HarikiRito <nxh0809@gmail.com>

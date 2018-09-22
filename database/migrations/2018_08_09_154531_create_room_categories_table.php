@@ -1,8 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Support\Facades\Schema;
 
 class CreateRoomCategoriesTable extends Migration
 {
@@ -22,7 +21,7 @@ class CreateRoomCategoriesTable extends Migration
         //     $table->timestamps();
         // });
     }
-
+    
     /**
      * Reverse the migrations.
      *

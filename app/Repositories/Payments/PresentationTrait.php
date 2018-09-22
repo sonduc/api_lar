@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Repositories\Payments;
 
 use App\Repositories\Bookings\BookingConstant;
@@ -7,10 +8,12 @@ trait PresentationTrait
 {
     /**
      * Check specific role has access a resource
-     * @param  array   $permissions
+     *
+     * @param  array $permissions
+     *
      * @return boolean
      */
-    public function hasAccess(array $permissions) : bool
+    public function hasAccess(array $permissions): bool
     {
         foreach ($permissions as $permission) {
             if ($this->hasPermission($permission)) {
@@ -19,17 +22,19 @@ trait PresentationTrait
         }
         return false;
     }
-
+    
     /**
      * Check a specific permission that belongs to this role
-     * @param  string  $permission
+     *
+     * @param  string $permission
+     *
      * @return boolean
      */
-    private function hasPermission(string $permission) : bool
+    private function hasPermission(string $permission): bool
     {
         return $this->permissions[$permission] ?? false;
     }
-
+    
     /**
      * Lấy trạng thái của payment_histories
      * @author HarikiRito <nxh0809@gmail.com>
