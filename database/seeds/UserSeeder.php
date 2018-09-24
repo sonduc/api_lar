@@ -18,7 +18,7 @@ class UserSeeder extends Seeder
                 'password' => 'admin',
             ]);
         }
-        
+
         if (!\App\Repositories\Roles\Role::find(1)) {
             factory(App\Repositories\Roles\Role::class)->create([
                 'name'        => 'Super admin',
@@ -31,10 +31,10 @@ class UserSeeder extends Seeder
         if (!DB::table('role_users')->where('user_id', 1)->where('role_id', 1)->first()) {
             DB::table('role_users')->insert(['user_id' => 1, 'role_id' => 1]);
         }
-        
+
         DB::table('oauth_clients')->insert($this->oauthDev());
     }
-    
+
     public function oauthDev()
     {
         return $oauth_clients = [
@@ -63,6 +63,6 @@ class UserSeeder extends Seeder
                 "updated_at"             => "2018-09-08 16:21:59",
             ],
         ];
-        
+
     }
 }

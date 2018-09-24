@@ -12,8 +12,8 @@ class ComfortRepository extends BaseRepository
      */
     protected $model;
     protected $comfortTranslate;
-    
-    
+
+
     /**
      * ComfortRepository constructor.
      *
@@ -25,7 +25,7 @@ class ComfortRepository extends BaseRepository
         $this->model            = $comfort;
         $this->comfortTranslate = $comfortTranslate;
     }
-    
+
     /**
      * Thêm mới  bản ghi vào comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -40,7 +40,7 @@ class ComfortRepository extends BaseRepository
         $this->comfortTranslate->storeComfortTranslate($data_comfort, $data);
         return $data_comfort;
     }
-    
+
     /**
      * câp nhật thông tin bản ghi vào comforts và  comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -58,7 +58,7 @@ class ComfortRepository extends BaseRepository
         $this->comfortTranslate->updateComfortTranslate($data_comfort, $data);
         return $data_comfort;
     }
-    
+
     /**
      * Xóa bản ghi ở bảng comforts và comforts_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -73,5 +73,5 @@ class ComfortRepository extends BaseRepository
         }
         parent::delete($id);
     }
-    
+
 }

@@ -19,7 +19,7 @@ class PaymentHistoryController extends ApiController
         ];
     protected $validationMessages
         = [
-            
+
             'booking_id.required'     => 'Vui lòng chọn booking',
             'booking_id.integer'      => 'Mã booking phải là số',
             'booking_id.exists'       => 'Booking không tồn tại',
@@ -29,7 +29,7 @@ class PaymentHistoryController extends ApiController
             'confirm.integer'         => 'Trạng thái xác nhận phải là kiểu số',
             'confirm.between'         => 'Trạng thái xác nhận không phù hợp',
         ];
-    
+
     /**
      * PaymentHistoryController constructor.
      *
@@ -41,7 +41,7 @@ class PaymentHistoryController extends ApiController
         $this->booking = $booking;
         $this->setTransformer(new PaymentHistoryTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -55,7 +55,7 @@ class PaymentHistoryController extends ApiController
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -76,7 +76,7 @@ class PaymentHistoryController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -84,7 +84,7 @@ class PaymentHistoryController extends ApiController
         try {
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $booking = $this->booking->getById($request->booking_id);
             $data    = $this->model->storePaymentHistory($booking, $request->all());
             DB::commit();
@@ -103,7 +103,7 @@ class PaymentHistoryController extends ApiController
             throw $t;
         }
     }
-    
+
     public function paymentHistoryStatus()
     {
         return response()->json(BookingConstant::PAYMENT_HISTORY_STATUS);

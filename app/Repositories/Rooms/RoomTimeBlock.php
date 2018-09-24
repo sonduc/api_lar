@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RoomTimeBlock extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
-    
+
+
     protected $table = 'room_time_blocks';
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -21,11 +21,11 @@ class RoomTimeBlock extends Entity
         = [
             'room_id', 'time_block', 'status',
         ];
-    
+
     /**
      * The attributes that are cast permission from json string to array
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
+
 }

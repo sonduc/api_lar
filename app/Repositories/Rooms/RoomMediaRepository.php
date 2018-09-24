@@ -11,7 +11,7 @@ class RoomMediaRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * RoomMediaRepository constructor.
      *
@@ -21,7 +21,7 @@ class RoomMediaRepository extends BaseRepository
     {
         $this->model = $roomMedia;
     }
-    
+
     /**
      * Cập nhật ảnh cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -35,7 +35,7 @@ class RoomMediaRepository extends BaseRepository
         $this->deleteRoomMediaByRoomID($room);
         $this->storeRoomMedia($room, $data);
     }
-    
+
     /**
      * Xóa ảnh phòng dựa theo room_id
      * @author HarikiRito <nxh0809@gmail.com>
@@ -46,7 +46,7 @@ class RoomMediaRepository extends BaseRepository
     {
         $this->model->where('room_id', $room->id)->forceDelete();
     }
-    
+
     /**
      * Lưu ảnh cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -64,5 +64,5 @@ class RoomMediaRepository extends BaseRepository
         }
         parent::storeArray($list);
     }
-    
+
 }

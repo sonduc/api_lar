@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Events\BookingEvent;
+use App\Events\BroadcastingExample;
 use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortRepository;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class ComfortController extends ApiController
             'details.*.name.required' => 'Tên không được để trông',
             'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
         ];
-    
+
     /**
      * ComfortController constructor.
      *
@@ -29,10 +30,10 @@ class ComfortController extends ApiController
     {
         $this->model = $comfort;
         $this->setTransformer(new ComfortTransformer);
-        
+
     }
-    
-    
+
+
     /**
      * Display a listing of the resource.
      *
@@ -44,9 +45,10 @@ class ComfortController extends ApiController
         $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        event(new BroadcastingExample);
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -67,7 +69,7 @@ class ComfortController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -78,10 +80,10 @@ class ComfortController extends ApiController
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
             DB::commit();
-            
+
             logs('comfort', 'tạo comfort mã ' . $data->id, $data);
             event(new BookingEvent($request->all()));
-            
+
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -97,7 +99,7 @@ class ComfortController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -108,7 +110,7 @@ class ComfortController extends ApiController
             $data = $this->model->update($id, $request->all());
             DB::commit();
             logs('comfort', 'sửa comfort mã ' . $data->id, $data);
-            
+
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -128,7 +130,7 @@ class ComfortController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         DB::beginTransaction();

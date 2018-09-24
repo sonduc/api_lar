@@ -37,7 +37,7 @@ class DistrictController extends ApiController
             'status.numeric'      => 'Phải là kiểu số',
             'status.between'      => 'Khoảng từ 0 đến 1',
         ];
-    
+
     /**
      * DistrictController constructor.
      *
@@ -47,9 +47,9 @@ class DistrictController extends ApiController
     {
         $this->model = $district;
         $this->setTransformer(new DistrictTransformer);
-        
+
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -63,7 +63,7 @@ class DistrictController extends ApiController
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -84,7 +84,7 @@ class DistrictController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -110,7 +110,7 @@ class DistrictController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -119,9 +119,9 @@ class DistrictController extends ApiController
             $this->validationRules['name']       .= ",{$id}";
             $this->validationRules['short_name'] .= ",{$id}";
             $this->validationRules['code']       .= ",{$id}";
-            
+
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $data = $this->model->update($id, $request->all());
             DB::commit();
             logs('district', 'sửa tỉnh mã ' . $data->id, $data);
@@ -143,7 +143,7 @@ class DistrictController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         DB::beginTransaction();

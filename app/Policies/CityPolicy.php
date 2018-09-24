@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class CityPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the role.
      *
@@ -21,7 +21,7 @@ class CityPolicy
     {
         return $user->hasAccess(['city.view']);
     }
-    
+
     /**
      * Determine whether the user can create role.
      *
@@ -33,7 +33,7 @@ class CityPolicy
     {
         return $user->hasAccess(['city.create']);
     }
-    
+
     /**
      * Determine whether the user can update the role.
      *
@@ -46,7 +46,7 @@ class CityPolicy
     {
         return $user->hasAccess(['city.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the role.
      *

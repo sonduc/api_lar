@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class UserPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the _user.
      *
@@ -21,7 +21,7 @@ class UserPolicy
     {
         return $user->hasAccess(['_user.view']);
     }
-    
+
     /**
      * Determine whether the user can create _user.
      *
@@ -33,7 +33,7 @@ class UserPolicy
     {
         return $user->hasAccess(['_user.create']);
     }
-    
+
     /**
      * Determine whether the user can update the _user.
      *
@@ -46,7 +46,7 @@ class UserPolicy
     {
         return $user->hasAccess(['_user.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the _user.
      *

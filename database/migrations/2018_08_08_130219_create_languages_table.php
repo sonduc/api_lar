@@ -19,7 +19,7 @@ class CreateLanguagesTable extends Migration
             $table->string('name', 50)->nullable();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

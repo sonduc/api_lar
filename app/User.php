@@ -17,17 +17,17 @@ use Laravel\Passport\HasApiTokens;
 class User extends Entity implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait, SoftDeletes;
-    
-    const ENABLE  = 1;
-    const DISABLE = 0;
+
+    const ENABLE   = 1;
+    const DISABLE  = 0;
     const ADMIN    = 2;
     const MERCHANT = 1;
-    
+
     // Định nghĩa loại tài khoản
-    const USER     = 0;
+    const USER   = 0;
     const MALE   = 1;
     const FEMALE = 2;
-    
+
     // Định nghĩa giới tính
     const OTHER  = 3;
     const NONE   = 0;
@@ -38,14 +38,14 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
             self::OTHER  => 'Khác',
             self::NONE   => 'Không xác định',
         ];
-    const BROZE    = 0;
-    const SILVER   = 1;
+    const BROZE  = 0;
+    const SILVER = 1;
     // Định nghĩa cấp độ
-    const GOLD     = 2;
-    const PLATINUM = 3;
-    const DIAMOND  = 4;
+    const GOLD         = 2;
+    const PLATINUM     = 3;
+    const DIAMOND      = 4;
     const LEVEL
-        = [
+                       = [
             self::BROZE    => 'Đồng',
             self::SILVER   => 'Bạc',
             self::GOLD     => 'Vàng',
@@ -54,7 +54,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         ];
     const VIP_ACTIVE   = 1;
     const VIP_DEACTIVE = 0;
-    
+
     // Định nghĩa VIP
     const TYPE_ACCOUNT
         = [
@@ -80,24 +80,24 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         = [
             'password',
         ];
-    
+
     public static function boot()
     {
         parent::boot();
-        
+
         self::created(function ($model) {
             $model->uuid = hashid_encode($model->id);
             $model->save();
         });
-        
-        
+
+
     }
-    
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = app('hash')->make($value);
     }
-    
+
     /**
      * Relationship with Role
      */
@@ -105,28 +105,28 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     {
         return $this->belongsToMany(\App\Repositories\Roles\Role::class, 'role_users');
     }
-    
+
     public function parent()
     {
         return $this->belongsTo(\App\User::class, 'parent_id', 'id');
     }
-    
+
     public function children()
     {
         return $this->hasMany(\App\User::class, 'parent_id', 'id');
     }
-    
+
     public function sale()
     {
         return $this->belongsTo(\App\User::class, 'sale_id');
     }
-    
+
     public function validateForPassportPasswordGrant($password)
     {
         if ($password == $this->password || app('hash')->check($password, $this->password)) {
             return true;
         }
-        
+
         return false;
     }
 }

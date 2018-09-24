@@ -50,7 +50,7 @@ class CreateBookingsTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

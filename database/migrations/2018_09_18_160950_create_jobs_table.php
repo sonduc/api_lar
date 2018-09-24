@@ -23,7 +23,7 @@ class CreateJobsTable extends Migration
             $table->unsignedInteger('created_at');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

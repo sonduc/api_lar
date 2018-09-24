@@ -14,13 +14,13 @@ class DistrictTransformer extends TransformerAbstract
         = [
             'rooms', 'city', 'users',
         ];
-    
+
     public function transform(District $district = null)
     {
         if (is_null($district)) {
             return [];
         }
-        
+
         return [
             'id'           => $district->id,
             'name'         => $district->name,
@@ -34,7 +34,7 @@ class DistrictTransformer extends TransformerAbstract
             'updated_at'   => $district->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     /**
      * Include Rooms
      * @author HarikiRito <nxh0809@gmail.com>
@@ -48,11 +48,11 @@ class DistrictTransformer extends TransformerAbstract
         if (is_null($district)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $district->rooms())->get();
         return $this->collection($data, new RoomTransformer);
     }
-    
+
     /**
      * Include Users
      * @author HarikiRito <nxh0809@gmail.com>
@@ -67,9 +67,9 @@ class DistrictTransformer extends TransformerAbstract
         if (is_null($district)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $district->users())->get();
         return $this->collection($data, new UserTransformer);
     }
-    
+
 }

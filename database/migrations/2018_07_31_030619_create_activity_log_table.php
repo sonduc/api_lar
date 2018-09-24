@@ -21,11 +21,11 @@ class CreateActivityLogTable extends Migration
             $table->text('properties')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
-            
+
             // $table->index('log_name');
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */

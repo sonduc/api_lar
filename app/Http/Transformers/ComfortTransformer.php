@@ -14,8 +14,8 @@ class ComfortTransformer extends TransformerAbstract
         = [
             'details', 'rooms',
         ];
-    
-    
+
+
     /**
      * Lấy thông tin của tiện nghi
      *
@@ -28,7 +28,7 @@ class ComfortTransformer extends TransformerAbstract
         if (is_null($comfort)) {
             return [];
         }
-        
+
         return [
             'id'         => $comfort->id,
             'icon'       => $comfort->icon,
@@ -36,8 +36,8 @@ class ComfortTransformer extends TransformerAbstract
             'updated_at' => $comfort->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
-    
+
+
     /**
      * Thông tin chi tiết tiện nghi
      *
@@ -50,21 +50,21 @@ class ComfortTransformer extends TransformerAbstract
         if (is_null($comfort)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $comfort->comfortTrans())->get();
-        
+
         return $this->collection($data, new ComfortTranslateTransformer);
     }
-    
+
     public function includeRooms(Comfort $comfort = null, ParamBag $params = null)
     {
         if (is_null($comfort)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $comfort->rooms())->get();
-        
+
         return $this->collection($data, new RoomTransformer);
     }
-    
+
 }

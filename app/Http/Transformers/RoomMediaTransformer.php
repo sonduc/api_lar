@@ -9,15 +9,15 @@ class RoomMediaTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     public function transform(RoomMedia $room = null)
     {
         if (is_null($room)) {
             return [];
         }
-        
+
         return [
             'id'         => $room->id,
             'room_id'    => $room->room_id,
@@ -29,5 +29,5 @@ class RoomMediaTransformer extends TransformerAbstract
             'updated_at' => $room->updated_at->format('Y-m-d H:m:i'),
         ];
     }
-    
+
 }

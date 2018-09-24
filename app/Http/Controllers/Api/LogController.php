@@ -10,13 +10,13 @@ class LogController extends ApiController
 {
     protected $validationRules
         = [
-        
+
         ];
     protected $validationMessages
         = [
-        
+
         ];
-    
+
     /**
      * LogController constructor.
      *
@@ -27,7 +27,7 @@ class LogController extends ApiController
         $this->model = $log;
         $this->setTransformer(new LogTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -37,11 +37,11 @@ class LogController extends ApiController
     {
         $this->authorize('log.view');
         $pageSize = $request->get('limit', 25);
-        
+
         $data = $this->model->getLog($request->all(), $pageSize);
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -62,5 +62,5 @@ class LogController extends ApiController
             throw $t;
         }
     }
-    
+
 }

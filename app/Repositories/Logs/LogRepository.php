@@ -11,7 +11,7 @@ class LogRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * LogRepository constructor.
      *
@@ -21,7 +21,7 @@ class LogRepository extends BaseRepository
     {
         $this->model = $log;
     }
-    
+
     /**
      * Lấy log
      * @author HarikiRito <nxh0809@gmail.com>
@@ -33,25 +33,7 @@ class LogRepository extends BaseRepository
      */
     public function getLog($data = null, $pageSize = 25)
     {
-        if (array_key_exists('name', $data)) {
-            return $this->getLogByName($data);
-        }
         return parent::getByQuery($data, $pageSize);
     }
-    
-    /**
-     * Lấy log dựa theo log_name
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param       $data
-     * @param array $name
-     *
-     * @return mixed
-     */
-    public function getLogByName($data, $name = [])
-    {
-        $name = explode(',', $data['name']);
-        
-        return $this->model->whereIn('log_name', $name)->get();
-    }
+
 }

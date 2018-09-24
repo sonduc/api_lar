@@ -20,7 +20,7 @@ class CreateBlogCategoryTranslatesTable extends Migration
             $table->string('slug', 100)->nullable();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

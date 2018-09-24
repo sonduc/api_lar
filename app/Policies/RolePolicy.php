@@ -9,7 +9,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class RolePolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the role.
      *
@@ -22,7 +22,7 @@ class RolePolicy
     {
         return $user->hasAccess(['role.view']);
     }
-    
+
     /**
      * Determine whether the user can create role.
      *
@@ -34,7 +34,7 @@ class RolePolicy
     {
         return $user->hasAccess(['role.create']);
     }
-    
+
     /**
      * Determine whether the user can update the role.
      *
@@ -47,7 +47,7 @@ class RolePolicy
     {
         return $user->hasAccess(['role.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the role.
      *

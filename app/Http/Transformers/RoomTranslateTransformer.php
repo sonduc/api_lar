@@ -9,9 +9,9 @@ class RoomTranslateTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     /**
      *
      * @param RoomTranslate $room
@@ -23,7 +23,7 @@ class RoomTranslateTransformer extends TransformerAbstract
         if (is_null($room)) {
             return [];
         }
-        
+
         return [
             'id'          => $room->id,
             'room_id'     => $room->room_id,
@@ -39,6 +39,6 @@ class RoomTranslateTransformer extends TransformerAbstract
             'updated_at'  => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
-    
-    
+
+
 }

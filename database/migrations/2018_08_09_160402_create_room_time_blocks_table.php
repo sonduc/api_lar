@@ -22,7 +22,7 @@ class CreateRoomTimeBlocksTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

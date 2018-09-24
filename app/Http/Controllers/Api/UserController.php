@@ -25,7 +25,7 @@ class UserController extends ApiController
             'password.min'       => 'Mật khẩu phải có ít nhât :min ký tự',
             'password.confirmed' => 'Nhập lại mật khẩu không đúng',
         ];
-    
+
     /**
      * UserController constructor.
      *
@@ -36,7 +36,7 @@ class UserController extends ApiController
         $this->model = $user;
         $this->setTransformer(new UserTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -46,13 +46,13 @@ class UserController extends ApiController
     {
         $this->authorize('user.view');
         $pageSize = $request->get('limit', 25);
-        
+
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        
+
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -73,7 +73,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -96,11 +96,11 @@ class UserController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         $this->validationRules['email'] .= ',' . $id;
-        
+
         unset($this->validationRules['password']);
         DB::beginTransaction();
         try {
@@ -125,7 +125,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -145,7 +145,7 @@ class UserController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Danh sách giới tính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -161,7 +161,7 @@ class UserController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Danh sách cấp độ
      * @author HarikiRito <nxh0809@gmail.com>
@@ -177,7 +177,7 @@ class UserController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Danh sách loại tài khoản
      * @author HarikiRito <nxh0809@gmail.com>

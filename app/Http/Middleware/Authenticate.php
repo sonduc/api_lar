@@ -13,7 +13,7 @@ class Authenticate
      * @var \Illuminate\Contracts\Auth\Factory
      */
     protected $auth;
-    
+
     /**
      * Create a new middleware instance.
      *
@@ -25,7 +25,7 @@ class Authenticate
     {
         $this->auth = $auth;
     }
-    
+
     /**
      * Handle an incoming request.
      *
@@ -45,7 +45,7 @@ class Authenticate
                     'message' => 'HTTP_UNAUTHORIZED',
                 ], 401);
         }
-        
+
         return $next($request);
     }
 }

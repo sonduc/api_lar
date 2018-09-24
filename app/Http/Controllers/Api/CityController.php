@@ -43,7 +43,7 @@ class CityController extends ApiController
             'status.numeric'      => 'Phải là kiểu số',
             'status.between'      => 'Khoảng từ 0 đến 1',
         ];
-    
+
     /**
      * CityController constructor.
      *
@@ -54,7 +54,7 @@ class CityController extends ApiController
         $this->model = $city;
         $this->setTransformer(new CityTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +68,7 @@ class CityController extends ApiController
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -89,7 +89,7 @@ class CityController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -114,7 +114,7 @@ class CityController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -123,9 +123,9 @@ class CityController extends ApiController
             $this->validationRules['name']       .= ",{$id}";
             $this->validationRules['short_name'] .= ",{$id}";
             $this->validationRules['code']       .= ",{$id}";
-            
+
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $model = $this->model->update($id, $request->all());
             DB::commit();
             logs('city', 'sửa thành phố mã ' . $data->id, $data);
@@ -147,7 +147,7 @@ class CityController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         DB::beginTransaction();

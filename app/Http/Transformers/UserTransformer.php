@@ -18,7 +18,7 @@ class UserTransformer extends TransformerAbstract
             'pers',
             'sale',
         ];
-    
+
     /**
      * Các thông tin của user
      * @return array
@@ -28,7 +28,7 @@ class UserTransformer extends TransformerAbstract
         if (is_null($user)) {
             return [];
         }
-        
+
         return [
             'id'         => $user->id,
             'uuid'       => $user->uuid,
@@ -52,7 +52,7 @@ class UserTransformer extends TransformerAbstract
             'type_txt'   => $user->getAccountType(),
         ];
     }
-    
+
     /**
      * Thêm các thông tin về chức vụ
      * @return array
@@ -62,12 +62,12 @@ class UserTransformer extends TransformerAbstract
         if (is_null($user)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $user->roles())->get();
-        
+
         return $this->collection($data, new RoleTransformer);
     }
-    
+
     /**
      * Thêm các thông tin về quyền
      *
@@ -75,20 +75,20 @@ class UserTransformer extends TransformerAbstract
      *
      * @return [type]          [description]
      */
-    
+
     public function includePers(User $user = null)
     {
         if (is_null($user)) {
             return $this->null();
         }
-        
+
         $pers = [];
         foreach ($user->roles as $value) {
             $pers[] = $this->displayPermission($value->permissions);
         }
         return $this->primitive($pers);
     }
-    
+
     /**
      * Hiển thị quyền
      *
@@ -109,12 +109,12 @@ class UserTransformer extends TransformerAbstract
             }
             return $pers;
         }, config('permissions'), array_keys(config('permissions'))));
-        
+
         return array_values(array_where($allPermissions, function ($permission) use ($permissions) {
             return in_array($permission['slug'], array_keys($permissions));
         }));
     }
-    
+
     /**
      * Xem tài khoản này được quản lý bởi tài khoản nào
      *
@@ -129,7 +129,7 @@ class UserTransformer extends TransformerAbstract
         }
         return $this->item($user->parent, new UserTransformer);
     }
-    
+
     public function includeSale(User $user = null)
     {
         if (is_null($user->sale)) {
@@ -137,7 +137,7 @@ class UserTransformer extends TransformerAbstract
         }
         return $this->item($user->sale, new UserTransformer);
     }
-    
+
     /**
      * Danh sách các user đang được quản lý bởi tài khoản này
      *
@@ -150,9 +150,9 @@ class UserTransformer extends TransformerAbstract
         if (is_null($user)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $user->children());
-        
+
         return $this->collection($data, new UserTransformer);
     }
 }

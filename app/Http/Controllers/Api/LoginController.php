@@ -13,7 +13,7 @@ class LoginController extends ApiController
             'username' => 'required|email|max:255',
             'password' => 'required|min:5|max:255',
         ];
-    
+
     protected $validationMessages
         = [
             'username.required' => 'Vui lòng nhập email',
@@ -23,7 +23,7 @@ class LoginController extends ApiController
             'password.min'      => 'Mật khẩu cần lớn hơn :min kí tự',
             'password.max'      => 'Mật khẩu cần nhỏ hơn :max kí tự',
         ];
-    
+
     /**
      * Function processing login account
      *

@@ -4,19 +4,19 @@ namespace App\Repositories;
 
 abstract class BaseRepository implements EntityInterface
 {
-    
+
     // Các trạng thái của bản ghi đã bị softDeletes
     const WITH_TRASH = 1;
     const ONLY_TRASH = 2;
     const NO_TRASH   = 0;
-    
-    
+
+
     /**
      * Eloquent model
      * @var Eloquent
      */
     protected $model;
-    
+
     /**
      * Lấy tất cả bản ghi của model
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -27,7 +27,7 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->all();
     }
-    
+
     /**
      * Lấy tất cả bản ghi có phân trang
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -53,7 +53,7 @@ abstract class BaseRepository implements EntityInterface
                 }
             }
         }
-        
+
         switch ($trash) {
             case self::WITH_TRASH:
                 $lModel->withTrashed();
@@ -65,7 +65,7 @@ abstract class BaseRepository implements EntityInterface
             default:
                 break;
         }
-        
+
         switch ($size) {
             case -1:
                 return $lModel->get();
@@ -77,7 +77,7 @@ abstract class BaseRepository implements EntityInterface
                 break;
         }
     }
-    
+
     /**
      * Lấy thông tin 1 bản ghi đã bị xóa softDelete được xác định bởi ID
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -90,7 +90,7 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->withTrashed()->findOrFail($id);
     }
-    
+
     /**
      * Lưu thông tin 1 bản ghi mới
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -103,7 +103,7 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->create($data);
     }
-    
+
     /**
      * Lưu thông tin nhiều bản ghi
      * @author HarikiRito <nxh0809@gmail.com>
@@ -115,10 +115,10 @@ abstract class BaseRepository implements EntityInterface
     public function storeArray($data)
     {
         $data = $this->filterData($data);
-        
+
         return $this->model->insert($data);
     }
-    
+
     /**
      * Tạo pattern mẫu theo fillable và lọc data chỉ lấy những giá trị thuộc fillable
      * @author HarikiRito <nxh0809@gmail.com>
@@ -135,19 +135,19 @@ abstract class BaseRepository implements EntityInterface
         foreach ($data as $arr) {
             $patternArray = array_fill_keys($fillable, null);
             $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
-            
+
             $patternArray = array_only($arr, $fillable) + $patternArray;
-            
+
             if (array_key_exists('status', $patternArray) && is_null($patternArray['status'])) {
                 $patternArray['status'] = 1;
             }
-            
+
             $filterData[] = $patternArray;
         }
-        
+
         return $filterData;
     }
-    
+
     /**
      * Lấy thuộc tính fillable của model
      * @author HarikiRito <nxh0809@gmail.com>
@@ -158,7 +158,7 @@ abstract class BaseRepository implements EntityInterface
     {
         return $this->model->getFillable();
     }
-    
+
     /**
      * Cập nhật thông tin 1 bản ghi theo ID
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -177,7 +177,7 @@ abstract class BaseRepository implements EntityInterface
         $record->fill($data)->save();
         return $record;
     }
-    
+
     /**
      * Lấy thông tin 1 bản ghi xác định bởi ID
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -199,7 +199,7 @@ abstract class BaseRepository implements EntityInterface
         }
         return $model->findOrFail($id);
     }
-    
+
     /**
      * Xóa 1 bản ghi. Nếu model xác định 1 SoftDeletes
      * thì method này chỉ đưa bản ghi vào trash. Dùng method destroy
@@ -215,7 +215,7 @@ abstract class BaseRepository implements EntityInterface
         $record = $this->getById($id);
         return $record->delete();
     }
-    
+
     /**
      * Xóa hoàn toàn một bản ghi
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -229,7 +229,7 @@ abstract class BaseRepository implements EntityInterface
         $record = $this->getById($id);
         return $record->forceDelete();
     }
-    
+
     /**
      * Khôi phục 1 bản ghi SoftDeletes đã xóa
      * @author SaturnLai <daolvcntt@gmail.com>

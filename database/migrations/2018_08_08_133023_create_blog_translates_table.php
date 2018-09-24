@@ -23,7 +23,7 @@ class CreateBlogTranslatesTable extends Migration
             $table->string('lang', 5)->nullable();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

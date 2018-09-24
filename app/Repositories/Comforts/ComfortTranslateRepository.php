@@ -11,7 +11,7 @@ class ComfortTranslateRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * ComfortRepository constructor.
      *
@@ -21,7 +21,7 @@ class ComfortTranslateRepository extends BaseRepository
     {
         $this->model = $comfort;
     }
-    
+
     public function updateComfortTranslate($comfort, $data = [])
     {
         $this->deleteComfortTranslateByRoomID($comfort);
@@ -35,12 +35,12 @@ class ComfortTranslateRepository extends BaseRepository
 //        ])->first();
 //        $count ? parent::update($id, $data) : parent::store($data);
     }
-    
+
     public function deleteComfortTranslateByRoomID($comfort)
     {
         $this->model->where('comfort_id', $comfort->id)->forceDelete();
     }
-    
+
     public function storeComfortTranslate($comfort, $data = [], $list = [])
     {
         if (!empty($data)) {
@@ -51,13 +51,13 @@ class ComfortTranslateRepository extends BaseRepository
                 }
             }
         }
-        
+
         parent::storeArray($list);
     }
-    
+
     public function getByComfortID($id)
     {
         return $this->model->where('comfort_id', $id)->select('id')->get();
     }
-    
+
 }

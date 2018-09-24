@@ -19,7 +19,7 @@ class CreateRoomComfortsTable extends Migration
             $table->primary(['room_id', 'comfort_id']);
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

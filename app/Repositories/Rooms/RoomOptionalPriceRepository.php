@@ -11,7 +11,7 @@ class RoomOptionalPriceRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * RoomOptionalPriceRepository constructor.
      *
@@ -21,7 +21,7 @@ class RoomOptionalPriceRepository extends BaseRepository
     {
         $this->model = $room;
     }
-    
+
     /**
      * Cập nhật giá cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -34,7 +34,7 @@ class RoomOptionalPriceRepository extends BaseRepository
         $this->deleteRoomOptionalPriceByRoomID($room);
         $this->storeRoomOptionalPrice($room, $data);
     }
-    
+
     /**
      * Xóa giá của phòng theo room_id
      * @author HarikiRito <nxh0809@gmail.com>
@@ -45,7 +45,7 @@ class RoomOptionalPriceRepository extends BaseRepository
     {
         $this->model->where('room_id', $room->id)->forceDelete();
     }
-    
+
     /**
      * Lưu giá cụ thể cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -61,16 +61,16 @@ class RoomOptionalPriceRepository extends BaseRepository
                 $roomWeekPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
                 $list           = array_merge($list, $roomWeekPrices);
             }
-            
+
             if (isset($data['optional_prices']['days'])) {
                 $roomDayPrices = $this->storeRoomOptionalDayPrice($room, $data);
                 $list          = array_merge($list, $roomDayPrices);
             }
         }
-        
+
         parent::storeArray($list);
     }
-    
+
     /**
      * Thêm giá theo các ngày trong tuần cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -89,7 +89,7 @@ class RoomOptionalPriceRepository extends BaseRepository
         }
         return $list;
     }
-    
+
     /**
      * Thêm giá theo từng ngày cụ thể cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -110,5 +110,5 @@ class RoomOptionalPriceRepository extends BaseRepository
         }
         return $list;
     }
-    
+
 }

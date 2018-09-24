@@ -28,7 +28,7 @@ class CreateRoomTranslatesTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

@@ -6,15 +6,15 @@ use Illuminate\Contracts\Validation\Rule;
 
 class VietnameseNameValidator implements Rule
 {
-    
+
     /**
      * VietnameseNameValidator constructor.
      */
     public function __construct()
     {
-        
+
     }
-    
+
     /**
      * @param string $attribute
      * @param mixed  $value
@@ -25,7 +25,7 @@ class VietnameseNameValidator implements Rule
     {
         return $this->titleCheck($value);
     }
-    
+
     /**
      * Kiểm tra văn bản tiếng việt không kèm ký tự đặc biệt
      *
@@ -37,7 +37,7 @@ class VietnameseNameValidator implements Rule
     {
         return preg_match(config('regex.v_title.pattern'), $value) ? true : false;
     }
-    
+
     /**
      * Get the validation error message.
      *
@@ -45,7 +45,7 @@ class VietnameseNameValidator implements Rule
      */
     public function message()
     {
-        
+
     }
-    
+
 }

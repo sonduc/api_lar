@@ -58,7 +58,7 @@ class RoomController extends ApiController
             'optional_prices.status'             => 'boolean|nullable',
             'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
         ];
-    
+
     protected $validationMessages
         = [
             'details.*.*.name.required'                      => 'Tên không được để trông',
@@ -106,7 +106,7 @@ class RoomController extends ApiController
             'weekday_price.*.weekday.numeric'                => 'Mã thứ phải là kiểu số',
             'weekday_price.*.weekday.distinct'               => 'Mã thứ không được phép trùng nhau',
             'weekday_price.*.weekday.between'                => 'Mã thứ phải trong khoảng từ 1 đến 7',
-            
+
             'optional_prices.days.*.date_format'             => 'Định dạng của ngày phải là Y-m-d',
             'optional_prices.days.*.distinct'                => 'Ngày không được phép trùng nhau',
             'optional_prices.price_day.numeric'              => 'Giá phải là kiểu số',
@@ -115,7 +115,7 @@ class RoomController extends ApiController
             'optional_prices.price_after_hour.numeric'       => 'Giá theo giờ phải là kiểu số',
             'optional_prices.price_charge_guest.numeric'     => 'Giá khách thêm phải là kiểu số',
             'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
-            
+
             'cleaning_fee.numeric'           => 'Giá dọn phòng phải là kiểu số',
             'standard_point.numeric'         => 'Điểm phải là kiểu số',
             'is_manager.numeric'             => 'Kiểu quản lý phải là kiểu số',
@@ -134,7 +134,7 @@ class RoomController extends ApiController
             'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
             'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
         ];
-    
+
     /**
      * RoleController constructor.
      *
@@ -145,7 +145,7 @@ class RoomController extends ApiController
         $this->model = $room;
         $this->setTransformer(new RoomTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -157,13 +157,13 @@ class RoomController extends ApiController
         $this->authorize('room.view');
         $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        
+
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 //        dd($data);
 //        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -184,7 +184,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Tạo phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -201,7 +201,7 @@ class RoomController extends ApiController
         try {
             $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $data = $this->model->store($request->all());
 //            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
@@ -220,7 +220,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Sửa phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -259,7 +259,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Xóa phòng (Soft Delete)
      * @author HarikiRito <nxh0809@gmail.com>
@@ -275,7 +275,7 @@ class RoomController extends ApiController
         try {
             $this->authorize('room.delete');
             $this->model->delete($id);
-            
+
             DB::commit();
             logs('room', 'xóa phòng mã ' . $id);
             return $this->deleteResponse();
@@ -290,7 +290,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Thay đổi trạng thái của phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -307,7 +307,7 @@ class RoomController extends ApiController
         try {
             $this->authorize('room.update');
             $data = $this->model->status($id, $request->all());
-            
+
             DB::commit();
             logs('room', 'thay đổi trạng thái của phòng mã ' . $data->id);
             return $this->successResponse($data);
@@ -322,7 +322,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Lấy ra kiểu phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -341,7 +341,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Lấy ra danh sách kiểu media
      * @author HarikiRito <nxh0809@gmail.com>
@@ -358,7 +358,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Lấy kiểu thuê phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -376,7 +376,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Lấy trạng thái hiện tại của phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -394,5 +394,5 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-    
+
 }

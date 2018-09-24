@@ -20,7 +20,7 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     /**
      * Lấy thuộc tính của log
      * @author HarikiRito <nxh0809@gmail.com>
@@ -31,7 +31,7 @@ trait PresentationTrait
     {
         return $this->properties ? json_decode($this->properties) : null;
     }
-    
+
     /**
      * Lấy tên log tiêng việt
      * @author HarikiRito <nxh0809@gmail.com>
@@ -42,7 +42,7 @@ trait PresentationTrait
     {
         return array_key_exists($this->log_name, self::LOG_NAME) ? self::LOG_NAME[$this->log_name] : 'Không xác định';
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *

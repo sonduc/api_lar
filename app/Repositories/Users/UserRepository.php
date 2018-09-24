@@ -13,7 +13,7 @@ class UserRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * UserRepository constructor.
      *
@@ -23,7 +23,7 @@ class UserRepository extends BaseRepository
     {
         $this->model = $user;
     }
-    
+
     /**
      * Lưu thông tin 1 bản ghi mới
      * @author SaturnLai <daolvcntt@gmail.com>
@@ -41,11 +41,11 @@ class UserRepository extends BaseRepository
         }
         return $user;
     }
-    
+
     public function update($id, $data, $except = [], $only = [])
     {
         $user = parent::update($id, $data);
-        
+
         $roles = array_get($data, 'roles', []);
         if (count($roles) + 1) {
             $user->roles()->detach();
@@ -53,7 +53,7 @@ class UserRepository extends BaseRepository
         }
         return $user;
     }
-    
+
     /**
      * Lấy dữ liệu về giới tính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -64,7 +64,7 @@ class UserRepository extends BaseRepository
     {
         return $this->model::SEX;
     }
-    
+
     /**
      * Lấy thông tin về cấp độ
      * @author HarikiRito <nxh0809@gmail.com>
@@ -75,7 +75,7 @@ class UserRepository extends BaseRepository
     {
         return $this->model::LEVEL;
     }
-    
+
     /**
      * Lấy thông tin về loại tài khoản
      * @author HarikiRito <nxh0809@gmail.com>

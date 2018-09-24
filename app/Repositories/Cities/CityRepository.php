@@ -11,7 +11,7 @@ class CityRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * CityRepository constructor.
      *
@@ -21,6 +21,6 @@ class CityRepository extends BaseRepository
     {
         $this->model = $city;
     }
-    
-    
+
+
 }

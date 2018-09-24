@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class City extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    
+
     // Vùng miền
     const NORTH_REGION   = 1;
     const MIDDLE_REGION  = 2;
@@ -51,26 +51,26 @@ class City extends Entity
         = [
             'region_id', 'name', 'short_name', 'code', 'longitude', 'latitude', 'priority', 'hot', 'status',
         ];
-    
+
     /**
      * The attributes that are cast permission from json string to array
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
+
     public function districts()
     {
         return $this->hasMany(\App\Repositories\Districts\District::class, 'city_id');
     }
-    
+
     public function rooms()
     {
         return $this->hasMany(\App\Repositories\Rooms\Room::class, 'city_id');
     }
-    
+
     public function users()
     {
         return $this->hasMany(\App\User::class, 'city_id');
     }
-    
+
 }

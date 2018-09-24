@@ -8,16 +8,16 @@ use Laravel\Lumen\Routing\Controller;
 class ApiController extends Controller
 {
     use ResponseHandler;
-    
+
     /**
      * Status
      */
     const WITH_TRASH = 1; // lây tất cả các bản ghi cả cả bản ghi đã xóa
     const ONLY_TRASH = 2; // chi lây những bản ghi đã xóa
     const NO_TRASH   = 0; // lấy những bản ghi mà chưa bị xóa
-    
+
     protected $trash = self::NO_TRASH;
-    
+
     /**
      * Kiểm tra xem request có include 'trashed'
      * @author HarikiRito <nxh0809@gmail.com>
@@ -33,5 +33,5 @@ class ApiController extends Controller
         }
         return self::NO_TRASH;
     }
-    
+
 }

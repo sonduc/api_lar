@@ -15,13 +15,13 @@ class RoleTransformer extends TransformerAbstract
             'users',
             'pers',
         ];
-    
+
     public function transform(Role $role = null)
     {
         if (is_null($role)) {
             return [];
         }
-        
+
         return [
             'id'          => $role->id,
             'name'        => $role->name,
@@ -30,17 +30,17 @@ class RoleTransformer extends TransformerAbstract
             'admin_only'  => $role->admin_only,
         ];
     }
-    
+
     public function includeUsers(Role $role = null, ParamBag $params = null)
     {
         if (is_null($role)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $role->users())->get();
         return $this->collection($data, new UserTransformer);
     }
-    
+
     public function includePers(Role $role = null)
     {
         if (is_null($role)) {
@@ -48,7 +48,7 @@ class RoleTransformer extends TransformerAbstract
         }
         return $this->primitive($this->displayPermission($role->permissions));
     }
-    
+
     private function displayPermission($permissions)
     {
         $allPermissions = array_collapse(array_map(function ($permission, $key) {
@@ -62,7 +62,7 @@ class RoleTransformer extends TransformerAbstract
             }
             return $pers;
         }, config('permissions'), array_keys(config('permissions'))));
-        
+
         return array_values(array_where($allPermissions, function ($permission) use ($permissions) {
             return in_array($permission['slug'], array_keys($permissions));
         }));

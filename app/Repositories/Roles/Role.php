@@ -13,13 +13,13 @@ class Role extends Entity
      * @var array
      */
     protected $fillable = ['name', 'slug', 'permissions'];
-    
+
     /**
      * The attributes that are cast permission from json string to array
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
+
     /**
      * Relationship with user
      * @return Relation

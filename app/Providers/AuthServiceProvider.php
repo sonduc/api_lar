@@ -20,11 +20,12 @@ class AuthServiceProvider extends ServiceProvider
             \App\Repositories\Rooms\Room::class         => \App\Policies\RoomPolicy::class,
             \App\Repositories\Cities\City::class        => \App\Policies\CityPolicy::class,
             \App\Repositories\Districts\District::class => \App\Policies\DistrictPolicy::class,
-            \App\Repositories\Comforts\Comforts::class  => \App\Policies\ComfortPolicy::class,
+            \App\Repositories\Comforts\Comfort::class   => \App\Policies\ComfortPolicy::class,
             \App\Repositories\Logs\Log::class           => \App\Policies\LogPolicy::class,
             \App\Repositories\Bookings\Booking::class   => \App\Policies\BookingPolicy::class,
+            \App\Repositories\Blogs\Blog::class         => \App\Policies\BlogPolicy::class,
         ];
-    
+
     /**
      * Get the policies defined on the provider.
      *
@@ -34,7 +35,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         return $this->policies;
     }
-    
+
     /**
      * Boot the authentication services for the application.
      *
@@ -46,7 +47,7 @@ class AuthServiceProvider extends ServiceProvider
         // application. The callback which receives the incoming request instance
         // should return either a User instance or null. You're free to obtain
         // the User instance via an API token or any other method necessary.
-        
+
         // $this->app['auth']->viaRequest('api', function ($request) {
         //     if ($request->input('api_token')) {
         //         return User::where('api_token', $request->input('api_token'))->first();
@@ -55,13 +56,13 @@ class AuthServiceProvider extends ServiceProvider
         //
         //
         //
-        
+
         $this->register();
         $this->registerPassport();
         $this->registerPolicies();
         $this->registerGates();
     }
-    
+
     /**
      * Register any application services.
      *
@@ -69,9 +70,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function register()
     {
-    
+
     }
-    
+
     /**
      * Register passport
      * @return void
@@ -82,7 +83,7 @@ class AuthServiceProvider extends ServiceProvider
         LumenPassport::tokensExpireIn(\Carbon\Carbon::now()->addYears(1));
         LumenPassport::allowMultipleTokens();
     }
-    
+
     /**
      * Register the application's policies.
      *
@@ -94,7 +95,7 @@ class AuthServiceProvider extends ServiceProvider
             Gate::policy($key, $value);
         }
     }
-    
+
     /**
      * Register gates
      * @return void
@@ -129,6 +130,6 @@ class AuthServiceProvider extends ServiceProvider
                 }
             }
         }
-        
+
     }
 }

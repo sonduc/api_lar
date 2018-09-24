@@ -9,7 +9,7 @@ trait GlobalTrait
         $joins = collect($query->getQuery()->joins);
         return $joins->pluck('table')->contains($table);
     }
-    
+
     /**
      * Chuyển đổi các cột về bảng chính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -25,17 +25,17 @@ trait GlobalTrait
         if (is_null($table)) {
             $table = $this->table;
         }
-        
+
         $base = $fillable ? $this->getFillable() : [];
-        
+
         $base = self::mergeUnique($base, $columns);
-        
+
         foreach ($base as $key => $val) {
             $base[$key] = $table . '.' . $val;
         }
         return array_unique($base);
     }
-    
+
     public static function mergeUnique(...$array)
     {
         $result = [];
