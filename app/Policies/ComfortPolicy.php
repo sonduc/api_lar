@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class ComfortPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the comfort.
      *
@@ -20,7 +20,7 @@ class ComfortPolicy
     {
         return $user->hasAccess(['comfort.view']);
     }
-    
+
     /**
      * Determine whether the user can create comfort.
      *
@@ -32,7 +32,7 @@ class ComfortPolicy
     {
         return $user->hasAccess(['comfort.create']);
     }
-    
+
     /**
      * Determine whether the user can update the comfort.
      *
@@ -44,7 +44,7 @@ class ComfortPolicy
     {
         return $user->hasAccess(['comfort.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the comfort.
      *

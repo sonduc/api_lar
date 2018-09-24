@@ -41,7 +41,7 @@ class BookingController extends ApiController
             'payment_status'   => 'required|numeric|between:0,3',
             'source'           => 'required|numeric|between:1,6',
             'exchange_rate'    => 'nullable|numeric',
-            
+
             'money_received' => 'integer',
             'confirm'        => 'required|integer|between:0,1',
         ];
@@ -90,34 +90,34 @@ class BookingController extends ApiController
             'status.required'           => 'Vui lòng chọn trạng thái',
             'status.numeric'            => 'Mã trạng thái phải là kiểu số',
             'status.between'            => 'Mã trạng thái không phù hợp',
-            
+
             'type.required' => 'Vui lòng chọn hình thức booking',
             'type.numeric'  => 'Mã hình thức phải là kiểu số',
             'type.between'  => 'Mã hình thức không hợp lệ',
-            
+
             'booking_type.required' => 'Vui lòng chọn kiểu booking',
             'booking_type.numeric'  => 'Mã kiểu phải là kiểu số',
             'booking_type.between'  => 'Mã kiểu không hợp lệ',
-            
+
             'payment_method.required' => 'Vui lòng chọn hình thức thanh toán',
             'payment_method.numeric'  => 'Mã hình thức thanh toán phải là kiểu số',
             'payment_method.between'  => 'Mã hình thức thanh toán không hợp lệ',
-            
+
             'payment_status.required' => 'Vui lòng chọn trạng thái thanh toán',
             'payment_status.numeric'  => 'Mã trạng thái thanh toán phải là kiểu số',
             'payment_status.between'  => 'Mã trạng thái thanh toán không hợp lệ',
-            
+
             'source.required'       => 'Vui lòng chọn nguồn booking',
             'source.numeric'        => 'Mã nguồn booking phải là kiểu số',
             'source.between'        => 'Mã nguồn booking không hợp lệ',
             'exchange_rate.numeric' => 'Tỉ giá chuyển đổi phải là kiểu số',
-            
+
             'money_received.integer' => 'Giá tiền phải là kiểu số',
             'confirm.required'       => 'Vui lòng chọn trạng thái xác nhận',
             'confirm.integer'        => 'Mã trạng thái xác nhận phải là kiểu số',
             'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
         ];
-    
+
     /**
      * BookingController constructor.
      *
@@ -128,7 +128,7 @@ class BookingController extends ApiController
         $this->model = $booking;
         $this->setTransformer(new BookingTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -145,7 +145,7 @@ class BookingController extends ApiController
 //        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -166,7 +166,7 @@ class BookingController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -174,7 +174,7 @@ class BookingController extends ApiController
         try {
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();
@@ -195,16 +195,16 @@ class BookingController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('booking.update');
-            
+
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            
+
             $data = $this->model->update($id, $request->all());
             DB::commit();
             logs('booking', 'sửa booking có code ' . $data->code, $data);
@@ -226,7 +226,7 @@ class BookingController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -246,7 +246,7 @@ class BookingController extends ApiController
             throw $t;
         }
     }
-    
+
     /**
      * Trạng thái booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -263,7 +263,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Trạng thái booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -280,7 +280,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Kiểu booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -297,7 +297,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Loại booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -314,7 +314,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Hình thức thanh toán
      * @author HarikiRito <nxh0809@gmail.com>
@@ -331,7 +331,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Trạng thái thanh toán
      * @author HarikiRito <nxh0809@gmail.com>
@@ -348,7 +348,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Kiểu của payment_history
      * @author HarikiRito <nxh0809@gmail.com>
@@ -365,7 +365,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Nguồn booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -382,7 +382,7 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
     /**
      * Khoảng giá
      * @author HarikiRito <nxh0809@gmail.com>
@@ -399,5 +399,5 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-    
+
 }

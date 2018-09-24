@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class DistrictPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the role.
      *
@@ -21,7 +21,7 @@ class DistrictPolicy
     {
         return $user->hasAccess(['district.view']);
     }
-    
+
     /**
      * Determine whether the user can create role.
      *
@@ -33,7 +33,7 @@ class DistrictPolicy
     {
         return $user->hasAccess(['district.create']);
     }
-    
+
     /**
      * Determine whether the user can update the role.
      *
@@ -46,7 +46,7 @@ class DistrictPolicy
     {
         return $user->hasAccess(['district.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the role.
      *

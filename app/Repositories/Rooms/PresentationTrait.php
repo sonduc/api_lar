@@ -20,7 +20,7 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     public function managerStatus()
     {
         switch ($this->is_manager) {
@@ -35,14 +35,14 @@ trait PresentationTrait
                 break;
         }
     }
-    
+
     public function rentStatus()
     {
         switch ($this->rent_type) {
             case self::TYPE_HOUR:
                 return 'Theo giờ';
                 break;
-            
+
             case self::TYPE_DAY:
                 return 'Theo ngày';
                 break;
@@ -54,22 +54,22 @@ trait PresentationTrait
                 break;
         }
     }
-    
+
     public function roomStatus()
     {
         return self::ROOM_STATUS[$this->status ?? self::NOT_APPROVED];
     }
-    
+
     public function roomType()
     {
         return isset(self::ROOM_TYPE[$this->room_type]) ? self::ROOM_TYPE[$this->room_type] : 'Không xác định';
     }
-    
+
     public function roomMedia()
     {
         return isset(self::IMAGE_TYPE[$this->type]) ? self::IMAGE_TYPE[$this->type] : 'Không xác định';
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *
@@ -81,5 +81,5 @@ trait PresentationTrait
     {
         return $this->permissions[$permission] ?? false;
     }
-    
+
 }

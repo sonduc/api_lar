@@ -18,13 +18,13 @@ $router->group([
      */
     $router->get('/permissions', 'PermissionController@index');
     $router->get('/languages', 'LanguageController@index');
-    
+
     /**
      * Log Resource
      */
     resource('/logs', 'LogController', $router);
-    
-    
+
+
     /**
      * User Resource
      */
@@ -38,14 +38,14 @@ $router->group([
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
-    
-    
+
+
     $router->get('/permissions', 'PermissionController@index');
     /**
      * Role Resource
      */
     resource('/roles', 'RoleController', $router);
-    
+
     /**
      * Room Resource
      */
@@ -55,23 +55,23 @@ $router->group([
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
     $router->post('/rooms/status/{id}', 'RoomController@changeStatus');
     resource('/rooms', 'RoomController', $router);
-    
-    
+
+
     /**
      * City Resource
      */
     resource('/cities', 'CityController', $router);
-    
+
     /**
      * District Resource
      */
     resource('/districts', 'DistrictController', $router);
-    
+
     /**
      * Comfort Resource
      */
     resource('/comforts', 'ComfortController', $router);
-    
+
     /**
      * Booking Resource
      */
@@ -84,13 +84,18 @@ $router->group([
     $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
-    
+
     resource('/bookings', 'BookingController', $router);
     /**
      * Payment History
      */
     $router->get('/payments/payment-history-status', 'PaymentHistoryController@paymentHistoryStatus');
     resource('/payments', 'PaymentHistoryController', $router);
+
+    /**
+     * Blog Resource
+     */
+    resource('/blogs', 'BlogController', $router);
 });
 
 

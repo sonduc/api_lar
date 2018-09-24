@@ -1,7 +1,7 @@
 <?php
 
 return [
-    
+
     'admin' => [
         'title'      => 'Admin',
         'list'       => [
@@ -9,7 +9,7 @@ return [
         ],
         'admin_only' => true,
     ],
-    
+
     'user'       => [
         'title' => 'Quản lý tài khoản',
         'list'  => [
@@ -123,6 +123,16 @@ return [
     ],
     'log'        => [
         'title' => 'Quản lý Logging',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
+    'blog'       => [
+        'title' => 'Quản lý blog',
         'list'  => [
             'view'    => 'View',
             'create'  => 'Create',

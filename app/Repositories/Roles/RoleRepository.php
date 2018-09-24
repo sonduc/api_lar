@@ -11,7 +11,7 @@ class RoleRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * RoleRepository constructor.
      *
@@ -21,7 +21,7 @@ class RoleRepository extends BaseRepository
     {
         $this->model = $role;
     }
-    
+
     public function getBySlug($slug)
     {
         return $this->model->where('slug', $slug)->first();

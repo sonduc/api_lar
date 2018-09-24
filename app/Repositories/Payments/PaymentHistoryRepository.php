@@ -13,7 +13,7 @@ class PaymentHistoryRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * PaymentHistoryRepository constructor.
      *
@@ -23,7 +23,7 @@ class PaymentHistoryRepository extends BaseRepository
     {
         $this->model = $payment;
     }
-    
+
     /**
      * Thêm vào lịch sử thanh toán
      * @author HarikiRito <nxh0809@gmail.com>
@@ -40,10 +40,10 @@ class PaymentHistoryRepository extends BaseRepository
         $data                   = $this->processPaymentMoney($booking, $data);
         $data                   = $this->processPaymentStatus($booking, $data);
         $data                   = $this->processPaymentNote($booking, $data);
-        
+
         return parent::store($data);
     }
-    
+
     /**
      * Tổng số tiền đã thanh toán của booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -56,7 +56,7 @@ class PaymentHistoryRepository extends BaseRepository
     {
         return $this->model->where('booking_id', $booking->id)->sum('money_received');
     }
-    
+
     /**
      * Hàm xử lý tiền
      * @author HarikiRito <nxh0809@gmail.com>
@@ -73,11 +73,11 @@ class PaymentHistoryRepository extends BaseRepository
             $debt                   -= $data['money_received'];
             $data['total_received'] += $data['money_received'];
         }
-        
+
         $data['total_debt'] = $debt;
         return $data;
     }
-    
+
     /**
      * Hàm xử lý trạng thái thanh toán
      * @author HarikiRito <nxh0809@gmail.com>
@@ -89,13 +89,14 @@ class PaymentHistoryRepository extends BaseRepository
      */
     public function processPaymentStatus($booking = [], $data = [])
     {
-        $data['status'] = ($data['total_received'] == 0) ? BookingConstant::UNPAID
+        $data['status'] = ($data['total_received'] == 0)
+            ? BookingConstant::UNPAID
             : ($data['total_received'] >= $booking->total_fee ? BookingConstant::FULLY_PAID
                 : BookingConstant::PARTLY_PAID);
-        
+
         return $data;
     }
-    
+
     /**
      * Viết ghi chú cho thanh toán
      * @author HarikiRito <nxh0809@gmail.com>
@@ -127,8 +128,8 @@ class PaymentHistoryRepository extends BaseRepository
                 $data['note'] = 'Chưa thanh toán';
                 break;
         }
-        
+
         return $data;
     }
-    
+
 }

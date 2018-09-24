@@ -11,7 +11,7 @@ class RoomTimeBlockRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * RoomTimeBlockRepository constructor.
      *
@@ -21,7 +21,7 @@ class RoomTimeBlockRepository extends BaseRepository
     {
         $this->model = $roomtimeblock;
     }
-    
+
     /**
      * Cập nhật những ngày không cho đặt phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -35,7 +35,7 @@ class RoomTimeBlockRepository extends BaseRepository
         $this->deleteRoomTimeBlockByRoomID($room);
         $this->storeRoomTimeBlock($room, $data);
     }
-    
+
     /**
      * Xóa những ngày không cho đặt phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -46,7 +46,7 @@ class RoomTimeBlockRepository extends BaseRepository
     {
         $this->model->where('room_id', $room->id)->forceDelete();
     }
-    
+
     /**
      * Lưu những ngày không cho đặt phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -62,7 +62,7 @@ class RoomTimeBlockRepository extends BaseRepository
             $arr['room_id']    = $room->id;
             $list[]            = $arr;
         }
-        
+
         parent::storeArray($list);
     }
 }

@@ -10,18 +10,18 @@ use League\Fractal\TransformerAbstract;
 class CityTransformer extends TransformerAbstract
 {
     use FilterTrait;
-    
+
     protected $availableIncludes
         = [
             'rooms', 'districts', 'users',
         ];
-    
+
     public function transform(City $city = null)
     {
         if (is_null($city)) {
             return [];
         }
-        
+
         return [
             'id'           => $city->id,
             'region_id'    => $city->region_id,
@@ -40,7 +40,7 @@ class CityTransformer extends TransformerAbstract
             'updated_at'   => $city->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     /**
      * Include Rooms
      * @author HarikiRito <nxh0809@gmail.com>
@@ -55,12 +55,12 @@ class CityTransformer extends TransformerAbstract
         if (is_null($city)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $city->rooms())->get();
-        
+
         return $this->collection($data, new RoomTransformer);
     }
-    
+
     /**
      * Include Districts
      * @author HarikiRito <nxh0809@gmail.com>
@@ -75,21 +75,21 @@ class CityTransformer extends TransformerAbstract
         if (is_null($city)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $city->districts())->get();
-        
+
         return $this->collection($data, new DistrictTransformer);
     }
-    
+
     public function includeUsers(City $city = null, ParamBag $params = null)
     {
         if (is_null($city)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $city->users())->get();
-        
+
         return $this->collection($data, new UserTransformer);
     }
-    
+
 }

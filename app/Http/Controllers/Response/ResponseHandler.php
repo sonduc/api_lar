@@ -7,7 +7,7 @@ use App\Http\Transformers\OptimusPrime;
 trait ResponseHandler
 {
     public $transform;
-    
+
     public function deleteResponse()
     {
         $response = [
@@ -18,7 +18,7 @@ trait ResponseHandler
         ];
         return response()->json($response, $response['code']);
     }
-    
+
     public function errorResponse($data)
     {
         $response = [
@@ -29,23 +29,23 @@ trait ResponseHandler
         ];
         return response()->json($response, $response['code']);
     }
-    
+
     protected function setTransformer($transform)
     {
         $this->transform = $transform;
     }
-    
+
     protected function successResponse($data, $transform = true, $include = null)
     {
-        
+
         if (is_null($data)) {
             $data = [];
         }
-        
+
         if (property_exists($this, 'useTransform')) {
             $transform = $this->useTransform;
         }
-        
+
         if ($transform) {
             $response = array_merge([
                 'code'   => 200,
@@ -60,7 +60,7 @@ trait ResponseHandler
             return response()->json($response, 200);
         }
     }
-    
+
     private function transform($data, $include)
     {
         try {
@@ -72,7 +72,7 @@ trait ResponseHandler
             throw $t;
         }
     }
-    
+
     protected function notFoundResponse()
     {
         $response = [

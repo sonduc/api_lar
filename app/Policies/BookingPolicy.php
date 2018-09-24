@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class BookingPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the booking.
      *
@@ -20,7 +20,7 @@ class BookingPolicy
     {
         return $user->hasAccess(['booking.view']);
     }
-    
+
     /**
      * Determine whether the user can create booking.
      *
@@ -32,7 +32,7 @@ class BookingPolicy
     {
         return $user->hasAccess(['booking.create']);
     }
-    
+
     /**
      * Determine whether the user can update the booking.
      *
@@ -44,7 +44,7 @@ class BookingPolicy
     {
         return $user->hasAccess(['booking.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the booking.
      *

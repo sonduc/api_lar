@@ -20,7 +20,7 @@ class RoleController extends ApiController
             'slug.required'     => 'Slug không được để trông',
             'permissions.array' => 'Danh sách quyền không đúng định dạng array',
         ];
-    
+
     /**
      * RoleController constructor.
      *
@@ -31,7 +31,7 @@ class RoleController extends ApiController
         $this->model = $role;
         $this->setTransformer(new RoleTransformer);
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -43,7 +43,7 @@ class RoleController extends ApiController
         $pageSize = $request->get('limit', 25);
         return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -62,14 +62,14 @@ class RoleController extends ApiController
             throw $t;
         }
     }
-    
+
     public function store(Request $request)
     {
         try {
             $this->authorize('role.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            
+
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -82,14 +82,14 @@ class RoleController extends ApiController
             throw $t;
         }
     }
-    
+
     public function update(Request $request, $id)
     {
         try {
             $this->authorize('role.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-            
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -104,13 +104,13 @@ class RoleController extends ApiController
             throw $t;
         }
     }
-    
+
     public function destroy($id)
     {
         try {
             $this->authorize('role.delete');
             $this->model->delete($id);
-            
+
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

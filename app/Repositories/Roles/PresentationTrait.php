@@ -20,7 +20,7 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *

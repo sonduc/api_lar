@@ -15,7 +15,7 @@ class RoomRepository extends BaseRepository
     protected $roomOptionalPrice;
     protected $roomMedia;
     protected $roomTimeBlock;
-    
+
     /**
      * RoomRepository constructor.
      *
@@ -37,7 +37,7 @@ class RoomRepository extends BaseRepository
         $this->roomMedia         = $roomMedia;
         $this->roomTimeBlock     = $roomTimeBlock;
     }
-    
+
     /**
      * Lưu trữ bản ghi của phòng vào bảng rooms, room_translates, room_optional_prices, room_comfort
      * @author HarikiRito <nxh0809@gmail.com>
@@ -54,11 +54,11 @@ class RoomRepository extends BaseRepository
         $this->roomMedia->storeRoomMedia($data_room, $data);
         $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
-        
-        
+
+
         return $data_room;
     }
-    
+
     /**
      * Lưu comforts cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -75,7 +75,7 @@ class RoomRepository extends BaseRepository
             }
         }
     }
-    
+
     /**
      * Cập nhật cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -97,7 +97,7 @@ class RoomRepository extends BaseRepository
         $this->storeRoomComforts($data_room, $data);
         return $data_room;
     }
-    
+
     /**
      * Chỉnh sửa trạng thái của phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -112,7 +112,7 @@ class RoomRepository extends BaseRepository
         $data_room = parent::update($id, $data);
         return $data_room;
     }
-    
+
     /**
      * Lấy ra kiểu phòng
      * @author HarikiRito <nxh0809@gmail.com>

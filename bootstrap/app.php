@@ -132,14 +132,14 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
-    require __DIR__ . '/../routes/web.php';
+    require_once __DIR__ . '/../routes/web.php';
 });
 
 $app->router->group([
     'prefix'    => 'api',
     'namespace' => 'App\Http\Controllers\Api',
 ], function ($router) {
-    require __DIR__ . '/../routes/api.php';
+    require_once __DIR__ . '/../routes/api.php';
 });
 
 return $app;

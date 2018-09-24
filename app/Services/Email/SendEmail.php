@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Mail;
 class SendEmail
 {
     use DispatchesJobs;
-    
+
     /**
      * @param Email  $email
      * @param string $template

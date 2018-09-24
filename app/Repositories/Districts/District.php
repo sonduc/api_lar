@@ -8,13 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class District extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    
+
     // Trạng thái
     const UNAVAILABLE = 0;
     const AVAILABLE   = 1;
@@ -39,27 +39,27 @@ class District extends Entity
         = [
             'city_id', 'name', 'short_name', 'code', 'priority', 'hot', 'status',
         ];
-    
+
     /**
      * The attributes that are cast permission from json string to array
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
-    
+
+
     public function rooms()
     {
         return $this->hasMany(\App\Repositories\Rooms\Room::class, 'district_id');
     }
-    
+
     public function city()
     {
         return $this->belongsTo(\App\Repositories\Cities\City::class, 'city_id');
     }
-    
+
     public function users()
     {
         return $this->hasMany(\App\User::class, 'district_id');
     }
-    
+
 }

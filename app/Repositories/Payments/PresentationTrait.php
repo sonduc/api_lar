@@ -22,7 +22,7 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *
@@ -34,7 +34,7 @@ trait PresentationTrait
     {
         return $this->permissions[$permission] ?? false;
     }
-    
+
     /**
      * Lấy trạng thái của payment_histories
      * @author HarikiRito <nxh0809@gmail.com>

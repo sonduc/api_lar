@@ -20,7 +20,7 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     /**
      * [inRole description]
      *
@@ -32,7 +32,7 @@ trait PresentationTrait
     {
         return $this->roles()->where('slug', $slug)->count() == 1;
     }
-    
+
     /**
      * [isSuperAdmin description]
      * @return boolean
@@ -41,7 +41,7 @@ trait PresentationTrait
     {
         return $this->hasAccess(['admin.super-admin']);
     }
-    
+
     public function getStatus()
     {
         switch ($this->status) {
@@ -50,13 +50,13 @@ trait PresentationTrait
                 break;
             case self::DISABLE:
                 return 'Khóa';
-            
+
             default:
                 return 'Không xác định';
                 break;
         }
     }
-    
+
     public function getGender()
     {
         switch ($this->gender) {
@@ -77,7 +77,7 @@ trait PresentationTrait
                 break;
         }
     }
-    
+
     public function getLevelStatus()
     {
         switch ($this->level) {
@@ -101,7 +101,7 @@ trait PresentationTrait
                 break;
         }
     }
-    
+
     public function getVipStatus()
     {
         switch ($this->vip) {
@@ -116,7 +116,7 @@ trait PresentationTrait
                 break;
         }
     }
-    
+
     /**
      * lấy tài khoản owner
      * đối với tài khoản con -> lấy ra tài khoản cha
@@ -127,7 +127,7 @@ trait PresentationTrait
     {
         return $this->parent ?? $this;
     }
-    
+
     public function getAccountType()
     {
         return self::TYPE_ACCOUNT[$this->type ?? 0];

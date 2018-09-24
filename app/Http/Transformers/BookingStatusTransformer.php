@@ -11,13 +11,13 @@ class BookingStatusTransformer extends TransformerAbstract
         = [
             'user',
         ];
-    
+
     public function transform(BookingStatus $booking = null)
     {
         if (is_null($booking)) {
             return [];
         }
-        
+
         return [
             'id'         => $booking->id,
             'staff_id'   => $booking->staff_id,
@@ -27,13 +27,13 @@ class BookingStatusTransformer extends TransformerAbstract
             'updated_at' => $booking->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     public function includeUser(BookingStatus $booking)
     {
         if (is_null($booking)) {
             return $this->null();
         }
-        
+
         return $this->item($booking->user, new UserTransformer);
     }
 }

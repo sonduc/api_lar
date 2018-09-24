@@ -9,15 +9,15 @@ class RoomTimeBlockTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     public function transform(RoomTimeBlock $room = null)
     {
         if (is_null($room)) {
             return [];
         }
-        
+
         return [
             'id'         => $room->id,
             'room_id'    => $room->room_id,
@@ -28,5 +28,5 @@ class RoomTimeBlockTransformer extends TransformerAbstract
             'updated_at' => $room->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
 }

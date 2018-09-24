@@ -9,9 +9,9 @@ class ComfortTranslateTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     /**
      *
      * @param ComfortTranslate $comfort
@@ -23,7 +23,7 @@ class ComfortTranslateTransformer extends TransformerAbstract
         if (is_null($comfort)) {
             return [];
         }
-        
+
         return [
             'id'          => $comfort->id,
             'comfort_id'  => $comfort->comfort_id,

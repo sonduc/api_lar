@@ -19,7 +19,7 @@ class CreateBlogTagsTable extends Migration
             $table->primary(['blog_id', 'tag_id']);
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

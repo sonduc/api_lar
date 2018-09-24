@@ -13,13 +13,13 @@ class LogTransformer extends TransformerAbstract
         = [
             'details', 'user',
         ];
-    
+
     public function transform(Log $log = null)
     {
         if (is_null($log)) {
             return [];
         }
-        
+
         return [
             'id'           => $log->id,
             'log_name'     => $log->log_name,
@@ -30,24 +30,24 @@ class LogTransformer extends TransformerAbstract
             'updated_at'   => $log->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     public function includeDetails(Log $log)
     {
         if (is_null($log)) {
             return [];
         }
-        
+
         return $this->primitive($log->properties());
     }
-    
+
     public function includeUser(Log $log)
     {
         if (is_null($log)) {
             return [];
         }
-        
+
         return $this->primitive($log->user);
     }
-    
-    
+
+
 }

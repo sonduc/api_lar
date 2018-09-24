@@ -21,8 +21,8 @@ class RoomTransformer extends TransformerAbstract
             'city',
             'district',
         ];
-    
-    
+
+
     /**
      * Lấy thông tin của phòng
      *
@@ -35,7 +35,7 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return [];
         }
-        
+
         return [
             'id'                   => $room->id,
             'merchant_id'          => $room->merchant_id,
@@ -73,7 +73,7 @@ class RoomTransformer extends TransformerAbstract
             'updated_at'           => $room->updated_at->format('Y-m-d H:i:s'),
         ];
     }
-    
+
     /**
      * Xem ai là chủ phòng
      *
@@ -88,7 +88,7 @@ class RoomTransformer extends TransformerAbstract
         }
         return $this->item($room->user, new UserTransformer);
     }
-    
+
     /**
      * Thông tin chi tiết phòng
      *
@@ -101,13 +101,13 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $room->roomTrans())->get();
-        
+
         return $this->collection($data, new RoomTranslateTransformer);
     }
-    
-    
+
+
     /**
      * Thông tin tiện nghi của phòng
      *
@@ -120,12 +120,12 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $room->comforts())->get();
-        
+
         return $this->collection($data, new ComfortTransformer);
     }
-    
+
     /**
      * Include Prices
      * @author HarikiRito <nxh0809@gmail.com>
@@ -140,12 +140,12 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $room->prices())->get();
-        
+
         return $this->collection($data, new RoomOptionalPriceTransformer);
     }
-    
+
     /**
      * Include Room Time Block
      * @author HarikiRito <nxh0809@gmail.com>
@@ -160,12 +160,12 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $room->blocks())->get();
-        
+
         return $this->collection($data, new RoomTimeBlockTransformer);
     }
-    
+
     /**
      * Include Room Media
      * @author HarikiRito <nxh0809@gmail.com>
@@ -180,12 +180,12 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        
+
         $data = $this->limitAndOrder($params, $room->media())->get();
-        
+
         return $this->collection($data, new RoomMediaTransformer);
     }
-    
+
     public function includeCity(Room $room = null)
     {
         if (is_null($room)) {
@@ -193,7 +193,7 @@ class RoomTransformer extends TransformerAbstract
         }
         return $this->item($room->city, new CityTransformer);
     }
-    
+
     public function includeDistrict(Room $room = null)
     {
         if (is_null($room)) {

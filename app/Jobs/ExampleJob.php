@@ -13,7 +13,7 @@ class ExampleJob extends Job
     {
         //
     }
-    
+
     /**
      * Execute the job.
      *

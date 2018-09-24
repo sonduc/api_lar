@@ -11,7 +11,7 @@ class DistrictRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * CityRepository constructor.
      *
@@ -20,8 +20,8 @@ class DistrictRepository extends BaseRepository
     public function __construct(District $district)
     {
         $this->model = $district;
-        
+
     }
-    
-    
+
+
 }

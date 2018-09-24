@@ -16,7 +16,7 @@ class SendMailListener
     {
         //
     }
-    
+
     /**
      *
      * @param BookingEvent $event

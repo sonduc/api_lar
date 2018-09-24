@@ -17,7 +17,7 @@ trait DispatchesJobs
     {
         return app('Illuminate\Contracts\Bus\Dispatcher')->dispatch($job);
     }
-    
+
     /**
      * Marshal a job and dispatch it to its appropriate handler.
      *
@@ -30,7 +30,7 @@ trait DispatchesJobs
     {
         return app('Illuminate\Contracts\Bus\Dispatcher')->dispatchFromArray($job, $array);
     }
-    
+
     /**
      * Marshal a job and dispatch it to its appropriate handler.
      *

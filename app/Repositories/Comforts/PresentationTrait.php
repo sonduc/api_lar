@@ -20,22 +20,22 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     public function getRegion()
     {
         return self::REGION[$this->region_id ?? self::UNKNOWN_REGION];
     }
-    
+
     public function getStatus()
     {
         return self::STATUS[$this->status ?? self::UNAVAILABLE];
     }
-    
+
     public function getPriorityStatus()
     {
         return self::PRIORITIES[$this->priority ?? self::NO_PRIORITY];
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *

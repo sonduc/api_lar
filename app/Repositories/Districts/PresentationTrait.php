@@ -20,17 +20,17 @@ trait PresentationTrait
         }
         return false;
     }
-    
+
     public function getStatus()
     {
         return self::STATUS[$this->status ?? self::UNAVAILABLE];
     }
-    
+
     public function getPriorityStatus()
     {
         return self::PRIORITIES[$this->priority ?? self::NO_PRIORITY];
     }
-    
+
     /**
      * Check a specific permission that belongs to this role
      *

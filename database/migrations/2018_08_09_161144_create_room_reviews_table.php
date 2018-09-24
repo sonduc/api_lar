@@ -22,7 +22,7 @@ class CreateRoomReviewsTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *

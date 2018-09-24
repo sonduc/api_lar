@@ -9,15 +9,15 @@ class PaymentHistoryTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     public function transform(PaymentHistory $payment = null)
     {
         if (is_null($payment)) {
             return [];
         }
-        
+
         return [
             'id'             => $payment->id,
             'money_received' => $payment->money_received,
@@ -30,8 +30,8 @@ class PaymentHistoryTransformer extends TransformerAbstract
             'status_txt'     => $payment->paymentStatus(),
             'created_at'     => $payment->created_at->format('Y-m-d H:i:s'),
             'updated_at'     => $payment->updated_at->format('Y-m-d H:i:s'),
-        
+
         ];
     }
-    
+
 }

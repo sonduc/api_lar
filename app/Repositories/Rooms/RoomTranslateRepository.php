@@ -11,7 +11,7 @@ class RoomTranslateRepository extends BaseRepository
      * @var Model
      */
     protected $model;
-    
+
     /**
      * RoomTranslateRepository constructor.
      *
@@ -21,7 +21,7 @@ class RoomTranslateRepository extends BaseRepository
     {
         $this->model = $roomTranslate;
     }
-    
+
     /**
      * Cập nhật thông tin phòng theo ngôn ngữ
      * @author HarikiRito <nxh0809@gmail.com>
@@ -34,7 +34,7 @@ class RoomTranslateRepository extends BaseRepository
         $this->deleteRoomTranslateByRoomID($room);
         $this->storeRoomTranslate($room, $data);
     }
-    
+
     /**
      * Xóa tất cả bản ghi theo room_id
      * @author HarikiRito <nxh0809@gmail.com>
@@ -45,7 +45,7 @@ class RoomTranslateRepository extends BaseRepository
     {
         $this->model->where('room_id', $room->id)->forceDelete();
     }
-    
+
     /**
      * Thêm dữ liệu vào roomTranslate
      * @author HarikiRito <nxh0809@gmail.com>
@@ -65,8 +65,8 @@ class RoomTranslateRepository extends BaseRepository
                 }
             }
         }
-        
+
         parent::storeArray($list);
     }
-    
+
 }

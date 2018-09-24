@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class RoomOptionalPrice extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
-    
+
+
     const AVAILABLE   = 1;
     const UNAVAILABLE = 0;
     protected $table = 'room_optional_prices';
@@ -27,6 +27,6 @@ class RoomOptionalPrice extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
-    
+
+
 }

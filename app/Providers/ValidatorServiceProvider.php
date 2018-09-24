@@ -16,7 +16,7 @@ class ValidatorServiceProvider extends ServiceProvider
     {
         //
     }
-    
+
     public function boot()
     {
         Validator::extend('v_title', 'App\Validator\VietnameseNameValidator@passes');

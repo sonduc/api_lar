@@ -8,7 +8,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class LogPolicy
 {
     use HandlesAuthorization;
-    
+
     /**
      * Determine whether the user can view the log.
      *
@@ -20,7 +20,7 @@ class LogPolicy
     {
         return $user->hasAccess(['log.view']);
     }
-    
+
     /**
      * Determine whether the user can create log.
      *
@@ -32,7 +32,7 @@ class LogPolicy
     {
         return $user->hasAccess(['log.create']);
     }
-    
+
     /**
      * Determine whether the user can update the log.
      *
@@ -44,7 +44,7 @@ class LogPolicy
     {
         return $user->hasAccess(['log.update']);
     }
-    
+
     /**
      * Determine whether the user can delete the log.
      *

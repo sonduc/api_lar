@@ -9,15 +9,15 @@ class RoomOptionalPriceTransformer extends TransformerAbstract
 {
     protected $availableIncludes
         = [
-        
+
         ];
-    
+
     public function transform(RoomOptionalPrice $room = null)
     {
         if (is_null($room)) {
             return [];
         }
-        
+
         return [
             'id'                 => $room->id,
             'weekday'            => $room->weekday,
@@ -32,5 +32,5 @@ class RoomOptionalPriceTransformer extends TransformerAbstract
             'updated_at'         => $room->updated_at->format('Y-m-d H:m:i'),
         ];
     }
-    
+
 }

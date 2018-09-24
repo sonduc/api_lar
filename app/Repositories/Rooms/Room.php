@@ -8,37 +8,37 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
+
     const MANAGER_ACTIVE   = 1;
     const MANAGER_DEACTIVE = 0;
-    const CHECKIN  = "14:00";
-    
-    
+    const CHECKIN          = "14:00";
+
+
     // Phòng tự quản lý
-    const CHECKOUT = "12:00";
-const TYPE_HOUR = 1;
-    
+    const CHECKOUT  = "12:00";
+    const TYPE_HOUR = 1;
+
     // Giờ Checkin , checkout mặc định
-const TYPE_DAY  = 2;
-const TYPE_ALL  = 3;
-    
+    const TYPE_DAY = 2;
+    const TYPE_ALL = 3;
+
     // Định nghĩa phòng theo thời gian
-        const NOT_APPROVED   = 0; // Theo giờ
-        const AVAILABLE      = 1; // Theo ngày
-        const UNAVAILABLE    = 2; // Theo ngày - giờ
-    
+    const NOT_APPROVED = 0; // Theo giờ
+    const AVAILABLE    = 1; // Theo ngày
+    const UNAVAILABLE  = 2; // Theo ngày - giờ
+
     // Định nghĩa trạng thái phòng
     const CLEANED        = 3;
     const SETUP_SERVICES = 4;
-    const PRIVATE_HOUSE = 1;
-    const APARTMENT     = 2;
-    const VILLA         = 3;
-    
+    const PRIVATE_HOUSE  = 1;
+    const APARTMENT      = 2;
+    const VILLA          = 3;
+
     // Kiểu phòng
-    const PRIVATE_ROOM  = 4;
-    const HOTEL         = 5;
+    const PRIVATE_ROOM = 4;
+    const HOTEL        = 5;
     const ROOM_TYPE
-        = [
+                       = [
             self::PRIVATE_HOUSE => 'Nhà riêng',
             self::APARTMENT     => 'Căn hộ/ Chung cư',
             self::VILLA         => 'Biệt thự',
@@ -46,7 +46,7 @@ const TYPE_ALL  = 3;
             self::HOTEL         => 'Khách sạn',
         ];
     const ROOM_STATUS
-        = [
+                       = [
             self::AVAILABLE      => 'Đang hoạt động',
             self::UNAVAILABLE    => 'Không hoạt động',
             self::NOT_APPROVED   => 'Chưa xác nhận',
@@ -54,7 +54,7 @@ const TYPE_ALL  = 3;
             self::SETUP_SERVICES => 'Thiết lập dịch vụ',
         ];
     const ROOM_RENT_TYPE
-        = [
+                       = [
             self::TYPE_HOUR => 'Theo giờ',
             self::TYPE_DAY  => 'Theo ngày',
             self::TYPE_ALL  => 'Cả ngày và giờ',
@@ -65,7 +65,7 @@ const TYPE_ALL  = 3;
      *
      * @var array
      */
-    
+
     protected $fillable
         = [
             'merchant_id', 'max_guest', 'max_additional_guest', 'number_bed', 'number_room', 'city_id', 'district_id',
@@ -83,7 +83,7 @@ const TYPE_ALL  = 3;
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-    
+
     /**
      * Relationship với RoomTranslate
      * @return Relation
@@ -92,7 +92,7 @@ const TYPE_ALL  = 3;
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomTranslate::class);
     }
-    
+
     /**
      * Relationship với user
      * @return Relation
@@ -101,7 +101,7 @@ const TYPE_ALL  = 3;
     {
         return $this->belongsTo(\App\User::class, 'merchant_id');
     }
-    
+
     /**
      * Relationship với comfort
      *
@@ -109,29 +109,30 @@ const TYPE_ALL  = 3;
      */
     public function comforts()
     {
-        return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id', 'comfort_id');
+        return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id',
+            'comfort_id');
     }
-    
+
     public function prices()
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomOptionalPrice::class, 'room_id');
     }
-    
+
     public function blocks()
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomTimeBlock::class, 'room_id');
     }
-    
+
     public function media()
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomMedia::class, 'room_id');
     }
-    
+
     public function city()
     {
         return $this->belongsTo(\App\Repositories\Cities\City::class, 'city_id');
     }
-    
+
     public function district()
     {
         return $this->belongsTo(\App\Repositories\Districts\District::class, 'district_id');

@@ -15,7 +15,7 @@ class CreateBlogCategoriesTable extends Migration
     {
         Schema::create('blog_categories', function (Blueprint $table) {
             $table->bigIncrements('id');
-            
+
             $table->tinyInteger('level')->nullable();
             $table->tinyInteger('hot')->nullable();
             $table->tinyInteger('new')->nullable();
@@ -25,7 +25,7 @@ class CreateBlogCategoriesTable extends Migration
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      *
