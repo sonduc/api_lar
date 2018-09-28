@@ -20,7 +20,6 @@ class BookingController extends ApiController
         'email'            => 'email',
         'email_received'   => 'nullable|email',
         'room_id'          => 'required|numeric|exists:rooms,id',
-        'customer_id'      => 'required|numeric',
         'merchant_id'      => 'required|numeric|exists:users,id',
         'staff_id'         => 'nullable|numeric|exists:users,id',
         'staff_note'       => 'nullable|v_title',
@@ -173,7 +172,7 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-            // dd(DB::getQueryLog());
+//             dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             //dd($data);

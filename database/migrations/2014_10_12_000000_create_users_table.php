@@ -48,7 +48,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_baokim')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->longText('source')->nullable();
-            $table->integer('sale_id')->nullable();
+            $table->integer('sale_id')->default(0);
             $table->timestamp('time_add_sale')->nullable();
             $table->rememberToken()->nullable();
             $table->softDeletes()->nullable();

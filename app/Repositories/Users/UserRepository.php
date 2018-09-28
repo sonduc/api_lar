@@ -86,4 +86,21 @@ class UserRepository extends BaseRepository
     {
         return $this->model::TYPE_ACCOUNT;
     }
+
+    /**
+     * Lấy thông tin user qua email hoặc SĐT
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function getUserByEmailOrPhone($data = [])
+    {
+        $email = array_key_exists('email', $data) ? $data['email'] : null;
+        $phone = array_key_exists('phone', $data) ? $data['phone'] : null;
+        $data = $this->model->where('email', $email)->orWhere('phone', $phone)->first();
+
+        return $data;
+    }
 }

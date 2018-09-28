@@ -4,6 +4,8 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Payments\PaymentHistoryRepository;
+use App\Repositories\Users\UserRepository;
+use App\User;
 
 class BookingRepository extends BaseRepository
 {
@@ -11,17 +13,19 @@ class BookingRepository extends BaseRepository
     protected $model;
     protected $status;
     protected $payment;
+    protected $user;
 
     /**
      * BookingRepository constructor.
      *
      * @param Booking $booking
      */
-    public function __construct(Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment)
+    public function __construct(Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment, UserRepository $user)
     {
         $this->model   = $booking;
         $this->status  = $status;
         $this->payment = $payment;
+        $this->user    = $user;
     }
 
     /**
@@ -34,6 +38,7 @@ class BookingRepository extends BaseRepository
      */
     public function store($data = [])
     {
+        $this->checkUserExist($data);
         $data = $this->priceCaculator($data);
         $data = $this->dateToTimestamp($data);
 
@@ -98,5 +103,24 @@ class BookingRepository extends BaseRepository
         return $data_booking;
     }
 
+    /**
+     * Kiểm tra xem có user tồn tại
+     * Nếu không tồn tại thì tự động thêm user mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     */
+    private function checkUserExist($data = [])
+    {
+        $user = $this->user->getUserByEmailOrPhone($data);
+
+        if (!$user) {
+            $data['password'] = $data['phone'];
+            $data['type'] = User::USER;
+            $data['owner'] = User::NOT_OWNER;
+            $data['status'] = User::DISABLE;
+            $this->user->store($data);
+        }
+    }
 }
 
