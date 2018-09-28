@@ -99,7 +99,7 @@ class UserRepository extends BaseRepository
     {
         $email = array_key_exists('email', $data) ? $data['email'] : null;
         $phone = array_key_exists('phone', $data) ? $data['phone'] : null;
-        $data = $this->model->where('email', $email)->orWhere('phone', $phone)->first();
+        $data  = $this->model->where('email', $email)->orWhere('phone', $phone)->first();
 
         return $data;
     }

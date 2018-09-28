@@ -38,14 +38,38 @@ class BookingRepository extends BaseRepository
      */
     public function store($data = [])
     {
-        $this->checkUserExist($data);
-        $data = $this->priceCaculator($data);
-        $data = $this->dateToTimestamp($data);
+        $data['customer_id'] = $this->checkUserExist($data);
+        $data                = $this->priceCaculator($data);
+        $data                = $this->dateToTimestamp($data);
 
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
         return $data_booking;
+    }
+
+    /**
+     * Kiểm tra xem có user tồn tại
+     * Nếu không tồn tại thì tự động thêm user mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function checkUserExist($data = [])
+    {
+        $user = $this->user->getUserByEmailOrPhone($data);
+
+        if (!$user) {
+            $data['password'] = $data['phone'];
+            $data['type']     = User::USER;
+            $data['owner']    = User::NOT_OWNER;
+            $data['status']   = User::DISABLE;
+            $user             = $this->user->store($data);
+        }
+
+        return $user->id;
     }
 
     /**
@@ -101,26 +125,6 @@ class BookingRepository extends BaseRepository
         $data_booking = parent::update($id, $data);
         $this->status->updateBookingStatus($data_booking, $data);
         return $data_booking;
-    }
-
-    /**
-     * Kiểm tra xem có user tồn tại
-     * Nếu không tồn tại thì tự động thêm user mới
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param array $data
-     */
-    private function checkUserExist($data = [])
-    {
-        $user = $this->user->getUserByEmailOrPhone($data);
-
-        if (!$user) {
-            $data['password'] = $data['phone'];
-            $data['type'] = User::USER;
-            $data['owner'] = User::NOT_OWNER;
-            $data['status'] = User::DISABLE;
-            $this->user->store($data);
-        }
     }
 }
 
