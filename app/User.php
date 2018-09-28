@@ -31,55 +31,81 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     // Định nghĩa giới tính
     const OTHER  = 3;
     const NONE   = 0;
-    const SEX
-                 = [
-            self::MALE   => 'Nam',
-            self::FEMALE => 'Nữ',
-            self::OTHER  => 'Khác',
-            self::NONE   => 'Không xác định',
-        ];
+    const SEX    = [
+        self::MALE   => 'Nam',
+        self::FEMALE => 'Nữ',
+        self::OTHER  => 'Khác',
+        self::NONE   => 'Không xác định',
+    ];
     const BROZE  = 0;
     const SILVER = 1;
     // Định nghĩa cấp độ
     const GOLD         = 2;
     const PLATINUM     = 3;
     const DIAMOND      = 4;
-    const LEVEL
-                       = [
-            self::BROZE    => 'Đồng',
-            self::SILVER   => 'Bạc',
-            self::GOLD     => 'Vàng',
-            self::PLATINUM => 'Bạch Kim',
-            self::DIAMOND  => 'Kim Cương',
-        ];
+    const LEVEL        = [
+        self::BROZE    => 'Đồng',
+        self::SILVER   => 'Bạc',
+        self::GOLD     => 'Vàng',
+        self::PLATINUM => 'Bạch Kim',
+        self::DIAMOND  => 'Kim Cương',
+    ];
     const VIP_ACTIVE   = 1;
     const VIP_DEACTIVE = 0;
 
     // Định nghĩa VIP
-    const TYPE_ACCOUNT
-        = [
-            self::ADMIN    => 'Quản trị hệ  thống',
-            self::MERCHANT => 'Đối tác cung cấp',
-            self::USER     => 'Người sử dụng',
-        ];
+    const TYPE_ACCOUNT = [
+        self::ADMIN    => 'Quản trị hệ  thống',
+        self::MERCHANT => 'Đối tác cung cấp',
+        self::USER     => 'Người sử dụng',
+    ];
+
+    const IS_OWNER  = 1;
+    const NOT_OWNER = 0;
+    const OWNER     = [
+        self::IS_OWNER  => 'Người quản lý',
+        self::NOT_OWNER => 'Bình thường',
+    ];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable
-        = [
-            'name', 'email', 'phone', 'avatar', 'password', 'gender', 'phone', 'birthday', 'sub_email', 'avatar', 'address', 'owner', 'facebook_id', 'google_id', 'level', 'point', 'money', 'passport_last_name', 'passport_first_name', 'passport_infomation', 'passport_front_card', 'passport_back_card', 'city_id', 'district_id', 'type', 'status', 'sale_id',
-        ];
+    protected $fillable = [
+        'name',
+        'email',
+        'phone',
+        'avatar',
+        'password',
+        'gender',
+        'phone',
+        'birthday',
+        'sub_email',
+        'avatar',
+        'address',
+        'owner',
+        'facebook_id',
+        'google_id',
+        'level',
+        'point',
+        'money',
+        'passport_last_name',
+        'passport_first_name',
+        'passport_infomation',
+        'passport_front_card',
+        'passport_back_card',
+        'city_id',
+        'district_id',
+        'type',
+        'status',
+        'sale_id',
+    ];
     /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
      */
-    protected $hidden
-        = [
-            'password',
-        ];
+    protected $hidden = ['password',];
 
     public static function boot()
     {
@@ -120,6 +146,22 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     {
         return $this->belongsTo(\App\User::class, 'sale_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(\App\Repositories\Bookings\Booking::class, 'customer_id');
+    }
+
+    public function city()
+    {
+        return $this->belongsTo(\App\Repositories\Cities\City::class, 'city_id');
+    }
+
+    public function district()
+    {
+        return $this->belongsTo(\App\Repositories\Districts\District::class, 'district_id');
+    }
+
 
     public function validateForPassportPasswordGrant($password)
     {

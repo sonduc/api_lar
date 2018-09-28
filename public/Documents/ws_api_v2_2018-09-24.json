@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-09-24T05:06:41.126Z",
+	"__export_date": "2018-09-28T04:45:55.608Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -83,7 +83,7 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1531890325753,
-			"modified": 1531890325753,
+			"modified": 1538109437837,
 			"name": "Users",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "request_group"
@@ -239,14 +239,14 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ1MDlkNmUxZDRmNWQxY2FiNDE0NDlmMmUxYmEzYWQ4ZjBmYzIxMGEyZmIxNjk5ZTViNWE4MGVlMjhjNjkyYWJkZThiM2Q3MTIzODRmZTI0In0.eyJhdWQiOiIyIiwianRpIjoiNDUwOWQ2ZTFkNGY1ZDFjYWI0MTQ0OWYyZTFiYTNhZDhmMGZjMjEwYTJmYjE2OTllNWI1YTgwZWUyOGM2OTJhYmRlOGIzZDcxMjM4NGZlMjQiLCJpYXQiOjE1Mzc3NTkxMDcsIm5iZiI6MTUzNzc1OTEwNywiZXhwIjoxNTY5Mjk1MTA3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.3SbQrqu0o9TDoCtjLpjjSNqdqPX4Obh_k1jTmTzVidqJ-f-T6slLfaZ6feC604Zseq-mwmBlwGVQ2e_smqgEp6mvnVToxObry2yBEPLmE5QGVrjDGvewz7T5Al6hA-bo-K44trFwynels2K85L2VoXvMgeMZ28Gq_d5oWti5ngD1dsZDpwqtVcE3I_g1qDlKcDraWPH0LLCL4bAY0CtByty6Bin7iOyOEyN79hxo397HrKjkiKTq8JRyPY52OrWc4VedurxUiqUUMs2g7hzhQvhUqqFEdmZ60HUNtxoeIs8morngOfikGhGjudxUp3GqpejsI8vyY_dr9R4Whp2ef_SwXWr9J0MVY10uJ0oMrDrwponhmwEweI9s0XgxRnL9-ilW0d-uogM_iWFVGCPfeO-64l2UiZPx3NAz8hpt_oIhhBcO27pNQwXLAU0EqmXtAY4JSbSOOrIZGAc2lUL4WA8h4z_Z8E1tovlGavs6_yXIpjEM3kTx3GCFM4De4uRPOH74Ts5P3GK8o5LTlX4I9q832IJTD__YJBDtf3PakV7HKt_NC7tNVUuwqpIe1Yk9XJbMV9_MTYoSUQteLl2jI-Jq8_1YZUQB_RND20r4bGFbdORh8zk2ovvN7NmRXnZpmnONi4lc7mpbKA0cgd1SwGPfPdoezZBS6q0qXkliLxU"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjIwZGYxNTc2MmRlZDFjOTNkN2E3NTA5Y2FjMzc4YjI1YWMxNDFiNjhiYzNmNzNjNzk2ZTM0ZWVjNzUwM2VmMGZjZTA1MTY4NDA4ODliM2YyIn0.eyJhdWQiOiIyIiwianRpIjoiMjBkZjE1NzYyZGVkMWM5M2Q3YTc1MDljYWMzNzhiMjVhYzE0MWI2OGJjM2Y3M2M3OTZlMzRlZWM3NTAzZWYwZmNlMDUxNjg0MDg4OWIzZjIiLCJpYXQiOjE1MzgxMDUxNDEsIm5iZiI6MTUzODEwNTE0MSwiZXhwIjoxNTY5NjQxMTQxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.Sy0zeLOF8qVXrOWreTTK7iIl8GNvCGAGzcM8UYntrwmvTiTY2T0QLrq4EKlFwzGoH0LMPchM13IdPy2lwnsXpXPvIZyg7oMvtNHrh5YkO0C7HAeM0uYcPV5P6QUe3-hDL4Y3Kpc_2Hai4p_nZExl0iurwVH2zJjfWlAKvWYGEht0-QkcZuWb4WUZH6xWNqey7Yg1mARroIBs_EchAanBvn55KsRumYbCz86dTqx5FEm9SMAL_eHWMnApBsvKc2WKQnWgiAlddN9n8xMzyThc__mfoJ27jYcTrqyr_soNRjHecCamLXf3uaj57NonF-X-GHhK9fnXxLzTwF9k9AxQFviRe-f_vL2Qzq8AV97rv-9DBniWaPicZLRXctZiqzYeIBczXov2a-fHMfKZ-3d8mGx4xZedInqunqWAyfaHhAIRwTdKYdn_wepee52Wii6qUBN6_3_wFDzNANDwbN0px49V0vDqhdi_E82SaVJy0Il7FTSZam_4YCPEnTCV6OHKTle-86X3tX7ubai-rQNbNjdKYnnF7PW6FxkQ034IugAoG72RRXZHpf4oZNPaJGSV-b3zjOkis6FH6V2cG6uubyK8yzhG-lu2jWVOg6EvpmfVYrlkNLGahpDBknN1OpehBX5y3RiDUEO3zhqwvkMoS1um4z7VS--LD4WIU8YpghU"
 				},
 				"url": "http://ws-api.lc/public/",
 				"username": "admin@westay.org"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1537761650401,
+			"modified": 1538109938411,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -557,7 +557,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1531890329019,
-			"description": "",
+			"description": "## INCLUDE\n```\n        'roles',\n        'parent',\n        'child',\n        'pers',\n        'sale',\n        'bookings',\n        'rooms',\n        'city',\n        'district',\n        'blog',\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Email, Name)\ntype: Int (User Type)\ncity_id: Int\ndistrict_id: Int\nis_owner: Int\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -568,7 +568,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1537760665832,
+			"modified": 1538109409473,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -578,7 +578,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users?include=sale",
+			"url": "{{ api_url  }}users?include=city&is_owner=1",
 			"_type": "request"
 		},
 		{
@@ -597,7 +597,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1536906552600,
+			"modified": 1538108219071,
 			"name": "show",
 			"parameters": [
 				{
@@ -614,7 +614,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users/2590?include=sale",
+			"url": "{{ api_url  }}users/2?include=city",
 			"_type": "request"
 		},
 		{
@@ -935,7 +935,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1537759116404,
+			"modified": 1538105151565,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1001,7 +1001,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1537755658124,
+			"modified": 1538109938778,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1895,7 +1895,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1537756751790,
+			"modified": 1538102306158,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_96df68de3c1b42979e8b496c4988436c",
@@ -1971,7 +1971,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1537759007952,
+			"modified": 1538109924454,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2044,7 +2044,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1537235988375,
+			"modified": 1538099301844,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2216,7 +2216,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1537765063195,
+			"modified": 1538022940638,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",

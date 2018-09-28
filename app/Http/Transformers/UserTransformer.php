@@ -10,14 +10,18 @@ use League\Fractal\TransformerAbstract;
 class UserTransformer extends TransformerAbstract
 {
     use FilterTrait;
-    protected $availableIncludes
-        = [
-            'roles',
-            'parent',
-            'child',
-            'pers',
-            'sale',
-        ];
+    protected $availableIncludes = [
+        'roles',
+        'parent',
+        'child',
+        'pers',
+        'sale',
+        'bookings',
+        'rooms',
+        'city',
+        'district',
+        'blog',
+    ];
 
     /**
      * Các thông tin của user
@@ -151,8 +155,36 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $user->children());
+        $data = $this->limitAndOrder($params, $user->children())->get();
 
         return $this->collection($data, new UserTransformer);
+    }
+
+    public function includeBookings(User $user = null, ParamBag $params)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+
+        $data = $this->limitAndOrder($params, $user->bookings())->get();
+
+        return $this->collection($data, new BookingTransformer);
+    }
+
+    public function includeCity(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+
+        return $this->item($user->city, new CityTransformer);
+    }
+
+    public function includeDistrict(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        return $this->item($user->district, new DistrictTransformer());
     }
 }

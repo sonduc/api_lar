@@ -35,30 +35,27 @@ class Room extends Entity
     const VILLA          = 3;
 
     // Kiểu phòng
-    const PRIVATE_ROOM = 4;
-    const HOTEL        = 5;
-    const ROOM_TYPE
-                       = [
-            self::PRIVATE_HOUSE => 'Nhà riêng',
-            self::APARTMENT     => 'Căn hộ/ Chung cư',
-            self::VILLA         => 'Biệt thự',
-            self::PRIVATE_ROOM  => 'Phòng riêng',
-            self::HOTEL         => 'Khách sạn',
-        ];
-    const ROOM_STATUS
-                       = [
-            self::AVAILABLE      => 'Đang hoạt động',
-            self::UNAVAILABLE    => 'Không hoạt động',
-            self::NOT_APPROVED   => 'Chưa xác nhận',
-            self::CLEANED        => 'Dọn dẹp phòng',
-            self::SETUP_SERVICES => 'Thiết lập dịch vụ',
-        ];
-    const ROOM_RENT_TYPE
-                       = [
-            self::TYPE_HOUR => 'Theo giờ',
-            self::TYPE_DAY  => 'Theo ngày',
-            self::TYPE_ALL  => 'Cả ngày và giờ',
-        ];
+    const PRIVATE_ROOM   = 4;
+    const HOTEL          = 5;
+    const ROOM_TYPE      = [
+        self::PRIVATE_HOUSE => 'Nhà riêng',
+        self::APARTMENT     => 'Căn hộ/ Chung cư',
+        self::VILLA         => 'Biệt thự',
+        self::PRIVATE_ROOM  => 'Phòng riêng',
+        self::HOTEL         => 'Khách sạn',
+    ];
+    const ROOM_STATUS    = [
+        self::AVAILABLE      => 'Đang hoạt động',
+        self::UNAVAILABLE    => 'Không hoạt động',
+        self::NOT_APPROVED   => 'Chưa xác nhận',
+        self::CLEANED        => 'Dọn dẹp phòng',
+        self::SETUP_SERVICES => 'Thiết lập dịch vụ',
+    ];
+    const ROOM_RENT_TYPE = [
+        self::TYPE_HOUR => 'Theo giờ',
+        self::TYPE_DAY  => 'Theo ngày',
+        self::TYPE_ALL  => 'Cả ngày và giờ',
+    ];
     protected $table = 'rooms';
     /**
      * The attributes that are mass assignable.
@@ -66,12 +63,34 @@ class Room extends Entity
      * @var array
      */
 
-    protected $fillable
-        = [
-            'merchant_id', 'max_guest', 'max_additional_guest', 'number_bed', 'number_room', 'city_id', 'district_id',
-            'room_type', 'checkin', 'checkout', 'price_day', 'price_hour', 'price_charge_guest', 'cleaning_fee',
-            'standard_point', 'is_manager', 'hot', 'new', 'latest_deal', 'rent_type', 'rules', 'longitude', 'latitude', 'status', 'sale_id', 'price_after_hour',
-        ];
+    protected $fillable = [
+        'merchant_id',
+        'max_guest',
+        'max_additional_guest',
+        'number_bed',
+        'number_room',
+        'city_id',
+        'district_id',
+        'room_type',
+        'checkin',
+        'checkout',
+        'price_day',
+        'price_hour',
+        'price_charge_guest',
+        'cleaning_fee',
+        'standard_point',
+        'is_manager',
+        'hot',
+        'new',
+        'latest_deal',
+        'rent_type',
+        'rules',
+        'longitude',
+        'latitude',
+        'status',
+        'sale_id',
+        'price_after_hour',
+    ];
     /**
      * The attributes that should be mutated to dates.
      *
@@ -109,8 +128,7 @@ class Room extends Entity
      */
     public function comforts()
     {
-        return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id',
-            'comfort_id');
+        return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id', 'comfort_id');
     }
 
     public function prices()

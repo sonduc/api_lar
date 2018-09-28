@@ -44,12 +44,13 @@ class UserController extends ApiController
      */
     public function index(Request $request)
     {
+        DB::enableQueryLog();
         $this->authorize('user.view');
         $pageSize = $request->get('limit', 25);
 
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-
+//        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
@@ -72,8 +73,8 @@ class UserController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
-    }
 
+    }
     public function store(Request $request)
     {
         DB::beginTransaction();

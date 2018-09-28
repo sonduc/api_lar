@@ -53,9 +53,9 @@ class BookingRepository extends BaseRepository
      */
     public function priceCaculator($data = [])
     {
-        $price = $data['price_original']
-                 + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-                 - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+        $price =
+            $data['price_original'] + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
         return $data;
@@ -94,7 +94,6 @@ class BookingRepository extends BaseRepository
         $data = $this->dateToTimestamp($data);
 
         $data_booking = parent::update($id, $data);
-//        dd($data_booking);
         $this->status->updateBookingStatus($data_booking, $data);
         return $data_booking;
     }
