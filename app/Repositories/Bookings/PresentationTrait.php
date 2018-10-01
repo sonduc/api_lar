@@ -70,6 +70,13 @@ trait PresentationTrait
             : 'Không xác định';
     }
 
+    public function getPaymentMethod()
+    {
+        return array_key_exists($this->payment_method, BookingConstant::PAYMENT_METHOD)
+            ? BookingConstant::PAYMENT_METHOD[$this->payment_method]
+            : 'Không xác định';
+    }
+
     /**
      * Check a specific permission that belongs to this role
      *

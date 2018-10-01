@@ -83,6 +83,7 @@ class UserController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             DB::commit();
+            logs('user', 'tạo user mã '. $data->id);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -107,9 +108,11 @@ class UserController extends ApiController
         try {
             $this->authorize('user.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $data = $this->model->update($id, $request->all());
             DB::commit();
-            return $this->successResponse($model);
+            logs('user', 'sửa user mã '. $data->id);
+
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -134,6 +137,7 @@ class UserController extends ApiController
             $this->authorize('user.delete');
             $this->model->delete($id);
             DB::commit();
+            logs('user', 'sửa user mã '. $id);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();

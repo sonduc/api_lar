@@ -10,10 +10,15 @@ use League\Fractal\TransformerAbstract;
 class BookingTransformer extends TransformerAbstract
 {
     use FilterTrait;
-    protected $availableIncludes
-        = [
-            'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district',
-        ];
+    protected $availableIncludes = [
+        'customer',
+        'merchant',
+        'booking_status',
+        'payments',
+        'room',
+        'city',
+        'district',
+    ];
 
     public function transform(Booking $booking = null)
     {
@@ -56,6 +61,8 @@ class BookingTransformer extends TransformerAbstract
             'source_txt'         => $booking->getBookingSource(),
             'payment_status'     => $booking->payment_status,
             'payment_status_txt' => $booking->getPaymentStatus(),
+            'payment_method'     => $booking->payment_method,
+            'payment_method_txt' => $booking->getPaymentMethod(),
             'status'             => $booking->status,
             'status_txt'         => $booking->getBookingStatus(),
             'price_range'        => $booking->price_range,

@@ -20,7 +20,9 @@ class BookingRepository extends BaseRepository
      *
      * @param Booking $booking
      */
-    public function __construct(Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment, UserRepository $user)
+    public function __construct(
+        Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment, UserRepository $user
+    )
     {
         $this->model   = $booking;
         $this->status  = $status;
@@ -38,9 +40,11 @@ class BookingRepository extends BaseRepository
      */
     public function store($data = [])
     {
-        $data['customer_id'] = $this->checkUserExist($data);
-        $data                = $this->priceCaculator($data);
-        $data                = $this->dateToTimestamp($data);
+        $data['customer_id']
+            = array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
+
+        $data = $this->priceCaculator($data);
+        $data = $this->dateToTimestamp($data);
 
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
@@ -82,9 +86,9 @@ class BookingRepository extends BaseRepository
      */
     public function priceCaculator($data = [])
     {
-        $price =
-            $data['price_original'] + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+        $price
+            = $data['price_original'] + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+              - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
         return $data;

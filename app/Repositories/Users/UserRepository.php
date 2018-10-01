@@ -47,10 +47,7 @@ class UserRepository extends BaseRepository
         $user = parent::update($id, $data);
 
         $roles = array_get($data, 'roles', []);
-        if (count($roles) + 1) {
-            $user->roles()->detach();
-            $user->roles()->attach($roles);
-        }
+        $user->roles()->sync($roles);
         return $user;
     }
 
