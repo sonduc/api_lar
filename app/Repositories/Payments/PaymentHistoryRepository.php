@@ -69,7 +69,7 @@ class PaymentHistoryRepository extends BaseRepository
     public function processPaymentMoney($booking = [], $data = [])
     {
         $debt = $booking->total_fee - $data['total_received'];
-        if (array_key_exists('money_received', $data)) {
+        if (array_key_exists('money_received', $data) && is_numeric($data['money_received'])) {
             $debt                   -= $data['money_received'];
             $data['total_received'] += $data['money_received'];
         }
@@ -108,10 +108,13 @@ class PaymentHistoryRepository extends BaseRepository
      */
     public function processPaymentNote($booking = [], $data = [])
     {
-        $money_received = number_format($data['money_received']) . 'đ';
-        $total_received = number_format($data['total_received']) . 'đ';
-        $debt           = number_format($data['total_debt']) . 'đ';
-        $code           = $booking->code;
+        $money_received =
+            (array_key_exists('money_received', $data) ? number_format($data['money_received']) : 0) . 'đ';
+        $total_received =
+            (array_key_exists('total_received', $data) ? number_format($data['total_received']) : 0) . 'đ';
+
+        $debt = (array_key_exists('total_debt', $data) ? number_format($data['total_debt']) : 0) . 'đ';
+        $code = $booking->code;
         switch ($data['status']) {
             case BookingConstant::UNPAID:
                 $data['note'] = 'Chưa thanh toán';
@@ -121,8 +124,8 @@ class PaymentHistoryRepository extends BaseRepository
                                 . $total_received . '. Còn thiếu: ' . $debt;
                 break;
             case BookingConstant::FULLY_PAID:
-                $data['note'] = 'Khách thanh toán thành công cho booking mã: ' . $code . '. Tổng đã nhận: '
-                                . $total_received;
+                $data['note'] =
+                    'Khách thanh toán thành công cho booking mã: ' . $code . '. Tổng đã nhận: ' . $total_received;
                 break;
             default:
                 $data['note'] = 'Chưa thanh toán';

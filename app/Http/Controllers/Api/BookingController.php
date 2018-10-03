@@ -41,7 +41,7 @@ class BookingController extends ApiController
         'source'           => 'required|numeric|between:1,6',
         'exchange_rate'    => 'nullable|numeric',
 
-        'money_received' => 'integer',
+        'money_received' => 'integer|filled',
         'confirm'        => 'required|integer|between:0,1',
     ];
     protected $validationMessages = [
@@ -109,7 +109,8 @@ class BookingController extends ApiController
         'source.between'        => 'Mã nguồn booking không hợp lệ',
         'exchange_rate.numeric' => 'Tỉ giá chuyển đổi phải là kiểu số',
 
-        'money_received.integer' => 'Giá tiền phải là kiểu số',
+        'money_received.integer' => 'Tiền nhận phải là kiểu số',
+        'money_received.filled'  => 'Tiền nhận không được để trống',
         'confirm.required'       => 'Vui lòng chọn trạng thái xác nhận',
         'confirm.integer'        => 'Mã trạng thái xác nhận phải là kiểu số',
         'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
@@ -176,7 +177,7 @@ class BookingController extends ApiController
 //             dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-            //dd($data);
+
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();

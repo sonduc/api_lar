@@ -11,11 +11,8 @@ trait FilterTrait
     public function scopeQ($query, $q)
     {
         if ($q) {
-            return $query
-                ->where('bookings.name', 'like', "%${q}%")
-                ->orWhere('bookings.code', 'like', "%${q}%")
-                ->orWhere('bookings.phone', 'like', "%${q}%")
-                ->orWhere('bookings.email', 'like', "%${q}%");
+            return $query->where('bookings.name', 'like', "%${q}%")->orWhere('bookings.code', 'like', "%${q}%")
+                         ->orWhere('bookings.phone', 'like', "%${q}%")->orWhere('bookings.email', 'like', "%${q}%");
         }
 
         return $query;
@@ -42,36 +39,32 @@ trait FilterTrait
     public function scopeCity($query, $q)
     {
         if (!self::isJoined($query, 'rooms')) {
-            $query->join('rooms', 'rooms.id', '=', 'bookings.room_id');
+            $query->join('rooms', 'bookings.room_id', '=', 'rooms.id')->select('bookings.*');
         }
 
         if ($q && is_numeric($q)) {
-            $query
-                ->where('rooms.city_id', $q);
+            $query->where('rooms.city_id', $q)->addSelect('rooms.city_id');
         }
-
+//        dd($query->toSql());
         return $query;
     }
 
     public function scopeDistrict($query, $q)
     {
         if (!self::isJoined($query, 'rooms')) {
-            $query->join('rooms', 'rooms.id', '=', 'bookings.room_id');
+            $query->join('rooms', 'rooms.id', '=', 'bookings.room_id')->select('bookings.*');
         }
 
         if ($q && is_numeric($q)) {
-            $query
-                ->where('rooms.district_id', $q);
+            $query->where('rooms.district_id', $q)->addSelect('rooms.district_id');
         }
-
         return $query;
     }
 
     public function scopeDateStart($query, $q)
     {
         if ($q) {
-            $query
-                ->where('bookings.created_at', '>=', $q);
+            $query->where('bookings.created_at', '>=', $q);
         }
 
         return $query;
@@ -80,8 +73,7 @@ trait FilterTrait
     public function scopeDateEnd($query, $q)
     {
         if ($q) {
-            $query
-                ->where('bookings.created_at', '<=', $q);
+            $query->where('bookings.created_at', '<=', $q);
         }
 
         return $query;
