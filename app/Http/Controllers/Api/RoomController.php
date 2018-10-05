@@ -15,14 +15,14 @@ class RoomController extends ApiController
     protected $validationRules
         = [
             'details.*.*.name'                   => 'required|min:10|max:255|v_title',
-            'comforts.*'                         => 'nullable|numeric|exists:comforts,id|distinct',
-            'merchant_id'                        => 'required|numeric|exists:users,id',
+            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',
+            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',
             'max_guest'                          => 'required|numeric|min:1',
             'max_additional_guest'               => 'numeric|nullable',
             'number_bed'                         => 'required|numeric|min:1',
             'number_room'                        => 'required|numeric|min:1',
-            'city_id'                            => 'numeric|nullable|exists:cities,id',
-            'district_id'                        => 'numeric|nullable|exists:districts,id',
+            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',
+            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',
             // 'room_type_id'                                   => 'required|numeric',
             'checkin'                            => 'required|date_format:"H:i"',
             'checkout'                           => 'required|date_format:"H:i"',
@@ -41,7 +41,7 @@ class RoomController extends ApiController
             // 'latitude'                                       => 'required',
             'details.*.*.address'                => 'required|v_title',
             'note'                               => 'nullable|v_title',
-            'sale_id'                            => 'numeric|nullable|exists:users,id',
+            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',
             'lang_id'                            => 'numeric|exists:languages,id',
             'status'                             => 'numeric',
             'weekday_price.*.price_day'          => 'numeric|nullable',
@@ -127,6 +127,7 @@ class RoomController extends ApiController
             'longitude.required'             => 'Kinh độ không được để trống',
             'latitude.required'              => 'Vĩ độ không được để trống',
             'sale_id.numeric'                => 'Mã saler phải là kiểu số',
+            'sale_id.exists'                 => 'Saler không tồn tại',
             'lang_id.numeric'                => 'Mã ngôn ngữ phải là kiểu số',
             'lang_id.exists'                 => 'Ngôn ngữ không hợp lệ',
             'note.v_title'                   => 'Chỉ cho phép chữ và số',
@@ -333,7 +334,7 @@ class RoomController extends ApiController
     public function getRoomType()
     {
         try {
-            $data = $this->model->getRoomType();
+            $data = $this->simpleArrayToObject($this->model->getRoomType());
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
@@ -351,7 +352,8 @@ class RoomController extends ApiController
     public function roomMediaType()
     {
         try {
-            return response()->json(RoomMedia::IMAGE_TYPE);
+            $data = $this->simpleArrayToObject(RoomMedia::IMAGE_TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
@@ -369,7 +371,8 @@ class RoomController extends ApiController
     public function roomRentType()
     {
         try {
-            return response()->json(Room::ROOM_RENT_TYPE);
+            $data = $this->simpleArrayToObject(Room::ROOM_RENT_TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
@@ -387,7 +390,8 @@ class RoomController extends ApiController
     public function roomStatus()
     {
         try {
-            return response()->json(Room::ROOM_STATUS);
+            $data = $this->simpleArrayToObject(Room::ROOM_STATUS);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {

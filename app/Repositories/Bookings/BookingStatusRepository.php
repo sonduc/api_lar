@@ -7,8 +7,7 @@ use App\Repositories\BaseRepository;
 class BookingStatusRepository extends BaseRepository
 {
     /**
-     * BookingStatus model.
-     * @var Model
+     * @var BookingStatus
      */
     protected $model;
 
@@ -22,21 +21,43 @@ class BookingStatusRepository extends BaseRepository
         $this->model = $bookingstatus;
     }
 
+    /**
+     * Lưu trạng thái booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $booking
+     * @param array $data
+     */
     public function storeBookingStatus($booking = [], $data = [])
     {
         $data['booking_id'] = $booking['id'];
-        $data['note']       = $data['staff_note'];
+        $data['note']       = array_key_exists('staff_note', $data) ? $data['staff_note'] : null;
         parent::store($data);
     }
 
+    /**
+     * Cập nhật trạng thái booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $booking
+     * @param array $data
+     */
     public function updateBookingStatus($booking = [], $data = [])
     {
         $data['booking_id'] = $booking->id;
-        $data['note']       = $data['staff_note'];
+        $data['note']       = array_key_exists('staff_note', $data) ? $data['staff_note'] : null;
         $bookingStatus      = $this->getBookingStatusByBookingID($booking);
         parent::update($bookingStatus->id, $data);
     }
 
+    /**
+     * Lấy booking theo id
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $booking
+     *
+     * @return mixed
+     */
     public function getBookingStatusByBookingID($booking = [])
     {
         return $this->model->where('booking_id', $booking->id)->first();

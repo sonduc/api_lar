@@ -12,7 +12,8 @@ class DistrictTransformer extends TransformerAbstract
     use FilterTrait;
     protected $availableIncludes
         = [
-            'rooms', 'city', 'users',
+            'rooms',
+            'users',
         ];
 
     public function transform(District $district = null)
@@ -29,6 +30,7 @@ class DistrictTransformer extends TransformerAbstract
             'priority'     => $district->priority,
             'priority_txt' => $district->getPriorityStatus(),
             'hot'          => $district->hot,
+            'city_id'      => $district->city_id,
             'status'       => $district->status,
             'status_txt'   => $district->getStatus(),
             'updated_at'   => $district->updated_at->format('Y-m-d H:i:s'),

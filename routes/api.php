@@ -75,7 +75,6 @@ $router->group([
     /**
      * Booking Resource
      */
-    $router->get('/bookings/status-list', 'BookingController@statusList');
     $router->get('/bookings/booking-status-list', 'BookingController@bookingStatusList');
     $router->get('/bookings/booking-type-list', 'BookingController@bookingTypeList');
     $router->get('/bookings/type-list', 'BookingController@typeList');
@@ -84,6 +83,8 @@ $router->group([
     $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
+    $router->post('/bookings/price-caculator', 'BookingController@priceCaculator');
+
 
     resource('/bookings', 'BookingController', $router);
     /**

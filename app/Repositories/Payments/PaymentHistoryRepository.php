@@ -40,7 +40,6 @@ class PaymentHistoryRepository extends BaseRepository
         $data                   = $this->processPaymentMoney($booking, $data);
         $data                   = $this->processPaymentStatus($booking, $data);
         $data                   = $this->processPaymentNote($booking, $data);
-
         return parent::store($data);
     }
 

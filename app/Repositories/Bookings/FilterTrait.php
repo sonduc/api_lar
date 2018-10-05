@@ -11,8 +11,10 @@ trait FilterTrait
     public function scopeQ($query, $q)
     {
         if ($q) {
-            return $query->where('bookings.name', 'like', "%${q}%")->orWhere('bookings.code', 'like', "%${q}%")
-                         ->orWhere('bookings.phone', 'like', "%${q}%")->orWhere('bookings.email', 'like', "%${q}%");
+            return $query->where('bookings.name', 'like', "%${q}%")
+                         ->orWhere('bookings.code', 'like', "%${q}%")
+                         ->orWhere('bookings.phone', 'like', "%${q}%")
+                         ->orWhere('bookings.email', 'like', "%${q}%");
         }
 
         return $query;
@@ -78,5 +80,42 @@ trait FilterTrait
 
         return $query;
     }
+
+    public function scopePaymentStatus($query, $q)
+    {
+        if ($q && is_numeric($q)) {
+            $query->where('bookings.payment_status', $q);
+        }
+
+        return $query;
+    }
+
+    public function scopeBookingType($query, $q)
+    {
+        if ($q && is_numeric($q)) {
+            $query->where('bookings.booking_type', $q);
+        }
+
+        return $query;
+    }
+
+    public function scopeSource($query, $q)
+    {
+        if ($q && is_numeric($q)) {
+            $query->where('bookings.source', $q);
+        }
+
+        return $query;
+    }
+
+    public function scopeStatus($query, $q)
+    {
+        if ($q && is_numeric($q)) {
+            $query->where('bookings.status', $q);
+        }
+
+        return $query;
+    }
+
 
 }
