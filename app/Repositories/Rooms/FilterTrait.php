@@ -113,4 +113,13 @@ trait FilterTrait
         return $query->where('rooms.is_manager', $this::MANAGER_ACTIVE);
     }
 
+    public function scopeRentType($query, $q)
+    {
+        if ($q && is_numeric($q)) {
+            return $query->where('rooms.rent_type', $q);
+        }
+
+        return $query;
+    }
+
 }
