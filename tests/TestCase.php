@@ -1,6 +1,9 @@
 <?php
+namespace Test;
 
-abstract class TestCase extends Laravel\Lumen\Testing\TestCase
+use GuzzleHttp\Client;
+
+abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
 {
     public $http;
     public $header;
@@ -24,7 +27,7 @@ abstract class TestCase extends Laravel\Lumen\Testing\TestCase
     {
         parent::setUp();
 
-        $this->http = new GuzzleHttp\Client([
+        $this->http = new Client([
             'base_uri' => env('API_URL'),
         ]);
 

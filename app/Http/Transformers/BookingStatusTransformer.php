@@ -30,7 +30,7 @@ class BookingStatusTransformer extends TransformerAbstract
 
     public function includeUser(BookingStatus $booking)
     {
-        if (is_null($booking)) {
+        if (is_null($booking) || is_null($booking->user)) {
             return $this->null();
         }
 

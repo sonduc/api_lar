@@ -1,9 +1,12 @@
 <?php
 
+namespace Test;
+
+use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class ExampleTest extends TestCase
 {
-    use \Laravel\Lumen\Testing\DatabaseTransactions;
+    use DatabaseTransactions;
 
     /**
      * A basic test example.
@@ -28,7 +31,7 @@ class ExampleTest extends TestCase
         'type',
     ];
 
-    public function testExample()
+    public function testUserResponse()
     {
         $option = [
             'headers' => $this->header,
@@ -49,5 +52,6 @@ class ExampleTest extends TestCase
         }
 
         $this->assertTrue($status, 'Lỗi user.index trả về kết quả không đúng định dạng!');
+        $this->assertEquals(200, $body->getCode());
     }
 }
