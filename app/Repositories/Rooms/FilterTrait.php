@@ -113,6 +113,15 @@ trait FilterTrait
         return $query->where('rooms.is_manager', $this::MANAGER_ACTIVE);
     }
 
+    /**
+     * Kiểu thuê phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
     public function scopeRentType($query, $q)
     {
         if ($q && is_numeric($q)) {
