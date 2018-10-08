@@ -48,7 +48,6 @@ class BookingTransformer extends TransformerAbstract
             'price_original'     => $booking->price_original,
             'price_discount'     => $booking->price_discount,
             'coupon_discount'    => $booking->coupon_discount,
-            'booking_fee'        => $booking->booking_fee,
             'coupon'             => $booking->coupon,
             'coupon_txt'         => $booking->coupon ?? 'Không áp dụng coupon',
             'note'               => $booking->note,

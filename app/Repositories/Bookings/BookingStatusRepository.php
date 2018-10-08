@@ -47,7 +47,12 @@ class BookingStatusRepository extends BaseRepository
         $data['booking_id'] = $booking->id;
         $data['note']       = array_key_exists('staff_note', $data) ? $data['staff_note'] : null;
         $bookingStatus      = $this->getBookingStatusByBookingID($booking);
-        parent::update($bookingStatus->id, $data);
+
+        if ($bookingStatus instanceof BookingStatus) {
+            parent::update($bookingStatus->id, $data);
+        } else {
+            $this->storeBookingStatus($booking->toArray(), $data);
+        }
     }
 
     /**

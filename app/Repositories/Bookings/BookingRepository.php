@@ -129,10 +129,10 @@ class BookingRepository extends BaseRepository
         $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
 
         $price = $money
-                 + $data['service_fee']
-                 + $data['additional_fee']
-                 - $data['coupon_discount']
-                 - $data['price_discount'];
+        + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+        + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+        - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+        - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
         return $data;
@@ -172,6 +172,40 @@ class BookingRepository extends BaseRepository
     }
 
     /**
+     * Cập nhật một số trường trạng thái
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function minorUpdate($id, $data)
+    {
+        $data_booking = parent::update($id, $data);
+        return $data_booking;
+    }
+
+    /**
+     * Cập nhật tiền cho booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateBookingMoney($id, $data)
+    {
+        $booking          = parent::getById($id);
+        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
+        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
+        $data             = array_merge($booking->toArray(), $data);
+
+        return $this->update($id, $data);
+    }
+
+    /**
      * Cập nhật booking
      * @author HarikiRito <nxh0809@gmail.com>
      *
@@ -193,6 +227,7 @@ class BookingRepository extends BaseRepository
 
         $data_booking = parent::update($id, $data);
         $this->status->updateBookingStatus($data_booking, $data);
+        $this->payment->storePaymentHistory($data_booking, $data);
         return $data_booking;
     }
 

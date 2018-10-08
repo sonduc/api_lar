@@ -84,7 +84,8 @@ $router->group([
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
     $router->post('/bookings/price-caculator', 'BookingController@priceCaculator');
-
+    $router->put('/bookings/status-update/{id}', 'BookingController@minorBookingUpdate');
+    $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
 
     resource('/bookings', 'BookingController', $router);
     /**

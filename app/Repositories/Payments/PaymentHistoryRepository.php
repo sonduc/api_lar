@@ -114,6 +114,7 @@ class PaymentHistoryRepository extends BaseRepository
 
         $debt = (array_key_exists('total_debt', $data) ? number_format($data['total_debt']) : 0) . 'đ';
         $code = $booking->code;
+
         switch ($data['status']) {
             case BookingConstant::UNPAID:
                 $data['note'] = 'Chưa thanh toán';
@@ -134,4 +135,14 @@ class PaymentHistoryRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * Xóa payment_histories theo mã booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $booking
+     */
+    public function destroyPaymentHistoriesByBookingId($booking = [])
+    {
+        $this->model->where('booking_id', $booking->id)->forceDelete();
+    }
 }

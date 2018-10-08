@@ -27,15 +27,15 @@ class BookingController extends ApiController
         'checkin'          => 'required|date|after:now',
         'checkout'         => 'required|date|after:checkin',
         //        'price_original'   => 'required|integer|min:0',
-        'additional_fee'   => 'required|integer|min:0',
-        'price_discount'   => 'required|integer|min:0',
+        'additional_fee'   => 'filled|integer|min:0',
+        'price_discount'   => 'filled|integer|min:0',
         //                'service_fee'      => 'nullable|integer',
         'coupon'           => 'nullable|string',
         'note'             => 'nullable|v_title',
         'number_of_guests' => 'required|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
-        //        'status'           => 'required|integer|between:0,1',
-//        'type'             => 'required|integer|between:1,2',
+        'status'           => 'required|integer|between:1,5',
+        //        'type'             => 'required|integer|between:1,2',
         'booking_type'     => 'required|integer|between:1,2',
         'payment_method'   => 'required|integer|between:1,5',
         'payment_status'   => 'required|integer|between:0,3',
@@ -79,8 +79,10 @@ class BookingController extends ApiController
         'price_original.required'   => 'Vui lòng điền giá',
         'price_original.integer'    => 'Giá phải là kiểu số',
         'additional_fee.required'   => 'Vui lòng điền giá',
+        'additional_fee.filled'     => 'Vui lòng điền giá',
         'additional_fee.integer'    => 'Giá phải là kiểu số',
         'price_discount.required'   => 'Vui lòng điền giá',
+        'price_discount.filled'     => 'Vui lòng điền giá',
         'price_discount.integer'    => 'Giá phải là kiểu số',
         'service_fee.integer'       => 'Giá phải là kiểu số',
         'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
@@ -245,8 +247,8 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('booking.delete');
-            $this->model->delete($id);
-            // DB::commit();
+//            $this->model->delete($id);
+//             DB::commit();
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
@@ -302,6 +304,107 @@ class BookingController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Thực hiện cập nhật đơn lẻ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function minorBookingUpdate(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->authorize('booking.update');
+            $avaiable_option = ['payment_method', 'payment_status', 'status'];
+            $option          = $request->get('option');
+
+            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+
+            $validate = array_only($this->validationRules, [
+                $option,
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $data = $this->model->minorUpdate($id, $request->only($option));
+            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
+            DB::commit();
+            return $this->successResponse($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Cập nhật tiền cho booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateBookingMoney(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('booking.update');
+
+            $validate = array_only($this->validationRules, [
+                'additional_fee',
+                'price_discount',
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $avaiable_option = array_keys($validate);
+
+            $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
+            logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
+
+            DB::commit();
+            return $this->successResponse($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

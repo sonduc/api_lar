@@ -3,6 +3,7 @@
 namespace Test\Base;
 
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Test\Roles\Roles;
 use Test\TestCase;
 
 class UserBase extends TestCase
@@ -10,7 +11,7 @@ class UserBase extends TestCase
     use DatabaseTransactions;
 
     protected $props = [
-        ''
+        'id','uuid','name','email','gender', 'birthday', 'level', 'vip', 'point', 'money', 'status', 'type'
     ];
     public function __construct()
     {
@@ -21,15 +22,22 @@ class UserBase extends TestCase
 
     public function testUserProfile()
     {
-        $this->url .= '?include=pers';
+        $this->loginAs(Roles::ADMIN);
 
+        $this->url .= '?include=pers';
         $option = [
             'headers' => $this->header,
         ];
+
         $body   = $this->request($option)->body();
         $data   = $body->getData();
-//        dd($data);
-        $this->assertTrue(true, 'Unable to get user profile');
+
+        $status = true;
+        if (!$this->checkResponseData($data, $this->props)) {
+            $status = false;
+        }
+
+        $this->assertTrue($status, 'Unable to get user profile');
         $this->assertEquals(200, $body->getCode());
     }
 }

@@ -2,7 +2,10 @@
 
 namespace Test;
 
+use Illuminate\Support\Facades\Cache;
 use Laravel\Lumen\Testing\DatabaseTransactions;
+use Test\Base\AccountBase;
+use Test\Roles\Roles;
 
 class ExampleTest extends TestCase
 {
@@ -33,10 +36,12 @@ class ExampleTest extends TestCase
 
     public function testUserResponse()
     {
+        $this->loginAs(Roles::ADMIN);
+
         $option = [
             'headers' => $this->header,
         ];
-
+        ;
         $this->method = 'GET';
         $this->url    = 'users';
 
@@ -44,6 +49,7 @@ class ExampleTest extends TestCase
         $status = true;
 
         $data = $body->getData();
+
         foreach ($data as $item) {
             if (!$this->checkResponseData($item, $this->props)) {
                 $status = false;
@@ -54,4 +60,5 @@ class ExampleTest extends TestCase
         $this->assertTrue($status, 'Lỗi user.index trả về kết quả không đúng định dạng!');
         $this->assertEquals(200, $body->getCode());
     }
+
 }

@@ -2,6 +2,7 @@
 namespace Test;
 
 use GuzzleHttp\Client;
+use Test\Base\AccountBase;
 
 abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
 {
@@ -38,6 +39,19 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         ];
     }
 
+    public function setHeader($token) {
+        $this->header = [
+            'User-Agent'    => 'testing/2.0',
+            'Accept'        => 'application/json',
+            'Authorization' => 'Bearer ' . $token,
+        ];
+    }
+
+    public function loginAs($role = 'admin') {
+        $user = new AccountBase();
+        $this->setHeader($user->getToken($role));
+    }
+
     public function request($option = [])
     {
         $this->response = $this->http->request(
@@ -51,7 +65,7 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
 
     public function body()
     {
-        $this->response = json_decode($this->response->getBody());
+        $this->response = json_decode($this->response->getBody()->getContents());
         return $this;
     }
 
@@ -83,4 +97,6 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         }
         return true;
     }
+
+
 }
