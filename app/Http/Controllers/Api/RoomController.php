@@ -284,7 +284,7 @@ class RoomController extends ApiController
                 'hot',
                 'new',
                 'latest_deal',
-                'merchant',
+                'merchant_id',
                 'status',
                 'standard_point',
                 'is_manager',

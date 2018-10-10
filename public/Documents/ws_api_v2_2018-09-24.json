@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-10T07:32:55.383Z",
+	"__export_date": "2018-10-10T07:57:54.085Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -1166,7 +1166,7 @@
 				"text": "{\n\t\"latest_deal\": 300000\n}"
 			},
 			"created": 1539154090681,
-			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Phòng nổi bật|\n|new|int|Phòng mới|\n|latest_deal|int|Giá phòng bán lỗ|\n|merchant|int|Mã chủ phòng|\n|status|int|Trạng thái phòng|\n|is_manager|int|Phòng tự quản lý|\n|standard_point|int|Điểm chuẩn|\n\n## Validation\n```php\n'merchant_id'      => 'required|numeric|exists:users,id,deleted_at,NULL',\n'hot'              => 'numeric',\n'new'              => 'numeric',\n'latest_deal'      => 'numeric|nullable',\n'is_manager'       => 'integer|nullable|between:0,1'\n'standard_point'   => 'integer|nullable|min:0'\n```",
+			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Phòng nổi bật|\n|new|int|Phòng mới|\n|latest_deal|int|Giá phòng bán lỗ|\n|merchant_id|int|Mã chủ phòng|\n|status|int|Trạng thái phòng|\n|is_manager|int|Phòng tự quản lý|\n|standard_point|int|Điểm chuẩn|\n\n## Validation\n```php\n'merchant_id'      => 'required|numeric|exists:users,id,deleted_at,NULL',\n'hot'              => 'numeric',\n'new'              => 'numeric',\n'latest_deal'      => 'numeric|nullable',\n'is_manager'       => 'integer|nullable|between:0,1'\n'standard_point'   => 'integer|nullable|min:0'\n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -1182,7 +1182,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884128304.9375,
 			"method": "PUT",
-			"modified": 1539156731194,
+			"modified": 1539158259805,
 			"name": "prop-update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
