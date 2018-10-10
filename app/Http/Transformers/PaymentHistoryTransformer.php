@@ -20,6 +20,7 @@ class PaymentHistoryTransformer extends TransformerAbstract
 
         return [
             'id'             => $payment->id,
+            'booking_id'     => $payment->booking_id,
             'money_received' => $payment->money_received,
             'total_received' => $payment->total_received,
             'total_debt'     => $payment->total_debt,

@@ -8,6 +8,7 @@ class PaymentHistory extends Entity
 {
     use PresentationTrait, FilterTrait;
 
+    protected $table = 'payment_histories';
     /**
      * The attributes that are mass assignable.
      *
