@@ -99,21 +99,6 @@ class RoomRepository extends BaseRepository
     }
 
     /**
-     * Chỉnh sửa trạng thái của phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return bool
-     */
-    public function status($id, $data)
-    {
-        $data_room = parent::update($id, $data);
-        return $data_room;
-    }
-
-    /**
      * Lấy ra kiểu phòng
      * @author HarikiRito <nxh0809@gmail.com>
      *
@@ -122,5 +107,19 @@ class RoomRepository extends BaseRepository
     public function getRoomType()
     {
         return $this->model::ROOM_TYPE;
+    }
+
+    /**
+     * Cập nhật riêng lẻ các thuộc tính của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param       $id
+     * @param array $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function minorRoomUpdate($id, $data = [])
+    {
+        return parent::update($id, $data);
     }
 }

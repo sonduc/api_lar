@@ -53,7 +53,7 @@ $router->group([
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
-    $router->post('/rooms/status/{id}', 'RoomController@changeStatus');
+    $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
     resource('/rooms', 'RoomController', $router);
 
 
