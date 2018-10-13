@@ -227,7 +227,9 @@ class BookingRepository extends BaseRepository
 
         $data_booking = parent::update($id, $data);
         $this->status->updateBookingStatus($data_booking, $data);
+
         $this->payment->storePaymentHistory($data_booking, $data);
+
         return $data_booking;
     }
 

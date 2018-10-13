@@ -7,8 +7,7 @@ use League\Fractal\TransformerAbstract;
 
 class BookingStatusTransformer extends TransformerAbstract
 {
-    protected $availableIncludes
-        = [
+    protected $availableIncludes = [
             'user',
         ];
 
@@ -28,7 +27,7 @@ class BookingStatusTransformer extends TransformerAbstract
         ];
     }
 
-    public function includeUser(BookingStatus $booking)
+    public function includeUser(BookingStatus $booking = null)
     {
         if (is_null($booking) || is_null($booking->user)) {
             return $this->null();

@@ -16,6 +16,7 @@ class OptimusPrime
     public function __construct(Manager $manager)
     {
         $this->m = $manager;
+        $this->setRecursionLimit();
         $this->parseIncludes();
     }
 
@@ -59,5 +60,15 @@ class OptimusPrime
     public function setIncludes($include)
     {
         $this->m->parseIncludes($include);
+    }
+
+    /**
+     * Set the level of embedding includes
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     */
+    public function setRecursionLimit()
+    {
+        $this->m->setRecursionLimit(5);
     }
 }
