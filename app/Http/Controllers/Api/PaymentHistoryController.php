@@ -106,6 +106,18 @@ class PaymentHistoryController extends ApiController
 
     public function paymentHistoryStatus()
     {
-        return response()->json(BookingConstant::PAYMENT_HISTORY_STATUS);
+        try {
+            $this->authorize('booking.view');
+            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_HISTORY_STATUS);
+
+            return response()->json($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+
     }
 }

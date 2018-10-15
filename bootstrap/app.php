@@ -72,7 +72,7 @@ $app->singleton(
 */
 
 $app->middleware([
-//    App\Http\Middleware\ExampleMiddleware::class
+    App\Http\Middleware\ExampleMiddleware::class,
 \Barryvdh\Cors\HandleCors::class,
 ]);
 
@@ -107,6 +107,7 @@ $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
 $app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
+$app->register(\Intervention\Image\ImageServiceProviderLumen::class);
 
 /*
 |--------------------------------------------------------------------------

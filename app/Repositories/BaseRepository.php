@@ -10,7 +10,6 @@ abstract class BaseRepository implements EntityInterface
     const ONLY_TRASH = 2;
     const NO_TRASH   = 0;
 
-
     /**
      * Eloquent model
      * @var Eloquent
@@ -165,7 +164,7 @@ abstract class BaseRepository implements EntityInterface
      *
      * @param  integer $id ID bản ghi
      *
-     * @return bool
+     * @return Eloquent
      */
     public function update($id, $data, $excepts = [], $only = [])
     {

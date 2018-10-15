@@ -161,7 +161,9 @@ class UserController extends ApiController
     public function sexList()
     {
         try {
-            return response()->json($this->model->getSexConstant());
+            $data = $this->simpleArrayToObject($this->model->getSexConstant());
+
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -177,7 +179,9 @@ class UserController extends ApiController
     public function levelList()
     {
         try {
-            return response()->json($this->model->getLevelConstant());
+            $data = $this->simpleArrayToObject($this->model->getLevelConstant());
+
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -193,7 +197,9 @@ class UserController extends ApiController
     public function accountTypeList()
     {
         try {
-            return response()->json($this->model->getAccountTypeConstant());
+            $data = $this->simpleArrayToObject($this->model->getAccountTypeConstant());
+
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }

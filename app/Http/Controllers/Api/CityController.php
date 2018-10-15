@@ -126,10 +126,10 @@ class CityController extends ApiController
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $model = $this->model->update($id, $request->all());
+            $data = $this->model->update($id, $request->all());
             DB::commit();
-            //logs('city', 'sửa thành phố mã ' . $data->id, $data);
-            return $this->successResponse($model);
+            logs('city', 'sửa thành phố mã ' . $id, $data);
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -155,7 +155,7 @@ class CityController extends ApiController
             $this->authorize('city.delete');
             $this->model->delete($id);
             DB::commit();
-            //logs('city', 'xóa thành phố mã ' . $data->id, $data);
+            logs('city', 'xóa thành phố mã ' . $id);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();

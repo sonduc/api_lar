@@ -2,13 +2,14 @@
 
 namespace App\Repositories\Rooms;
 
+use App\Events\AmazonS3_Upload_Event;
 use App\Repositories\BaseRepository;
 
 class RoomMediaRepository extends BaseRepository
 {
     /**
      * RoomMedia model.
-     * @var Model
+     * @var RoomMedia
      */
     protected $model;
 
@@ -59,8 +60,10 @@ class RoomMediaRepository extends BaseRepository
     {
         foreach ($data['images'] as $img) {
             $img['room_id'] = $room->id;
-            $img['image']   = rename_image($img['name']);
+            $img['image']   = rand_name();
             $list[]         = $img;
+
+            event(new AmazonS3_Upload_Event($img['image'], $img['source']));
         }
         parent::storeArray($list);
     }

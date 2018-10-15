@@ -42,15 +42,14 @@ if (!function_exists('logs')) {
     }
 }
 
-if (!function_exists('rename_image')) {
-    function rename_image($name = null)
+if (!function_exists('rand_name')) {
+    function rand_name($name = null)
     {
-        $arr       = explode('.', $name);
-        $extension = $arr[count($arr) - 1];
-        $imgName = $arr[0];
-        //$imgName = implode('_', array_slice($arr, 0, count($arr) - 1));dd($imgName);
-        $imgName = date('Y_m_d') . '_' . time() . '_' . substr(md5(hash('sha1', $imgName)), 25);
-        return $imgName . '.' . $extension;
+        $name = $name ?? str_random();
+
+        $imgName = date('Y_m_d') . '_' . str_shuffle(time() . substr(md5($name), rand(0, 20), 10));
+
+        return $imgName;
     }
 }
 

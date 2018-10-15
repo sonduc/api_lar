@@ -26,7 +26,7 @@ class ApiController extends Controller
      *
      * @return int
      */
-    public function trashStatus($request)
+    public function trashStatus($request): int
     {
         if ($request->has('trashed')) {
             return $request->get('trashed') === 'only' ? self::ONLY_TRASH : self::WITH_TRASH;
@@ -42,7 +42,7 @@ class ApiController extends Controller
      *
      * @return array
      */
-    protected function simpleArrayToObject($arr = [])
+    protected function simpleArrayToObject($arr = []): array
     {
         $arr2d = [];
         foreach ($arr as $key => $item) {
@@ -54,6 +54,5 @@ class ApiController extends Controller
 
         return $arr2d;
     }
-
 
 }

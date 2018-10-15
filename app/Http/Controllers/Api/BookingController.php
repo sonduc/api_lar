@@ -2,47 +2,51 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\AmazonS3_Upload_Event;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingRepository;
+use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Exception\ImageException;
+use Sinergi\BrowserDetector\Browser;
+use Sinergi\BrowserDetector\UserAgent;
 
 class BookingController extends ApiController
 {
     protected $validationRules    = [
         'name'             => 'required|v_title',
         'name_received'    => 'required|v_title',
-        'phone'            => 'required|between:10,13',
-        'phone_received'   => 'required|between:10,13',
-        'sex'              => 'nullable|numeric|between:0,3',
+        'phone'            => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
+        'phone_received'   => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
+        'sex'              => 'nullable|integer|between:0,3',
         'birthday'         => 'nullable|date_format:Y-m-d',
         'email'            => 'email',
         'email_received'   => 'nullable|email',
-        'room_id'          => 'required|numeric|exists:rooms,id',
-        'merchant_id'      => 'required|numeric|exists:users,id',
-        'staff_id'         => 'nullable|numeric|exists:users,id',
+        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',
+        //        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',
+        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'staff_note'       => 'nullable|v_title',
         'checkin'          => 'required|date|after:now',
         'checkout'         => 'required|date|after:checkin',
-        'price_original'   => 'required|numeric',
-        'price_discount'   => 'nullable|numeric',
-        'price_range'      => 'nullable|numeric|between:1,14',
-        'service_fee'      => 'nullable|numeric',
+        //        'price_original'   => 'required|integer|min:0',
+        'additional_fee'   => 'filled|integer|min:0',
+        'price_discount'   => 'filled|integer|min:0',
+        //                'service_fee'      => 'nullable|integer',
         'coupon'           => 'nullable|string',
         'note'             => 'nullable|v_title',
-        'number_of_guests' => 'required|numeric',
-        'customer_id'      => 'nullable|numeric|exists:users,id',
-        //        'status'           => 'required|numeric|between:0,1',
-        //        'type'             => 'required|numeric|between:1,2',
-        'booking_type'     => 'required|numeric|between:1,2',
-        'payment_method'   => 'required|numeric|between:1,5',
-        'payment_status'   => 'required|numeric|between:0,3',
-        'source'           => 'required|numeric|between:1,6',
-        'exchange_rate'    => 'nullable|numeric',
-
-        'money_received' => 'integer|filled',
-        'confirm'        => 'required|integer|between:0,1',
+        'number_of_guests' => 'required|integer|min:1',
+        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
+        'status'           => 'required|integer|between:1,5',
+        //        'type'             => 'required|integer|between:1,2',
+        'booking_type'     => 'required|integer|between:1,2',
+        'payment_method'   => 'required|integer|between:1,5',
+        'payment_status'   => 'required|integer|between:0,3',
+        'source'           => 'required|integer|between:1,6',
+        'exchange_rate'    => 'nullable|integer',
+        'money_received'   => 'integer|filled|min:0',
+        'confirm'          => 'integer|between:0,1',
     ];
     protected $validationMessages = [
         'name.required'             => 'Vui lòng điền tên',
@@ -50,22 +54,24 @@ class BookingController extends ApiController
         'name_received.required'    => 'Vui lòng điền tên',
         'phone.required'            => 'Vui lòng điền số điện thoại',
         'phone.between'             => 'Số điện thoại không phù hợp',
+        'phone.regex'               => 'Số điện thoại không hợp lệ',
         'phone_received.required'   => 'Vui lòng điền số điện thoại',
         'phone_received.between'    => 'Số điện thoại không phù hợp',
-        'sex.numeric'               => 'Mã giới tính phải là kiểu số',
+        'phone_received.regex'      => 'Số điện thoại không hợp lệ',
+        'sex.integer'               => 'Mã giới tính phải là kiểu số',
         'sex.between'               => 'Giới tính không phù hợp',
         'birthday.date_format'      => 'Ngày sinh phải ở định dạng Y-m-d',
         'email.email'               => 'Email không đúng định dạng',
         'email_received.email'      => 'Email không đúng định dạng',
         'room_id.required'          => 'Vui lòng chọn phòng',
-        'room_id.numeric'           => 'Mã phòng phải là kiểu số',
+        'room_id.integer'           => 'Mã phòng phải là kiểu số',
         'room_id.exists'            => 'Phòng không tồn tại',
         'customer_id.required'      => 'Vui lòng chọn khách hàng',
-        'customer_id.numeric'       => 'Mã khách hàng phải là kiểu số',
+        'customer_id.integer'       => 'Mã khách hàng phải là kiểu số',
         'merchant_id.required'      => 'Vui lòng chọn chủ nhà',
-        'merchant_id.numeric'       => 'Mã chủ nhà phải là kiểu số',
+        'merchant_id.integer'       => 'Mã chủ nhà phải là kiểu số',
         'merchant_id.exists'        => 'Chủ nhà không tồn tại',
-        'staff_id.numeric'          => 'Mã nhân viên phải là kiểu số',
+        'staff_id.integer'          => 'Mã nhân viên phải là kiểu số',
         'staff_id.exists'           => 'Nhân viên không tồn tại',
         'staff_note.v_title'        => 'Phải là văn bản tiếng việt',
         'checkin.required'          => 'Vui lòng nhập thời gian checkin',
@@ -75,39 +81,43 @@ class BookingController extends ApiController
         'checkout.date_format'      => 'Checkout phải có định dạng Y-m-d H:i:s',
         'checkout.after'            => 'Thời gian checkout phải sau thời gian checkin',
         'price_original.required'   => 'Vui lòng điền giá',
-        'price_original.numeric'    => 'Giá phải là kiểu số',
-        'price_discount.numeric'    => 'Giá phải là kiểu số',
-        'price_range.numeric'       => 'Mã khoảng giá phải là kiểu số',
-        'price_range.between'       => 'Khoảng giá không hợp lệ',
-        'service_fee.numeric'       => 'Giá phải là kiểu số',
+        'price_original.integer'    => 'Giá phải là kiểu số',
+        'additional_fee.required'   => 'Vui lòng điền giá',
+        'additional_fee.filled'     => 'Vui lòng điền giá',
+        'additional_fee.integer'    => 'Giá phải là kiểu số',
+        'price_discount.required'   => 'Vui lòng điền giá',
+        'price_discount.filled'     => 'Vui lòng điền giá',
+        'price_discount.integer'    => 'Giá phải là kiểu số',
+        'service_fee.integer'       => 'Giá phải là kiểu số',
         'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
         'note.v_title'              => 'Note phải là văn bản không chứa ký tự đặc biệt',
         'number_of_guests.required' => 'Vui lòng điền số khách',
-        'number_of_guests.numeric'  => 'Số khách phải là kiểu số',
+        'number_of_guests.integer'  => 'Số khách phải là kiểu số',
+        'number_of_guests.min'      => 'Tối thiểu 1 khách',
         'status.required'           => 'Vui lòng chọn trạng thái',
-        'status.numeric'            => 'Mã trạng thái phải là kiểu số',
+        'status.integer'            => 'Mã trạng thái phải là kiểu số',
         'status.between'            => 'Mã trạng thái không phù hợp',
 
         'type.required' => 'Vui lòng chọn hình thức booking',
-        'type.numeric'  => 'Mã hình thức phải là kiểu số',
+        'type.integer'  => 'Mã hình thức phải là kiểu số',
         'type.between'  => 'Mã hình thức không hợp lệ',
 
         'booking_type.required' => 'Vui lòng chọn kiểu booking',
-        'booking_type.numeric'  => 'Mã kiểu phải là kiểu số',
+        'booking_type.integer'  => 'Mã kiểu phải là kiểu số',
         'booking_type.between'  => 'Mã kiểu không hợp lệ',
 
         'payment_method.required' => 'Vui lòng chọn hình thức thanh toán',
-        'payment_method.numeric'  => 'Mã hình thức thanh toán phải là kiểu số',
+        'payment_method.integer'  => 'Mã hình thức thanh toán phải là kiểu số',
         'payment_method.between'  => 'Mã hình thức thanh toán không hợp lệ',
 
         'payment_status.required' => 'Vui lòng chọn trạng thái thanh toán',
-        'payment_status.numeric'  => 'Mã trạng thái thanh toán phải là kiểu số',
+        'payment_status.integer'  => 'Mã trạng thái thanh toán phải là kiểu số',
         'payment_status.between'  => 'Mã trạng thái thanh toán không hợp lệ',
 
         'source.required'       => 'Vui lòng chọn nguồn booking',
-        'source.numeric'        => 'Mã nguồn booking phải là kiểu số',
+        'source.integer'        => 'Mã nguồn booking phải là kiểu số',
         'source.between'        => 'Mã nguồn booking không hợp lệ',
-        'exchange_rate.numeric' => 'Tỉ giá chuyển đổi phải là kiểu số',
+        'exchange_rate.integer' => 'Tỉ giá chuyển đổi phải là kiểu số',
 
         'money_received.integer' => 'Tiền nhận phải là kiểu số',
         'money_received.filled'  => 'Tiền nhận không được để trống',
@@ -116,6 +126,9 @@ class BookingController extends ApiController
         'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
     ];
 
+    protected $model;
+    protected $browser;
+
     /**
      * BookingController constructor.
      *
@@ -123,14 +136,18 @@ class BookingController extends ApiController
      */
     public function __construct(BookingRepository $booking)
     {
-        $this->model = $booking;
+        $this->model   = $booking;
         $this->setTransformer(new BookingTransformer);
     }
 
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
@@ -174,7 +191,7 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//             dd(DB::getQueryLog());
+//            dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
@@ -187,6 +204,12 @@ class BookingController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            if ($e instanceof InvalidDateException) {
+                return $this->errorResponse([
+                    'errors'    => $e->getField(),
+                    'exception' => $e->getValue(),
+                ]);
+            }
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -200,6 +223,7 @@ class BookingController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('booking.update');
+            $this->validationRules['checkin'] = 'required|date';
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
@@ -230,14 +254,164 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('booking.delete');
-            $this->model->delete($id);
-            // DB::commit();
+//            $this->model->delete($id);
+//             DB::commit();
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Tính giá tiền cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function priceCaculator(Request $request)
+    {
+        try {
+            $this->authorize('booking.create');
+            // Tái cấu trúc validate để tính giá tiền
+            $validate            = array_only($this->validationRules, [
+                'room_id',
+                'checkin',
+                'checkout',
+                'additional_fee',
+                'price_discount',
+                'coupon',
+                'number_of_guests',
+                'booking_type',
+            ]);
+            $validate['checkin'] = 'required|date';
+
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $room = $this->model->getRoomById($request->all());
+            $data = [
+                'data' => $this->model->priceCaculator($room, $request->all()),
+            ];
+
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        }
+    }
+
+    /**
+     * Thực hiện cập nhật đơn lẻ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function minorBookingUpdate(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->authorize('booking.update');
+            $avaiable_option = ['payment_method', 'payment_status', 'status'];
+            $option          = $request->get('option');
+
+            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+
+            $validate = array_only($this->validationRules, [
+                $option,
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $data = $this->model->minorUpdate($id, $request->only($option));
+            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
+            DB::commit();
+            return $this->successResponse($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateBookingMoney(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('booking.update');
+
+            $validate = array_only($this->validationRules, [
+                'additional_fee',
+                'price_discount',
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $avaiable_option = array_keys($validate);
+
+            $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
+            logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
+
+            DB::commit();
+            return $this->successResponse($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -256,7 +430,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::STATUS);
+            $data = $this->simpleArrayToObject(BookingConstant::STATUS);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -273,7 +448,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::BOOKING_STATUS);
+            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_STATUS);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -290,7 +466,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::BOOKING_TYPE);
+            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -307,7 +484,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::TYPE);
+            $data = $this->simpleArrayToObject(BookingConstant::TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -324,7 +502,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::PAYMENT_METHOD);
+            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_METHOD);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -341,7 +520,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::PAYMENT_STATUS);
+            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_STATUS);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -358,7 +538,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::PAYMENT_HISTORY_TYPE);
+            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_HISTORY_TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -375,7 +556,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::BOOKING_SOURCE);
+            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_SOURCE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -392,7 +574,8 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            return response()->json(BookingConstant::PRICE_RANGE);
+            $data = $this->simpleArrayToObject(BookingConstant::PRICE_RANGE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         }
