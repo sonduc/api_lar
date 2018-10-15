@@ -163,8 +163,8 @@ class RoomController extends ApiController
         $this->trash = $this->trashStatus($request);
 
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-//        dd($data);
-//        dd(DB::getQueryLog());
+//       dd($data);
+       // dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
