@@ -53,7 +53,7 @@ $router->group([
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
-    $router->post('/rooms/status/{id}', 'RoomController@changeStatus');
+    $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
     resource('/rooms', 'RoomController', $router);
 
 
@@ -83,7 +83,7 @@ $router->group([
     $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
-    $router->post('/bookings/price-caculator', 'BookingController@priceCaculator');
+    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
     $router->put('/bookings/status-update/{id}', 'BookingController@minorBookingUpdate');
     $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
 

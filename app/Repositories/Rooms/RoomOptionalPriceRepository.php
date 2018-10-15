@@ -111,4 +111,9 @@ class RoomOptionalPriceRepository extends BaseRepository
         return $list;
     }
 
+    public function getOptionalPriceByRoomId($id)
+    {
+        return $this->model->where('room_id', $id)->get();
+    }
+
 }

@@ -44,7 +44,7 @@ class BookingTransformer extends TransformerAbstract
             'merchant_id'        => $booking->merchant_id,
             'checkin'            => $booking->checkin ? date('Y-m-d H:i:s', $booking->checkin) : 'Không xác định',
             'checkout'           => $booking->checkout ? date('Y-m-d H:i:s', $booking->checkout) : 'Không xác định',
-            'number_of_guests'   => $booking->number_of_guest ?? 0,
+            'number_of_guests'   => $booking->number_of_guests ?? 0,
             'price_original'     => $booking->price_original,
             'price_discount'     => $booking->price_discount,
             'coupon_discount'    => $booking->coupon_discount,
