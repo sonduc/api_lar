@@ -18,10 +18,9 @@ class CreateRoomOptionalPricesTable extends Migration
             $table->integer('room_id')->nullable();
             $table->tinyInteger('weekday')->nullable();
             $table->date('day')->nullable();
-            $table->integer('price_day')->nullable();
-            $table->integer('price_hour')->nullable();
-            $table->integer('price_after_hour')->nullable();
-            $table->integer('price_charge_guest')->nullable();
+            $table->integer('price_day')->nullable()->default(0);
+            $table->integer('price_hour')->nullable()->default(0);
+            $table->integer('price_after_hour')->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(1);
             $table->softDeletes()->nullable();
             $table->timestamps();

@@ -4,9 +4,12 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Payments\PaymentHistoryRepository;
+use App\Repositories\Rooms\RoomOptionalPrice;
+use App\Repositories\Rooms\RoomOptionalPriceRepository;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Users\UserRepository;
 use App\User;
+use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Support\Carbon;
 
@@ -18,15 +21,21 @@ class BookingRepository extends BaseRepository
     protected $payment;
     protected $user;
     protected $room;
+    protected $op;
 
     /**
      * BookingRepository constructor.
      *
-     * @param Booking $booking
+     * @param Booking                     $booking
+     * @param BookingStatusRepository     $status
+     * @param PaymentHistoryRepository    $payment
+     * @param UserRepository              $user
+     * @param RoomRepository              $room
+     * @param RoomOptionalPriceRepository $op
      */
     public function __construct(
         Booking $booking, BookingStatusRepository $status, PaymentHistoryRepository $payment, UserRepository $user,
-        RoomRepository $room
+        RoomRepository $room, RoomOptionalPriceRepository $op
     )
     {
         $this->model   = $booking;
@@ -34,6 +43,7 @@ class BookingRepository extends BaseRepository
         $this->payment = $payment;
         $this->user    = $user;
         $this->room    = $room;
+        $this->op      = $op;
     }
 
     /**
@@ -52,7 +62,7 @@ class BookingRepository extends BaseRepository
         $room                = $this->getRoomById($data);
         $data['merchant_id'] = $room->merchant_id;
 
-        $data = $this->priceCaculator($room, $data);
+        $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
@@ -92,7 +102,7 @@ class BookingRepository extends BaseRepository
     }
 
     /**
-     * ính toán giá tiền cho booking
+     * Tính toán giá tiền cho booking
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param array $data
@@ -100,23 +110,30 @@ class BookingRepository extends BaseRepository
      *
      * @return array
      */
-    public function priceCaculator($room, $data = [])
+    public function priceCalculator($room, $data = [])
     {
-        $checkin  = Carbon::parse($data['checkin']);
-        $checkout = Carbon::parse($data['checkout']);
+        $checkin              = Carbon::parse($data['checkin']);
+        $checkout             = Carbon::parse($data['checkout']);
+        $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
 
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
-            $hours         = $checkout->diffInHours($checkin);
+            $hours         = $checkout->diffInHours($checkin) + 1;
             $data['hours'] = $hours;
-
             if ($hours > 24) throw new InvalidDateException('validate-hour', 'Khoảng thời gian vượt quá 24h');
-            $money = $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+
+            $money = $this->optionalPriceCalculator($room_optional_prices, $data, BookingConstant::BOOKING_TYPE_HOUR) ?? 0;
+
+            if ($money == 0) $money = $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+
         } else {
             $days         = $checkout->diffInDays($checkin) + 1;
             $data['days'] = $days;
 
-            $money = $room->price_day * $days;
+            // Xử lý logic tính giá phòng vào ngày đặc biệt
+            list ($money, $totalDay) = $this->optionalPriceCalculator($room_optional_prices, $data, BookingConstant::BOOKING_TYPE_DAY);
+            $money += $room->price_day * ($days - $totalDay);
+
         }
 
         // Tính tiền dựa theo số khách
@@ -129,13 +146,88 @@ class BookingRepository extends BaseRepository
         $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
 
         $price = $money
-        + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-        + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
-        - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
-        - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+            + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+            + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+            - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
+        dd($data);
         return $data;
+    }
+
+    public function optionalPriceCalculator($rop, $data = [], $type = BookingConstant::BOOKING_TYPE_DAY)
+    {
+        $checkin            = Carbon::parse($data['checkin']);
+        $checkout           = Carbon::parse($data['checkout']);
+        $listDays           = $specialDays = $weekDays = $optionalDays = $optionalWeekDays = [];
+        $money              = 0;
+        $totalDayOfDiscount = 0;
+        // Lấy các ngày đặc biệt được giảm giá
+        foreach ($rop as $op) {
+            if ($op->day !== null && $op->status == RoomOptionalPrice::AVAILABLE) {
+                $specialDays[]  = $op->day;
+                $optionalDays[] = $op;
+            }
+
+            if ($op->weekday !== null && $op->status == RoomOptionalPrice::AVAILABLE) {
+                $weekDays[]         = $op->weekday;
+                $optionalWeekDays[] = $op;
+            }
+        }
+        // Logic tính tiền cho kiểu ngày
+        if ($type == BookingConstant::BOOKING_TYPE_DAY) {
+
+            // Lấy tất cả các ngày trong khoảng thời gian checkin và checkout
+            $period = CarbonPeriod::between($checkin, $checkout->addDay());
+            foreach ($period as $day) {
+                if (in_array($day->dayOfWeek + 1, $weekDays)) $listDays[] = $day->format('Y-m-d');
+            }
+
+            // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
+            $otherDays = array_diff($listDays, $specialDays);
+
+            // Tính tiền cho các ngày đặc biệt cụ thể
+            foreach ($optionalDays as $op) {
+                if ($op->day !== null) {
+                    $day = Carbon::parse($op->day);
+                    if ($day->between($checkin, $checkout)) {
+                        $money += $op->price_day;
+                        $totalDayOfDiscount++;
+                    }
+                }
+            }
+
+            // Tính tiền cho các ngày giảm giá trong tuần;
+            foreach ($optionalWeekDays as $op) {
+                foreach ($otherDays as $day) {
+                    $day = Carbon::parse($day);
+                    if ($op->weekday == ($day->dayOfWeek + 1)) {
+                        $money += $op->price_day;
+                        $totalDayOfDiscount++;
+                    }
+                }
+            }
+
+            return [$money, $totalDayOfDiscount];
+        } else {
+            // Logic tính tiền kiểu giờ
+            if (in_array($checkin->format('Y-m-d'), $specialDays)) {
+                foreach ($optionalDays as $op) {
+                    if ($op->day == $checkin->format('Y-m-d')) {
+                        $money += $op->price_hour + ($checkout->diffInHours($checkin) + 1 - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
+                    }
+                }
+            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+                foreach ($optionalWeekDays as $op) {
+                    if ($op->weekday == $checkin->dayOfWeek + 1) {
+                        $money += $op->price_hour + ($checkout->diffInHours($checkin) + 1 - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
+                    }
+                }
+            }
+
+            return $money;
+        }
     }
 
     /**
@@ -221,7 +313,7 @@ class BookingRepository extends BaseRepository
         $room                = $this->room->getById($data['room_id']);
         $data['merchant_id'] = $room->merchant_id;
 
-        $data = $this->priceCaculator($room, $data);
+        $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
@@ -232,7 +324,6 @@ class BookingRepository extends BaseRepository
 
         return $data_booking;
     }
-
 
 }
 

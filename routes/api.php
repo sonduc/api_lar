@@ -83,7 +83,7 @@ $router->group([
     $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
-    $router->post('/bookings/price-caculator', 'BookingController@priceCaculator');
+    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
     $router->put('/bookings/status-update/{id}', 'BookingController@minorBookingUpdate');
     $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
 

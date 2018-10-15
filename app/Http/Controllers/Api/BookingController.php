@@ -32,7 +32,7 @@ class BookingController extends ApiController
         //                'service_fee'      => 'nullable|integer',
         'coupon'           => 'nullable|string',
         'note'             => 'nullable|v_title',
-        'number_of_guests' => 'required|integer|min:1',
+        'number_of_guests' => 'required|integer|min:1|guest_check',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'status'           => 'required|integer|between:1,5',
         //        'type'             => 'required|integer|between:1,2',
@@ -45,54 +45,54 @@ class BookingController extends ApiController
         'confirm'          => 'integer|between:0,1',
     ];
     protected $validationMessages = [
-        'name.required'             => 'Vui lòng điền tên',
-        'name.v_title'              => 'Tên không đúng định dạng',
-        'name_received.required'    => 'Vui lòng điền tên',
-        'phone.required'            => 'Vui lòng điền số điện thoại',
-        'phone.between'             => 'Số điện thoại không phù hợp',
-        'phone.regex'               => 'Số điện thoại không hợp lệ',
-        'phone_received.required'   => 'Vui lòng điền số điện thoại',
-        'phone_received.between'    => 'Số điện thoại không phù hợp',
-        'phone_received.regex'      => 'Số điện thoại không hợp lệ',
-        'sex.integer'               => 'Mã giới tính phải là kiểu số',
-        'sex.between'               => 'Giới tính không phù hợp',
-        'birthday.date_format'      => 'Ngày sinh phải ở định dạng Y-m-d',
-        'email.email'               => 'Email không đúng định dạng',
-        'email_received.email'      => 'Email không đúng định dạng',
-        'room_id.required'          => 'Vui lòng chọn phòng',
-        'room_id.integer'           => 'Mã phòng phải là kiểu số',
-        'room_id.exists'            => 'Phòng không tồn tại',
-        'customer_id.required'      => 'Vui lòng chọn khách hàng',
-        'customer_id.integer'       => 'Mã khách hàng phải là kiểu số',
-        'merchant_id.required'      => 'Vui lòng chọn chủ nhà',
-        'merchant_id.integer'       => 'Mã chủ nhà phải là kiểu số',
-        'merchant_id.exists'        => 'Chủ nhà không tồn tại',
-        'staff_id.integer'          => 'Mã nhân viên phải là kiểu số',
-        'staff_id.exists'           => 'Nhân viên không tồn tại',
-        'staff_note.v_title'        => 'Phải là văn bản tiếng việt',
-        'checkin.required'          => 'Vui lòng nhập thời gian checkin',
-        'checkin.date_format'       => 'Checkin phải có định dạng Y-m-d H:i:s',
-        'checkin.after'             => 'Thời gian checkin không được phép ở thời điểm quá khứ',
-        'checkout.required'         => 'Vui lòng nhập thời gian checkout',
-        'checkout.date_format'      => 'Checkout phải có định dạng Y-m-d H:i:s',
-        'checkout.after'            => 'Thời gian checkout phải sau thời gian checkin',
-        'price_original.required'   => 'Vui lòng điền giá',
-        'price_original.integer'    => 'Giá phải là kiểu số',
-        'additional_fee.required'   => 'Vui lòng điền giá',
-        'additional_fee.filled'     => 'Vui lòng điền giá',
-        'additional_fee.integer'    => 'Giá phải là kiểu số',
-        'price_discount.required'   => 'Vui lòng điền giá',
-        'price_discount.filled'     => 'Vui lòng điền giá',
-        'price_discount.integer'    => 'Giá phải là kiểu số',
-        'service_fee.integer'       => 'Giá phải là kiểu số',
-        'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
-        'note.v_title'              => 'Note phải là văn bản không chứa ký tự đặc biệt',
-        'number_of_guests.required' => 'Vui lòng điền số khách',
-        'number_of_guests.integer'  => 'Số khách phải là kiểu số',
-        'number_of_guests.min'      => 'Tối thiểu 1 khách',
-        'status.required'           => 'Vui lòng chọn trạng thái',
-        'status.integer'            => 'Mã trạng thái phải là kiểu số',
-        'status.between'            => 'Mã trạng thái không phù hợp',
+        'name.required'                => 'Vui lòng điền tên',
+        'name.v_title'                 => 'Tên không đúng định dạng',
+        'name_received.required'       => 'Vui lòng điền tên',
+        'phone.required'               => 'Vui lòng điền số điện thoại',
+        'phone.between'                => 'Số điện thoại không phù hợp',
+        'phone.regex'                  => 'Số điện thoại không hợp lệ',
+        'phone_received.required'      => 'Vui lòng điền số điện thoại',
+        'phone_received.between'       => 'Số điện thoại không phù hợp',
+        'phone_received.regex'         => 'Số điện thoại không hợp lệ',
+        'sex.integer'                  => 'Mã giới tính phải là kiểu số',
+        'sex.between'                  => 'Giới tính không phù hợp',
+        'birthday.date_format'         => 'Ngày sinh phải ở định dạng Y-m-d',
+        'email.email'                  => 'Email không đúng định dạng',
+        'email_received.email'         => 'Email không đúng định dạng',
+        'room_id.required'             => 'Vui lòng chọn phòng',
+        'room_id.integer'              => 'Mã phòng phải là kiểu số',
+        'room_id.exists'               => 'Phòng không tồn tại',
+        'customer_id.required'         => 'Vui lòng chọn khách hàng',
+        'customer_id.integer'          => 'Mã khách hàng phải là kiểu số',
+        'merchant_id.required'         => 'Vui lòng chọn chủ nhà',
+        'merchant_id.integer'          => 'Mã chủ nhà phải là kiểu số',
+        'merchant_id.exists'           => 'Chủ nhà không tồn tại',
+        'staff_id.integer'             => 'Mã nhân viên phải là kiểu số',
+        'staff_id.exists'              => 'Nhân viên không tồn tại',
+        'staff_note.v_title'           => 'Phải là văn bản tiếng việt',
+        'checkin.required'             => 'Vui lòng nhập thời gian checkin',
+        'checkin.date_format'          => 'Checkin phải có định dạng Y-m-d H:i:s',
+        'checkin.after'                => 'Thời gian checkin không được phép ở thời điểm quá khứ',
+        'checkout.required'            => 'Vui lòng nhập thời gian checkout',
+        'checkout.date_format'         => 'Checkout phải có định dạng Y-m-d H:i:s',
+        'checkout.after'               => 'Thời gian checkout phải sau thời gian checkin',
+        'price_original.required'      => 'Vui lòng điền giá',
+        'price_original.integer'       => 'Giá phải là kiểu số',
+        'additional_fee.required'      => 'Vui lòng điền giá',
+        'additional_fee.filled'        => 'Vui lòng điền giá',
+        'additional_fee.integer'       => 'Giá phải là kiểu số',
+        'price_discount.required'      => 'Vui lòng điền giá',
+        'price_discount.filled'        => 'Vui lòng điền giá',
+        'price_discount.integer'       => 'Giá phải là kiểu số',
+        'service_fee.integer'          => 'Giá phải là kiểu số',
+        'coupon.string'                => 'Coupon không được chứa ký tự đặc biệt',
+        'note.v_title'                 => 'Note phải là văn bản không chứa ký tự đặc biệt',
+        'number_of_guests.required'    => 'Vui lòng điền số khách',
+        'number_of_guests.integer'     => 'Số khách phải là kiểu số',
+        'number_of_guests.min'         => 'Tối thiểu 1 khách',
+        'status.required'              => 'Vui lòng chọn trạng thái',
+        'status.integer'               => 'Mã trạng thái phải là kiểu số',
+        'status.between'               => 'Mã trạng thái không phù hợp',
 
         'type.required' => 'Vui lòng chọn hình thức booking',
         'type.integer'  => 'Mã hình thức phải là kiểu số',
@@ -185,7 +185,7 @@ class BookingController extends ApiController
 
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
-            DB::commit();
+//            DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);
@@ -203,6 +203,9 @@ class BookingController extends ApiController
                     'exception' => $e->getValue(),
                 ]);
             }
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -271,7 +274,7 @@ class BookingController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function priceCaculator(Request $request)
+    public function priceCalculator(Request $request)
     {
         try {
             $this->authorize('booking.create');
@@ -292,7 +295,7 @@ class BookingController extends ApiController
 
             $room = $this->model->getRoomById($request->all());
             $data = [
-                'data' => $this->model->priceCaculator($room, $request->all()),
+                'data' => $this->model->priceCalculator($room, $request->all()),
             ];
 
             return $this->successResponse($data, false);

@@ -20,5 +20,6 @@ class ValidatorServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('v_title', 'App\Validator\VietnameseNameValidator@passes');
+        Validator::extend('guest_check', 'App\Validator\NumberOfGuestsValidator@check');
     }
 }
