@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-10T07:57:54.085Z",
+	"__export_date": "2018-10-15T10:09:54.073Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -985,7 +985,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1534475997452,
-			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n\n",
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|rent_type|int|Kiểu cho thuê phòng|\n|latest_deal|int|Giá hạ sàn|\n|type_room|int|Kiểu phòng|\n|price_range_start|int|Khoảng giá((?price_range_start=1&price_range_end=65)|\n|new|int|Phòng mới nhất|\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -1001,7 +1001,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539154983250,
+			"modified": 1539598146868,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1011,7 +1011,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms",
+			"url": "{{ api_url  }}rooms?price_range_start=1",
 			"_type": "request"
 		},
 		{

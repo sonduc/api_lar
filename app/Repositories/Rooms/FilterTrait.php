@@ -124,7 +124,8 @@ trait FilterTrait
      */
     public function scopeRentType($query, $q)
     {
-        if ($q && is_numeric($q)&& array_key_exists($q, $this::ROOM_RENT_TYPE)) {
+        $q =' '.$q;
+        if ($q && is_numeric($q)) {
             return $query->where('rooms.rent_type', $q);
         }
 
@@ -142,6 +143,7 @@ trait FilterTrait
      */
     public function scopeLatestDeal($query, $q)
     {
+        $q =' '.$q;
         if ($q && is_numeric($q))
         {
             return $query->where('rooms.latest_deal', $q);
@@ -159,7 +161,8 @@ trait FilterTrait
      */
     public function scopeTypeRoom($query, $q)
     {
-        if ($q && is_numeric($q)&& array_key_exists($q, $this::ROOM_TYPE)) {
+        $q =' '.$q;
+        if ($q && is_numeric($q)) {
             return $query->where('rooms.room_type', $q);
         }
 
@@ -198,7 +201,7 @@ trait FilterTrait
     }
 
     /**
-     * Lọc phòng theo khoảng giá dựa theo bảng room
+     * Scope new
      * @author 0ducchien612 <0ducchien612@gmail.com>
      *
      * @param       $room
@@ -207,5 +210,13 @@ trait FilterTrait
      *
      * @return array
      */
+    public function scopeNew($query, $q)
+    {
+        $q =' '.$q;
+        if ($q && is_numeric($q)) {
+            $query->where('rooms.new', $q);
+        }
+        return $query;
+    }
 
 }
