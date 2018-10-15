@@ -17,6 +17,7 @@ class CreateTagsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name', 50)->nullable();
             $table->string('slug', 50)->nullable();
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

@@ -8,6 +8,17 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Blog extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
+    // Định nghĩa trạng thái bài viết
+    const AVAILABLE    = 0;
+    const UNAVAILABLE  = 1;
+    const BLOG_STATUS    = [
+        self::AVAILABLE      => 'ĐÃ DUYỆT',
+        self::UNAVAILABLE    => 'ĐANG CHỜ DUYỆT',
+    ];
+    const BLOG_HOT    = [
+        self::AVAILABLE      => 'NỔI BẬT',
+        self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
+    ];
 
     protected $table = 'blogs';
     /**
@@ -17,7 +28,7 @@ class Blog extends Entity
      */
     protected $fillable
         = [
-
+            'image','status','hot','user_id','category_id'
         ];
 
     /**
@@ -25,6 +36,54 @@ class Blog extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
+
+
+    /**
+     * relation ship voi blogs_translate
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function blogTrans()
+    {
+        return $this->hasMany(\App\Repositories\Blogs\BlogTranslate::class, 'blog_id');
+    }
+
+    /**
+     * relation ship voi tags
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(\App\Repositories\Blogs\Tag::class, 'blog_tags', 'blog_id','tag_id')->withTimestamps();
+    }
+
+    /**
+     * relation ship voi category
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function categories()
+    {
+        return $this->belongsTo(\App\Repositories\Categories\Category::class,'category_id');
+    }
+
+    /**
+     * relation ship voi user
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function users()
+    {
+        return $this->belongsTo(\App\User::class,'user_id');
+    }
+
+
+
 
 
 }

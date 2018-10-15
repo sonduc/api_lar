@@ -93,8 +93,18 @@ $router->group([
     resource('/payments', 'PaymentHistoryController', $router);
 
     /**
-     * Blog Resource
+     * Category Resource
      */
+    $router->get('/categories/status-list', 'CategoryController@statusList');
+    $router->get('/categories/hot-list', 'CategoryController@hotList');
+    $router->put('/categories/single-update/{id}', 'CategoryController@singleUpdate');
+    resource('/categories', 'CategoryController', $router);
+    /**
+     * Blogs Resource
+     */
+    $router->get('/blogs/status-list', 'BlogController@statusList');
+    $router->get('/blogs/hot-list', 'BlogController@hotList');
+    $router->put('/blogs/single-update/{id}', 'BlogController@singleUpdate');
     resource('/blogs', 'BlogController', $router);
 });
 

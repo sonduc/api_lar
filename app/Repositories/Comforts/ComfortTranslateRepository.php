@@ -24,7 +24,7 @@ class ComfortTranslateRepository extends BaseRepository
 
     public function updateComfortTranslate($comfort, $data = [])
     {
-        $this->deleteComfortTranslateByRoomID($comfort);
+        $this->deleteComfortTranslateByComfortID($comfort);
         $this->storeComfortTranslate($comfort, $data);
 
 //        $data['comfort_id'] = $id;
@@ -36,7 +36,7 @@ class ComfortTranslateRepository extends BaseRepository
 //        $count ? parent::update($id, $data) : parent::store($data);
     }
 
-    public function deleteComfortTranslateByRoomID($comfort)
+    public function deleteComfortTranslateByComfortID($comfort)
     {
         $this->model->where('comfort_id', $comfort->id)->forceDelete();
     }
@@ -44,8 +44,8 @@ class ComfortTranslateRepository extends BaseRepository
     public function storeComfortTranslate($comfort, $data = [], $list = [])
     {
         if (!empty($data)) {
-            if (isset($data['details'])) {
-                foreach ($data['details'] as $val) {
+            if (isset($data['details']['data'])) {
+                foreach ($data['details']['data'] as $val) {
                     $val['comfort_id'] = $comfort->id;
                     $list[]            = $val;
                 }

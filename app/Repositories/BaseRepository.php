@@ -50,6 +50,7 @@ abstract class BaseRepository implements EntityInterface
                 if ($reflection->hasMethod('scope' . $funcName)) {
                     $funcName = lcfirst($funcName);
                     $lModel   = $lModel->$funcName($funcParams);
+                    //dd($lModel->get());
                 }
             }
         }
@@ -101,7 +102,7 @@ abstract class BaseRepository implements EntityInterface
      */
     public function store($data)
     {
-        return $this->model->create($data);
+       return $this->model->create($data);
     }
 
     /**
@@ -115,7 +116,6 @@ abstract class BaseRepository implements EntityInterface
     public function storeArray($data)
     {
         $data = $this->filterData($data);
-
         return $this->model->insert($data);
     }
 

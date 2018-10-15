@@ -141,4 +141,15 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+    'category'       => [
+        'title' => 'Quản lý blog',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
+
 ];

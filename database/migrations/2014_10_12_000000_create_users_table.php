@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('name')->nullable();
             $table->string('email', 100)->unique();
             $table->string('password')->nullable();
-            $table->tinyInteger('gender')->nullable()->default(-1);
+            $table->tinyInteger('gender')->nullable()->default(0);
             $table->string('phone', 30)->nullable();
             $table->date('birthday')->nullable();
             $table->string('sub_email')->nullable();
@@ -48,7 +48,7 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('is_baokim')->nullable();
             $table->tinyInteger('status')->default(0);
             $table->longText('source')->nullable();
-            $table->integer('sale_id')->nullable();
+            $table->integer('sale_id')->default(0);
             $table->timestamp('time_add_sale')->nullable();
             $table->rememberToken()->nullable();
             $table->softDeletes()->nullable();

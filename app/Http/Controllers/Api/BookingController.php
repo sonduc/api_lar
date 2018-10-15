@@ -142,7 +142,7 @@ class BookingController extends ApiController
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 
-//        dd(DB::getQueryLog());
+      // dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 

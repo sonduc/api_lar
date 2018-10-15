@@ -47,11 +47,9 @@ if (!function_exists('rename_image')) {
     {
         $arr       = explode('.', $name);
         $extension = $arr[count($arr) - 1];
-
-        $imgName = implode('_', array_slice($arr, 0, count($arr) - 1));
-
+        $imgName = $arr[0];
+        //$imgName = implode('_', array_slice($arr, 0, count($arr) - 1));dd($imgName);
         $imgName = date('Y_m_d') . '_' . time() . '_' . substr(md5(hash('sha1', $imgName)), 25);
-
         return $imgName . '.' . $extension;
     }
 }

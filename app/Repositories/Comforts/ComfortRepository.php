@@ -54,9 +54,9 @@ class ComfortRepository extends BaseRepository
      */
     public function update($id, $data, $except = [], $only = [])
     {
-        $data_comfort = parent::update($id, $data);
-        $this->comfortTranslate->updateComfortTranslate($data_comfort, $data);
-        return $data_comfort;
+        $data_catagory = parent::update($id, $data);
+        $this->comfortTranslate->updateComfortTranslate($data_catagory, $data);
+        return $data_catagory;
     }
 
     /**
@@ -65,7 +65,8 @@ class ComfortRepository extends BaseRepository
      *
      * @param $id
      */
-    public function deleteRoom($id)
+    public function deleteComfort($id)
+
     {
         $list_id = $this->comfortTranslate->getByComfortID($id);
         foreach ($list_id as $comfort) {

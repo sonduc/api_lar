@@ -14,6 +14,7 @@ class CreateBookingsTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->string('uuid', 20)->nullable();
             $table->string('code', 50)->nullable();
@@ -30,20 +31,22 @@ class CreateBookingsTable extends Migration
             $table->integer('merchant_id')->nullable();
             $table->integer('checkin')->nullable();
             $table->integer('checkout')->nullable();
-            $table->bigInteger('price_original')->nullable();
-            $table->bigInteger('service_fee')->nullable();
-            $table->bigInteger('price_discount')->nullable();
-            $table->bigInteger('booking_fee')->nullable();
+            $table->bigInteger('price_original')->nullable()->default(0);
+            $table->bigInteger('service_fee')->nullable()->default(0);
+            $table->bigInteger('additional_fee')->nullable()->default(0);
+
+            $table->bigInteger('price_discount')->nullable()->default(0);
             $table->string('coupon', 50)->nullable();
+            $table->bigInteger('coupon_discount')->nullable()->default(0);
             $table->string('note')->nullable();
-            $table->bigInteger('total_fee')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->bigInteger('total_fee')->nullable()->default(0);
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->tinyInteger('number_of_guests')->nullable();
-            $table->tinyInteger('price_range')->nullable();
+            $table->tinyInteger('price_range')->nullable()->default(1);
             $table->tinyInteger('type')->nullable();
             $table->tinyInteger('booking_type')->nullable();
             $table->tinyInteger('payment_method')->nullable();
-            $table->tinyInteger('payment_status')->nullable();
+            $table->tinyInteger('payment_status')->nullable()->default(0);
             $table->tinyInteger('source')->nullable();
             $table->double('exchange_rate')->nullable();
             $table->softDeletes();
