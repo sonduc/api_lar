@@ -7,8 +7,8 @@ use App\Repositories\BaseRepository;
 class RoomRepository extends BaseRepository
 {
     /**
-     * Role model.
-     * @var Model
+     * Room model.
+     * @var Room
      */
     protected $model;
     protected $roomTranslate;
@@ -22,6 +22,8 @@ class RoomRepository extends BaseRepository
      * @param Room                        $room
      * @param RoomTranslateRepository     $roomTranslate
      * @param RoomOptionalPriceRepository $roomOptionalPrice
+     * @param RoomMediaRepository         $roomMedia
+     * @param RoomTimeBlockRepository     $roomTimeBlock
      */
     public function __construct(
         Room $room,
@@ -49,6 +51,7 @@ class RoomRepository extends BaseRepository
     public function store($data)
     {
         $data_room = parent::store($data);
+
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         $this->roomMedia->storeRoomMedia($data_room, $data);
@@ -70,8 +73,7 @@ class RoomRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['comforts'])) {
-                $data_room->comforts()->detach();
-                $data_room->comforts()->attach($data['comforts']);
+                $data_room->comforts()->sync($data['comforts']);
             }
         }
     }
@@ -85,16 +87,18 @@ class RoomRepository extends BaseRepository
      * @param array $excepts
      * @param array $only
      *
-     * @return bool
+     * @return \App\Repositories\Eloquent
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
         $data_room = parent::update($id, $data);
+
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         $this->roomMedia->updateRoomMedia($data_room, $data);
         $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
+
         return $data_room;
     }
 
@@ -105,7 +109,7 @@ class RoomRepository extends BaseRepository
      * @param $id
      * @param $data
      *
-     * @return bool
+     * @return \App\Repositories\Eloquent
      */
     public function status($id, $data)
     {
@@ -113,14 +117,4 @@ class RoomRepository extends BaseRepository
         return $data_room;
     }
 
-    /**
-     * Lấy ra kiểu phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return mixed
-     */
-    public function getRoomType()
-    {
-        return $this->model::ROOM_TYPE;
-    }
 }

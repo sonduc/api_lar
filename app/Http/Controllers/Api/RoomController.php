@@ -9,56 +9,10 @@ use App\Repositories\Rooms\RoomMedia;
 use App\Repositories\Rooms\RoomRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Exception\ImageException;
 
 class RoomController extends ApiController
 {
-    protected $validationRules
-        = [
-            'details.*.*.name'                   => 'required|min:10|max:255|v_title',
-            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',
-            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',
-            'max_guest'                          => 'required|numeric|min:1',
-            'max_additional_guest'               => 'numeric|nullable',
-            'number_bed'                         => 'required|numeric|min:1',
-            'number_room'                        => 'required|numeric|min:1',
-            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',
-            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',
-            // 'room_type_id'                                   => 'required|numeric',
-            'checkin'                            => 'required|date_format:"H:i"',
-            'checkout'                           => 'required|date_format:"H:i"',
-            'price_day'                          => 'required|numeric',
-            'price_hour'                         => 'numeric|nullable',
-            'price_after_hour'                   => 'numeric|required_with:price_hour',
-            'price_charge_guest'                 => 'numeric|nullable',
-            'cleaning_fee'                       => 'numeric|nullable',
-            'standard_point'                     => 'numeric|nullable',
-            'is_manager'                         => 'numeric|nullable',
-            'hot'                                => 'numeric',
-            'new'                                => 'numeric',
-            'latest_deal'                        => 'numeric|nullable',
-            'rent_type'                          => 'numeric',
-            // 'longitude'                                      => 'required',
-            // 'latitude'                                       => 'required',
-            'details.*.*.address'                => 'required|v_title',
-            'note'                               => 'nullable|v_title',
-            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',
-            'lang_id'                            => 'numeric|exists:languages,id',
-            'status'                             => 'numeric',
-            'weekday_price.*.price_day'          => 'numeric|nullable',
-            'weekday_price.*.price_hour'         => 'numeric|nullable',
-            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',
-            'weekday_price.*.price_charge_guest' => 'numeric|nullable',
-            'weekday_price.*.status'             => 'boolean|nullable',
-            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',
-            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
-            'optional_prices.price_day'          => 'numeric|nullable',
-            'optional_prices.price_hour'         => 'numeric|nullable',
-            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',
-            'optional_prices.price_charge_guest' => 'numeric|nullable',
-            'optional_prices.status'             => 'boolean|nullable',
-            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
-        ];
-
     protected $validationMessages
         = [
             'details.*.*.name.required'                      => 'Tên không được để trông',
@@ -116,6 +70,8 @@ class RoomController extends ApiController
             'optional_prices.price_charge_guest.numeric'     => 'Giá khách thêm phải là kiểu số',
             'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
+            'images.*.source.regex'          => 'Định dạng ảnh không phù hợp',
+            'images.*.type.between'          => 'Kiểu không hợp lệ',
             'cleaning_fee.numeric'           => 'Giá dọn phòng phải là kiểu số',
             'standard_point.numeric'         => 'Điểm phải là kiểu số',
             'is_manager.numeric'             => 'Kiểu quản lý phải là kiểu số',
@@ -134,6 +90,55 @@ class RoomController extends ApiController
             'status.numeric'                 => 'Mã trạng thái phải là kiểu số',
             'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
             'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
+        ];
+
+    protected $validationRules
+        = [
+            'details.*.*.name'                   => 'required|min:10|max:255|v_title',
+            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',
+            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',
+            'max_guest'                          => 'required|numeric|min:1',
+            'max_additional_guest'               => 'numeric|nullable',
+            'number_bed'                         => 'required|numeric|min:1',
+            'number_room'                        => 'required|numeric|min:1',
+            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',
+            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',
+            // 'room_type_id'                                   => 'required|numeric',
+            'checkin'                            => 'required|date_format:"H:i"',
+            'checkout'                           => 'required|date_format:"H:i"',
+            'price_day'                          => 'required|numeric',
+            'price_hour'                         => 'numeric|nullable',
+            'price_after_hour'                   => 'numeric|required_with:price_hour',
+            'price_charge_guest'                 => 'numeric|nullable',
+            'cleaning_fee'                       => 'numeric|nullable',
+            'standard_point'                     => 'numeric|nullable',
+            'is_manager'                         => 'numeric|nullable',
+            'hot'                                => 'numeric',
+            'new'                                => 'numeric',
+            'latest_deal'                        => 'numeric|nullable',
+            'rent_type'                          => 'numeric',
+            'images.*.source'                    => 'regex:/^(data:image\/\w*;base64)/',
+            'images.*.type'                      => 'integer|between:1,4',
+            // 'longitude'                                      => 'required',
+            // 'latitude'                                       => 'required',
+            'details.*.*.address'                => 'required|v_title',
+            'note'                               => 'nullable|v_title',
+            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',
+            'lang_id'                            => 'numeric|exists:languages,id',
+            'status'                             => 'numeric',
+            'weekday_price.*.price_day'          => 'numeric|nullable',
+            'weekday_price.*.price_hour'         => 'numeric|nullable',
+            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',
+            'weekday_price.*.price_charge_guest' => 'numeric|nullable',
+            'weekday_price.*.status'             => 'boolean|nullable',
+            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',
+            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
+            'optional_prices.price_day'          => 'numeric|nullable',
+            'optional_prices.price_hour'         => 'numeric|nullable',
+            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',
+            'optional_prices.price_charge_guest' => 'numeric|nullable',
+            'optional_prices.status'             => 'boolean|nullable',
+            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
         ];
 
     /**
@@ -204,7 +209,7 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            DB::commit();
+            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -212,6 +217,10 @@ class RoomController extends ApiController
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage(),
+            ]);
+        } catch (ImageException $imageException) {
+            return $this->notSupportedMediaResponse([
+                'error' => $imageException->getMessage(),
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
@@ -334,7 +343,7 @@ class RoomController extends ApiController
     public function getRoomType()
     {
         try {
-            $data = $this->simpleArrayToObject($this->model->getRoomType());
+            $data = $this->simpleArrayToObject(Room::ROOM_TYPE);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;

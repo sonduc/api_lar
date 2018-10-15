@@ -36,6 +36,14 @@ trait GlobalTrait
         return array_unique($base);
     }
 
+    /**
+     * Gộp các mảng lại với phần tử duy nhất
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param mixed ...$array
+     *
+     * @return array
+     */
     public static function mergeUnique(...$array)
     {
         $result = [];

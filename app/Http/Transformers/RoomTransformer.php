@@ -10,17 +10,16 @@ use League\Fractal\TransformerAbstract;
 class RoomTransformer extends TransformerAbstract
 {
     use FilterTrait;
-    protected $availableIncludes
-        = [
-            'user',
-            'details',
-            'comforts',
-            'prices',
-            'blocks',
-            'media',
-            'city',
-            'district',
-        ];
+    protected $availableIncludes = [
+        'user',
+        'details',
+        'comforts',
+        'prices',
+        'blocks',
+        'media',
+        'city',
+        'district',
+    ];
 
 
     /**
@@ -47,7 +46,6 @@ class RoomTransformer extends TransformerAbstract
             'number_room'          => $room->number_room,
             'city_id'              => $room->city_id ?? 'Không xác định',
             'district_id'          => $room->district_id ?? 'Không xác định',
-            'room_type_id'         => $room->room_type_id ?? 'Không xác định',
             'checkin'              => $room->checkin,
             'checkout'             => $room->checkout,
             'price_day'            => $room->price_day ?? 0,

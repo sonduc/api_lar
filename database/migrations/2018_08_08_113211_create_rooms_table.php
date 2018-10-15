@@ -39,7 +39,7 @@ class CreateRoomsTable extends Migration
             $table->text('rules')->nullable();
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
-            $table->integer('total_booking')->nullable();
+            $table->integer('total_booking')->nullable()->default(0);
             $table->tinyInteger('status')->default(0);
             $table->integer('sale_id')->nullable();
             $table->softDeletes()->nullable()->default(NULL);

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\AmazonS3_Upload_Event;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingRepository;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Exception\ImageException;
+use Sinergi\BrowserDetector\Browser;
+use Sinergi\BrowserDetector\UserAgent;
 
 class BookingController extends ApiController
 {
@@ -122,6 +126,9 @@ class BookingController extends ApiController
         'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
     ];
 
+    protected $model;
+    protected $browser;
+
     /**
      * BookingController constructor.
      *
@@ -129,7 +136,7 @@ class BookingController extends ApiController
      */
     public function __construct(BookingRepository $booking)
     {
-        $this->model = $booking;
+        $this->model   = $booking;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -361,7 +368,7 @@ class BookingController extends ApiController
     }
 
     /**
-     * Cập nhật tiền cho booking
+     *
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Request $request

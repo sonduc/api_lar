@@ -107,6 +107,7 @@ $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
 $app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
+$app->register(\Intervention\Image\ImageServiceProviderLumen::class);
 
 /*
 |--------------------------------------------------------------------------

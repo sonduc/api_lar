@@ -83,4 +83,15 @@ trait ResponseHandler
         ];
         return response()->json($response, $response['code']);
     }
+
+    protected function notSupportedMediaResponse($data)
+    {
+        $response = [
+            'code'    => 415,
+            'status'  => 'error',
+            'data'    => $data,
+            'message' => 'Unsupported Media Type',
+        ];
+        return response()->json($response, $response['code']);
+    }
 }
