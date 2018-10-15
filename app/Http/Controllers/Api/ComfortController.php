@@ -13,12 +13,13 @@ class ComfortController extends ApiController
 {
     protected $validationRules
         = [
-            'details.*.name' => 'required',
+            'details.*.*.name' => 'required|unique:comfort_translates,name',
         ];
     protected $validationMessages
         = [
-            'details.*.name.required' => 'Tên không được để trông',
-            'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
+            'details.*.*.name.required' => 'Tên không được để trông',
+            'details.*.*.name.unique'   => 'Tiện ích này đã tồn tại',
+
         ];
 
     /**
@@ -78,7 +79,7 @@ class ComfortController extends ApiController
             $this->authorize('comfort.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-//            dd(DB::getQueryLog());
+//           dd(DB::getQueryLog());
             DB::commit();
 
             logs('comfort', 'tạo comfort mã ' . $data->id, $data);
@@ -137,20 +138,20 @@ class ComfortController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('comfort.delete');
-            $this->model->deleteRoom($id);
+            $this->model->deleteComfort($id);
 //            dd(DB::getQueryLog());
             DB::commit();
             logs('comfort', 'xóa tiện ích mã ' . $id);
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
+            //DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
-            DB::rollBack();
+            //DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
-            DB::rollBack();
+            //DB::rollBack();
             throw $t;
         }
     }

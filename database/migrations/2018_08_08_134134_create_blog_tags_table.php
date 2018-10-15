@@ -17,6 +17,8 @@ class CreateBlogTagsTable extends Migration
             $table->integer('blog_id');
             $table->integer('tag_id');
             $table->primary(['blog_id', 'tag_id']);
+            $table->softDeletes()->nullable();
+            $table->timestamps();
         });
     }
 
@@ -27,6 +29,6 @@ class CreateBlogTagsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_tag');
+        Schema::dropIfExists('blog_tags');
     }
 }

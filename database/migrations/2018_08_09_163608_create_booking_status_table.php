@@ -31,6 +31,6 @@ class CreateBookingStatusTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('bookings_status');
+        Schema::dropIfExists('booking_status');
     }
 }

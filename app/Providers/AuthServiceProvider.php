@@ -15,15 +15,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies
         = [
-            \App\User::class                            => \App\Policies\UserPolicy::class,
-            \App\Repositories\Roles\Role::class         => \App\Policies\RolePolicy::class,
-            \App\Repositories\Rooms\Room::class         => \App\Policies\RoomPolicy::class,
-            \App\Repositories\Cities\City::class        => \App\Policies\CityPolicy::class,
-            \App\Repositories\Districts\District::class => \App\Policies\DistrictPolicy::class,
-            \App\Repositories\Comforts\Comfort::class   => \App\Policies\ComfortPolicy::class,
-            \App\Repositories\Logs\Log::class           => \App\Policies\LogPolicy::class,
-            \App\Repositories\Bookings\Booking::class   => \App\Policies\BookingPolicy::class,
-            \App\Repositories\Blogs\Blog::class         => \App\Policies\BlogPolicy::class,
+            \App\User::class                                    => \App\Policies\UserPolicy::class,
+            \App\Repositories\Roles\Role::class                 => \App\Policies\RolePolicy::class,
+            \App\Repositories\Rooms\Room::class                 => \App\Policies\RoomPolicy::class,
+            \App\Repositories\Cities\City::class                => \App\Policies\CityPolicy::class,
+            \App\Repositories\Districts\District::class         => \App\Policies\DistrictPolicy::class,
+            \App\Repositories\Comforts\Comfort::class           => \App\Policies\ComfortPolicy::class,
+            \App\Repositories\Logs\Log::class                   => \App\Policies\LogPolicy::class,
+            \App\Repositories\Bookings\Booking::class           => \App\Policies\BookingPolicy::class,
+            \App\Repositories\Blogs\Blog::class                 => \App\Policies\BlogPolicy::class,
+            \App\Repositories\Categories\Category::class        => \App\Policies\CategoryPolicy::class,
         ];
 
     /**

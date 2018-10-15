@@ -128,7 +128,7 @@ class CityController extends ApiController
 
             $model = $this->model->update($id, $request->all());
             DB::commit();
-            logs('city', 'sửa thành phố mã ' . $data->id, $data);
+            //logs('city', 'sửa thành phố mã ' . $data->id, $data);
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -155,7 +155,7 @@ class CityController extends ApiController
             $this->authorize('city.delete');
             $this->model->delete($id);
             DB::commit();
-            logs('city', 'xóa thành phố mã ' . $data->id, $data);
+            //logs('city', 'xóa thành phố mã ' . $data->id, $data);
             return $this->deleteResponse();
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();

@@ -14,6 +14,7 @@ class CreateBookingsTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
+
             $table->bigIncrements('id');
             $table->string('uuid', 20)->nullable();
             $table->string('code', 50)->nullable();
@@ -34,6 +35,7 @@ class CreateBookingsTable extends Migration
             $table->bigInteger('service_fee')->nullable()->default(0);
             $table->bigInteger('price_discount')->nullable()->default(0);
             $table->string('coupon', 50)->nullable();
+            $table->bigInteger('coupon_discount')->nullable()->default(0);
             $table->string('note')->nullable();
             $table->bigInteger('total_fee')->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(0);
