@@ -34,7 +34,7 @@ trait FilterTrait
      */
     public function scopeCity($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.city_id', $q);
         }
 
@@ -52,7 +52,7 @@ trait FilterTrait
      */
     public function scopeDistrict($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.district_id', $q);
         }
 
@@ -70,7 +70,7 @@ trait FilterTrait
      */
     public function scopeMerchant($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.merchant_id', $q);
         }
 
@@ -124,8 +124,7 @@ trait FilterTrait
      */
     public function scopeRentType($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             return $query->where('rooms.rent_type', $q);
         }
 
@@ -143,8 +142,7 @@ trait FilterTrait
      */
     public function scopeLatestDeal($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q))
+        if (is_numeric($q))
         {
             return $query->where('rooms.latest_deal', $q);
         }
@@ -161,8 +159,7 @@ trait FilterTrait
      */
     public function scopeTypeRoom($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             return $query->where('rooms.room_type', $q);
         }
 
@@ -212,8 +209,7 @@ trait FilterTrait
      */
     public function scopeNew($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             $query->where('rooms.new', $q);
         }
         return $query;
