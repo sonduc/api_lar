@@ -32,6 +32,7 @@ class BlogTranslateTransformer extends  TransformerAbstract
         return [
             'id'                        => $blog->id,
             'blog_id'                   => $blog->blog_id,
+            'title'                     => $blog->title,
             'content'                   => $blog->content,
             'slug'                      => $blog->slug,
             'lang'                      => $blog->lang,

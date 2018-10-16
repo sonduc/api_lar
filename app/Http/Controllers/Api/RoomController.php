@@ -13,186 +13,136 @@ use Intervention\Image\Exception\ImageException;
 
 class RoomController extends ApiController
 {
-    protected $validationRules
-        = [
-            'details.*.*.name'                   => 'required|min:10|max:255|v_title',
-            'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
-            'merchant_id'                        => 'required|integer|exists:users,id,deleted_at,NULL',
-            'max_guest'                          => 'required|integer|min:1',
-            'max_additional_guest'               => 'integer|nullable',
-            'number_bed'                         => 'required|integer|min:1',
-            'number_room'                        => 'required|integer|min:1',
-            'city_id'                            => 'integer|nullable|exists:cities,id,deleted_at,NULL',
-            'district_id'                        => 'integer|nullable|exists:districts,id,deleted_at,NULL',
-            // 'room_type_id'                                   => 'required|integer',
-            'checkin'                            => 'required|date_format:"H:i"',
-            'checkout'                           => 'required|date_format:"H:i"',
-            'price_day'                          => 'required|integer',
-            'price_hour'                         => 'integer|nullable',
-            'price_after_hour'                   => 'integer|required_with:price_hour',
-            'price_charge_guest'                 => 'integer|nullable',
-            'cleaning_fee'                       => 'integer|nullable',
-            'standard_point'                     => 'integer|nullable|min:0',
-            'is_manager'                         => 'integer|nullable|between:0,1',
-            'hot'                                => 'integer|between:0,1',
-            'new'                                => 'integer|between:0,1',
-            'latest_deal'                        => 'integer|nullable',
-            'rent_type'                          => 'integer',
-            // 'longitude'                                      => 'required',
-            // 'latitude'                                       => 'required',
-            'details.*.*.address'                => 'required|v_title',
-            'note'                               => 'nullable|v_title',
-            'sale_id'                            => 'integer|nullable|exists:users,id,deleted_at,NULL',
-            'lang_id'                            => 'integer|exists:languages,id',
-            'status'                             => 'integer|between:1,4',
-            'weekday_price.*.price_day'          => 'integer|nullable',
-            'weekday_price.*.price_hour'         => 'integer|nullable',
-            'weekday_price.*.price_after_hour'   => 'integer|nullable|required_with:weekday_price.*.price_hour',
-            'weekday_price.*.price_charge_guest' => 'integer|nullable',
-            'weekday_price.*.status'             => 'boolean|nullable',
-            'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
-            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
-            'optional_prices.price_day'          => 'integer|nullable',
-            'optional_prices.price_hour'         => 'integer|nullable',
-            'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
-            'optional_prices.price_charge_guest' => 'integer|nullable',
-            'optional_prices.status'             => 'boolean|nullable',
-            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
-        ];
-    protected $validationMessages
-        = [
-            'details.*.*.name.required'                      => 'Tên không được để trông',
-            'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
-            'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
-            'details.*.*.name.alpha_num'                     => 'Chỉ cho phép chữ và số',
-            'details.*.*.name.v_title'                       => 'Chỉ cho phép chữ và số',
-            'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
-            'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
-            'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
-            'merchant_id.required'                           => 'Chủ phòng không được để trống',
-            'merchant_id.exists'                             => 'Chủ phòng không tồn tại',
-            'max_guest.required'                             => 'Số khách tối đa không được để trống',
-            'max_guest.integer'                              => 'Trường số khách tối đa phải là kiểu số',
-            'max_additional_guest.integer'                   => 'Số khách tối đa phải là kiểu số',
-            'number_bed.required'                            => 'Vui lòng điền số giường',
-            'number_bed.min'                                 => 'Tối thiểu 1 giường',
-            'number_bed.integer'                             => 'Số giường phải là kiểu số',
-            'number_room.required'                           => 'Vui lòng điền số phòng',
-            'number_room.min'                                => 'Tối thiểu 1 phòng',
-            'number_room.integer'                            => 'Số phòng phải là kiểu số',
-            'city_id.integer'                                => 'Mã thành phố phải là kiểu số',
-            'city_id.exists'                                 => 'Thành phố không tồn tại',
-            'district_id.integer'                            => 'Mã tỉnh phải là kiểu số',
-            'district_id.exists'                             => 'Tỉnh không tồn tại',
-            'room_type_id.required'                          => 'Kiểu phòng không được để trống',
-            'room_type_id.integer'                           => 'Kiểu phòng phải là kiểu số',
-            'checkin.required'                               => 'Thời gian checkin không được để trống',
-            'checkin.date_format'                            => 'Kiểu checkin không đúng định dạng H:i',
-            'checkout.required'                              => 'Thời gian checkout không được để trống',
-            'checkout.date_format'                           => 'Kiểu checkout không đúng định dạng H:i',
-            'price_day.required'                             => 'Giá ngày không được để trống',
-            'price_day.integer'                              => 'Giá phải là kiểu số',
-            'price_hour.integer'                             => 'Giá theo giờ phải là kiểu số',
-            'price_after_hour.required_with'                 => 'Giá theo giờ không được để trống',
-            'price_after_hour.integer'                       => 'Giá theo giờ phải là kiểu số',
-            'price_charge_guest.integer'                     => 'Giá khách thêm phải là kiểu số',
-            'weekday_price.*.price_day.integer'              => 'Giá phải là kiểu số',
-            'weekday_price.*.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
-            'weekday_price.*.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
-            'weekday_price.*.price_after_hour.integer'       => 'Giá theo giờ phải là kiểu số',
-            'weekday_price.*.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
-            'weekday_price.*.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
-            'weekday_price.*.weekday.required'               => 'Vui lòng chọn thứ trong ngày hợp lệ',
-            'weekday_price.*.weekday.integer'                => 'Mã thứ phải là kiểu số',
-            'weekday_price.*.weekday.distinct'               => 'Mã thứ không được phép trùng nhau',
-            'weekday_price.*.weekday.between'                => 'Mã thứ phải trong khoảng từ 1 đến 7',
+    protected $validationRules = [
+        'details.*.*.name'                   => 'required|min:10|max:255|v_title',
+        'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
+        'merchant_id'                        => 'required|integer|exists:users,id,deleted_at,NULL',
+        'max_guest'                          => 'required|integer|min:1',
+        'max_additional_guest'               => 'integer|nullable',
+        'number_bed'                         => 'required|integer|min:1',
+        'number_room'                        => 'required|integer|min:1',
+        'city_id'                            => 'integer|nullable|exists:cities,id,deleted_at,NULL',
+        'district_id'                        => 'integer|nullable|exists:districts,id,deleted_at,NULL',
+        // 'room_type_id'                                   => 'required|integer',
+        'checkin'                            => 'required|date_format:"H:i"',
+        'checkout'                           => 'required|date_format:"H:i"',
+        'price_day'                          => 'required|integer',
+        'price_hour'                         => 'integer|nullable',
+        'price_after_hour'                   => 'integer|required_with:price_hour',
+        'price_charge_guest'                 => 'integer|nullable',
+        'cleaning_fee'                       => 'integer|nullable',
+        'standard_point'                     => 'integer|nullable|min:0',
+        'is_manager'                         => 'integer|nullable|between:0,1',
+        'hot'                                => 'integer|between:0,1',
+        'new'                                => 'integer|between:0,1',
+        'latest_deal'                        => 'integer|nullable',
+        'rent_type'                          => 'integer',
+        // 'longitude'                                      => 'required',
+        // 'latitude'                                       => 'required',
+        'details.*.*.address'                => 'required|v_title',
+        'note'                               => 'nullable|v_title',
+        'sale_id'                            => 'integer|nullable|exists:users,id,deleted_at,NULL',
+        'lang_id'                            => 'integer|exists:languages,id',
+        'status'                             => 'integer|between:1,4',
+        'weekday_price.*.price_day'          => 'integer|nullable',
+        'weekday_price.*.price_hour'         => 'integer|nullable',
+        'weekday_price.*.price_after_hour'   => 'integer|nullable|required_with:weekday_price.*.price_hour',
+        'weekday_price.*.price_charge_guest' => 'integer|nullable',
+        'weekday_price.*.status'             => 'boolean|nullable',
+        'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
+        'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
+        'optional_prices.price_day'          => 'integer|nullable',
+        'optional_prices.price_hour'         => 'integer|nullable',
+        'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
+        'optional_prices.price_charge_guest' => 'integer|nullable',
+        'optional_prices.status'             => 'boolean|nullable',
+        'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
+    ];
 
-            'optional_prices.days.*.date_format'             => 'Định dạng của ngày phải là Y-m-d',
-            'optional_prices.days.*.distinct'                => 'Ngày không được phép trùng nhau',
-            'optional_prices.price_day.integer'              => 'Giá phải là kiểu số',
-            'optional_prices.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
-            'optional_prices.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
-            'optional_prices.price_after_hour.integer'       => 'Giá theo giờ phải là kiểu số',
-            'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
-            'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
+    protected $validationMessages = [
+        'details.*.*.name.required'                      => 'Tên không được để trông',
+        'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
+        'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
+        'details.*.*.name.alpha_num'                     => 'Chỉ cho phép chữ và số',
+        'details.*.*.name.v_title'                       => 'Chỉ cho phép chữ và số',
+        'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
+        'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
+        'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
+        'merchant_id.required'                           => 'Chủ phòng không được để trống',
+        'merchant_id.exists'                             => 'Chủ phòng không tồn tại',
+        'max_guest.required'                             => 'Số khách tối đa không được để trống',
+        'max_guest.integer'                              => 'Trường số khách tối đa phải là kiểu số',
+        'max_additional_guest.integer'                   => 'Số khách tối đa phải là kiểu số',
+        'number_bed.required'                            => 'Vui lòng điền số giường',
+        'number_bed.min'                                 => 'Tối thiểu 1 giường',
+        'number_bed.integer'                             => 'Số giường phải là kiểu số',
+        'number_room.required'                           => 'Vui lòng điền số phòng',
+        'number_room.min'                                => 'Tối thiểu 1 phòng',
+        'number_room.integer'                            => 'Số phòng phải là kiểu số',
+        'city_id.integer'                                => 'Mã thành phố phải là kiểu số',
+        'city_id.exists'                                 => 'Thành phố không tồn tại',
+        'district_id.integer'                            => 'Mã tỉnh phải là kiểu số',
+        'district_id.exists'                             => 'Tỉnh không tồn tại',
+        'room_type_id.required'                          => 'Kiểu phòng không được để trống',
+        'room_type_id.integer'                           => 'Kiểu phòng phải là kiểu số',
+        'checkin.required'                               => 'Thời gian checkin không được để trống',
+        'checkin.date_format'                            => 'Kiểu checkin không đúng định dạng H:i',
+        'checkout.required'                              => 'Thời gian checkout không được để trống',
+        'checkout.date_format'                           => 'Kiểu checkout không đúng định dạng H:i',
+        'price_day.required'                             => 'Giá ngày không được để trống',
+        'price_day.integer'                              => 'Giá phải là kiểu số',
+        'price_hour.integer'                             => 'Giá theo giờ phải là kiểu số',
+        'price_after_hour.required_with'                 => 'Giá theo giờ không được để trống',
+        'price_after_hour.integer'                       => 'Giá theo giờ phải là kiểu số',
+        'price_charge_guest.integer'                     => 'Giá khách thêm phải là kiểu số',
+        'weekday_price.*.price_day.integer'              => 'Giá phải là kiểu số',
+        'weekday_price.*.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
+        'weekday_price.*.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
+        'weekday_price.*.price_after_hour.integer'       => 'Giá theo giờ phải là kiểu số',
+        'weekday_price.*.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
+        'weekday_price.*.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
+        'weekday_price.*.weekday.required'               => 'Vui lòng chọn thứ trong ngày hợp lệ',
+        'weekday_price.*.weekday.integer'                => 'Mã thứ phải là kiểu số',
+        'weekday_price.*.weekday.distinct'               => 'Mã thứ không được phép trùng nhau',
+        'weekday_price.*.weekday.between'                => 'Mã thứ phải trong khoảng từ 1 đến 7',
 
-            'cleaning_fee.integer'           => 'Giá dọn phòng phải là kiểu số',
-            'standard_point.integer'         => 'Điểm phải là kiểu số',
-            'is_manager.integer'             => 'Kiểu quản lý phải là kiểu số',
-            'is_manager.between'             => 'Kiểu quản lý không hợp lệ',
-            'hot.integer'                    => 'Nổi bật phải là kiểu số',
-            'hot.between'                    => 'Mã không hợp lệ',
-            'new.between'                    => 'Mã không hợp lệ',
-            'new.integer'                    => 'Mới nhất phải là kiểu số',
-            'latest_deal.integer'            => 'Giá hạ sàn phải là kiểu số',
-            'details.*.*.address.required'   => 'Vui lòng điền địa chỉ',
-            'rent_type.integer'              => 'Kiểu thuê phòng phải là dạng số',
-            'longitude.required'             => 'Kinh độ không được để trống',
-            'latitude.required'              => 'Vĩ độ không được để trống',
-            'sale_id.integer'                => 'Mã saler phải là kiểu số',
-            'sale_id.exists'                 => 'Saler không tồn tại',
-            'lang_id.integer'                => 'Mã ngôn ngữ phải là kiểu số',
-            'lang_id.exists'                 => 'Ngôn ngữ không hợp lệ',
-            'note.v_title'                   => 'Chỉ cho phép chữ và số',
-            'status.integer'                 => 'Mã trạng thái phải là kiểu số',
-            'status.between'                 => 'Mã không hợp lệ',
-            'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
-            'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
-        ];
+        'optional_prices.days.*.date_format'             => 'Định dạng của ngày phải là Y-m-d',
+        'optional_prices.days.*.distinct'                => 'Ngày không được phép trùng nhau',
+        'optional_prices.price_day.integer'              => 'Giá phải là kiểu số',
+        'optional_prices.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
+        'optional_prices.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
+        'optional_prices.price_after_hour.integer'       => 'Giá theo giờ phải là kiểu số',
+        'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
+        'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-    protected $validationRules
-        = [
-            'details.*.*.name'                   => 'required|min:10|max:255|v_title',
-            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',
-            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',
-            'max_guest'                          => 'required|numeric|min:1',
-            'max_additional_guest'               => 'numeric|nullable',
-            'number_bed'                         => 'required|numeric|min:1',
-            'number_room'                        => 'required|numeric|min:1',
-            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',
-            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',
-            // 'room_type_id'                                   => 'required|numeric',
-            'checkin'                            => 'required|date_format:"H:i"',
-            'checkout'                           => 'required|date_format:"H:i"',
-            'price_day'                          => 'required|numeric',
-            'price_hour'                         => 'numeric|nullable',
-            'price_after_hour'                   => 'numeric|required_with:price_hour',
-            'price_charge_guest'                 => 'numeric|nullable',
-            'cleaning_fee'                       => 'numeric|nullable',
-            'standard_point'                     => 'numeric|nullable',
-            'is_manager'                         => 'numeric|nullable',
-            'hot'                                => 'numeric',
-            'new'                                => 'numeric',
-            'latest_deal'                        => 'numeric|nullable',
-            'rent_type'                          => 'numeric',
-            'images.*.source'                    => 'regex:/^(data:image\/\w*;base64)/',
-            'images.*.type'                      => 'integer|between:1,4',
-            // 'longitude'                                      => 'required',
-            // 'latitude'                                       => 'required',
-            'details.*.*.address'                => 'required|v_title',
-            'note'                               => 'nullable|v_title',
-            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',
-            'lang_id'                            => 'numeric|exists:languages,id',
-            'status'                             => 'numeric',
-            'weekday_price.*.price_day'          => 'numeric|nullable',
-            'weekday_price.*.price_hour'         => 'numeric|nullable',
-            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',
-            'weekday_price.*.price_charge_guest' => 'numeric|nullable',
-            'weekday_price.*.status'             => 'boolean|nullable',
-            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',
-            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
-            'optional_prices.price_day'          => 'numeric|nullable',
-            'optional_prices.price_hour'         => 'numeric|nullable',
-            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',
-            'optional_prices.price_charge_guest' => 'numeric|nullable',
-            'optional_prices.status'             => 'boolean|nullable',
-            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
-        ];
+        'cleaning_fee.integer'           => 'Giá dọn phòng phải là kiểu số',
+        'standard_point.integer'         => 'Điểm phải là kiểu số',
+        'is_manager.integer'             => 'Kiểu quản lý phải là kiểu số',
+        'is_manager.between'             => 'Kiểu quản lý không hợp lệ',
+        'hot.integer'                    => 'Nổi bật phải là kiểu số',
+        'hot.between'                    => 'Mã không hợp lệ',
+        'new.between'                    => 'Mã không hợp lệ',
+        'new.integer'                    => 'Mới nhất phải là kiểu số',
+        'latest_deal.integer'            => 'Giá hạ sàn phải là kiểu số',
+        'details.*.*.address.required'   => 'Vui lòng điền địa chỉ',
+        'rent_type.integer'              => 'Kiểu thuê phòng phải là dạng số',
+        'longitude.required'             => 'Kinh độ không được để trống',
+        'latitude.required'              => 'Vĩ độ không được để trống',
+        'sale_id.integer'                => 'Mã saler phải là kiểu số',
+        'sale_id.exists'                 => 'Saler không tồn tại',
+        'lang_id.integer'                => 'Mã ngôn ngữ phải là kiểu số',
+        'lang_id.exists'                 => 'Ngôn ngữ không hợp lệ',
+        'note.v_title'                   => 'Chỉ cho phép chữ và số',
+        'status.integer'                 => 'Mã trạng thái phải là kiểu số',
+        'status.between'                 => 'Mã không hợp lệ',
+        'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
+        'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
+    ];
 
     /**
-     * RoleController constructor.
+     * RoomController constructor.
      *
-     * @param RoleRepository $role
+     * @param RoomRepository $room
      */
     public function __construct(RoomRepository $room)
     {
@@ -202,8 +152,12 @@ class RoomController extends ApiController
 
     /**
      * Display a listing of the resource.
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
@@ -220,8 +174,13 @@ class RoomController extends ApiController
 
     /**
      * Display a listing of the resource.
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function show(Request $request, $id)
     {
@@ -257,7 +216,7 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-            DB::commit();
+//            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -430,6 +389,7 @@ class RoomController extends ApiController
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function roomMediaType()
     {

@@ -192,7 +192,7 @@ class BookingController extends ApiController
 
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
-//            DB::commit();
+            DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);

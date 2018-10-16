@@ -16,7 +16,7 @@ class CategoryController extends ApiController
         'hot'                               => 'required|integer|between:0,1',
         'status'                            => 'required|integer|between:0,1',
         //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
-        'details.*.*.name'                  => 'required|unique:categories_translate,name',
+        'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
     ];
     protected $validationMessages = [
@@ -33,6 +33,7 @@ class CategoryController extends ApiController
        // 'image.mimes'                   => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
         'details.*.*.name.required'         => 'Tên không được để trống',
         'details.*.*.name.unique'           => 'Tên này đã tồn tại',
+        'details.*.*.name.v_title'          => 'Tên danh mục không hợp lệ',
         'details.*.*.lang.required'         => 'Vui lòng chọn ngôn ngữ',
     ];
 
@@ -83,11 +84,13 @@ class CategoryController extends ApiController
 
     public function store(Request $request)
     {
+
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
+            $this->authorize('category.create');
             $data= $request->except('image');
-            $data['image'] = rename_image($request->image);
+            $data['image'] = rand_name($request->image);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($data);
             DB::commit();
@@ -109,8 +112,9 @@ class CategoryController extends ApiController
     {
         DB::beginTransaction();
         DB::enableQueryLog();
-        $this->validationRules['details.*.*.name']       = "required";
+        $this->validationRules['details.*.*.name']       = "required|v_title";
         try {
+            $this->authorize('category.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
             DB::commit();

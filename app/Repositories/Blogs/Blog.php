@@ -46,25 +46,25 @@ class Blog extends Entity
      */
     public function blogTrans()
     {
-        return $this->hasMany(\App\Repositories\Blogs\BlogTranslate::class, 'blog_id');
+        return $this->hasMany(BlogTranslate::class, 'blog_id');
     }
 
     /**
-     * relation ship voi tags
-     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
     {
-        return $this->belongsToMany(\App\Repositories\Blogs\Tag::class, 'blog_tags', 'blog_id','tag_id')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id')->withTimestamps();
     }
 
     /**
-     * relation ship voi category
-     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function categories()
     {
@@ -72,10 +72,10 @@ class Blog extends Entity
     }
 
     /**
-     * relation ship voi user
-     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function users()
     {

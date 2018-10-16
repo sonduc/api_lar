@@ -16,12 +16,13 @@ class CategoryRepository extends BaseRepository
     /**
      * CategoryRepository constructor.
      *
-     * @param Category $blog
+     * @param Category                    $category
+     * @param CategoryTranslateRepository $categoryTranslate
      */
-    public function __construct(Category $catagory, CategoryTranslateRepository $categoryTranslate)
+    public function __construct(Category $category, CategoryTranslateRepository $categoryTranslate)
     {
-        $this->model = $catagory;
-        $this->categoryTranslate= $categoryTranslate;
+        $this->model             = $category;
+        $this->categoryTranslate = $categoryTranslate;
     }
 
     /**
@@ -34,8 +35,8 @@ class CategoryRepository extends BaseRepository
      */
     public function store($data = null)
     {
-        $data['image'] = rename_image($data['image']);
-        $data_category =  parent::store($data);
+        $data['image'] = rand_name($data['image']);
+        $data_category = parent::store($data);
         $this->categoryTranslate->storeCategoryTranslate($data_category, $data);
         return $data_category;
 
@@ -51,7 +52,7 @@ class CategoryRepository extends BaseRepository
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
-        $data['image'] = rename_image($data['image']);
+        $data['image'] = rand_name($data['image']);
         $data_category = parent::update($id, $data);
         $this->categoryTranslate->updateCategoryTranslate($data_category, $data);
         return $data_category;
@@ -61,9 +62,7 @@ class CategoryRepository extends BaseRepository
      * Xóa hoàn toàn bản ghi  catagories và catagories_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param array $data
-     *
-     * @return \App\Repositories\Eloquent
+     * @param $id
      */
     public function deleteCategory($id)
     {

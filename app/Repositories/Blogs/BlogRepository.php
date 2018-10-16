@@ -7,30 +7,28 @@ use App\Repositories\BaseRepository;
 class BlogRepository extends BaseRepository
 {
     /**
-     * CategoryPolicy model.
-     * @var Model
+     * @var Blog
      */
     protected $model;
     protected $blogTranslate;
     protected $tag;
-    protected $bloTag;
 
     /**
      * CategoryRepository constructor.
      *
-     * @param Blog $blog
+     * @param Blog                    $blog
+     * @param BlogTranslateRepository $blogTranslate
+     * @param TagRepository           $tag
      */
     public function __construct(
-        Blog                                    $blog,
-        BlogTranslateRepository                 $blogTranslate,
-        TagRepository                           $tag,
-        BlogTagRepository                       $blogTag
+        Blog $blog,
+        BlogTranslateRepository $blogTranslate,
+        TagRepository $tag
     )
     {
-        $this->model                            = $blog;
-        $this->blogTranslate                    = $blogTranslate;
-        $this->tag                              = $tag;
-        $this->bloTag                           = $blogTag;
+        $this->model         = $blog;
+        $this->blogTranslate = $blogTranslate;
+        $this->tag           = $tag;
     }
 
     /**
@@ -43,11 +41,11 @@ class BlogRepository extends BaseRepository
      */
     public function store($data = null)
     {
-        $data['image']          = rename_image($data['image']);
-        $data_blog              = parent::store($data);
-        $this->blogTranslate->storeBlogTranslate($data_blog,$data);
-        $list_tag_id            = $this->tag->storeTag($data_blog,$data);
-        $data_blog->tags()->attach($list_tag_id);
+        $data['image'] = rand_name($data['image']);
+        $data_blog     = parent::store($data);
+        $this->blogTranslate->storeBlogTranslate($data_blog, $data);
+        $list_tag_id = $this->tag->storeTag($data_blog, $data);
+        $data_blog->tags()->sync($list_tag_id);
         return $data_blog;
     }
 
@@ -61,10 +59,10 @@ class BlogRepository extends BaseRepository
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
-        $data['image']          = rename_image($data['image']);
-        $data_blog              =  parent::update($id, $data);
-        $this->blogTranslate->updateBlogTranslate($data_blog,$data);
-        $list_tag_id            =$this->tag->updateTag($data_blog,$data);
+        $data['image'] = rand_name($data['image']);
+        $data_blog     = parent::update($id, $data);
+        $this->blogTranslate->updateBlogTranslate($data_blog, $data);
+        $list_tag_id = $this->tag->updateTag($data_blog, $data);
         $data_blog->tags()->sync($list_tag_id);
         return $data_blog;
     }
@@ -73,16 +71,13 @@ class BlogRepository extends BaseRepository
      * Xóa bản ghi  blogs và blogs_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param array $data
-     *
-     * @return \App\Repositories\Eloquent
+     * @param $id
      */
     public function destroyBlog($id)
     {
-       $this->blogTranslate->deleteBlogTranslateByBlogID($id);
-       parent::destroy($id);
+        $this->blogTranslate->deleteBlogTranslateByBlogID($id);
+        parent::destroy($id);
     }
-
 
 
     /**

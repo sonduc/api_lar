@@ -103,18 +103,17 @@ trait FilterTrait
      */
     public function scopeTag($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
-            $tagColumns      = $this->columnsConverter(['id', 'created_at', 'updated_at']);
-            $blog_tagsColmns = $this->columnsConverter(['tag_id'], 'blog_tags', false);
-            $columns         = self::mergeUnique($tagColumns, $blog_tagsColmns);
+        if ($q) {
+            $blogColumns      = $this->columnsConverter(['id', 'created_at', 'updated_at']);
+            $tagsColmns = $this->columnsConverter(['name'], 'tags', false);
+            $columns         = self::mergeUnique($blogColumns,$tagsColmns);
             $query
                 ->addSelect($columns)
                 ->join('blog_tags', 'blog_id', '=', 'blogs.id')
-                ->where('blog_tags.tag_id',$q);
+                ->join('tags', 'tags.id', '=', 'blog_tags.tag_id')
+                ->where('tags.name',$q);
         }
         return $query;
-
     }
 
 

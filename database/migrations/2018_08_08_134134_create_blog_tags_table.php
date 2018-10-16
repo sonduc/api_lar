@@ -14,11 +14,9 @@ class CreateBlogTagsTable extends Migration
     public function up()
     {
         Schema::create('blog_tags', function (Blueprint $table) {
-            $table->integer('blog_id');
-            $table->integer('tag_id');
+            $table->bigInteger('blog_id');
+            $table->bigInteger('tag_id');
             $table->primary(['blog_id', 'tag_id']);
-            $table->softDeletes()->nullable();
-            $table->timestamps();
         });
     }
 

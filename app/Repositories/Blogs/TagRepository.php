@@ -13,18 +13,16 @@ use App\Repositories\BaseRepository;
 class TagRepository extends BaseRepository
 {
     protected $model;
-    protected $blogTag;
     protected $blog;
 
     /**
-     * ComfortRepository constructor.
+     * TagRepository constructor.
      *
-     * @param Comfort $comfort
+     * @param Tag $tag
      */
-    public function __construct(Tag $tag,BlogTagRepository $blogTag)
+    public function __construct(Tag $tag)
     {
         $this->model        = $tag;
-        $this->blogTag      = $blogTag;
     }
    // Kiem tra nếu tag đã  tồn tại bản ghi thì lấy ra id thêm vào blog tag còn chưa tồn tại thì thêm mới
     public function storeTag($blog, $data = [], $tag = [],$list= [])
@@ -59,13 +57,11 @@ class TagRepository extends BaseRepository
                 if ($countTag > 0) {
                     $data_tag = $this->findTagByName( $arr[$i]);
                     $list[] = $data_tag->id;
-                    //$this->blogTag->updateBlogTag($data_tag,$blog);
                 } else {
                     $tag['name'] = $arr[$i];
                     $tag['slug'] = str_slug($arr[$i],'-');
                     $data_tag = parent::store($tag);
                     $list[] = $data_tag->id;
-                    //$this->blogTag->storeBlogTag($data_tag,$blog);
                 }
             }
         }

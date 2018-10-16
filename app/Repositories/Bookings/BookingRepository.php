@@ -122,6 +122,7 @@ class BookingRepository extends BaseRepository
             $data['hours'] = $hours;
             if ($hours > 24) throw new InvalidDateException('validate-hour', 'Khoảng thời gian vượt quá 24h');
 
+            // Xử lý logic tính giá phòng vào ngày đặc biệt
             $money = $this->optionalPriceCalculator($room_optional_prices, $data, BookingConstant::BOOKING_TYPE_HOUR) ?? 0;
 
             if ($money == 0) $money = $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
@@ -152,10 +153,20 @@ class BookingRepository extends BaseRepository
             - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
-        dd($data);
+
         return $data;
     }
 
+    /**
+     * Tính giá tiền đặc biệt cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param       $rop
+     * @param array $data
+     * @param int   $type
+     *
+     * @return array|float|int
+     */
     public function optionalPriceCalculator($rop, $data = [], $type = BookingConstant::BOOKING_TYPE_DAY)
     {
         $checkin            = Carbon::parse($data['checkin']);
@@ -246,6 +257,14 @@ class BookingRepository extends BaseRepository
         return $data;
     }
 
+    /**
+     * Thêm khoảng giá
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
     public function addPriceRange($data = [])
     {
         $list_range  = BookingConstant::PRICE_RANGE_LIST;

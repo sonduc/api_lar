@@ -1,16 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ducchien
- * Date: 27/09/2018
- * Time: 13:27
- */
 
 namespace App\Repositories\Blogs;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-class BlogTranslate extends  Entity
+
+class BlogTranslate extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
 
@@ -22,7 +17,11 @@ class BlogTranslate extends  Entity
      */
     protected $fillable
         = [
-            'title','slug','content','blog_id','lang'
+            'title',
+            'slug',
+            'content',
+            'blog_id',
+            'lang',
         ];
 
     /**

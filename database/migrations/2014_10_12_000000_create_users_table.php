@@ -37,6 +37,7 @@ class CreateUsersTable extends Migration
             $table->string('passport_infomation')->nullable();
             $table->string('passport_front_card')->nullable();
             $table->string('passport_back_card')->nullable();
+            $table->string('account_number')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('district_id')->nullable();
             $table->integer('type')->nullable();
