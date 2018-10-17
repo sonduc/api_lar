@@ -116,7 +116,15 @@ trait FilterTrait
         return $query;
     }
 
-
+    /**
+     * Scope Date
+     * @author ducchien062 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
     public function scopeDateStart($query, $q)
     {
         if ($q)

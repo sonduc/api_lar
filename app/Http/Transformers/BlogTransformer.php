@@ -49,8 +49,15 @@ class BlogTransformer extends TransformerAbstract
         //return $this->primitive($data);
     }
 
+    /**
+     *     Danh sách thẻ tags theo bài viết
 
-    // Danh sách thẻ tags theo bài viết
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Blog|null $blog
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeTags(Blog $blog = null, ParamBag $params = null)
     {
         if (is_null($blog)) {
@@ -60,7 +67,14 @@ class BlogTransformer extends TransformerAbstract
         return $this->collection($data, new TagTransformer);
     }
 
-    //Xác định bài viết này thuộc danh mục nào
+    /**
+     * Xác định bài viết này thuộc danh mục nào
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Blog|null $blog
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeCategories (Blog $blog= null,ParamBag $params = null )
     {
         if (is_null($blog)) {
@@ -71,7 +85,14 @@ class BlogTransformer extends TransformerAbstract
 
     }
 
-    //Xác định xem ai viết blog này
+    /**
+     * Xác định xem ai viết blog này
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Blog|null $blog
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeUsers (Blog $blog= null,ParamBag $params = null )
     {
         if (is_null($blog)) {

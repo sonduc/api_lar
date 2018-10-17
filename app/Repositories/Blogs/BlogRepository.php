@@ -45,7 +45,8 @@ class BlogRepository extends BaseRepository
         $data_blog     = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data_blog, $data);
-        $data_blog->tags()->sync($list_tag_id);
+        $data_blog->tags()->detach();
+        $data_blog->tags()->attach($list_tag_id);
         return $data_blog;
     }
 

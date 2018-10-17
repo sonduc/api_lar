@@ -46,7 +46,7 @@ class ComfortController extends ApiController
         $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        event(new BroadcastingExample);
+       // event(new BroadcastingExample);
         return $this->successResponse($data);
     }
 

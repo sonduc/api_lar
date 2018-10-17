@@ -103,7 +103,7 @@ class BlogController extends ApiController
             $model = $this->model->store($request->all());
             //dd(DB::getQueryLog());
             DB::commit();
-            logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
+            logs('blogs', 'taọ bài vyiết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -129,6 +129,7 @@ class BlogController extends ApiController
             $this->validationRules['details.*.*.title'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
+           // dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());

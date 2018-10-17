@@ -51,7 +51,7 @@ class Blog extends Entity
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -62,9 +62,9 @@ class Blog extends Entity
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
     {
@@ -73,9 +73,9 @@ class Blog extends Entity
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
