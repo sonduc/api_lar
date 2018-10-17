@@ -129,7 +129,7 @@ class BlogController extends ApiController
             $this->validationRules['details.*.*.title'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-           // dd(DB::getQueryLog());
+           //dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());

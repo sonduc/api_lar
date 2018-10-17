@@ -83,7 +83,7 @@ class BlogRepository extends BaseRepository
 
     /**
      * Cập nhật một số trường trạng thái
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      * @param $data

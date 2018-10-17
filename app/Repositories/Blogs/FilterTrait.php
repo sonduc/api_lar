@@ -27,8 +27,7 @@ trait FilterTrait
      */
     public function scopeCategory($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             $query->where('blogs.category_id', $q);
         }
         return $query;
@@ -46,8 +45,7 @@ trait FilterTrait
      */
     public function scopeHot($query, $q)
     {
-        $q =' '.$q;
-        if (($q && is_numeric($q))) {
+        if (is_numeric($q)) {
             $query->where('blogs.hot', $q);
         }
 
@@ -66,8 +64,7 @@ trait FilterTrait
      */
     public function scopeStatus($query, $q)
     {
-        $q =' '.$q;
-        if (($q && is_numeric($q))) {
+        if (is_numeric($q)) {
             $query->where('blogs.status', $q);
         }
         return $query;
@@ -85,8 +82,7 @@ trait FilterTrait
      */
     public function scopeUser($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             $query->where('blogs.user_id', $q);
         }
         return $query;
