@@ -215,4 +215,22 @@ trait FilterTrait
         return $query;
     }
 
+    /**
+     * Scope hot
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     *
+     * @return array
+     */
+    public function scopeHot($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.hot', $q);
+        }
+        return $query;
+    }
+
 }
