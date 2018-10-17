@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-15T10:07:23.613Z",
+	"__export_date": "2018-10-17T04:02:44.763Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -246,11 +246,11 @@
 			"color": "#1fcb11",
 			"created": 1532578358045,
 			"data": {
-				"api_url": "http://ws-api.lc/api/",
+				"api_url": "http://wsapi.test/api/",
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRjMWZkYzY1MzRhZmU0YWQ2YmI3Y2E0MjEzNjgyMGYxMTY4ZGQyOWUxMmE2ZDBlM2UwMDcyMjZjN2NlM2ZjZjA0YjI0MDMxN2E2YjZjODdlIn0.eyJhdWQiOiIyIiwianRpIjoiZGMxZmRjNjUzNGFmZTRhZDZiYjdjYTQyMTM2ODIwZjExNjhkZDI5ZTEyYTZkMGUzZTAwNzIyNmM3Y2UzZmNmMDRiMjQwMzE3YTZiNmM4N2UiLCJpYXQiOjE1Mzk1OTYyMDQsIm5iZiI6MTUzOTU5NjIwNCwiZXhwIjoxNTcxMTMyMjAzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.XkeTCCkW4kGv2CFv0X96akVE3-aa2bKyHhlzPUSQtCoh-AVdc-tPAXa65tl141yPY0bymu3YiXgzUKARUcfAGfyePnkccmilYv39jPmq7WMKSvn2Q1MtU-EPthxXzDMtQLuR5VOsNFwCalu7K_68E-LOu5ZD6mjpBA23eznuejraIGu1evF0ctebID8s8IjzHufd-VKatmABbzwxfYe5BkABifjx4MBTOmIzQ3eiORnQcI0BsZ2Nwqknu-_NGvWvBcNghorzgcZ4QjPgebJMG8hRfx-WUNpDHrsSlNFmHosBz2mYVXByAf2Au43hOA3QCE6Ydi_J0l91mWtQ68kKJWDg8VWSgG8q-308RaLQq6vmBUXkSa4AGthvbvFlol4BmtiwI288aoKrnTPeDSpItnYzE8DwQsltJutScJP04puyN6vtwzPviuw6wp_4Ps-OR6SeeF4Pq6PCX46J6LCy2E1KLL0T3_IuJmyCKN8f9rMwLIKeP6vO_jllWsl-xdxywoyKhpTXrHUBGclDFpDvKFoM6b_DRr8m5DvNEtGQuCmYXg_Wyi-1Oba635xYLVDI_2sB0NI8LQfaVn-3BaiRwUWb7OlAdiXPMAnKd_TjNb0630mcHLGN80GuLUKEShxKCwx35Fqm8FzRoUPBxZ1w5IeW4tWXFxQw7ifgWR718eg"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFkNDNkYjI4Nzg3NjE4NWRlYWU4N2EzZmE2Njc0NmY0ZjNkOGVhYjZiM2VhYWZkMTIzOWFmMzg2MWQxMTA2MDE3NjQwODc0OTc5YjIwNjQwIn0.eyJhdWQiOiI0IiwianRpIjoiYWQ0M2RiMjg3ODc2MTg1ZGVhZTg3YTNmYTY2NzQ2ZjRmM2Q4ZWFiNmIzZWFhZmQxMjM5YWYzODYxZDExMDYwMTc2NDA4NzQ5NzliMjA2NDAiLCJpYXQiOjE1Mzk2Nzk3MjUsIm5iZiI6MTUzOTY3OTcyNSwiZXhwIjoxNTcxMjE1NzI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.l3RkEJJJ8VCgk7ZvXUYu2cPc9Og81YqHFjbrQN2lf62rC4iOYIgfWlj9yh1GvJCfogRtMNlbNMHJmGVJsFswo8XiJKImfibCzJbWpfkXi8tVc2sM-RK97GLLyI9oTs9NMcfSsNpq_UuKB0WDWAtltSSVX0AMOhDaqBA2G-ogsJUMnjzt1OhzHYM2-hvjy0bUqeUYIFIzUHmtTuNJduA0lrHTKg2K9Tz4r3ktsQQ8zuyX5Bq1L-hWedStYC3QeTxwZcv3gZ9YBZvr_p4alWtmDv1dFhGr9uc_e5OyIWg_06NFoEEeuL80rQBpAWFx8ZoNNQuq5wilKgJQErIuFpCaX8ooEPA_f9ga7HT4-txyNWUKYjLAOybquiI7GhC0SmvrdCHHVB6nJHJJ65x96-FVssonagKkuHkpkKh1vxgdehFe8JiVhLumFTmADFp25FagRC7RvnareS4v4ztIudRWeuwsDY235GBOn3uV5coQYYjb_GjqBSeTj3cdxz0F5lCHqhPbfcSDaMTNExCoPoaDMoikW-C_Da2jGu3ltauf2s1G6ctxWOHTm47OWZHzReK7TAOBssunzNhdN62iFihOqpTbpMuSEp57YodagKD8ZwJdcql9PW_rklp2k32po17JIaysewIAEFpawFToIhMQ86KNO6nl0kCjlboJCQFJVoQ"
 				},
 				"url": "http://wsapi.test/",
 				"username": "admin@westay.org",
@@ -258,7 +258,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1539596215135,
+			"modified": 1539679742293,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -947,7 +947,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1539596215568,
+			"modified": 1539679742628,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1606,7 +1606,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1535335033771,
-			"description": "",
+			"description": "## INCLUDE\n```\n'details',\n'rooms'\n\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -1617,7 +1617,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539138004692,
+			"modified": 1539748909713,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1671,10 +1671,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": [\n      {\n        \"description\": \"tertert</p>\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ2\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd2\"\n      }\n    ]\n}"
+				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": {\n     \"data\": [\n\t\t\t {\n        \"description\": \"\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdaffjsddđ2\"\n      },\n      {\n        \"description\": \"terte1ffrxxt\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asfdajsddd2\"\n      }\n\t\t ]\n   }\n}"
 			},
 			"created": 1535335033794,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "\n             'details.*.*.name' \t\t        => 'required|unique:comfort_translates,name',",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -1690,7 +1690,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539224876480,
+			"modified": 1539748735623,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1708,10 +1708,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n    \"details\": [\n      {\n        \"description\": \"ASSS>\",\n        \"lang\": \"en\",\n        \"name\": \"TEMD\"\n      },\n      {\n        \"description\": \"aTTT\",\n        \"lang\": \"vi\",\n        \"name\": \"MAS\"\n      }\n    ]\n}"
+				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": {\n     \"data\": [\n\t\t\t {\n        \"description\": \"\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdaffjsddđ2\"\n      },\n      {\n        \"description\": \"terte1ffrxxt\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asfdajsddd2\"\n      }\n\t\t ]\n   }\n}"
 			},
 			"created": 1535335033806,
-			"description": "",
+			"description": "\n             'details.*.*.name' \t\t        => 'required|unique:comfort_translates,name',",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -1727,7 +1727,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1536976415496,
+			"modified": 1539748754350,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2293,7 +2293,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539596938267,
+			"modified": 1539748874108,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2347,7 +2347,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"!@#$%^&\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"dd\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"tu khoa nao do,h6\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"ddddddđtđ\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"dddd666\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"kp,a,b,c,d,e,f,g,h,j,d,c,213,123,gsg,asdas,gasg,asd,gag,dasdasg,saghah,hsaashsjj,fsfsafsafs,asgahsjjjjj\"\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1537755377319,
 			"description": "            'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',   ",
@@ -2366,7 +2366,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539596664079,
+			"modified": 1539748415352,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2384,7 +2384,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"tukhoa60,tukhoa61\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h11,h12,1,2,3,4,5,6\"\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1537755377370,
 			"description": "   \t\t 'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',",
@@ -2403,7 +2403,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1539596566650,
+			"modified": 1539746249960,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2413,7 +2413,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/1",
+			"url": "{{ api_url  }}blogs/135",
 			"_type": "request"
 		},
 		{
@@ -2514,7 +2514,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539596603172,
+			"modified": 1539679655100,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2587,7 +2587,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539596605788,
+			"modified": 1539679750566,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
