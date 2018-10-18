@@ -16,7 +16,6 @@ class CreateRoomComfortsTable extends Migration
         Schema::create('room_comforts', function (Blueprint $table) {
             $table->integer('room_id');
             $table->integer('comfort_id');
-            $table->primary(['room_id', 'comfort_id']);
         });
     }
 

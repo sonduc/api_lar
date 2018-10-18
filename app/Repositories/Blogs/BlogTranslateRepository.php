@@ -62,7 +62,7 @@ class BlogTranslateRepository extends BaseRepository
 
     /**
      * Xoa theo id truyen truc tiep
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <nxh0809@gmail.com>
      *
      * @param $id
      */

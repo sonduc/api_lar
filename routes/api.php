@@ -101,6 +101,7 @@ $router->group([
     $router->get('/categories/hot-list', 'CategoryController@hotList');
     $router->put('/categories/single-update/{id}', 'CategoryController@singleUpdate');
     resource('/categories', 'CategoryController', $router);
+
     /**
      * Blogs Resource
      */
@@ -108,6 +109,15 @@ $router->group([
     $router->get('/blogs/hot-list', 'BlogController@hotList');
     $router->put('/blogs/single-update/{id}', 'BlogController@singleUpdate');
     resource('/blogs', 'BlogController', $router);
+
+    /**
+     * Collections Resource
+     */
+    $router->get('/collections/status-list', 'CollectionController@statusList');
+    $router->get('/collections/hot-list', 'CollectionController@hotList');
+    $router->get('/collections/new-list', 'CollectionController@newList');
+    $router->put('/collections/single-update/{id}', 'CollectionController@singleUpdate');
+    resource('/collections', 'CollectionController', $router);
 });
 
 

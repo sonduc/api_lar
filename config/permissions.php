@@ -151,5 +151,15 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+    'collection'       => [
+        'title' => 'Quản lý collection',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
 
 ];

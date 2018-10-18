@@ -59,6 +59,7 @@ class TagRepository extends BaseRepository
         }
         return $list_id;
     }
+
     public function updateTag($blog, $data = [], $tag = [],$list = [])
     {
         if (isset($data['tags'])) {
@@ -93,12 +94,21 @@ class TagRepository extends BaseRepository
     {
         return $this->model->where('tag_id', $id)->select('id')->get();
     }
-    public function countTag($name) {
-        return $this->model->where('name', $name)->count();
-    }
-    public function findTagByName($name) {
-        return $this->model->where('name',$name)->first();
-    }
+
+//    public function countTag($name) {
+//        return $this->model->where('name', $name)->count();
+//    }
+//    public function findTagByName($name) {
+//        return $this->model->where('name',$name)->first();
+//    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $arr
+     * @return mixed
+     */
 
     public function getTagName($arr)
     {

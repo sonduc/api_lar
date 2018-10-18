@@ -63,8 +63,9 @@ class BlogRepository extends BaseRepository
         $data['image'] = rand_name($data['image']);
         $data_blog     = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);
-        $list_tag_id = $this->tag->updateTag($data_blog, $data);
-        $data_blog->tags()->sync($list_tag_id);
+        $list_tag_id = $this->tag->storeTag($data_blog, $data);
+        $data_blog->tags()->detach();
+        $data_blog->tags()->attach($list_tag_id);
         return $data_blog;
     }
 

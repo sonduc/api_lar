@@ -2,7 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use App\Repositories\Categories\Category;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Blogs\Blog;
 use League\Fractal\ParamBag;
