@@ -20,7 +20,7 @@ class RoomOptionalPrice extends Entity
      */
     protected $fillable
         = [
-            'room_id', 'weekday', 'day', 'price_day', 'price_hour', 'price_after_hour', 'price_charge_guest', 'status',
+            'room_id', 'weekday', 'day', 'price_day', 'price_hour', 'price_after_hour', 'status',
         ];
     /**
      * The attributes that are cast permission from json string to array
