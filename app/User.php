@@ -99,6 +99,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'type',
         'status',
         'sale_id',
+        'account_number',
     ];
     /**
      * The attributes excluded from the model's JSON form.
