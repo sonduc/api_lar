@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Repositories\Collections\Collection;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CollectionTransformer;
@@ -55,8 +56,11 @@ class CollectionController extends ApiController
 
     /**
      * Display a listing of the resource.
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function index(Request $request)
     {
@@ -68,9 +72,13 @@ class CollectionController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
+     *  Display a listing of the resource.
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function show(Request $request, $id)
     {
@@ -87,6 +95,15 @@ class CollectionController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * Thêm mới bộ sưu tập
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
 
     public function store(Request $request)
     {
@@ -120,6 +137,17 @@ class CollectionController extends ApiController
         }
     }
 
+
+    /**
+     * Cập nhập bộ sưu tập
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -129,7 +157,7 @@ class CollectionController extends ApiController
             $this->validationRules['details.*.*.name'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
-//            dd(DB::getQueryLog());
+          // dd(DB::getQueryLog());
             DB::commit();
             logs('collection', 'sửa bộ sưu tập' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
@@ -228,7 +256,7 @@ class CollectionController extends ApiController
     {
         try {
             $this->authorize('collection.view');
-            $data = $this->simpleArrayToObject(Blog::BLOG_STATUS);
+            $data = $this->simpleArrayToObject(Collection::COLLECTION_STATUS);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
@@ -246,7 +274,7 @@ class CollectionController extends ApiController
     {
         try {
             $this->authorize('collection.view');
-            $data = $this->simpleArrayToObject(Blog::BLOG_HOT);
+            $data = $this->simpleArrayToObject(Collection::COLLECTION_HOT);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
@@ -264,7 +292,7 @@ class CollectionController extends ApiController
     {
         try {
             $this->authorize('collection.view');
-            $data = $this->simpleArrayToObject(Blog::BLOG_HOT);
+            $data = $this->simpleArrayToObject(Collection::COLLECTION_NEW);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;

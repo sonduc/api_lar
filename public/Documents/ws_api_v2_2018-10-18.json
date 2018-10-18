@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-17T04:02:44.763Z",
+	"__export_date": "2018-10-18T08:08:12.705Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -221,6 +221,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_e635e7e4329b4821906d36196d40b399",
+			"created": 1539830212754,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1539830212754,
+			"modified": 1539830212754,
+			"name": "Collections",
+			"parentId": "wrk_327599f26ab6415f860de9d912114313",
+			"_type": "request_group"
+		},
+		{
 			"_id": "env_b05342e85b5c42aab807ad440cf04698",
 			"color": "#c1cb1f",
 			"created": 1531816976352,
@@ -250,7 +261,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFkNDNkYjI4Nzg3NjE4NWRlYWU4N2EzZmE2Njc0NmY0ZjNkOGVhYjZiM2VhYWZkMTIzOWFmMzg2MWQxMTA2MDE3NjQwODc0OTc5YjIwNjQwIn0.eyJhdWQiOiI0IiwianRpIjoiYWQ0M2RiMjg3ODc2MTg1ZGVhZTg3YTNmYTY2NzQ2ZjRmM2Q4ZWFiNmIzZWFhZmQxMjM5YWYzODYxZDExMDYwMTc2NDA4NzQ5NzliMjA2NDAiLCJpYXQiOjE1Mzk2Nzk3MjUsIm5iZiI6MTUzOTY3OTcyNSwiZXhwIjoxNTcxMjE1NzI1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.l3RkEJJJ8VCgk7ZvXUYu2cPc9Og81YqHFjbrQN2lf62rC4iOYIgfWlj9yh1GvJCfogRtMNlbNMHJmGVJsFswo8XiJKImfibCzJbWpfkXi8tVc2sM-RK97GLLyI9oTs9NMcfSsNpq_UuKB0WDWAtltSSVX0AMOhDaqBA2G-ogsJUMnjzt1OhzHYM2-hvjy0bUqeUYIFIzUHmtTuNJduA0lrHTKg2K9Tz4r3ktsQQ8zuyX5Bq1L-hWedStYC3QeTxwZcv3gZ9YBZvr_p4alWtmDv1dFhGr9uc_e5OyIWg_06NFoEEeuL80rQBpAWFx8ZoNNQuq5wilKgJQErIuFpCaX8ooEPA_f9ga7HT4-txyNWUKYjLAOybquiI7GhC0SmvrdCHHVB6nJHJJ65x96-FVssonagKkuHkpkKh1vxgdehFe8JiVhLumFTmADFp25FagRC7RvnareS4v4ztIudRWeuwsDY235GBOn3uV5coQYYjb_GjqBSeTj3cdxz0F5lCHqhPbfcSDaMTNExCoPoaDMoikW-C_Da2jGu3ltauf2s1G6ctxWOHTm47OWZHzReK7TAOBssunzNhdN62iFihOqpTbpMuSEp57YodagKD8ZwJdcql9PW_rklp2k32po17JIaysewIAEFpawFToIhMQ86KNO6nl0kCjlboJCQFJVoQ"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImU1M2YyOTczN2U1MDQzY2Y4NTcyMmU2OGRhNzdkMjVkOGFkNzNmMjVmOGM5M2VjOTg2NGVlMGE0OGY4Mjg0MDA2YmJjNDkzZGM0Yjg0NjFjIn0.eyJhdWQiOiIyIiwianRpIjoiZTUzZjI5NzM3ZTUwNDNjZjg1NzIyZTY4ZGE3N2QyNWQ4YWQ3M2YyNWY4YzkzZWM5ODY0ZWUwYTQ4ZjgyODQwMDZiYmM0OTNkYzRiODQ2MWMiLCJpYXQiOjE1Mzk4Mzg4NDQsIm5iZiI6MTUzOTgzODg0NCwiZXhwIjoxNTcxMzc0ODQ0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.387DAS6JKdO9rDLVyMy4K-DxpiezpanaSTgk3_pX1tAUIOXEM3VI6QpqD0HVLuSuhoZFJl_rZ2SkkG7UNqaFtq5YwNcoctVu8flbkfaW6XhJkJlDSxx4snoNp3E8DZw_MhFq2v3br92fAl3vS4lgFt4krZ-3n6_uSiDZet582USDcn-2TjKkhHKo30jydWd1frEa99UJEcgBj5drmUrDh0ZRrswsBTCxJiiCJGXzsIYR3VaNEDDFDWMNE-5-r-D_TwRWK7vq9iYUwIn0s6hASBQRT0PnN2hUtNUaD1tNPTwY1PhsUjDiuIyvPuhUg_B_wYDDqEvGwMIlrW-3G18eDW3KfLSkjAFfwPeHn0Y7HGMDcKCyu4vEWEJhdjpLzqg_sBFmSJgDIIo6k4Z4R1sGMxeRXLFMPBYsPBUPNT3D5vLeO3J1gCRk-mju1eE3LNQGdYo-iTfuKlhxeeoMEryyiWQZsDe2TNZg7W7vEN5FNmWJR0_PYeUh0X4-Y6A_hsdPYHoW4hLX382KW0XYHuP-anP3OatTZFeu0JKCpI7_D487ZfPathLX1OFboWok4LcglnZIL52plxMEhdc0oiQkQyUpK6dY5yvIYs-qxP7zpkWFuH9TYyb1HPymN8v1_3w2aJJ6GH1XyndnzdLQvdRB5GOkKu3P3hNNFZnssWD6Rzk"
 				},
 				"url": "http://wsapi.test/",
 				"username": "admin@westay.org",
@@ -258,7 +269,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1539679742293,
+			"modified": 1539838865575,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -947,7 +958,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1539679742628,
+			"modified": 1539838865909,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -2293,7 +2304,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539748874108,
+			"modified": 1539848668501,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2347,7 +2358,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"ddddddđtđ\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"dddd666\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"kp,a,b,c,d,e,f,g,h,j,d,c,213,123,gsg,asdas,gasg,asd,gag,dasdasg,saghah,hsaashsjj,fsfsafsafs,asgahsjjjjj\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"ddddddđtđ\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"dddd666\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h1,h2,h3\"\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1537755377319,
 			"description": "            'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',   ",
@@ -2366,7 +2377,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539748415352,
+			"modified": 1539834856543,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2403,7 +2414,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1539746249960,
+			"modified": 1539834877225,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2413,7 +2424,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/135",
+			"url": "{{ api_url  }}blogs/1",
 			"_type": "request"
 		},
 		{
@@ -2474,7 +2485,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883880280.375,
 			"method": "PUT",
-			"modified": 1539596588853,
+			"modified": 1539849941596,
 			"name": "single-update",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2587,7 +2598,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539679750566,
+			"modified": 1539834851483,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2706,6 +2717,233 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}categories/single-update/1?option=status",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_ca9a18cee23c4f2cb6743f6a38700684",
+			"created": 1539835232593,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1539835232593,
+			"modified": 1539835232593,
+			"name": "List",
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_811c7e8658f74be09fda16633f1f3970",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t\t55,\n\t\t21,\n\t\t14\t\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test4\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test6\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
+			},
+			"created": 1539830237008,
+			"description": "        'hot'                       => 'required|integer|between:0,1',\n        'status'                    => 'required|integer|between:0,1',\n        'new'                       => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'          => 'required|v_title|unique:collection_translates,name',\n        'details.*.*.lang'          => 'required',\n        'rooms.*'                   => 'integer|nullable|exists:rooms,id',",
+			"headers": [
+				{
+					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539830237008,
+			"method": "POST",
+			"modified": 1539849926849,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections",
+			"_type": "request"
+		},
+		{
+			"_id": "req_90192a47421241a0a5fc7aafc5426b8b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t\t55,\n\t\t9,\n\t\t10\t\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test1\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test2\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
+			},
+			"created": 1539831880373,
+			"description": "        'hot'                       => 'required|integer|between:0,1',\n        'status'                    => 'required|integer|between:0,1',\n        'new'                       => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'          => 'required|v_title|',\n        'details.*.*.lang'          => 'required',\n        'rooms.*'                   => 'integer|nullable|exists:rooms,id',",
+			"headers": [
+				{
+					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539559328331.5,
+			"method": "PUT",
+			"modified": 1539849928768,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/49",
+			"_type": "request"
+		},
+		{
+			"_id": "req_164128db067e400c8321ed4f75a0991e",
+			"authentication": {},
+			"body": {},
+			"created": 1539832157861,
+			"description": "## INCLUDE\n```\n'details',\n'rooms',\n\n\n```\n\n## SCOPE PARAMS\n\n```params\nnew: Int\nhot: Int\ntag: Int\nstatus:Int\nname: string\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3d44616088ad4a588ed1701fab856d36",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832157861,
+			"method": "GET",
+			"modified": 1539849917511,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections?include=rooms",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b234d711fa1c460d95f22a77df7ae593",
+			"authentication": {},
+			"body": {},
+			"created": 1539832231816,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3d44616088ad4a588ed1701fab856d36",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539831197434.5,
+			"method": "GET",
+			"modified": 1539849909545,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/49?include=details",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7b9994c1cfdf4111805037bcef9aa03b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1539836460140,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539423873993.25,
+			"method": "DELETE",
+			"modified": 1539849867933,
+			"name": "Delete",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/50",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fc609c133dee48b79af486fa68fa464a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"new\": 0\n}"
+			},
+			"created": 1539842068126,
+			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Bộ sưu tập nổi bật|\n|status|int|Trạng thái bộ sưu tập|\n|new|int| bộ sưu tập mới nhất |\n\n\n## Validation\n```php\n'hot'                  => 'required|integer|between:0,1',\n'status'               => 'required|integer|between:0,1',\n'new'                  => 'required|integer|between:0,1',\n```",
+			"headers": [
+				{
+					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539491601162.375,
+			"method": "PUT",
+			"modified": 1539850053210,
+			"name": "single-update",
+			"parameters": [],
+			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/single-update/49?option=new",
 			"_type": "request"
 		},
 		{
@@ -3150,7 +3388,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539287260598,
 			"method": "GET",
-			"modified": 1539317562671,
+			"modified": 1539838887672,
 			"name": "hot-list",
 			"parameters": [],
 			"parentId": "fld_e69ae84c198446c5b70e9a00a0dd4d86",
@@ -3219,6 +3457,93 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}categories/status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_22820dd083a14fbba36a9bcc36c0dcfe",
+			"authentication": {},
+			"body": {},
+			"created": 1539835257867,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_635c007cd17a4a208e66225107bb47cb",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539835257867,
+			"method": "GET",
+			"modified": 1539849277169,
+			"name": "hot-list",
+			"parameters": [],
+			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/hot-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_179ace0d1b2342da9b1bd29265aa3365",
+			"authentication": {},
+			"body": {},
+			"created": 1539835303618,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_f95d6842d8c74339953dc73edcf0071f",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539833707864,
+			"method": "GET",
+			"modified": 1539849281710,
+			"name": "status-list",
+			"parameters": [],
+			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cbbeb9b0b7ba412fb10a4b38c4da54f1",
+			"authentication": {},
+			"body": {},
+			"created": 1539835327317,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_f741148c0e374687b1811149e71f4eea",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832932862.5,
+			"method": "GET",
+			"modified": 1539849286355,
+			"name": "new-list",
+			"parameters": [],
+			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections/new-list",
 			"_type": "request"
 		}
 	]

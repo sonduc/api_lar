@@ -31,8 +31,8 @@ class CollectionTranslateTransformer extends TransformerAbstract
 
         return [
             'id'                        => $collection->id,
-            'colection_id'              => $collection->blog_id,
-            'name'                      => $collection->title,
+            'colection_id'              => $collection->collection_id,
+            'name'                      => $collection->name,
             'lang'                      => $collection->lang,
             'created_at'                => $collection->created_at->format('Y-m-d H:i:s'),
             'updated_at'                => $collection->updated_at->format('Y-m-d H:i:s'),

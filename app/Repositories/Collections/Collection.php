@@ -21,8 +21,8 @@ class Collection extends Entity
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
     const COLLECTION_NEW    = [
-        self::AVAILABLE      => 'M',
-        self::UNAVAILABLE    => '',
+        self::AVAILABLE      => 'MỚI',
+        self::UNAVAILABLE    => 'CŨ',
     ];
 
     /**
@@ -31,7 +31,7 @@ class Collection extends Entity
      * @var array
      */
     protected $fillable = [
-        'id','hot','new','image','status'
+        'hot','new','image','status'
     ];
 
     /**
@@ -53,7 +53,7 @@ class Collection extends Entity
     }
 
     /**
-     *
+     * ralation ship với rooms
      * @author ducchien612 <0ducchien612@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
