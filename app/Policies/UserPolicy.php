@@ -19,7 +19,7 @@ class UserPolicy
      */
     public function view(User $user, User $_user = null)
     {
-        return $user->hasAccess(['_user.view']);
+        return $user->hasAccess(['user.view']);
     }
 
     /**
@@ -31,7 +31,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAccess(['_user.create']);
+        return $user->hasAccess(['user.create']);
     }
 
     /**
@@ -44,7 +44,7 @@ class UserPolicy
      */
     public function update(User $user, User $_user = null)
     {
-        return $user->hasAccess(['_user.update']);
+        return $user->hasAccess(['user.update']);
     }
 
     /**
@@ -57,6 +57,6 @@ class UserPolicy
      */
     public function delete(User $user, User $_user = null)
     {
-        return $user->hasAccess(['_user.delete']);
+        return $user->hasAccess(['user.delete']);
     }
 }
