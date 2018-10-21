@@ -51,7 +51,7 @@ class RoomController extends ApiController
         'weekday_price.*.status'             => 'boolean|nullable',
         'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
         'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
-        'optional_prices.price_day'          => 'integer|nullable',
+        'optional_prices.price_day'          => 'required|integer|nullable',
         'optional_prices.price_hour'         => 'integer|nullable',
         'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest' => 'integer|nullable',
@@ -63,8 +63,8 @@ class RoomController extends ApiController
         'details.*.*.name.required'                      => 'Tên không được để trông',
         'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
         'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
-        'details.*.*.name.alpha_num'                     => 'Chỉ cho phép chữ và số',
-        'details.*.*.name.v_title'                       => 'Chỉ cho phép chữ và số',
+        'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
+        'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
         'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
         'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
         'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
@@ -216,19 +216,19 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            DB::commit();
+            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
         } catch (ImageException $imageException) {
             return $this->notSupportedMediaResponse([
-                'error' => $imageException->getMessage(),
-            ]);
+                                                        'error' => $imageException->getMessage(),
+                                                    ]);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -262,9 +262,9 @@ class RoomController extends ApiController
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
@@ -316,17 +316,17 @@ class RoomController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
+                                            'error' => $e->getMessage(),
+                                        ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

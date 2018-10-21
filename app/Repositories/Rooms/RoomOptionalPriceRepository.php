@@ -102,11 +102,22 @@ class RoomOptionalPriceRepository extends BaseRepository
      */
     public function storeRoomOptionalDayPrice($room, $data = [], $list = [])
     {
+        $price_day        =
+            array_key_exists('price_day', $data['optional_prices']) ? $data['optional_prices']['price_day'] : 0;
+        $price_hour       =
+            array_key_exists('price_hour', $data['optional_prices']) ? $data['optional_prices']['price_hour'] : 0;
+        $price_after_hour =
+            array_key_exists('price_after_hour',
+                             $data['optional_prices']) ? $data['optional_prices']['price_after_hour'] : 0;
+
         foreach ($data['optional_prices']['days'] as $day) {
-            $obj            = $data;
-            $obj['room_id'] = $room->id;
-            $obj['day']     = $day;
-            $list[]         = $obj;
+            $obj                     = $data;
+            $obj['room_id']          = $room->id;
+            $obj['day']              = $day;
+            $obj['price_day']        = $price_day;
+            $obj['price_hour']       = $price_hour;
+            $obj['price_after_hour'] = $price_after_hour;
+            $list[]                  = $obj;
         }
         return $list;
     }
