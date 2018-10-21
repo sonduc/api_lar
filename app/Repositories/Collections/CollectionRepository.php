@@ -32,6 +32,7 @@ class CollectionRepository extends BaseRepository
      */
     public function store($data)
     {
+        $data['image'] = rand_name($data['image']);
         $data_collection= parent::store($data);
         $this->collectionTranslate->storeCollectionTranslate($data_collection,$data);
         $this->storeCollectionRoom($data_collection, $data);
@@ -49,6 +50,7 @@ class CollectionRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['rooms'])) {
+                $data['rooms'] = array_unique($data['rooms']);
                 $data_collection->rooms()->attach($data['rooms']);
             }
         }
@@ -65,6 +67,7 @@ class CollectionRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['rooms'])) {
+                $data['rooms'] = array_unique($data['rooms']);
                 $data_collection->rooms()->detach();
                 $data_collection->rooms()->attach($data['rooms']);
             }
@@ -84,6 +87,7 @@ class CollectionRepository extends BaseRepository
 
     public function update($id, $data, $excepts = [], $only = [])
     {
+        $data['image'] = rand_name($data['image']);
         $data_collection = parent::update($id, $data);
         $this->collectionTranslate->updateCollectionTranslate($data_collection,$data);
         $this->updateCollectionRoom($data_collection, $data);

@@ -13,32 +13,38 @@ class CollectionController extends ApiController
 {
     protected $validationRules
          = [
-        'hot'                       => 'required|integer|between:0,1',
-        'status'                    => 'required|integer|between:0,1',
-        'new'                       => 'required|integer|between:0,1',
+        'hot'                               => 'required|integer|between:0,1',
+        'status'                            => 'required|integer|between:0,1',
+        'new'                               => 'required|integer|between:0,1',
         //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
-        'details.*.*.name'          => 'required|v_title|unique:collection_translates,name',
-        'details.*.*.lang'          => 'required',
-        'rooms.*'                   => 'integer|nullable|exists:rooms,id',
+        'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',
+        'details.*.*.description'           => 'required|v_title',
+        'details.*.*.lang'                  => 'required',
+        'rooms.1'                           => 'required',
+        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id',
 
     ];
 
     protected $validationMessages = [
-        'hot.required'              => 'Vui lòng chọn mã nổi bật',
-        'hot.integer'               => 'Mã nổi bật không phù hợp',
-        'hot.between'               => 'Mã nổi bật không phù hợp',
-        'status.required'           => "Mã trạng thái phải không được để trống",
-        'status.integer'            => "Mã trạng thái phải là kiểu số",
-        'status.between'            => "Mã trạg thái phải là kiểu số 0 hoặc 1",
-        'new.required'              => "Mã sưư tập mới không được để trống",
-        'new.integer'               => "Mã sưu tập mới phải là kiểu số",
-        'new.between'               => "Mã sưu tập mới phải là kiểu số 0 hoặc 1",
-        'details.*.*.name.required' => 'Tên bộ sưu tập không được để trông',
-        'details.*.*.name.v_title'  => 'Tên bộ sưu tập không hợp lệ',
-        'details.*.*.name.unique'   => 'Tên bộ sưu tập này đã tồn tại',
-        'details.*.*.lang.required' => 'Mã ngôn ngữ này không được để trống',
-        'rooms.*.integer'           => 'Mã phòng phải là kiểu số',
-        'rooms.*.exists'            => 'Mã phòng không tồn tại trong hệ thống',
+        'hot.required'                      => 'Vui lòng chọn mã nổi bật',
+        'hot.integer'                       => 'Mã nổi bật không phù hợp',
+        'hot.between'                       => 'Mã nổi bật không phù hợp',
+        'status.required'                   => "Mã trạng thái phải không được để trống",
+        'status.integer'                    => "Mã trạng thái phải là kiểu số",
+        'status.between'                    => "Mã trạg thái phải là kiểu số 0 hoặc 1",
+        'new.required'                      => "Mã sưư tập mới không được để trống",
+        'new.integer'                       => "Mã sưu tập mới phải là kiểu số",
+        'new.between'                       => "Mã sưu tập mới phải là kiểu số 0 hoặc 1",
+        'details.*.*.name.required'         => 'Tên bộ sưu tập không được để trông',
+        'details.*.*.name.v_title'          => 'Tên bộ sưu tập không hợp lệ',
+        'details.*.*.description.v_title'   => 'Tên mô tả  bộ sưu tập không hợp lệ',
+        'details.*.*.description.required'  => 'Tên mô tả bộ sưu tập không được để trống',
+        'details.*.*.name.unique'           => 'Tên bộ sưu tập này đã tồn tại',
+        'details.*.*.lang.required'         => 'Mã ngôn ngữ này không được để trống',
+        'rooms.*.1.required'                => 'Trường này không được để trống',
+        'rooms.*.required'                  => 'Trường này không được để trống',
+        'rooms.*.integer'                   => 'Mã phòng phải là kiểu số',
+        'rooms.*.exists'                    => 'Mã phòng không tồn tại trong hệ thống',
 
 
 
@@ -102,7 +108,8 @@ class CollectionController extends ApiController
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
+     * @throws \Throwabl
+     * e
      */
 
     public function store(Request $request)

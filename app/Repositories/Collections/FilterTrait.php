@@ -70,16 +70,14 @@ trait FilterTrait
     public function scopeName($query, $q)
     {
         if ($q) {
-            $collectionColumns      = $this->columnsConverter(['id','created_at', 'updated_at'], 'collections', false);
-            $collectionTransColumns = $this->columnsConverter(['name'], 'collection_translates', false);
-            $columns          = self::mergeUnique($collectionColumns, $collectionTransColumns);
-//            dd($columns);
+            $collectionColumns      = $this->columnsConverter(['id','image','status','hot','new','created_at', 'updated_at'], 'collections', false);
+            $collectionTransColumns = $this->columnsConverter(['name','lang'], 'collection_translates', false);
+            $columns                = self::mergeUnique($collectionColumns, $collectionTransColumns);
             $query
                 ->addSelect($columns)
                 ->join('collection_translates','collection_translates.collection_id','=','collections.id')
                 ->where('collection_translates.name', 'like', "%${q}%");
         }
-
         return $query;
     }
 
