@@ -27,8 +27,7 @@ trait FilterTrait
      */
     public function scopeCategory($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             $query->where('blogs.category_id', $q);
         }
         return $query;
@@ -46,8 +45,7 @@ trait FilterTrait
      */
     public function scopeHot($query, $q)
     {
-        $q =' '.$q;
-        if (($q && is_numeric($q))) {
+        if (is_numeric($q)) {
             $query->where('blogs.hot', $q);
         }
 
@@ -66,9 +64,25 @@ trait FilterTrait
      */
     public function scopeStatus($query, $q)
     {
-        $q =' '.$q;
-        if (($q && is_numeric($q))) {
+        if (is_numeric($q)) {
             $query->where('blogs.status', $q);
+        }
+        return $query;
+    }
+
+    /**
+     * Scope New
+     * @author ducchien062 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeNew($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('blogs.new', $q);
         }
         return $query;
     }
@@ -85,8 +99,7 @@ trait FilterTrait
      */
     public function scopeUser($query, $q)
     {
-        $q =' '.$q;
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             $query->where('blogs.user_id', $q);
         }
         return $query;
@@ -111,12 +124,20 @@ trait FilterTrait
                 ->addSelect($columns)
                 ->join('blog_tags', 'blog_id', '=', 'blogs.id')
                 ->join('tags', 'tags.id', '=', 'blog_tags.tag_id')
-                ->where('tags.name',$q);
+                ->where('tags.name','=',$q);
         }
         return $query;
     }
 
-
+    /**
+     * Scope Date
+     * @author ducchien062 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
     public function scopeDateStart($query, $q)
     {
         if ($q)

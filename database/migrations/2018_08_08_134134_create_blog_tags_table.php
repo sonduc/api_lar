@@ -17,6 +17,7 @@ class CreateBlogTagsTable extends Migration
             $table->bigInteger('blog_id');
             $table->bigInteger('tag_id');
             $table->primary(['blog_id', 'tag_id']);
+            $table->timestamps();
         });
     }
 

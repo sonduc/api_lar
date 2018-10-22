@@ -31,7 +31,7 @@ class CategoryTranslateTransformer extends TransformerAbstract
 
         return [
             'id'                    => $category->id,
-            'category_id'           => $category->catagory_id,
+            'category_id'           => $category->category_id,
             'name'                  => $category->name,
             'slug'                  => $category->slug,
             'lang'                  => $category->lang,

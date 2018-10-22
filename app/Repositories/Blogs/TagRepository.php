@@ -24,50 +24,43 @@ class TagRepository extends BaseRepository
     {
         $this->model        = $tag;
     }
-   // Kiem tra nếu tag đã  tồn tại bản ghi thì lấy ra id thêm vào blog tag còn chưa tồn tại thì thêm mới
-    public function storeTag($blog, $data = [], $tag = [],$list= [])
+
+    /**
+     * Kiểm tra xem những thẻ tag nào chưa tồn tại thì thêm mới, những tag tồn tại rồi
+     * thì lấy ra id để thêm vào blog_tag
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $blog
+     * @param array $data
+     * @param array $tag
+     * @param array $list
+     * @return array
+     */
+    public function storeTag($data = [])
     {
         if (isset($data['tags'])) {
             $arr = explode(',', $data['tags']['data'][0]['name']);
-            for ($i = 0; $i < count($arr); $i++) {
-                $countTag = $this->countTag($arr[$i]);
-                if ($countTag > 0) {
-                    $data_tag = $this->findTagByName( $arr[$i]);
-                    $list[]= $data_tag->id;
-                    //$this->blogTag->storeBlogTag($data_tag,$blog);
-                } else {
-                    $tag['name'] = $arr[$i];
-                    $tag['slug'] = str_slug($arr[$i],'-');
-                    $data_tag = parent::store($tag);
-                    $list[]= $data_tag->id;
-                    //$this->blogTag->storeBlogTag($data_tag,$blog);
-                }
-            }
+            $test_tag = $this->getTagName($arr);
+            $tag_name = array_map(function ($item) {
+                return $item['name'];
+            }, $test_tag);
+            $result = array_diff($arr, $tag_name);
+            $insert_tag=  array_map(function ($value) {
+                return $list = [
+                    'name' => $value,
+                    'slug'=> str_slug($value,'-')
+                ];
+            }, $result);
+            parent::storeArray($insert_tag);
+            $list_tag= $this->getTagName($arr);
+            $list_id = array_map(function ($value) {
+                return $value['id'];
+            }, $list_tag);
+            return $list_id;
         }
 
-        return $list;
-
     }
-    public function updateTag($blog, $data = [], $tag = [],$list = [])
-    {
-        if (isset($data['tags'])) {
-            $arr = explode(',', $data['tags']['data'][0]['name']);
-            for ($i = 0; $i < count($arr); $i++) {
-               $countTag = $this->countTag($arr[$i]);
-                if ($countTag > 0) {
-                    $data_tag = $this->findTagByName( $arr[$i]);
-                    $list[] = $data_tag->id;
-                } else {
-                    $tag['name'] = $arr[$i];
-                    $tag['slug'] = str_slug($arr[$i],'-');
-                    $data_tag = parent::store($tag);
-                    $list[] = $data_tag->id;
-                }
-            }
-        }
-        return $list;
 
-    }
 
     public function deleteTagID($comfort)
     {
@@ -83,5 +76,10 @@ class TagRepository extends BaseRepository
     }
     public function findTagByName($name) {
         return $this->model->where('name',$name)->first();
+    }
+
+    public function getTagName($arr)
+    {
+        return $this->model->whereIn('tags.name',$arr)->get()->toArray();
     }
 }

@@ -20,6 +20,11 @@ class Blog extends Entity
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
 
+    const BLOG_NEW    = [
+        self::AVAILABLE      => 'MỚI',
+        self::UNAVAILABLE    => 'CŨ',
+    ];
+
     protected $table = 'blogs';
     /**
      * The attributes that are mass assignable.
@@ -51,20 +56,20 @@ class Blog extends Entity
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id');
     }
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function categories()
     {
@@ -73,9 +78,9 @@ class Blog extends Entity
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien612 <0ducchien612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {

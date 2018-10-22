@@ -18,6 +18,10 @@ class Category extends Entity
         self::AVAILABLE      => 'NỔI BẬT',
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
+    const CATEGORY_NEW    = [
+        self::AVAILABLE      => 'MỚI',
+        self::UNAVAILABLE    => 'CŨ',
+    ];
 
    // protected $table = 'categories';
     /**
