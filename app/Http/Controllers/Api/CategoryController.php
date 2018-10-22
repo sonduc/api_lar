@@ -15,6 +15,7 @@ class CategoryController extends ApiController
     protected $validationRules = [
         'hot'                               => 'required|integer|between:0,1',
         'status'                            => 'required|integer|between:0,1',
+        'new'                            => 'required|integer|between:0,1',
         //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
@@ -28,6 +29,10 @@ class CategoryController extends ApiController
         'hot.required'                      => 'Vui lòng chọn mã nổi bật',
         'hot.integer'                       => 'Mã nổi bật phải là kiểu số',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
+        //type=new
+        'new.required'                      => 'Danh mục mới nhất không được để trống',
+        'new.integer'                       => 'Danh mục mới nhất phải là kiểu số',
+        'new.between'                       => 'Mã danh mục mới nhất không phù hợp',
 
         //'image.image'                   =>'Định dạng không phải là hình ảnh',
        // 'image.mimes'                   => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
@@ -89,10 +94,8 @@ class CategoryController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('category.create');
-            $data= $request->except('image');
-            $data['image'] = rand_name($request->image);
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($data);
+            $data = $this->model->store($request->all());
             DB::commit();
             // dd(DB::getQueryLog());
             return $this->successResponse($data);
@@ -238,6 +241,23 @@ class CategoryController extends ApiController
     {
         try {
             $data = $this->simpleArrayToObject(Category::CATEGORY_HOT);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Lấy ra các Trạng thái danh mục (theo hot)
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function newList()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Category::CATEGORY_NEW);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;

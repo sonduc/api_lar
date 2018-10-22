@@ -103,7 +103,7 @@ class BlogController extends ApiController
             $model = $this->model->store($request->all());
             //dd(DB::getQueryLog());
             DB::commit();
-            logs('blogs', 'taọ bài vyiết mã ' . $model->id, $model);
+            logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -255,6 +255,24 @@ class BlogController extends ApiController
         try {
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_HOT);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Lấy ra các Trạng thái bài viết (theo new)
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function newList()
+    {
+        try {
+            $this->authorize('blog.view');
+            $data = $this->simpleArrayToObject(Blog::BLOG_NEW);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;

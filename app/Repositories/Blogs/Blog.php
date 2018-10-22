@@ -20,6 +20,11 @@ class Blog extends Entity
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
 
+    const BLOG_NEW    = [
+        self::AVAILABLE      => 'MỚI',
+        self::UNAVAILABLE    => 'CŨ',
+    ];
+
     protected $table = 'blogs';
     /**
      * The attributes that are mass assignable.
@@ -57,7 +62,7 @@ class Blog extends Entity
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id')->withTimestamps();
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id');
     }
 
     /**

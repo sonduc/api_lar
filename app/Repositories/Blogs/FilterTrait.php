@@ -107,7 +107,7 @@ trait FilterTrait
                 ->addSelect($columns)
                 ->join('blog_tags', 'blog_id', '=', 'blogs.id')
                 ->join('tags', 'tags.id', '=', 'blog_tags.tag_id')
-                ->where('tags.name',$q);
+                ->where('tags.name','=',$q);
         }
         return $query;
     }

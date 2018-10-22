@@ -36,7 +36,7 @@ class TagRepository extends BaseRepository
      * @param array $list
      * @return array
      */
-    public function storeTag($blog, $data = [], $tag = [],$list= [])
+    public function storeTag($data = [])
     {
         if (isset($data['tags'])) {
             $arr = explode(',', $data['tags']['data'][0]['name']);
@@ -56,33 +56,11 @@ class TagRepository extends BaseRepository
             $list_id = array_map(function ($value) {
                 return $value['id'];
             }, $list_tag);
+            return $list_id;
         }
-        return $list_id;
-    }
-    public function updateTag($blog, $data = [], $tag = [],$list = [])
-    {
-        if (isset($data['tags'])) {
-            $arr = explode(',', $data['tags']['data'][0]['name']);
-            $test_tag = $this->getTagName($arr);
-            $tag_name = array_map(function ($item) {
-                return $item['name'];
-            }, $test_tag);
-            $result = array_diff($arr, $tag_name);
-            $insert_tag=  array_map(function ($value) {
-                return $list = [
-                    'name' => $value,
-                    'slug'=> str_slug($value,'-')
-                ];
-            }, $result);
-            parent::storeArray($insert_tag);
-            $list_tag= $this->getTagName($arr);
-            $list_id = array_map(function ($value) {
-                return $value['id'];
-            }, $list_tag);
-        }
-        return $list_id;
 
     }
+
 
     public function deleteTagID($comfort)
     {
