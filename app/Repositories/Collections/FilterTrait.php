@@ -77,6 +77,8 @@ trait FilterTrait
                 ->addSelect($columns)
                 ->join('collection_translates','collection_translates.collection_id','=','collections.id')
                 ->where('collection_translates.name', 'like', "%${q}%");
+               // ->where('collection_translates.lang', '=');
+
         }
         return $query;
     }

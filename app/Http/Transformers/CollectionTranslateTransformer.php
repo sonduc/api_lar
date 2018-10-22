@@ -33,6 +33,7 @@ class CollectionTranslateTransformer extends TransformerAbstract
             'id'                        => $collection->id,
             'colection_id'              => $collection->collection_id,
             'name'                      => $collection->name,
+            'description'               => $collection->description,
             'lang'                      => $collection->lang,
             'created_at'                => $collection->created_at->format('Y-m-d H:i:s'),
             'updated_at'                => $collection->updated_at->format('Y-m-d H:i:s'),

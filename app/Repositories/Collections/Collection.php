@@ -31,7 +31,7 @@ class Collection extends Entity
      * @var array
      */
     protected $fillable = [
-        'hot','new','image','status'
+        'hot','new','image','status',
     ];
 
     /**

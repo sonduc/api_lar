@@ -27,7 +27,7 @@ class CollectionTranslateRepository extends BaseRepository
     }
 
     /**
-     * Thêm dữ liệu vào collection_tr
+     * Thêm dữ liệu vào collection_translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $collection

@@ -23,7 +23,7 @@ class CollectionPolicy
      */
     public function view(User $user)
     {
-        return $user->hasAccess(['blog.view']);
+        return $user->hasAccess(['collection.view']);
     }
 
     /**
@@ -35,7 +35,7 @@ class CollectionPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAccess(['blog.create']);
+        return $user->hasAccess(['collection.create']);
     }
 
     /**
@@ -47,7 +47,7 @@ class CollectionPolicy
      */
     public function update(User $user)
     {
-        return $user->hasAccess(['blog.update']);
+        return $user->hasAccess(['collection.update']);
     }
 
     /**
@@ -59,7 +59,7 @@ class CollectionPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasAccess(['blog.delete']);
+        return $user->hasAccess(['collection.delete']);
     }
 
 }

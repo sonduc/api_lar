@@ -20,8 +20,9 @@ class CollectionController extends ApiController
         'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',
         'details.*.*.description'           => 'required|v_title',
         'details.*.*.lang'                  => 'required',
+        'details.*.*.lang.2'                => 'nullable',
         'rooms.1'                           => 'required',
-        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id',
+        'rooms.*'                           => 'required|integer|exists:rooms,id|distinct',
 
     ];
 
@@ -45,6 +46,7 @@ class CollectionController extends ApiController
         'rooms.*.required'                  => 'Trường này không được để trống',
         'rooms.*.integer'                   => 'Mã phòng phải là kiểu số',
         'rooms.*.exists'                    => 'Mã phòng không tồn tại trong hệ thống',
+        'rooms.*.distinct'                  => 'Mã phòng không được phép trùng nhau',
 
 
 
@@ -121,7 +123,7 @@ class CollectionController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-            //dd(DB::getQueryLog());
+            dd(DB::getQueryLog());
             DB::commit();
             logs('collection', 'tạo bộ sưu tập mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');

@@ -50,7 +50,6 @@ class CollectionRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['rooms'])) {
-                $data['rooms'] = array_unique($data['rooms']);
                 $data_collection->rooms()->attach($data['rooms']);
             }
         }
@@ -67,7 +66,6 @@ class CollectionRepository extends BaseRepository
     {
         if (!empty ($data)) {
             if (isset($data['rooms'])) {
-                $data['rooms'] = array_unique($data['rooms']);
                 $data_collection->rooms()->detach();
                 $data_collection->rooms()->attach($data['rooms']);
             }

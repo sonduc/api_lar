@@ -20,7 +20,7 @@ class CollectionTranslate extends Entity
      * @var array
      */
     protected $fillable = [
-        'id','collection_id','name','lang'
+        'id','collection_id','name','lang','description'
     ];
 
     /**
