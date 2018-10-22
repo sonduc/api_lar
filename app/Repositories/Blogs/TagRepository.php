@@ -10,7 +10,7 @@ namespace App\Repositories\Blogs;
 
 use App\Repositories\BaseRepository;
 
-class TagRepository extends BaseRepository
+class TagRepository extends BaseRepository implements TagRepositoryInterface
 {
     protected $model;
     protected $blog;

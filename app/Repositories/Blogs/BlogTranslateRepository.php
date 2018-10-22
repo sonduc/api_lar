@@ -5,7 +5,7 @@ namespace App\Repositories\Blogs;
 
 use App\Repositories\BaseRepository;
 
-class BlogTranslateRepository extends BaseRepository
+class BlogTranslateRepository extends BaseRepository implements BlogTranslateRepositoryInterface
 {
     protected $model;
 
