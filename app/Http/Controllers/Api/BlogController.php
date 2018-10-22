@@ -101,7 +101,7 @@ class BlogController extends ApiController
             $this->authorize('blog.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
-            //dd(DB::getQueryLog());
+            dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'taọ bài vyiết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');

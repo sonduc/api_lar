@@ -17,7 +17,6 @@ class CreateCollectionRoomsTable extends Migration
             $table->bigInteger('room_id');
             $table->bigInteger('collection_id');
             $table->primary(['room_id', 'collection_id']);
-            $table->timestamps();
         });
     }
 

@@ -60,6 +60,6 @@ class Collection extends Entity
      */
     public function rooms()
     {
-        return $this->belongsToMany(Room::class, 'collection_rooms', 'collection_id', 'room_id')->withTimestamps();
+        return $this->belongsToMany(Room::class, 'collection_rooms', 'collection_id', 'room_id');
     }
 }
