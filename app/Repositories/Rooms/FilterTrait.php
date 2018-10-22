@@ -34,7 +34,7 @@ trait FilterTrait
      */
     public function scopeCity($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.city_id', $q);
         }
 
@@ -52,7 +52,7 @@ trait FilterTrait
      */
     public function scopeDistrict($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.district_id', $q);
         }
 
@@ -70,7 +70,7 @@ trait FilterTrait
      */
     public function scopeMerchant($query, $q)
     {
-        if ($q) {
+        if (is_numeric($q)) {
             $query->where('rooms.merchant_id', $q);
         }
 
@@ -114,8 +114,8 @@ trait FilterTrait
     }
 
     /**
-     * Kiểu thuê phòng
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Kiểu cho thuê phòng (theo ngày , theo giờ, cả ngày và giờ)
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $query
      * @param $q
@@ -132,44 +132,8 @@ trait FilterTrait
     }
 
     /**
-     * Nổi bật
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $query
-     * @param $q
-     *
-     * @return mixed
-     */
-    public function scopeHot($query, $q)
-    {
-        if (is_numeric($q)) {
-            return $query->where('rooms.hot', $q);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Mới
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $query
-     * @param $q
-     *
-     * @return mixed
-     */
-    public function scopeNew($query, $q)
-    {
-        if (is_numeric($q)) {
-            return $query->where('rooms.new', $q);
-        }
-
-        return $query;
-    }
-
-    /**
-     * Deal phòng
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Scope latest_deal
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $query
      * @param $q
@@ -178,10 +142,94 @@ trait FilterTrait
      */
     public function scopeLatestDeal($query, $q)
     {
-        if (is_numeric($q)) {
+        if (is_numeric($q))
+        {
             return $query->where('rooms.latest_deal', $q);
         }
+    }
 
+    /**
+     * Kiểu phòng (theo căn hộ ,nhà riêng, phòng riêng)
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeTypeRoom($query, $q)
+    {
+        if (is_numeric($q)) {
+            return $query->where('rooms.room_type', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Lọc phòng theo khoảng giá dựa theo bảng room
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     *
+     * @return array
+     */
+
+    public function scopePriceRangeStart($query,$q)
+    {
+        if ($q)
+        {
+            $query->where('rooms.price_hour','>=',$q)->orWhere('rooms.price_day','>=',$q);
+        }
+        return $query;
+
+    }
+
+    public function scopePriceRangeEnd($query, $q)
+    {
+        if ($q)
+        {
+            $query->where('rooms.price_hour','<=',$q)->where('rooms.price_day','<=',$q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Scope new
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     *
+     * @return array
+     */
+    public function scopeNew($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.new', $q);
+        }
+        return $query;
+    }
+
+    /**
+     * Scope hot
+     * @author 0ducchien612 <0ducchien612@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     *
+     * @return array
+     */
+    public function scopeHot($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.hot', $q);
+        }
         return $query;
     }
 
