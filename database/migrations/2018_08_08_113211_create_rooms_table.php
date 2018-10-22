@@ -34,7 +34,7 @@ class CreateRoomsTable extends Migration
             $table->tinyInteger('is_manager')->default(0);
             $table->tinyInteger('hot')->default(0);
             $table->tinyInteger('new')->default(0);
-            $table->integer('latest_deal')->nullable();
+            $table->tinyInteger('latest_deal')->default(0);
             $table->tinyInteger('rent_type')->default(3);
             $table->text('rules')->nullable();
             $table->string('longitude')->nullable();

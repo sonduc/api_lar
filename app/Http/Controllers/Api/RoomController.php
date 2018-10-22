@@ -51,7 +51,7 @@ class RoomController extends ApiController
         'weekday_price.*.status'             => 'boolean|nullable',
         'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
         'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',
-        'optional_prices.price_day'          => 'required|integer|nullable',
+        'optional_prices.price_day'          => 'integer|nullable',
         'optional_prices.price_hour'         => 'integer|nullable',
         'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest' => 'integer|nullable',
