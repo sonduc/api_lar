@@ -5,7 +5,7 @@ namespace App\Repositories\Users;
 use App\Repositories\BaseRepository;
 use App\User;
 
-class UserRepository extends BaseRepository
+class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
     use FilterTrait, PresentationTrait;
     /**
@@ -26,11 +26,11 @@ class UserRepository extends BaseRepository
 
     /**
      * Lưu thông tin 1 bản ghi mới
-     * @author SaturnLai <daolvcntt@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param  array $data
+     * @param array $data
      *
-     * @return Eloquent
+     * @return \App\Repositories\Eloquent
      */
     public function store($data)
     {
@@ -47,7 +47,8 @@ class UserRepository extends BaseRepository
         $user = parent::update($id, $data);
 
         $roles = array_get($data, 'roles', []);
-        $user->roles()->sync($roles);
+        $user->roles()->detach();
+        $user->roles()->attach($roles);
         return $user;
     }
 

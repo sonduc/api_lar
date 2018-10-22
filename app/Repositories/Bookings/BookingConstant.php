@@ -2,12 +2,14 @@
 
 namespace App\Repositories\Bookings;
 
-abstract class BookingConstant
+final class BookingConstant
 {
     const PREFIX     = 'HM';
     const TIME_BLOCK = 4;
     const TIME_DAY   = 24;
 
+    // Khoảng thời gian trống giữa các lần book
+    const MINUTE_BETWEEN_BOOK = 60;
     // Trạng thái booking:
     const ACTIVE   = 1;
     const INACTIVE = 0;

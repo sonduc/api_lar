@@ -2,6 +2,7 @@
 
 namespace App\Http\Transformers;
 
+use App\Helpers\ErrorCore;
 use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Bookings\Booking;
 use League\Fractal\ParamBag;
@@ -42,8 +43,8 @@ class BookingTransformer extends TransformerAbstract
             'room_id'            => $booking->room_id,
             'customer_id'        => $booking->customer_id,
             'merchant_id'        => $booking->merchant_id,
-            'checkin'            => $booking->checkin ? date('Y-m-d H:i:s', $booking->checkin) : 'Không xác định',
-            'checkout'           => $booking->checkout ? date('Y-m-d H:i:s', $booking->checkout) : 'Không xác định',
+            'checkin'            => $booking->checkin ? date('Y-m-d H:i:s', $booking->checkin) : trans2(ErrorCore::UNDEFINED),
+            'checkout'           => $booking->checkout ? date('Y-m-d H:i:s', $booking->checkout) : trans2(ErrorCore::UNDEFINED),
             'number_of_guests'   => $booking->number_of_guests ?? 0,
             'price_original'     => $booking->price_original,
             'price_discount'     => $booking->price_discount,

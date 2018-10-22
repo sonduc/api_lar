@@ -16,8 +16,8 @@ class CreateRoomTimeBlocksTable extends Migration
         Schema::create('room_time_blocks', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
-            $table->date('time_block')->nullable();
-            $table->tinyInteger('status')->nullable()->default(1);
+            $table->date('date_start')->nullable();
+            $table->date('date_end')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

@@ -4,7 +4,7 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 
-class RoomOptionalPriceRepository extends BaseRepository
+class RoomOptionalPriceRepository extends BaseRepository implements RoomOptionalPriceRepositoryInterface
 {
     /**
      * RoomOptionalPrice model.

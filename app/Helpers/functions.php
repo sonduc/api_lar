@@ -53,10 +53,18 @@ if (!function_exists('rand_name')) {
     }
 }
 
-if (!function_exists('translate')) {
-    function translate($id = null, $replace = [])
+if (!function_exists('trans2')) {
+    function trans2($id = null, $replace = [])
     {
-        $locale = \Illuminate\Support\Facades\Cookie::get('locale') ?? config('app.locale');
+        $locale = getLocale();
+
         return trans($id, $replace, $locale);
+    }
+}
+
+if (!function_exists('getLocale')) {
+    function getLocale()
+    {
+        return \Illuminate\Support\Facades\Cookie::get('locale') ?? config('app.locale');
     }
 }

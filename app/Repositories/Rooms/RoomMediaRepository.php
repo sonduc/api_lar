@@ -5,7 +5,7 @@ namespace App\Repositories\Rooms;
 use App\Events\AmazonS3_Upload_Event;
 use App\Repositories\BaseRepository;
 
-class RoomMediaRepository extends BaseRepository
+class RoomMediaRepository extends BaseRepository implements RoomMediaRepositoryInterface
 {
     /**
      * RoomMedia model.

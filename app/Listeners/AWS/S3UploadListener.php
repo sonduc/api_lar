@@ -51,7 +51,7 @@ class S3UploadListener implements ShouldQueue
         $mime = $this->processor->getMime();
         $img = $this->processor->getEncoded();
 
-        $this->s3->putObject($name, $img, $mime);
+//        $this->s3->putObject($name, $img, $mime);
 //        $this->s3->deleteObjects(['abc.webp']);
     }
 }

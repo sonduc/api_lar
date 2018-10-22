@@ -6,7 +6,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
 
 
-class PaymentHistoryRepository extends BaseRepository
+class PaymentHistoryRepository extends BaseRepository implements PaymentHistoryRepositoryInterface
 {
     /**
      * PaymentHistory model.

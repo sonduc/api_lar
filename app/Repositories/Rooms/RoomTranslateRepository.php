@@ -4,7 +4,7 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 
-class RoomTranslateRepository extends BaseRepository
+class RoomTranslateRepository extends BaseRepository implements RoomTranslateRepositoryInterface
 {
     /**
      * RoomTranslate model.

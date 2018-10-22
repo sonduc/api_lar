@@ -65,6 +65,7 @@ return [
     */
 
     'locale' => 'vi',
+    'fallback_locale' => 'vi',
 
     'locales' => ['vi' => 'Tiếng Việt', 'en' => 'Tiếng Anh'],
 
