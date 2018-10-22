@@ -124,8 +124,62 @@ trait FilterTrait
      */
     public function scopeRentType($query, $q)
     {
-        if ($q && is_numeric($q)) {
+        if (is_numeric($q)) {
             return $query->where('rooms.rent_type', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Nổi bật
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeHot($query, $q)
+    {
+        if (is_numeric($q)) {
+            return $query->where('rooms.hot', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeNew($query, $q)
+    {
+        if (is_numeric($q)) {
+            return $query->where('rooms.new', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Deal phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeLatestDeal($query, $q)
+    {
+        if (is_numeric($q)) {
+            return $query->where('rooms.latest_deal', $q);
         }
 
         return $query;
