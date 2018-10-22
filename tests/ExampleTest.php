@@ -2,9 +2,7 @@
 
 namespace Test;
 
-use Illuminate\Support\Facades\Cache;
 use Laravel\Lumen\Testing\DatabaseTransactions;
-use Test\Base\AccountBase;
 use Test\Roles\Roles;
 
 class ExampleTest extends TestCase
@@ -41,7 +39,7 @@ class ExampleTest extends TestCase
         $option = [
             'headers' => $this->header,
         ];
-        ;
+
         $this->method = 'GET';
         $this->url    = 'users';
 

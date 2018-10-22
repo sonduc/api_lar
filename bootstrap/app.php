@@ -31,6 +31,7 @@ $app->withEloquent();
 // Config file
 // $app->configure('app');
 $app->configure('auth');
+$app->configure('singleton');
 $app->configure('permissions');
 $app->configure('regex');
 $app->configure('languages');
@@ -59,6 +60,7 @@ $app->singleton(
     Illuminate\Contracts\Console\Kernel::class,
     App\Console\Kernel::class
 );
+
 
 /*
 |--------------------------------------------------------------------------
@@ -107,7 +109,6 @@ $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
 $app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
-$app->register(\Intervention\Image\ImageServiceProviderLumen::class);
 
 /*
 |--------------------------------------------------------------------------

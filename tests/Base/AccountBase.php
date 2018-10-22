@@ -27,6 +27,15 @@ class AccountBase
         ]);
     }
 
+    /**
+     * Lấy Bearer token
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param null $role
+     *
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getToken($role = null)
     {
         if (!is_null($role)) {
@@ -48,6 +57,12 @@ class AccountBase
 
     }
 
+    /**
+     * Danh sách các quyền cùng tài khoản
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return array
+     */
     public function user()
     {
         $user = 'admin@westay.org';

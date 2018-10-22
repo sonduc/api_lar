@@ -4,7 +4,7 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 
-class BookingStatusRepository extends BaseRepository
+class BookingStatusRepository extends BaseRepository implements BookingStatusRepositoryInterface
 {
     /**
      * @var BookingStatus

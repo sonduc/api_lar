@@ -3,9 +3,11 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
+use Carbon\Carbon;
 
-class RoomTimeBlockRepository extends BaseRepository
+class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRepositoryInterface
 {
+    use RoomTimeBlockTrait;
     /**
      * RoomTimeBlock model.
      * @var Model
@@ -57,12 +59,30 @@ class RoomTimeBlockRepository extends BaseRepository
      */
     public function storeRoomTimeBlock($room, $data = [], $list = [])
     {
-        foreach ($data['room_time_blocks'] as $time_block) {
-            $arr['time_block'] = $time_block;
+        $blocks = $this->minimizeBlock($data['room_time_blocks']);
+//        dd($blocks);
+        foreach ($blocks as $block) {
+            $arr['date_start'] = $block[0];
+            $arr['date_end']   = array_key_exists(1, $block) ? $block[1] : $block[0];
             $arr['room_id']    = $room->id;
             $list[]            = $arr;
         }
 
         parent::storeArray($list);
+    }
+
+    /**
+     * Lấy các ngày bị block theo mã phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
+    public function getFutureRoomTimeBlockByRoomId($id)
+    {
+        return $this->model->where([
+            ['room_id', $id],
+        ])->get();
     }
 }

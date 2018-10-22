@@ -5,8 +5,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\RoomTransformer;
 use App\Repositories\Rooms\Room;
+use App\Repositories\Rooms\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
-use App\Repositories\Rooms\RoomRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
@@ -56,7 +56,7 @@ class RoomController extends ApiController
         'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest' => 'integer|nullable',
         'optional_prices.status'             => 'boolean|nullable',
-        'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',
+        'room_time_blocks.*.*'               => 'date',
     ];
 
     protected $validationMessages = [
@@ -115,36 +115,35 @@ class RoomController extends ApiController
         'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
         'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-        'cleaning_fee.integer'           => 'Giá dọn phòng phải là kiểu số',
-        'standard_point.integer'         => 'Điểm phải là kiểu số',
-        'is_manager.integer'             => 'Kiểu quản lý phải là kiểu số',
-        'is_manager.between'             => 'Kiểu quản lý không hợp lệ',
-        'hot.integer'                    => 'Nổi bật phải là kiểu số',
-        'hot.between'                    => 'Mã không hợp lệ',
-        'new.between'                    => 'Mã không hợp lệ',
-        'new.integer'                    => 'Mới nhất phải là kiểu số',
-        'latest_deal.integer'            => 'Giá hạ sàn phải là kiểu số',
-        'details.*.*.address.required'   => 'Vui lòng điền địa chỉ',
-        'rent_type.integer'              => 'Kiểu thuê phòng phải là dạng số',
-        'longitude.required'             => 'Kinh độ không được để trống',
-        'latitude.required'              => 'Vĩ độ không được để trống',
-        'sale_id.integer'                => 'Mã saler phải là kiểu số',
-        'sale_id.exists'                 => 'Saler không tồn tại',
-        'lang_id.integer'                => 'Mã ngôn ngữ phải là kiểu số',
-        'lang_id.exists'                 => 'Ngôn ngữ không hợp lệ',
-        'note.v_title'                   => 'Chỉ cho phép chữ và số',
-        'status.integer'                 => 'Mã trạng thái phải là kiểu số',
-        'status.between'                 => 'Mã không hợp lệ',
-        'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
-        'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
+        'cleaning_fee.integer'         => 'Giá dọn phòng phải là kiểu số',
+        'standard_point.integer'       => 'Điểm phải là kiểu số',
+        'is_manager.integer'           => 'Kiểu quản lý phải là kiểu số',
+        'is_manager.between'           => 'Kiểu quản lý không hợp lệ',
+        'hot.integer'                  => 'Nổi bật phải là kiểu số',
+        'hot.between'                  => 'Mã không hợp lệ',
+        'new.between'                  => 'Mã không hợp lệ',
+        'new.integer'                  => 'Mới nhất phải là kiểu số',
+        'latest_deal.integer'          => 'Giá hạ sàn phải là kiểu số',
+        'details.*.*.address.required' => 'Vui lòng điền địa chỉ',
+        'rent_type.integer'            => 'Kiểu thuê phòng phải là dạng số',
+        'longitude.required'           => 'Kinh độ không được để trống',
+        'latitude.required'            => 'Vĩ độ không được để trống',
+        'sale_id.integer'              => 'Mã saler phải là kiểu số',
+        'sale_id.exists'               => 'Saler không tồn tại',
+        'lang_id.integer'              => 'Mã ngôn ngữ phải là kiểu số',
+        'lang_id.exists'               => 'Ngôn ngữ không hợp lệ',
+        'note.v_title'                 => 'Chỉ cho phép chữ và số',
+        'status.integer'               => 'Mã trạng thái phải là kiểu số',
+        'status.between'               => 'Mã không hợp lệ',
+        'room_time_blocks.*.*.date'    => 'Ngày không hợp lệ',
     ];
 
     /**
      * RoomController constructor.
      *
-     * @param RoomRepository $room
+     * @param RoomLogic $room
      */
-    public function __construct(RoomRepository $room)
+    public function __construct(RoomLogic $room)
     {
         $this->model = $room;
         $this->setTransformer(new RoomTransformer);
@@ -216,19 +215,19 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            DB::commit();
+            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
         } catch (ImageException $imageException) {
             return $this->notSupportedMediaResponse([
-                'error' => $imageException->getMessage(),
-            ]);
+                                                        'error' => $imageException->getMessage(),
+                                                    ]);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -262,9 +261,40 @@ class RoomController extends ApiController
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Lấy các ngày đã khóa theo mã phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomSchedule($id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = [
+                'data' => [
+                    'blocks' => $this->model->getFutureRoomSchedule($id),
+                ],
+            ];
+            return $this->successResponse($data, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
@@ -316,17 +346,17 @@ class RoomController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+                                            'errors'    => $validationException->validator->errors(),
+                                            'exception' => $validationException->getMessage(),
+                                        ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
+                                            'error' => $e->getMessage(),
+                                        ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

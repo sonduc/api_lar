@@ -19,7 +19,7 @@ class RoomTimeBlock extends Entity
      */
     protected $fillable
         = [
-            'room_id', 'time_block', 'status',
+            'room_id', 'date_start', 'date_end',
         ];
 
     /**

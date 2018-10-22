@@ -39,6 +39,12 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         ];
     }
 
+    /**
+     * Thiết lập header
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $token
+     */
     public function setHeader($token) {
         $this->header = [
             'User-Agent'    => 'testing/2.0',
@@ -47,11 +53,27 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         ];
     }
 
+    /**
+     * Giả lập đăng nhập theo chức vụ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param string $role
+     *
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function loginAs($role = 'admin') {
         $user = new AccountBase();
         $this->setHeader($user->getToken($role));
     }
 
+    /**
+     * Tạo request đến Guzzle Client
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $option
+     *
+     * @return $this
+     */
     public function request($option = [])
     {
         $this->response = $this->http->request(
@@ -63,17 +85,35 @@ abstract class TestCase extends \Laravel\Lumen\Testing\TestCase
         return $this;
     }
 
+    /**
+     * Lưu response vào instance
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return $this
+     */
     public function body()
     {
         $this->response = json_decode($this->response->getBody()->getContents());
         return $this;
     }
 
+    /**
+     * Lấy mã code trả về
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
     public function getCode()
     {
         return $this->response->code;
     }
 
+    /**
+     * Lấy data trả về
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
     public function getData()
     {
         return $this->response->data;

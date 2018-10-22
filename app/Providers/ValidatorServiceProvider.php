@@ -21,5 +21,6 @@ class ValidatorServiceProvider extends ServiceProvider
     {
         Validator::extend('v_title', 'App\Validator\VietnameseNameValidator@passes');
         Validator::extend('guest_check', 'App\Validator\NumberOfGuestsValidator@check');
+        Validator::extend('booking_type_check', 'App\Validator\RoomTypeValidator@check');
     }
 }

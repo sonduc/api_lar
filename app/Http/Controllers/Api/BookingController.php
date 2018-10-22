@@ -2,20 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\AmazonS3_Upload_Event;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingConstant;
-use App\Repositories\Bookings\BookingRepository;
+use App\Repositories\Bookings\BookingLogic;
+use App\Repositories\Rooms\RoomRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Intervention\Image\Exception\ImageException;
-use Sinergi\BrowserDetector\Browser;
-use Sinergi\BrowserDetector\UserAgent;
 
 class BookingController extends ApiController
 {
-    protected $validationRules    = [
+    protected $validationRules = [
         'name'             => 'required|v_title',
         'name_received'    => 'required|v_title',
         'phone'            => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
@@ -25,22 +22,18 @@ class BookingController extends ApiController
         'email'            => 'email',
         'email_received'   => 'nullable|email',
         'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',
-        //        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',
         'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'staff_note'       => 'nullable|v_title',
         'checkin'          => 'required|date|after:now',
         'checkout'         => 'required|date|after:checkin',
-        //        'price_original'   => 'required|integer|min:0',
         'additional_fee'   => 'filled|integer|min:0',
         'price_discount'   => 'filled|integer|min:0',
-        //                'service_fee'      => 'nullable|integer',
         'coupon'           => 'nullable|string',
         'note'             => 'nullable|v_title',
-        'number_of_guests' => 'required|integer|min:1|guest_check',
+        'number_of_guests' => 'bail|required|guest_check|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'status'           => 'required|integer|between:1,5',
-        //        'type'             => 'required|integer|between:1,2',
-        'booking_type'     => 'required|integer|between:1,2',
+        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
         'payment_method'   => 'required|integer|between:1,5',
         'payment_status'   => 'required|integer|between:0,3',
         'source'           => 'required|integer|between:1,6',
@@ -49,54 +42,48 @@ class BookingController extends ApiController
         'confirm'          => 'integer|between:0,1',
     ];
     protected $validationMessages = [
-        'name.required'                => 'Vui lòng điền tên',
-        'name.v_title'                 => 'Tên không đúng định dạng',
-        'name_received.required'       => 'Vui lòng điền tên',
-        'phone.required'               => 'Vui lòng điền số điện thoại',
-        'phone.between'                => 'Số điện thoại không phù hợp',
-        'phone.regex'                  => 'Số điện thoại không hợp lệ',
-        'phone_received.required'      => 'Vui lòng điền số điện thoại',
-        'phone_received.between'       => 'Số điện thoại không phù hợp',
-        'phone_received.regex'         => 'Số điện thoại không hợp lệ',
-        'sex.integer'                  => 'Mã giới tính phải là kiểu số',
-        'sex.between'                  => 'Giới tính không phù hợp',
-        'birthday.date_format'         => 'Ngày sinh phải ở định dạng Y-m-d',
-        'email.email'                  => 'Email không đúng định dạng',
-        'email_received.email'         => 'Email không đúng định dạng',
-        'room_id.required'             => 'Vui lòng chọn phòng',
-        'room_id.integer'              => 'Mã phòng phải là kiểu số',
-        'room_id.exists'               => 'Phòng không tồn tại',
-        'customer_id.required'         => 'Vui lòng chọn khách hàng',
-        'customer_id.integer'          => 'Mã khách hàng phải là kiểu số',
-        'merchant_id.required'         => 'Vui lòng chọn chủ nhà',
-        'merchant_id.integer'          => 'Mã chủ nhà phải là kiểu số',
-        'merchant_id.exists'           => 'Chủ nhà không tồn tại',
-        'staff_id.integer'             => 'Mã nhân viên phải là kiểu số',
-        'staff_id.exists'              => 'Nhân viên không tồn tại',
-        'staff_note.v_title'           => 'Phải là văn bản tiếng việt',
-        'checkin.required'             => 'Vui lòng nhập thời gian checkin',
-        'checkin.date_format'          => 'Checkin phải có định dạng Y-m-d H:i:s',
-        'checkin.after'                => 'Thời gian checkin không được phép ở thời điểm quá khứ',
-        'checkout.required'            => 'Vui lòng nhập thời gian checkout',
-        'checkout.date_format'         => 'Checkout phải có định dạng Y-m-d H:i:s',
-        'checkout.after'               => 'Thời gian checkout phải sau thời gian checkin',
-        'price_original.required'      => 'Vui lòng điền giá',
-        'price_original.integer'       => 'Giá phải là kiểu số',
-        'additional_fee.required'      => 'Vui lòng điền giá',
-        'additional_fee.filled'        => 'Vui lòng điền giá',
-        'additional_fee.integer'       => 'Giá phải là kiểu số',
-        'price_discount.required'      => 'Vui lòng điền giá',
-        'price_discount.filled'        => 'Vui lòng điền giá',
-        'price_discount.integer'       => 'Giá phải là kiểu số',
-        'service_fee.integer'          => 'Giá phải là kiểu số',
-        'coupon.string'                => 'Coupon không được chứa ký tự đặc biệt',
-        'note.v_title'                 => 'Note phải là văn bản không chứa ký tự đặc biệt',
-        'number_of_guests.required'    => 'Vui lòng điền số khách',
-        'number_of_guests.integer'     => 'Số khách phải là kiểu số',
-        'number_of_guests.min'         => 'Tối thiểu 1 khách',
-        'status.required'              => 'Vui lòng chọn trạng thái',
-        'status.integer'               => 'Mã trạng thái phải là kiểu số',
-        'status.between'               => 'Mã trạng thái không phù hợp',
+        'name.required'             => 'Vui lòng điền tên',
+        'name.v_title'              => 'Tên không đúng định dạng',
+        'name_received.required'    => 'Vui lòng điền tên',
+        'phone.required'            => 'Vui lòng điền số điện thoại',
+        'phone.between'             => 'Số điện thoại không phù hợp',
+        'phone.regex'               => 'Số điện thoại không hợp lệ',
+        'phone_received.required'   => 'Vui lòng điền số điện thoại',
+        'phone_received.between'    => 'Số điện thoại không phù hợp',
+        'phone_received.regex'      => 'Số điện thoại không hợp lệ',
+        'sex.integer'               => 'Mã giới tính phải là kiểu số',
+        'sex.between'               => 'Giới tính không phù hợp',
+        'birthday.date_format'      => 'Ngày sinh phải ở định dạng Y-m-d',
+        'email.email'               => 'Email không đúng định dạng',
+        'email_received.email'      => 'Email không đúng định dạng',
+        'room_id.required'          => 'Vui lòng chọn phòng',
+        'room_id.integer'           => 'Mã phòng phải là kiểu số',
+        'room_id.exists'            => 'Phòng không tồn tại',
+        'customer_id.required'      => 'Vui lòng chọn khách hàng',
+        'customer_id.integer'       => 'Mã khách hàng phải là kiểu số',
+        'staff_id.integer'          => 'Mã nhân viên phải là kiểu số',
+        'staff_id.exists'           => 'Nhân viên không tồn tại',
+        'staff_note.v_title'        => 'Phải là văn bản tiếng việt',
+        'checkin.required'          => 'Vui lòng nhập thời gian checkin',
+        'checkin.date_format'       => 'Checkin phải có định dạng Y-m-d H:i:s',
+        'checkin.after'             => 'Thời gian checkin không được phép ở thời điểm quá khứ',
+        'checkout.required'         => 'Vui lòng nhập thời gian checkout',
+        'checkout.date_format'      => 'Checkout phải có định dạng Y-m-d H:i:s',
+        'checkout.after'            => 'Thời gian checkout phải sau thời gian checkin',
+        'additional_fee.required'   => 'Vui lòng điền giá',
+        'additional_fee.filled'     => 'Vui lòng điền giá',
+        'additional_fee.integer'    => 'Giá phải là kiểu số',
+        'price_discount.required'   => 'Vui lòng điền giá',
+        'price_discount.filled'     => 'Vui lòng điền giá',
+        'price_discount.integer'    => 'Giá phải là kiểu số',
+        'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
+        'note.v_title'              => 'Note phải là văn bản không chứa ký tự đặc biệt',
+        'number_of_guests.required' => 'Vui lòng điền số khách',
+        'number_of_guests.integer'  => 'Số khách phải là kiểu số',
+        'number_of_guests.min'      => 'Tối thiểu 1 khách',
+        'status.required'           => 'Vui lòng chọn trạng thái',
+        'status.integer'            => 'Mã trạng thái phải là kiểu số',
+        'status.between'            => 'Mã trạng thái không phù hợp',
 
         'type.required' => 'Vui lòng chọn hình thức booking',
         'type.integer'  => 'Mã hình thức phải là kiểu số',
@@ -126,17 +113,19 @@ class BookingController extends ApiController
         'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
     ];
 
-    protected $model;
     protected $browser;
+    protected $room;
 
     /**
      * BookingController constructor.
      *
-     * @param BookingRepository $booking
+     * @param BookingLogic            $booking
+     * @param RoomRepositoryInterface $room
      */
-    public function __construct(BookingRepository $booking)
+    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room)
     {
-        $this->model   = $booking;
+        $this->model = $booking;
+        $this->room  = $room;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -157,14 +146,19 @@ class BookingController extends ApiController
         $this->trash = $this->trashStatus($request);
         $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 
-      // dd(DB::getQueryLog());
+        // dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
     /**
-     * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id <p>Mã booking</p>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function show(Request $request, $id)
     {
@@ -189,7 +183,6 @@ class BookingController extends ApiController
         try {
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
             $data = $this->model->store($request->all());
 //            dd(DB::getQueryLog());
             DB::commit();
@@ -220,6 +213,16 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param int     $id <p>Mã của booking</p>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -245,6 +248,15 @@ class BookingController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            if ($e instanceof InvalidDateException) {
+                return $this->errorResponse([
+                    'errors'    => $e->getField(),
+                    'exception' => $e->getValue(),
+                ]);
+            }
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -252,6 +264,15 @@ class BookingController extends ApiController
         }
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param int $id <p>Mã của booking</p>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function destroy($id)
     {
         DB::beginTransaction();
@@ -283,6 +304,7 @@ class BookingController extends ApiController
      */
     public function priceCalculator(Request $request)
     {
+        DB::enableQueryLog();
         try {
             $this->authorize('booking.create');
             // Tái cấu trúc validate để tính giá tiền
@@ -297,10 +319,9 @@ class BookingController extends ApiController
                 'booking_type',
             ]);
             $validate['checkin'] = 'required|date';
-
             $this->validate($request, $validate, $this->validationMessages);
 
-            $room = $this->model->getRoomById($request->all());
+            $room = $this->room->getById($request->room_id);
             $data = [
                 'data' => $this->model->priceCalculator($room, $request->all()),
             ];
@@ -314,6 +335,15 @@ class BookingController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            if ($e instanceof InvalidDateException) {
+                return $this->errorResponse([
+                    'errors'    => $e->getField(),
+                    'exception' => $e->getValue(),
+                ]);
+            }
+//            return $this->errorResponse([
+//                'error' => $e->getMessage(),
+//            ]);
             throw $e;
         }
     }
@@ -323,7 +353,7 @@ class BookingController extends ApiController
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Request $request
-     * @param         $id
+     * @param int     $id <p>Mã của booking</p>
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
@@ -375,7 +405,7 @@ class BookingController extends ApiController
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Request $request
-     * @param         $id
+     * @param int     $id <p>Mã của booking</p>
      *
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable

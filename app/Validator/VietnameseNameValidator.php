@@ -4,7 +4,7 @@ namespace App\Validator;
 
 use Illuminate\Contracts\Validation\Rule;
 
-class VietnameseNameValidator implements Rule
+class VietnameseNameValidator extends BaseValidator
 {
 
     /**

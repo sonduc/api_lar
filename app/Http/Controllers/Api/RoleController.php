@@ -10,7 +10,7 @@ class RoleController extends ApiController
 {
     protected $validationRules
         = [
-            'name'        => 'required',
+            'name'        => 'required|unique:roles,name',
             'slug'        => 'required',
             'permissions' => 'nullable|array',
         ];
