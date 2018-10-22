@@ -12,7 +12,8 @@
 */
 
 $router->get('/', function () use ($router) {
-    return $router->app->version();
+    $test = $router-> config('permissions');
+    dd($test);
 });
 
 

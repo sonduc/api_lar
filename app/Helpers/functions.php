@@ -57,7 +57,6 @@ if (!function_exists('translate')) {
     function translate($id = null, $replace = [])
     {
         $locale = \Illuminate\Support\Facades\Cookie::get('locale') ?? config('app.locale');
-
         return trans($id, $replace, $locale);
     }
 }

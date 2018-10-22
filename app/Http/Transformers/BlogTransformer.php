@@ -2,7 +2,6 @@
 
 namespace App\Http\Transformers;
 
-use App\Repositories\Categories\Category;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Blogs\Blog;
 use League\Fractal\ParamBag;
@@ -37,6 +36,15 @@ class BlogTransformer extends TransformerAbstract
 
         ];
     }
+
+    /**
+     * Thông tin chi tiết bài viết
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Blog|null $blog
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeDetails(Blog $blog = null, ParamBag $params = null)
     {
         if (is_null($blog)) {

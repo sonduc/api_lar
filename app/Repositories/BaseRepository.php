@@ -49,7 +49,6 @@ abstract class BaseRepository implements EntityInterface
                 if ($reflection->hasMethod('scope' . $funcName)) {
                     $funcName = lcfirst($funcName);
                     $lModel   = $lModel->$funcName($funcParams);
-                    //dd($lModel->get());
                 }
             }
         }

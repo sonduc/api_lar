@@ -98,6 +98,7 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\ValidatorServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 
+
 $app->register(Laravel\Passport\PassportServiceProvider::class);
 $app->register(Dusterio\LumenPassport\PassportServiceProvider::class);
 $app->register(ElfSundae\Laravel\Hashid\HashidServiceProvider::class);
@@ -129,6 +130,7 @@ $app->register(\Intervention\Image\ImageServiceProviderLumen::class);
 | can respond to, as well as the controllers that may handle them.
 |
 */
+
 
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
