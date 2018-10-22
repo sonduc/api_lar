@@ -35,7 +35,7 @@ class RoomController extends ApiController
         'is_manager'                         => 'integer|nullable|between:0,1',
         'hot'                                => 'integer|between:0,1',
         'new'                                => 'integer|between:0,1',
-        'latest_deal'                        => 'integer|nullable',
+        'latest_deal'                        => 'integer|nullable|between:0,1',
         'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
         // 'latitude'                                       => 'required',
@@ -123,7 +123,8 @@ class RoomController extends ApiController
         'hot.between'                    => 'Mã không hợp lệ',
         'new.between'                    => 'Mã không hợp lệ',
         'new.integer'                    => 'Mới nhất phải là kiểu số',
-        'latest_deal.integer'            => 'Giá hạ sàn phải là kiểu số',
+        'latest_deal.between'            => 'Mã không hợp lệ',
+        'latest_deal.integer'            => 'Trạng thái deal phải là kiểu số',
         'details.*.*.address.required'   => 'Vui lòng điền địa chỉ',
         'rent_type.integer'              => 'Kiểu thuê phòng phải là dạng số',
         'longitude.required'             => 'Kinh độ không được để trống',
@@ -135,7 +136,7 @@ class RoomController extends ApiController
         'note.v_title'                   => 'Chỉ cho phép chữ và số',
         'status.integer'                 => 'Mã trạng thái phải là kiểu số',
         'status.between'                 => 'Mã không hợp lệ',
-        'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng Y-m-d',
+        'room_time_blocks.*.date_format' => 'Ngày không đúng định dạng',
         'room_time_blocks.*.distinct'    => 'Ngày không được phép trùng nhau',
     ];
 
