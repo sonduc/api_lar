@@ -9,8 +9,8 @@ class Blog extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
     // Định nghĩa trạng thái bài viết
-    const AVAILABLE    = 0;
-    const UNAVAILABLE  = 1;
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
     const BLOG_STATUS    = [
         self::AVAILABLE      => 'ĐÃ DUYỆT',
         self::UNAVAILABLE    => 'ĐANG CHỜ DUYỆT',
@@ -82,7 +82,8 @@ class Blog extends Entity
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function users()
+
+    public function user()
     {
         return $this->belongsTo(\App\User::class,'user_id');
     }

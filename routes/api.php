@@ -109,7 +109,7 @@ $router->group([
      */
     $router->get('/blogs/status-list', 'BlogController@statusList');
     $router->get('/blogs/hot-list', 'BlogController@hotList');
-    $router->get('/blogs/new-list', 'BlogController@hotList');
+    $router->get('/blogs/new-list', 'BlogController@newList');
     $router->put('/blogs/single-update/{id}', 'BlogController@singleUpdate');
     resource('/blogs', 'BlogController', $router);
 

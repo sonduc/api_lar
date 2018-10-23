@@ -12,11 +12,11 @@ class BlogController extends ApiController
 {
     protected $validationRules
         = [
-            'hot'                       => 'required|integer|between:0,1',
-            'status'                    => 'required|integer|between:0,1',
+            'hot'                       => 'numeric|between:0,1',
+            'status'                    => 'numeric|between:0,1',
+            'new'                       => 'numeric|between:0,1',
             //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
             'category_id'               => 'required|numeric|exists:categories,id',
-            'user_id'                   => 'required|numeric',
             'details.*.*.title'         => 'required|v_title|unique:blog_translates,title',
             'details.*.*.lang'          => 'required',
             'details.*.*.content'       => 'required',
@@ -24,17 +24,15 @@ class BlogController extends ApiController
         ];
     protected $validationMessages
         = [
-            'hot.required'               => 'Vui lòng chọn mã nổi bật',
-            'hot.interger'                => ' Mã nổi bật phải là kiểu số',
+            'hot.numeric'                => ' Mã nổi bật phải là kiểu số',
             'hot.between'                => 'Mã nổi bật không phù hợp',
-            'status.required'            => 'Vui lòng chọn mã trạng thái',
-            'status.numeric'             => 'Mã trạng thái phải là kiểu s',
-            'status.between'             => 'Mã trạng thái không phhơp',
+            'status.numeric'             => 'Mã trạng thái phải là kiểu số',
+            'status.between'             => 'Mã trạng thái không hơp',
+            'new.numeric'                => 'Mã trạng thái phải là kiểu số',
+            'new.between'                => 'Mã trạng thái không hơp',
             'category_id.required'       => 'Vui lòng chọn danh mục',
             'category_id.numeric'        => 'Mã danh mục phải là kiểu số',
             'category_id.exists'         => 'Danh mục không tồn tại',
-            'user_id.required'           => 'Vui lòng chọn người viết bài',
-            'user_id.numeric'            => 'Mã người viết bài phải là kiểu số',
             //'image.image'                       =>'Định dạng không phải là hình ảnh',
             //'image.mimes'                       => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
             'details.*.*.title.required' => 'Tiêu đề không được để trông',
@@ -101,7 +99,7 @@ class BlogController extends ApiController
             $this->authorize('blog.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
-            dd(DB::getQueryLog());
+           // dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
@@ -129,7 +127,7 @@ class BlogController extends ApiController
             $this->validationRules['details.*.*.title'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-           dd(DB::getQueryLog());
+           //dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());
@@ -189,7 +187,7 @@ class BlogController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('blog.update');
-            $avaiable_option = ['hot', 'status'];
+            $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
             if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
 

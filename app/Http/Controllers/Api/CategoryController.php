@@ -13,8 +13,8 @@ use Illuminate\Validation\Rule;
 class CategoryController extends ApiController
 {
     protected $validationRules = [
-        'hot'                               => 'required|integer|between:0,1',
-        'status'                            => 'required|integer|between:0,1',
+        'hot'                               => 'integer|between:0,1',
+        'status'                            => 'integer|between:0,1',
         'new'                            => 'required|integer|between:0,1',
         //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
@@ -22,15 +22,12 @@ class CategoryController extends ApiController
     ];
     protected $validationMessages = [
         //type=status
-        'status.required'                   => 'Vui lòng chọn trạng thái',
         'status.integer'                    => 'Mã trạng thái phải là kiểu số',
         'status.between'                    => 'Mã trạng thái không phù hợp',
         //type=hot
-        'hot.required'                      => 'Vui lòng chọn mã nổi bật',
         'hot.integer'                       => 'Mã nổi bật phải là kiểu số',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
         //type=new
-        'new.required'                      => 'Danh mục mới nhất không được để trống',
         'new.integer'                       => 'Danh mục mới nhất phải là kiểu số',
         'new.between'                       => 'Mã danh mục mới nhất không phù hợp',
 
@@ -179,7 +176,7 @@ class CategoryController extends ApiController
         DB::beginTransaction();
         try {
 
-            $avaiable_option = ['hot', 'status'];
+            $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
 
             if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');

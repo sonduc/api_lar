@@ -3,7 +3,7 @@
 namespace App\Repositories\Blogs;
 
 use App\Repositories\BaseRepository;
-
+use Illuminate\Support\Facades\Auth;
 class BlogRepository extends BaseRepository
 {
     /**
@@ -41,8 +41,9 @@ class BlogRepository extends BaseRepository
      */
     public function store($data = null)
     {
-        $data['image'] = rand_name($data['image']);
-        $data_blog     = parent::store($data);
+        $data['user_id']    = Auth::user()->id;
+        $data['image']      = rand_name($data['image']);
+        $data_blog          = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
@@ -60,10 +61,11 @@ class BlogRepository extends BaseRepository
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
+        $data['user_id']    = Auth::user()->id;
         $data['image'] = rand_name($data['image']);
         $data_blog     = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);
-        $list_tag_id = $this->tag->storeTag($data_blog, $data);
+        $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
         $data_blog->tags()->attach($list_tag_id);
         return $data_blog;

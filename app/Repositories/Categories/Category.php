@@ -8,8 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Category extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    const AVAILABLE    = 0;
-    const UNAVAILABLE  = 1;
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
     const CATEGORY_STATUS    = [
         self::AVAILABLE      => 'HOẠT ĐỘNG',
         self::UNAVAILABLE    => 'KHOÁ',
@@ -31,7 +31,7 @@ class Category extends Entity
      */
     protected $fillable
         = [
-            'hot','status','image',
+            'hot','status','image','new'
         ];
 
     /**
