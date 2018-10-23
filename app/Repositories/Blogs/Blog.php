@@ -33,7 +33,7 @@ class Blog extends Entity
      */
     protected $fillable
         = [
-            'image','status','hot','user_id','category_id'
+            'image','status','hot','user_id','category_id','new'
         ];
 
     /**

@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-23T05:32:20.625Z",
+	"__export_date": "2018-10-23T14:59:26.347Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -20,7 +20,7 @@
 			"data": {},
 			"isPrivate": false,
 			"metaSortKey": 1532661382540,
-			"modified": 1534231228066,
+			"modified": 1540274966717,
 			"name": "New Environment",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "environment"
@@ -261,7 +261,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg4YzQxMjBkMDI4MzcxNThmZjc1NzdhZGRjMDcxNGJmYmQ4YmJiNjcyMTFiYjA1ZTNiMmFlMDY0Nzg5YTkyZGVlZWExYWFkNTU0OWNlMGQ1In0.eyJhdWQiOiI0IiwianRpIjoiODhjNDEyMGQwMjgzNzE1OGZmNzU3N2FkZGMwNzE0YmZiZDhiYmI2NzIxMWJiMDVlM2IyYWUwNjQ3ODlhOTJkZWVlYTFhYWQ1NTQ5Y2UwZDUiLCJpYXQiOjE1NDAyNzAzMDcsIm5iZiI6MTU0MDI3MDMwNywiZXhwIjoxNTcxODA2MzA3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ro1kzyKUVVlcdcEugH5aM2_dGvZyTVkO_SsyRnIzmOhjlWTzHCKD2CS49XAN1327B804LJgOVaF24xTgAqXD90Cwq7cPHdxCZIYMTOcUs1w-HNHknRjz7EUxK6rihrSHkZ4dkWNYwrT-aqsyy5QOO3GcryF6XZmWuRrz0XQiCOIFn3jMkJHtzVv39i1Ks2US6g6HdzA8e33vcNS9k0PzObvxkni5v-LgK0mf1QuX-gZGcfeSETu9zQuMz_bveLpnFcb0vYcJGx8dX6tdfrhdAatGoQrs222h3fgfB6lKvBLf_Nc5eHTbUFZToHhN4ASS9zn_df7bOcY4__Bc4jHiVezPc4WBn5Ek9mEGqPxqLMT0l_Xrogeg6E0dJtMd8p5XmkgZAolmofykiqirt6yS0QIbm9wfOzFSuuwVCL75Rph8QLW0jyA4FyRH0FDlUmd6D_P_tvPVHh_o0r9iRON60Kbzfs4VTxPp64MfJjdcPBzStvCpMT7BKaSRjAmuFvoXq-eusjSGjCmZ5AMFyCMG6Dq-ek2UEQMNDM16KtBSCwF9cAJnWtjG1ahrKWrVxEK2pIeuimB5Ae0MVgVg0K5Bpu9xAWWc0e3ynTW7ZYmRNMVqfMtGT5hoSLynaN6Ja7BdNcfc59oZFIlkkezw09AGVUPmr2DxXS2c5-y-gpqvsSc"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjZjZWEwMzdlMjUxNzFlM2EyYTMzZWFiZDc1NTMxNDU4ZTMxOWUwMTM5Nzk2NTZhMWMyODg4OGE4YjEwOTQ0MzBkYzM2OTA4ZTJhZDBjN2M3In0.eyJhdWQiOiIyIiwianRpIjoiNmNlYTAzN2UyNTE3MWUzYTJhMzNlYWJkNzU1MzE0NThlMzE5ZTAxMzk3OTY1NmExYzI4ODg4YThiMTA5NDQzMGRjMzY5MDhlMmFkMGM3YzciLCJpYXQiOjE1NDAyODM0NjcsIm5iZiI6MTU0MDI4MzQ2NywiZXhwIjoxNTcxODE5NDY2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.BYCALDmfrQD6zkVMFB_9KNIzvI33mS04mJicXJiqruRzCVWtWyAFb-M0J_VkGZ9T5cWWR929DSPLUN5Rng-VWm4qw4s8VlzlMJjV82i1I7fKjF4T3lNHxNehcMt1Podawp70eoeBociYxCN_l_UVkGwukI_FveFJQPZWpHimMlZFqrxHVJl_lh9Di0OjOLKyNLsHrzfFo1EnsC61lyzEHqURtBLB1lrbDC3siKLUzq5sMpr8NDfQiE81HLKqa8wOtDZ-8e8rliEbffWbnwgQ5lDPt5aVSTly6jgvbB9EmI76mgVi4VvMpa609XG94hTuTtHGgwk8wloT5_arZCo8UTX44wHxeTEvIU5teiewB0kjBwyuVwi_hoHkEq2RRqG0hnBgWUBMVRBHy4Nyflef1OmE-o5Q0RmvP5IBcJQIt6vMxNW8t38zNPsk7rsiikZfKF26aXGwj7ll7z6Fczpfm90UJq2Kt425_PA1uOuKkUhCk_Njz22EjCnbWWmJF2mgvwlkGO3F7bANQO9M34TG7QNa1PW7FHk71uq48isKISOFl0zTx7PyYP04ffAxEEbsZxVKg9vrsIcVExRdRS7Birvq6IIA-YXldxmijQvkr3HLfu87jLAzpnCSnZcD1MrBphVd2sqYGg3iFFJaOD8OnbBTqxhZ57xzE352r4t2CBU"
 				},
 				"url": "http://wsapi.test/",
 				"username": "admin@westay.org",
@@ -269,7 +269,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1540270342146,
+			"modified": 1540283507686,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -958,7 +958,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1540270342545,
+			"modified": 1540283533237,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1038,7 +1038,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1540048707133,
+			"modified": 1540278578102,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1111,7 +1111,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1540268927902,
+			"modified": 1540278457231,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1148,7 +1148,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1539594293162,
+			"modified": 1540276523775,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1182,7 +1182,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384231.25,
 			"method": "DELETE",
-			"modified": 1538472499149,
+			"modified": 1540276516803,
 			"name": "delete",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1219,7 +1219,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883384181.25,
 			"method": "POST",
-			"modified": 1539247222546,
+			"modified": 1540276513985,
 			"name": "changeStatus",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1256,7 +1256,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884128304.9375,
 			"method": "PUT",
-			"modified": 1539592847971,
+			"modified": 1540276519099,
 			"name": "prop-update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2307,7 +2307,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1540272665294,
+			"modified": 1540302911128,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2361,10 +2361,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 0,\n\t\"new\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"fflllfffsqse\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasdsdfsdfdđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"wedndnuellldd\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h5,h6,h4,h8,1,2,3\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"new\": \"\",\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"sfnuhef\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hsdifusdf\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h11,h12,1,2,3,h4,5,6\"\n\t\t\t}\n\t\t\n\t\t]\n\t}\n}"
 			},
 			"created": 1537755377319,
-			"description": "            'hot'                       => 'numeric|between:0,1',\n            'status'                    => 'numeric|between:0,1',\n            'new'                       => 'numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'               => 'required|numeric|exists:categories,id',\n            'details.*.*.title'         => 'required|v_title|unique:blog_translates,title',\n            'details.*.*.lang'          => 'required',\n            'details.*.*.content'       => 'required',\n            'tags.*.*.name'             => 'required|v_title',",
+			"description": "            'hot'                       => 'nullable|numeric|between:0,1',\n            'status'                    => 'nullable|numeric|between:0,1',\n            'new'                       => 'nullable|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'               => 'required|numeric|exists:categories,id',\n            'details.*.*.title'         => 'required|v_title|unique:blog_translates,title'\n            'details.*.*.lang'          => 'required',\n            'details.*.*.content'       => 'required',\n            'tags.*.*.name'             => 'required|v_title',",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -2380,7 +2380,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1540272669092,
+			"modified": 1540302902494,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2398,10 +2398,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h11,h12,1,2,3,h4,5,6\"\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h11,h12,1,2,3,h4,5,6\"\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1537755377370,
-			"description": "            'hot'                       => 'numeric|between:0,1',\n            'status'                    => 'numeric|between:0,1',\n            'new'                       => 'numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'               => 'required|numeric|exists:categories,id',\n            'details.*.*.title'         => 'required|v_title',\n            'details.*.*.lang'          => 'required',\n            'details.*.*.content'       => 'required',\n            'tags.*.*.name'             => 'required|v_title',",
+			"description": "            'hot'                       => 'nullable|numeric|between:0,1',\n            'status'                    => 'nullable|numeric|between:0,1',\n            'new'                       => 'nullable|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'               => 'required|numeric|exists:categories,id',\n            'details.*.*.title'         => 'required|v_title',\n            'details.*.*.lang'          => 'required',\n            'details.*.*.content'       => 'required',\n            'tags.*.*.name'             => 'required|v_title',",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2417,7 +2417,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1540272706313,
+			"modified": 1540302838890,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2427,7 +2427,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/3",
+			"url": "{{ api_url  }}blogs/2",
 			"_type": "request"
 		},
 		{
@@ -2488,7 +2488,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883880280.375,
 			"method": "PUT",
-			"modified": 1540272383765,
+			"modified": 1540290140834,
 			"name": "single-update",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -2528,7 +2528,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1540272647256,
+			"modified": 1540285609462,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2582,10 +2582,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"hot\": 1,\n\t\"status\": 1,\n\t\"new\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"cur1fsdfhdeshfde11\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"sdksfjisojfeeeiojeeddkemdke\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
+				"text": "{\n  \"hot\": 1,\n\t\"status\": 1,\n\t\"new\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"sdhfhrufh\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"fjsij8fr\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
 			},
 			"created": 1537871510820,
-			"description": "\n        'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n\t\t'new'                               => 'required|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|unique:categories_translate,name',\n        'details.*.*.lang'                  =>'required',",
+			"description": "\n        'hot'                               => 'nullable||integer|between:0,1',\n        'status'                            => 'nullable||integer|between:0,1',\n\t\t'new'                               => 'nullable||integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|unique:categories_translate,name',\n        'details.*.*.lang'                  =>'required',",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -2601,7 +2601,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1540272706973,
+			"modified": 1540302508917,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2622,7 +2622,7 @@
 				"text": "{\n  \"hot\": 0,\n\t\"status\": 1,\n\t\"new\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"mmmm\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"mmmm\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
 			},
 			"created": 1537871510823,
-			"description": "\n        'hot'                               => 'integer|between:0,1',\n        'status'                            => 'integer|between:0,1',\n        'new'                            => 'required|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title',\n        'details.*.*.lang'                  => 'required',",
+			"description": "\n        'hot'                               => 'nullable|integer|between:0,1',\n        'status'                            => 'nullable|integer|between:0,1',\n        'new'                            => 'nullable|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title',\n        'details.*.*.lang'                  => 'required',",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2638,7 +2638,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1540272711954,
+			"modified": 1540302544159,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2738,10 +2738,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t  1\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"dddhhllee3hhhddd\",\n\t\t\t\t\t\"description\": \"description\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\"name\": \"sefllereerfcrf\",\n\t\t\t\t\t\"description\": \"description\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t}\n\t\t\t\n\t\t\t\t\n\t\t\t] \n\t\t}\n}"
+				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t  1\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"nssecwe44dweid3\",\n\t\t\t\t\t\"description\": \"description\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t},\n\t\t\t\t\t{\n\t\t\t\t\t\"name\": \"nsuijfsmouw49d4e3\",\n\t\t\t\t\t\"description\": \"description\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t}\t\n\t\t\t] \n\t\t}\n}"
 			},
 			"created": 1539830237008,
-			"description": "\t\t'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        'new'                               => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.1'                           => 'required',\n        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id|distinc',\n",
+			"description": "\t\t'hot'                               => 'nullable|integer|between:0,1',\n        'status'                            => 'nullable|integer|between:0,1',\n        'new'                               => 'nullable|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.0'                           => 'required',\n        'rooms.*'                           => 'required|integer|exists:rooms,id|distinct',\n    ];\n",
 			"headers": [
 				{
 					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
@@ -2757,7 +2757,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539830237008,
 			"method": "POST",
-			"modified": 1540270347126,
+			"modified": 1540302757589,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -2775,10 +2775,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t1,2,3,4,5\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test99\",\n\t\t\t\t\t\"description\": \"sjduede\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test55\",\n\t\t\t\t\t\"description\": \"description 1\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
+				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": null,\n\t\"status\": 1,\n\t\"rooms\": [\n\t1,2,3,4,5\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"sjdfhusdf\",\n\t\t\t\t\t\"description\": \"sjduede\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"nfjksdhfuisd\",\n\t\t\t\t\t\"description\": \"description 1\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
 			},
 			"created": 1539831880373,
-			"description": "\t\t\t\t'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        'new'                               => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.1'                           => 'required',\n        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id|distinc',\n",
+			"description": "        'hot'                               => 'integer|between:0,1',\n        'status'                            => 'integer|between:0,1',\n        'new'                               => 'integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.0'                           => 'required',\n        'rooms.*'                           => 'required|integer|exists:rooms,id|distinct',\n    ];\n",
 			"headers": [
 				{
 					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
@@ -2794,7 +2794,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539559328331.5,
 			"method": "PUT",
-			"modified": 1540262768632,
+			"modified": 1540302770265,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -2831,7 +2831,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832157861,
 			"method": "GET",
-			"modified": 1540262737942,
+			"modified": 1540290714030,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -2841,7 +2841,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections?include=details&status=1",
+			"url": "{{ api_url  }}collections?include=details",
 			"_type": "request"
 		},
 		{
@@ -2865,7 +2865,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539831197434.5,
 			"method": "GET",
-			"modified": 1540260722234,
+			"modified": 1540290744495,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -2875,7 +2875,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/1?include=details",
+			"url": "{{ api_url  }}collections/21?include=details",
 			"_type": "request"
 		},
 		{
@@ -2920,10 +2920,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"hot\": 0\n}"
+				"text": "{\n\t\"status\": 0\n}"
 			},
 			"created": 1539842068126,
-			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Bộ sưu tập nổi bật|\n|status|int|Trạng thái bộ sưu tập|\n|new|int| bộ sưu tập mới nhất |\n\n\n## Validation\n```php\n'hot'                  => 'required|integer|between:0,1',\n'status'               => 'required|integer|between:0,1',\n'new'                  => 'required|integer|between:0,1',\n```",
+			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Bộ sưu tập nổi bật|\n|status|int|Trạng thái bộ sưu tập|\n|new|int| bộ sưu tập mới nhất |\n\n\n## Validation\n```php\n'hot'                  => 'integer|between:0,1',\n'status'               => 'integer|between:0,1',\n'new'                  => 'integer|between:0,1',\n```",
 			"headers": [
 				{
 					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
@@ -2939,7 +2939,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539491601162.375,
 			"method": "PUT",
-			"modified": 1540192577155,
+			"modified": 1540290167441,
 			"name": "single-update",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -2949,7 +2949,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/single-update/1?option=hot",
+			"url": "{{ api_url  }}collections/single-update/3?option=status",
 			"_type": "request"
 		},
 		{
@@ -2973,7 +2973,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888157.125,
 			"method": "GET",
-			"modified": 1539153952139,
+			"modified": 1540276498900,
 			"name": "roomType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3007,7 +3007,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888119.625,
 			"method": "GET",
-			"modified": 1539399732790,
+			"modified": 1540276504835,
 			"name": "mediaType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3041,7 +3041,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888132.125,
 			"method": "GET",
-			"modified": 1539153961830,
+			"modified": 1540276502517,
 			"name": "rentType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3075,7 +3075,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888107.125,
 			"method": "GET",
-			"modified": 1539153953973,
+			"modified": 1540276513508,
 			"name": "roomStatus",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3539,7 +3539,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539835257867,
 			"method": "GET",
-			"modified": 1539849277169,
+			"modified": 1540301996215,
 			"name": "hot-list",
 			"parameters": [],
 			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
@@ -3568,7 +3568,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539833707864,
 			"method": "GET",
-			"modified": 1539849281710,
+			"modified": 1540301996698,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
@@ -3597,7 +3597,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832932862.5,
 			"method": "GET",
-			"modified": 1539849286355,
+			"modified": 1540302018992,
 			"name": "new-list",
 			"parameters": [],
 			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
