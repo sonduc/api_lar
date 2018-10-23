@@ -16,9 +16,9 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
 
     /**
      * Cập nhật blog translate
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param       $blog
+     * @param $blog
      * @param array $data
      */
     public function updateBlogTranslate($blog, $data = [])
@@ -27,9 +27,10 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
         $this->storeBlogTranslate($blog, $data);
     }
 
+
     /**
-     * Xoa theo kieu id lay tu mang du lieu
-     * @author HarikiRito <nxh0809@gmail.com>
+     *  Xoa theo kieu id lay tu mang du lieu
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $blog
      */
@@ -39,10 +40,10 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
     }
 
     /**
-     * Lưu blog translate
-     * @author HarikiRito <nxh0809@gmail.com>
+     *  Lưu blog translate
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param       $blog
+     * @param $blog
      * @param array $data
      * @param array $list
      */
@@ -62,7 +63,7 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
 
     /**
      * Xoa theo id truyen truc tiep
-     * @author ducchien0612 <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      */

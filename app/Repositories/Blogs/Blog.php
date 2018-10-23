@@ -20,7 +20,7 @@ class Blog extends Entity
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
 
-    const BLOG_NEW    = [
+    const TBLOG_NEW    = [
         self::AVAILABLE      => 'MỚI',
         self::UNAVAILABLE    => 'CŨ',
     ];
