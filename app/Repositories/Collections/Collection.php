@@ -10,8 +10,8 @@ class Collection extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
     // Định nghĩa trạng thái collection
-    const AVAILABLE    = 0;
-    const UNAVAILABLE  = 1;
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
     const COLLECTION_STATUS    = [
         self::AVAILABLE      => 'ĐÃ DUYỆT',
         self::UNAVAILABLE    => 'ĐANG CHỜ DUYỆT',
