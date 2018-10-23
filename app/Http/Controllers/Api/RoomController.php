@@ -271,6 +271,10 @@ class RoomController extends ApiController
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
+        } catch (ImageException $imageException) {
+            return $this->notSupportedMediaResponse([
+                'error' => $imageException->getMessage(),
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;

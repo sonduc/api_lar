@@ -25,6 +25,8 @@ trait RoomTimeBlockTrait
      */
     public function minimizeBlock(array $blocks): array
     {
+        if (!$blocks) return [];
+
         sort($blocks);
         $rangeSet = $singleSet = [];
         foreach ($blocks as $item) {
