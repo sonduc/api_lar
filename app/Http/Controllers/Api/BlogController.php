@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\BlogTransformer;
 use App\Repositories\Blogs\Blog;
+use App\Repositories\Blogs\BlogLogic;
 use App\Repositories\Blogs\BlogRepository;
 use DB;
 use Illuminate\Http\Request;
@@ -49,7 +50,7 @@ class BlogController extends ApiController
      *
      * @param BlogRepository $blog
      */
-    public function __construct(BlogRepository $blog)
+    public function __construct(BlogLogic $blog)
     {
         $this->model = $blog;
         $this->setTransformer(new BlogTransformer);
@@ -93,6 +94,14 @@ class BlogController extends ApiController
         }
     }
 
+    /**
+     * Tạo mới Bl
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function store(Request $request)
     {
         DB::beginTransaction();
@@ -101,7 +110,6 @@ class BlogController extends ApiController
             $this->authorize('blog.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
-            dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
@@ -120,6 +128,16 @@ class BlogController extends ApiController
         }
     }
 
+    /**
+     * Cập nhập bl
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
     public function update(Request $request, $id)
     {
         DB::beginTransaction();
@@ -129,7 +147,7 @@ class BlogController extends ApiController
             $this->validationRules['details.*.*.title'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-           dd(DB::getQueryLog());
+          // dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());
@@ -151,6 +169,15 @@ class BlogController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * Xóa Blog
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
 
     public function destroy($id)
     {

@@ -62,5 +62,19 @@ return [
         \App\Repositories\Payments\PaymentHistoryRepository::class,
     ],
 
-
+    /**
+     * Blogs Binding
+     */
+    \App\Repositories\Blogs\Blog::class => [
+        \App\Repositories\Blogs\BlogRepositoryInterface::class,
+        \App\Repositories\Blogs\BlogRepository::class,
+    ],
+    \App\Repositories\Blogs\BlogTranslate::class => [
+        \App\Repositories\Blogs\BlogTranslateRepositoryInterface::class,
+        \App\Repositories\Blogs\BlogTranslateRepository::class,
+    ],
+    \App\Repositories\Blogs\Tag::class => [
+        \App\Repositories\Blogs\TagRepositoryInterface::class,
+        \App\Repositories\Blogs\TagRepository::class,
+    ]
 ];

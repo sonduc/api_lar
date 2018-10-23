@@ -10,7 +10,7 @@ namespace App\Repositories\Blogs;
 
 use App\Repositories\BaseRepository;
 
-class TagRepository extends BaseRepository
+class TagRepository extends BaseRepository implements TagRepositoryInterface
 {
     protected $model;
     protected $blog;
@@ -46,10 +46,11 @@ class TagRepository extends BaseRepository
             }, $test_tag);
             $result = array_diff($arr, $tag_name);
             $insert_tag=  array_map(function ($value) {
-                return $list = [
+                 $list = [
                     'name' => $value,
                     'slug'=> str_slug($value,'-')
                 ];
+                return $list;
             }, $result);
             parent::storeArray($insert_tag);
             $list_tag= $this->getTagName($arr);
@@ -72,12 +73,6 @@ class TagRepository extends BaseRepository
         return $this->model->where('tag_id', $id)->select('id')->get();
     }
 
-//    public function countTag($name) {
-//        return $this->model->where('name', $name)->count();
-//    }
-//    public function findTagByName($name) {
-//        return $this->model->where('name',$name)->first();
-//    }
 
     /**
      *

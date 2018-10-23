@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-10-21T09:53:35.011Z",
+	"__export_date": "2018-10-22T08:19:11.536Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -35,11 +35,11 @@
 					"key": "locale",
 					"path": "/",
 					"secure": false,
-					"value": "en"
+					"value": "vi"
 				}
 			],
 			"created": 1531816114132,
-			"modified": 1537763016655,
+			"modified": 1540194510067,
 			"name": "Default Jar",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "cookie_jar"
@@ -199,39 +199,6 @@
 			"_type": "request_group"
 		},
 		{
-			"_id": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"created": 1537755377254,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1532026519858.5,
-			"modified": 1537755389347,
-			"name": "Blogs",
-			"parentId": "wrk_327599f26ab6415f860de9d912114313",
-			"_type": "request_group"
-		},
-		{
-			"_id": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"created": 1537871510805,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1531960756000.25,
-			"modified": 1537926399482,
-			"name": "Categories",
-			"parentId": "wrk_327599f26ab6415f860de9d912114313",
-			"_type": "request_group"
-		},
-		{
-			"_id": "fld_e635e7e4329b4821906d36196d40b399",
-			"created": 1539830212754,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1539830212754,
-			"modified": 1539830212754,
-			"name": "Collections",
-			"parentId": "wrk_327599f26ab6415f860de9d912114313",
-			"_type": "request_group"
-		},
-		{
 			"_id": "env_b05342e85b5c42aab807ad440cf04698",
 			"color": "#c1cb1f",
 			"created": 1531816976352,
@@ -257,11 +224,11 @@
 			"color": "#1fcb11",
 			"created": 1532578358045,
 			"data": {
-				"api_url": "http://wsapi.test/api/",
+				"api_url": "http://ws-api.lc/api/",
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjdkZDNkNzc5ZTkzOTVjY2ZmYzczY2ViNDhjOGVhZjJmNjJkNWQ4YTU1OTM3Yjc5YTBlNThmMTUyZDc4NjM3MmFmOWUwOGI1NGNjYjgxM2ZhIn0.eyJhdWQiOiI0IiwianRpIjoiN2RkM2Q3NzllOTM5NWNjZmZjNzNjZWI0OGM4ZWFmMmY2MmQ1ZDhhNTU5MzdiNzlhMGU1OGYxNTJkNzg2MzcyYWY5ZTA4YjU0Y2NiODEzZmEiLCJpYXQiOjE1NDAwMTAxOTksIm5iZiI6MTU0MDAxMDE5OSwiZXhwIjoxNTcxNTQ2MTk5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.hgc678sN7IT7ECHr_a7fISYqsmWNM5LFGva73RwsU7QkP2vgol6k9YrM5fhhtgSx-p_SzKjvfo5JM4dwHCGiIm8ViRK7C9ARDww-nT3zjYw0Qk_uQowJ1Mo91cHHwtPr7E8rhhRG2R0eR88zzRMf6zS9JwOrHM-bNjfmMRqd4ax4Mn544GiS5kZJlxJ160JZCglS9HFLma_lOCVUNuAiYAvp3E792fOedVktL0CFu15YP-d5m0fnEY2S_lZZjuWdh_eTRqPsdmft3QbvUk8WkQbtJYrPX7LhVu85IRvvLemwgp914WGshgyDWJXdpokUvUGanKXb3I0vIa2JDYE9mrMLUPrxsiVtcV6Kw1f56WjTfBG6HwySZenLVDOFfssTU0mWvA_CgqaDSuOF72OdYeeKjPaHMkvgAnqoerHVy5-80nIctmspyaCBrlIZwSuFV84SpBP8SN0YRIaFFGFw3Ob74eIDuBdAKZQmHxK9Lwq6z9o_a3hew4hw62RCAO1QjPF8quabzLtXf9dtUDh5uBcN2WHq83UElgixH7RU4aALxvY8hOKAc0cgWivYr0gc-pWRdQ_XUtYlG9E9wrsnSpP7C_gPLlhvtyPAEbWX6fVnxQBwLR-xTbpyYQNMoDwm2LeLkcuWLLUHEM-dcfqWLA9rRdY5efFhLHgktzV1wG0"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjVmYzNhZWE1NGI5NzI4YmZkMjMxNmJiNzJhMDc5OGVjODQ4ZTc0M2Y2N2VmOGY3NzI3OTU0ZjMzZGZlODVkNDg1YWQwMDIwZWNkMmVhMjMxIn0.eyJhdWQiOiIyIiwianRpIjoiNWZjM2FlYTU0Yjk3MjhiZmQyMzE2YmI3MmEwNzk4ZWM4NDhlNzQzZjY3ZWY4Zjc3Mjc5NTRmMzNkZmU4NWQ0ODVhZDAwMjBlY2QyZWEyMzEiLCJpYXQiOjE1NDAxOTYyODksIm5iZiI6MTU0MDE5NjI4OSwiZXhwIjoxNTcxNzMyMjg4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.nC7K_PNGDw4gHtP7AAejYHOLQol7viymZGxoqtUVjGUj1W8r6ClsjAsPYa1AKLjm-lYVKmkTXj2geOFZRCCnxK4N4WGXk_HTguuWLPJUYP5uM11kK0X9UGa3uW61EAXKDMZ7vBZWtmU0Nebn6hjsva-LI_VrVhKt0bmvxGZavLumZm1neeWbAfiKCidk6T23-dYHVFMM69roazWWq1Dr4FGW7tR-tJe_oAtOw7_HRhFQ4dZdn_B9whtytdZZ49y9f2gl5b7tmFcWffNtxmm79oZiirnhr2DVUQQLth7hkaXL-U__HDGkbD2GvnruAp9tOXfS7MMY9me_HePKyvl3dxuJ0fWtMTa0CNp11PmZi40EZEHy8xGcVxgEwJtxtq2sLfwUqSPjWbS_Q_xyzYBzkJZF4f4TCWsDQrVbjl9os119LQIvQEYbB5IQtcX5RUBzut2Znfg1oR2M3Duos0rrcKdNgTw5HukM9uWacCX0VNwfZQNcM39iJrdhTibjeO9k-uv182qhCFCHCiLleMtT6K1e-kd3yLHqBTbDRyOor-I6lFMKAjFwahfV4dp7uUKuwfbeu5XdmYn1d63M6naD0Wfy-Er47nkpFt6rhFsaHrh-wj8y8JuCJfRz799GnpFjeCqZANN0clZPvs3KA0XHsLJIILImafmZ0jAEqfwpeXk"
 				},
 				"url": "http://wsapi.test/",
 				"username": "admin@westay.org",
@@ -269,7 +236,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1540010224464,
+			"modified": 1540196298021,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -591,7 +558,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539224863596,
+			"modified": 1539837515191,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -664,7 +631,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539224872592,
+			"modified": 1539741087111,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -958,7 +925,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1540010224851,
+			"modified": 1540196298399,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1017,10 +984,7 @@
 		{
 			"_id": "req_142fa480c51849ce8179a9e2616c44ce",
 			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": ""
-			},
+			"body": {},
 			"created": 1534475997452,
 			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n\n",
 			"headers": [
@@ -1032,13 +996,13 @@
 				{
 					"id": "pair_ae767e4b336b4f1b8d93ccf1b6e4ec27",
 					"name": "Content-Type",
-					"value": "application/json"
+					"value": "multipart/form-data"
 				}
 			],
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1540048707133,
+			"modified": 1540195958932,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1048,7 +1012,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?name=home",
+			"url": "{{ api_url  }}rooms?include=blocks",
 			"_type": "request"
 		},
 		{
@@ -1067,7 +1031,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1539155693263,
+			"modified": 1540195965753,
 			"name": "show",
 			"parameters": [
 				{
@@ -1092,7 +1056,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"source\": \"{{ z_img  }}\",\n\t\t\t\"type\": 1\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t\"2018-01-01\",\n\t\t\"2018-11-11\",\n\t\t\"2018-01-03\"\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2018-01-07\",\n\t\t\t\"2018-08-08\",\n\t\t\t\"2018-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 2,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"12:00\",\n\t\"checkout\": \"10:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 10000,\n\t\"status\": 1\n}"
+				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"source\": \"{{ z_img  }}\",\n\t\t\t\"type\": 1\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t[\"2018-11-01\", \"2018-11-30\"],\n            [\"2019-01-01\", \"2019-01-05\"],\n            [\"2018-12-25\", \"2019-02-28\"],\n            [\"2018-06-10\", \"2018-06-12\"],\n            [\"2018-12-05\"],\n            [\"2018-12-09\"]\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2018-01-07\",\n\t\t\t\"2018-08-08\",\n\t\t\t\"2018-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 2,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"12:00\",\n\t\"checkout\": \"10:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 10000,\n\t\"status\": 1\n}"
 			},
 			"created": 1534475997475,
 			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
@@ -1111,7 +1075,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539594327820,
+			"modified": 1540194134437,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1129,7 +1093,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000,\n\t\t\t\"price_charge_guest\": null\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Ba\",\n\t\t\t\"weekday\": \"3\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": null,\n\t\t\t\"price_hour\": null,\n\t\t\t\"price_after_hour\": null,\n\t\t\t\"price_charge_guest\": null\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000,\n\t\t\t\"price_charge_guest\": 1000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": null,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000,\n\t\t\t\"price_charge_guest\": null\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Sáu\",\n\t\t\t\"weekday\": \"6\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": null,\n\t\t\t\"price_hour\": null,\n\t\t\t\"price_after_hour\": null,\n\t\t\t\"price_charge_guest\": null\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Bảy\",\n\t\t\t\"weekday\": \"7\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": null,\n\t\t\t\"price_hour\": null,\n\t\t\t\"price_after_hour\": null,\n\t\t\t\"price_charge_guest\": null\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Chủ nhật\",\n\t\t\t\"weekday\": \"1\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": null,\n\t\t\t\"price_hour\": null,\n\t\t\t\"price_after_hour\": null,\n\t\t\t\"price_charge_guest\": null\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"name\":\"anh1.jpg\",\n\t\t\t\"type\": 1\n\t\t},\n\t\t{\n\t\t\t\"name\":\"anh2.png\",\n\t\t\t\"type\": 2\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t\"2018-01-01\",\n\t\t\"2018-11-11\",\n\t\t\"2018-01-03\"\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2018-01-07\",\n\t\t\t\"2018-08-08\",\n\t\t\t\"2018-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 2,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"12:00\",\n\t\"checkout\": \"10:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 10000,\n\t\"status\": 1\n}"
+				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"source\": \"{{ z_img  }}\",\n\t\t\t\"type\": 1\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t[\"2018-11-01\", \"2018-11-30\"],\n            [\"2019-01-01\", \"2019-01-05\"],\n            [\"2018-12-25\", \"2019-02-28\"],\n            [\"2018-06-10\", \"2018-06-12\"],\n            [\"2018-12-05\"],\n            [\"2018-12-09\"]\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2018-01-07\",\n\t\t\t\"2018-08-08\",\n\t\t\t\"2018-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 2,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"12:00\",\n\t\"checkout\": \"10:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 10000,\n\t\"status\": 1\n}"
 			},
 			"created": 1534475997487,
 			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
@@ -1148,7 +1112,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1539594293162,
+			"modified": 1540123813181,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1158,7 +1122,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms/40",
+			"url": "{{ api_url  }}rooms/3143",
 			"_type": "request"
 		},
 		{
@@ -1237,7 +1201,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"latest_deal\": 300000\n}"
+				"text": "{\n\t\"latest_deal\": 10000\n}"
 			},
 			"created": 1539154090681,
 			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Phòng nổi bật|\n|new|int|Phòng mới|\n|latest_deal|int|Giá phòng bán lỗ|\n|merchant_id|int|Mã chủ phòng|\n|status|int|Trạng thái phòng|\n|is_manager|int|Phòng tự quản lý|\n|standard_point|int|Điểm chuẩn|\n\n## Validation\n```php\n'merchant_id'      => 'required|numeric|exists:users,id,deleted_at,NULL',\n'hot'              => 'numeric',\n'new'              => 'numeric',\n'latest_deal'      => 'numeric|nullable',\n'is_manager'       => 'integer|nullable|between:0,1'\n'standard_point'   => 'integer|nullable|min:0'\n```",
@@ -1256,7 +1220,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884128304.9375,
 			"method": "PUT",
-			"modified": 1539592847971,
+			"modified": 1540195970622,
 			"name": "prop-update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1267,6 +1231,40 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}rooms/prop-update/3143?option=latest_deal",
+			"_type": "request"
+		},
+		{
+			"_id": "req_de53699bf54941c8aeb9d28a77c3f23c",
+			"authentication": {},
+			"body": {},
+			"created": 1539776589083,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531884252317.2188,
+			"method": "POST",
+			"modified": 1540196100362,
+			"name": "get-schedule",
+			"parameters": [],
+			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}rooms/schedule/3144",
 			"_type": "request"
 		},
 		{
@@ -1620,7 +1618,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1535335033771,
-			"description": "## INCLUDE\n```\n'details',\n'rooms'\n\n```",
+			"description": "",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -1631,7 +1629,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1539748909713,
+			"modified": 1539138004692,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1685,10 +1683,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": {\n     \"data\": [\n\t\t\t {\n        \"description\": \"\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdaffjsddđ2\"\n      },\n      {\n        \"description\": \"terte1ffrxxt\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asfdajsddd2\"\n      }\n\t\t ]\n   }\n}"
+				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": [\n      {\n        \"description\": \"tertert</p>\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ2\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd2\"\n      }\n    ]\n}"
 			},
 			"created": 1535335033794,
-			"description": "\n             'details.*.*.name' \t\t        => 'required|unique:comfort_translates,name',",
+			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -1704,7 +1702,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539748735623,
+			"modified": 1539224876480,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1722,10 +1720,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": {\n     \"data\": [\n\t\t\t {\n        \"description\": \"\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdaffjsddđ2\"\n      },\n      {\n        \"description\": \"terte1ffrxxt\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asfdajsddd2\"\n      }\n\t\t ]\n   }\n}"
+				"text": "{\n  \"icon\": \"4\",\n    \"details\": [\n      {\n        \"description\": \"ASSS>\",\n        \"lang\": \"en\",\n        \"name\": \"TEMD\"\n      },\n      {\n        \"description\": \"aTTT\",\n        \"lang\": \"vi\",\n        \"name\": \"MAS\"\n      }\n    ]\n}"
 			},
 			"created": 1535335033806,
-			"description": "\n             'details.*.*.name' \t\t        => 'required|unique:comfort_translates,name',",
+			"description": "",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -1741,7 +1739,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1539748754350,
+			"modified": 1536976415496,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -1833,7 +1831,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1537932792974,
+			"modified": 1539763442800,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_96df68de3c1b42979e8b496c4988436c",
@@ -1909,7 +1907,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1539593300578,
+			"modified": 1540194232067,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -1938,7 +1936,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1539596923652,
+			"modified": 1539842751122,
 			"name": "show",
 			"parameters": [
 				{
@@ -1963,7 +1961,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-15 14:00:00\",\n\t\"checkout\": \"2018-11-22 20:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 3,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-18 14:00:00\",\n\t\"checkout\": \"2018-11-18 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 4,\n\t\"type\": 2,\n\t\"booking_type\": 1,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -1982,7 +1980,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1539594062428,
+			"modified": 1539878729544,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2037,7 +2035,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-15 14:00:00\",\n\t\"checkout\": \"2018-11-22 20:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 3,\n\t\"booking_type\": 2\n}"
+				"text": "{\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-13 18:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 3,\n\t\"booking_type\": 1\n}"
 			},
 			"created": 1538712917734,
 			"description": "## Validation\n```\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'checkin'          => 'required|date',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'number_of_guests' => 'required|integer|min:1',\n        'booking_type'     => 'required|integer|between:1,2',\n```\n",
@@ -2056,7 +2054,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885368427.75,
 			"method": "POST",
-			"modified": 1539594061194,
+			"modified": 1540194240964,
 			"name": "price-calculator",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2074,7 +2072,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"payment_status\":1\n}"
+				"text": "{\n\t\"status\":1\n}"
 			},
 			"created": 1538972954154,
 			"description": "## Query String\noption: `payment_status` `status` `payment_method`\n\n\n## Validation\n```php\n\t\t'status'           => 'required|integer|between:1,5'\n\t\t'payment_method'   => 'required|integer|between:1,5'\n\t\t'payment_status'   => 'required|integer|between:0,3'\n```\n",
@@ -2098,7 +2096,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883880280.375,
 			"method": "PUT",
-			"modified": 1539394529243,
+			"modified": 1539850825223,
 			"name": "status-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2108,7 +2106,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings/status-update/5?option=payment_status",
+			"url": "{{ api_url  }}bookings/status-update/5?option=status",
 			"_type": "request"
 		},
 		{
@@ -2116,7 +2114,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"price_discount\":500000\n}"
+				"text": "{\n\t\"price_discount\":\"ádasd1\"\n}"
 			},
 			"created": 1538985869823,
 			"description": "## Fields\nChỉ chấp nhận các trường:\n`additional_fee` `price_discount`\n\n## Validation\n```php\n'additional_fee'   => 'filled|integer|min:0'\n'price_discount'   => 'filled|integer|min:0'\n```\n",
@@ -2135,7 +2133,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632255.8125,
 			"method": "PUT",
-			"modified": 1539156055705,
+			"modified": 1539742372212,
 			"name": "money-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2172,7 +2170,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884872378.625,
 			"method": "POST",
-			"modified": 1539594054584,
+			"modified": 1539742348637,
 			"name": "image-upload",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2281,678 +2279,6 @@
 			"_type": "request"
 		},
 		{
-			"_id": "fld_e69ae84c198446c5b70e9a00a0dd4d86",
-			"created": 1539287077027,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1539287077027,
-			"modified": 1539287077027,
-			"name": "List",
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"_type": "request_group"
-		},
-		{
-			"_id": "req_bd9b2c861b3b4e859aecae617b7e8211",
-			"authentication": {},
-			"body": {},
-			"created": 1537755377277,
-			"description": "## INCLUDE\n```\n'users',\n'details',\n'categories',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\ntag: Int\nstatus:Int\ncategory: Int\n```\n\n",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531890329019,
-			"method": "GET",
-			"modified": 1539848668501,
-			"name": "index",
-			"parameters": [],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs?include=details",
-			"_type": "request"
-		},
-		{
-			"_id": "req_07928b6cceeb423bb5a0bb3612eec498",
-			"authentication": {},
-			"body": {},
-			"created": 1537755377293,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531886360576,
-			"method": "GET",
-			"modified": 1539315983865,
-			"name": "show",
-			"parameters": [
-				{
-					"disabled": true,
-					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
-					"name": "include",
-					"value": "roles"
-				}
-			],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/1?include=tags",
-			"_type": "request"
-		},
-		{
-			"_id": "req_848d4d62561d4763a8a7edd66c36a41b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"ddddddđtđ\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"dddd666\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h1,h2,h3\"\n\t\t\t}\n\t\t]\n\t}\n}"
-			},
-			"created": 1537755377319,
-			"description": "            'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',   ",
-			"headers": [
-				{
-					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_b8e8b180eda24dcfb09232b3e9611a3b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531886360526,
-			"method": "POST",
-			"modified": 1539834856543,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs",
-			"_type": "request"
-		},
-		{
-			"_id": "req_2bebfa0a0ed64fd4b67a95929e4c8e91",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"image\": \"anh5.png\",\n\t\"status\": 1,\n\t\"hot\": 1,\n\t\"user_id\": 1,\n\t\"category_id\": 1,\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"content\": \"test16 asdasddđ1\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"title\": \"hhhhhoukm\",\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"content\": \"test16 asdasddd1\"\n\t\t\t\t}\n\t\t\t] \n\t\t},\n\t\"tags\": {\n\t\t\"data\":[\n\t\t\t{\n\t\t\t\t\"name\": \"h11,h12,1,2,3,4,5,6\"\n\t\t\t}\n\t\t]\n\t}\n}"
-			},
-			"created": 1537755377370,
-			"description": "   \t\t 'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',",
-			"headers": [
-				{
-					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531884376329.5,
-			"method": "PUT",
-			"modified": 1539834877225,
-			"name": "update",
-			"parameters": [],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/1",
-			"_type": "request"
-		},
-		{
-			"_id": "req_98596c71bb4a4bccb22aec3c226ce5b2",
-			"authentication": {},
-			"body": {},
-			"created": 1537755377391,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_94aab3327ddd40819b3761b8cc32590c",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_7961df4c58b74b809981f5119b1d4e1c",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531883384231.25,
-			"method": "DELETE",
-			"modified": 1538175146151,
-			"name": "delete",
-			"parameters": [],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/53",
-			"_type": "request"
-		},
-		{
-			"_id": "req_653fb7ba5ce94c639a3ecce031f1d5f8",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"status\": 1\n}"
-			},
-			"created": 1539285215487,
-			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Bài viết nổi bật|\n|status|int|Trạng thái bài viết|\n\n\n## Validation\n```php\n'hot'                  => 'required|integer|between:0,1',\n'status'               => 'required|integer|between:0,1',\n```",
-			"headers": [
-				{
-					"id": "pair_f29ab9c89339479886532fdd02d053a8",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_e5e4d6482e144474b2389fad0eb3f8ae",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531883880280.375,
-			"method": "PUT",
-			"modified": 1539849941596,
-			"name": "single-update",
-			"parameters": [],
-			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/single-update/1?option=status",
-			"_type": "request"
-		},
-		{
-			"_id": "fld_bc5523dfbb0d4d45be599652def4a62b",
-			"created": 1539288254468,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1539288254468,
-			"modified": 1539288254468,
-			"name": "List",
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"_type": "request_group"
-		},
-		{
-			"_id": "req_14739e7db103414d9f7fbb7b47d207ed",
-			"authentication": {},
-			"body": {},
-			"created": 1537871510815,
-			"description": "## INCLUDE\n```\n'details',\n'blogs',\n```",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531890329019,
-			"method": "GET",
-			"modified": 1539679655100,
-			"name": "index",
-			"parameters": [],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories?include=blogs",
-			"_type": "request"
-		},
-		{
-			"_id": "req_98474eaab6994d2685e33d3deea724ed",
-			"authentication": {},
-			"body": {},
-			"created": 1537871510818,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531886360576,
-			"method": "GET",
-			"modified": 1539314754984,
-			"name": "show",
-			"parameters": [
-				{
-					"disabled": true,
-					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
-					"name": "include",
-					"value": "roles"
-				}
-			],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/1?include=blogs",
-			"_type": "request"
-		},
-		{
-			"_id": "req_d14549515a95489cbbd24db9d2553c3f",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"hot\": 1,\n\t\"status\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"sososo11\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"sososo11\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
-			},
-			"created": 1537871510820,
-			"description": "\n        'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|unique:categories_translate,name',\n        'details.*.*.lang'                  =>'required',",
-			"headers": [
-				{
-					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_b8e8b180eda24dcfb09232b3e9611a3b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531886360526,
-			"method": "POST",
-			"modified": 1539834851483,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories",
-			"_type": "request"
-		},
-		{
-			"_id": "req_a61629f775e1472d89da6f2e17e3436b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n  \"hot\": 0,\n\t\"status\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"mmmm\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"mmmm\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
-			},
-			"created": 1537871510823,
-			"description": "\n        'hot'                            => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|unique:categories_translate,name',\n        'details.*.*.lang'                  =>'required',",
-			"headers": [
-				{
-					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531884376329.5,
-			"method": "PUT",
-			"modified": 1539596634744,
-			"name": "update",
-			"parameters": [],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/1",
-			"_type": "request"
-		},
-		{
-			"_id": "req_610ef684715e4157997cc0bb67e37259",
-			"authentication": {},
-			"body": {},
-			"created": 1537871510824,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_94aab3327ddd40819b3761b8cc32590c",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_7961df4c58b74b809981f5119b1d4e1c",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531883384231.25,
-			"method": "DELETE",
-			"modified": 1539314679352,
-			"name": "delete",
-			"parameters": [],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/4",
-			"_type": "request"
-		},
-		{
-			"_id": "req_722eea0723e14325bc4f93d23b36b06b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"status\": 0\n}"
-			},
-			"created": 1539310118344,
-			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Danh mục nổi bật|\n|status|int|Trạng thái danh mục|\n\n\n## Validation\n```php\n'hot'                  => 'required|integer|between:0,1',\n'status'               => 'required|integer|between:0,1',\n```",
-			"headers": [
-				{
-					"id": "pair_51fd84d26f474789bccaaf6ba41d9e1f",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_5b22bafd3dd04c7badcb6de0d4b6e923",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531883880280.375,
-			"method": "PUT",
-			"modified": 1539595165014,
-			"name": "single-update",
-			"parameters": [],
-			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/single-update/1?option=status",
-			"_type": "request"
-		},
-		{
-			"_id": "fld_ca9a18cee23c4f2cb6743f6a38700684",
-			"created": 1539835232593,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1539835232593,
-			"modified": 1539835232593,
-			"name": "List",
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"_type": "request_group"
-		},
-		{
-			"_id": "req_811c7e8658f74be09fda16633f1f3970",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t1,2,3,3,3\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test6\",\n\t\t\t\t\t\"description\": \"description 3\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test5\",\n\t\t\t\t\t\"description\": \"description 1\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
-			},
-			"created": 1539830237008,
-			"description": "\t\t\t\t'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        'new'                               => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.1'                           => 'required',\n        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id',\n",
-			"headers": [
-				{
-					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539830237008,
-			"method": "POST",
-			"modified": 1540115583262,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections",
-			"_type": "request"
-		},
-		{
-			"_id": "req_90192a47421241a0a5fc7aafc5426b8b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"image\": \"anh5.png\",\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"status\": 1,\n\t\"rooms\": [\n\t1,2,3,3,3\n\t],\n\t\"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test99\",\n\t\t\t\t\t\"description\": \"#$%^\",\n\t\t\t\t\t\"lang\": \"en\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"name\": \"test55\",\n\t\t\t\t\t\"description\": \"description 1\",\n\t\t\t\t\t\"lang\": \"vi\"\n\t\t\t\t}\n\t\t\t] \n\t\t}\n}"
-			},
-			"created": 1539831880373,
-			"description": "\t\t\t\t'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n        'new'                               => 'required|integer|between:0,1',\n        //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|v_title',\n        'details.*.*.description'           => 'required|v_title',\n        'details.*.*.lang'                  => 'required',\n        'rooms.1'                           => 'required',\n        'rooms.*'                           => 'required|integer|nullable|exists:rooms,id',\n",
-			"headers": [
-				{
-					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539559328331.5,
-			"method": "PUT",
-			"modified": 1540115592362,
-			"name": "update",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/1",
-			"_type": "request"
-		},
-		{
-			"_id": "req_164128db067e400c8321ed4f75a0991e",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": ""
-			},
-			"created": 1539832157861,
-			"description": "## INCLUDE\n```\n'details',\n'rooms',\n\n\n```\n\n## SCOPE PARAMS\n\n```params\nnew: Int\nhot: Int\ntag: Int\nstatus:Int\nname: string\n```\n\n",
-			"headers": [
-				{
-					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_3d44616088ad4a588ed1701fab856d36",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539832157861,
-			"method": "GET",
-			"modified": 1540115579076,
-			"name": "index",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections?include=details&name=99",
-			"_type": "request"
-		},
-		{
-			"_id": "req_b234d711fa1c460d95f22a77df7ae593",
-			"authentication": {},
-			"body": {},
-			"created": 1539832231816,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_3d44616088ad4a588ed1701fab856d36",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539831197434.5,
-			"method": "GET",
-			"modified": 1540003879329,
-			"name": "show",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/51",
-			"_type": "request"
-		},
-		{
-			"_id": "req_7b9994c1cfdf4111805037bcef9aa03b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": ""
-			},
-			"created": 1539836460140,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539423873993.25,
-			"method": "DELETE",
-			"modified": 1539849867933,
-			"name": "Delete",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/50",
-			"_type": "request"
-		},
-		{
-			"_id": "req_fc609c133dee48b79af486fa68fa464a",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"new\": 0\n}"
-			},
-			"created": 1539842068126,
-			"description": "# Option\n| SCOPE | type | Description |\n| --- | --- | --- |\n|hot|int|Bộ sưu tập nổi bật|\n|status|int|Trạng thái bộ sưu tập|\n|new|int| bộ sưu tập mới nhất |\n\n\n## Validation\n```php\n'hot'                  => 'required|integer|between:0,1',\n'status'               => 'required|integer|between:0,1',\n'new'                  => 'required|integer|between:0,1',\n```",
-			"headers": [
-				{
-					"id": "pair_40a96ec9d1674d92beb2d41cd4d65497",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_ae9b6c93a3004001ba3aa2a446789e8b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539491601162.375,
-			"method": "PUT",
-			"modified": 1540010992787,
-			"name": "single-update",
-			"parameters": [],
-			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/single-update/5?option=new",
-			"_type": "request"
-		},
-		{
 			"_id": "req_f02aaebc8c0845d690796b5ca1d24dd3",
 			"authentication": {},
 			"body": {},
@@ -2973,7 +2299,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888157.125,
 			"method": "GET",
-			"modified": 1539153952139,
+			"modified": 1539842921463,
 			"name": "roomType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3041,7 +2367,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888132.125,
 			"method": "GET",
-			"modified": 1539153961830,
+			"modified": 1539842921969,
 			"name": "rentType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
@@ -3133,7 +2459,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367285,
 			"method": "GET",
-			"modified": 1539140488398,
+			"modified": 1539850868555,
 			"name": "booking-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3162,7 +2488,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367360,
 			"method": "GET",
-			"modified": 1538713499554,
+			"modified": 1539849852404,
 			"name": "booking-type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3191,7 +2517,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367310,
 			"method": "GET",
-			"modified": 1538713081164,
+			"modified": 1539850392431,
 			"name": "type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3249,7 +2575,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367299.0625,
 			"method": "GET",
-			"modified": 1538709091550,
+			"modified": 1539741220025,
 			"name": "payment-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3278,7 +2604,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367303.75,
 			"method": "GET",
-			"modified": 1538644434048,
+			"modified": 1539741216952,
 			"name": "payment-history-type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3347,209 +2673,6 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}bookings/price-range-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_d444d418c1574f6c9936fd0a5916161b",
-			"authentication": {},
-			"body": {},
-			"created": 1539287098368,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_b47c953144b2489daf0ab3ce6f5043b7",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539287098368,
-			"method": "GET",
-			"modified": 1539317564544,
-			"name": "status-list",
-			"parameters": [],
-			"parentId": "fld_e69ae84c198446c5b70e9a00a0dd4d86",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/status-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_96ada0e99c624dc2b10d2bee1c207d9c",
-			"authentication": {},
-			"body": {},
-			"created": 1539287260598,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_4caa1be297eb41cca74eb5ea2fe7133e",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539287260598,
-			"method": "GET",
-			"modified": 1539838887672,
-			"name": "hot-list",
-			"parameters": [],
-			"parentId": "fld_e69ae84c198446c5b70e9a00a0dd4d86",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs/hot-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_3b30043d95d94ec0ac6d30a319cf802a",
-			"authentication": {},
-			"body": {},
-			"created": 1539288400614,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_9c208d0ecb26490394cb125fb60f0634",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539288400614,
-			"method": "GET",
-			"modified": 1539314626609,
-			"name": "hot-list",
-			"parameters": [],
-			"parentId": "fld_bc5523dfbb0d4d45be599652def4a62b",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/hot-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_dc30506beec04c75bab7186ef5650048",
-			"authentication": {},
-			"body": {},
-			"created": 1539288419655,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_5aa98d2eff1a43aa9b413cb8ae5877f2",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539288419655,
-			"method": "GET",
-			"modified": 1539594965023,
-			"name": "status-list",
-			"parameters": [],
-			"parentId": "fld_bc5523dfbb0d4d45be599652def4a62b",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}categories/status-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_22820dd083a14fbba36a9bcc36c0dcfe",
-			"authentication": {},
-			"body": {},
-			"created": 1539835257867,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_635c007cd17a4a208e66225107bb47cb",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539835257867,
-			"method": "GET",
-			"modified": 1539849277169,
-			"name": "hot-list",
-			"parameters": [],
-			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/hot-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_179ace0d1b2342da9b1bd29265aa3365",
-			"authentication": {},
-			"body": {},
-			"created": 1539835303618,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_f95d6842d8c74339953dc73edcf0071f",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539833707864,
-			"method": "GET",
-			"modified": 1539849281710,
-			"name": "status-list",
-			"parameters": [],
-			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/status-list",
-			"_type": "request"
-		},
-		{
-			"_id": "req_cbbeb9b0b7ba412fb10a4b38c4da54f1",
-			"authentication": {},
-			"body": {},
-			"created": 1539835327317,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_f741148c0e374687b1811149e71f4eea",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1539832932862.5,
-			"method": "GET",
-			"modified": 1539849286355,
-			"name": "new-list",
-			"parameters": [],
-			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}collections/new-list",
 			"_type": "request"
 		}
 	]
