@@ -10,7 +10,7 @@ namespace App\Repositories\Blogs;
 
 use App\Repositories\BaseRepository;
 
-class TagRepository extends BaseRepository
+class TagRepository extends BaseRepository implements TagRepositoryInterface
 {
     protected $model;
     protected $blog;
@@ -38,28 +38,27 @@ class TagRepository extends BaseRepository
      */
     public function storeTag($data = [])
     {
-        if (isset($data['tags'])) {
-            $arr = explode(',', $data['tags']['data'][0]['name']);
-            $test_tag = $this->getTagName($arr);
-            $tag_name = array_map(function ($item) {
-                return $item['name'];
-            }, $test_tag);
-            $result = array_diff($arr, $tag_name);
-            $insert_tag=  array_map(function ($value) {
-                $list = [
-                    'name' => $value,
-                    'slug'=> str_slug($value,'-')
-                ];
-                return $list;
-            }, $result);
-            parent::storeArray($insert_tag);
-            $list_tag= $this->getTagName($arr);
-            $list_id = array_map(function ($value) {
-                return $value['id'];
-            }, $list_tag);
-            return $list_id;
-        }
-
+            if (!empty($data['tags']['data'])) {
+                $arr = explode(',', $data['tags']['data'][0]['name']);
+                $test_tag = $this->getTagName($arr);
+                $tag_name = array_map(function ($item) {
+                    return $item['name'];
+                }, $test_tag);
+                $result = array_diff($arr, $tag_name);
+                $insert_tag=  array_map(function ($value) {
+                    $list = [
+                        'name' => $value,
+                        'slug'=> str_slug($value,'-')
+                    ];
+                    return $list;
+                }, $result);
+                parent::storeArray($insert_tag);
+                $list_tag= $this->getTagName($arr);
+                $list_id = array_map(function ($value) {
+                    return $value['id'];
+                }, $list_tag);
+                return $list_id;
+            }
     }
 
 

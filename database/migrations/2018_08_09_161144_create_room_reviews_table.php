@@ -16,9 +16,16 @@ class CreateRoomReviewsTable extends Migration
         Schema::create('room_reviews', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('room_id')->nullable();
+            $table->integer('booking_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->tinyInteger('rate')->nullable();
-            $table->tinyInteger('status')->default(-1);
+            $table->tinyInteger('status')->nullable();
+            $table->float('avg_rating')->nullable();
+            $table->tinyInteger('cleanliness')->nullable();
+            $table->tinyInteger('quality')->nullable();
+            $table->tinyInteger('service')->nullable();
+            $table->text('comment')->nullable();
+            $table->tinyInteger('recommend')->nullable();
+            $table->tinyInteger('valueble')->nullable();
             $table->timestamps();
         });
     }

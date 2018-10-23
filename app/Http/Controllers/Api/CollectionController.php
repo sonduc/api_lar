@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\Collections\Collection;
+use App\Repositories\Collections\CollectionLogic;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CollectionTransformer;
@@ -13,9 +14,9 @@ class CollectionController extends ApiController
 {
     protected $validationRules
          = [
-        'hot'                               => 'required|integer|between:0,1',
-        'status'                            => 'required|integer|between:0,1',
-        'new'                               => 'required|integer|between:0,1',
+        'hot'                               => 'nullable|integer|between:0,1',
+        'status'                            => 'nullable|integer|between:0,1',
+        'new'                               => 'nullable|integer|between:0,1',
         //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',
         'details.*.*.description'           => 'required|v_title',
@@ -27,13 +28,10 @@ class CollectionController extends ApiController
     ];
 
     protected $validationMessages = [
-        'hot.required'                      => 'Vui lòng chọn mã nổi bật',
         'hot.integer'                       => 'Mã nổi bật không phù hợp',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
-        'status.required'                   => "Mã trạng thái phải không được để trống",
         'status.integer'                    => "Mã trạng thái phải là kiểu số",
         'status.between'                    => "Mã trạg thái phải là kiểu số 0 hoặc 1",
-        'new.required'                      => "Mã sưư tập mới không được để trống",
         'new.integer'                       => "Mã sưu tập mới phải là kiểu số",
         'new.between'                       => "Mã sưu tập mới phải là kiểu số 0 hoặc 1",
         'details.*.*.name.required'         => 'Tên bộ sưu tập không được để trông',
@@ -56,7 +54,7 @@ class CollectionController extends ApiController
      * CollectionController constructor.
      * @param CollectionRepository $collection
      */
-    public function __construct(CollectionRepository $collection)
+    public function __construct(CollectionLogic $collection)
     {
         $this->model = $collection;
         $this->setTransformer(new CollectionTransformer);

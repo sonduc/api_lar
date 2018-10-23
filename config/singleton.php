@@ -62,5 +62,48 @@ return [
         \App\Repositories\Payments\PaymentHistoryRepository::class,
     ],
 
+    /**
+     * Blog Blinding
+     */
+    \App\Repositories\Blogs\Blog::class => [
+        \App\Repositories\Blogs\BlogRepositoryInterface::class,
+        \App\Repositories\Blogs\BlogRepository::class,
+    ],
+
+    \App\Repositories\Blogs\BlogTranslate::class => [
+        \App\Repositories\Blogs\BlogTranslateRepositoryInterface::class,
+        \App\Repositories\Blogs\BlogTranslateRepository::class,
+    ],
+
+    \App\Repositories\Blogs\Tag::class => [
+        \App\Repositories\Blogs\TagRepositoryInterface::class,
+        \App\Repositories\Blogs\TagRepository::class,
+    ],
+
+    /**
+     * Blog Blinding
+     */
+    \App\Repositories\Categories\Category::class => [
+        \App\Repositories\Categories\CategoryRepositoryInterface::class,
+        \App\Repositories\Categories\CategoryRepository::class,
+     ],
+    \App\Repositories\Categories\CategoryTranslate::class => [
+        \App\Repositories\Categories\CategoryTranslateRepositoryInterface::class,
+        \App\Repositories\Categories\CategoryTranslateRepository::class,
+    ],
+    /**
+     * Collection Blinding
+     */
+    \App\Repositories\Collections\Collection::class => [
+        \App\Repositories\Collections\CollectionRepositoryInterface::class,
+        \App\Repositories\Collections\CollectionRepository::class,
+    ],
+
+    \App\Repositories\Collections\CollectionTranslate::class =>[
+        \App\Repositories\Collections\ColectionTranslateRepositoryInterface::class,
+        \App\Repositories\Collections\CollectionTranslateRepository::class
+   ],
+
+
 
 ];

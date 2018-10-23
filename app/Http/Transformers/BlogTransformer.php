@@ -26,8 +26,9 @@ class BlogTransformer extends TransformerAbstract
         return [
             'id'                    => $blog->id,
             'image'                 => $blog->image,
-            'status'                => $blog->status,
-            'hot'                   => $blog->hot,
+            'status'                => $blog->status ?? 0,
+            'hot'                   => $blog->hot ?? 0,
+            'new'                   => $blog->new ?? 0,
             'user_id'               => $blog->user_id,
             'category_id'           => $blog->category_id,
             'created_at'            => $blog->created_at->format('Y-m-d H:i:s'),

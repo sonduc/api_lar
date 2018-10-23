@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\BlogTransformer;
 use App\Repositories\Blogs\Blog;
+use App\Repositories\Blogs\BlogLogic;
 use App\Repositories\Blogs\BlogRepository;
 use DB;
 use Illuminate\Http\Request;
@@ -12,15 +13,15 @@ class BlogController extends ApiController
 {
     protected $validationRules
         = [
-            'hot'                       => 'numeric|between:0,1',
-            'status'                    => 'numeric|between:0,1',
-            'new'                       => 'numeric|between:0,1',
+            'hot'                       => 'nullable|numeric|between:0,1',
+            'status'                    => 'nullable|numeric|between:0,1',
+            'new'                       => 'nullable|numeric|between:0,1',
             //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
             'category_id'               => 'required|numeric|exists:categories,id',
             'details.*.*.title'         => 'required|v_title|unique:blog_translates,title',
             'details.*.*.lang'          => 'required',
             'details.*.*.content'       => 'required',
-            'tags.*.*.name'             => 'required|v_title',
+            'tags.*.*.name'             => 'v_title',
         ];
     protected $validationMessages
         = [
@@ -38,7 +39,6 @@ class BlogController extends ApiController
             'details.*.*.title.required' => 'Tiêu đề không được để trông',
             'details.*.*.title.unique'   => 'Tên này đã tồn tại',
             'details.*.*.title.v_title'  => 'Tên tiêu đề không hợp lê',
-            'tags.*.*.name.required'     => "Từ khóa không được để trống",
             'tags.*.*.name.v_title'      => "Từ khóa không hơp lệ",
         ];
 
@@ -47,9 +47,9 @@ class BlogController extends ApiController
      *
      * @param BlogRepository $blog
      */
-    public function __construct(BlogRepository $blog)
+    public function __construct(BlogLogic $blog)
     {
-        $this->model = $blog;
+        $this->model = $blog;;
         $this->setTransformer(new BlogTransformer);
     }
 
@@ -276,6 +276,8 @@ class BlogController extends ApiController
             throw $e;
         }
     }
+
+
 
 
 }

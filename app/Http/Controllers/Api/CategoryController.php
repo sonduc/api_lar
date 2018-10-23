@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\Categories\Category;
+use App\Repositories\Categories\CategoryLogic;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CategoryTransformer;
@@ -13,9 +14,9 @@ use Illuminate\Validation\Rule;
 class CategoryController extends ApiController
 {
     protected $validationRules = [
-        'hot'                               => 'integer|between:0,1',
-        'status'                            => 'integer|between:0,1',
-        'new'                            => 'required|integer|between:0,1',
+        'hot'                               => 'nullable|integer|between:0,1',
+        'status'                            => 'nullable|integer|between:0,1',
+        'new'                               => 'nullable|required|integer|between:0,1',
         //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
@@ -43,7 +44,7 @@ class CategoryController extends ApiController
      * CategoryController constructor.
      * @param CategoryRepository $catagory
      */
-    public function __construct(CategoryRepository $catagory)
+    public function __construct(CategoryLogic $catagory)
     {
         $this->model = $catagory;
         $this->setTransformer(new CategoryTransformer);

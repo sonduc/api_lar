@@ -9,7 +9,7 @@
 namespace App\Repositories\Collections;
 
 use App\Repositories\BaseRepository;
-class CollectionTranslateRepository extends BaseRepository
+class CollectionTranslateRepository extends BaseRepository implements ColectionTranslateRepositoryInterface
 {
     /**
      * Collection model.

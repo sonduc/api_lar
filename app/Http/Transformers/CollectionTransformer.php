@@ -29,9 +29,9 @@ class CollectionTransformer extends TransformerAbstract
         return [
             'id'                    => $collection->id,
             'image'                 => $collection->image,
-            'status'                => $collection->status,
-            'hot'                   => $collection->hot,
-            'new'                   => $collection->new,
+            'status'                => $collection->status ?? 0,
+            'hot'                   => $collection->hot ?? 0,
+            'new'                   => $collection->new ?? 0,
             'created_at'            => $collection->created_at->format('Y-m-d H:i:s'),
             'updated_at'            => $collection->updated_at->format('Y-m-d H:i:s'),
         ];
