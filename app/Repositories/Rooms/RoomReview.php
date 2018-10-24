@@ -15,20 +15,9 @@ class RoomReview extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
 
-    const ARTICLE_IMG = 1;
-    const THUMBNAIL   = 2;
-    const COVER       = 3;
-    const AVATAR      = 4;
 
-    const IMAGE_TYPE
-        = [
-            self::ARTICLE_IMG => 'Ảnh cho bài viết',
-            self::THUMBNAIL   => 'Ảnh thumbnail',
-            self::COVER       => 'Ảnh bìa',
-            self::AVATAR      => 'Ảnh đại diện',
-        ];
 
-    protected $table = 'room_medias';
+    protected $table = 'room_reviews';
     /**
      * The attributes that are mass assignable.
      *
@@ -36,7 +25,7 @@ class RoomReview extends Entity
      */
     protected $fillable
         = [
-            'room_id', 'image', 'type', 'status',
+            'room_id', 'booking_id', 'user_id', 'status','avg_rating','cleanliness','quality','service','comment','recommend','valueble'
         ];
 
     /**
