@@ -10,7 +10,7 @@ namespace App\Repositories\Categories;
 
 use App\Repositories\BaseRepository;
 
-class CategoryTranslateRepository extends BaseRepository
+class CategoryTranslateRepository extends BaseRepository implements CategoryTranslateRepositoryInterface
 {
     protected $model;
 

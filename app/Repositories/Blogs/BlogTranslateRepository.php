@@ -29,7 +29,7 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
 
 
     /**
-     *  Xoa theo kieu id lay tu mang du lieu
+     * Xoa theo kieu id lay tu mang du lieu
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $blog
@@ -40,7 +40,7 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
     }
 
     /**
-     *  Lưu blog translate
+     * Lưu blog translate
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $blog

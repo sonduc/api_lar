@@ -14,7 +14,7 @@ class BlogTransformer extends TransformerAbstract
         'details',
         'tags',
         'categories',
-        'users'
+        'user'
     ];
 
     public function transform(Blog $blog = null)
@@ -26,8 +26,9 @@ class BlogTransformer extends TransformerAbstract
         return [
             'id'                    => $blog->id,
             'image'                 => $blog->image,
-            'status'                => $blog->status,
-            'hot'                   => $blog->hot,
+            'status'                => $blog->status ?? 0,
+            'hot'                   => $blog->hot ?? 0,
+            'new'                   => $blog->new ?? 0,
             'user_id'               => $blog->user_id,
             'category_id'           => $blog->category_id,
             'created_at'            => $blog->created_at->format('Y-m-d H:i:s'),
@@ -101,13 +102,13 @@ class BlogTransformer extends TransformerAbstract
      * @param ParamBag|null $params
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
-    public function includeUsers (Blog $blog= null,ParamBag $params = null )
+
+    public function includeUser(Blog $blog= null)
     {
         if (is_null($blog)) {
             return $this->null();
         }
-        $data = $this->limitAndOrder($params, $blog->users())->get();
-        return $this->collection($data, new UserTransformer);
+        return $this->item($blog->user, new UserTransformer);
     }
 
 }

@@ -18,9 +18,9 @@ class CreateBlogsTable extends Migration
             $table->integer('user_id');
             $table->integer('category_id');
             $table->string('image')->nullable();
-            $table->tinyInteger('hot')->nullable();
-            $table->tinyInteger('status')->nullable();
-            $table->tinyInteger('new')->nullable();
+            $table->tinyInteger('hot')->nullable()->default(0);
+            $table->tinyInteger('status')->nullable()->default(0);
+            $table->tinyInteger('new')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });

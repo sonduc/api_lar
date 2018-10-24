@@ -1,28 +1,37 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Hariki
- * Date: 10/22/2018
- * Time: 15:30
+ * User: ducchien
+ * Date: 23/10/2018
+ * Time: 15:12
  */
 
 namespace App\Repositories\Blogs;
 
 
 use App\Repositories\BaseLogic;
+use Illuminate\Support\Facades\Auth;
 
 class BlogLogic extends BaseLogic
 {
-    public $blogTranslate;
-    public $tag;
+    protected $model;
+    protected $blogTranslate;
+    protected $tag;
 
+    /**
+     * CategoryRepository constructor.
+     *
+     * @param Blog                    $blog
+     * @param BlogTranslateRepository $blogTranslate
+     * @param TagRepository           $tag
+     */
     public function __construct(
-        BlogRepositoryInterface $model,
+        BlogRepositoryInterface $blog,
         BlogTranslateRepositoryInterface $blogTranslate,
         TagRepositoryInterface $tag
     )
     {
-        $this->model         = $model;
+        $this->model         = $blog;
         $this->blogTranslate = $blogTranslate;
         $this->tag           = $tag;
     }
@@ -37,8 +46,9 @@ class BlogLogic extends BaseLogic
      */
     public function store($data = null)
     {
-        $data['image'] = rand_name($data['image']);
-        $data_blog     = parent::store($data);
+        $data['user_id']    = Auth::user()->id;
+        $data['image']      = rand_name($data['image']);
+        $data_blog          = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
@@ -56,10 +66,11 @@ class BlogLogic extends BaseLogic
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
+        $data['user_id']    = Auth::user()->id;
         $data['image'] = rand_name($data['image']);
         $data_blog     = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);
-        $list_tag_id = $this->tag->storeTag($data_blog, $data);
+        $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
         $data_blog->tags()->attach($list_tag_id);
         return $data_blog;
@@ -92,4 +103,5 @@ class BlogLogic extends BaseLogic
         $data_blog = parent::update($id, $data);
         return $data_blog;
     }
+
 }

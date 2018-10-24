@@ -1,9 +1,9 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: Hariki
- * Date: 10/22/2018
- * Time: 15:24
+ * User: ducchien
+ * Date: 23/10/2018
+ * Time: 14:56
  */
 
 namespace App\Repositories\Blogs;

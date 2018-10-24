@@ -37,9 +37,9 @@ class CategoryTransformer extends TransformerAbstract
         }
         return [
             'id'                => $category->id,
-            'hot'               => $category->hot,
-            'status'            => $category->status,
-            'status'            => $category->new,
+            'hot'               => $category->hot ?? 0,
+            'status'            => $category->status ?? 0,
+            'new'               => $category->new ?? 0,
             'image'             => $category->image,
             'created_at'        => $category->created_at->format('Y-m-d H:i:s'),
             'updated_at'        => $category->updated_at->format('Y-m-d H:i:s'),

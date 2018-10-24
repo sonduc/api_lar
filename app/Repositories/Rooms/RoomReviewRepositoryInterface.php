@@ -3,13 +3,13 @@
  * Created by PhpStorm.
  * User: ducchien
  * Date: 23/10/2018
- * Time: 14:53
+ * Time: 14:21
  */
 
-namespace App\Repositories\Blogs;
+namespace App\Repositories\Rooms;
 
 
-interface BlogRepositoryInterface
+interface RoomReviewRepository
 {
 
 }

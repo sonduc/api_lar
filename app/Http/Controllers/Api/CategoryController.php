@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\Categories\Category;
+use App\Repositories\Categories\CategoryLogic;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CategoryTransformer;
@@ -13,26 +14,26 @@ use Illuminate\Validation\Rule;
 class CategoryController extends ApiController
 {
     protected $validationRules = [
-        'hot'                               => 'required|integer|between:0,1',
-        'status'                            => 'required|integer|between:0,1',
-        'new'                            => 'required|integer|between:0,1',
+        'hot'                               => 'integer|between:0,1|filled',
+        'status'                            => 'integer|between:0,1|filled',
+        'new'                               => 'integer|between:0,1|filled',
         //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
     ];
     protected $validationMessages = [
         //type=status
-        'status.required'                   => 'Vui lòng chọn trạng thái',
         'status.integer'                    => 'Mã trạng thái phải là kiểu số',
         'status.between'                    => 'Mã trạng thái không phù hợp',
+        'status.filled'                     => 'Vui lòng nhập mã trạng thái ',
         //type=hot
-        'hot.required'                      => 'Vui lòng chọn mã nổi bật',
         'hot.integer'                       => 'Mã nổi bật phải là kiểu số',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
+        'hot.filled'                        => 'Vui lòng nhập mã trạng thái',
         //type=new
-        'new.required'                      => 'Danh mục mới nhất không được để trống',
         'new.integer'                       => 'Danh mục mới nhất phải là kiểu số',
         'new.between'                       => 'Mã danh mục mới nhất không phù hợp',
+        'new.filled'                        => 'Vui lòng nhập mã trạng thái',
 
         //'image.image'                   =>'Định dạng không phải là hình ảnh',
        // 'image.mimes'                   => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
@@ -46,7 +47,7 @@ class CategoryController extends ApiController
      * CategoryController constructor.
      * @param CategoryRepository $catagory
      */
-    public function __construct(CategoryRepository $catagory)
+    public function __construct(CategoryLogic $catagory)
     {
         $this->model = $catagory;
         $this->setTransformer(new CategoryTransformer);
@@ -98,7 +99,7 @@ class CategoryController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             // dd(DB::getQueryLog());
-            return $this->successResponse($data);
+            return $this->successResponse($data,true,'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -179,7 +180,7 @@ class CategoryController extends ApiController
         DB::beginTransaction();
         try {
 
-            $avaiable_option = ['hot', 'status'];
+            $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
 
             if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
