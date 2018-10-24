@@ -14,9 +14,9 @@ class CollectionController extends ApiController
 {
     protected $validationRules
          = [
-        'hot'                               => 'nullable|integer|between:0,1',
-        'status'                            => 'nullable|integer|between:0,1',
-        'new'                               => 'nullable|integer|between:0,1',
+        'hot'                               => 'integer|between:0,1|filled',
+        'status'                            => 'integer|between:0,1|filled',
+        'new'                               => 'integer|between:0,1|filled',
         //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',
         'details.*.*.description'           => 'required|v_title',
@@ -30,10 +30,13 @@ class CollectionController extends ApiController
     protected $validationMessages = [
         'hot.integer'                       => 'Mã nổi bật không phù hợp',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
+        'hot.filled'                        => 'Vui lòng nhập mã trạng thái ',
         'status.integer'                    => "Mã trạng thái phải là kiểu số",
         'status.between'                    => "Mã trạg thái phải là kiểu số 0 hoặc 1",
+        'status.filled'                      => 'Vui lòng nhập mã trạng thái ',
         'new.integer'                       => "Mã sưu tập mới phải là kiểu số",
         'new.between'                       => "Mã sưu tập mới phải là kiểu số 0 hoặc 1",
+        'new.filled'                        => 'Vui lòng nhập mã trạng thái ',
         'details.*.*.name.required'         => 'Tên bộ sưu tập không được để trông',
         'details.*.*.name.v_title'          => 'Tên bộ sưu tập không hợp lệ',
         'details.*.*.description.v_title'   => 'Tên mô tả  bộ sưu tập không hợp lệ',

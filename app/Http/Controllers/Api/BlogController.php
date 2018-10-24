@@ -13,9 +13,9 @@ class BlogController extends ApiController
 {
     protected $validationRules
         = [
-            'hot'                       => 'nullable|numeric|between:0,1',
-            'status'                    => 'nullable|numeric|between:0,1',
-            'new'                       => 'nullable|numeric|between:0,1',
+            'hot'                       => 'numeric|between:0,1|filled',
+            'status'                    => 'numeric|between:0,1|filled',
+            'new'                       => 'numeric|between:0,1|filled',
             //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
             'category_id'               => 'required|numeric|exists:categories,id',
             'details.*.*.title'         => 'required|v_title|unique:blog_translates,title',
@@ -25,12 +25,18 @@ class BlogController extends ApiController
         ];
     protected $validationMessages
         = [
-            'hot.numeric'                => ' Mã nổi bật phải là kiểu số',
+            //type=status
+            'status.integer'             => 'Mã trạng thái phải là kiểu số',
+            'status.between'             => 'Mã trạng thái không phù hợp',
+            'status.filled'              => 'Vui lòng nhập mã trạng thái ',
+            //type=hot
+            'hot.integer'                => 'Mã nổi bật phải là kiểu số',
             'hot.between'                => 'Mã nổi bật không phù hợp',
-            'status.numeric'             => 'Mã trạng thái phải là kiểu số',
-            'status.between'             => 'Mã trạng thái không hơp',
-            'new.numeric'                => 'Mã trạng thái phải là kiểu số',
-            'new.between'                => 'Mã trạng thái không hơp',
+            'hot.filled'                 => 'Vui lòng nhập mã trạng thái',
+            //type=new
+            'new.integer'                => 'Danh mục mới nhất phải là kiểu số',
+            'new.between'                => 'Mã danh mục mới nhất không phù hợp',
+            'new.filled'                 => 'Vui lòng nhập mã trạng thái',
             'category_id.required'       => 'Vui lòng chọn danh mục',
             'category_id.numeric'        => 'Mã danh mục phải là kiểu số',
             'category_id.exists'         => 'Danh mục không tồn tại',
