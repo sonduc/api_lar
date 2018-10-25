@@ -16,6 +16,14 @@ class DistrictTransformer extends TransformerAbstract
             'users',
         ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param District|null $district
+     *
+     * @return array
+     */
     public function transform(District $district = null)
     {
         if (is_null($district)) {
@@ -33,15 +41,16 @@ class DistrictTransformer extends TransformerAbstract
             'city_id'      => $district->city_id,
             'status'       => $district->status,
             'status_txt'   => $district->getStatus(),
-            'updated_at'   => $district->updated_at->format('Y-m-d H:i:s'),
+            'updated_at'   => $district->updated_at,
         ];
     }
 
     /**
-     * Include Rooms
+     *
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param District|null $district
+     * @param ParamBag|null $params
      *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
@@ -51,7 +60,7 @@ class DistrictTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $district->rooms())->get();
+        $data = $this->pagination($params, $district->rooms());
         return $this->collection($data, new RoomTransformer);
     }
 
@@ -70,7 +79,7 @@ class DistrictTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $district->users())->get();
+        $data = $this->pagination($params, $district->users());
         return $this->collection($data, new UserTransformer);
     }
 

@@ -12,6 +12,14 @@ class PaymentHistoryTransformer extends TransformerAbstract
 
         ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param PaymentHistory|null $payment
+     *
+     * @return array
+     */
     public function transform(PaymentHistory $payment = null)
     {
         if (is_null($payment)) {
@@ -29,8 +37,8 @@ class PaymentHistoryTransformer extends TransformerAbstract
             'confirm_txt'    => $payment->confirm == 1 ? 'Đã xác nhận' : 'Chưa xác nhận',
             'status'         => $payment->status,
             'status_txt'     => $payment->paymentStatus(),
-            'created_at'     => $payment->created_at->format('Y-m-d H:i:s'),
-            'updated_at'     => $payment->updated_at->format('Y-m-d H:i:s'),
+            'created_at'     => $payment->created_at,
+            'updated_at'     => $payment->updated_at,
 
         ];
     }

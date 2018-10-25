@@ -21,6 +21,14 @@ class BookingTransformer extends TransformerAbstract
         'district',
     ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking|null $booking
+     *
+     * @return array
+     */
     public function transform(Booking $booking = null)
     {
         if (is_null($booking)) {
@@ -70,11 +78,19 @@ class BookingTransformer extends TransformerAbstract
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
             'exchange_rate'      => $booking->exchange_rate,
-            'created_at'         => $booking->created_at->format('Y-m-d H:i:s'),
-            'updated_at'         => $booking->updated_at->format('Y-m-d H:i:s'),
+            'created_at'         => $booking->created_at,
+            'updated_at'         => $booking->updated_at,
         ];
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeCustomer(Booking $booking)
     {
         if (is_null($booking)) {
@@ -84,6 +100,14 @@ class BookingTransformer extends TransformerAbstract
         return $this->item($booking->customer, new UserTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeMerchant(Booking $booking)
     {
         if (is_null($booking)) {
@@ -93,6 +117,14 @@ class BookingTransformer extends TransformerAbstract
         return $this->item($booking->merchant, new UserTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeBookingStatus(Booking $booking)
     {
         if (is_null($booking)) {
@@ -102,17 +134,34 @@ class BookingTransformer extends TransformerAbstract
         return $this->item($booking->bookingStatus, new BookingStatusTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking|null  $booking
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includePayments(Booking $booking = null, ParamBag $params = null)
     {
         if (is_null($booking)) {
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $booking->payments())->get();
+        $data = $this->pagination($params, $booking->payments());
 
         return $this->collection($data, new PaymentHistoryTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
+     */
     public function includeRoom(Booking $booking)
     {
         if (is_null($booking)) {
@@ -127,6 +176,14 @@ class BookingTransformer extends TransformerAbstract
         }
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
+     */
     public function includeCity(Booking $booking)
     {
         if (is_null($booking)) {
@@ -141,6 +198,14 @@ class BookingTransformer extends TransformerAbstract
         }
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Booking $booking
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
+     */
     public function includeDistrict(Booking $booking)
     {
         if (is_null($booking)) {

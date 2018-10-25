@@ -19,8 +19,10 @@ class CollectionTranslateTransformer extends TransformerAbstract
 
     /**
      *
-     * @param ComfortTranslate $comfort
-
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param CollectionTranslate $collection
+     *
      * @return array
      */
     public function transform(CollectionTranslate $collection)
@@ -35,8 +37,8 @@ class CollectionTranslateTransformer extends TransformerAbstract
             'name'                      => $collection->name,
             'description'               => $collection->description,
             'lang'                      => $collection->lang,
-            'created_at'                => $collection->created_at->format('Y-m-d H:i:s'),
-            'updated_at'                => $collection->updated_at->format('Y-m-d H:i:s'),
+            'created_at'                => $collection->created_at,
+            'updated_at'                => $collection->updated_at,
         ];
     }
 }

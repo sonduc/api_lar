@@ -19,7 +19,9 @@ class CategoryTranslateTransformer extends TransformerAbstract
 
     /**
      *
-     * @param ComfortTranslate $comfort
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param CategoryTranslate $category
      *
      * @return array
      */
@@ -35,8 +37,8 @@ class CategoryTranslateTransformer extends TransformerAbstract
             'name'                  => $category->name,
             'slug'                  => $category->slug,
             'lang'                  => $category->lang,
-            'created_at'            => $category->created_at->format('Y-m-d H:i:s'),
-            'updated_at'            => $category->updated_at->format('Y-m-d H:i:s'),
+            'created_at'            => $category->created_at,
+            'updated_at'            => $category->updated_at,
         ];
     }
 

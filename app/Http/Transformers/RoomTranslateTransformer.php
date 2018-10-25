@@ -24,7 +24,9 @@ class RoomTranslateTransformer extends TransformerAbstract
             return [];
         }
 
-        return [
+        $field = array_keys($room->getAttributes());
+
+        $data = [
             'id'          => $room->id,
             'room_id'     => $room->room_id,
             'name'        => $room->name,
@@ -35,9 +37,11 @@ class RoomTranslateTransformer extends TransformerAbstract
             'space'       => $room->space,
             'note'        => $room->note,
             'description' => $room->description,
-            'created_at'  => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
-            'updated_at'  => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
+            'created_at'  => $room->created_at ? $room->created_at : null,
+            'updated_at'  => $room->updated_at ? $room->updated_at : null,
         ];
+
+        return array_only($data, $field);
     }
 
 

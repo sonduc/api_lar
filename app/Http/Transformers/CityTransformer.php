@@ -36,8 +36,8 @@ class CityTransformer extends TransformerAbstract
             'hot'          => $city->hot,
             'status'       => $city->status,
             'status_txt'   => $city->getStatus(),
-            'created_at'   => $city->created_at->format('Y-m-d H:i:s'),
-            'updated_at'   => $city->updated_at->format('Y-m-d H:i:s'),
+            'created_at'   => $city->created_at,
+            'updated_at'   => $city->updated_at,
         ];
     }
 
@@ -56,7 +56,7 @@ class CityTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $city->rooms())->get();
+        $data = $this->pagination($params, $city->rooms());
 
         return $this->collection($data, new RoomTransformer);
     }
@@ -76,7 +76,7 @@ class CityTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $city->districts())->get();
+        $data = $this->pagination($params, $city->districts());
 
         return $this->collection($data, new DistrictTransformer);
     }
@@ -87,7 +87,7 @@ class CityTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $city->users())->get();
+        $data = $this->pagination($params, $city->users());
 
         return $this->collection($data, new UserTransformer);
     }

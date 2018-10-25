@@ -36,23 +36,25 @@ class CategoryTransformer extends TransformerAbstract
             return [];
         }
         return [
-            'id'                => $category->id,
-            'hot'               => $category->hot ?? 0,
-            'status'            => $category->status ?? 0,
-            'new'               => $category->new ?? 0,
-            'image'             => $category->image,
-            'created_at'        => $category->created_at->format('Y-m-d H:i:s'),
-            'updated_at'        => $category->updated_at->format('Y-m-d H:i:s'),
+            'id'         => $category->id,
+            'hot'        => $category->hot ?? 0,
+            'status'     => $category->status ?? 0,
+            'new'        => $category->new ?? 0,
+            'image'      => $category->image,
+            'created_at' => $category->created_at,
+            'updated_at' => $category->updated_at,
         ];
     }
 
 
     /**
-     * Thông tin chi tiết danh muc
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Category|null $category
+     * @param ParamBag|null $params
      *
-     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeDetails(Category $category = null, ParamBag $params = null)
     {
@@ -60,18 +62,20 @@ class CategoryTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $category->categoryTrans())->get();
+        $data = $this->pagination($params, $category->categoryTrans());
 
-        return $this->collection($data,new CategoryTranslateTransformer );
-      //return $this->primitive($data);
+        return $this->collection($data, new CategoryTranslateTransformer);
     }
 
 
     /**
-     * Thông tin chi tiết bài viết theo danh mục.
-     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Category|null $category
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeBlogs(Category $category = null, ParamBag $params = null)
     {
@@ -79,12 +83,11 @@ class CategoryTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $category->blogs())->get();
+        $data = $this->pagination($params, $category->blogs());
 
-        return $this->collection($data,new BlogTransformer );
-        //return $this->primitive($data);
-
-    }
-
+        return $this->collection($data, new BlogTransformer);
 
     }
+
+
+}

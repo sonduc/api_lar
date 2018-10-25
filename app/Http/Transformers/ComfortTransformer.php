@@ -32,18 +32,20 @@ class ComfortTransformer extends TransformerAbstract
         return [
             'id'         => $comfort->id,
             'icon'       => $comfort->icon,
-            'created_at' => $comfort->created_at->format('Y-m-d H:i:s'),
-            'updated_at' => $comfort->updated_at->format('Y-m-d H:i:s'),
+            'created_at' => $comfort->created_at,
+            'updated_at' => $comfort->updated_at,
         ];
     }
 
 
     /**
-     * Thông tin chi tiết tiện nghi
      *
-     * @param Comfort|null $comfort
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return $comfort->comfortTrans
+     * @param Comfort|null  $comfort
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeDetails(Comfort $comfort = null, ParamBag $params = null)
     {
@@ -51,18 +53,27 @@ class ComfortTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $comfort->comfortTrans())->get();
+        $data = $this->pagination($params, $comfort->comfortTrans());
 
         return $this->collection($data, new ComfortTranslateTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Comfort|null  $comfort
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeRooms(Comfort $comfort = null, ParamBag $params = null)
     {
         if (is_null($comfort)) {
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $comfort->rooms())->get();
+        $data = $this->pagination($params, $comfort->rooms());
 
         return $this->collection($data, new RoomTransformer);
     }

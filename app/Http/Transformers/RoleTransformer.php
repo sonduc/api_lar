@@ -16,6 +16,14 @@ class RoleTransformer extends TransformerAbstract
             'pers',
         ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Role|null $role
+     *
+     * @return array
+     */
     public function transform(Role $role = null)
     {
         if (is_null($role)) {
@@ -31,6 +39,15 @@ class RoleTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Role|null     $role
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeUsers(Role $role = null, ParamBag $params = null)
     {
         if (is_null($role)) {
@@ -41,6 +58,14 @@ class RoleTransformer extends TransformerAbstract
         return $this->collection($data, new UserTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Role|null $role
+     *
+     * @return \League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
+     */
     public function includePers(Role $role = null)
     {
         if (is_null($role)) {
@@ -49,6 +74,14 @@ class RoleTransformer extends TransformerAbstract
         return $this->primitive($this->displayPermission($role->permissions));
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $permissions
+     *
+     * @return array
+     */
     private function displayPermission($permissions)
     {
         $allPermissions = array_collapse(array_map(function ($permission, $key) {

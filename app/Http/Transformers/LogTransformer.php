@@ -26,8 +26,8 @@ class LogTransformer extends TransformerAbstract
             'log_name_txt' => $log->logVi(),
             'description'  => $log->description,
             'causer_type'  => $log->causer_type,
-            'created_at'   => $log->created_at->format('Y-m-d H:i:s'),
-            'updated_at'   => $log->updated_at->format('Y-m-d H:i:s'),
+            'created_at'   => $log->created_at,
+            'updated_at'   => $log->updated_at,
         ];
     }
 

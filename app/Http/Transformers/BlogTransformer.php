@@ -31,8 +31,8 @@ class BlogTransformer extends TransformerAbstract
             'new'                   => $blog->new ?? 0,
             'user_id'               => $blog->user_id,
             'category_id'           => $blog->category_id,
-            'created_at'            => $blog->created_at->format('Y-m-d H:i:s'),
-            'updated_at'            => $blog->updated_at->format('Y-m-d H:i:s'),
+            'created_at'            => $blog->created_at,
+            'updated_at'            => $blog->updated_at,
 
 
         ];
@@ -52,7 +52,7 @@ class BlogTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $blog->blogTrans())->get();
+        $data = $this->pagination($params, $blog->blogTrans());
 
         return $this->collection($data,new BlogTranslateTransformer );
         //return $this->primitive($data);
@@ -72,7 +72,7 @@ class BlogTransformer extends TransformerAbstract
         if (is_null($blog)) {
             return $this->null();
         }
-        $data = $this->limitAndOrder($params, $blog->tags())->get();
+        $data = $this->pagination($params, $blog->tags());
         return $this->collection($data, new TagTransformer);
     }
 
@@ -89,18 +89,18 @@ class BlogTransformer extends TransformerAbstract
         if (is_null($blog)) {
             return $this->null();
         }
-        $data = $this->limitAndOrder($params, $blog->categories())->get();
+        $data = $this->pagination($params, $blog->categories());
         return $this->collection($data, new CategoryTransformer);
 
     }
 
     /**
-     * Xác định xem ai viết blog này
-     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Blog|null $blog
-     * @param ParamBag|null $params
-     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
 
     public function includeUser(Blog $blog= null)

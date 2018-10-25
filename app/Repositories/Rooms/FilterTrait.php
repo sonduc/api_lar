@@ -142,8 +142,7 @@ trait FilterTrait
      */
     public function scopeLatestDeal($query, $q)
     {
-        if (is_numeric($q))
-        {
+        if (is_numeric($q)) {
             return $query->where('rooms.latest_deal', $q);
         }
     }
@@ -177,11 +176,10 @@ trait FilterTrait
      * @return array
      */
 
-    public function scopePriceRangeStart($query,$q)
+    public function scopePriceRangeStart($query, $q)
     {
-        if ($q)
-        {
-            $query->where('rooms.price_hour','>=',$q)->orWhere('rooms.price_day','>=',$q);
+        if ($q) {
+            $query->where('rooms.price_hour', '>=', $q)->orWhere('rooms.price_day', '>=', $q);
         }
         return $query;
 
@@ -189,23 +187,21 @@ trait FilterTrait
 
     public function scopePriceRangeEnd($query, $q)
     {
-        if ($q)
-        {
-            $query->where('rooms.price_hour','<=',$q)->where('rooms.price_day','<=',$q);
+        if ($q) {
+            $query->where('rooms.price_hour', '<=', $q)->where('rooms.price_day', '<=', $q);
         }
         return $query;
 
     }
 
     /**
-     * Scope new
-     * @author 0ducchien612 <0ducchien612@gmail.com>
      *
-     * @param       $room
-     * @param array $data
-     * @param array $list
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return array
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
      */
     public function scopeNew($query, $q)
     {
@@ -216,14 +212,13 @@ trait FilterTrait
     }
 
     /**
-     * Scope hot
-     * @author 0ducchien612 <0ducchien612@gmail.com>
      *
-     * @param       $room
-     * @param array $data
-     * @param array $list
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return array
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
      */
     public function scopeHot($query, $q)
     {
@@ -231,6 +226,11 @@ trait FilterTrait
             $query->where('rooms.hot', $q);
         }
         return $query;
+    }
+
+    public function scopeMinimize($query, $q)
+    {
+        return $query->select('id');
     }
 
 }

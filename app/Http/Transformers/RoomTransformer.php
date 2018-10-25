@@ -35,7 +35,9 @@ class RoomTransformer extends TransformerAbstract
             return [];
         }
 
-        return [
+        $field = array_keys($room->getAttributes());
+
+        $data = [
             'id'                   => $room->id,
             'merchant_id'          => $room->merchant_id,
             'room_type'            => $room->room_type,
@@ -68,17 +70,20 @@ class RoomTransformer extends TransformerAbstract
             'total_booking'        => $room->total_booking,
             'status'               => $room->status,
             'status_txt'           => $room->roomStatus(),
-            'created_at'           => $room->created_at->format('Y-m-d H:i:s'),
-            'updated_at'           => $room->updated_at->format('Y-m-d H:i:s'),
+            'created_at'           => $room->created_at,
+            'updated_at'           => $room->updated_at,
         ];
+
+        return array_only($data, $field);
     }
 
     /**
-     * Xem ai là chủ phòng
      *
-     * @param Room $room
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return $room->user
+     * @param Room|null $room
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
     public function includeUser(Room $room = null)
     {
@@ -89,11 +94,13 @@ class RoomTransformer extends TransformerAbstract
     }
 
     /**
-     * Thông tin chi tiết phòng
      *
-     * @param Room|null $room
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return $room->roomTrans
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeDetails(Room $room = null, ParamBag $params = null)
     {
@@ -101,18 +108,27 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $room->roomTrans())->get();
+        $columns = ['*'];
+        $data = $room->roomTrans();
+
+        if ($params->get('lang')) {
+            $data = $data->where('room_translates.lang', $params->get('lang'));
+        }
+
+        $data = $this->pagination($params, $data, $columns);
 
         return $this->collection($data, new RoomTranslateTransformer);
     }
 
 
     /**
-     * Thông tin tiện nghi của phòng
      *
-     * @param Comfort|null $comfort
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return $comfort->comfort
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeComforts(Room $room = null, ParamBag $params = null)
     {
@@ -120,7 +136,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $room->comforts())->get();
+        $data = $this->pagination($params, $room->comforts());
 
         return $this->collection($data, new ComfortTransformer);
     }
@@ -140,7 +156,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $room->prices())->get();
+        $data = $this->pagination($params, $room->prices());
 
         return $this->collection($data, new RoomOptionalPriceTransformer);
     }
@@ -160,7 +176,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $room->blocks())->get();
+        $data = $this->pagination($params, $room->blocks());
 
         return $this->collection($data, new RoomTimeBlockTransformer);
     }
@@ -180,7 +196,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $room->media())->get();
+        $data = $this->pagination($params, $room->media());
 
         return $this->collection($data, new RoomMediaTransformer);
     }

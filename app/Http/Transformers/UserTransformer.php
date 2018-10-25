@@ -24,7 +24,11 @@ class UserTransformer extends TransformerAbstract
     ];
 
     /**
-     * Các thông tin của user
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     *
      * @return array
      */
     public function transform(User $user = null)
@@ -60,8 +64,13 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Thêm các thông tin về chức vụ
-     * @return array
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null     $user
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeRoles(User $user = null, ParamBag $params = null)
     {
@@ -69,17 +78,18 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->limitAndOrder($params, $user->roles())->get();
+        $data = $this->pagination($params, $user->roles());
 
         return $this->collection($data, new RoleTransformer);
     }
 
     /**
-     * Thêm các thông tin về quyền
      *
-     * @param  User|null $user [description]
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return [type]          [description]
+     * @param User|null $user
+     *
+     * @return \League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
      */
 
     public function includePers(User $user = null)
@@ -96,9 +106,10 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Hiển thị quyền
      *
-     * @param  [type] $permissions [description]
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $permissions
      *
      * @return array
      */
@@ -136,6 +147,14 @@ class UserTransformer extends TransformerAbstract
         return $this->item($user->parent, new UserTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeSale(User $user = null)
     {
         if (is_null($user->sale)) {
@@ -145,11 +164,13 @@ class UserTransformer extends TransformerAbstract
     }
 
     /**
-     * Danh sách các user đang được quản lý bởi tài khoản này
      *
-     * @param  User|null $user [description]
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @return array
+     * @param User|null $user
+     * @param ParamBag  $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeChild(User $user = null, ParamBag $params)
     {
@@ -162,6 +183,15 @@ class UserTransformer extends TransformerAbstract
         return $this->collection($data, new UserTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     * @param ParamBag  $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
     public function includeBookings(User $user = null, ParamBag $params)
     {
         if (is_null($user)) {
@@ -173,6 +203,14 @@ class UserTransformer extends TransformerAbstract
         return $this->collection($data, new BookingTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeCity(User $user = null)
     {
         if (is_null($user)) {
@@ -182,6 +220,14 @@ class UserTransformer extends TransformerAbstract
         return $this->item($user->city, new CityTransformer);
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
     public function includeDistrict(User $user = null)
     {
         if (is_null($user)) {

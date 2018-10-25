@@ -8,10 +8,11 @@
 
 namespace App\Http\Transformers;
 
-use App\Repositories\Collections\Collection;
-use League\Fractal\TransformerAbstract;
-use League\Fractal\ParamBag;
 use App\Http\Transformers\Traits\FilterTrait;
+use App\Repositories\Collections\Collection;
+use League\Fractal\ParamBag;
+use League\Fractal\TransformerAbstract;
+
 class CollectionTransformer extends TransformerAbstract
 {
     use FilterTrait;
@@ -27,13 +28,13 @@ class CollectionTransformer extends TransformerAbstract
         }
 
         return [
-            'id'                    => $collection->id,
-            'image'                 => $collection->image,
-            'status'                => $collection->status ?? 0,
-            'hot'                   => $collection->hot ?? 0,
-            'new'                   => $collection->new ?? 0,
-            'created_at'            => $collection->created_at->format('Y-m-d H:i:s'),
-            'updated_at'            => $collection->updated_at->format('Y-m-d H:i:s'),
+            'id'         => $collection->id,
+            'image'      => $collection->image,
+            'status'     => $collection->status ?? 0,
+            'hot'        => $collection->hot ?? 0,
+            'new'        => $collection->new ?? 0,
+            'created_at' => $collection->created_at,
+            'updated_at' => $collection->updated_at,
         ];
     }
 
@@ -42,7 +43,8 @@ class CollectionTransformer extends TransformerAbstract
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Collection|null $collection
-     * @param ParamBag|null $params
+     * @param ParamBag|null   $params
+     *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeDetails(Collection $collection = null, ParamBag $params = null)
@@ -50,9 +52,8 @@ class CollectionTransformer extends TransformerAbstract
         if (is_null($collection)) {
             return $this->null();
         }
-        $data = $this->limitAndOrder($params, $collection->collectionTrans())->get();
-        return $this->collection($data,new CollectionTranslateTransformer);
-        //return $this->primitive($data);
+        $data = $this->pagination($params, $collection->CollectionTrans());
+        return $this->collection($data, new CollectionTranslateTransformer);
     }
 
     /**
@@ -60,7 +61,8 @@ class CollectionTransformer extends TransformerAbstract
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Collection|null $collection
-     * @param ParamBag|null $params
+     * @param ParamBag|null   $params
+     *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
 
@@ -69,9 +71,8 @@ class CollectionTransformer extends TransformerAbstract
         if (is_null($collection)) {
             return $this->null();
         }
-        $data = $this->limitAndOrder($params, $collection->rooms())->get();
-        return $this->collection($data,new RoomTransformer);
-        //return $this->primitive($data);
+        $data = $this->pagination($params, $collection->rooms());
+        return $this->collection($data, new RoomTransformer);
     }
 
 

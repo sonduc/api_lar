@@ -12,6 +12,14 @@ class RoomOptionalPriceTransformer extends TransformerAbstract
 
         ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param RoomOptionalPrice|null $room
+     *
+     * @return array
+     */
     public function transform(RoomOptionalPrice $room = null)
     {
         if (is_null($room)) {
@@ -28,8 +36,8 @@ class RoomOptionalPriceTransformer extends TransformerAbstract
             'price_charge_guest' => $room->price_charge_guest ?? 0,
             'status'             => $room->status,
             'status_txt'         => $room->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
-            'created_at'         => $room->created_at->format('Y-m-d H:m:i'),
-            'updated_at'         => $room->updated_at->format('Y-m-d H:m:i'),
+            'created_at'         => $room->created_at,
+            'updated_at'         => $room->updated_at,
         ];
     }
 

@@ -11,6 +11,14 @@ class TagTransformer extends TransformerAbstract
 
     ];
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Tag|null $tag
+     *
+     * @return array
+     */
     public function transform(Tag $tag = null)
     {
         if (is_null($tag)) {
