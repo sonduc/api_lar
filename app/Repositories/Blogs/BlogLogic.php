@@ -19,11 +19,11 @@ class BlogLogic extends BaseLogic
     protected $tag;
 
     /**
-     * CategoryRepository constructor.
+     * BlogLogic constructor.
      *
-     * @param Blog                    $blog
-     * @param BlogTranslateRepository $blogTranslate
-     * @param TagRepository           $tag
+     * @param BlogRepositoryInterface|BlogRepository                   $blog
+     * @param BlogTranslateRepositoryInterface|BlogTranslateRepository $blogTranslate
+     * @param TagRepositoryInterface|TagRepository                     $tag
      */
     public function __construct(
         BlogRepositoryInterface $blog,
@@ -46,9 +46,9 @@ class BlogLogic extends BaseLogic
      */
     public function store($data = null)
     {
-        $data['user_id']    = Auth::user()->id;
-        $data['image']      = rand_name($data['image']);
-        $data_blog          = parent::store($data);
+        $data['user_id'] = Auth::user()->id;
+        $data['image']   = rand_name($data['image']);
+        $data_blog       = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
@@ -66,9 +66,9 @@ class BlogLogic extends BaseLogic
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
-        $data['user_id']    = Auth::user()->id;
-        $data['image'] = rand_name($data['image']);
-        $data_blog     = parent::update($id, $data);
+        $data['user_id'] = Auth::user()->id;
+        $data['image']   = rand_name($data['image']);
+        $data_blog       = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();

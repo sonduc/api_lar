@@ -17,13 +17,17 @@ class CollectionLogic extends BaseLogic
     protected $collectionTranslate;
 
     /**
-     * CollectionRepository constructor.
-     * @param Collection $collection
+     * CollectionLogic constructor.
+     *
+     * @param CollectionRepositoryInterface|CollectionRepository                  $collection
+     * @param ColectionTranslateRepositoryInterface|CollectionTranslateRepository $collectionTranslate
      */
-    public function __construct(CollectionRepositoryInterface $collection, ColectionTranslateRepositoryInterface $collectionTranslate)
+    public function __construct(
+        CollectionRepositoryInterface $collection, ColectionTranslateRepositoryInterface $collectionTranslate
+    )
     {
-        $this->model                = $collection;
-        $this->collectionTranslate  = $collectionTranslate;
+        $this->model               = $collection;
+        $this->collectionTranslate = $collectionTranslate;
     }
 
     /**
@@ -31,13 +35,14 @@ class CollectionLogic extends BaseLogic
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param array $data
+     *
      * @return \App\Repositories\Eloquent
      */
     public function store($data)
     {
-        $data['image'] = rand_name($data['image']);
-        $data_collection= parent::store($data);
-        $this->collectionTranslate->storeCollectionTranslate($data_collection,$data);
+        $data['image']   = rand_name($data['image']);
+        $data_collection = parent::store($data);
+        $this->collectionTranslate->storeCollectionTranslate($data_collection, $data);
         $this->storeCollectionRoom($data_collection, $data);
         return $data_collection;
     }
@@ -59,6 +64,27 @@ class CollectionLogic extends BaseLogic
     }
 
     /**
+     * Cập nhật dữ liệu cho collection, collection_translate và collection_room
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param int   $id
+     * @param       $data
+     * @param array $excepts
+     * @param array $only
+     *
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function update($id, $data, $excepts = [], $only = [])
+    {
+        $data['image']   = rand_name($data['image']);
+        $data_collection = parent::update($id, $data);
+        $this->collectionTranslate->updateCollectionTranslate($data_collection, $data);
+        $this->updateCollectionRoom($data_collection, $data);
+        return $data_collection;
+    }
+
+    /**
      * Cập nhật  dữ liệu vào collection_room
      * @author ducchien0612 <ducen0612@gmail.com>
      *
@@ -73,26 +99,6 @@ class CollectionLogic extends BaseLogic
                 $data_collection->rooms()->attach($data['rooms']);
             }
         }
-    }
-
-    /**
-     * Cập nhật dữ liệu cho collection, collection_translate và collection_room
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param int $id
-     * @param $data
-     * @param array $excepts
-     * @param array $only
-     * @return \App\Repositories\Eloquent
-     */
-
-    public function update($id, $data, $excepts = [], $only = [])
-    {
-        $data['image'] = rand_name($data['image']);
-        $data_collection = parent::update($id, $data);
-        $this->collectionTranslate->updateCollectionTranslate($data_collection,$data);
-        $this->updateCollectionRoom($data_collection, $data);
-        return $data_collection;
     }
 
     /**
