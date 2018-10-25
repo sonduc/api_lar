@@ -10,6 +10,7 @@ use App\Http\Transformers\CollectionTransformer;
 use App\Repositories\Collections\CollectionRepository;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
+
 class CollectionController extends ApiController
 {
     protected $validationRules
@@ -19,7 +20,7 @@ class CollectionController extends ApiController
         'new'                               => 'integer|between:0,1|filled',
         //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:collection_translates,name',
-        'details.*.*.description'           => 'required|v_title',
+        'details.*.*.description'           => 'required',
         'details.*.*.lang'                  => 'required',
         'rooms.0'                           => 'required',
         'rooms.*'                           => 'required|integer|exists:rooms,id|distinct',
@@ -37,7 +38,6 @@ class CollectionController extends ApiController
         'new.filled'                        => 'Vui lòng nhập mã trạng thái ',
         'details.*.*.name.required'         => 'Tên bộ sưu tập không được để trông',
         'details.*.*.name.v_title'          => 'Tên bộ sưu tập không hợp lệ',
-        'details.*.*.description.v_title'   => 'Tên mô tả  bộ sưu tập không hợp lệ',
         'details.*.*.description.required'  => 'Tên mô tả bộ sưu tập không được để trống',
         'details.*.*.name.unique'           => 'Tên bộ sưu tập này đã tồn tại',
         'details.*.*.lang.required'         => 'Mã ngôn ngữ này không được để trống',
@@ -122,7 +122,7 @@ class CollectionController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-           // dd(DB::getQueryLog());
+            // dd(DB::getQueryLog());
             DB::commit();
             logs('collection', 'tạo bộ sưu tập mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
@@ -165,7 +165,7 @@ class CollectionController extends ApiController
             $this->validationRules['details.*.*.name'] = "required|v_title";
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
-          // dd(DB::getQueryLog());
+            // dd(DB::getQueryLog());
             DB::commit();
             logs('collection', 'sửa bộ sưu tập' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
@@ -219,7 +219,9 @@ class CollectionController extends ApiController
             $this->authorize('collection.update');
             $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
-            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
 
             $validate = array_only($this->validationRules, [
                 $option,
@@ -231,7 +233,6 @@ class CollectionController extends ApiController
             logs('blogs', 'sửa trạng thái của bộ sưu tập có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -306,5 +307,4 @@ class CollectionController extends ApiController
             throw $e;
         }
     }
-
 }

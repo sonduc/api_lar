@@ -8,9 +8,9 @@
 
 namespace App\Repositories\Blogs;
 
-
 use App\Repositories\BaseLogic;
 use Illuminate\Support\Facades\Auth;
+use App\Events\AmazonS3_Upload_Event;
 
 class BlogLogic extends BaseLogic
 {
@@ -29,8 +29,7 @@ class BlogLogic extends BaseLogic
         BlogRepositoryInterface $blog,
         BlogTranslateRepositoryInterface $blogTranslate,
         TagRepositoryInterface $tag
-    )
-    {
+    ) {
         $this->model         = $blog;
         $this->blogTranslate = $blogTranslate;
         $this->tag           = $tag;
@@ -47,12 +46,14 @@ class BlogLogic extends BaseLogic
     public function store($data = null)
     {
         $data['user_id'] = Auth::user()->id;
-        $data['image']   = rand_name($data['image']);
+        $data['image'] = rand_name();
         $data_blog       = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
         $data_blog->tags()->attach($list_tag_id);
+        event(new AmazonS3_Upload_Event($data['image'], $data['source']));
+
         return $data_blog;
     }
 
@@ -103,5 +104,4 @@ class BlogLogic extends BaseLogic
         $data_blog = parent::update($id, $data);
         return $data_blog;
     }
-
 }

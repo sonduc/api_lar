@@ -60,7 +60,6 @@ class CategoryController extends ApiController
      */
     public function index(Request $request)
     {
-
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
@@ -90,7 +89,6 @@ class CategoryController extends ApiController
 
     public function store(Request $request)
     {
-
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
@@ -99,7 +97,7 @@ class CategoryController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             // dd(DB::getQueryLog());
-            return $this->successResponse($data,true,'details');
+            return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -179,11 +177,12 @@ class CategoryController extends ApiController
     {
         DB::beginTransaction();
         try {
-
             $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
 
-            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
             $validate = array_only($this->validationRules, [
                 $option,
             ]);
@@ -192,7 +191,6 @@ class CategoryController extends ApiController
             logs('categories', 'sửa trạng thái của danh mục có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
