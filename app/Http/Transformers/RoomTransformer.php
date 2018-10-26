@@ -74,7 +74,7 @@ class RoomTransformer extends TransformerAbstract
             'updated_at'           => $room->updated_at,
         ];
 
-        return array_only($data, $field);
+        return $data;
     }
 
     /**
