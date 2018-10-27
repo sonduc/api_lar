@@ -54,15 +54,16 @@ trait RoomLogicTrait
             }
         }
 
-
-        sort($list);
         $list = array_map(function (Carbon $item) {
             if ($item >= Carbon::now()) {
                 return $item->toDateString();
             }
         }, $list);
 
-        return array_values(array_filter($list));
+        $list = array_filter($list);
+        array_splice($list, 0, 0);
+        
+        return $list;
     }
 
 }
