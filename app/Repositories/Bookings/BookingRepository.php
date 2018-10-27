@@ -31,7 +31,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $data = $this->model->where([
             ['status', '<>', BookingConstant::BOOKING_CANCEL],
             ['checkout', '>', $dateNow->timestamp],
-            ['created_at', '>', $dateNow->copy()->addYears(-1)]
+            ['created_at', '>', $dateNow->copy()->addYears(-1)],
+            ['room_id', $id]
         ])->get();
         return $data;
     }

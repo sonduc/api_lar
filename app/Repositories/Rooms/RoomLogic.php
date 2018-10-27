@@ -133,6 +133,7 @@ class RoomLogic extends BaseLogic
      */
     public function getFutureRoomSchedule($id)
     {
-        return $this->getBlockedScheduleByRoomId($id);
+        $room = parent::getById($id);
+        return $this->getBlockedScheduleByRoomId($room->id);
     }
 }

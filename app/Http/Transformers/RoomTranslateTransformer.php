@@ -24,7 +24,7 @@ class RoomTranslateTransformer extends TransformerAbstract
             return [];
         }
 
-        $field = array_keys($room->getAttributes());
+//        $field = array_keys($room->getAttributes());
 
         $data = [
             'id'          => $room->id,
@@ -41,7 +41,7 @@ class RoomTranslateTransformer extends TransformerAbstract
             'updated_at'  => $room->updated_at ? $room->updated_at : null,
         ];
 
-        return array_only($data, $field);
+        return $data;
     }
 
 

@@ -35,7 +35,7 @@ class RoomTransformer extends TransformerAbstract
             return [];
         }
 
-        $field = array_keys($room->getAttributes());
+//        $field = array_keys($room->getAttributes());
 
         $data = [
             'id'                   => $room->id,

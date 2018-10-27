@@ -54,7 +54,7 @@ $router->group([
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
     $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
-    $router->post('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+    $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     resource('/rooms', 'RoomController', $router);
 
 

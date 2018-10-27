@@ -48,17 +48,21 @@ trait RoomLogicTrait
 
         // Danh sách các ngày block chủ động
         foreach ($data_block as $item) {
-            $period = CarbonPeriod::between($item->date_start, $item->date_start);
+            $period = CarbonPeriod::between($item->date_start, $item->date_end);
             foreach ($period as $day) {
                 $list[] = $day;
             }
         }
 
+
         sort($list);
         $list = array_map(function (Carbon $item) {
-            return $item->toDateString();
+            if ($item >= Carbon::now()) {
+                return $item->toDateString();
+            }
         }, $list);
-        return $list;
+
+        return array_values(array_filter($list));
     }
 
 }
