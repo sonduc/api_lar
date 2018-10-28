@@ -6,7 +6,7 @@ use Aws\S3\S3Client;
 
 class S3Processor
 {
-    const ACL_LIST = [
+    public const ACL_LIST = [
         'private',
         'public-read',
         'public-read-write',
