@@ -40,10 +40,6 @@ trait RoomLogicTrait
                 $list[] = $day;
             }
 
-            if ($item->booking_type == BookingConstant::BOOKING_TYPE_DAY) {
-                $list[] = $CO->copy()->addDays(1);
-            }
-
         }
 
         // Danh sách các ngày block chủ động
@@ -62,7 +58,7 @@ trait RoomLogicTrait
 
         $list = array_filter($list);
         array_splice($list, 0, 0);
-        
+
         return $list;
     }
 

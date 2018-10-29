@@ -122,8 +122,10 @@ class BookingLogic extends BaseLogic
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
-            $days         = $CO->diffInDays($CI) + 1;
-            $data['days'] = $days;
+            $days             = $CO->diffInDays($CI) + 1;
+            $data['days']     = $days;
+            $data['checkin']  = $CI->timestamp;
+            $data['checkout'] = $CO->timestamp;
 
             // Xử lý logic tính giá phòng vào ngày đặc biệt
             list ($money, $totalDay) =
@@ -142,10 +144,10 @@ class BookingLogic extends BaseLogic
         $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
 
         $price = $money
-            + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-            + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
-            - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
-            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+                 + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+                 + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+                 - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+                 - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
 
