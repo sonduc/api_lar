@@ -146,4 +146,11 @@ $app->router->group([
     require_once __DIR__ . '/../routes/api.php';
 });
 
+$app->router->group([
+    'prefix'    => 'customer-api',
+    'namespace' => 'App\Http\Controllers\ApiCustomer',
+], function ($router) {
+    require_once __DIR__ . '/../routes/customer.php';
+});
+
 return $app;

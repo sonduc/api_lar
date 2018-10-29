@@ -30,6 +30,7 @@ class BookingLogic extends BaseLogic
     protected $op;
     protected $booking;
     protected $roomTimeBlock;
+    protected $booking_cancel;
 
     /**
      * BookingLogic constructor.
@@ -41,6 +42,7 @@ class BookingLogic extends BaseLogic
      * @param RoomRepositoryInterface|RoomRepository                           $room
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
+     * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -49,17 +51,19 @@ class BookingLogic extends BaseLogic
         UserRepositoryInterface $user,
         RoomRepositoryInterface $room,
         RoomOptionalPriceRepositoryInterface $op,
-        RoomTimeBlockRepositoryInterface $roomTimeBlock
+        RoomTimeBlockRepositoryInterface $roomTimeBlock,
+        BookingCancelRepositoryInterface $booking_cancel
     )
     {
-        $this->model         = $booking;
-        $this->booking       = $booking;
-        $this->status        = $status;
-        $this->payment       = $payment;
-        $this->user          = $user;
-        $this->room          = $room;
-        $this->op            = $op;
-        $this->roomTimeBlock = $roomTimeBlock;
+        $this->model          = $booking;
+        $this->booking        = $booking;
+        $this->status         = $status;
+        $this->payment        = $payment;
+        $this->user           = $user;
+        $this->room           = $room;
+        $this->op             = $op;
+        $this->roomTimeBlock  = $roomTimeBlock;
+        $this->booking_cancel = $booking_cancel;
     }
 
     /**
@@ -142,10 +146,10 @@ class BookingLogic extends BaseLogic
         $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
 
         $price = $money
-            + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-            + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
-            - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
-            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+                 + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+                 + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+                 - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+                 - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
 
@@ -425,6 +429,33 @@ class BookingLogic extends BaseLogic
         $this->payment->storePaymentHistory($data_booking, $data);
 
         return $data_booking;
+    }
+
+    /**
+     * Hủy booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function cancelBooking($id, $data)
+    {
+        $data_booking = parent::getById($id);
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
+
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
     }
 
 }

@@ -37,8 +37,8 @@ class CollectionTranslateTransformer extends TransformerAbstract
             'name'                      => $collection->name,
             'description'               => $collection->description,
             'lang'                      => $collection->lang,
-            'created_at'                => $collection->created_at,
-            'updated_at'                => $collection->updated_at,
+            'created_at'                => $collection->created_at ? $collection->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'                => $collection->updated_at ? $collection->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 }

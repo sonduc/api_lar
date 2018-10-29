@@ -37,8 +37,8 @@ class CategoryTranslateTransformer extends TransformerAbstract
             'name'                  => $category->name,
             'slug'                  => $category->slug,
             'lang'                  => $category->lang,
-            'created_at'            => $category->created_at,
-            'updated_at'            => $category->updated_at,
+            'created_at'            => $category->created_at ? $category->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'            => $category->updated_at ? $category->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

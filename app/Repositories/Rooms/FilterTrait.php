@@ -167,13 +167,12 @@ trait FilterTrait
 
     /**
      * Lọc phòng theo khoảng giá dựa theo bảng room
-     * @author 0ducchien612 <0ducchien612@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param       $room
-     * @param array $data
-     * @param array $list
+     * @param $query
+     * @param $q
      *
-     * @return array
+     * @return mixed
      */
 
     public function scopePriceRangeStart($query, $q)
