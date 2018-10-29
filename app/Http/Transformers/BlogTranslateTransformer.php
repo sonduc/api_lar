@@ -38,8 +38,8 @@ class BlogTranslateTransformer extends  TransformerAbstract
             'content'                   => $blog->content,
             'slug'                      => $blog->slug,
             'lang'                      => $blog->lang,
-            'created_at'                => $blog->created_at,
-            'updated_at'                => $blog->updated_at,
+            'created_at'                => $blog->created_at ? $blog->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'                => $blog->updated_at ? $blog->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

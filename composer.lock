@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "20032ecca73f3f833317f63f0973fc6a",
+    "content-hash": "a8139c5294470e1c0a1a7f0466cd978b",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -1085,12 +1085,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/HarikiRito/api-generator.git",
-                "reference": "1c4f13a09d0bbeeee566dd0d8bd1ec8d1c5d2d49"
+                "reference": "5bd5e187ca7cdc8d92f31c73bf47952bf87efb99"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/HarikiRito/api-generator/zipball/1c4f13a09d0bbeeee566dd0d8bd1ec8d1c5d2d49",
-                "reference": "1c4f13a09d0bbeeee566dd0d8bd1ec8d1c5d2d49",
+                "url": "https://api.github.com/repos/HarikiRito/api-generator/zipball/5bd5e187ca7cdc8d92f31c73bf47952bf87efb99",
+                "reference": "5bd5e187ca7cdc8d92f31c73bf47952bf87efb99",
                 "shasum": ""
             },
             "require": {
@@ -1116,7 +1116,7 @@
                 }
             ],
             "description": "API Generator",
-            "time": "2018-10-29T03:42:44+00:00"
+            "time": "2018-10-29T04:15:01+00:00"
         },
         {
             "name": "hashids/hashids",

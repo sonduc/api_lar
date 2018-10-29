@@ -33,8 +33,8 @@ class CollectionTransformer extends TransformerAbstract
             'status'     => $collection->status ?? 0,
             'hot'        => $collection->hot ?? 0,
             'new'        => $collection->new ?? 0,
-            'created_at' => $collection->created_at,
-            'updated_at' => $collection->updated_at,
+            'created_at' => $collection->created_at ? $collection->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at' => $collection->updated_at ? $collection->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

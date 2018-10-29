@@ -84,9 +84,11 @@ $router->group([
     $router->get('/bookings/payment-history-type-list', 'BookingController@paymentHistoryTypeList');
     $router->get('/bookings/booking-source-list', 'BookingController@bookingSourceList');
     $router->get('/bookings/price-range-list', 'BookingController@priceRangeList');
+    $router->get('/bookings/cancel-reason-list', 'BookingController@bookingCancelList');
     $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
     $router->put('/bookings/status-update/{id}', 'BookingController@minorBookingUpdate');
     $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
+    $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
 
     resource('/bookings', 'BookingController', $router);
     /**
@@ -129,21 +131,3 @@ $router->post('register', 'RegisterController@register');
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
 
-
-/**
- * resource router helper
- * @author SaturnLai <daolvcntt@gmail.com>
- * @date   2018-07-17
- *
- * @param  string                       $uri        enpoint url
- * @param  string                       $controller controller name
- * @param  Laravel\Lumen\Routing\Router $router     RouterObject
- */
-function resource($uri, $controller, Laravel\Lumen\Routing\Router $router)
-{
-    $router->get($uri, $controller . '@index');
-    $router->get($uri . '/{id}', $controller . '@show');
-    $router->post($uri, $controller . '@store');
-    $router->put($uri . '/{id}', $controller . '@update');
-    $router->delete($uri . '/{id}', $controller . '@destroy');
-}

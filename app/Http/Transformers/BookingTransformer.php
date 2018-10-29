@@ -19,6 +19,7 @@ class BookingTransformer extends TransformerAbstract
         'room',
         'city',
         'district',
+        'cancel',
     ];
 
     /**
@@ -78,8 +79,8 @@ class BookingTransformer extends TransformerAbstract
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
             'exchange_rate'      => $booking->exchange_rate,
-            'created_at'         => $booking->created_at,
-            'updated_at'         => $booking->updated_at,
+            'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'         => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 
@@ -152,6 +153,17 @@ class BookingTransformer extends TransformerAbstract
         $data = $this->pagination($params, $booking->payments());
 
         return $this->collection($data, new PaymentHistoryTransformer);
+    }
+
+    public function includeCancel(Booking $booking = null, ParamBag $params = null)
+    {
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $booking->cancel());
+
+        return $this->collection($data, new BookingCancelTransformer());
     }
 
     /**

@@ -30,8 +30,8 @@ class BookingStatusTransformer extends TransformerAbstract
             'staff_id'   => $booking->staff_id,
             'booking_id' => $booking->booking_id,
             'note'       => $booking->note,
-            'created_at' => $booking->created_at,
-            'updated_at' => $booking->updated_at,
+            'created_at' => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at' => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

@@ -34,8 +34,8 @@ class RoomMediaTransformer extends TransformerAbstract
             'type_txt'   => $room->roomMedia(),
             'status'     => $room->status,
             'status_txt' => $room->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
-            'created_at' => $room->created_at->format('Y-m-d H:m:i'),
-            'updated_at' => $room->updated_at->format('Y-m-d H:m:i'),
+            'created_at' => $room->created_at ? $room->created_at->format('Y-m-d H:m:i'),
+            'updated_at' => $room->updated_at ? $room->updated_at->format('Y-m-d H:m:i'),
         ];
     }
 

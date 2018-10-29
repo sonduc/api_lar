@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\BookingTransformer;
+use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
@@ -12,7 +14,7 @@ use Illuminate\Support\Facades\DB;
 
 class BookingController extends ApiController
 {
-    protected $validationRules = [
+    protected $validationRules    = [
         'name'             => 'required|v_title',
         'name_received'    => 'required|v_title',
         'phone'            => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
@@ -111,6 +113,9 @@ class BookingController extends ApiController
         'confirm.required'       => 'Vui lòng chọn trạng thái xác nhận',
         'confirm.integer'        => 'Mã trạng thái xác nhận phải là kiểu số',
         'confirm.between'        => 'Trạng thái xác nhận không hợp lệ',
+        'code.integer'           => 'Mã phải là kiểu số',
+        'code.in'                => 'Mã không hợp lệ',
+        'code.required'          => 'Vui lòng chọn lý do',
     ];
 
     protected $browser;
@@ -341,9 +346,9 @@ class BookingController extends ApiController
                     'exception' => $e->getValue(),
                 ]);
             }
-//            return $this->errorResponse([
-//                'error' => $e->getMessage(),
-//            ]);
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         }
     }
@@ -427,6 +432,58 @@ class BookingController extends ApiController
 
             $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
             logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
+
+            DB::commit();
+            return $this->successResponse($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Hủy booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function cancelBooking(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('booking.update');
+            $this->setTransformer(new BookingCancelTransformer);
+            $validate         = array_only($this->validationRules, [
+                'note',
+            ]);
+            $listCode         = implode(',', array_keys(BookingCancel::getBookingCancel()));
+            $validate['code'] = 'required|integer|in:' . $listCode;
+
+            $avaiable_option = array_keys($validate);
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
+            logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
 
             DB::commit();
             return $this->successResponse($data);
@@ -608,6 +665,24 @@ class BookingController extends ApiController
         try {
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::PRICE_RANGE);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Lý do hủy phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function bookingCancelList()
+    {
+        try {
+            $this->authorize('booking.view');
+            $data = $this->simpleArrayToObject(BookingCancel::getBookingCancel());
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;

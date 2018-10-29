@@ -36,8 +36,8 @@ class RoomOptionalPriceTransformer extends TransformerAbstract
             'price_charge_guest' => $room->price_charge_guest ?? 0,
             'status'             => $room->status,
             'status_txt'         => $room->status == 1 ? 'Kích hoạt' : 'Chưa kích hoạt',
-            'created_at'         => $room->created_at,
-            'updated_at'         => $room->updated_at,
+            'created_at'         => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'         => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

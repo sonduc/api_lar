@@ -43,6 +43,7 @@ return [
      * Bookings Binding
      * @model Booking
      *        BookingStatus
+     *        BookingCancel
      */
     \App\Repositories\Bookings\Booking::class        => [
         \App\Repositories\Bookings\BookingRepositoryInterface::class,
@@ -51,6 +52,10 @@ return [
     \App\Repositories\Bookings\BookingStatus::class  => [
         \App\Repositories\Bookings\BookingStatusRepositoryInterface::class,
         \App\Repositories\Bookings\BookingStatusRepository::class,
+    ],
+    \App\Repositories\Bookings\BookingCancel::class => [
+        \App\Repositories\Bookings\BookingCancelRepositoryInterface::class,
+        \App\Repositories\Bookings\BookingCancelRepository::class
     ],
 
     /**

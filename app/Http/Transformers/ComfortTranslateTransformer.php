@@ -30,8 +30,6 @@ class ComfortTranslateTransformer extends TransformerAbstract
             'name'        => $comfort->name,
             'description' => $comfort->description,
             'lang'        => $comfort->lang,
-            'created_at'  => $comfort->created_at,
-            'updated_at'  => $comfort->updated_at,
         ];
     }
 }

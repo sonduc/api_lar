@@ -71,8 +71,8 @@ class RoomTransformer extends TransformerAbstract
             'total_booking'        => $room->total_booking,
             'status'               => $room->status,
             'status_txt'           => $room->roomStatus(),
-            'created_at'           => $room->created_at,
-            'updated_at'           => $room->updated_at,
+            'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
         ];
 
         return $data;

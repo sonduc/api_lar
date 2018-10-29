@@ -41,8 +41,8 @@ class CategoryTransformer extends TransformerAbstract
             'status'     => $category->status ?? 0,
             'new'        => $category->new ?? 0,
             'image'      => $category->image,
-            'created_at' => $category->created_at,
-            'updated_at' => $category->updated_at,
+            'created_at' => $category->created_at ? $category->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at' => $category->updated_at ? $category->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

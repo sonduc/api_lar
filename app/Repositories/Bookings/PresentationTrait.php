@@ -78,6 +78,13 @@ trait PresentationTrait
             : trans2(ErrorCore::UNDEFINED);
     }
 
+    public function getBookingCancelReasonList()
+    {
+        return array_key_exists($this->code, BookingCancel::getBookingCancel())
+            ? BookingCancel::getBookingCancel()[$this->code]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
     /**
      * Check a specific permission that belongs to this role
      *

@@ -14,10 +14,10 @@ class Booking extends Entity
      *
      * @var array
      */
-    protected $fillable
-        = [
-            'uuid', 'code', 'name', 'phone', 'email', 'sex', 'birthday', 'email_received', 'name_received', 'phone_received', 'room_id', 'customer_id', 'merchant_id', 'checkin', 'checkout', 'price_original', 'additional_fee', 'price_discount', 'coupon', 'coupon_discount', 'note', 'total_fee', 'status', 'number_of_guests', 'service_fee', 'type', 'booking_type', 'payment_method', 'payment_status', 'price_range', 'source', 'exchange_rate',
-        ];
+    protected $fillable = [
+        'uuid', 'code', 'name', 'phone', 'email', 'sex', 'birthday', 'email_received', 'name_received', 'phone_received', 'room_id', 'customer_id', 'merchant_id', 'checkin', 'checkout', 'price_original', 'additional_fee', 'price_discount', 'coupon', 'coupon_discount', 'note', 'total_fee',
+        'status', 'number_of_guests', 'service_fee', 'type', 'booking_type', 'payment_method', 'payment_status', 'price_range', 'source', 'exchange_rate',
+    ];
 
     /**
      * The attributes that are cast permission from json string to array
@@ -47,7 +47,7 @@ class Booking extends Entity
 
     public function bookingStatus()
     {
-        return $this->hasOne(\App\Repositories\Bookings\BookingStatus::class, 'booking_id');
+        return $this->hasOne(BookingStatus::class, 'booking_id');
     }
 
     public function payments()
@@ -58,5 +58,10 @@ class Booking extends Entity
     public function room()
     {
         return $this->belongsTo(\App\Repositories\Rooms\Room::class, 'room_id');
+    }
+
+    public function cancel()
+    {
+        return $this->hasMany(BookingCancel::class, 'booking_id');
     }
 }

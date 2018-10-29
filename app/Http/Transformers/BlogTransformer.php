@@ -2,10 +2,10 @@
 
 namespace App\Http\Transformers;
 
-use League\Fractal\TransformerAbstract;
+use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Blogs\Blog;
 use League\Fractal\ParamBag;
-use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\TransformerAbstract;
 
 class BlogTransformer extends TransformerAbstract
 {
@@ -14,7 +14,7 @@ class BlogTransformer extends TransformerAbstract
         'details',
         'tags',
         'categories',
-        'user'
+        'user',
     ];
 
     public function transform(Blog $blog = null)
@@ -24,15 +24,15 @@ class BlogTransformer extends TransformerAbstract
         }
 
         return [
-            'id'                    => $blog->id,
-            'image'                 => $blog->image,
-            'status'                => $blog->status ?? 0,
-            'hot'                   => $blog->hot ?? 0,
-            'new'                   => $blog->new ?? 0,
-            'user_id'               => $blog->user_id,
-            'category_id'           => $blog->category_id,
-            'created_at'            => $blog->created_at,
-            'updated_at'            => $blog->updated_at,
+            'id'          => $blog->id,
+            'image'       => $blog->image,
+            'status'      => $blog->status ?? 0,
+            'hot'         => $blog->hot ?? 0,
+            'new'         => $blog->new ?? 0,
+            'user_id'     => $blog->user_id,
+            'category_id' => $blog->category_id,
+            'created_at'  => $blog->created_at ? $blog->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'  => $blog->updated_at ? $blog->updated_at->format('Y-m-d H:i:s') : null,
 
 
         ];
@@ -42,8 +42,9 @@ class BlogTransformer extends TransformerAbstract
      * Thông tin chi tiết bài viết
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param Blog|null $blog
+     * @param Blog|null     $blog
      * @param ParamBag|null $params
+     *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeDetails(Blog $blog = null, ParamBag $params = null)
@@ -54,17 +55,17 @@ class BlogTransformer extends TransformerAbstract
 
         $data = $this->pagination($params, $blog->blogTrans());
 
-        return $this->collection($data,new BlogTranslateTransformer );
+        return $this->collection($data, new BlogTranslateTransformer);
         //return $this->primitive($data);
     }
 
     /**
      *     Danh sách thẻ tags theo bài viết
-
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param Blog|null $blog
+     * @param Blog|null     $blog
      * @param ParamBag|null $params
+     *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
     public function includeTags(Blog $blog = null, ParamBag $params = null)
@@ -80,11 +81,12 @@ class BlogTransformer extends TransformerAbstract
      * Xác định bài viết này thuộc danh mục nào
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param Blog|null $blog
+     * @param Blog|null     $blog
      * @param ParamBag|null $params
+     *
      * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
-    public function includeCategories (Blog $blog= null,ParamBag $params = null )
+    public function includeCategories(Blog $blog = null, ParamBag $params = null)
     {
         if (is_null($blog)) {
             return $this->null();
@@ -103,7 +105,7 @@ class BlogTransformer extends TransformerAbstract
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
      */
 
-    public function includeUser(Blog $blog= null)
+    public function includeUser(Blog $blog = null)
     {
         if (is_null($blog)) {
             return $this->null();

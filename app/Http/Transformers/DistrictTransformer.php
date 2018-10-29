@@ -41,7 +41,7 @@ class DistrictTransformer extends TransformerAbstract
             'city_id'      => $district->city_id,
             'status'       => $district->status,
             'status_txt'   => $district->getStatus(),
-            'updated_at'   => $district->updated_at,
+            'updated_at'   => $district->updated_at ? $district->updated_at->format('Y-m-d H:i:s') : null,
         ];
     }
 

@@ -37,8 +37,8 @@ class PaymentHistoryTransformer extends TransformerAbstract
             'confirm_txt'    => $payment->confirm == 1 ? 'Đã xác nhận' : 'Chưa xác nhận',
             'status'         => $payment->status,
             'status_txt'     => $payment->paymentStatus(),
-            'created_at'     => $payment->created_at,
-            'updated_at'     => $payment->updated_at,
+            'created_at'     =>  $payment->created_at ? $payment->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'     =>  $payment->created_at ? $payment->updated_at->format('Y-m-d H:i:s') : null,
 
         ];
     }
