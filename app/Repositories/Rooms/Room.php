@@ -155,4 +155,9 @@ class Room extends Entity
     {
         return $this->belongsTo(\App\Repositories\Districts\District::class, 'district_id');
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(\App\Repositories\Bookings\Booking::class, 'room_id');
+    }
 }

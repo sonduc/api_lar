@@ -19,6 +19,7 @@ class RoomTransformer extends TransformerAbstract
         'media',
         'city',
         'district',
+        'bookings',
     ];
 
 
@@ -111,10 +112,6 @@ class RoomTransformer extends TransformerAbstract
         $columns = ['*'];
         $data = $room->roomTrans();
 
-        if ($params->get('lang')) {
-            $data = $data->where('room_translates.lang', $params->get('lang'));
-        }
-
         $data = $this->pagination($params, $data, $columns);
 
         return $this->collection($data, new RoomTranslateTransformer);
@@ -199,6 +196,17 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->media());
 
         return $this->collection($data, new RoomMediaTransformer);
+    }
+
+    public function includeBookings(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->bookings());
+
+        return $this->collection($data, new BookingTransformer());
     }
 
     public function includeCity(Room $room = null)
