@@ -13,7 +13,7 @@
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {
-    resource('/test', 'TestController', $router);
+    $router->get('/rooms', 'RoomController@index');
 });
 
 
