@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Http\Transformers\RoomTransformer;
 use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomLogic;
@@ -347,7 +346,9 @@ class RoomController extends ApiController
             ];
             $option          = $request->get('option');
 
-            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
 
             $validate = array_only($this->validationRules, [
                 $option,
@@ -483,5 +484,13 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-
+    public function getRoomName()
+    {
+        $this->authorize('room.view');
+        $test = DB::table('rooms')->join('room_translates', 'rooms.id', 'room_translates.room_id')->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))->get()->toArray();
+        $data = [
+            'data' => $test
+        ];
+        return $this->successResponse($data, false);
+    }
 }

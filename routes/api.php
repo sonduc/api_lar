@@ -50,6 +50,7 @@ $router->group([
      * Room Resource
      */
     $router->get('/rooms/type', 'RoomController@getRoomType');
+    $router->get('/rooms/get-name', 'RoomController@getRoomName');
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
