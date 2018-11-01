@@ -37,7 +37,7 @@ class RoomController extends ApiController
     public function index(Request $request)
     {
         $pageSize = $request->get('limit', 25);
-        $data     = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        $data     = $this->model->getRooms($request->all());
         return $this->successResponse($data);
     }
 
@@ -128,27 +128,4 @@ class RoomController extends ApiController
         }
     }
 
-    /**
-     * Destroy a record
-     *
-     * @param $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function destroy($id)
-    {
-        try {
-            $this->authorize('room.delete');
-            $this->model->delete($id);
-
-            return $this->deleteResponse();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
 }
