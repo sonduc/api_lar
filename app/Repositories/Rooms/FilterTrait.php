@@ -227,9 +227,35 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeMinimize($query, $q)
+    /**
+     * Lấy ra phòng có nhiều booking nhất
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeMostPopular($query, $q)
     {
-        return $query->select('id');
+        return $query->orderBy('rooms.total_booking', 'desc');
+    }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeNumberBed($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.number_bed', '>=', $q);
+        }
+        return $query;
     }
 
 }

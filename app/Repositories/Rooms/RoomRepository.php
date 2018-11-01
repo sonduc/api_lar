@@ -31,13 +31,4 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         return parent::update($id, $data);
     }
-
-    public function getMostPopularRooms($params = [])
-    {
-        $size = array_get($params, 'limit', 10);
-        return $this->model
-            ->where('status', Room::AVAILABLE)
-            ->orderBy('total_booking', 'desc')
-            ->paginate($size);
-    }
 }

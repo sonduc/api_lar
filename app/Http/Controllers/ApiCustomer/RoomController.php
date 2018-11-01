@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\Http\Transformers\Customer\RoomTransformer;
 use App\Repositories\_Customer\RoomLogic;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoomController extends ApiController
 {
@@ -36,8 +37,9 @@ class RoomController extends ApiController
      */
     public function index(Request $request)
     {
-        $pageSize = $request->get('limit', 25);
+        DB::enableQueryLog();
         $data     = $this->model->getRooms($request->all());
+//        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 

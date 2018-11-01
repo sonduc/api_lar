@@ -3,13 +3,16 @@
 namespace App\Http\Transformers\Customer;
 
 use App\Helpers\ErrorCore;
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 use App\Repositories\Rooms\Room;
 
 class RoomTransformer extends TransformerAbstract
 {
+    use FilterTrait;
     protected $availableIncludes = [
-
+        'media', 'details'
     ];
 
     public function transform(Room $room = null)
@@ -48,6 +51,28 @@ class RoomTransformer extends TransformerAbstract
             'longitude'            => $room->longitude,
             'latitude'             => $room->latitude,
         ];
+    }
+
+    public function includeMedia(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->media());
+
+        return $this->collection($data, new RoomMediaTransformer);
+    }
+
+    public function includeDetails(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+        $lang = getLocale();
+        $data = $this->pagination($params, $room->roomTrans($lang));
+
+        return $this->collection($data, new RoomTranslateTransformer);
     }
 
 }
