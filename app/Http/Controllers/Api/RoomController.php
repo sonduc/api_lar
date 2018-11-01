@@ -2,16 +2,29 @@
 
 namespace App\Http\Controllers\Api;
 
+
+use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
+use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
+use App\Repositories\Rooms\RoomReviewRepositoryInterface;
+use App\Repositories\Users\UserRepositoryInterface;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
+
 class RoomController extends ApiController
 {
+
+    protected $booking;
+    protected $user;
+    protected $roomReview;
+
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
@@ -59,6 +72,7 @@ class RoomController extends ApiController
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
         'room_time_blocks.*'                 => 'array',
+
     ];
 
     protected $validationMessages = [
@@ -144,6 +158,8 @@ class RoomController extends ApiController
         'room_time_blocks.*.1.after'   => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
         'room_time_blocks.array'       => 'Dữ liệu phải là dạng mảng',
         'room_time_blocks.*.array'     => 'Dữ liệu phải là dạng mảng',
+        //ROOM_REVIEWS
+
     ];
 
     /**
@@ -151,9 +167,12 @@ class RoomController extends ApiController
      *
      * @param RoomLogic $room
      */
-    public function __construct(RoomLogic $room)
+    public function __construct(RoomLogic $room, UserRepositoryInterface $user, BookingRepositoryInterface $booking, RoomReviewRepositoryInterface $roomReview)
     {
-        $this->model = $room;
+        $this->model      = $room;
+        $this->user       = $user;
+        $this->booking    = $booking;
+        $this->roomReview = $roomReview;
         $this->setTransformer(new RoomTransformer);
     }
 
@@ -223,7 +242,8 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-//            DB::commit();
+            // dd(DB::getQueryLog());
+            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -238,6 +258,9 @@ class RoomController extends ApiController
                                                     ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -367,7 +390,6 @@ class RoomController extends ApiController
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->errorResponse([
                                             'error' => $e->getMessage(),
                                         ]);

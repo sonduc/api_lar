@@ -28,7 +28,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     public function getFutureBookingByRoomId($id)
     {
         $dateNow = Carbon::now();
-        $data = $this->model->where([
+        $data    = $this->model->where([
             ['status', '<>', BookingConstant::BOOKING_CANCEL],
             ['checkout', '>', $dateNow->timestamp],
             ['created_at', '>', $dateNow->copy()->addYears(-1)],
@@ -36,6 +36,30 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         ])->get();
         return $data;
     }
+
+    /**
+     * Check xem người này đã hoàn thành booking và checkout chưa
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return mixed
+     * @throws \Exception
+     */
+
+    public function getBookingByCheckout($id)
+    {
+        $dateNow = Carbon::now();
+        $data    = $this->model->where([
+            ['id',$id],
+            ['checkout', '<', $dateNow->timestamp],
+            ['status','=',BookingConstant::BOOKING_COMPLETE],
+        ])->first();
+        if (empty($data)) throw new \Exception('Bạn chưa hoàn thành booking này nên chưa có quyền đánh giá');
+        return $data;
+    }
+
+
+
 
 }
 

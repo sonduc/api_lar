@@ -65,7 +65,6 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
                 }
             }
         }
-
         parent::storeArray($list);
     }
 

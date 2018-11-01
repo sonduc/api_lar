@@ -85,7 +85,6 @@ class BookingLogic extends BaseLogic
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
 
-
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);

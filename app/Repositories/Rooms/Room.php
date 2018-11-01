@@ -160,4 +160,18 @@ class Room extends Entity
     {
         return $this->hasMany(\App\Repositories\Bookings\Booking::class, 'room_id');
     }
+
+    /**
+     * Relation ship room_reviews
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    public function reviews()
+    {
+        return $this->hasMany(\App\Repositories\Rooms\RoomReview::class, 'room_id');
+    }
+
+
 }

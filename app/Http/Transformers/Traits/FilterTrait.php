@@ -63,8 +63,6 @@ trait FilterTrait
         if ($params->get('order')) {
             list($orderCol, $orderBy) = $params->get('order');
         }
-
-
         return $data->orderBy($orderCol, $orderBy)->paginate($limit, $columns, 'page', $page);
     }
 }

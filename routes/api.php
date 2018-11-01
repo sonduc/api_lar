@@ -55,6 +55,23 @@ $router->group([
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
     $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
+
+    /**
+     * Room Review Resource
+     */
+    $router->get('/reviews/reviews-status-list', 'RoomReviewController@reviewStatusList');
+    $router->get('/reviews/reviews-like-list', 'RoomReviewController@reviewLikeList');
+    $router->get('/reviews/reviews-service-list', 'RoomReviewController@reviewServiceList');
+    $router->get('/reviews/reviews-quality-list', 'RoomReviewController@reviewQualityList');
+    $router->get('/reviews/reviews-cleanliness-list', 'RoomReviewController@reviewCleanlinessList');
+    $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
+    $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
+    resource('/reviews', 'RoomReviewController', $router);
+
+
+    /**
+     *
+     */
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     resource('/rooms', 'RoomController', $router);
 
