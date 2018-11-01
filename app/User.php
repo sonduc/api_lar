@@ -164,6 +164,19 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     }
 
 
+    /**
+     * Relation ship room_reviews
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+
+    public function reviews()
+    {
+        return $this->hasMany(\App\Repositories\Rooms\RoomReview::class, 'user_id');
+    }
+
+
     public function validateForPassportPasswordGrant($password)
     {
         if ($password == $this->password || app('hash')->check($password, $this->password)) {

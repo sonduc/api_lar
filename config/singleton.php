@@ -38,6 +38,10 @@ return [
         \App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface::class,
         \App\Repositories\Rooms\RoomOptionalPriceRepository::class,
     ],
+    \App\Repositories\Rooms\RoomReview::class => [
+        \App\Repositories\Rooms\RoomReviewRepositoryInterface::class,
+        \App\Repositories\Rooms\RoomReviewRepository::class,
+    ],
 
     /**
      * Bookings Binding

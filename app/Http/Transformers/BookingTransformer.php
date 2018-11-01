@@ -19,6 +19,7 @@ class BookingTransformer extends TransformerAbstract
         'room',
         'city',
         'district',
+        'reviews'
     ];
 
     /**
@@ -148,9 +149,7 @@ class BookingTransformer extends TransformerAbstract
         if (is_null($booking)) {
             return $this->null();
         }
-
         $data = $this->pagination($params, $booking->payments());
-
         return $this->collection($data, new PaymentHistoryTransformer);
     }
 
@@ -218,5 +217,24 @@ class BookingTransformer extends TransformerAbstract
         } catch (\Exception $e) {
             return $this->primitive(null);
         }
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Booking|null $booking
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+
+    public function includeReviews(Booking $booking = null, ParamBag $params = null)
+    {
+
+        if (is_null($booking)) {
+            return $this->null();
+        }
+
+        return $this->item($booking->reviews, new RoomReviewTransformer);
     }
 }

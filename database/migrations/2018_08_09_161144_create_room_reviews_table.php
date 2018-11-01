@@ -18,14 +18,16 @@ class CreateRoomReviewsTable extends Migration
             $table->integer('room_id')->nullable();
             $table->integer('booking_id')->nullable();
             $table->integer('user_id')->nullable();
-            $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('status')->nullable()->default(1);
             $table->float('avg_rating')->nullable();
             $table->tinyInteger('cleanliness')->nullable();
             $table->tinyInteger('quality')->nullable();
             $table->tinyInteger('service')->nullable();
             $table->text('comment')->nullable();
             $table->tinyInteger('recommend')->nullable();
-            $table->tinyInteger('valueble')->nullable();
+            $table->tinyInteger('valuable')->nullable();
+            $table->tinyInteger('like')->nullable();
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

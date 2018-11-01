@@ -19,6 +19,7 @@ class RoomTransformer extends TransformerAbstract
         'media',
         'city',
         'district',
+        'reviews',
     ];
 
 
@@ -216,4 +217,21 @@ class RoomTransformer extends TransformerAbstract
         }
         return $this->item($room->district, new DistrictTransformer);
     }
+
+
+    /**
+     * Room_Reviews
+     */
+
+    public function includeReviews(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->reviews());
+        return $this->collection($data, new RoomReviewTransformer);
+    }
+
+
 }

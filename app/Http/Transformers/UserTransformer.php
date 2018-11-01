@@ -21,6 +21,7 @@ class UserTransformer extends TransformerAbstract
         'city',
         'district',
         'blog',
+        'reviews'
     ];
 
     /**
@@ -234,5 +235,23 @@ class UserTransformer extends TransformerAbstract
             return $this->null();
         }
         return $this->item($user->district, new DistrictTransformer());
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param User|null $user
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+
+    public function includeReviews(User $user = null, ParamBag $params = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        $data = $this->pagination($params, $user->reviews());
+        return $this->collection($data, new RoomReviewTransformer);
     }
 }

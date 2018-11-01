@@ -3,16 +3,28 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
+use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
+use App\Repositories\Rooms\RoomReviewRepositoryInterface;
+use App\Repositories\Users\UserRepositoryInterface;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
+
 class RoomController extends ApiController
 {
+
+    protected $booking;
+    protected $user;
+    protected $roomReview;
+
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
@@ -59,6 +71,7 @@ class RoomController extends ApiController
         'room_time_blocks.*.*'               => 'date',
         'room_time_blocks'                   => 'array',
         'room_time_blocks.*'                 => 'array',
+
     ];
 
     protected $validationMessages = [
@@ -140,6 +153,8 @@ class RoomController extends ApiController
         'room_time_blocks.*.*.date'    => 'Ngày không hợp lệ',
         'room_time_blocks.array'       => 'Dữ liệu phải là dạng mảng',
         'room_time_blocks.*.array'     => 'Dữ liệu phải là dạng mảng',
+        //ROOM_REVIEWS
+
     ];
 
     /**
@@ -147,9 +162,12 @@ class RoomController extends ApiController
      *
      * @param RoomLogic $room
      */
-    public function __construct(RoomLogic $room)
+    public function __construct(RoomLogic $room, UserRepositoryInterface $user, BookingRepositoryInterface $booking, RoomReviewRepositoryInterface $roomReview)
     {
-        $this->model = $room;
+        $this->model      = $room;
+        $this->user       = $user;
+        $this->booking    = $booking;
+        $this->roomReview = $roomReview;
         $this->setTransformer(new RoomTransformer);
     }
 
@@ -219,6 +237,7 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
+            // dd(DB::getQueryLog());
             DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
@@ -234,6 +253,9 @@ class RoomController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -361,7 +383,6 @@ class RoomController extends ApiController
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
-            DB::rollBack();
             return $this->errorResponse([
                 'error' => $e->getMessage(),
             ]);
@@ -478,5 +499,244 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * Thêm mới đánh giá phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function createRoomReview(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->setTransformer(new RoomReviewTranformer);
+            $validate = array_only($this->validationRules, [
+                'status_reviews', 'avg_rating', 'cleanliness', 'quality', 'service', 'recommend', 'valuable', 'like',
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
+            if (Auth::check() == false) throw new \Exception('Bạn phải đăng nhập mới có quyền đánh giá phòng này');
+            $user = $this->user->getById(Auth::user()->id);
+
+            // Xuất ra danh sach các phòng  mà người này đã booking
+            $booking = $this->booking->getBookingByCheckout($user->name);
+            $room_id = array_map(function ($item) {
+                return $item['room_id'];
+            }, $booking);
+
+            // Kiem tra xem khách đã đặt phòng này chưa
+            if (!in_array($id, $room_id)) throw new \Exception('Bạn vẫn chưa đặt phòng này nên không có quyền đánh giá');
+
+            // Lấy ra booking_id lần cuối cùng mà người này đặt phòng trên
+            $booking_id = $this->booking->getIdBookingByCheckoutMax($user->name, $id);
+
+            $data = $this->roomReview->storeRoomReview($request->all(), $id, $booking_id);
+            DB::commit();
+            return $this->successResponse($data);
+            //return response()->json($data);
+
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+
+    }
+
+
+    /**
+     * Chỉ có tai khoản merchant và admin mới có quyền cập nhật hết các thuộc tính của room_view
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateRoomReview(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->setTransformer(new RoomReviewTranformer);
+            $validate = array_only($this->validationRules, [
+                'status_reviews', 'avg_rating', 'cleanliness', 'quality', 'service', 'recommend', 'valuable', 'like',
+            ]);
+            $test     = $this->validate($request, $validate, $this->validationMessages);
+            if (Auth::check() == false) throw new \Exception('Bạn vẫn chưa đang nhập');
+            $user = $this->user->getById(Auth::user()->id);
+            if ($user->type != User::ADMIN and $user->type != User::MERCHANT) throw new \Exception('Bạn không có quyền vào danh mục này');
+            $data = $this->roomReview->updateRoomReview($request->all(), $id);
+            DB::commit();
+            return $this->successResponse($data);
+            // return response()->json($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+
+
+    }
+
+    /**
+     * Lấy ra danh sách  các đánh giá về phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+
+    public function indexRoomReview(Request $request)
+    {
+
+        try {
+            $this->setTransformer(new RoomReviewTranformer);
+            if (Auth::check() == false) throw new \Exception('Bạn vẫn chưa đang nhập');
+            $user = $this->user->getById(Auth::user()->id);
+            if ($user->type != User::ADMIN and $user->type != User::MERCHANT) throw new \Exception('Bạn không có quyền vào danh mục này');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->roomReview->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+            // return response()->json($data);
+
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+
+    }
+
+    /**
+     * Display a listing of the resource.
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function showRoomReview(Request $request, $id)
+    {
+        try {
+            $this->setTransformer(new RoomReviewTranformer);
+            if (Auth::check() == false) throw new \Exception('Bạn vẫn chưa đăng nhập');
+            $user = $this->user->getById(Auth::user()->id);
+            if ($user->type != User::ADMIN and $user->type != User::MERCHANT) throw new \Exception('Bạn không có quyền vào danh mục này');
+            $trashed = $request->has('trashed') ? true : false;
+            $data    = $this->roomReview->getById($id, $trashed);
+            return $this->successResponse($data);
+            //return response()->json($data);
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+
+    }
+
+    /**
+     * Xóa bản ghi room_reviews
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
+    public function deteteRoomReview($id)
+    {
+        DB::beginTransaction();
+        try {
+            if (Auth::check() == false) throw new \Exception('Bạn vẫn chưa đang nhập');
+            $user = $this->user->getById(Auth::user()->id);
+            if ($user->type != User::ADMIN and $user->type != User::MERCHANT) throw new \Exception('Bạn không có quyền vào danh mục này');
+            $this->roomReview->delete($id);
+            DB::commit();
+            return $this->deleteResponse();
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+
+    }
+
+    public function UpdateComment(Request $request, $id, $userId)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->setTransformer(new RoomReviewTranformer);
+            if (Auth::user()->id != $userId) throw new \Exception('Không có quyền sửa đổi bình luận này');
+            $data = $this->roomReview->updateRoomReview($request->all(), $id);
+            DB::commit();
+
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
 
 }

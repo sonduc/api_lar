@@ -9,7 +9,7 @@
 namespace App\Repositories\Rooms;
 
 
-interface RoomReviewRepository
+interface RoomReviewRepositoryInterface
 {
 
 }

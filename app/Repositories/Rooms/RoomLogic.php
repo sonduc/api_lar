@@ -6,6 +6,9 @@ namespace App\Repositories\Rooms;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Users\UserRepository;
+use App\Repositories\Users\UserRepositoryInterface;
+use Illuminate\Support\Facades\Auth;
 
 class RoomLogic extends BaseLogic
 {
@@ -19,6 +22,8 @@ class RoomLogic extends BaseLogic
     protected $roomMedia;
     protected $roomTimeBlock;
     protected $booking;
+    protected $roomReview;
+    protected $user;
 
     /**
      * RoomLogic constructor.
@@ -36,7 +41,9 @@ class RoomLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $roomOptionalPrice,
         RoomMediaRepositoryInterface $roomMedia,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
-        BookingRepositoryInterface $booking
+        BookingRepositoryInterface $booking,
+        RoomReviewRepositoryInterface $roomReview,
+        UserRepositoryInterface $user
     )
     {
         $this->model             = $room;
@@ -45,6 +52,8 @@ class RoomLogic extends BaseLogic
         $this->roomMedia         = $roomMedia;
         $this->roomTimeBlock     = $roomTimeBlock;
         $this->booking           = $booking;
+        $this->roomReview        = $roomReview;
+        $this->user              = $user;
     }
 
     /**
@@ -64,8 +73,6 @@ class RoomLogic extends BaseLogic
         $this->roomMedia->storeRoomMedia($data_room, $data);
         $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
-
-
         return $data_room;
     }
 
@@ -118,10 +125,7 @@ class RoomLogic extends BaseLogic
      *
      * @return \App\Repositories\Eloquent
      */
-    public function minorRoomUpdate($id, $data = [])
-    {
-        return parent::update($id, $data);
-    }
+
 
     /**
      * Lấy ra những ngày không hợp lệ
@@ -135,4 +139,6 @@ class RoomLogic extends BaseLogic
     {
         return $this->getBlockedScheduleByRoomId($id);
     }
+
+
 }
