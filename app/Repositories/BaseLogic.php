@@ -89,7 +89,7 @@ abstract class BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
-        return $this->model->update($id, $data, $excepts = [], $only = []);
+        return $this->model->update($id, $data, $excepts, $only);
     }
 
     /**

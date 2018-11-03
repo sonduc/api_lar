@@ -57,9 +57,9 @@ return [
         \App\Repositories\Bookings\BookingStatusRepositoryInterface::class,
         \App\Repositories\Bookings\BookingStatusRepository::class,
     ],
-    \App\Repositories\Bookings\BookingCancel::class => [
+    \App\Repositories\Bookings\BookingCancel::class  => [
         \App\Repositories\Bookings\BookingCancelRepositoryInterface::class,
-        \App\Repositories\Bookings\BookingCancelRepository::class
+        \App\Repositories\Bookings\BookingCancelRepository::class,
     ],
 
     /**
@@ -74,7 +74,7 @@ return [
     /**
      * Blog Blinding
      */
-    \App\Repositories\Blogs\Blog::class => [
+    \App\Repositories\Blogs\Blog::class              => [
         \App\Repositories\Blogs\BlogRepositoryInterface::class,
         \App\Repositories\Blogs\BlogRepository::class,
     ],
@@ -84,7 +84,7 @@ return [
         \App\Repositories\Blogs\BlogTranslateRepository::class,
     ],
 
-    \App\Repositories\Blogs\Tag::class => [
+    \App\Repositories\Blogs\Tag::class                    => [
         \App\Repositories\Blogs\TagRepositoryInterface::class,
         \App\Repositories\Blogs\TagRepository::class,
     ],
@@ -92,10 +92,10 @@ return [
     /**
      * Blog Blinding
      */
-    \App\Repositories\Categories\Category::class => [
+    \App\Repositories\Categories\Category::class          => [
         \App\Repositories\Categories\CategoryRepositoryInterface::class,
         \App\Repositories\Categories\CategoryRepository::class,
-     ],
+    ],
     \App\Repositories\Categories\CategoryTranslate::class => [
         \App\Repositories\Categories\CategoryTranslateRepositoryInterface::class,
         \App\Repositories\Categories\CategoryTranslateRepository::class,
@@ -103,16 +103,15 @@ return [
     /**
      * Collection Blinding
      */
-    \App\Repositories\Collections\Collection::class => [
+    \App\Repositories\Collections\Collection::class       => [
         \App\Repositories\Collections\CollectionRepositoryInterface::class,
         \App\Repositories\Collections\CollectionRepository::class,
     ],
 
-    \App\Repositories\Collections\CollectionTranslate::class =>[
+    \App\Repositories\Collections\CollectionTranslate::class => [
         \App\Repositories\Collections\ColectionTranslateRepositoryInterface::class,
-        \App\Repositories\Collections\CollectionTranslateRepository::class
-   ],
-
+        \App\Repositories\Collections\CollectionTranslateRepository::class,
+    ],
 
 
 ];

@@ -55,20 +55,39 @@ trait PresentationTrait
         }
     }
 
+    /**
+     * Trạng thái phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return mixed
+     */
     public function roomStatus()
     {
         return self::ROOM_STATUS[$this->status ?? self::NOT_APPROVED];
     }
 
+    /**
+     * Kiểu phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return string
+     */
     public function roomType()
     {
         return isset(self::ROOM_TYPE[$this->room_type]) ? self::ROOM_TYPE[$this->room_type] : 'Không xác định';
     }
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return string
+     */
     public function roomMedia()
     {
         return isset(self::IMAGE_TYPE[$this->type]) ? self::IMAGE_TYPE[$this->type] : 'Không xác định';
     }
+
 
     /**
      * Check a specific permission that belongs to this role

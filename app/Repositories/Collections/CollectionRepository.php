@@ -13,7 +13,6 @@ class CollectionRepository extends BaseRepository implements CollectionRepositor
     public function __construct(Collection $collection)
     {
         $this->model = $collection;
-
     }
 
 }

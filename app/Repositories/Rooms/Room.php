@@ -104,17 +104,25 @@ class Room extends Entity
     protected $casts = ['permissions' => 'array'];
 
     /**
-     * Relationship với RoomTranslate
-     * @return Relation
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function roomTrans()
+    public function roomTrans($lang = null)
     {
-        return $this->hasMany(\App\Repositories\Rooms\RoomTranslate::class);
+        $eq = $this->hasMany(RoomTranslate::class);
+        if ($lang) {
+            $eq = $eq->where('lang', $lang);
+        }
+        return $eq;
     }
 
     /**
-     * Relationship với user
-     * @return Relation
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -122,9 +130,10 @@ class Room extends Entity
     }
 
     /**
-     * Relationship với comfort
      *
-     * @return Relation
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function comforts()
     {

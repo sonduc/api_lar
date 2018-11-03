@@ -227,9 +227,73 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeMinimize($query, $q)
+    /**
+     * Lấy ra phòng có nhiều booking nhất
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeMostPopular($query, $q)
     {
-        return $query->select('id');
+        return $query->orderBy('rooms.total_booking', 'desc');
+    }
+
+    /**
+     * Số giường
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeNumberBed($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.number_bed', '>=', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Số khách
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeNumberGuest($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.max_guest', '>=', $q);
+        }
+
+        return $query;
+    }
+
+    /**
+     * Lọc giá từ thấp đến cao hoặc ngược lại
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeSortPriceDay($query, $q)
+    {
+        $sort = 'asc';
+        if (is_numeric($q) && $q == 1) {
+            $sort = 'desc';
+        }
+
+        return $query->where('rooms.price_day', '>', 0)->orderBy('rooms.price_day', $sort);
     }
 
 }

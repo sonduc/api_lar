@@ -11,31 +11,30 @@ use Illuminate\Support\Facades\DB;
 
 class RegisterController extends ApiController
 {
-    protected $validationRules
-        = [
-            'name'     => 'required|min:2|max:255',
-            'phone'    => 'nullable|digits_between:8,12|unique:users,phone',
-            'email'    => 'required|email|max:255|unique:users,email',
-            'password' => 'required|min:6|max:255',
-        ];
+    protected $validationRules = [
+        'name'     => 'required|min:2|max:255',
+        'phone'    => 'nullable|digits_between:8,12|unique:users,phone',
+        'email'    => 'required|email|max:255|unique:users,email',
+        'password' => 'required|min:6|max:255',
+        'type'     => 'required|between:0,1',
+    ];
 
-    protected $validationMessages
-        = [
-            'name.required'     => 'Vui lòng nhập tên',
-            'name.min'          => 'Tên cần lớn hơn :min kí tự',
-            'name.max'          => 'Tên cần nhỏ hơn :max kí tự',
-            'phone.required'    => 'Vui lòng nhập số điện thoại',
-            'phone.min'         => 'Số điện thoại cần lớn hơn :min kí tự',
-            'phone.max'         => 'Số điện thoại cần nhỏ hơn :max kí tự',
-            'phone.unique'      => 'Số điện thoại đã được sử dụng',
-            'email.required'    => 'Vui lòng nhập email',
-            'email.email'       => 'Email không đúng định dạng',
-            'email.max'         => 'Email cần nhỏ hơn :max kí tự',
-            'email.unique'      => 'Email đã được sử dụng',
-            'password.required' => 'Vui lòng nhập mật khẩu',
-            'password.min'      => 'Mật khẩu cần lớn hơn :min kí tự',
-            'password.max'      => 'Mật khẩu cần nhỏ hơn :max kí tự',
-        ];
+    protected $validationMessages = [
+        'name.required'     => 'Vui lòng nhập tên',
+        'name.min'          => 'Tên cần lớn hơn :min kí tự',
+        'name.max'          => 'Tên cần nhỏ hơn :max kí tự',
+        'phone.required'    => 'Vui lòng nhập số điện thoại',
+        'phone.min'         => 'Số điện thoại cần lớn hơn :min kí tự',
+        'phone.max'         => 'Số điện thoại cần nhỏ hơn :max kí tự',
+        'phone.unique'      => 'Số điện thoại đã được sử dụng',
+        'email.required'    => 'Vui lòng nhập email',
+        'email.email'       => 'Email không đúng định dạng',
+        'email.max'         => 'Email cần nhỏ hơn :max kí tự',
+        'email.unique'      => 'Email đã được sử dụng',
+        'password.required' => 'Vui lòng nhập mật khẩu',
+        'password.min'      => 'Mật khẩu cần lớn hơn :min kí tự',
+        'password.max'      => 'Mật khẩu cần nhỏ hơn :max kí tự',
+    ];
 
     public function __construct(UserRepository $user, UserTransformer $transformer)
     {

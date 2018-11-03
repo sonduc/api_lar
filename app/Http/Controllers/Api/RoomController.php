@@ -249,13 +249,13 @@ class RoomController extends ApiController
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
-                                            'errors'    => $validationException->validator->errors(),
-                                            'exception' => $validationException->getMessage(),
-                                        ]);
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
         } catch (ImageException $imageException) {
             return $this->notSupportedMediaResponse([
-                                                        'error' => $imageException->getMessage(),
-                                                    ]);
+                'error' => $imageException->getMessage(),
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->errorResponse([
@@ -292,16 +292,16 @@ class RoomController extends ApiController
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                                            'errors'    => $validationException->validator->errors(),
-                                            'exception' => $validationException->getMessage(),
-                                        ]);
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (ImageException $imageException) {
             return $this->notSupportedMediaResponse([
-                                                        'error' => $imageException->getMessage(),
-                                                    ]);
+                'error' => $imageException->getMessage(),
+            ]);
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
@@ -323,6 +323,7 @@ class RoomController extends ApiController
     public function getRoomSchedule($id)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $data = [
                 'data' => [
@@ -383,16 +384,16 @@ class RoomController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                                            'errors'    => $validationException->validator->errors(),
-                                            'exception' => $validationException->getMessage(),
-                                        ]);
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             return $this->errorResponse([
-                                            'error' => $e->getMessage(),
-                                        ]);
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
