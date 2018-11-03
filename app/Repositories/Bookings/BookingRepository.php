@@ -43,6 +43,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
+     *
      * @return mixed
      * @throws \Exception
      */
@@ -51,15 +52,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     {
         $dateNow = Carbon::now();
         $data    = $this->model->where([
-            ['id',$id],
+            ['id', $id],
             ['checkout', '<', $dateNow->timestamp],
-            ['status','=',BookingConstant::BOOKING_COMPLETE],
+            ['status', '=', BookingConstant::BOOKING_COMPLETE],
         ])->first();
         if (empty($data)) throw new \Exception('Bạn chưa hoàn thành booking này nên chưa có quyền đánh giá');
         return $data;
     }
-
-
 
 
     /**
@@ -79,18 +78,22 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $checkIn  = Carbon::createSafe((int)$y_start, (int)$m_start, (int)$d_start)->endOfDay()->timestamp;
         $checkOut = Carbon::createSafe((int)$y_end, (int)$m_end, (int)$d_end)->endOfDay()->timestamp;
 
-        $data = $this->model->orWhere([
-            ['bookings.checkin', '<', $checkIn],
-            ['bookings.checkout', '>', $checkIn],
-        ])->orWhere([
-            ['bookings.checkin', '<', $checkOut],
-            ['bookings.checkout', '>', $checkOut],
-        ])->orWhere([
-            ['bookings.checkin', '>', $checkIn],
-            ['bookings.checkout', '<', $checkOut],
-        ])->whereNotIn(
-            'bookings.status', [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
-        )->get();
+        $data = $this->model
+            ->where(function ($query) use ($checkIn, $checkOut) {
+                $query->where([
+                    ['bookings.checkin', '<', $checkIn],
+                    ['bookings.checkout', '>', $checkIn],
+                ])->orWhere([
+                    ['bookings.checkin', '<', $checkOut],
+                    ['bookings.checkout', '>', $checkOut],
+                ])->orWhere([
+                    ['bookings.checkin', '>', $checkIn],
+                    ['bookings.checkout', '<', $checkOut],
+                ]);
+            })
+            ->whereNotIn(
+                'bookings.status', [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
+            )->get();
 
         return $data;
     }
