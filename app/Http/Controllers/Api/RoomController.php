@@ -301,6 +301,7 @@ class RoomController extends ApiController
     public function getRoomSchedule($id)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $data = [
                 'data' => [

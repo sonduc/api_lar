@@ -50,6 +50,7 @@ class RoomTransformer extends TransformerAbstract
             'rent_type_txt'        => $room->rentStatus(),
             'longitude'            => $room->longitude,
             'latitude'             => $room->latitude,
+            'status' => $room->status
         ];
     }
 

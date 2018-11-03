@@ -28,29 +28,36 @@ class RoomController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
+     *
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Request $request
      *
-     * @return mixed
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
-        $data     = $this->model->getRooms($request->all());
-//        dd(DB::getQueryLog());
-        return $this->successResponse($data);
+        try {
+            DB::enableQueryLog();
+            $data = $this->model->getRooms($request->all());
+
+            return $this->successResponse($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+
     }
 
     /**
-     * Display a listing of the resource.
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param Request $request
      * @param         $id
      *
-     * @return mixed
-     * @throws Throwable
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function show(Request $request, $id)
     {
@@ -58,69 +65,6 @@ class RoomController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Store a record into database
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function store(Request $request)
-    {
-        try {
-            $this->authorize('room.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $data = $this->model->store($request->all());
-
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Update a record
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-            $this->authorize('room.update');
-
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $model = $this->model->update($id, $request->all());
-
-            return $this->successResponse($model);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
