@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
+use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
+use App\Repositories\Rooms\RoomReviewRepository;
 use App\Repositories\Rooms\RoomReviewRepositoryInterface;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
@@ -165,9 +166,17 @@ class RoomController extends ApiController
     /**
      * RoomController constructor.
      *
-     * @param RoomLogic $room
+     * @param RoomLogic                                          $room
+     * @param UserRepositoryInterface|UserRepository             $user
+     * @param BookingRepositoryInterface|BookingRepository       $booking
+     * @param RoomReviewRepositoryInterface|RoomReviewRepository $roomReview
      */
-    public function __construct(RoomLogic $room, UserRepositoryInterface $user, BookingRepositoryInterface $booking, RoomReviewRepositoryInterface $roomReview)
+    public function __construct(
+        RoomLogic $room,
+        UserRepositoryInterface $user,
+        BookingRepositoryInterface $booking,
+        RoomReviewRepositoryInterface $roomReview
+    )
     {
         $this->model      = $room;
         $this->user       = $user;
@@ -194,7 +203,7 @@ class RoomController extends ApiController
 
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 //        dd($data);
-//        dd(DB::getQueryLog());
+        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
@@ -507,12 +516,13 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
     public function getRoomName()
     {
         $this->authorize('room.view');
         $test = DB::table('rooms')->join('room_translates', 'rooms.id', 'room_translates.room_id')->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))->get()->toArray();
         $data = [
-            'data' => $test
+            'data' => $test,
         ];
         return $this->successResponse($data, false);
     }

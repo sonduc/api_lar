@@ -4,6 +4,7 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Database\Eloquent\Collection;
 
 class BookingRepository extends BaseRepository implements BookingRepositoryInterface
@@ -72,11 +73,17 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      */
     public function getAllBookingInPeriod($start, $end)
     {
-        list ($y_start, $m_start, $d_start) = explode('-', $start);
-        list ($y_end, $m_end, $d_end) = explode('-', $end);
+        try {
+            list ($y_start, $m_start, $d_start) = explode('-', $start);
+            list ($y_end, $m_end, $d_end) = explode('-', $end);
 
-        $checkIn  = Carbon::createSafe((int)$y_start, (int)$m_start, (int)$d_start)->endOfDay()->timestamp;
-        $checkOut = Carbon::createSafe((int)$y_end, (int)$m_end, (int)$d_end)->endOfDay()->timestamp;
+            $checkIn  = Carbon::createSafe((int)$y_start, (int)$m_start, (int)$d_start)->endOfDay()->timestamp;
+            $checkOut = Carbon::createSafe((int)$y_end, (int)$m_end, (int)$d_end)->endOfDay()->timestamp;
+
+        } catch (InvalidDateException | \ErrorException $exception) {
+            $checkIn  = Carbon::now()->addDay()->endOfDay()->timestamp;
+            $checkOut = Carbon::now()->addDay()->addMonth()->endOfDay()->timestamp;
+        }
 
         $data = $this->model
             ->where(function ($query) use ($checkIn, $checkOut) {

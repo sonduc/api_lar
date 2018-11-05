@@ -7,7 +7,7 @@ use App\Repositories\Traits\Scope;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {
-    use Scope;
+
 
     /**
      * RoomRepository constructor.
