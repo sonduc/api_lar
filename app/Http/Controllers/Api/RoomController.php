@@ -159,6 +159,12 @@ class RoomController extends ApiController
         'room_time_blocks.*.1.after'   => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
         'room_time_blocks.array'       => 'Dữ liệu phải là dạng mảng',
         'room_time_blocks.*.array'     => 'Dữ liệu phải là dạng mảng',
+        'room_id.required'             => 'Phòng không được để trống',
+        'room_id.exists'               => 'Phòng không tồn tại',
+        'room_id.integer'              => 'Mã phòng không hợp lệ',
+        'unlock_days.array'            => 'Danh sách ngày phải là kiểu mảng',
+        'unlock_days.*.date'           => 'Ngày không hợp lệ',
+        'unlock_days.*.after'          => 'Ngày phải ở tương lai',
         //ROOM_REVIEWS
 
     ];
@@ -203,7 +209,7 @@ class RoomController extends ApiController
 
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 //        dd($data);
-        dd(DB::getQueryLog());
+//        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
@@ -513,6 +519,57 @@ class RoomController extends ApiController
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateRoomTimeBlock(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'room_time_blocks.*.0',
+                'room_time_blocks.*.1',
+                'room_time_blocks',
+                'room_time_blocks.*',
+            ]);
+
+            $validate['room_id']       = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['unlock_days']   = 'array';
+            $validate['unlock_days.*'] = 'date|after:now';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomTimeBlock($request->only([
+                'room_id', 'unlock_days', 'room_time_blocks'
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
