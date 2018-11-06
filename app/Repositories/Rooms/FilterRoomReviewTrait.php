@@ -14,6 +14,7 @@ use App\Repositories\GlobalTrait;
 trait FilterRoomReviewTrait
 {
     use GlobalTrait;
+
     /**
      * Room_ReView
      */
@@ -25,6 +26,7 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
     public function scopeBooking($query, $q)
@@ -41,6 +43,7 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
     public function scopeRoom($query, $q)
@@ -58,6 +61,7 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
     public function scopeUser($query, $q)
@@ -74,13 +78,13 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
     public function scopeDateStart($query, $q)
     {
-        if ($q)
-        {
-            $query->where('room_reviews.created_at','>=',$q);
+        if ($q) {
+            $query->where('room_reviews.created_at', '>=', $q);
         }
         return $query;
 
@@ -88,9 +92,8 @@ trait FilterRoomReviewTrait
 
     public function scopeDateEnd($query, $q)
     {
-        if ($q)
-        {
-            $query->where('room_reviews.created_at','<=',$q);
+        if ($q) {
+            $query->where('room_reviews.created_at', '<=', $q);
         }
         return $query;
 
@@ -102,14 +105,14 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
 
     public function scopeCleanliness($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.cleanliness','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.cleanliness', '=', $q);
         }
         return $query;
 
@@ -117,9 +120,8 @@ trait FilterRoomReviewTrait
 
     public function scopeService($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.service','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.service', '=', $q);
         }
         return $query;
 
@@ -127,9 +129,8 @@ trait FilterRoomReviewTrait
 
     public function scopeValuable($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.valuable','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.valuable', '=', $q);
         }
         return $query;
 
@@ -137,9 +138,8 @@ trait FilterRoomReviewTrait
 
     public function scopeQuality($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.quality','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.quality', '=', $q);
         }
         return $query;
 
@@ -151,14 +151,14 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
 
     public function scopeAvgRating($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.quality','>=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.quality', '>=', $q);
         }
         return $query;
 
@@ -170,14 +170,14 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
 
     public function scopeRecommend($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.recommend','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.recommend', '=', $q);
         }
         return $query;
 
@@ -189,22 +189,18 @@ trait FilterRoomReviewTrait
      *
      * @param $query
      * @param $q
+     *
      * @return mixed
      */
 
     public function scopeLike($query, $q)
     {
-        if (is_numeric($q))
-        {
-            $query->where('room_reviews.like','=',$q);
+        if (is_numeric($q)) {
+            $query->where('room_reviews.like', '=', $q);
         }
         return $query;
 
     }
-
-
-
-
 
 
 }

@@ -228,9 +228,14 @@ class RoomTransformer extends TransformerAbstract
 
 
     /**
-     * Room_Reviews
+     * Đánh giá phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
      */
-
     public function includeReviews(Room $room = null, ParamBag $params = null)
     {
         if (is_null($room)) {

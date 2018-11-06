@@ -333,7 +333,7 @@ trait FilterTrait
             }
 
             if (!self::isJoined($query, 'room_comforts')) {
-                $query->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id');
+                $query->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*');
             }
 
 
@@ -342,6 +342,140 @@ trait FilterTrait
                            ->havingRaw('count(*) = ?', [count($arr)]);
         }
         return $query;
+    }
+
+    /**
+     * Độ sạch sẽ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeCleanliness($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.cleanliness', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Dịch vụ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeService($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.service', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Giá trị
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeValuable($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.valuable', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Chất lượng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeQuality($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.quality', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Scope theo avg_rating
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+
+    public function scopeAvgRating($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.quality', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    /**
+     * Scrope Recommend
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+
+    public function scopeRecommend($query, $q)
+    {
+        if (!self::isJoined($query, 'room_reviews')) {
+            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
+        }
+
+        if (is_numeric($q)) {
+            $query->where('room_reviews.recommend', '>=', $q);
+        }
+        return $query;
+
     }
 
 }
