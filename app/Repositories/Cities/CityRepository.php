@@ -4,7 +4,7 @@ namespace App\Repositories\Cities;
 
 use App\Repositories\BaseRepository;
 
-class CityRepository extends BaseRepository
+class CityRepository extends BaseRepository implements CityRepositoryInterface
 {
     /**
      * Role model.

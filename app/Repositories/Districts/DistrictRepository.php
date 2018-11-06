@@ -4,7 +4,7 @@ namespace App\Repositories\Districts;
 
 use App\Repositories\BaseRepository;
 
-class DistrictRepository extends BaseRepository
+class DistrictRepository extends BaseRepository implements DistrictRepositoryInterface
 {
     /**
      * Role model.

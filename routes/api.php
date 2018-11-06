@@ -124,6 +124,19 @@ $router->group([
     $router->get('/collections/new-list', 'CollectionController@newList');
     $router->put('/collections/single-update/{id}', 'CollectionController@singleUpdate');
     resource('/collections', 'CollectionController', $router);
+
+
+    /**
+     * Promotions Resource
+     */
+    $router->put('/promotions/single-update/{id}', 'PromotionControllerl@singleUpdate');
+    $router->get('/promotions/status-list', 'PromotionController@statusList');
+    resource('/promotions', 'PromotionController', $router);
+
+    /**
+     * Coupons Resource
+    */
+    resource('/coupons', 'CouponController', $router);
 });
 
 
