@@ -3,23 +3,30 @@
 namespace App\Repositories\Coupons;
 
 use App\Repositories\BaseLogic;
+use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
+use App\Repositories\Cities\CityRepositoryInterface;
+use App\Repositories\Districts\DistrictRepositoryInterface;
 
 
 class CouponLogic extends BaseLogic
 {
 	protected $model;
 	protected $room;
+	protected $room_translate;
 	protected $city;
 	protected $district;
 
 	function __construct(
 		CouponRepositoryInterface $coupon,
+		RoomTranslateRepositoryInterface $room_translate,
 		RoomRepositoryInterface $room,
 		CityRepositoryInterface $city,
-		DistrictRepositoryInterface $district,)
+		DistrictRepositoryInterface $district)
 	{
 		$this->model = $coupon;
 		$this->room = $room;
+		$this->room_translate = $room_translate;
 		$this->city = $city;
 		$this->district = $district;
 	}
@@ -75,6 +82,33 @@ class CouponLogic extends BaseLogic
     }
 
     public function getValueSetting($data){
-    	dd($data);
+    	$data_coupon = $data->all();
+    	// dd($data_coupon);
+    	$arrRoom = [];
+    	foreach ($data_coupon as $key => $value) {
+    		// dd($value);
+    		$settings = json_decode($value->settings);
+    		$list_room_id = $settings->rooms;
+    		// dd($list_room_id);
+    		foreach ($list_room_id as $k => $val) {
+    			$arrName = $this->room_translate->getRoomByListId($val);
+    			$a = [
+    				"id" => $arrName->room_id,
+    				"name" => $arrName->name,
+    			];
+    			// $arrRoom[$arrName->room_id] = $arrName->name;
+    		
+    			array_push($arrRoom,$arrName->room_id);
+    			
+    		}
+    		// dd($arrRoom);
+    		// foreach ($list_room_id as $k => $val) {
+    		// 	$arrName =  $this->room_translate->getRoomByListId($val);
+    		// 	array_push($arrRoom,$arrName->room_id,$arrName->name)
+    		// }
+    		// $rooms = $this->room->getRoomByListId($list_room_id);
+    	}
+    	$b = array_unique($arrRoom);
+    	dd($b);
     }
 }

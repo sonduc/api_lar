@@ -69,4 +69,8 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
         parent::storeArray($list);
     }
 
+    public function getRoomByListId($id)
+    {
+        return $this->model->where('room_id', $id)->where('lang', 'vi')->first();
+    }
 }

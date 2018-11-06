@@ -78,8 +78,8 @@ class CouponController extends ApiController
         $this->authorize('coupon.view');
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        $this->model->getValueSetting($request->all());
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        $this->model->getValueSetting($data);
         return $this->successResponse($data);
     }
 
