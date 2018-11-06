@@ -8,7 +8,6 @@ use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use Illuminate\Support\Facades\Auth;
 
 class RoomLogic extends BaseLogic
 {
@@ -34,6 +33,8 @@ class RoomLogic extends BaseLogic
      * @param RoomMediaRepositoryInterface|RoomMediaRepository                 $roomMedia
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingRepositoryInterface|BookingRepository                     $booking
+     * @param RoomReviewRepositoryInterface|RoomReviewRepository               $roomReview
+     * @param UserRepositoryInterface|UserRepository                           $user
      */
     public function __construct(
         RoomRepositoryInterface $room,
@@ -139,6 +140,21 @@ class RoomLogic extends BaseLogic
     {
         $room = parent::getById($id);
         return $this->getBlockedScheduleByRoomId($room->id);
+    }
+
+    /**
+     * Cập nhật khóa phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $data
+     */
+    public function updateRoomTimeBlock($data)
+    {
+        $data    = collect($data);
+        $room_id = $data->get('room_id');
+        $room    = $this->model->getById($room_id);
+        $this->roomTimeBlock->updateRoomTimeBlock($room, $data->all());
+        return $room;
     }
 
 

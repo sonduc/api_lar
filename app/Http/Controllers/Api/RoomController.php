@@ -5,15 +5,16 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
+use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
+use App\Repositories\Rooms\RoomReviewRepository;
 use App\Repositories\Rooms\RoomReviewRepositoryInterface;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use App\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
@@ -158,6 +159,12 @@ class RoomController extends ApiController
         'room_time_blocks.*.1.after'   => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
         'room_time_blocks.array'       => 'Dữ liệu phải là dạng mảng',
         'room_time_blocks.*.array'     => 'Dữ liệu phải là dạng mảng',
+        'room_id.required'             => 'Phòng không được để trống',
+        'room_id.exists'               => 'Phòng không tồn tại',
+        'room_id.integer'              => 'Mã phòng không hợp lệ',
+        'unlock_days.array'            => 'Danh sách ngày phải là kiểu mảng',
+        'unlock_days.*.date'           => 'Ngày không hợp lệ',
+        'unlock_days.*.after'          => 'Ngày phải ở tương lai',
         //ROOM_REVIEWS
 
     ];
@@ -165,9 +172,17 @@ class RoomController extends ApiController
     /**
      * RoomController constructor.
      *
-     * @param RoomLogic $room
+     * @param RoomLogic                                          $room
+     * @param UserRepositoryInterface|UserRepository             $user
+     * @param BookingRepositoryInterface|BookingRepository       $booking
+     * @param RoomReviewRepositoryInterface|RoomReviewRepository $roomReview
      */
-    public function __construct(RoomLogic $room, UserRepositoryInterface $user, BookingRepositoryInterface $booking, RoomReviewRepositoryInterface $roomReview)
+    public function __construct(
+        RoomLogic $room,
+        UserRepositoryInterface $user,
+        BookingRepositoryInterface $booking,
+        RoomReviewRepositoryInterface $roomReview
+    )
     {
         $this->model      = $room;
         $this->user       = $user;
@@ -507,12 +522,64 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateRoomTimeBlock(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'room_time_blocks.*.0',
+                'room_time_blocks.*.1',
+                'room_time_blocks',
+                'room_time_blocks.*',
+            ]);
+
+            $validate['room_id']       = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['unlock_days']   = 'array';
+            $validate['unlock_days.*'] = 'date|after:now';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomTimeBlock($request->only([
+                'room_id', 'unlock_days', 'room_time_blocks'
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
     public function getRoomName()
     {
         $this->authorize('room.view');
         $test = DB::table('rooms')->join('room_translates', 'rooms.id', 'room_translates.room_id')->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))->get()->toArray();
         $data = [
-            'data' => $test
+            'data' => $test,
         ];
         return $this->successResponse($data, false);
     }

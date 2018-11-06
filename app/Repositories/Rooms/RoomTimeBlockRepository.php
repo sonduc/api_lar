@@ -3,7 +3,6 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
-use Carbon\Carbon;
 
 class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRepositoryInterface
 {
@@ -59,8 +58,10 @@ class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRep
      */
     public function storeRoomTimeBlock($room, $data = [], $list = [])
     {
-        $blocks = $this->minimizeBlock($data['room_time_blocks']);
-//        dd($blocks);
+        $collection  = collect($data);
+        $unlock_days = $collection->get('unlock_days', []);
+        $blocks      = $this->minimizeBlock($data['room_time_blocks'], $unlock_days);
+
         foreach ($blocks as $block) {
             $arr['date_start'] = $block[0];
             $arr['date_end']   = array_key_exists(1, $block) ? $block[1] : $block[0];

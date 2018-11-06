@@ -65,7 +65,9 @@ if (!function_exists('trans2')) {
 if (!function_exists('getLocale')) {
     function getLocale()
     {
-        return \Illuminate\Support\Facades\Cookie::get('locale') ?? config('app.locale');
+        $locale = \Illuminate\Support\Facades\Cookie::get('locale');
+        if (!array_key_exists($locale, config('languages'))) $locale = config('app.locale');
+        return $locale;
     }
 }
 

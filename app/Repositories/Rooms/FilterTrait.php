@@ -175,19 +175,37 @@ trait FilterTrait
      * @return mixed
      */
 
-    public function scopePriceRangeStart($query, $q)
+    public function scopePriceDayFrom($query, $q)
     {
-        if ($q) {
-            $query->where('rooms.price_hour', '>=', $q)->orWhere('rooms.price_day', '>=', $q);
+        if (is_numeric($q)) {
+            $query->where('rooms.price_day', '>=', $q);
         }
         return $query;
 
     }
 
-    public function scopePriceRangeEnd($query, $q)
+    public function scopePriceDayTo($query, $q)
     {
-        if ($q) {
-            $query->where('rooms.price_hour', '<=', $q)->where('rooms.price_day', '<=', $q);
+        if (is_numeric($q)) {
+            $query->where('rooms.price_day', '<=', $q);
+        }
+        return $query;
+
+    }
+
+    public function scopePriceHourFrom($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.price_hour', '>=', $q);
+        }
+        return $query;
+
+    }
+
+    public function scopePriceHourTo($query, $q)
+    {
+        if (is_numeric($q)) {
+            $query->where('rooms.price_hour', '<=', $q);
         }
         return $query;
 
@@ -294,6 +312,36 @@ trait FilterTrait
         }
 
         return $query->where('rooms.price_day', '>', 0)->orderBy('rooms.price_day', $sort);
+    }
+
+    /**
+     * Theo danh sách comforts
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeComfortLists($query, $q)
+    {
+        $arr = explode(',', $q);
+        if (!empty($q)) {
+            // Kiểm tra các phần tử trong mảng phải là số
+            foreach ($arr as $item) {
+                if (!is_numeric($item)) return $query;
+            }
+
+            if (!self::isJoined($query, 'room_comforts')) {
+                $query->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id');
+            }
+
+
+            $query = $query->whereIn('room_comforts.comfort_id', $arr)
+                           ->groupBy('rooms.id')
+                           ->havingRaw('count(*) = ?', [count($arr)]);
+        }
+        return $query;
     }
 
 }

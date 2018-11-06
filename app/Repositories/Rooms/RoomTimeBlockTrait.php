@@ -20,19 +20,20 @@ trait RoomTimeBlockTrait
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param array $blocks
+     * @param array $unlock
      *
      * @return array
      */
-    public function minimizeBlock(array $blocks): array
+    public function minimizeBlock(array $blocks, array $unlock = []): array
     {
         if (!$blocks) return [];
 
         sort($blocks);
         $rangeSet = $singleSet = [];
         foreach ($blocks as $item) {
-            if (count($item) === 2) {
+            if (\count($item) === 2) {
                 $rangeSet[] = CarbonPeriod::between($item[0], $item[1]);
-            } else if (count($item) === 1) {
+            } else if (\count($item) === 1) {
                 $singleSet[] = Carbon::parse($item[0]);
             } else {
                 throw new InvalidDateException('not-valid-block-date', 'INVALID');
@@ -40,8 +41,8 @@ trait RoomTimeBlockTrait
         }
 
         $list   = $this->processCarbonPeriod($rangeSet, $singleSet);
+        $list   = $this->unlockDays($list, $unlock);
         $blocks = $this->setUpListTimeBlock($list);
-
         return $blocks;
 
     }
@@ -63,7 +64,7 @@ trait RoomTimeBlockTrait
         foreach ($sets as $period) {
             // Lấy ngày block nhỏ nhất trong các khoảng block
             if (($startDate = $period->getStartDate()) > $now) {
-                $minDate = is_null($minDate) ? $startDate : $minDate;
+                $minDate = $minDate ?? $startDate;
             }
 
             // Lấy ngày block lớn nhất trong các khoảng block
@@ -81,7 +82,7 @@ trait RoomTimeBlockTrait
         $list = array_intersect($blockRange, $allBlockDay);
 
         foreach ($singleSet as $item) {
-            if (!in_array($item, $list)) {
+            if (!\in_array($item, $list)) {
                 $list[] = $item;
             }
         }
@@ -102,7 +103,7 @@ trait RoomTimeBlockTrait
     {
         $block  = $pair = [];
         $list[] = Carbon::now()->addCenturies();
-
+//        dd($list);
         foreach ($list as $k => $item) {
             if (empty($pair)) {
                 $pair[] = $item;
@@ -120,8 +121,29 @@ trait RoomTimeBlockTrait
             }
 
         }
-
+//        dd($block);
         return $block;
-
     }
+
+    /**
+     * Mở khoá ngày trong khoảng block
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $list
+     * @param array $unlocks
+     *
+     * @return array
+     */
+    private function unlockDays(array $list, array $unlocks)
+    {
+        $carbonUnlocks = array_map(function ($item) {
+            return Carbon::parse($item)->startOfDay();
+        }, $unlocks);
+
+        $news = array_diff($list, $carbonUnlocks);
+        array_splice($news, 0, 0);
+
+        return $news;
+    }
+
 }

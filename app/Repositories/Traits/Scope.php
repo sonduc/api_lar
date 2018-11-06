@@ -14,7 +14,7 @@ trait Scope
      *
      * @throws \ReflectionException
      */
-    public function useScope($params = [], $except = [])
+    public function useScope($params = [], $except = []): void
     {
         $except = array_merge(['page', 'limit'], $except);
         $params = array_except($params, $except);

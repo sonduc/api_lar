@@ -2,9 +2,11 @@
 
 namespace App\Repositories;
 
+use App\Repositories\Traits\Scope;
+
 abstract class BaseRepository implements EntityInterface
 {
-
+    use Scope;
     // Các trạng thái của bản ghi đã bị softDeletes
     const WITH_TRASH = 1;
     const ONLY_TRASH = 2;
@@ -29,36 +31,27 @@ abstract class BaseRepository implements EntityInterface
 
     /**
      * Lấy tất cả bản ghi có phân trang
-     * @author SaturnLai <daolvcntt@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param  integer $size    Số bản ghi mặc định 25
-     * @param  array   $sorting Sắp xếp
+     * @param array $params
+     * @param int   $size
+     * @param int   $trash
      *
-     * @return Illuminate\Pagination\Paginator
+     * @return mixed
+     * @throws \ReflectionException
      */
     public function getByQuery($params = [], $size = 25, $trash = self::NO_TRASH)
     {
         $sort           = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
-        $lModel         = $this->model;
-        $params         = array_except($params, ['page', 'limit']);
-        if (count($params)) {
-            $reflection = new \ReflectionClass($lModel);
-            foreach ($params as $funcName => $funcParams) {
-                $funcName = \Illuminate\Support\Str::studly($funcName);
-                if ($reflection->hasMethod('scope' . $funcName)) {
-                    $funcName = lcfirst($funcName);
-                    $lModel   = $lModel->$funcName($funcParams);
-                }
-            }
-        }
+        $this->useScope($params);
 
         switch ($trash) {
             case self::WITH_TRASH:
-                $lModel->withTrashed();
+                $this->model->withTrashed();
                 break;
             case self::ONLY_TRASH:
-                $lModel->onlyTrashed();
+                $this->model->onlyTrashed();
                 break;
             case self::NO_TRASH:
             default:
@@ -67,12 +60,12 @@ abstract class BaseRepository implements EntityInterface
 
         switch ($size) {
             case -1:
-                return $lModel->get();
+                return $this->model->get();
                 break;
             case 0:
-                return $lModel->first();
+                return $this->model->first();
             default:
-                return $lModel->paginate($size);
+                return $this->model->paginate($size);
                 break;
         }
     }

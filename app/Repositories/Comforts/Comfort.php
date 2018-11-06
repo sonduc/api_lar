@@ -26,15 +26,16 @@ class Comfort extends Entity
     protected $casts = ['permissions' => 'array'];
 
     /**
-     * relation ship voi comforts_translate
-     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param string $lang
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-
-    public function comfortTrans()
+    public function comfortTrans($lang = 'vi')
     {
-        return $this->hasMany(\App\Repositories\Comforts\ComfortTranslate::class, 'comfort_id');
+        return $this->hasMany(ComfortTranslate::class, 'comfort_id')->where('lang', $lang);
     }
 
     /**
