@@ -1,25 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ducchien
- * Date: 30/10/2018
- * Time: 13:35
- */
 
-namespace App\Http\Transformers;
+namespace App\Http\Transformers\Customer;
 
 
 use App\Repositories\Rooms\FilterRoomReviewTrait;
 use App\Repositories\Rooms\RoomReview;
+use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class RoomReviewTransformer extends TransformerAbstract
 {
     use FilterRoomReviewTrait;
-    protected $availableIncludes
-        = [
-
-        ];
+    protected $availableIncludes = [
+        'user'
+    ];
 
     /**
      *
@@ -37,9 +31,8 @@ class RoomReviewTransformer extends TransformerAbstract
 
         return [
             'id'              => $room->id,
-            'booking_id'      => $room->booking_id,
+            //            'booking_id'      => $room->booking_id,
             'room_id'         => $room->room_id,
-            'user_id'         => $room->user_id,
             'status'          => $room->status,
             'status_txt'      => $room->reviewStatus(),
             'like'            => $room->like,
@@ -63,4 +56,12 @@ class RoomReviewTransformer extends TransformerAbstract
         ];
     }
 
+    public function includeUser(RoomReview $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->item($room->user, new UserTransformer);
+    }
 }

@@ -12,7 +12,7 @@ class RoomTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-        'media', 'details', 'comforts', 'user'
+        'media', 'details', 'comforts', 'user', 'reviews', 'city','district', 'prices'
     ];
 
     public function transform(Room $room = null)
@@ -130,6 +130,82 @@ class RoomTransformer extends TransformerAbstract
         }
 
         return $this->item($room->user, new UserTransformer);
+    }
+
+    /**
+     * Include City
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
+    public function includeCity(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->item($room->city, new CityTransformer);
+    }
+
+    /**
+     * Include District
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
+    public function includeDistrict(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->item($room->district, new DistrictTransformer);
+    }
+
+    /**
+     * Include Reviews
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeReviews(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->reviews());
+
+        return $this->collection($data, new RoomReviewTransformer);
+    }
+
+    /**
+     * Include Prices
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includePrices(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->prices());
+
+        return $this->collection($data, new RoomOptionalPriceTransformer);
     }
 
 }

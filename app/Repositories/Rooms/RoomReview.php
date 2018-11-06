@@ -111,6 +111,9 @@ class RoomReview extends Entity
      */
     protected $casts = ['permissions' => 'array'];
 
-
+    public function user()
+    {
+        return $this->belongsTo(\App\User::class, 'user_id');
+    }
 
 }

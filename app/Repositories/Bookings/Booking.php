@@ -66,10 +66,10 @@ class Booking extends Entity
     }
 
     /**
-     * Relation ship room_reviews
-     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function reviews()
     {

@@ -14,6 +14,7 @@ $router->group([
     'middleware' => 'auth',
 ], function ($router) {
     $router->get('/rooms', 'RoomController@index');
+    $router->get('/rooms/{id}', 'RoomController@show');
 });
 
 
