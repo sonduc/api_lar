@@ -163,8 +163,11 @@ class RoomController extends ApiController
         'room_id.exists'               => 'Phòng không tồn tại',
         'room_id.integer'              => 'Mã phòng không hợp lệ',
         'unlock_days.array'            => 'Danh sách ngày phải là kiểu mảng',
-        'unlock_days.*.date'           => 'Ngày không hợp lệ',
-        'unlock_days.*.after'          => 'Ngày phải ở tương lai',
+        'unlock_days.*.array'          => 'Phải là kiểu mảng',
+        'unlock_days.*.0.date'         => 'Ngày không hợp lệ',
+        'unlock_days.*.0.after'        => 'Ngày bắt đầu phải ở tương lai',
+        'unlock_days.*.1.date'         => 'Ngày không hợp lệ',
+        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
         //ROOM_REVIEWS
 
     ];
@@ -546,12 +549,14 @@ class RoomController extends ApiController
                 'room_time_blocks.*',
             ]);
 
-            $validate['room_id']       = 'required|integer|exists:rooms,id,deleted_at,NULL';
-            $validate['unlock_days']   = 'array';
-            $validate['unlock_days.*'] = 'date|after:now';
+            $validate['room_id']         = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['unlock_days']     = 'array';
+            $validate['unlock_days.*']   = 'array';
+            $validate['unlock_days.*.0'] = 'date|after:now';
+            $validate['unlock_days.*.1'] = 'date|after:unlock_days.*.0';
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->updateRoomTimeBlock($request->only([
-                'room_id', 'unlock_days', 'room_time_blocks'
+                'room_id', 'unlock_days', 'room_time_blocks',
             ]));
 
             DB::commit();

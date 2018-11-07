@@ -29,20 +29,12 @@ trait RoomTimeBlockTrait
         if (!$blocks) return [];
 
         sort($blocks);
-        $rangeSet = $singleSet = [];
-        foreach ($blocks as $item) {
-            if (\count($item) === 2) {
-                $rangeSet[] = CarbonPeriod::between($item[0], $item[1]);
-            } else if (\count($item) === 1) {
-                $singleSet[] = Carbon::parse($item[0]);
-            } else {
-                throw new InvalidDateException('not-valid-block-date', 'INVALID');
-            }
-        }
+        list($rangeSet, $singleSet) = $this->organizeDates($blocks);
 
         $list   = $this->processCarbonPeriod($rangeSet, $singleSet);
         $list   = $this->unlockDays($list, $unlock);
         $blocks = $this->setUpListTimeBlock($list);
+
         return $blocks;
 
     }
@@ -92,6 +84,37 @@ trait RoomTimeBlockTrait
     }
 
     /**
+     * Mở khoá ngày trong khoảng block
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $list
+     * @param array $unlocks
+     *
+     * @return array
+     */
+    private function unlockDays(array $list, array $unlocks)
+    {
+        list($rangeSet, $singleSet) = $this->organizeDates($unlocks);
+        $allSet = [];
+
+        foreach ($rangeSet as $period) {
+            foreach ($period as $day) {
+                $allSet[] = $day;
+            }
+        }
+
+        foreach ($singleSet as $day) {
+            $allSet[] = $day;
+        }
+        $allSet = array_unique($allSet);
+
+        $news = array_diff($list, $allSet);
+        array_splice($news, 0, 0);
+
+        return $news;
+    }
+
+    /**
      *
      * @author HarikiRito <nxh0809@gmail.com>
      *
@@ -121,29 +144,32 @@ trait RoomTimeBlockTrait
             }
 
         }
-//        dd($block);
+
         return $block;
     }
 
     /**
-     * Mở khoá ngày trong khoảng block
+     * Sắp xếp ngày theo từng khoảng và từng ngày đơn lẻ
      * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param array $list
-     * @param array $unlocks
+     * @param array $blocks
      *
      * @return array
      */
-    private function unlockDays(array $list, array $unlocks)
+    private function organizeDates(array $blocks)
     {
-        $carbonUnlocks = array_map(function ($item) {
-            return Carbon::parse($item)->startOfDay();
-        }, $unlocks);
+        $rangeSet = $singleSet = [];
+        foreach ($blocks as $item) {
+            if (\count($item) === 2) {
+                $rangeSet[] = CarbonPeriod::between($item[0], $item[1]);
+            } else if (\count($item) === 1) {
+                $singleSet[] = Carbon::parse($item[0]);
+            } else {
+                throw new InvalidDateException('not-valid-block-date', 'INVALID');
+            }
+        }
 
-        $news = array_diff($list, $carbonUnlocks);
-        array_splice($news, 0, 0);
-
-        return $news;
+        return [$rangeSet, $singleSet];
     }
 
 }
