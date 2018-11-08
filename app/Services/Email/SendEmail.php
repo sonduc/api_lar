@@ -16,18 +16,19 @@ class SendEmail
      * @return bool
      * @throws \Exception
      */
-    public static function send($data, $template = 'email.blank')
+    public function mailConfirm($data, $template = 'email.blank')
     {
-        $info = [
-            'data' => $data,
-        ];
+        $email = $data->name['email'];
+        $info  = $data->name;
         try {
-            Mail::send($template, $info, function ($message) use ($data) {
-                $message->from('support@westay.org');
-                $message->to($data['email'])->subject('Khôi phục mật khẩu!');
+            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+                $message->from('ducchien0612@gmail.com');
+                $message->to($email)->subject('Xác thực tài khoản !!!');
             });
         } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
     }
+
 }

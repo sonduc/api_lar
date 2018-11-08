@@ -49,9 +49,10 @@ class RegisterController extends ApiController
             $hasher = app()->make('hash');
 
             $params = $request->all();
-
             $username  = $params['email'];
             $password  = $params['password'];
+
+
             $type_user = array_get($params, 'type', User::USER);
 
             // Create new user

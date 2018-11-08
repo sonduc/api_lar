@@ -12,11 +12,12 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        \App\Events\BookingEvent::class          => [
-            \App\Listeners\SendMailListener::class,
-        ],
+
         \App\Events\AmazonS3_Upload_Event::class => [
             \App\Listeners\AWS\S3UploadListener::class,
+        ],
+        \App\Events\Customer_Register_Event::class => [
+            \App\Listeners\SendMail\MailConfirmListener::class,
         ],
     ];
 }
