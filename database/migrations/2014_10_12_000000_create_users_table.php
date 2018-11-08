@@ -40,7 +40,7 @@ class CreateUsersTable extends Migration
             $table->string('account_number')->nullable();
             $table->integer('city_id')->nullable();
             $table->integer('district_id')->nullable();
-            $table->integer('type')->nullable();
+            $table->integer('type')->nullable()->default(0);
             $table->integer('provider_id')->nullable();
             $table->tinyInteger('vip')->nullable();
             $table->tinyInteger('is_confirm')->nullable();

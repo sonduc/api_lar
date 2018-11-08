@@ -169,6 +169,7 @@ abstract class BaseRepository implements EntityInterface
         return $record;
     }
 
+
     /**
      * Lấy thông tin 1 bản ghi xác định bởi ID
      * @author SaturnLai <daolvcntt@gmail.com>

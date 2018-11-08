@@ -143,6 +143,7 @@ $router->group([
 
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
+
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
 

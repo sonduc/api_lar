@@ -98,7 +98,52 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $email = array_key_exists('email', $data) ? $data['email'] : null;
         $phone = array_key_exists('phone', $data) ? $data['phone'] : null;
         $data  = $this->model->where('email', $email)->orWhere('phone', $phone)->first();
-
         return $data;
+    }
+
+
+    /**
+     * Lấy thông tin user thông qua uuid;
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @return mixed
+     */
+
+    public function getUserByUuid($uuid){
+        $user= $this->model->where('uuid', $uuid)->first();
+        return $user;
+    }
+
+
+    /**
+     * Lấy thông tin User theo uuid và status
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return mixed
+     */
+    public function checkUserByStatus($data)
+    {
+        $user= $this->model->where('uuid', $data['uuid'])->where('status',1)->first();
+        return $user;
+
+    }
+
+
+    /**
+     * Update mã kích hoạt tài hoản cho người dùng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function updateStatus($data)
+    {
+        $uuid = $data['uuid'];
+        $user = $this->getUserByUuid($uuid);
+        $user = parent::update($user->id, $data);
+        return $user;
     }
 }

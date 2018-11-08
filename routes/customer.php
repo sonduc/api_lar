@@ -18,8 +18,12 @@ $router->group([
 });
 
 
-//$router->post('login', 'LoginController@login');
-//$router->post('register', 'RegisterController@register');
+/**
+ * Router login, register
+ */
+$router->post('login', 'LoginController@login');
+$router->post('register', 'RegisterController@register');
+$router->put('register/email-confirm', 'RegisterController@confirm');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
 

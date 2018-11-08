@@ -148,7 +148,7 @@ class BlogController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('blog.update');
-            $this->validationRules['details.*.*.title'] = "required|v_title";
+
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
            //dd(DB::getQueryLog());
