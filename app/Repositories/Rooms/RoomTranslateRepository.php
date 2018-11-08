@@ -69,8 +69,24 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
         parent::storeArray($list);
     }
 
-    public function getRoomByListId($id)
+    /**
+     * Lấy tên phòng theo id(mảng id) 
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param $room
+     */
+    public function getRoomByListId($idRooms)
     {
-        return $this->model->where('room_id', $id)->where('lang', 'vi')->first();
+        $arrRoom =[];
+        foreach ($idRooms as $k => $idRoom) {
+            $getVal = $this->model->where('room_id', $idRoom)->where('lang', 'vi')->first();
+            $valueRoom = [
+                "id" => $getVal->room_id,
+                "name" => $getVal->name,
+            ];
+            array_push($arrRoom,$valueRoom);
+        }
+        return $arrRoom;
+        // return $this->model->where('room_id', $id)->where('lang', 'vi')->first();
     }
 }

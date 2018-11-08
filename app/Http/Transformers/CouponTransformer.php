@@ -9,7 +9,6 @@ use App\Repositories\Rooms\RoomRepositoryInterface;
 class CouponTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-        "room_setting"
     ];
 
     public function transform(Coupon $coupon = null)
@@ -31,16 +30,4 @@ class CouponTransformer extends TransformerAbstract
 
         ];
     }
-
-    public function includeRoomSetting(Coupon $coupon)
-    {
-        if (is_null($coupon)) {
-            return $this->null();
-        }
-        $settings = collect(json_decode($coupon->settings));
-        $rooms = $settings->get('rooms');
-        dd($rooms);
-
-    }
-
 }

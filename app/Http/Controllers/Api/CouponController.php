@@ -79,7 +79,8 @@ class CouponController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        $this->model->getValueSetting($data);
+        // $this->model->transformListCoupon($data);
+        // dd($data);
         return $this->successResponse($data);
     }
 
@@ -111,9 +112,10 @@ class CouponController extends ApiController
             $this->authorize('coupon.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->model->store($request->all());
-            // DB::commit();
-            return $this->successResponse($data,false);
+            $data_transformed = $this->model->transformCoupon($request->all());
+            $data = $this->model->store($data_transformed);
+            DB::commit();
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -128,14 +130,18 @@ class CouponController extends ApiController
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('coupon.update');
 
+            $this->validationRules['code'] = 'required|min:4';
+
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $model = $this->model->update($id, $request->all());
-
-            return $this->successResponse($model);
+            
+            $data_transformed = $this->model->transformCoupon($request->all());
+            $data = $this->model->update($id, $data_transformed);
+            DB::commit();
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -144,6 +150,9 @@ class CouponController extends ApiController
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -162,6 +171,74 @@ class CouponController extends ApiController
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Lấy ra các Trạng thái bài viết (theo status)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function statusList()
+    {
+        try {
+            $this->authorize('coupon.view');
+            $data = $this->simpleArrayToObject(Coupon::COUPON_STATUS);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+    /**
+     * Thực hiện cập nhật status
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function singleUpdate(Request $request, $id)
+    {
+        DB::beginTransaction();
+        try {
+            $this->authorize('coupon.update');
+            $avaiable_option = ['status'];
+            $option          = $request->get('option');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
+
+            $validate = array_only($this->validationRules, [
+                $option,
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $data = $this->model->singleUpdate($id, $request->only($option));
+            logs('coupon', 'sửa trạng thái của mã giảm giá có mã ' . $data->code, $data);
+            DB::commit();
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

@@ -9,7 +9,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Coupon extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-
+    // Định nghĩa trạng thái coupon
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
+    const COUPON_STATUS    = [
+        self::AVAILABLE      => 'ĐANG HỌAT ĐỘNG',
+        self::UNAVAILABLE    => 'ĐÃ HẾT HẠN',
+    ];
     /**
      * The attributes that are mass assignable.
      *

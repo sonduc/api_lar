@@ -11,7 +11,7 @@ use App\Repositories\Promotions\Promotion;
 class PromotionTransformer extends TransformerAbstract
 {
    protected $availableIncludes = [
-
+      'coupons',
    ];
 
    public function transform(Promotion $promotion = null)
@@ -32,4 +32,8 @@ class PromotionTransformer extends TransformerAbstract
       ];
    }
 
+   public function includeCoupons(Promotion $promotion = null, ParamBag $params = null)
+   {
+      
+   }
 }

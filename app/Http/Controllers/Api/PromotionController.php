@@ -57,8 +57,9 @@ class PromotionController extends ApiController
         $this->authorize('promotion.view');
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        // dd(DB::getQueryLog());
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        // dd(DB::getQueryLog());
+        // dd($data);
         return $this->successResponse($data);
     }
 
@@ -90,6 +91,7 @@ class PromotionController extends ApiController
             $this->authorize('promotion.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
+            // dd($request->all());
             $data = $this->model->store($request->all());
 
             DB::commit();
@@ -108,13 +110,16 @@ class PromotionController extends ApiController
 
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
         try {
             $this->authorize('promotion.update');
+
+            $this->validationRules['name'] = 'required|v_title';
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
-
+            DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([

@@ -129,13 +129,15 @@ $router->group([
     /**
      * Promotions Resource
      */
-    $router->put('/promotions/single-update/{id}', 'PromotionControllerl@singleUpdate');
+    $router->put('/promotions/single-update/{id}', 'PromotionController@singleUpdate');
     $router->get('/promotions/status-list', 'PromotionController@statusList');
     resource('/promotions', 'PromotionController', $router);
 
     /**
      * Coupons Resource
     */
+    $router->get('/coupons/status-list', 'CouponController@statusList');
+    $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
     resource('/coupons', 'CouponController', $router);
 });
 

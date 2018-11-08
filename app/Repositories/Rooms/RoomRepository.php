@@ -32,15 +32,4 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return parent::update($id, $data);
     }
 
-    /**
-     * [getRoomByListId description]
-     * @param  array  $lists [description]
-     * @return [type]        [description]
-     */
-    public function getRoomByListId(array $lists)
-    {
-        foreach ($lists as $key => $value) {
-            $nameRoom = parent::getById($value);
-        }
-    }
 }

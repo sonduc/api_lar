@@ -42,8 +42,7 @@ class CouponLogic extends BaseLogic
 	public function store($data)
 	{
 		$data['code'] = strtoupper($data['code']);
-		// $data['settings'] = json_encode($data['settings']);
-		return $data;
+		$data['settings'] = json_encode($data['settings']);
 		$data_coupon = parent::store($data);
 		return $data_coupon;
 	}
@@ -59,56 +58,56 @@ class CouponLogic extends BaseLogic
 	*
 	* @return \App\Repositories\Eloquent
 	*/
-
 	public function update($id, $data, $excepts = [], $only = [])
 	{
-		$data_promotion = parent::update($id, $data);
-		return $data_promotion;
+		$coupon = $this->model->getById($id);
+		if($coupon->used > 0){
+			throw new \Exception('Không có quyền sửa đổi mục này');
+		};
+		
+		$data['settings'] = json_encode($data['settings']);
+		$data_coupon = parent::update($id, $data);
+		return $data_coupon;
 	}
 
 	/**
-     * Cập nhật trường trạng thái status
-     * @author sonduc <ndson1998@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function singleUpdate($id, $data)
-    {
-        $data_promotion = parent::update($id, $data);
-        return $data_promotion ;
-    }
+	* Cập nhật trường trạng thái status
+	* @author sonduc <ndson1998@gmail.com>
+	*
+	* @param $id
+	* @param $data
+	*
+	* @return \App\Repositories\Eloquent
+	*/
+	public function singleUpdate($id, $data)
+	{
+		$data_coupon = parent::update($id, $data);
+		return $data_coupon;
+	}
 
-    public function getValueSetting($data){
-    	$data_coupon = $data->all();
-    	// dd($data_coupon);
-    	$arrRoom = [];
-    	foreach ($data_coupon as $key => $value) {
-    		// dd($value);
-    		$settings = json_decode($value->settings);
-    		$list_room_id = $settings->rooms;
-    		// dd($list_room_id);
-    		foreach ($list_room_id as $k => $val) {
-    			$arrName = $this->room_translate->getRoomByListId($val);
-    			$a = [
-    				"id" => $arrName->room_id,
-    				"name" => $arrName->name,
-    			];
-    			// $arrRoom[$arrName->room_id] = $arrName->name;
-    		
-    			array_push($arrRoom,$arrName->room_id);
-    			
-    		}
-    		// dd($arrRoom);
-    		// foreach ($list_room_id as $k => $val) {
-    		// 	$arrName =  $this->room_translate->getRoomByListId($val);
-    		// 	array_push($arrRoom,$arrName->room_id,$arrName->name)
-    		// }
-    		// $rooms = $this->room->getRoomByListId($list_room_id);
-    	}
-    	$b = array_unique($arrRoom);
-    	dd($b);
-    }
+	/**
+	 * Chuyển đổi json setting sang mảng
+	 * @param  [type] $data [description]
+	 * @return [type]       [description]
+	 */
+	public function transformCoupon($data)
+	{
+		$settings = $data['settings'];
+		
+		$arrRoom = $this->room_translate->getRoomByListId($settings['rooms']);
+		$arrCity = $this->city->getCityByListId($settings['cities']);
+		$arrDistrict = $this->district->getDistrictByListId($settings['districts']);
+		$arrDay = $settings['days'];
+
+		$arrayTransformSetting = [
+			'rooms' => $arrRoom,
+			'cities' => $arrCity,
+			'districts' => $arrDistrict,
+			'days' => $arrDay,
+		];
+		$objectSetting = json_encode($arrayTransformSetting);
+		$data['settings'] = $arrayTransformSetting;
+		return $data;
+	}
+
 }
