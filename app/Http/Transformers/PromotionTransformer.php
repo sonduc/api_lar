@@ -10,6 +10,7 @@ use App\Repositories\Promotions\Promotion;
 
 class PromotionTransformer extends TransformerAbstract
 {
+   use FilterTrait;
    protected $availableIncludes = [
       'coupons',
    ];
@@ -34,6 +35,12 @@ class PromotionTransformer extends TransformerAbstract
 
    public function includeCoupons(Promotion $promotion = null, ParamBag $params = null)
    {
-      
+      if (is_null($promotion)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $promotion->Coupon());
+
+        return $this->collection($data, new CouponTransformer);
    }
 }
