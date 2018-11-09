@@ -57,4 +57,24 @@ trait FilterTrait
 
       return $query;
    }
+
+   /**
+   * Scope Month
+   * @author sonduc <ndson1998@gmail.com>
+   *
+   * @param $query
+   * @param $q
+   *
+   * @return mixed
+   */
+   public function scopeMonth($query, $q)
+   {
+      if ($q) {
+         $query->whereMonth('promotions.date_start', $q)
+               ->whereMonth('promotions.date_end', $q)
+               ->where('promotions.status', '1');
+      }
+
+      return $query;
+   }
 }
