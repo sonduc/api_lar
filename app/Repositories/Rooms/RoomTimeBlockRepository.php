@@ -61,7 +61,6 @@ class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRep
         $collection  = collect($data);
         $unlock_days = $collection->get('unlock_days', []);
         $blocks      = $this->minimizeBlock($data['room_time_blocks'], $unlock_days);
-
         foreach ($blocks as $block) {
             $arr['date_start'] = $block[0];
             $arr['date_end']   = array_key_exists(1, $block) ? $block[1] : $block[0];

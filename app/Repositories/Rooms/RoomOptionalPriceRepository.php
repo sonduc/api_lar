@@ -67,7 +67,6 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
                 $list          = array_merge($list, $roomDayPrices);
             }
         }
-
         parent::storeArray($list);
     }
 
@@ -119,6 +118,7 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
             $obj['price_after_hour'] = $price_after_hour;
             $list[]                  = $obj;
         }
+
         return $list;
     }
 

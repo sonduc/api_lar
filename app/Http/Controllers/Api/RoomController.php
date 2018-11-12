@@ -167,8 +167,7 @@ class RoomController extends ApiController
         'unlock_days.*.0.date'         => 'Ngày không hợp lệ',
         'unlock_days.*.0.after'        => 'Ngày bắt đầu phải ở tương lai',
         'unlock_days.*.1.date'         => 'Ngày không hợp lệ',
-        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
-        //ROOM_REVIEWS
+        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu'
 
     ];
 
@@ -260,7 +259,7 @@ class RoomController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
-            // dd(DB::getQueryLog());
+          // dd(DB::getQueryLog());
             DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');

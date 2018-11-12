@@ -98,7 +98,7 @@ class BlogController extends ApiController
     }
 
     /**
-     * Tạo mới Bl
+     * Tạo mới Blog.
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -133,7 +133,7 @@ class BlogController extends ApiController
     }
 
     /**
-     * Cập nhập bl
+     * Cập nhập blog
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -148,7 +148,6 @@ class BlogController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('blog.update');
-
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
            //dd(DB::getQueryLog());

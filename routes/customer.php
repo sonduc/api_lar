@@ -15,6 +15,7 @@ $router->group([
 ], function ($router) {
     $router->get('/rooms', 'RoomController@index');
     $router->get('/rooms/{id}', 'RoomController@show');
+    $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
 });
 
 
