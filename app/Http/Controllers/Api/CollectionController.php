@@ -13,8 +13,7 @@ use Intervention\Image\Exception\ImageException;
 
 class CollectionController extends ApiController
 {
-    protected $validationRules
-         = [
+    protected $validationRules = [
         'hot'                               => 'integer|between:0,1|filled',
         'status'                            => 'integer|between:0,1|filled',
         'new'                               => 'integer|between:0,1|filled',

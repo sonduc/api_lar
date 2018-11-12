@@ -1,57 +1,55 @@
-n <?php
-/**
- * Created by PhpStorm.
- * User: ducchien
- * Date: 25/09/2018
- * Time: 17:36
- */
+<?php
 
 namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
-class CategoryPolicy
+
+class CouponPolicy
 {
     use HandlesAuthorization;
+
+    /**
+     * Determine whether the user can view the coupon.
+     *
+     * @param  \App\User  $user
+     * @return mixed
+     */
     public function view(User $user)
     {
-        return $user->hasAccess(['category.view']);
+        return $user->hasAccess(['coupon.view']);
     }
 
     /**
-     * Determine whether the user can create blog.
+     * Determine whether the user can create coupon.
      *
      * @param  \App\User $user
-     *
      * @return mixed
      */
     public function create(User $user)
     {
-        return $user->hasAccess(['category.create']);
+        return $user->hasAccess(['coupon.create']);
     }
 
     /**
-     * Determine whether the user can update the blog.
+     * Determine whether the user can update the coupon.
      *
      * @param  \App\User $user
-     *
      * @return mixed
      */
     public function update(User $user)
     {
-        return $user->hasAccess(['category.update']);
+        return $user->hasAccess(['coupon.update']);
     }
 
     /**
-     * Determine whether the user can delete the blog.
+     * Determine whether the user can delete the coupon.
      *
      * @param  \App\User $user
-     *
      * @return mixed
      */
     public function delete(User $user)
     {
-        return $user->hasAccess(['category.delete']);
+        return $user->hasAccess(['coupon.delete']);
     }
-
 }

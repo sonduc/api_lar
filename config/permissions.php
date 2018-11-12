@@ -161,5 +161,25 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+    'promotion'       => [
+        'title' => 'Quản lý promotion',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
+    'coupon'       => [
+        'title' => 'Quản lý coupon',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
 
 ];

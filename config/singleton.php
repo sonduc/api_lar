@@ -113,5 +113,37 @@ return [
         \App\Repositories\Collections\CollectionTranslateRepository::class,
     ],
 
+    /**
+     * Promotion Blinding
+     */
+    \App\Repositories\Promotions\Promotion::class => [
+        \App\Repositories\Promotions\PromotionRepositoryInterface::class,
+        \App\Repositories\Promotions\PromotionRepository::class,
+    ],
+
+    /**
+     * Coupon Blinding
+     */
+    \App\Repositories\Coupons\Coupon::class => [
+        \App\Repositories\Coupons\CouponRepositoryInterface::class,
+        \App\Repositories\Coupons\CouponRepository::class,
+    ],
+    
+    /**
+     * City Blinding
+     */
+    \App\Repositories\Cities\City::class => [
+        \App\Repositories\Cities\CityRepositoryInterface::class,
+        \App\Repositories\Cities\CityRepository::class,
+    ],
+
+
+    /**
+     * District Blinding
+     */
+    \App\Repositories\Districts\District::class => [
+        \App\Repositories\Districts\DistrictRepositoryInterface::class,
+        \App\Repositories\Districts\DistrictRepository::class,
+    ],
 
 ];

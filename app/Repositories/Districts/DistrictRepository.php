@@ -4,7 +4,7 @@ namespace App\Repositories\Districts;
 
 use App\Repositories\BaseRepository;
 
-class DistrictRepository extends BaseRepository
+class DistrictRepository extends BaseRepository implements DistrictRepositoryInterface
 {
     /**
      * Role model.
@@ -23,5 +23,24 @@ class DistrictRepository extends BaseRepository
 
     }
 
+    /**
+     * Lấy tên quận huyện theo id(mảng id) 
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param $room
+     */
+    public function getDistrictByListId($idDistricts)
+    {
+        $arrDistrict =[];
+        foreach ($idDistricts as $k => $idDistrict) {
+            $getVal = $this->model->find($idDistrict);
+            $valueDistrict = [
+                "id" => $getVal->id,
+                "name" => $getVal->name,
+            ];
+            array_push($arrDistrict,$valueDistrict);
+        }
+        return $arrDistrict;
+    }
 
 }

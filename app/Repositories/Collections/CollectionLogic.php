@@ -110,7 +110,7 @@ class CollectionLogic extends BaseLogic
     public function destroyColection($id)
     {
         $this->collectionTranslate->deleteCollectionTranslateByCollectionID($id);
-        parent::destroy($id);
+        class_parents(class)::destroy($id);
     }
 
     /**
