@@ -51,7 +51,6 @@ class RoomLogic extends BaseLogic
         $check_in       = $collect_params->get('check_in');
         $check_out      = $collect_params->get('check_out');
         $booking        = $this->booking->getAllBookingInPeriod($check_in, $check_out);
-
         $list_room_id = $booking->map(function ($item) {
             return $item->room_id;
         })->all();
@@ -64,15 +63,13 @@ class RoomLogic extends BaseLogic
     }
 
 
-    /**
-     *
+    /**Lấy ra những ngày đã bị block của một phòng
+     * Lấy ra những ngày
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      * @return array
      */
-
-
 
     public function getFutureRoomSchedule($id)
     {
