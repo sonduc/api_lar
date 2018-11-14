@@ -192,7 +192,9 @@ class BookingLogic extends BaseLogic
         }
 
         // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
+
         $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
+
         $minCI  = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
 
         if ($checkin->between($minCI, $roomCI, false)) {
