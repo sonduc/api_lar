@@ -16,6 +16,15 @@ $router->group([
     $router->get('/rooms', 'RoomController@index');
     $router->get('/rooms/{id}', 'RoomController@show');
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+
+    /**
+     * Booking-customer.
+     */
+    $router->get('/bookings', 'BookingController@index');
+    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
+    $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
+    $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
+    $router->post('/bookings', 'BookingController@store');
 });
 
 

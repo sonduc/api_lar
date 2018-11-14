@@ -27,6 +27,7 @@ class RoomController extends ApiController
         $this->setTransformer(new RoomTransformer);
     }
 
+
     /**
      *
      * @author HarikiRito <nxh0809@gmail.com>

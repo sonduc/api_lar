@@ -107,5 +107,21 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $data;
     }
 
+    /**
+     * Lấy tất cả các booking theo id người dùng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $size
+     * @return mixed
+     */
+
+    public function getBookingById($id, $size)
+    {
+        return $this->model
+            ->where('bookings.id', $id)
+            ->paginate($size);
+    }
+
 }
 
