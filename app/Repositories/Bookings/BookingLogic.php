@@ -459,4 +459,53 @@ class BookingLogic extends BaseLogic
         return $this->booking_cancel->store($data);
     }
 
+    /**
+     * Kiểm tra điều kiện khuyến mãi của 1 booking dựa theo coupon 
+     *
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function checkSettingDiscout($coupon,$data)
+    {
+        $data_settings = json_decode($coupon->settings);
+        dd($data_settings);
+        if($data['room_id'] != null){
+            $dataRooms = $data_settings->rooms;
+            foreach ($dataRooms as $key => $value) {
+                if($data['room_id'] == $value->id){
+                    return $this->caculateDiscout($coupon,$data);
+                }
+            }
+        }else if($data['city_id'] != null){
+            $dataCities = $data_settings->cities;
+            foreach ($dataCities as $key => $value) {
+                if($data['city_id'] == $value->id){
+                    return $this->caculateDiscout($coupon,$data);
+                }
+            }
+        }else if($data['district_id'] != null){
+            $dataDistricts = $data_settings->districts;
+            foreach ($dataDistricts as $key => $value) {
+                if($data['district_id'] == $value->id){
+                    return $this->caculateDiscout($coupon,$data);
+                }
+            }
+        }else if($data['day'] != null){
+            
+        }
+    }
+
+    /**
+     * Tính khuyến mãi của 1 booking dựa theo coupon 
+     *
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function caculateDiscout($coupon,$data)
+    {
+        $price_discount = $data['price_original'] - ($coupon->discount * $data['price_original'])/100;
+
+        if ($price_discount > $coupon->max_discount){
+            $price_discount = $data['price_original'] - $coupon->max_discount;
+        }
+        return $price_discount;
+    }
 }

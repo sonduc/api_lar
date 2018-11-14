@@ -13,7 +13,7 @@ use App\Repositories\Coupons\CouponRepository;
 class CouponController extends ApiController
 {
     protected $validationRules = [
-        'code'                          =>  'required|min:4|unique:coupons,code',
+        'code'                          =>  'required|string|min:4|unique:coupons,code',
         'discount'                      =>  'required|integer|between:0,100',
         'max_discount'                  =>  'integer|min:0',
         'usable'                        =>  'integer|min:0',
@@ -28,6 +28,7 @@ class CouponController extends ApiController
     ];
     protected $validationMessages = [
         'code.required'                 =>  'Mã giảm giá không được để trống',
+        'code.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
         'code.min'                      =>  'Độ dài phải là :min',
         'code.unique'                   =>  'Mã giảm giá này đã tồn tại',
         'discount.required'             =>  'Phần trăm giảm giá không được để trống',
@@ -192,6 +193,7 @@ class CouponController extends ApiController
             throw $e;
         }
     }
+    
     /**
      * Thực hiện cập nhật status
      * @author sonduc <ndson1998@gmail.com>

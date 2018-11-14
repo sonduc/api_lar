@@ -105,6 +105,8 @@ $router->group([
     $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
 
+    $router->post('/bookings/caculate-discout', 'BookingController@caculateDiscout');
+
     resource('/bookings', 'BookingController', $router);
     /**
      * Payment History
