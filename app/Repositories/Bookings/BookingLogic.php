@@ -125,7 +125,7 @@ class BookingLogic extends BaseLogic
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
-            $days             = $CO->diffInDays($CI) + 1;
+            $days             = $CO->diffInDays($CI);
             $data['days']     = $days;
             $data['checkin']  = $CI->timestamp;
             $data['checkout'] = $CO->timestamp;
