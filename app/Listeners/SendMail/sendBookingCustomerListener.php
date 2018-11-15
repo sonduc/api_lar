@@ -3,7 +3,7 @@
  * Created by PhpStorm.
  * User: ducchien
  * Date: 15/11/2018
- * Time: 06:58
+ * Time: 09:17
  */
 
 namespace App\Listeners\SendMail;
@@ -11,7 +11,8 @@ namespace App\Listeners\SendMail;
 use App\Events\BookingEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
-class MailInfoBookingListener
+
+class sendBookingCustomerListener
 {
     protected $email;
     /**
@@ -28,10 +29,8 @@ class MailInfoBookingListener
 
     public function handle(BookingEvent $event)
     {
-        dd($event);
-        $this->email->mailInfo($event);
+        $this->email->sendBookingCustomer($event);
 
     }
-
 
 }

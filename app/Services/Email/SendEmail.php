@@ -32,23 +32,51 @@ class SendEmail
     }
 
 
-    public function mailInfo($data, $template = 'email.blank')
+    public function sendBookingAdmin($data, $template = 'email.sendBookingAdmin')
     {
-        $allEmail= ['myoneemail@esomething.com', 'myother@esomething.com','myother2@esomething.com'];
-        $allEmail = $data->name['email'];
+        $email = $data->name['email'];
         $info  = $data->name;
         try {
-            foreach ($allEmail as $email)
-            {
-                Mail::send($template,['data' => $info] ,function ($message) use ($email) {
-                    $message->from('ducchien0612@gmail.com');
-                    $message->to($email)->subject('Xác thực tài khoản !!!');
-                });
-            }
+            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+                $message->from('ducchien0612@gmail.com');
+                $message->to($email)->subject('Xác thực tài khoản !!!');
+            });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
     }
+
+    public function sendBookingCustomer($data, $template = 'email.sendBookingCustomer')
+    {
+        $email = $data->name['email'];
+        $info  = $data->name;
+        try {
+            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+                $message->from('ducchien0612@gmail.com');
+                $message->to($email)->subject('Xác thực tài khoản !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
+
+    public function sendBookingHost($data, $template = 'email.sendBookingCustomer')
+    {
+        $email = $data->name['email'];
+        $info  = $data->name;
+        try {
+            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+                $message->from('ducchien0612@gmail.com');
+                $message->to($email)->subject('Xác thực tài khoản !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
+
+
 
 }

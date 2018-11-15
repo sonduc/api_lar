@@ -9,6 +9,7 @@ use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -122,6 +123,7 @@ class BookingController extends ApiController
 
     protected $browser;
     protected $room;
+    protected $user;
 
     /**
      * BookingController constructor.
@@ -129,10 +131,11 @@ class BookingController extends ApiController
      * @param BookingLogic            $booking
      * @param RoomRepositoryInterface $room
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room)
+    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room , UserRepositoryInterface $user)
     {
         $this->model = $booking;
         $this->room  = $room;
+        $this->user  = $user;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -167,6 +170,12 @@ class BookingController extends ApiController
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
+
+
+            $user= $this->model->getById($request->only('merchant_id'));
+            $data['host']= $user->email;
+            dd($data['host']);
+            $data['admim']= 'taikhoan150do@gmail.com';
 //          dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
