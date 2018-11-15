@@ -55,7 +55,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->paginate($size);
     }
 
-    public function getRoomName($id)
+    public function getRoom($id)
     {
        return $this->model
             ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')

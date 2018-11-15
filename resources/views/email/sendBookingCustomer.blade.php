@@ -46,7 +46,7 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Tên căn hộ</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room ? $new_booking->room_n : '' }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room_name? $new_booking->room_name : '' }}</p>
         </td>
     </tr>
 
@@ -64,12 +64,8 @@
                 <p style="margin:  0;color: #777; margin-bottom: 8px;">Tên chủ nhà </p>
             </td>
             <td>
-                <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->client ? $new_booking->client->name : '' }}</p>
+                <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->merchant_name ? $new_booking->merchant_name : '' }}</p>
             </td>
-        </tr>
-        <tr>
-            <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Số điện thoại chủ nhà</p></td>
-            <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><a href="tel:{{ $new_booking->client ? $new_booking->client->phone : '' }}">{{ $new_booking->client ? $new_booking->client->phone : '' }}</a> </p></td>
         </tr>
     @else
         <tr>

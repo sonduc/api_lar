@@ -29,7 +29,6 @@ class sendBookingAdminListener
     public function handle(BookingEvent $event)
     {
        //$this->email->sendBookingAdmin($event);
-
     }
 
 

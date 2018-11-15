@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -21,10 +22,10 @@
         <td><p style="color: #666666;font-size: 18px;margin: 0; margin-bottom: 10px;">Mã booking: {{ $new_booking->code }}</p></td>
     </tr>
     <tr>
-        <td><p style="color: #666666;font-size: 16px; margin: 0;">Tên khách: {{ $new_booking->name_receive == $new_booking->name ? $new_booking->name : $new_booking->name_receive }}</p></td>
+        <td><p style="color: #666666;font-size: 16px; margin: 0;">Tên khách: {{ $new_booking->name_received === $new_booking->name? $new_booking->name_received  : $new_booking->name }}</p></td>
     </tr>
     <tr>
-        <td><p style="color: #666666;font-size: 16px;margin: 0;">Điện thoại: {{ $new_booking->phone_receive == $new_booking->phone ? $new_booking->phone : $new_booking->phone_receive }}</p></td>
+        <td><p style="color: #666666;font-size: 16px;margin: 0;">Điện thoại: {{ $new_booking->phone_received === $new_booking->phone ? $new_booking->phone_received : $new_booking->phone }}</p></td>
     </tr>
     <tr>
         <td>
@@ -39,4 +40,5 @@
 </table>
 </body>
 </html>
+
 

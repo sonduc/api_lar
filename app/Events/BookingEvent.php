@@ -10,13 +10,13 @@ class BookingEvent extends Event
      * @return void
      */
     public $data;
-    public $room_name;
+    public $room;
     public $merchant;
 
-    public function __construct($data,$merchant, $room_name)
+    public function __construct($data,$merchant, $room)
     {
         $this->data         = $data;
         $this->merchant     = $merchant;
-        $this->room_name    = $room_name;
+        $this->room    = $room;
     }
 }

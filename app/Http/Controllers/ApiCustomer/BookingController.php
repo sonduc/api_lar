@@ -174,12 +174,8 @@ class BookingController extends ApiController
             $data = $this->model->store($request->all());
 
             $merchant     = $this->user->getById(2);  //$request->only('merchant_id');
-            $room_name = $this->room->getRoomName($request->only('room_id'));
+            $room_name = $this->room->getRoom($request->only('room_id'));
 
-//            if(empty($user))
-//            {
-//                $data['host'] = $user->email;
-//            }
             $data['admin']  = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
 
