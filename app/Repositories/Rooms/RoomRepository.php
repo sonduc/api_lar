@@ -54,4 +54,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where('rooms.status', Room::AVAILABLE)
             ->paginate($size);
     }
+
+    public function getRoomName($id)
+    {
+       return $this->model
+            ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
+            ->where('room_translates.lang','vi')
+            ->where('rooms.id', $id)->first();
+    }
 }

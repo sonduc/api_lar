@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -16,7 +17,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ $new_booking->room ? $new_booking->room->name : '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
+            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ $new_booking->room ? $new_booking->room_name : '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
         </td>
     </tr>
     <tr>
@@ -44,7 +45,7 @@
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng thời gian</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $time['number_day'] == 0 ? '' : $time['number_day'] . ' ngày'}} {{ $time['number_hours']}} giờ</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->hours}} </p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng</p></td>

@@ -46,7 +46,7 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Tên căn hộ</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room ? $new_booking->room->name : '' }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room ? $new_booking->room_n : '' }}</p>
         </td>
     </tr>
 

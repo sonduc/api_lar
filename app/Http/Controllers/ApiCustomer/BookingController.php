@@ -10,10 +10,12 @@ use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
+use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+
 
 class BookingController extends ApiController
 {
@@ -171,15 +173,19 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
+            $merchant     = $this->user->getById(2);  //$request->only('merchant_id');
+            $room_name = $this->room->getRoomName($request->only('room_id'));
 
-            $user= $this->model->getById($request->only('merchant_id'));
-            $data['host']= $user->email;
-            dd($data['host']);
-            $data['admim']= 'taikhoan150do@gmail.com';
-//          dd(DB::getQueryLog());
-            DB::commit();
+//            if(empty($user))
+//            {
+//                $data['host'] = $user->email;
+//            }
+            $data['admin']  = 'taikhoan149do@gmail.com';
+            event(new BookingEvent($data,$merchant,$room_name));
+
+         //  DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-            event(new BookingEvent($data));
+
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();

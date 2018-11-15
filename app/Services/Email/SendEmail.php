@@ -3,6 +3,8 @@
 namespace App\Services\Email;
 
 use App\Jobs\Traits\DispatchesJobs;
+use Carbon\Carbon;
+use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmail
@@ -32,12 +34,11 @@ class SendEmail
     }
 
 
-    public function sendBookingAdmin($data, $template = 'email.sendBookingAdmin')
+    public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
-        $email = $data->name['email'];
-        $info  = $data->name;
+        $email = $booking->data['admin'];
         try {
-            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+            Mail::send($template,['new_booking' => $booking->data] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Xác thực tài khoản !!!');
             });
@@ -47,12 +48,12 @@ class SendEmail
         }
     }
 
-    public function sendBookingCustomer($data, $template = 'email.sendBookingCustomer')
+
+    public function sendBookingCustomer($booking, $template = 'email.sendBookingCustomer')
     {
-        $email = $data->name['email'];
-        $info  = $data->name;
+        $email = $booking->data['email'];
         try {
-            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+            Mail::send($template,['new_booking' => $booking->data] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Xác thực tài khoản !!!');
             });
@@ -62,12 +63,18 @@ class SendEmail
         }
     }
 
-    public function sendBookingHost($data, $template = 'email.sendBookingCustomer')
+
+    public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
-        $email = $data->name['email'];
-        $info  = $data->name;
+        $email = $booking->merchant->email;
+        $data_host              = $booking->data;
+        $checkin                =  Carbon::parse($booking->data->checkin);
+        $checkout               =  Carbon::parse($booking->data->checkout);
+        $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $data_host['hours']     = $hours;
+        $data_host['room_name'] = $booking->room_name->name;
         try {
-            Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+            Mail::send($template,['new_booking' => $data_host] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Xác thực tài khoản !!!');
             });
@@ -76,6 +83,8 @@ class SendEmail
             throw $e;
         }
     }
+
+
 
 
 
