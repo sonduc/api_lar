@@ -5,9 +5,7 @@
  * Date: 23/10/2018
  * Time: 17:02
  */
-
 namespace App\Repositories\Collections;
-
 
 use App\Repositories\BaseLogic;
 

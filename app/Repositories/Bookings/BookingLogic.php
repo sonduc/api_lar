@@ -53,8 +53,7 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel
-    )
-    {
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -118,9 +117,10 @@ class BookingLogic extends BaseLogic
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
                 ?? 0;
 
-            if ($money == 0) $money =
+            if ($money == 0) {
+                $money =
                 $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
-
+            }
         } else {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
@@ -131,10 +131,9 @@ class BookingLogic extends BaseLogic
             $data['checkout'] = $CO->timestamp;
 
             // Xử lý logic tính giá phòng vào ngày đặc biệt
-            list ($money, $totalDay) =
+            list($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
             $money += $room->price_day * ($days - $totalDay);
-
         }
 
         // Tính tiền dựa theo số khách
@@ -166,7 +165,6 @@ class BookingLogic extends BaseLogic
      */
     protected function checkValidBookingTime($room, $data = [])
     {
-
         $checkin  = Carbon::parse($data['checkin']);
         $checkout = Carbon::parse($data['checkout']);
         $hours = $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -210,8 +208,6 @@ class BookingLogic extends BaseLogic
         if (count(array_intersect($blocked_schedule, $days))) {
             throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
         }
-
-
     }
 
     /**
@@ -254,7 +250,9 @@ class BookingLogic extends BaseLogic
 
             $period = CarbonPeriod::between($checkin, $checkout->addDay());
             foreach ($period as $day) {
-                if (in_array($day->dayOfWeek + 1, $weekDays)) $listDays[] = $day->format('Y-m-d');
+                if (in_array($day->dayOfWeek + 1, $weekDays)) {
+                    $listDays[] = $day->format('Y-m-d');
+                }
             }
 
             // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
@@ -292,7 +290,7 @@ class BookingLogic extends BaseLogic
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
                     }
                 }
-            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+            } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
@@ -459,63 +457,63 @@ class BookingLogic extends BaseLogic
     }
 
     /**
-     * Kiểm tra điều kiện khuyến mãi của 1 booking dựa theo coupon 
+     * Kiểm tra điều kiện khuyến mãi của 1 booking dựa theo coupon
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function checkSettingDiscount($coupon,$data)
+    public function checkSettingDiscount($coupon, $data)
     {
         $data_settings = json_decode($coupon->settings);
         $data_status = $coupon->status;
-        if($data_status == 1){
-            if($data['room_id'] != null){
+        if ($data_status == 1) {
+            if ($data['room_id'] != null) {
                 $dataRooms = $data_settings->rooms;
                 foreach ($dataRooms as $key => $value) {
-                    if($data['room_id'] == $value->id){
-                        return $this->caculateDiscount($coupon,$data);
+                    if ($data['room_id'] == $value->id) {
+                        return $this->caculateDiscount($coupon, $data);
                     }
                 }
             }
-            if($data['city_id'] != null){
+            if ($data['city_id'] != null) {
                 $dataCities = $data_settings->cities;
                 foreach ($dataCities as $key => $value) {
-                    if($data['city_id'] == $value->id){
-                        return $this->caculateDiscount($coupon,$data);
+                    if ($data['city_id'] == $value->id) {
+                        return $this->caculateDiscount($coupon, $data);
                     }
                 }
             }
-            if($data['district_id'] != null){
+            if ($data['district_id'] != null) {
                 $dataDistricts = $data_settings->districts;
                 foreach ($dataDistricts as $key => $value) {
-                    if($data['district_id'] == $value->id){
-                        return $this->caculateDiscount($coupon,$data);
+                    if ($data['district_id'] == $value->id) {
+                        return $this->caculateDiscount($coupon, $data);
                     }
                 }
             }
-            if($data['day'] != null){
+            if ($data['day'] != null) {
                 $dataDays = $data_settings->days;
                 foreach ($dataDays as $key => $value) {
-                    if($data['day'] == $value){
-                        return $this->caculateDiscount($coupon,$data);
+                    if ($data['day'] == $value) {
+                        return $this->caculateDiscount($coupon, $data);
                     }
                 }
             }
             throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
-        }else{
+        } else {
             throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
         }
     }
 
     /**
-     * Tính khuyến mãi của 1 booking dựa theo coupon 
+     * Tính khuyến mãi của 1 booking dựa theo coupon
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscount($coupon,$data)
+    public function caculateDiscount($coupon, $data)
     {
         $price_discount = ($coupon->discount * $data['price_original'])/100;
 
-        if ($price_discount > $coupon->max_discount){
+        if ($price_discount > $coupon->max_discount) {
             $price_discount = $data['price_original'] - $coupon->max_discount;
         }
 

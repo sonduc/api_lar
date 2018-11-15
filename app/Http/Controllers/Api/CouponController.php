@@ -287,7 +287,7 @@ class CouponController extends ApiController
 
             $coupon = $this->model->getCouponByCode($request->coupon);
 
-            // $data = $this->model->checkSettingDiscout($coupon,$request->all());
+            // $data = $this->model->checkSettingdiscount($coupon,$request->all());
             // dd($data);
             $data = [
                 'data' => $this->model->checkSettingDiscount($coupon,$request->all()),
