@@ -169,7 +169,6 @@ class BookingLogic extends BaseLogic
 
         $checkin  = Carbon::parse($data['checkin']);
         $checkout = Carbon::parse($data['checkout']);
-
         $hours = $checkout->copy()->ceilHours()->diffInHours($checkin);
         $dayCI = $checkin->copy()->toDateString();
         $dayCO = $checkout->copy()->toDateString();
@@ -464,33 +463,46 @@ class BookingLogic extends BaseLogic
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function checkSettingDiscout($coupon,$data)
+    public function checkSettingDiscount($coupon,$data)
     {
         $data_settings = json_decode($coupon->settings);
-        dd($data_settings);
-        if($data['room_id'] != null){
-            $dataRooms = $data_settings->rooms;
-            foreach ($dataRooms as $key => $value) {
-                if($data['room_id'] == $value->id){
-                    return $this->caculateDiscout($coupon,$data);
+        $data_status = $coupon->status;
+        if($data_status == 1){
+            if($data['room_id'] != null){
+                $dataRooms = $data_settings->rooms;
+                foreach ($dataRooms as $key => $value) {
+                    if($data['room_id'] == $value->id){
+                        return $this->caculateDiscount($coupon,$data);
+                    }
                 }
             }
-        }else if($data['city_id'] != null){
-            $dataCities = $data_settings->cities;
-            foreach ($dataCities as $key => $value) {
-                if($data['city_id'] == $value->id){
-                    return $this->caculateDiscout($coupon,$data);
+            if($data['city_id'] != null){
+                $dataCities = $data_settings->cities;
+                foreach ($dataCities as $key => $value) {
+                    if($data['city_id'] == $value->id){
+                        return $this->caculateDiscount($coupon,$data);
+                    }
                 }
             }
-        }else if($data['district_id'] != null){
-            $dataDistricts = $data_settings->districts;
-            foreach ($dataDistricts as $key => $value) {
-                if($data['district_id'] == $value->id){
-                    return $this->caculateDiscout($coupon,$data);
+            if($data['district_id'] != null){
+                $dataDistricts = $data_settings->districts;
+                foreach ($dataDistricts as $key => $value) {
+                    if($data['district_id'] == $value->id){
+                        return $this->caculateDiscount($coupon,$data);
+                    }
                 }
             }
-        }else if($data['day'] != null){
-            
+            if($data['day'] != null){
+                $dataDays = $data_settings->days;
+                foreach ($dataDays as $key => $value) {
+                    if($data['day'] == $value){
+                        return $this->caculateDiscount($coupon,$data);
+                    }
+                }
+            }
+            throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
+        }else{
+            throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
         }
     }
 
@@ -499,13 +511,21 @@ class BookingLogic extends BaseLogic
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscout($coupon,$data)
+    public function caculateDiscount($coupon,$data)
     {
-        $price_discount = $data['price_original'] - ($coupon->discount * $data['price_original'])/100;
+        $price_discount = ($coupon->discount * $data['price_original'])/100;
 
         if ($price_discount > $coupon->max_discount){
             $price_discount = $data['price_original'] - $coupon->max_discount;
         }
-        return $price_discount;
+
+        $price_remain = $data['price_original'] -  $price_discount;
+
+        $dataDiscount = [
+            'message'        => "Mã giảm giá được áp dụng thành công",
+            'price_discount' => $price_discount,
+            'price_remain'   => $price_remain
+        ];
+        return $dataDiscount;
     }
 }

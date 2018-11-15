@@ -31,7 +31,6 @@ class MailConfirmListener implements ShouldQueue
     public function handle(Customer_Register_Event $event)
     {
         $this->email->mailConfirm($event);
-
     }
 
 }

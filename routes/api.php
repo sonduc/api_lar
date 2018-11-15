@@ -105,7 +105,7 @@ $router->group([
     $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
 
-    $router->post('/bookings/caculate-discout', 'BookingController@caculateDiscout');
+    $router->post('/bookings/caculate-discount', 'BookingController@caculateDiscount');
 
     resource('/bookings', 'BookingController', $router);
     /**
@@ -154,6 +154,8 @@ $router->group([
     */
     $router->get('/coupons/status-list', 'CouponController@statusList');
     $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
+    $router->post('/coupons/update-usable', 'CouponController@updateUsable');
+    $router->post('/coupons/caculate-discount', 'CouponController@caculateDiscount');
     resource('/coupons', 'CouponController', $router);
 });
 

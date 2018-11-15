@@ -12,6 +12,7 @@ use App\Repositories\Coupons\CouponRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\Check_Usable_Coupon_Event;
 
 class BookingController extends ApiController
 {
@@ -203,8 +204,11 @@ class BookingController extends ApiController
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
+            
 //            dd(DB::getQueryLog());
             DB::commit();
+
+            event(new Check_Usable_Coupon_Event($data['coupon']));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);
@@ -708,12 +712,12 @@ class BookingController extends ApiController
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscout(Request $request)
+    public function caculateDiscount(Request $request)
     {
         DB::enableQueryLog();
         try {
             $this->authorize('booking.create');
-            // Tái cấu trúc validate để tính giá tiền
+            // Tái cấu trúc validate để tính khuyến mãi
             $validate            = array_only($this->validationRules, [
                 'coupon',
                 'price_original',
@@ -729,11 +733,12 @@ class BookingController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
 
             $coupon = $this->coupon->getCouponByCode($request->coupon);
-            $data = $this->model->checkSettingDiscout($coupon,$request->all());
-            dd($coupon);
-            // $data = [
-            //     'data' => $this->model->priceCalculator($room, $request->all()),
-            // ];
+
+            // $data = $this->model->checkSettingDiscout($coupon,$request->all());
+            // dd($data);
+            $data = [
+                'data' => $this->model->checkSettingDiscount($coupon,$request->all()),
+            ];
 
             return $this->successResponse($data, false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {

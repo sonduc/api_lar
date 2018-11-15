@@ -19,5 +19,8 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Customer_Register_Event::class => [
             \App\Listeners\SendMail\MailConfirmListener::class,
         ],
+        \App\Events\Check_Usable_Coupon_Event::class => [
+            \App\Listeners\CheckCoupon\UsableCouponListener::class,
+        ],
     ];
 }
