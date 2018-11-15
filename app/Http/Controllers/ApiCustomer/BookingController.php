@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ApiCustomer;
 
+use App\Events\BookingEvent;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
@@ -169,7 +170,7 @@ class BookingController extends ApiController
 //          dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-
+            event(new BookingEvent($data));
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();

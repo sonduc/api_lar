@@ -19,5 +19,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Customer_Register_Event::class => [
             \App\Listeners\SendMail\MailConfirmListener::class,
         ],
+
+        \App\Events\BookingEvent::class => [
+            \App\Listeners\SendMail\MailInfoBookingListener::class,
+        ],
     ];
 }

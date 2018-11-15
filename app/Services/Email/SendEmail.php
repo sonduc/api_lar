@@ -31,4 +31,24 @@ class SendEmail
         }
     }
 
+
+    public function mailInfo($data, $template = 'email.blank')
+    {
+        $allEmail= ['myoneemail@esomething.com', 'myother@esomething.com','myother2@esomething.com'];
+        $allEmail = $data->name['email'];
+        $info  = $data->name;
+        try {
+            foreach ($allEmail as $email)
+            {
+                Mail::send($template,['data' => $info] ,function ($message) use ($email) {
+                    $message->from('ducchien0612@gmail.com');
+                    $message->to($email)->subject('Xác thực tài khoản !!!');
+                });
+            }
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
+
 }

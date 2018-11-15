@@ -60,6 +60,7 @@ class BookingLogic extends BaseLogic
         BookingCancelRepositoryInterface $booking_cancel
     )
     {
+        $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
         $this->payment        = $payment;
@@ -88,7 +89,6 @@ class BookingLogic extends BaseLogic
         $data['customer_id'] =
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
-
         $data_booking = parent::store($data);
         //$this->status->storeBookingStatus($data_booking, $data);
       //  $this->payment->storePaymentHistory($data_booking, $data);
