@@ -7,6 +7,7 @@ use App\Http\Transformers\Traits\FilterTrait;
 use League\Fractal\TransformerAbstract;
 use League\Fractal\ParamBag;
 use App\Repositories\Promotions\Promotion;
+use App\Helpers\ErrorCore;
 
 class PromotionTransformer extends TransformerAbstract
 {
@@ -28,6 +29,7 @@ class PromotionTransformer extends TransformerAbstract
          'date_start'            => $promotion->date_start ? $promotion->date_start : null,
          'date_end'              => $promotion->date_end ? $promotion->date_end : null,
          'status'                => $promotion->status,
+         'status_txt'            => $promotion->getPromotionStatus(),
          'created_at'            => $promotion->created_at ? $promotion->created_at->format('Y-m-d H:i:s') : null,
          'updated_at'            => $promotion->updated_at ? $promotion->updated_at->format('Y-m-d H:i:s') : null,
       ];
@@ -39,7 +41,7 @@ class PromotionTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $promotion->Coupon());
+        $data = $this->pagination($params, $promotion->coupons());
 
         return $this->collection($data, new CouponTransformer);
    }

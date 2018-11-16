@@ -86,6 +86,7 @@ class PromotionController extends ApiController
 
     public function store(Request $request)
     {
+        // dd($request);
         DB::beginTransaction();
         try {
             $this->authorize('promotion.create');

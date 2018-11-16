@@ -1,6 +1,9 @@
 <?php
 namespace App\Repositories\Coupons;
 
+use App\Helpers\ErrorCore;
+use App\User;
+
 trait PresentationTrait
 {
     /**
@@ -16,6 +19,13 @@ trait PresentationTrait
             }
         }
         return false;
+    }
+
+    public function getCouponStatus()
+    {
+        return array_key_exists($this->status, Coupon::COUPON_STATUS)
+            ? Coupon::COUPON_STATUS[$this->status]
+            : trans2(ErrorCore::UNDEFINED);
     }
 
     /**
