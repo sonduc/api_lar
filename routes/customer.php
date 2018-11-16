@@ -23,6 +23,7 @@ $router->group([
     $router->get('/bookings', 'BookingController@index');
     $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
+    $router->put('/bookings/status-update', 'BookingController@confirmBooking');
     $router->post('/bookings', 'BookingController@store');
 });
 

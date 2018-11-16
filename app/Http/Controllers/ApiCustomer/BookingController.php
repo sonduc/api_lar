@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\ApiCustomer;
 
+use App\Events\BookingConfirmEvent;
 use App\Events\BookingEvent;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
+use App\Repositories\Bookings\PresentationTrait;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Carbon;
@@ -41,7 +43,7 @@ class BookingController extends ApiController
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'status'           => 'required|integer|between:1,5',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
-        'payment_method'   => 'required|integer|between:1,5',
+        'payment_method'   => 'required|integer|between:2,5',
         'payment_status'   => 'required|integer|between:0,3',
         'source'           => 'required|integer|between:1,6',
         'exchange_rate'    => 'nullable|integer',
@@ -91,6 +93,7 @@ class BookingController extends ApiController
         'status.required'           => 'Vui lòng chọn trạng thái',
         'status.integer'            => 'Mã trạng thái phải là kiểu số',
         'status.between'            => 'Mã trạng thái không phù hợp',
+        'status.in'                 => 'Mã trạng thái không phù hợp',
 
         'type.required' => 'Vui lòng chọn hình thức booking',
         'type.integer'  => 'Mã hình thức phải là kiểu số',
@@ -171,12 +174,10 @@ class BookingController extends ApiController
                 return redirect()->to('https://www.google.com/');
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
-
-            $merchant     = $this->user->getById(2);  //$request->only('merchant_id');
-            $room_name = $this->room->getRoom($request->only('room_id'));
-
-            $data['admin']  = 'taikhoan149do@gmail.com';
+            $data                       = $this->model->store($request->all());
+            $merchant                   = $this->user->getById(2);  //$request->only('merchant_id');
+            $room_name                  = $this->room->getRoom($request->only('room_id'));
+            $data['admin']              = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
 
          //  DB::commit();
@@ -380,7 +381,7 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_METHOD);
+            $data = $this->simpleArrayToOhject(BookingConstant::PAYMENT_METHOD);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
@@ -421,6 +422,58 @@ class BookingController extends ApiController
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+
+    /**
+     * Cập nhâp trạng thái booking của 1 phong từ chủ host
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
+    public function confirmBooking(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $validate = array_only($this->validationRules, [
+                'status',
+            ]);
+
+            $validate['status'] = 'required|integer|in:2,5';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateStatusBooking($request->all());
+            if ($data->status == BookingConstant::BOOKING_CONFIRM)
+            {
+                $merchant                   = $this->user->getById(2);  //$request->only('merchant_id');
+                $room_name                  = $this->room->getRoom($data->room_id);
+                event(new BookingConfirmEvent($data,$merchant,$room_name));
+            }
+
+            DB::commit();
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
         }
     }
 

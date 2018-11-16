@@ -1,14 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 16/11/2018
+ * Time: 13:19
+ */
 
 namespace App\Events;
 
-class BookingEvent extends Event
+
+class BookingConfirmEvent extends Event
 {
-    /**
-     * Create a new event instance.
-     *
-     * @return void
-     */
+
     public $data;
     public $room;
     public $merchant;
@@ -19,4 +22,5 @@ class BookingEvent extends Event
         $this->merchant     = $merchant;
         $this->room         = $room;
     }
+
 }

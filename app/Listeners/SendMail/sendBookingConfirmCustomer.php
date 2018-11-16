@@ -2,17 +2,17 @@
 /**
  * Created by PhpStorm.
  * User: ducchien
- * Date: 15/11/2018
- * Time: 09:17
+ * Date: 16/11/2018
+ * Time: 13:21
  */
 
 namespace App\Listeners\SendMail;
 
-use App\Events\BookingEvent;
+use App\Events\BookingConfirmEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class sendBookingCustomerListener
+class sendBookingConfirmCustomer
 {
     protected $email;
     /**
@@ -27,9 +27,9 @@ class sendBookingCustomerListener
     }
 
 
-    public function handle(BookingEvent $event)
+    public function handle(BookingConfirmEvent $event)
     {
-        //$this->email->sendBookingCustomer($event);
+        $this->email->sendBookingConfirmCustomer($event);
 
     }
 

@@ -55,16 +55,10 @@
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Trạng thái thanh toán</p></td>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ $new_booking->getPaymentStatus() }}</b> </p></td>
     </tr>
-    <tr>
-        <td colspan="2" style="text-align: center;">
-            <a target="blank" style="background: #f5a623;color: #fff;border: 1px solid #f5a623;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="{{ !empty($url_confirm ) ? $url_confirm : '' }}">Xác nhận</a>
-            <a target="blank" style="background: #dc3545;color: #fff;border: 1px solid #dc3545;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="{{ !empty($url_cancel ) ? $url_cancel : '' }}"> Hết phòng</a>
-            <a target="blank" style="background: #0275d8;border: 1px solid #0275d8;color: #fff;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="{{ !empty($url_room_empty ) ? $url_room_empty : '' }}">  Hết phòng và có phòng khác trống</a>
-        </td>
-    </tr>
-
     </tbody>
 </table>
 </body>
 </html>
+
+<?php die();?>
 

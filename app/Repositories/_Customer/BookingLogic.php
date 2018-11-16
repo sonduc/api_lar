@@ -479,4 +479,12 @@ class BookingLogic extends BaseLogic
         return $booking;
     }
 
+    public function updateStatusBooking($data)
+    {
+        $uuid = $data['uuid'];
+        $booking = $this->model->getBookingByUuid($uuid);
+        $booking = parent::update($booking->id, $data);
+        return $booking;
+    }
+
 }

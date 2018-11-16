@@ -111,8 +111,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
 
     public function getUserByUuid($uuid){
-        $user= $this->model->where('uuid', $uuid)->first();
-        return $user;
+        return $this->model->where('uuid', $uuid)->first();
     }
 
 
@@ -125,8 +124,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function checkUserByStatus($data)
     {
-        $user= $this->model->where('uuid', $data['uuid'])->where('status',1)->first();
-        return $user;
+        return $this->model->where('uuid', $data['uuid'])->where('status',1)->first();
 
     }
 

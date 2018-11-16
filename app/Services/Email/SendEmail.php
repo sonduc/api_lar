@@ -48,26 +48,54 @@ class SendEmail
         }
     }
 
-
+    /**
+     * Gửi email khi có yêu cầu tạo booking
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking
+     * @param string $template
+     * @throws \Exception
+     */
     public function sendBookingCustomer($booking, $template = 'email.sendBookingCustomer')
     {
-        dd($booking);
+        $data_host              = $booking->data;
+        $checkin                =  Carbon::parse($booking->data->checkin);
+        $checkout               =  Carbon::parse($booking->data->checkout);
+        $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $data_host['hours']     = $hours;
         $email      = $booking->data['email'];
-        $data_customer  = $booking->data;
-        if (!empty($booking->merchant->name))
-        {
-            $data_customer['merchant_name'] = $booking->merchant->name;
-        }
-
-        if (!empty($booking->merchant->name))
-        {
-            $data_customer['room_name'] = $booking->room_name->name;
-        }
-        dd($data_customer);
         try {
-            Mail::send($template,['new_booking' => $data_customer] ,function ($message) use ($email) {
+            Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử l');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Gửi email cho customer , thông báo cho customer biết booking này có đước xác nhận hay không
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking
+     * @param string $template
+     * @throws \Exception
+     */
+    public function sendBookingConfirmCustomer($booking, $template = 'email.sendBookingCustomer')
+    {
+        $data_host              = $booking->data;
+        $checkin                =  Carbon::parse($booking->data->checkin);
+        $checkout               =  Carbon::parse($booking->data->checkout);
+        $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $data_host['hours']     = $hours;
+        $email                  = $booking->data['email'];
+        try {
+            Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
+                $message->from('ducchien0612@gmail.com');
+                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đã được chủ nhà xác nhận');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email );
@@ -88,9 +116,9 @@ class SendEmail
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
         $data_host['hours']     = $hours;
-        if (!empty($booking->room_name->name))
+        if (!empty($booking->room->name))
         {
-            $data_host['room_name'] = $booking->room_name->name;
+            $data_host['room_name'] = $booking->room->name;
         }
         try {
             Mail::send($template,['new_booking' => $data_host] ,function ($message) use ($email) {

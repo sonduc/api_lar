@@ -108,7 +108,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * Lấy tất cả các booking theo id người dùng
+     * Lấy tất cả các booking theo id người dùng có phân trang
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
@@ -122,6 +122,14 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where('bookings.id', $id)
             ->paginate($size);
     }
+
+    public function getBookingByUuid($uuid)
+    {
+        return $this->model->where('uuid', $uuid)->first();
+    }
+
+
+
 
 }
 
