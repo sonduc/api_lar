@@ -37,7 +37,7 @@ class Promotion extends Entity
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Coupon()
+    public function coupons()
     {
         return $this->hasMany(Coupon::class,'promotion_id','id');
     }

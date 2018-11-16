@@ -8,9 +8,11 @@ use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Coupons\CouponRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Events\Check_Usable_Coupon_Event;
 
 class BookingController extends ApiController
 {
@@ -30,7 +32,7 @@ class BookingController extends ApiController
         'checkout'         => 'required|date|after:checkin',
         'additional_fee'   => 'filled|integer|min:0',
         'price_discount'   => 'filled|integer|min:0',
-        'coupon'           => 'nullable|string',
+        'coupon'           => 'nullable|string|min:4|exists:coupons,code,deleted_at,NULL',
         'note'             => 'nullable|v_title',
         'number_of_guests' => 'bail|required|guest_check|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
@@ -78,7 +80,9 @@ class BookingController extends ApiController
         'price_discount.required'   => 'Vui lòng điền giá',
         'price_discount.filled'     => 'Vui lòng điền giá',
         'price_discount.integer'    => 'Giá phải là kiểu số',
+        'coupon.min'                => 'Độ dài phải là :min',
         'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
+        'coupon.exists'             => 'Coupon không tồn tại',
         'note.v_title'              => 'Note phải là văn bản không chứa ký tự đặc biệt',
         'number_of_guests.required' => 'Vui lòng điền số khách',
         'number_of_guests.integer'  => 'Số khách phải là kiểu số',
@@ -116,6 +120,15 @@ class BookingController extends ApiController
         'code.integer'           => 'Mã phải là kiểu số',
         'code.in'                => 'Mã không hợp lệ',
         'code.required'          => 'Vui lòng chọn lý do',
+
+        'city_id.integer'           => 'Mã thành phố phải là kiểu số',
+        'city_id.exists'            => 'Thành phố không tồn tại',
+
+        'district_id.integer'           => 'Mã quận huyện phải là kiểu số',
+        'district_id.exists'            => 'Quận huyện không tồn tại',
+
+        'day.date'               => 'Ngày áp dụng giảm giá không hợp lệ',
+        'day.after'              => 'Ngày giảm giá không được phép ở thời điểm quá khứ',
     ];
 
     protected $browser;
@@ -127,10 +140,12 @@ class BookingController extends ApiController
      * @param BookingLogic            $booking
      * @param RoomRepositoryInterface $room
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room)
+    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room,
+        CouponRepositoryInterface $coupon)
     {
-        $this->model = $booking;
-        $this->room  = $room;
+        $this->model  = $booking;
+        $this->room   = $room;
+        $this->coupon = $coupon;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -189,8 +204,11 @@ class BookingController extends ApiController
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
+            
 //            dd(DB::getQueryLog());
             DB::commit();
+
+            event(new Check_Usable_Coupon_Event($data['coupon']));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);

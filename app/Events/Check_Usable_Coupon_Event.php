@@ -1,14 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ducchien
- * Date: 06/11/2018
- * Time: 11:49
- */
+
 namespace App\Events;
 
 
-class Customer_Register_Event extends Event
+class Check_Usable_Coupon_Event extends Event
 {
     public $data;
     public $name;

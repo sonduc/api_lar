@@ -9,6 +9,7 @@
 namespace App\Repositories\Collections;
 
 use App\Repositories\BaseRepository;
+
 class CollectionTranslateRepository extends BaseRepository implements ColectionTranslateRepositoryInterface
 {
     /**
@@ -82,5 +83,4 @@ class CollectionTranslateRepository extends BaseRepository implements ColectionT
     {
         $this->model->where('collection_id', $id)->forceDelete();
     }
-
 }
