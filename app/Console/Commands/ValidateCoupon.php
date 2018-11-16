@@ -17,7 +17,7 @@ class ValidateCoupon extends Command
      */
     protected $signature = 'coupon:validate';
 
-    /** 
+    /**
      * The console command description.
      *
      * @var string
@@ -31,8 +31,8 @@ class ValidateCoupon extends Command
     public function __construct(CouponRepositoryInterface $coupon, PromotionRepositoryInterface $promotion)
     {
         parent::__construct();
-        $this->coupon = $coupon;
-        $this->promotion = $promotion;
+        $this->coupon       = $coupon;
+        $this->promotion    = $promotion;
     }
 
     /**
@@ -42,26 +42,27 @@ class ValidateCoupon extends Command
      */
     public function handle()
     {
-        $promotions  = $this->promotion->getAll();
-        $current_day = Carbon::now()->timestamp;
-        $tomorrow    = $current_day + 1;
-        $the_day_after_tomorow    = $current_day + 86400;
-        foreach($promotions as $key => $promotion) {
-            $date_start = $promotion->date_start;
-            $date_end   = $promotion->date_end;
+        $promotions                 = $this->promotion->getAll();
+        $current_day                = Carbon::now()->timestamp;
+        $tomorrow                   = $current_day + 1;
+        $the_day_after_tomorow      = $current_day + 86400;
 
-            $date_start_timestamp = Carbon::parse($date_start)->timestamp;
-            $date_end_timestamp   = Carbon::parse($date_end)->timestamp;
-            $coupons              = $promotion->with('coupons');
-            if($date_end_timestamp >= $current_day) {
-                foreach($coupons as $k => $coupon) {
+        foreach ($promotions as $key => $promotion) {
+            $date_start             = $promotion->date_start;
+            $date_end               = $promotion->date_end;
+            $date_start_timestamp   = Carbon::parse($date_start)->timestamp;
+            $date_end_timestamp     = Carbon::parse($date_end)->timestamp;
+            $coupons                = $promotion->with('coupons');
+
+            if ($date_end_timestamp >= $current_day) {
+                foreach ($coupons as $k => $coupon) {
                     $coupon->status = 0;
                     $coupon->save();
                 }
                 $promotion->status = 0;
                 $promotion->save();
-            } else if($date_start_timestamp >= $tomorrow && $date_start_timestamp <= $the_day_after_tomorow) {
-                foreach($coupons as $k => $coupon) {
+            } elseif ($date_start_timestamp >= $tomorrow && $date_start_timestamp <= $the_day_after_tomorow) {
+                foreach ($coupons as $k => $coupon) {
                     $coupon->status = 1;
                     $coupon->save();
                 }
@@ -69,6 +70,5 @@ class ValidateCoupon extends Command
                 $promotion->save();
             }
         }
-       
     }
 }
