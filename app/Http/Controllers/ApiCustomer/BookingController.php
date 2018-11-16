@@ -176,11 +176,11 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data                       = $this->model->store($request->all());
             $merchant                   = $this->user->getById(2);  //$request->only('merchant_id');
-            $room_name                  = $this->room->getRoom($request->only('room_id'));
+            $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
 
-         //  DB::commit();
+          DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);
@@ -446,14 +446,19 @@ class BookingController extends ApiController
 
             $validate['status'] = 'required|integer|in:2,5';
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->updateStatusBooking($request->all());
+            $bookingStatus      = $this->model->checkBookingStatus($request->uuid);
+            if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL)
+            {
+                throw new \Exception('Bạn đã từng xác nhận hoặc từ chối booking này  !!!!');
+            }
+            $data               = $this->model->updateStatusBooking($request->all());
             if ($data->status == BookingConstant::BOOKING_CONFIRM)
             {
-                $merchant                   = $this->user->getById(2);  //$request->only('merchant_id');
+                $merchant                   = $this->user->getById($data->merchant_id);
                 $room_name                  = $this->room->getRoom($data->room_id);
                 event(new BookingConfirmEvent($data,$merchant,$room_name));
             }
-
+            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {

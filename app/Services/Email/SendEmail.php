@@ -67,7 +67,7 @@ class SendEmail
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
-                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử l');
+                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử lý');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email );
@@ -123,7 +123,7 @@ class SendEmail
         try {
             Mail::send($template,['new_booking' => $data_host] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
-                $message->to($email)->subject('Thông tin booking m !!!');
+                $message->to($email)->subject('Thông tin booking mới !!!');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email );

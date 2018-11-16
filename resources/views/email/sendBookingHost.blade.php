@@ -55,10 +55,16 @@
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Trạng thái thanh toán</p></td>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ $new_booking->getPaymentStatus() }}</b> </p></td>
     </tr>
+
+    <tr>
+        <td colspan="2" style="text-align: center;">
+            <a target="blank" style="background: #f5a623;color: #fff;border: 1px solid #f5a623;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="http://wsapi.test/customer-api/bookings/status-update">Xác nhận</a>
+            <a target="blank" style="background: #dc3545;color: #fff;border: 1px solid #dc3545;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="http://wsapi.test/customer-api/bookings/status-update"> Từ chối</a>
+        </td>
+    </tr>
     </tbody>
 </table>
 </body>
 </html>
 
-<?php die();?>
 

@@ -29,7 +29,7 @@ class sendBookingCustomerListener
 
     public function handle(BookingEvent $event)
     {
-        //$this->email->sendBookingCustomer($event);
+        $this->email->sendBookingCustomer($event);
 
     }
 

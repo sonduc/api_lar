@@ -479,6 +479,14 @@ class BookingLogic extends BaseLogic
         return $booking;
     }
 
+
+    /**
+     * cập nhâp trạng thái đơn xác nhận và đơn hủy
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     */
     public function updateStatusBooking($data)
     {
         $uuid = $data['uuid'];
@@ -486,5 +494,11 @@ class BookingLogic extends BaseLogic
         $booking = parent::update($booking->id, $data);
         return $booking;
     }
+
+    public function checkBookingStatus($uuid)
+    {
+         return $this->model->getBookingByUuid($uuid)->status;
+    }
+
 
 }
