@@ -36,7 +36,7 @@ class SendEmail
 
     public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
-        $email = $booking->data['admin'];
+        $email = $booking->data->admin;
         try {
             Mail::send($template,['new_booking' => $booking->data] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
@@ -62,7 +62,7 @@ class SendEmail
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
         $booking->data->hours   = $hours;
-        $email      = $booking->data['email'];
+        $email                  = $booking->data->email;
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');

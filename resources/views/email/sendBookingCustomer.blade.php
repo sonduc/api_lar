@@ -48,7 +48,7 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Tên căn hộ</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room->name ? $new_booking->room->name : '' }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ !empty($new_booking->room->name) ? $new_booking->room->name : '' }}</p>
         </td>
     </tr>
     <tr>
@@ -56,22 +56,22 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Địa chỉ</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->room->address ? $new_booking->room->address : '' }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ !empty($new_booking->room->address) ? $new_booking->room->address : '' }}</p>
         </td>
     </tr>
 
-    @if ($new_booking->data->status == 2)
+    @if ($new_booking->data->status == \App\Repositories\Bookings\BookingConstant::BOOKING_CONFIRM)
         <tr>
             <td>
                 <p style="margin:  0;color: #777; margin-bottom: 8px;">Tên chủ nhà </p>
             </td>
             <td>
-                <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->merchant->name ? $new_booking->merchant->name : '' }}</p>
+                <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ !empty($new_booking->merchant->name) ? $new_booking->merchant->name : '' }}</p>
             </td>
         </tr>
         <tr>
             <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Số điện thoại chủ nhà</p></td>
-            <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><a href="tel:{{ $new_booking->merchant->phone ? $new_booking->merchant->phone : '' }}">{{ $new_booking->merchant ? $new_booking->merchant->phone : '' }}</a> </p></td>
+            <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><a href="tel:{{ !empty($new_booking->merchant->phone) ? $new_booking->merchant->phone : '' }}">{{ !empty($new_booking->merchant) ? $new_booking->merchant->phone : '' }}</a> </p></td>
         </tr>
 
     @endif
@@ -120,7 +120,7 @@
     </tr>
     <tr>
         <td colspan="2" style=" background-color: #fcf8e3; border-color: #faf2cc;color: #8a6d3b;padding: 10px 15px;">
-            @if ($new_booking->data->status != 2)
+            @if ($new_booking->data->status != \App\Repositories\Bookings\BookingConstant::BOOKING_CONFIRM)
                 <p style="font-weight: 600;">Lưu ý rằng yêu cầu đặt phòng của bạn vẫn chưa được xác nhận.</p>
                 <p style="font-style: italic;">Trong vòng 24 giờ, chúng tôi sẽ thông báo cho bạn khi yêu cầu đặt phòng của bạn được chấp nhận hoặc từ chối.</p>
             @else
@@ -148,6 +148,8 @@
 </table>
 </body>
 </html>
+
+<?php die();?>
 
 
 

@@ -15,6 +15,7 @@ use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
