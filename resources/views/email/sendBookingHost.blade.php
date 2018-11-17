@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ $new_booking->room ? $new_booking->room->name: '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
+            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ empty($new_booking->room) ? $new_booking->room->name: '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
         </td>
     </tr>
     <tr>
@@ -28,7 +28,7 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Khách hàng</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->merchant->name }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ empty($new_booking->merchant->name) ? $new_booking->merchant->name: '' }}</p>
         </td>
     </tr>
     <tr>
@@ -66,6 +66,7 @@
 </table>
 </body>
 </html>
+
 
 
 

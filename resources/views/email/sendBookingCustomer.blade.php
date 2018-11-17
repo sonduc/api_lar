@@ -149,7 +149,6 @@
 </body>
 </html>
 
-<?php die();?>
 
 
 

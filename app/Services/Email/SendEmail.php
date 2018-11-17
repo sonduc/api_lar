@@ -43,6 +43,7 @@ class SendEmail
                 $message->to($email)->subject('Thông tin booking mới');
             });
         } catch (\Exception $e) {
+            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
@@ -69,6 +70,7 @@ class SendEmail
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử lý');
             });
         } catch (\Exception $e) {
+            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
@@ -96,6 +98,7 @@ class SendEmail
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đã được chủ nhà xác nhận');
             });
         } catch (\Exception $e) {
+            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
@@ -124,6 +127,7 @@ class SendEmail
                 $message->to($email)->subject('Thông tin booking mới !!!');
             });
         } catch (\Exception $e) {
+            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }

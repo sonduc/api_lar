@@ -12,7 +12,7 @@ use App\Events\BookingEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class sendBookingCustomerListener
+class sendBookingCustomerListener implements ShouldQueue
 {
     protected $email;
     /**
@@ -29,7 +29,7 @@ class sendBookingCustomerListener
 
     public function handle(BookingEvent $event)
     {
-        $this->email->sendBookingCustomer($event);
+        //$this->email->sendBookingCustomer($event);
 
     }
 
