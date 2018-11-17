@@ -180,7 +180,7 @@ class BookingController extends ApiController
             $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
-
+            //dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
