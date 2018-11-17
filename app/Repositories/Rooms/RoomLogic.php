@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Rooms;
 
-
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
@@ -23,6 +22,7 @@ class RoomLogic extends BaseLogic
     protected $booking;
     protected $roomReview;
     protected $user;
+    protected $room_model;
 
     /**
      * RoomLogic constructor.
@@ -38,6 +38,7 @@ class RoomLogic extends BaseLogic
      */
     public function __construct(
         RoomRepositoryInterface $room,
+        Room $room_model,
         RoomTranslateRepositoryInterface $roomTranslate,
         RoomOptionalPriceRepositoryInterface $roomOptionalPrice,
         RoomMediaRepositoryInterface $roomMedia,
@@ -45,8 +46,8 @@ class RoomLogic extends BaseLogic
         BookingRepositoryInterface $booking,
         RoomReviewRepositoryInterface $roomReview,
         UserRepositoryInterface $user
-    )
-    {
+    ) {
+        $this->room_model        = $room_model;
         $this->model             = $room;
         $this->roomTranslate     = $roomTranslate;
         $this->roomOptionalPrice = $roomOptionalPrice;
@@ -86,7 +87,7 @@ class RoomLogic extends BaseLogic
      */
     public function storeRoomComforts($data_room, $data)
     {
-        if (!empty ($data)) {
+        if (!empty($data)) {
             if (isset($data['comforts'])) {
                 $data_room->comforts()->sync($data['comforts']);
             }
@@ -157,5 +158,47 @@ class RoomLogic extends BaseLogic
         return $room;
     }
 
-
+    /**
+     * Tính toán rating trung bình cho từng phòng
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param  $params
+     *
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public function ratingCalculate($room_id, $review)
+    {
+        \DB::enableQueryLog();
+        $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
+        $denominator    = sizeof($room['reviews']);
+        $cleanliness    = 0;
+        $service        = 0;
+        $quality        = 0;
+        $avg_rating     = 0;
+        $valuable       = 0;
+        $recommend      = 0;
+        foreach ($room['reviews'] as $key => $value) {
+            $cleanliness    += $value->cleanliness;
+            $service        += $value->service;
+            $quality        += $value->quality;
+            $avg_rating     += $value->avg_rating;
+            $valuable       += $value->valuable;
+            $recommend      += $value->recommend;
+        }
+        \DB::beginTransaction();
+        try {
+            $room->update([
+                'avg_cleanliness' => round(($value->cleanliness / $denominator), 2),
+                'avg_service' => round(($value->service / $denominator), 2),
+                'avg_quality' => round(($value->quality / $denominator), 2),
+                'avg_avg_rating' => round(($value->avg_rating / $denominator), 2),
+                'avg_valuable' => round(($value->valuable / $denominator), 2)
+            ]);
+            \DB::commit();
+        } catch (\Throwable $t) {
+            \DB::rollback();
+            throw $t;
+        }
+    }
 }

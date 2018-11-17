@@ -40,9 +40,14 @@ class CreateRoomsTable extends Migration
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->integer('total_booking')->nullable()->default(0);
+            $table->tinyInteger('avg_cleanliness')->default(0);
+            $table->tinyInteger('avg_quality')->default(0);
+            $table->tinyInteger('avg_service')->default(0);
+            $table->tinyInteger('avg_valuable')->default(0);
+            $table->tinyInteger('avg_avg_rating')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->integer('sale_id')->nullable();
-            $table->softDeletes()->nullable()->default(NULL);
+            $table->softDeletes()->nullable()->default(null);
             $table->timestamps();
         });
     }

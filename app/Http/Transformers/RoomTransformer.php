@@ -71,6 +71,11 @@ class RoomTransformer extends TransformerAbstract
             'latitude'             => $room->latitude,
             'total_booking'        => $room->total_booking,
             'status'               => $room->status,
+            'cleanliness'          => $room->avg_cleanliness,
+            'quality'              => $room->avg_quality,
+            'service'              => $room->avg_service,
+            'valuable'             => $room->avg_valuable,
+            'avg_rating'           => $room->avg_avg_rating,
             'status_txt'           => $room->roomStatus(),
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
@@ -245,6 +250,4 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->reviews());
         return $this->collection($data, new RoomReviewTransformer);
     }
-
-
 }

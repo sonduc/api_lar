@@ -1,7 +1,6 @@
 <?php
 namespace App\Listeners\CheckCoupon;
 
-
 use App\Events\Check_Usable_Coupon_Event;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Repositories\Coupons\CouponLogic;
@@ -19,6 +18,4 @@ class UsableCouponListener implements ShouldQueue
     {
         $this->coupon->updateUsable($event->name);
     }
-
-    
 }

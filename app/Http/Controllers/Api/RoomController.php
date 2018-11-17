@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
@@ -18,10 +17,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
-
 class RoomController extends ApiController
 {
-
     protected $booking;
     protected $user;
     protected $roomReview;
@@ -185,8 +182,7 @@ class RoomController extends ApiController
         UserRepositoryInterface $user,
         BookingRepositoryInterface $booking,
         RoomReviewRepositoryInterface $roomReview
-    )
-    {
+    ) {
         $this->model      = $room;
         $this->user       = $user;
         $this->booking    = $booking;
