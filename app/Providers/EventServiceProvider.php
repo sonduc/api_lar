@@ -30,5 +30,9 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\SendMail\sendBookingConfirmCustomer::class,
         ],
 
+        \App\Events\ConfirmBookingTime::class => [
+           \App\Listeners\Logic\ConfirmBookingTimeListenter::class,
+        ],
+
     ];
 }

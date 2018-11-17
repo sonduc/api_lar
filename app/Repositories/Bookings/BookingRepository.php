@@ -129,6 +129,20 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
 
+    public function updatStatusBooking($booking)
+    {
+        $data = [
+            'status' => $booking->data
+        ];
+        $uuid = $booking->uuid;
+        $booking = $this->getBookingByUuid($uuid);
+        parent::update($booking->id, $data);
+    }
+
+
+
+
+
 
 
 }

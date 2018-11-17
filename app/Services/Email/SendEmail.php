@@ -58,11 +58,10 @@ class SendEmail
      */
     public function sendBookingCustomer($booking, $template = 'email.sendBookingCustomer')
     {
-        $data_host              = $booking->data;
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $data_host['hours']     = $hours;
+        $booking->data->hours   = $hours;
         $email      = $booking->data['email'];
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
@@ -86,11 +85,10 @@ class SendEmail
      */
     public function sendBookingConfirmCustomer($booking, $template = 'email.sendBookingCustomer')
     {
-        $data_host              = $booking->data;
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $data_host['hours']     = $hours;
+        $booking->data->hours   = $hours;
         $email                  = $booking->data['email'];
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
@@ -106,22 +104,22 @@ class SendEmail
 
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
+
+        $timeSubmit                = Carbon::now()->timestamp;
+        $timeSubmit                = base64_encode($timeSubmit);
+        $booking->data->timeSubmit = $timeSubmit;
         if (!empty($booking->merchant->email))
         {
             $email = $booking->merchant->email;
         }
 
-        $data_host              = $booking->data;
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $data_host['hours']     = $hours;
-        if (!empty($booking->room->name))
-        {
-            $data_host['room_name'] = $booking->room->name;
-        }
+        $booking->data->hours   = $hours;
+
         try {
-            Mail::send($template,['new_booking' => $data_host] ,function ($message) use ($email) {
+            Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Thông tin booking mới !!!');
             });

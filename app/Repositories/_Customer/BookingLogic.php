@@ -495,10 +495,28 @@ class BookingLogic extends BaseLogic
         return $booking;
     }
 
+
     public function checkBookingStatus($uuid)
     {
          return $this->model->getBookingByUuid($uuid)->status;
     }
+
+
+    /**
+     * Kiểm tra thời gian xác nhận booking
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $code
+     * @return int
+     */
+    public function checkTimeConfirm($code)
+    {
+        $timeNow= Carbon::now();
+        $timeSubmit = base64_decode($code);
+        $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
+        return $timeNow->diffInMinutes($timeSubmit);
+    }
+
 
 
 }

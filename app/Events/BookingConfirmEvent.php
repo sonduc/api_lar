@@ -13,14 +13,10 @@ class BookingConfirmEvent extends Event
 {
 
     public $data;
-    public $room;
-    public $merchant;
 
-    public function __construct($data,$merchant, $room)
+    public function __construct($data)
     {
         $this->data         = $data;
-        $this->merchant     = $merchant;
-        $this->room         = $room;
     }
 
 }

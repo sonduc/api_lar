@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiCustomer;
 
 use App\Events\BookingConfirmEvent;
 use App\Events\BookingEvent;
+use App\Events\ConfirmBookingTime;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
@@ -175,12 +176,12 @@ class BookingController extends ApiController
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data                       = $this->model->store($request->all());
-            $merchant                   = $this->user->getById(2);  //$request->only('merchant_id');
+            $merchant                   = $this->user->getById($data->merchant_id);  //$request->only('merchant_id');
             $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
 
-          DB::commit();
+            DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             return $this->successResponse($data);
@@ -436,14 +437,21 @@ class BookingController extends ApiController
      * @throws \Throwable
      */
 
-    public function confirmBooking(Request $request)
+    public function confirmBooking(Request $request,$code)
     {
         DB::beginTransaction();
         try {
+            $minutes = $this->model->checkTimeConfirm($code);
+            if ($minutes > 1)
+            {
+                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
+                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
+
+            }
+
             $validate = array_only($this->validationRules, [
                 'status',
             ]);
-
             $validate['status'] = 'required|integer|in:2,5';
             $this->validate($request, $validate, $this->validationMessages);
             $bookingStatus      = $this->model->checkBookingStatus($request->uuid);

@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td colspan="2">
-            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ $new_booking->room ? $new_booking->room_name : '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
+            <h1 style="font-size: 16px; color: #222;margin: 0;margin-top: 15px;margin-bottom: 10px;">Căn hộ "{{ $new_booking->room ? $new_booking->room->name: '' }}" của Quý đối tác nhận được một yêu cầu đặt phòng từ Westay.</h1>
         </td>
     </tr>
     <tr>
@@ -28,37 +28,37 @@
             <p style="margin:  0;color: #777; margin-bottom: 8px;">Khách hàng</p>
         </td>
         <td>
-            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->name }}</p>
+            <p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"> {{ $new_booking->merchant->name }}</p>
         </td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Mã đặt phòng</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->code }}</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->data->code }}</p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Ngày đến</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{  date('H:i d-m-Y', $new_booking->checkin)  }}</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{  date('H:i d-m-Y', $new_booking->data->checkin)  }}</p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Ngày đi</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ date('H:i d-m-Y', $new_booking->checkout) }}</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ date('H:i d-m-Y', $new_booking->data->checkout) }}</p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng thời gian</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->hours}} </p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->data->hours}} </p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ number_format($new_booking->total_fee )}}đ</b> </p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ number_format($new_booking->data->total_fee )}}đ</b> </p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Trạng thái thanh toán</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ $new_booking->getPaymentStatus() }}</b> </p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ $new_booking->data->getPaymentStatus() }}</b> </p></td>
     </tr>
 
     <tr>
         <td colspan="2" style="text-align: center;">
-            <a target="blank" style="background: #f5a623;color: #fff;border: 1px solid #f5a623;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="http://wsapi.test/customer-api/bookings/status-update">Xác nhận</a>
+            <a target="blank" style="background: #f5a623;color: #fff;border: 1px solid #f5a623;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="{!! 'http://wsapi.test/customer-api/bookings/status-update/'.$new_booking->data->timeSubmit !!}">Xác nhận</a>
             <a target="blank" style="background: #dc3545;color: #fff;border: 1px solid #dc3545;text-decoration: none;padding: 5px 15px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 16px;font-weight: 300;" href="http://wsapi.test/customer-api/bookings/status-update"> Từ chối</a>
         </td>
     </tr>
@@ -66,5 +66,6 @@
 </table>
 </body>
 </html>
+
 
 
