@@ -107,7 +107,6 @@ class SendEmail
 
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
-
         $timeSubmit                = Carbon::now()->timestamp;
         $timeSubmit                = base64_encode($timeSubmit);
         $booking->data->timeSubmit = $timeSubmit;
@@ -127,7 +126,7 @@ class SendEmail
                 $message->to($email)->subject('Thông tin booking mới !!!');
             });
         } catch (\Exception $e) {
-            dd($e);
+            dd('sdfsdfsd');
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }

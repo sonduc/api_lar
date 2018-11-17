@@ -170,7 +170,6 @@ class BookingController extends ApiController
     public function store(Request $request)
     {
         DB::beginTransaction();
-        DB::enableQueryLog();
         try {
             if(!Auth::check()) {
                 return redirect()->to('https://www.google.com/');
@@ -181,7 +180,6 @@ class BookingController extends ApiController
             $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
             event(new BookingEvent($data,$merchant,$room_name));
-            //dd(DB::getQueryLog());
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
@@ -443,7 +441,7 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $minutes = $this->model->checkTimeConfirm($code);
-            if ($minutes > 1)
+            if ($minutes > 10)
             {
                 event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
                 throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
