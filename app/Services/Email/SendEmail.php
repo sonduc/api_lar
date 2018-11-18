@@ -3,6 +3,8 @@
 namespace App\Services\Email;
 
 use App\Jobs\Traits\DispatchesJobs;
+use App\Repositories\Rooms\RoomRepository;
+use App\Repositories\Users\UserRepository;
 use Carbon\Carbon;
 use function Couchbase\defaultDecoder;
 use Illuminate\Support\Facades\Mail;
@@ -10,7 +12,16 @@ use Illuminate\Support\Facades\Mail;
 class SendEmail
 {
     use DispatchesJobs;
+    public $room;
+    public $user;
 
+
+
+    public function __construct(RoomRepository $room , UserRepository $user)
+    {
+        $this->room  = $room;
+        $this->user  = $user;
+    }
     /**
      * @param Email  $email
      * @param string $template
@@ -36,8 +47,7 @@ class SendEmail
 
     public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
-        $email = $booking->data->admin;
-        dd($email);
+        $email = 'taikhoan149do@gmail.com';
         try {
             Mail::send($template,['new_booking' => $booking->data] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
@@ -59,18 +69,23 @@ class SendEmail
      */
     public function sendBookingCustomer($booking, $template = 'email.sendBookingCustomer')
     {
+        $merchant               = $this->user->getById($booking->data->merchant_id);
+        $room_name              = $this->room->getRoom($booking->data->room_id);
+        $booking->merchant      = $merchant;
+        $booking->room          = $room_name;
+
+
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
-        $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $booking->data->hours   = $hours;
-        $email                  = $booking->data->email;
+        $hours                  =  $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $booking->data->hours   =  $hours;
+        $email                  =  $booking->data->email;
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử lý');
             });
         } catch (\Exception $e) {
-            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
@@ -87,11 +102,16 @@ class SendEmail
      */
     public function sendBookingConfirmCustomer($booking, $template = 'email.sendBookingCustomer')
     {
+        $merchant               = $this->user->getById($booking->data->merchant_id);
+        $room_name              = $this->room->getRoom($booking->data->room_id);
+        $booking->merchant      = $merchant;
+        $booking->room          = $room_name;
+
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
-        $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $booking->data->hours   = $hours;
-        $email                  = $booking->data['email'];
+        $hours                  =  $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $booking->data->hours   =  $hours;
+        $email                  =  $booking->data['email'];
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
@@ -107,33 +127,33 @@ class SendEmail
 
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
+        $merchant                  = $this->user->getById($booking->data->merchant_id);
+        $room_name                 = $this->room->getRoom($booking->data->room_id);
+        $booking->merchant         =$merchant;
+        $booking->room             =$room_name;
+
         $timeSubmit                = Carbon::now()->timestamp;
         $timeSubmit                = base64_encode($timeSubmit);
         $booking->data->timeSubmit = $timeSubmit;
         if (!empty($booking->merchant->email))
         {
             $email = $booking->merchant->email;
+
         }
 
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
         $booking->data->hours   = $hours;
-
         try {
             Mail::send($template,['new_booking' => $booking] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Thông tin booking mới !!!');
             });
         } catch (\Exception $e) {
-            dd('sdfsdfsd');
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
     }
-
-
-
-
 
 }

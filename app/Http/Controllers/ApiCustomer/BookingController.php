@@ -25,12 +25,12 @@ class BookingController extends ApiController
 {
     protected $validationRules    = [
         'name'             => 'required|v_title',
-        'name_received'    => 'required|v_title',
+        'name_received'    => 'nullable|v_title',
         'phone'            => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
-        'phone_received'   => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
+        'phone_received'   => 'nullable|between:10,14|regex:/^\+?[0-9-]*$/',
         'sex'              => 'nullable|integer|between:0,3',
         'birthday'         => 'nullable|date_format:Y-m-d',
-        'email'            => 'email',
+        'email'            => 'required|email',
         'email_received'   => 'nullable|email',
         'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',
         'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',
@@ -55,18 +55,15 @@ class BookingController extends ApiController
     protected $validationMessages = [
         'name.required'             => 'Vui lòng điền tên',
         'name.v_title'              => 'Tên không đúng định dạng',
-        'name_received.required'    => 'Vui lòng điền tên',
         'phone.required'            => 'Vui lòng điền số điện thoại',
         'phone.between'             => 'Số điện thoại không phù hợp',
         'phone.regex'               => 'Số điện thoại không hợp lệ',
-        'phone_received.required'   => 'Vui lòng điền số điện thoại',
-        'phone_received.between'    => 'Số điện thoại không phù hợp',
         'phone_received.regex'      => 'Số điện thoại không hợp lệ',
         'sex.integer'               => 'Mã giới tính phải là kiểu số',
         'sex.between'               => 'Giới tính không phù hợp',
         'birthday.date_format'      => 'Ngày sinh phải ở định dạng Y-m-d',
         'email.email'               => 'Email không đúng định dạng',
-        'email_received.email'      => 'Email không đúng định dạng',
+        'email.required'            => 'Vui lòng điền địa chỉ email',
         'room_id.required'          => 'Vui lòng chọn phòng',
         'room_id.integer'           => 'Mã phòng phải là kiểu số',
         'room_id.exists'            => 'Phòng không tồn tại',
@@ -176,11 +173,8 @@ class BookingController extends ApiController
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data                       = $this->model->store($request->all());
-            $merchant                   = $this->user->getById($data->merchant_id);  //$request->only('merchant_id');
-            $room_name                  = $this->room->getRoom($data->room_id);
-            $data['admin']              = 'taikhoan149do@gmail.com';
+            event(new BookingEvent($data));
             DB::commit();
-            event(new BookingEvent($data,$merchant,$room_name));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -440,12 +434,11 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $minutes = $this->model->checkTimeConfirm($code);
-//            if ($minutes > 10)
-//            {
-//                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
-//                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
-//
-//            }
+            if ($minutes > 10)
+            {
+                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
+                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
+            }
 
             $validate = array_only($this->validationRules, [
                 'status',

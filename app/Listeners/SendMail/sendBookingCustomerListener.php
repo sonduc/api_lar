@@ -12,7 +12,7 @@ use App\Events\BookingEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class sendBookingCustomerListener
+class sendBookingCustomerListener implements ShouldQueue
 {
     protected $email;
     /**

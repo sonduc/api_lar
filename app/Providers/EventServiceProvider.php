@@ -21,6 +21,11 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\SendMail\MailConfirmListener::class,
         ],
 
+        \App\Events\BookingEvent::class => [
+            \App\Listeners\SendMail\sendBookingAdminListener::class,
+            \App\Listeners\SendMail\sendBookingCustomerListener::class,
+            \App\Listeners\SendMail\sendBookingHostListener::class
+        ],
 
         \App\Events\BookingConfirmEvent::class => [
             \App\Listeners\SendMail\sendBookingConfirmCustomer::class,
@@ -28,12 +33,6 @@ class EventServiceProvider extends ServiceProvider
 
         \App\Events\ConfirmBookingTime::class => [
            \App\Listeners\Logic\ConfirmBookingTimeListenter::class,
-        ],
-
-        \App\Events\BookingEvent::class => [
-            \App\Listeners\SendMail\sendBookingAdminListener::class,
-           \App\Listeners\SendMail\sendBookingCustomerListener::class,
-           \App\Listeners\SendMail\sendBookingHostListener::class
         ],
 
     ];
