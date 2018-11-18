@@ -179,10 +179,9 @@ class BookingController extends ApiController
             $merchant                   = $this->user->getById($data->merchant_id);  //$request->only('merchant_id');
             $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
-            event(new BookingEvent($data,$merchant,$room_name));
             DB::commit();
+            event(new BookingEvent($data,$merchant,$room_name));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -441,12 +440,12 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $minutes = $this->model->checkTimeConfirm($code);
-            if ($minutes > 10)
-            {
-                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
-                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
-
-            }
+//            if ($minutes > 10)
+//            {
+//                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
+//                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
+//
+//            }
 
             $validate = array_only($this->validationRules, [
                 'status',

@@ -11,7 +11,7 @@ namespace App\Listeners\SendMail;
 use App\Events\BookingEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
-class sendBookingHostListener implements ShouldQueue
+class sendBookingHostListener
 {
     protected $email;
     /**
