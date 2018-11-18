@@ -13,7 +13,7 @@ use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 ;
-class sendBookingAdminListener
+class sendBookingAdminListener implements ShouldQueue
 {
     protected $email;
     /**
