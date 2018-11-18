@@ -180,7 +180,7 @@ class BookingController extends ApiController
             $room_name                  = $this->room->getRoom($data->room_id);
             $data['admin']              = 'taikhoan149do@gmail.com';
             DB::commit();
-            event(new BookingEvent($data,$merchant,$room_name));
+            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
