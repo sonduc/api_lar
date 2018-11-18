@@ -37,13 +37,13 @@ class SendEmail
     public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
         $email = $booking->data->admin;
+        dd($email);
         try {
             Mail::send($template,['new_booking' => $booking->data] ,function ($message) use ($email) {
                 $message->from('ducchien0612@gmail.com');
                 $message->to($email)->subject('Thông tin booking mới');
             });
         } catch (\Exception $e) {
-            dd($e);
             logs('emails', 'Email gửi thất bại '.$email );
             throw $e;
         }
