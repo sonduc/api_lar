@@ -16,13 +16,17 @@ class Coupon extends Entity
         self::AVAILABLE      => 'ĐANG HỌAT ĐỘNG',
         self::UNAVAILABLE    => 'ĐÃ HẾT HẠN',
     ];
+    const COUPON_ALLDAY    = [
+        self::AVAILABLE      => 'GIẢM GIÁ TẤT CẢ',
+        self::UNAVAILABLE    => 'GIẢM GIÁ 1 SỐ TRƯỜNG HỢP',
+    ];
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'code','discount','max_discount','usable','used','status','settings','promotion_id'
+        'code','discount','max_discount','usable','used','status','all_day','settings','promotion_id'
     ];
 
     /**

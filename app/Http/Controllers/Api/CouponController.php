@@ -208,6 +208,24 @@ class CouponController extends ApiController
             throw $e;
         }
     }
+
+    /**
+     * Lấy ra các điều kiện giảm giá tất cả bài viết (theo status)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function allDayList()
+    {
+        try {
+            $this->authorize('coupon.view');
+            $data = $this->simpleArrayToObject(Coupon::COUPON_ALLDAY);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
     
     /**
      * Thực hiện cập nhật status
@@ -224,7 +242,7 @@ class CouponController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('coupon.update');
-            $avaiable_option = ['status'];
+            $avaiable_option = ['status','all_day'];
             $option          = $request->get('option');
             if (!in_array($option, $avaiable_option)) {
                 throw new \Exception('Không có quyền sửa đổi mục này');

@@ -28,6 +28,13 @@ trait PresentationTrait
             : trans2(ErrorCore::UNDEFINED);
     }
 
+    public function getCouponAllDay()
+    {
+        return array_key_exists($this->status, Coupon::COUPON_ALLDAY)
+            ? Coupon::COUPON_ALLDAY[$this->status]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
     /**
      * Check a specific permission that belongs to this role
      * @param  string  $permission

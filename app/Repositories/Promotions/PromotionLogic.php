@@ -24,6 +24,7 @@ class PromotionLogic extends BaseLogic
 	*/
 	public function store($data)
 	{
+		$data['image'] = rand_name($data['image']);
 		$data_promotion = parent::store($data);
 		return $data_promotion;
 	}

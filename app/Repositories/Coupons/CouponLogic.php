@@ -147,42 +147,52 @@ class CouponLogic extends BaseLogic
      */
     public function checkSettingDiscount($coupon, $data)
     {
-        $data_settings 	= json_decode($coupon->settings);
-        $data_status 	= $coupon->status;
+        
+        $data_allDay = $coupon->all_day;
+        $data_status    = $coupon->status;
+
         if ($data_status == 1) {
-            if ($data['room_id'] != null) {
-                $dataRooms = $data_settings->rooms;
-                foreach ($dataRooms as $key => $value) {
-                    if ($data['room_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
+
+            $data_settings  = json_decode($coupon->settings);
+
+            if($data_allDay == 1){
+                return $this->caculateDiscount($coupon, $data);
+            }
+            if($data_allDay == 0){
+                if ($data['room_id'] != null) {
+                    $dataRooms = $data_settings->rooms;
+                    foreach ($dataRooms as $key => $value) {
+                        if ($data['room_id'] == $value->id) {
+                            return $this->caculateDiscount($coupon, $data);
+                        }
                     }
                 }
-            }
-            if ($data['city_id'] != null) {
-                $dataCities = $data_settings->cities;
-                foreach ($dataCities as $key => $value) {
-                    if ($data['city_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
+                if ($data['city_id'] != null) {
+                    $dataCities = $data_settings->cities;
+                    foreach ($dataCities as $key => $value) {
+                        if ($data['city_id'] == $value->id) {
+                            return $this->caculateDiscount($coupon, $data);
+                        }
                     }
                 }
-            }
-            if ($data['district_id'] != null) {
-                $dataDistricts = $data_settings->districts;
-                foreach ($dataDistricts as $key => $value) {
-                    if ($data['district_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
+                if ($data['district_id'] != null) {
+                    $dataDistricts = $data_settings->districts;
+                    foreach ($dataDistricts as $key => $value) {
+                        if ($data['district_id'] == $value->id) {
+                            return $this->caculateDiscount($coupon, $data);
+                        }
                     }
                 }
-            }
-            if ($data['day'] != null) {
-                $dataDays = $data_settings->days;
-                foreach ($dataDays as $key => $value) {
-                    if ($data['day'] == $value) {
-                        return $this->caculateDiscount($coupon, $data);
+                if ($data['day'] != null) {
+                    $dataDays = $data_settings->days;
+                    foreach ($dataDays as $key => $value) {
+                        if ($data['day'] == $value) {
+                            return $this->caculateDiscount($coupon, $data);
+                        }
                     }
                 }
+                throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
             }
-            throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
         } else {
             throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
         }

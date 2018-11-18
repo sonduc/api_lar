@@ -151,6 +151,7 @@ $router->group([
      * Coupons Resource
     */
     $router->get('/coupons/status-list', 'CouponController@statusList');
+    $router->get('/coupons/all-day-list', 'CouponController@allDayList');
     $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
     $router->post('/coupons/caculate-discount', 'CouponController@caculateDiscount');
     resource('/coupons', 'CouponController', $router);
