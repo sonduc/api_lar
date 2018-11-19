@@ -69,12 +69,13 @@ class SendEmail
      */
     public function sendBookingCustomer($booking, $template = 'email.sendBookingCustomer')
     {
+        // lâý thông tin về phòng và merchant
         $merchant               = $this->user->getById($booking->data->merchant_id);
         $room_name              = $this->room->getRoom($booking->data->room_id);
         $booking->merchant      = $merchant;
         $booking->room          = $room_name;
 
-
+        // Tính tổng số giờ thuê phòng
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  =  $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -102,11 +103,13 @@ class SendEmail
      */
     public function sendBookingConfirmCustomer($booking, $template = 'email.sendBookingCustomer')
     {
+        // lâý thông tin về phòng và merchant
         $merchant               = $this->user->getById($booking->data->merchant_id);
         $room_name              = $this->room->getRoom($booking->data->room_id);
         $booking->merchant      = $merchant;
         $booking->room          = $room_name;
 
+         // Tính tổng số giờ thuê phòng
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  =  $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -127,6 +130,7 @@ class SendEmail
 
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
+        // lâý thông tin về phòng và merchant
         $merchant                  = $this->user->getById($booking->data->merchant_id);
         $room_name                 = $this->room->getRoom($booking->data->room_id);
         $booking->merchant         =$merchant;
@@ -141,6 +145,7 @@ class SendEmail
 
         }
 
+        // Tính tổng số giờ thuê phòng
         $checkin                =  Carbon::parse($booking->data->checkin);
         $checkout               =  Carbon::parse($booking->data->checkout);
         $hours                  = $checkout->copy()->ceilHours()->diffInHours($checkin);
