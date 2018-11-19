@@ -60,7 +60,7 @@ abstract class BaseLogic
 
     public function store($data)
     {
-        return $this->model->store($data);
+         return $this->model->store($data);
     }
 
     /**

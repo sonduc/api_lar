@@ -1,95 +1,26 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 19/11/2018
+ * Time: 11:08
+ */
 
 namespace App\Repositories\Bookings;
 
-use App\Repositories\BaseLogic;
-use App\Repositories\Payments\PaymentHistoryRepository;
-use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
-use App\Repositories\Rooms\RoomLogicTrait;
 use App\Repositories\Rooms\RoomOptionalPrice;
-use App\Repositories\Rooms\RoomOptionalPriceRepository;
-use App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface;
-use App\Repositories\Rooms\RoomRepository;
-use App\Repositories\Rooms\RoomRepositoryInterface;
-use App\Repositories\Rooms\RoomTimeBlockRepository;
-use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
-use App\Repositories\Users\UserRepository;
-use App\Repositories\Users\UserRepositoryInterface;
-use App\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
+use Carbon\CarbonPeriod;
 
-class BookingLogic extends BaseLogic
+trait BookingLogicTrait
 {
-    use RoomLogicTrait,BookingLogicTrait;
-    protected $status;
-    protected $payment;
-    protected $user;
-    protected $room;
+
     protected $op;
-    protected $booking;
-    protected $roomTimeBlock;
+    protected $room;
+    protected $user;
     protected $booking_cancel;
 
-    /**
-     * BookingLogic constructor.
-     *
-     * @param BookingRepositoryInterface|BookingRepository                     $booking
-     * @param BookingStatusRepositoryInterface|BookingStatusRepository         $status
-     * @param PaymentHistoryRepositoryInterface|PaymentHistoryRepository       $payment
-     * @param UserRepositoryInterface|UserRepository                           $user
-     * @param RoomRepositoryInterface|RoomRepository                           $room
-     * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
-     * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
-     * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     */
-    public function __construct(
-        BookingRepositoryInterface $booking,
-        BookingStatusRepositoryInterface $status,
-        PaymentHistoryRepositoryInterface $payment,
-        UserRepositoryInterface $user,
-        RoomRepositoryInterface $room,
-        RoomOptionalPriceRepositoryInterface $op,
-        RoomTimeBlockRepositoryInterface $roomTimeBlock,
-        BookingCancelRepositoryInterface $booking_cancel
-    ) {
-        $this->model          = $booking;
-        $this->booking        = $booking;
-        $this->status         = $status;
-        $this->payment        = $payment;
-        $this->user           = $user;
-        $this->room           = $room;
-        $this->op             = $op;
-        $this->roomTimeBlock  = $roomTimeBlock;
-        $this->booking_cancel = $booking_cancel;
-    }
-
-    /**
-     * Thêm booking mới
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param array $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function store($data = [])
-    {
-        $room = $this->room->getById($data['room_id']);
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-
-        $data['customer_id'] =
-            array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
-        $data['merchant_id'] = $room->merchant_id;
-
-        $data_booking = parent::store($data);
-        $this->status->storeBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-        return $data_booking;
-    }
- 
     /**
      * Tính toán giá tiền cho booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -117,23 +48,23 @@ class BookingLogic extends BaseLogic
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
                 ?? 0;
 
-            if ($money == 0) {
-                $money =
+            if ($money == 0) $money =
                 $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
-            }
+
         } else {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
-            $days             = $CO->diffInDays($CI);
+            $days             = $CO->diffInDays($CI) + 1;
             $data['days']     = $days;
             $data['checkin']  = $CI->timestamp;
             $data['checkout'] = $CO->timestamp;
 
             // Xử lý logic tính giá phòng vào ngày đặc biệt
-            list($money, $totalDay) =
+            list ($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
             $money += $room->price_day * ($days - $totalDay);
+
         }
 
         // Tính tiền dựa theo số khách
@@ -146,10 +77,10 @@ class BookingLogic extends BaseLogic
         $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
 
         $price = $money
-                 + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-                 + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
-                 - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
-                 - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+            + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+            + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+            - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
 
@@ -165,8 +96,10 @@ class BookingLogic extends BaseLogic
      */
     protected function checkValidBookingTime($room, $data = [])
     {
+
         $checkin  = Carbon::parse($data['checkin']);
         $checkout = Carbon::parse($data['checkout']);
+
         $hours = $checkout->copy()->ceilHours()->diffInHours($checkin);
         $dayCI = $checkin->copy()->toDateString();
         $dayCO = $checkout->copy()->toDateString();
@@ -189,8 +122,10 @@ class BookingLogic extends BaseLogic
         }
 
         // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
+
         $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
-        $minCI  = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
+
+        $minCI = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
 
         if ($checkin->between($minCI, $roomCI, false)) {
             throw new InvalidDateException('booking-between', trans2(BookingMessage::ERR_TIME_BETWEEN_BOOK));
@@ -208,6 +143,8 @@ class BookingLogic extends BaseLogic
         if (count(array_intersect($blocked_schedule, $days))) {
             throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
         }
+
+
     }
 
     /**
@@ -250,9 +187,7 @@ class BookingLogic extends BaseLogic
 
             $period = CarbonPeriod::between($checkin, $checkout->addDay());
             foreach ($period as $day) {
-                if (in_array($day->dayOfWeek + 1, $weekDays)) {
-                    $listDays[] = $day->format('Y-m-d');
-                }
+                if (in_array($day->dayOfWeek + 1, $weekDays)) $listDays[] = $day->format('Y-m-d');
             }
 
             // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
@@ -290,7 +225,7 @@ class BookingLogic extends BaseLogic
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
                     }
                 }
-            } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
@@ -317,6 +252,7 @@ class BookingLogic extends BaseLogic
 
         return $data;
     }
+
 
     /**
      * Thêm khoảng giá
@@ -367,65 +303,33 @@ class BookingLogic extends BaseLogic
         return $user->id;
     }
 
+
     /**
-     * Cập nhật một số trường trạng thái
+     * Hủy booking
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $id
      * @param $data
      *
      * @return \App\Repositories\Eloquent
+     * @throws \Exception
      */
-    public function minorUpdate($id, $data)
+    public function cancelBooking($id, $data)
     {
-        $data_booking = parent::update($id, $data);
-        return $data_booking;
+        $data_booking = parent::getById($id);
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
+
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
     }
 
-    /**
-     * Cập nhật tiền cho booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function updateBookingMoney($id, $data)
-    {
-        $booking          = parent::getById($id);
-        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
-        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
-        $data             = array_merge($booking->toArray(), $data);
 
-        return $this->update($id, $data);
-    }
-
-    /**
-     * Cập nhật booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param int   $id
-     * @param       $data
-     * @param array $excepts
-     * @param array $only
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function update($id, $data, $excepts = [], $only = [])
-    {
-        $room                = $this->room->getById($data['room_id']);
-        $data['merchant_id'] = $room->merchant_id;
-
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-
-        $data_booking = parent::update($id, $data);
-
-        $this->status->updateBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-
-        return $data_booking;
-    }
 }

@@ -25,5 +25,20 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\AverageRoomRating::class => [
             \App\Listeners\AverageRoomRatingListener::class,
         ],
+
+        \App\Events\BookingEvent::class => [
+            \App\Listeners\SendMail\sendBookingAdminListener::class,
+            \App\Listeners\SendMail\sendBookingCustomerListener::class,
+            \App\Listeners\SendMail\sendBookingHostListener::class
+        ],
+
+        \App\Events\BookingConfirmEvent::class => [
+            \App\Listeners\SendMail\sendBookingConfirmedCustomerListener::class,
+        ],
+
+        \App\Events\ConfirmBookingTime::class => [
+            \App\Listeners\Logic\ConfirmBookingTimeListener::class,
+        ],
+
     ];
 }

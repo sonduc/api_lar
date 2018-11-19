@@ -27,14 +27,11 @@ trait RoomTimeBlockTrait
     public function minimizeBlock(array $blocks, array $unlock = []): array
     {
         if (!$blocks) return [];
-
-        sort($blocks);
+         sort($blocks);
         list($rangeSet, $singleSet) = $this->organizeDates($blocks);
-
         $list   = $this->processCarbonPeriod($rangeSet, $singleSet);
         $list   = $this->unlockDays($list, $unlock);
         $blocks = $this->setUpListTimeBlock($list);
-
         return $blocks;
 
     }
@@ -71,6 +68,7 @@ trait RoomTimeBlockTrait
             /** @var Carbon $item */
             $blockRange[] = $item;
         }
+
         $list = array_intersect($blockRange, $allBlockDay);
 
         foreach ($singleSet as $item) {
@@ -78,8 +76,8 @@ trait RoomTimeBlockTrait
                 $list[] = $item;
             }
         }
-        sort($list);
 
+        sort($list);
         return $list;
     }
 
@@ -126,7 +124,6 @@ trait RoomTimeBlockTrait
     {
         $block  = $pair = [];
         $list[] = Carbon::now()->addCenturies();
-//        dd($list);
         foreach ($list as $k => $item) {
             if (empty($pair)) {
                 $pair[] = $item;
@@ -168,7 +165,6 @@ trait RoomTimeBlockTrait
                 throw new InvalidDateException('not-valid-block-date', 'INVALID');
             }
         }
-
         return [$rangeSet, $singleSet];
     }
 

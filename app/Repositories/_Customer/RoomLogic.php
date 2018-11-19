@@ -5,12 +5,16 @@ namespace App\Repositories\_Customer;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Rooms\RoomLogicTrait;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
 
 class RoomLogic extends BaseLogic
 {
-    public $booking;
+    use RoomLogicTrait;
+    protected $booking;
+    protected $roomTimeBlock;
 
     /**
      * RoomLogic constructor.
@@ -20,10 +24,12 @@ class RoomLogic extends BaseLogic
      */
     public function __construct(
         RoomRepositoryInterface $model,
-        BookingRepositoryInterface $booking
+        BookingRepositoryInterface $booking,
+        RoomTimeBlockRepositoryInterface $roomTimeBlock
     ) {
-        $this->model   = $model;
-        $this->booking = $booking;
+        $this->model         = $model;
+        $this->booking       = $booking;
+        $this->roomTimeBlock = $roomTimeBlock;
     }
 
     /**
@@ -42,7 +48,6 @@ class RoomLogic extends BaseLogic
         $check_in       = $collect_params->get('check_in');
         $check_out      = $collect_params->get('check_out');
         $booking        = $this->booking->getAllBookingInPeriod($check_in, $check_out);
-
         $list_room_id = $booking->map(function ($item) {
             return $item->room_id;
         })->all();
@@ -52,5 +57,20 @@ class RoomLogic extends BaseLogic
         $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
         
         return $rooms;
+    }
+
+
+    /**Lấy ra những ngày đã bị block của một phòng
+     * Lấy ra những ngày
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return array
+     */
+
+    public function getFutureRoomSchedule($id)
+    {
+        $room = parent::getById($id);
+        return $this->getBlockedScheduleByRoomId($room->id);
     }
 }

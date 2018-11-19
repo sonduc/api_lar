@@ -104,6 +104,38 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
             )->get();
 
+        // dd($data);
+
         return $data;
+    }
+
+    /**
+     * Lấy tất cả các booking theo id người dùng có phân trang
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $size
+     *
+     * @return mixed
+     */
+
+    public function getBookingById($id, $size)
+    {
+        return $this->model
+            ->where('bookings.customer_id', $id)
+            ->paginate($size);
+    }
+
+    public function updatStatusBooking($booking)
+    {
+        $data    = $booking->data;
+        $uuid    = $booking->data['uuid'];
+        $booking = $this->getBookingByUuid($uuid);
+        parent::update($booking->id, $data);
+    }
+
+    public function getBookingByUuid($uuid)
+    {
+        return $this->model->where('uuid', $uuid)->first();
     }
 }

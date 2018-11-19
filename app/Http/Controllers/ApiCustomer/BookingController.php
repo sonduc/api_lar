@@ -1,29 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiCustomer;
 
+use App\Events\BookingConfirmEvent;
+use App\Events\BookingEvent;
+use App\Events\ConfirmBookingTime;
 use App\Http\Transformers\BookingCancelTransformer;
-use App\Http\Transformers\BookingTransformer;
+use App\Http\Transformers\Customer\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
-use App\Repositories\Bookings\BookingLogic;
+use App\Repositories\_Customer\BookingLogic;
+use App\Repositories\Bookings\PresentationTrait;
+use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
-use App\Repositories\Coupons\CouponRepositoryInterface;
+use App\Repositories\Users\UserRepository;
+use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
+use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-use App\Events\Check_Usable_Coupon_Event;
+
 
 class BookingController extends ApiController
 {
     protected $validationRules    = [
         'name'             => 'required|v_title',
-        'name_received'    => 'required|v_title',
+        'name_received'    => 'nullable|v_title',
         'phone'            => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
-        'phone_received'   => 'required|between:10,14|regex:/^\+?[0-9-]*$/',
+        'phone_received'   => 'nullable|between:10,14|regex:/^\+?[0-9-]*$/',
         'sex'              => 'nullable|integer|between:0,3',
         'birthday'         => 'nullable|date_format:Y-m-d',
-        'email'            => 'email',
+        'email'            => 'required|email',
         'email_received'   => 'nullable|email',
         'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',
         'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',
@@ -32,13 +40,13 @@ class BookingController extends ApiController
         'checkout'         => 'required|date|after:checkin',
         'additional_fee'   => 'filled|integer|min:0',
         'price_discount'   => 'filled|integer|min:0',
-        'coupon'           => 'nullable|string|min:4|exists:coupons,code,deleted_at,NULL',
+        'coupon'           => 'nullable|string',
         'note'             => 'nullable|v_title',
         'number_of_guests' => 'bail|required|guest_check|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'status'           => 'required|integer|between:1,5',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
-        'payment_method'   => 'required|integer|between:1,5',
+        'payment_method'   => 'required|integer|between:2,5',
         'payment_status'   => 'required|integer|between:0,3',
         'source'           => 'required|integer|between:1,6',
         'exchange_rate'    => 'nullable|integer',
@@ -48,18 +56,15 @@ class BookingController extends ApiController
     protected $validationMessages = [
         'name.required'             => 'Vui lòng điền tên',
         'name.v_title'              => 'Tên không đúng định dạng',
-        'name_received.required'    => 'Vui lòng điền tên',
         'phone.required'            => 'Vui lòng điền số điện thoại',
         'phone.between'             => 'Số điện thoại không phù hợp',
         'phone.regex'               => 'Số điện thoại không hợp lệ',
-        'phone_received.required'   => 'Vui lòng điền số điện thoại',
-        'phone_received.between'    => 'Số điện thoại không phù hợp',
         'phone_received.regex'      => 'Số điện thoại không hợp lệ',
         'sex.integer'               => 'Mã giới tính phải là kiểu số',
         'sex.between'               => 'Giới tính không phù hợp',
         'birthday.date_format'      => 'Ngày sinh phải ở định dạng Y-m-d',
         'email.email'               => 'Email không đúng định dạng',
-        'email_received.email'      => 'Email không đúng định dạng',
+        'email.required'            => 'Vui lòng điền địa chỉ email',
         'room_id.required'          => 'Vui lòng chọn phòng',
         'room_id.integer'           => 'Mã phòng phải là kiểu số',
         'room_id.exists'            => 'Phòng không tồn tại',
@@ -80,9 +85,7 @@ class BookingController extends ApiController
         'price_discount.required'   => 'Vui lòng điền giá',
         'price_discount.filled'     => 'Vui lòng điền giá',
         'price_discount.integer'    => 'Giá phải là kiểu số',
-        'coupon.min'                => 'Độ dài phải là :min',
         'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
-        'coupon.exists'             => 'Coupon không tồn tại',
         'note.v_title'              => 'Note phải là văn bản không chứa ký tự đặc biệt',
         'number_of_guests.required' => 'Vui lòng điền số khách',
         'number_of_guests.integer'  => 'Số khách phải là kiểu số',
@@ -90,6 +93,7 @@ class BookingController extends ApiController
         'status.required'           => 'Vui lòng chọn trạng thái',
         'status.integer'            => 'Mã trạng thái phải là kiểu số',
         'status.between'            => 'Mã trạng thái không phù hợp',
+        'status.in'                 => 'Mã trạng thái không phù hợp',
 
         'type.required' => 'Vui lòng chọn hình thức booking',
         'type.integer'  => 'Mã hình thức phải là kiểu số',
@@ -120,99 +124,60 @@ class BookingController extends ApiController
         'code.integer'           => 'Mã phải là kiểu số',
         'code.in'                => 'Mã không hợp lệ',
         'code.required'          => 'Vui lòng chọn lý do',
-
-        'city_id.integer'           => 'Mã thành phố phải là kiểu số',
-        'city_id.exists'            => 'Thành phố không tồn tại',
-
-        'district_id.integer'           => 'Mã quận huyện phải là kiểu số',
-        'district_id.exists'            => 'Quận huyện không tồn tại',
-
-        'day.date'               => 'Ngày áp dụng giảm giá không hợp lệ',
-        'day.after'              => 'Ngày giảm giá không được phép ở thời điểm quá khứ',
     ];
 
     protected $browser;
     protected $room;
+    protected $user;
 
     /**
      * BookingController constructor.
      *
      * @param BookingLogic            $booking
-     * @param RoomRepositoryInterface $room
+     * @param RoomRepositoryInterface|RoomRepository $room
+     * @param UserRepositoryInterface|UserRepository $user
      */
-    public function __construct(
-        BookingLogic $booking,
-        RoomRepositoryInterface $room,
-        CouponRepositoryInterface $coupon
-    ) {
-        $this->model  = $booking;
-        $this->room   = $room;
-        $this->coupon = $coupon;
-        $this->setTransformer(new BookingTransformer);
+    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room , UserRepositoryInterface $user)
+    {
+        $this->model = $booking;
+        $this->room  = $room;
+        $this->user  = $user;
+        $this->setTransformer(new BookingTransformer );
     }
 
+
     /**
-     *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Lấy ra danh sách tất cả các booking
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
      */
     public function index(Request $request)
     {
-        DB::enableQueryLog();
-        $this->authorize('booking.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        if(!Auth::check()) {
+            throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
+        }
+        $id   =  Auth::user()->id;
+        $pageSize    = $request->get('size');
+        $data = $this->model->getBooking($id,$pageSize);
 
-        // dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
-    /**
-     *
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param         $id <p>Mã booking</p>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function show(Request $request, $id)
-    {
-        try {
-            $this->authorize('booking.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
 
     public function store(Request $request)
     {
         DB::beginTransaction();
-        DB::enableQueryLog();
         try {
-            $this->authorize('booking.create');
+            if(!Auth::check()) {
+                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
+            }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            
-            // dd(DB::getQueryLog());
+            event(new BookingEvent($data));
             DB::commit();
-
-            event(new Check_Usable_Coupon_Event($data['coupon']));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -238,85 +203,7 @@ class BookingController extends ApiController
         }
     }
 
-    /**
-     *
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param int     $id <p>Mã của booking</p>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function update(Request $request, $id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('booking.update');
-            $this->validationRules['checkin'] = 'required|date';
 
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $data = $this->model->update($id, $request->all());
-            DB::commit();
-            logs('booking', 'sửa booking có code ' . $data->code, $data);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            if ($e instanceof InvalidDateException) {
-                return $this->errorResponse([
-                    'errors'    => $e->getField(),
-                    'exception' => $e->getValue(),
-                ]);
-            }
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
-
-    /**
-     *
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param int $id <p>Mã của booking</p>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function destroy($id)
-    {
-        DB::beginTransaction();
-        try {
-            $this->authorize('booking.delete');
-//            $this->model->delete($id);
-//             DB::commit();
-            return $this->deleteResponse();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
 
     /**
      * Tính giá tiền cho phòng
@@ -350,7 +237,6 @@ class BookingController extends ApiController
             $data = [
                 'data' => $this->model->priceCalculator($room, $request->all()),
             ];
-
             return $this->successResponse($data, false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -373,58 +259,6 @@ class BookingController extends ApiController
         }
     }
 
-    /**
-     * Thực hiện cập nhật đơn lẻ
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param int     $id <p>Mã của booking</p>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function minorBookingUpdate(Request $request, $id)
-    {
-        DB::beginTransaction();
-        try {
-            $this->authorize('booking.update');
-            $avaiable_option = ['payment_method', 'payment_status', 'status'];
-            $option          = $request->get('option');
-
-            if (!in_array($option, $avaiable_option)) {
-                throw new \Exception('Không có quyền sửa đổi mục này');
-            }
-
-            $validate = array_only($this->validationRules, [
-                $option,
-            ]);
-
-            $this->validate($request, $validate, $this->validationMessages);
-
-            $data = $this->model->minorUpdate($id, $request->only($option));
-            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
-            DB::commit();
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
 
     /**
      *
@@ -456,6 +290,7 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
+
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -507,6 +342,7 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
+
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -528,77 +364,6 @@ class BookingController extends ApiController
         }
     }
 
-    /**
-     * Trạng thái booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function statusList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::STATUS);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Trạng thái booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function bookingStatusList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_STATUS);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Kiểu booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function bookingTypeList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_TYPE);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Loại booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function typeList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::TYPE);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
 
     /**
      * Hình thức thanh toán
@@ -611,7 +376,7 @@ class BookingController extends ApiController
     {
         try {
             $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_METHOD);
+            $data = $this->simpleArrayToOhject(BookingConstant::PAYMENT_METHOD);
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
@@ -636,59 +401,6 @@ class BookingController extends ApiController
         }
     }
 
-    /**
-     * Kiểu của payment_history
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function paymentHistoryTypeList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_HISTORY_TYPE);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Nguồn booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function bookingSourceList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_SOURCE);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Khoảng giá
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function priceRangeList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::PRICE_RANGE);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
 
     /**
      * Lý do hủy phòng
@@ -707,4 +419,74 @@ class BookingController extends ApiController
             throw $e;
         }
     }
+
+
+    /**
+     * Cập nhâp trạng thái booking của 1 phong từ chủ host
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
+    public function confirmBooking(Request $request,$code)
+    {
+        DB::beginTransaction();
+        try {
+            $minutes = $this->model->checkTimeConfirm($code);
+            $data    =[
+                'status' => BookingConstant::BOOKING_CANCEL,
+                'uuid'   => $request->uuid
+            ];
+            if ($minutes > 10)
+            {
+                event(new ConfirmBookingTime($data));
+                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
+            }
+
+            $validate = array_only($this->validationRules, [
+                'status',
+            ]);
+            $validate['status'] = 'required|integer|in:2,5';
+            $this->validate($request, $validate, $this->validationMessages);
+            $bookingStatus      = $this->model->checkBookingStatus($request->uuid);
+            if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL)
+            {
+                throw new \Exception('Bạn đã từng xác nhận hoặc từ chối booking này  !!!!');
+            }
+            $data               = $this->model->updateStatusBooking($request->all());
+            if ($data->status == BookingConstant::BOOKING_CONFIRM)
+            {
+                $merchant                   = $this->user->getById($data->merchant_id);
+                $room_name                  = $this->room->getRoom($data->room_id);
+                event(new BookingConfirmEvent($data,$merchant,$room_name));
+            }
+            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
+            DB::commit();
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+
+
 }
