@@ -7,6 +7,7 @@ use App\Repositories\Rooms\RoomReviewLogic;
 use Illuminate\Http\Request;
 use App\Http\Transformers\RoomReviewTransformer;
 use Illuminate\Support\Facades\DB;
+use App\Events\AverageRoomRating;
 
 class RoomReviewController extends ApiController
 {
@@ -112,6 +113,8 @@ class RoomReviewController extends ApiController
             $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
+            event(new AverageRoomRating($data->room_id, $data));
+            // dd($data->room_id);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -323,5 +326,4 @@ class RoomReviewController extends ApiController
             throw $e;
         }
     }
-
 }

@@ -41,12 +41,11 @@ class RoomController extends ApiController
         try {
             DB::enableQueryLog();
             $data = $this->model->getRooms($request->all());
-//            dd(DB::getQueryLog());
+            // dd(DB::getQueryLog());
             return $this->successResponse($data);
         } catch (\Exception $e) {
             throw $e;
         }
-
     }
 
     /**
@@ -73,5 +72,4 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-
 }

@@ -7,7 +7,6 @@
  */
 namespace App\Events;
 
-
 class Customer_Register_Event extends Event
 {
     public $data;
@@ -18,5 +17,4 @@ class Customer_Register_Event extends Event
         $this->name = $name;
         $this->data = $data;
     }
-
 }

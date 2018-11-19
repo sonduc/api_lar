@@ -90,6 +90,13 @@ class Room extends Entity
         'status',
         'sale_id',
         'price_after_hour',
+        'avg_cleanliness',
+        'avg_quality',
+        'avg_service',
+        'avg_valuable',
+        'avg_avg_rating',
+        'total_review',
+        'total_recommend'
     ];
     /**
      * The attributes that should be mutated to dates.
@@ -181,6 +188,4 @@ class Room extends Entity
     {
         return $this->hasMany(\App\Repositories\Rooms\RoomReview::class, 'room_id');
     }
-
-
 }

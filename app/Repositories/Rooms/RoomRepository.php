@@ -16,8 +16,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function __construct(
         Room $room
-    )
-    {
+    ) {
         $this->model = $room;
     }
 

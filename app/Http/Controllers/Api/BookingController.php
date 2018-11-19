@@ -140,9 +140,11 @@ class BookingController extends ApiController
      * @param BookingLogic            $booking
      * @param RoomRepositoryInterface $room
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room,
-        CouponRepositoryInterface $coupon)
-    {
+    public function __construct(
+        BookingLogic $booking,
+        RoomRepositoryInterface $room,
+        CouponRepositoryInterface $coupon
+    ) {
         $this->model  = $booking;
         $this->room   = $room;
         $this->coupon = $coupon;
@@ -389,7 +391,9 @@ class BookingController extends ApiController
             $avaiable_option = ['payment_method', 'payment_status', 'status'];
             $option          = $request->get('option');
 
-            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
 
             $validate = array_only($this->validationRules, [
                 $option,
@@ -401,7 +405,6 @@ class BookingController extends ApiController
             logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -453,7 +456,6 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -505,7 +507,6 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -706,5 +707,4 @@ class BookingController extends ApiController
             throw $e;
         }
     }
-
 }
