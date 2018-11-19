@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \App\Events\BookingConfirmEvent::class => [
-            \App\Listeners\SendMail\sendBookingConfirmCustomer::class,
+            \App\Listeners\SendMail\sendBookingConfirmedCustomerListener::class,
         ],
 
         \App\Events\ConfirmBookingTime::class => [

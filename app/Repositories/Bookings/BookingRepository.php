@@ -117,8 +117,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @return mixed
      */
 
-    public function getBookingById($id, $size)
+    public function getBookingById($id,$size)
     {
+       if (empty($size))
+       {
+           return $this->model
+               ->where('bookings.id', $id)->get();
+       }
         return $this->model
             ->where('bookings.id', $id)
             ->paginate($size);

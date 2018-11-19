@@ -6,7 +6,7 @@ use App\Events\BookingConfirmEvent;
 use App\Events\BookingEvent;
 use App\Events\ConfirmBookingTime;
 use App\Http\Transformers\BookingCancelTransformer;
-use App\Http\Transformers\BookingTransformer;
+use App\Http\Transformers\Customer\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
@@ -15,7 +15,6 @@ use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
@@ -143,7 +142,7 @@ class BookingController extends ApiController
         $this->model = $booking;
         $this->room  = $room;
         $this->user  = $user;
-        $this->setTransformer(new BookingTransformer);
+        $this->setTransformer(new BookingTransformer );
     }
 
 
@@ -157,10 +156,11 @@ class BookingController extends ApiController
     public function index(Request $request)
     {
         if(!Auth::check()) {
-            return redirect()->to('https://www.google.com/');
+            throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
         }
         $id   =  Auth::user()->id;
-        $data = $this->model->getBooking($id);
+        $pageSize    = $request->get('page');
+        $data = $this->model->getBooking($id,$pageSize);
 
         return $this->successResponse($data);
     }
@@ -171,7 +171,7 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             if(!Auth::check()) {
-                return redirect()->to('https://www.google.com/');
+                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());

@@ -12,12 +12,12 @@ use App\Events\BookingConfirmEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class sendBookingConfirmCustomer implements ShouldQueue
+class sendBookingConfirmedCustomerListener implements ShouldQueue
 {
     protected $email;
 
     /**
-     * sendBookingConfirmCustomer constructor.
+     * sendBookingConfirmedCustomerListener constructor.
      *
      * @param SendEmail $email
      */
