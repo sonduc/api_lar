@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Listeners\SendMail\sendBookingAdminListener;
 use Laravel\Lumen\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -32,7 +31,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         \App\Events\ConfirmBookingTime::class => [
-           \App\Listeners\Logic\ConfirmBookingTimeListenter::class,
+            \App\Listeners\Logic\ConfirmBookingTimeListener::class,
         ],
 
     ];

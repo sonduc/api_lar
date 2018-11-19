@@ -102,7 +102,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'bookings.status', [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
             )->get();
 
-       // dd($data);
+        // dd($data);
 
         return $data;
     }
@@ -113,6 +113,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      *
      * @param $id
      * @param $size
+     *
      * @return mixed
      */
 
@@ -123,25 +124,18 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->paginate($size);
     }
 
-    public function getBookingByUuid($uuid)
-    {
-        return $this->model->where('uuid', $uuid)->first();
-    }
-
-
-
     public function updatStatusBooking($booking)
     {
-        $data = $booking->data;
-        $uuid = $booking->data['uuid'];
+        $data    = $booking->data;
+        $uuid    = $booking->data['uuid'];
         $booking = $this->getBookingByUuid($uuid);
         parent::update($booking->id, $data);
     }
 
-
-
-
-
+    public function getBookingByUuid($uuid)
+    {
+        return $this->model->where('uuid', $uuid)->first();
+    }
 
 
 }
