@@ -169,6 +169,7 @@ class RoomLogic extends BaseLogic
      */
     public function ratingCalculate($room_id, $review)
     {
+        // dd($review);
         \DB::enableQueryLog();
         $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
         $denominator    = sizeof($room['reviews']);
@@ -189,11 +190,13 @@ class RoomLogic extends BaseLogic
         \DB::beginTransaction();
         try {
             $room->update([
-                'avg_cleanliness' => round(($value->cleanliness / $denominator), 2),
-                'avg_service' => round(($value->service / $denominator), 2),
-                'avg_quality' => round(($value->quality / $denominator), 2),
-                'avg_avg_rating' => round(($value->avg_rating / $denominator), 2),
-                'avg_valuable' => round(($value->valuable / $denominator), 2)
+                'avg_cleanliness'   => round(($value->cleanliness / $denominator), 2),
+                'avg_service'       => round(($value->service / $denominator), 2),
+                'avg_quality'       => round(($value->quality / $denominator), 2),
+                'avg_avg_rating'    => round(($value->avg_rating / $denominator), 2),
+                'avg_valuable'      => round(($value->valuable / $denominator), 2),
+                'total_review'      => $denominator + 1,
+                'total_recommend'   => $recommend
             ]);
             \DB::commit();
         } catch (\Throwable $t) {

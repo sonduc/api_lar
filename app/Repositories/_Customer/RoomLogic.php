@@ -2,7 +2,6 @@
 
 namespace App\Repositories\_Customer;
 
-
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
@@ -22,8 +21,7 @@ class RoomLogic extends BaseLogic
     public function __construct(
         RoomRepositoryInterface $model,
         BookingRepositoryInterface $booking
-    )
-    {
+    ) {
         $this->model   = $model;
         $this->booking = $booking;
     }
@@ -52,7 +50,7 @@ class RoomLogic extends BaseLogic
         $list_room_id = array_unique($list_room_id);
 
         $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
-
+        
         return $rooms;
     }
 }

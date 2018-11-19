@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Traits;
 
-
 trait Scope
 {
     /**
@@ -29,5 +28,4 @@ trait Scope
             }
         }
     }
-
 }

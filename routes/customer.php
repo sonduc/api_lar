@@ -10,9 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group([
-    'middleware' => 'auth',
-], function ($router) {
+$router->group([], function ($router) {
     $router->get('/rooms', 'RoomController@index');
     $router->get('/rooms/{id}', 'RoomController@show');
 });
@@ -26,4 +24,3 @@ $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
-

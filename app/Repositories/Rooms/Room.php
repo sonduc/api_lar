@@ -94,7 +94,9 @@ class Room extends Entity
         'avg_quality',
         'avg_service',
         'avg_valuable',
-        'avg_avg_rating'
+        'avg_avg_rating',
+        'total_review',
+        'total_recommend'
     ];
     /**
      * The attributes that should be mutated to dates.

@@ -17,7 +17,7 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('merchant_id')->nullable();
             $table->tinyInteger('max_guest')->nullable();
-            $table->tinyInteger('max_additional_guest')->default(0);
+            $table->tinyInteger('max_additional_guest')->nullable()->default(0);
             $table->tinyInteger('number_bed')->nullable();
             $table->tinyInteger('number_room')->nullable();
             $table->integer('city_id')->nullable();
@@ -40,11 +40,13 @@ class CreateRoomsTable extends Migration
             $table->string('longitude')->nullable();
             $table->string('latitude')->nullable();
             $table->integer('total_booking')->nullable()->default(0);
-            $table->tinyInteger('avg_cleanliness')->default(0);
-            $table->tinyInteger('avg_quality')->default(0);
-            $table->tinyInteger('avg_service')->default(0);
-            $table->tinyInteger('avg_valuable')->default(0);
-            $table->tinyInteger('avg_avg_rating')->default(0);
+            $table->tinyInteger('avg_cleanliness')->nullable()->default(0);
+            $table->tinyInteger('avg_quality')->nullable()->default(0);
+            $table->tinyInteger('avg_service')->nullable()->default(0);
+            $table->tinyInteger('avg_valuable')->nullable()->default(0);
+            $table->tinyInteger('avg_avg_rating')->nullable()->default(0);
+            $table->integer('total_review')->nullable()->default(0);
+            $table->integer('total_recommend')->nullable()->default(0);
             $table->tinyInteger('status')->default(0);
             $table->integer('sale_id')->nullable();
             $table->softDeletes()->nullable()->default(null);

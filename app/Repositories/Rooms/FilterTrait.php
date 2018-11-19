@@ -181,7 +181,6 @@ trait FilterTrait
             $query->where('rooms.price_day', '>=', $q);
         }
         return $query;
-
     }
 
     public function scopePriceDayTo($query, $q)
@@ -190,7 +189,6 @@ trait FilterTrait
             $query->where('rooms.price_day', '<=', $q);
         }
         return $query;
-
     }
 
     public function scopePriceHourFrom($query, $q)
@@ -199,7 +197,6 @@ trait FilterTrait
             $query->where('rooms.price_hour', '>=', $q);
         }
         return $query;
-
     }
 
     public function scopePriceHourTo($query, $q)
@@ -208,7 +205,6 @@ trait FilterTrait
             $query->where('rooms.price_hour', '<=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -315,6 +311,44 @@ trait FilterTrait
     }
 
     /**
+     * Sắp xếp phòng theo tổng số lượng reviews
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeSortTotalReview($query, $q)
+    {
+        $sort = 'asc';
+        if (is_numeric($q) && $q == 1) {
+            $sort = 'desc';
+        }
+
+        return $query->where('rooms.total_review', '>', 0)->orderBy('rooms.total_review', $sort);
+    }
+
+    /**
+     * Sắp xếp phòng theo tổng số lượng recommend
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeSortTotalRecommend($query, $q)
+    {
+        $sort = 'asc';
+        if (is_numeric($q) && $q == 1) {
+            $sort = 'desc';
+        }
+
+        return $query->where('rooms.total_recommend', '>', 0)->orderBy('rooms.total_recommend', $sort);
+    }
+
+    /**
      * Theo danh sách comforts
      * @author HarikiRito <nxh0809@gmail.com>
      *
@@ -329,7 +363,9 @@ trait FilterTrait
         if (!empty($q)) {
             // Kiểm tra các phần tử trong mảng phải là số
             foreach ($arr as $item) {
-                if (!is_numeric($item)) return $query;
+                if (!is_numeric($item)) {
+                    return $query;
+                }
             }
 
             if (!self::isJoined($query, 'room_comforts')) {
@@ -355,15 +391,16 @@ trait FilterTrait
      */
     public function scopeCleanliness($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*')->select('rooms.*');
-        }
+
+        // if (!self::isJoined($query, 'room_reviews')) {
+        //     $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*')->select('rooms.*');
+        // }
 
         if (is_numeric($q)) {
-            $query->where('room_reviews.cleanliness', '>=', $q);
+            $query->where('rooms.avg_cleanliness', '>=', $q);
         }
+        
         return $query;
-
     }
 
     /**
@@ -377,15 +414,11 @@ trait FilterTrait
      */
     public function scopeService($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
-        }
-
         if (is_numeric($q)) {
-            $query->where('room_reviews.service', '>=', $q);
+            $query->where('rooms.avg_service', '>=', $q);
         }
-        return $query;
 
+        return $query;
     }
 
     /**
@@ -399,15 +432,10 @@ trait FilterTrait
      */
     public function scopeValuable($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
-        }
-
         if (is_numeric($q)) {
-            $query->where('room_reviews.valuable', '>=', $q);
+            $query->where('rooms.avg_valuable', '>=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -421,15 +449,10 @@ trait FilterTrait
      */
     public function scopeQuality($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
-        }
-
         if (is_numeric($q)) {
-            $query->where('room_reviews.quality', '>=', $q);
+            $query->where('rooms.avg_quality', '>=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -444,20 +467,15 @@ trait FilterTrait
 
     public function scopeAvgRating($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
-        }
-
         if (is_numeric($q)) {
-            $query->where('room_reviews.quality', '>=', $q);
+            $query->where('rooms.avg_avg_rating', '>=', $q);
         }
         return $query;
-
     }
-
+    
     /**
-     * Scrope Recommend
-     * @author ducchien0612 <ducchien0612@gmail.com>
+     * Scope theo standard_point : = 5 hoặc <= 4
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
      *
      * @param $query
      * @param $q
@@ -465,17 +483,15 @@ trait FilterTrait
      * @return mixed
      */
 
-    public function scopeRecommend($query, $q)
+    public function scopeStandardPoint($query, $q)
     {
-        if (!self::isJoined($query, 'room_reviews')) {
-            $query->join('room_reviews', 'rooms.id', '=', 'room_reviews.room_id')->select('rooms.*');
-        }
-
         if (is_numeric($q)) {
-            $query->where('room_reviews.recommend', '>=', $q);
+            if ($q == 5) {
+                $query->where('rooms.standard_point', '=', $q);
+            } else {
+                $query->where('rooms.standard_point', '<=', 4);
+            }
         }
         return $query;
-
     }
-
 }

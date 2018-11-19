@@ -57,7 +57,9 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ['checkout', '<', $dateNow->timestamp],
             ['status', '=', BookingConstant::BOOKING_COMPLETE],
         ])->first();
-        if (empty($data)) throw new \Exception('Bạn chưa hoàn thành booking này nên chưa có quyền đánh giá');
+        if (empty($data)) {
+            throw new \Exception('Bạn chưa hoàn thành booking này nên chưa có quyền đánh giá');
+        }
         return $data;
     }
 
@@ -74,12 +76,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     public function getAllBookingInPeriod($start, $end)
     {
         try {
-            list ($y_start, $m_start, $d_start) = explode('-', $start);
-            list ($y_end, $m_end, $d_end) = explode('-', $end);
+            list($y_start, $m_start, $d_start) = explode('-', $start);
+            list($y_end, $m_end, $d_end) = explode('-', $end);
 
             $checkIn  = Carbon::createSafe((int)$y_start, (int)$m_start, (int)$d_start)->endOfDay()->timestamp;
             $checkOut = Carbon::createSafe((int)$y_end, (int)$m_end, (int)$d_end)->endOfDay()->timestamp;
-
         } catch (InvalidDateException | \ErrorException $exception) {
             $checkIn  = Carbon::now()->addDay()->endOfDay()->timestamp;
             $checkOut = Carbon::now()->addDay()->addMonth()->endOfDay()->timestamp;
@@ -99,11 +100,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ]);
             })
             ->whereNotIn(
-                'bookings.status', [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
+                'bookings.status',
+                [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
             )->get();
 
         return $data;
     }
-
 }
-
