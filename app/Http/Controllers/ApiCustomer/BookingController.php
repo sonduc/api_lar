@@ -434,9 +434,13 @@ class BookingController extends ApiController
         DB::beginTransaction();
         try {
             $minutes = $this->model->checkTimeConfirm($code);
+            $data    =[
+                'status' => BookingConstant::BOOKING_CANCEL,
+                'uuid'   => $request->uuid
+            ];
             if ($minutes > 10)
             {
-                event(new ConfirmBookingTime(BookingConstant::BOOKING_CANCEL,$request->uuid));
+                event(new ConfirmBookingTime($data));
                 throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
             }
 

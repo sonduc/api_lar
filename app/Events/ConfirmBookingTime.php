@@ -13,13 +13,13 @@ class ConfirmBookingTime extends Event
 {
 
     public $data;
-    public $uuid;
 
 
-    public function __construct($data,$uuid)
+
+    public function __construct($data)
     {
         $this->data         = $data;
-        $this->uuid         = $uuid;
+
     }
 
 }
