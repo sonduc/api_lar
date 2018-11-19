@@ -21,7 +21,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-
 class BookingController extends ApiController
 {
     protected $validationRules    = [
@@ -137,12 +136,12 @@ class BookingController extends ApiController
      * @param RoomRepositoryInterface|RoomRepository $room
      * @param UserRepositoryInterface|UserRepository $user
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room , UserRepositoryInterface $user)
+    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room, UserRepositoryInterface $user)
     {
         $this->model = $booking;
         $this->room  = $room;
         $this->user  = $user;
-        $this->setTransformer(new BookingTransformer );
+        $this->setTransformer(new BookingTransformer);
     }
 
 
@@ -155,12 +154,12 @@ class BookingController extends ApiController
      */
     public function index(Request $request)
     {
-        if(!Auth::check()) {
+        if (!Auth::check()) {
             throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
         }
         $id   =  Auth::user()->id;
         $pageSize    = $request->get('size');
-        $data = $this->model->getBooking($id,$pageSize);
+        $data = $this->model->getBooking($id, $pageSize);
 
         return $this->successResponse($data);
     }
@@ -170,7 +169,7 @@ class BookingController extends ApiController
     {
         DB::beginTransaction();
         try {
-            if(!Auth::check()) {
+            if (!Auth::check()) {
                 throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -218,7 +217,7 @@ class BookingController extends ApiController
     {
         DB::enableQueryLog();
         try {
-            $this->authorize('booking.create');
+            // $this->authorize('booking.create');
             // Tái cấu trúc validate để tính giá tiền
             $validate            = array_only($this->validationRules, [
                 'room_id',
@@ -290,7 +289,6 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -342,7 +340,6 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -431,7 +428,7 @@ class BookingController extends ApiController
      * @throws \Throwable
      */
 
-    public function confirmBooking(Request $request,$code)
+    public function confirmBooking(Request $request, $code)
     {
         DB::beginTransaction();
         try {
@@ -440,8 +437,7 @@ class BookingController extends ApiController
                 'status' => BookingConstant::BOOKING_CANCEL,
                 'uuid'   => $request->uuid
             ];
-            if ($minutes > 10)
-            {
+            if ($minutes > 10) {
                 event(new ConfirmBookingTime($data));
                 throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
             }
@@ -452,16 +448,14 @@ class BookingController extends ApiController
             $validate['status'] = 'required|integer|in:2,5';
             $this->validate($request, $validate, $this->validationMessages);
             $bookingStatus      = $this->model->checkBookingStatus($request->uuid);
-            if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL)
-            {
+            if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL) {
                 throw new \Exception('Bạn đã từng xác nhận hoặc từ chối booking này  !!!!');
             }
             $data               = $this->model->updateStatusBooking($request->all());
-            if ($data->status == BookingConstant::BOOKING_CONFIRM)
-            {
+            if ($data->status == BookingConstant::BOOKING_CONFIRM) {
                 $merchant                   = $this->user->getById($data->merchant_id);
                 $room_name                  = $this->room->getRoom($data->room_id);
-                event(new BookingConfirmEvent($data,$merchant,$room_name));
+                event(new BookingConfirmEvent($data, $merchant, $room_name));
             }
             logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
             DB::commit();
@@ -486,7 +480,4 @@ class BookingController extends ApiController
             throw $t;
         }
     }
-
-
-
 }
