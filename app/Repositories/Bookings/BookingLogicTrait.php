@@ -8,10 +8,18 @@
 
 namespace App\Repositories\Bookings;
 
+use App\Repositories\Rooms\RoomOptionalPrice;
 use Carbon\Carbon;
+use Carbon\Exceptions\InvalidDateException;
+use Carbon\CarbonPeriod;
+
 trait BookingLogicTrait
 {
 
+    protected $op;
+    protected $room;
+    protected $user;
+    protected $booking_cancel;
 
     /**
      * Tính toán giá tiền cho booking
@@ -270,5 +278,58 @@ trait BookingLogicTrait
         $data['price_range'] = $price_range;
         return $data;
     }
+
+    /**
+     * Kiểm tra xem có user tồn tại
+     * Nếu không tồn tại thì tự động thêm user mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function checkUserExist($data = [])
+    {
+        $user = $this->user->getUserByEmailOrPhone($data);
+
+        if (!$user) {
+            $data['password'] = $data['phone'];
+            $data['type']     = User::USER;
+            $data['owner']    = User::NOT_OWNER;
+            $data['status']   = User::DISABLE;
+            $user             = $this->user->store($data);
+        }
+
+        return $user->id;
+    }
+
+
+    /**
+     * Hủy booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function cancelBooking($id, $data)
+    {
+        $data_booking = parent::getById($id);
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
+
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
+    }
+
 
 }
