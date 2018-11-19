@@ -15,21 +15,29 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class sendBookingConfirmCustomer implements ShouldQueue
 {
     protected $email;
-    /**
-     * Create the event listener.
-     *
-     * @return void
-     */
 
+    /**
+     * sendBookingConfirmCustomer constructor.
+     *
+     * @param SendEmail $email
+     */
     public function __construct(SendEmail $email)
     {
         $this->email = $email;
     }
 
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param BookingConfirmEvent $event
+     *
+     * @throws \Exception
+     */
     public function handle(BookingConfirmEvent $event)
     {
-        $this->email->sendBookingConfirmCustomer($event);
+        $this->email->sendBookingConfirmedCustomer($event);
 
     }
 

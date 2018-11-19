@@ -11,7 +11,9 @@ use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
 use App\Repositories\Bookings\PresentationTrait;
+use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
@@ -133,7 +135,8 @@ class BookingController extends ApiController
      * BookingController constructor.
      *
      * @param BookingLogic            $booking
-     * @param RoomRepositoryInterface $room
+     * @param RoomRepositoryInterface|RoomRepository $room
+     * @param UserRepositoryInterface|UserRepository $user
      */
     public function __construct(BookingLogic $booking, RoomRepositoryInterface $room , UserRepositoryInterface $user)
     {
@@ -159,7 +162,6 @@ class BookingController extends ApiController
         $id   =  Auth::user()->id;
         $data = $this->model->getBooking($id);
 
-        // dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 

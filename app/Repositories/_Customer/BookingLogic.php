@@ -3,10 +3,13 @@
 namespace App\Repositories\_Customer;
 
 use App\Repositories\BaseLogic;
+use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingMessage;
+use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Bookings\BookingStatusRepository;
 use App\Repositories\Bookings\BookingStatusRepositoryInterface;
 use App\Repositories\Payments\PaymentHistoryRepository;
 use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
@@ -89,9 +92,7 @@ class BookingLogic extends BaseLogic
         $data['customer_id'] =
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
-        $data_booking = parent::store($data);
-        //$this->status->storeBookingStatus($data_booking, $data);
-      //  $this->payment->storePaymentHistory($data_booking, $data);
+        $data_booking        = parent::store($data);
         return $data_booking;
     }
 
@@ -199,7 +200,7 @@ class BookingLogic extends BaseLogic
 
         $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
 
-        $minCI  = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
+        $minCI = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
 
         if ($checkin->between($minCI, $roomCI, false)) {
             throw new InvalidDateException('booking-between', trans2(BookingMessage::ERR_TIME_BETWEEN_BOOK));
@@ -469,13 +470,14 @@ class BookingLogic extends BaseLogic
      *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param $id
+     * @param     $id
      * @param int $pageSize
+     *
      * @return mixed
      */
-    public function getBooking($id, $pageSize =5)
+    public function getBooking($id, $pageSize = 5)
     {
-        $booking = $this->booking->getBookingById($id,$pageSize);
+        $booking = $this->booking->getBookingById($id, $pageSize);
         return $booking;
     }
 
@@ -485,11 +487,12 @@ class BookingLogic extends BaseLogic
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return \App\Repositories\Eloquent
      */
     public function updateStatusBooking($data)
     {
-        $uuid = $data['uuid'];
+        $uuid    = $data['uuid'];
         $booking = $this->model->getBookingByUuid($uuid);
         $booking = parent::update($booking->id, $data);
         return $booking;
@@ -498,7 +501,7 @@ class BookingLogic extends BaseLogic
 
     public function checkBookingStatus($uuid)
     {
-         return $this->model->getBookingByUuid($uuid)->status;
+        return $this->model->getBookingByUuid($uuid)->status;
     }
 
 
@@ -507,16 +510,16 @@ class BookingLogic extends BaseLogic
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $code
+     *
      * @return int
      */
     public function checkTimeConfirm($code)
     {
-        $timeNow= Carbon::now();
+        $timeNow    = Carbon::now();
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
         return $timeNow->diffInMinutes($timeSubmit);
     }
-
 
 
 }

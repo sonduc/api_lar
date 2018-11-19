@@ -22,12 +22,25 @@ class sendBookingAdminListener implements ShouldQueue
      * @return void
      */
 
+    /**
+     * sendBookingAdminListener constructor.
+     *
+     * @param SendEmail $email
+     */
     public function __construct(SendEmail $email)
     {
         $this->email = $email;
     }
 
 
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param BookingEvent $event
+     *
+     * @throws \Exception
+     */
     public function handle(BookingEvent $event)
     {
         $this->email->sendBookingAdmin($event);

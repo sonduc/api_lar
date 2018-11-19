@@ -11,7 +11,7 @@ namespace App\Listeners\Logic;
 use App\Events\ConfirmBookingTime;
 use App\Repositories\Bookings\BookingRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
-class ConfirmBookingTimeListenter implements ShouldQueue
+class ConfirmBookingTimeListener implements ShouldQueue
 {
     protected $booking;
     /**
@@ -20,6 +20,11 @@ class ConfirmBookingTimeListenter implements ShouldQueue
      * @return void
      */
 
+    /**
+     * ConfirmBookingTimeListener constructor.
+     *
+     * @param BookingRepository $booking
+     */
     public function __construct(BookingRepository $booking)
     {
         $this->booking = $booking;
