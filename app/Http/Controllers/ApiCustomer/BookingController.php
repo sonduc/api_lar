@@ -172,7 +172,7 @@ class BookingController extends ApiController
                 return redirect()->to('https://www.google.com/');
             }
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data                       = $this->model->store($request->all());
+            $data = $this->model->store($request->all());
             event(new BookingEvent($data));
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
