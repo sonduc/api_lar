@@ -35,4 +35,25 @@ class ApiController extends Controller
         return self::NO_TRASH;
     }
 
+    /**
+     * Tạo mảng các object từ array
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $arr
+     *
+     * @return array
+     */
+    protected function simpleArrayToObject($arr = []): array
+    {
+        $arr2d = [];
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $key,
+                'value' => $item,
+            ];
+        }
+
+        return $arr2d;
+    }
+
 }

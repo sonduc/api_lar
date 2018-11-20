@@ -175,8 +175,8 @@ class BookingController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            event(new BookingEvent($data));
             DB::commit();
+            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -310,28 +310,6 @@ class BookingController extends ApiController
         }
     }
 
-
-
-
-    /**
-     * Lý do hủy phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function bookingCancelList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingCancel::getBookingCancel());
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-
     /**
      * Cập nhâp trạng thái booking của 1 phong từ chủ host
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -395,6 +373,44 @@ class BookingController extends ApiController
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
+        }
+    }
+
+
+
+    /**
+     * Kiểu booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function bookingTypeList()
+    {
+        try {
+            $this->authorize('booking.view');
+            $data = $this->simpleArrayToObject(BookingConstant::BOOKING_TYPE);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Lý do hủy phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function bookingCancelList()
+    {
+        try {
+            $this->authorize('booking.view');
+            $data = $this->simpleArrayToObject(BookingCancel::getBookingCancel());
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 

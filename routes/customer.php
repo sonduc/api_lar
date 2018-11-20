@@ -27,6 +27,9 @@ $router->group([
     $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
     $router->post('/bookings', 'BookingController@store');
 
+    $router->get('/bookings/booking-type-list', 'BookingController@bookingTypeList');
+    $router->get('/bookings/cancel-reason-list', 'BookingController@bookingCancelList');
+
 
 
 /**

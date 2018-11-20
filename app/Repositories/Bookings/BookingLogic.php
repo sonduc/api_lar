@@ -107,5 +107,32 @@ class BookingLogic extends BaseLogic
         return $data_booking;
     }
 
+    /**
+     * Hủy booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function cancelBooking($id, $data)
+    {
+        $data_booking = parent::getById($id);
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
+
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
+    }
+
 
 }
