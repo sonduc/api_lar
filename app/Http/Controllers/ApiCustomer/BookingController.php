@@ -204,54 +204,6 @@ class BookingController extends ApiController
     }
 
 
-    public function update(Request $request,$id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-
-            $this->validationRules['checkin'] = 'required|date';
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-
-
-            $data = $this->model->update($id, $request->all());
-            DB::commit();
-            logs('booking', 'sửa booking có code ' . $data->code, $data);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            if ($e instanceof InvalidDateException) {
-                return $this->errorResponse([
-                    'errors'    => $e->getField(),
-                    'exception' => $e->getValue(),
-                ]);
-            }
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-
-    }
-
-
-
-
-
-
     /**
      * Tính giá tiền cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -307,15 +259,12 @@ class BookingController extends ApiController
     }
 
 
-
-
     /**
-     * Hủy booking
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Hủy Booking
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
-     * @param         $id
-     *
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */

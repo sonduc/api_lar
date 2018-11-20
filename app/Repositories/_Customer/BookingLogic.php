@@ -202,6 +202,15 @@ class BookingLogic extends BaseLogic
     }
 
 
+    /**
+     * Hủy bookiing cho customer
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
     public function cancelBookingCustomer($id, $data)
     {
         $data_booking = parent::getById($id);
@@ -222,6 +231,5 @@ class BookingLogic extends BaseLogic
         throw new \Exception('Bạn không thể hủy booking này');
 
     }
-
 
 }
