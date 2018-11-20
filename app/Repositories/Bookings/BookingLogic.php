@@ -108,33 +108,4 @@ class BookingLogic extends BaseLogic
     }
 
 
-
-    /**
-     * Cập nhật booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param int   $id
-     * @param       $data
-     * @param array $excepts
-     * @param array $only
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function update($id, $data, $excepts = [], $only = [])
-    {
-        $room                = $this->room->getById($data['room_id']);
-        $data['merchant_id'] = $room->merchant_id;
-
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-
-        $data_booking = parent::update($id, $data);
-
-        $this->status->updateBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-
-        return $data_booking;
-    }
-
 }

@@ -181,13 +181,45 @@ class BookingLogic extends BaseLogic
         return $timeNow->diffInMinutes($timeSubmit);
     }
 
-    public function checkValidBookingUpdate($booking,$request)
-    {
-       if (array_key_exists($booking->status,[BookingConstant::BOOKING_COMPLETE,BookingConstant::BOOKING_CANCEL]))
-       {
-           throw new \Exception('Bạn không thể cập nhập thông tin cho booking này do đã hoàn thành hoặc đã bị hủy');
-       }
 
+    /**
+     *  Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking
+     * @param $request
+     * @throws \Exception
+     */
+    public function checkValidBookingCancel($id)
+    {
+        if(!Auth::check()) {
+            throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
+        }
+
+        $booking=$this->model->getById($id);
+        if (Auth::user()->id != $booking->customer_id) throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
+
+    }
+
+
+    public function cancelBookingCustomer($id, $data)
+    {
+        $data_booking = parent::getById($id);
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        if ($data_booking->status == BookingConstant::BOOKING_NEW)
+        {
+            $booking_update = [
+                'status' => BookingConstant::BOOKING_CANCEL,
+            ];
+            parent::update($id, $booking_update);
+            $data['booking_id'] = $id;
+            return $this->booking_cancel->store($data);
+        }
+        throw new \Exception('Bạn không thể hủy booking này');
 
     }
 

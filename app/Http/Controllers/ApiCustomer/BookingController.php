@@ -45,6 +45,7 @@ class BookingController extends ApiController
         'number_of_guests' => 'bail|required|guest_check|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
         'status'           => 'required|in:1',
+        'type'             =>  'required|in:2',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
         'payment_method'   => 'required|in:2,3,4,5',
         'payment_status'   => 'required|in:0',
@@ -208,30 +209,12 @@ class BookingController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            if(!Auth::check()) {
-                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
-            }
+
             $this->validationRules['checkin'] = 'required|date';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $booking=$this->model->getById($id);
-           // if (Auth::user()->id != $booking->customer_id) throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền cập nhât');
-            $this->model->checkValidBookingUpdate($booking,$request->all());
-            $only = $request->only(
-                'name',
-                'phone',
-                'sex',
-                'birthday',
-                'email',
-                'email_received',
-                'name_received',
-                'phone_received',
-                'checkin',
-                'checkout',
-                'number_of_guests',
-                'booking_type',
-                'payment_method',
-                'exchange_rate'
-            );
+
+
+
             $data = $this->model->update($id, $request->all());
             DB::commit();
             logs('booking', 'sửa booking có code ' . $data->code, $data);
@@ -341,7 +324,7 @@ class BookingController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('booking.update');
+            $this->model->checkValidBookingCancel($id);
             $this->setTransformer(new BookingCancelTransformer);
             $validate         = array_only($this->validationRules, [
                 'note',
@@ -351,7 +334,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
+            $data = $this->model->cancelBookingCustomer($id, $request->only($avaiable_option));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
 
             DB::commit();

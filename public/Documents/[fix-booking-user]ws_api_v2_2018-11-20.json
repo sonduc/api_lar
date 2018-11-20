@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-11-19T06:36:09.195Z",
+	"__export_date": "2018-11-20T09:20:08.405Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -319,7 +319,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjNlMDliNGU5MzYxMjFhNWE0YTk1MzBiODE5YWY5M2VkZjhjNWQ3ZjUwYzA5YTY2ZDBmZjgxYTIyNWM5MzNiNDQxNjIyOTQzMmYxOTJlNTE4In0.eyJhdWQiOiI4IiwianRpIjoiM2UwOWI0ZTkzNjEyMWE1YTRhOTUzMGI4MTlhZjkzZWRmOGM1ZDdmNTBjMDlhNjZkMGZmODFhMjI1YzkzM2I0NDE2MjI5NDMyZjE5MmU1MTgiLCJpYXQiOjE1NDI1OTc1OTUsIm5iZiI6MTU0MjU5NzU5NSwiZXhwIjoxNTc0MTMzNTk1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.bfhoMoD9N8zPKW5G9ItZM6LBWTmBMioU5xdQjAJ8_HL7xUmJ7CFLxfXq_TFt7gfZ0alEDsrRpXMsgi8g5v87bGY6bFmIjOsznWY8kxeyV-1QHO6Vv5iYGnc-8gEX2GhdkeVEIwtf6xbh_ysHdZm1XisrUPIz-Np913hEF2_uVv4oTAgEvXmKZuRZtHCzVdwkq2zjxy2DTJJJkuuubuf2MxYZSeKlRP8nGsf27mrUW5PYqi2gdUi7lpnXrUEPVKhSjbRCoClsGk1Ads-ZD_5ormYHRVWJteT7f0EFgbz6P8aYc-yNiTGUWlmOH0P_n5NNNe0u8tEMy0Yuor8YeI0BUYCkWLzvricjOgwThcGKGbN9LsFIWpk1C0rGGMpDYNDl92gzyQ3CXAg2ulNBv_-IxHJCseoQ9q0sGA0kxIP4Gq8vE55JGjOBX-CnZh94KNPuVUeS3VATR0EUAAcvKfPO5-qzTpBrrqc4plPKoaabjSjHTJ7YF-o08P4msbKf4OzIa2vi2PAFe3RrhXbolDMUc6wZM-cpsca3tbVfc65wqOZbf_SkN4_hZLpEntEsZX61uQnGKqOqBnpKgHFOVh_8jLPlpKKWKg41A2aHzXLWAMKt8Mp53cvhxD-npga3i-qmbXwR6N3pL6gFvYpHN2EKq0rwTLp8GA1v_vFn5-M2Pco"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhkMzMwZmQzNGMyOTQ4NjhlMzcwYmExYTkzYjc3MDNjMmIwNDkyMTljNDZjOGU2MjRiMTVhODIyOGVhN2Q1ZjNkZTMzOWJjMGI4ZmQyOTE1In0.eyJhdWQiOiI2IiwianRpIjoiOGQzMzBmZDM0YzI5NDg2OGUzNzBiYTFhOTNiNzcwM2MyYjA0OTIxOWM0NmM4ZTYyNGIxNWE4MjI4ZWE3ZDVmM2RlMzM5YmMwYjhmZDI5MTUiLCJpYXQiOjE1NDI2ODMyMzgsIm5iZiI6MTU0MjY4MzIzOCwiZXhwIjoxNTc0MjE5MjM4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.SupdXIZQ8WjRGb_0SRryazo-6F5ic3i1lG_Trd2jPiZ_4NnLsxAOS4LpQ_1E4H7MG1hryyuWaDHeARRFEIe1z1THjbzFTq4qYwhwl8L_IlgKwF6Ttt3gZ_3zzNROxkCsZLX8_DOMQlEzjvlsR_vY6Vz3LhPzfRk8ciaO6thBIiaDOadOiYUb4e0DPNhMgWnmH3AbiNNNLbLkJRagIalyYlbJCT8xYzdfZJJtk4GXpWWyBSnJNC-xNtGFsgS75lV3HbUwSBDS1RYq_RSu2ITZvAprgEYgOmyfX3IDC26iLCj8asFnRW2iTKr-j8sy5UpNuEf4y5j3FH5U4uTQnsXEIjm3umr5fojsAZHDFmBOdIo7Uc-sMUaB7aMDiDaWcEcm43TRL6V-THeB5SryfD6pC2zMYSItBPddc5GI47zyFtGyDEuBwb1mUh4crkPzVOI19tPhMd2XzQ-04sB-zz7dQyF-OLzc0RTxuE5pHUxk48-gm7VIY8yP4cQg8cOUg-59C0WEp4dROcdMJLCTMAl311n75Et3sDD3DOLPepZQFowZMRLfxpa0P2w2XWdlrSHzYy-r573_WRvEdLa4mfEiFQVSF4vFiKd-gDhdOYKZEdeQx50tYXOc56jeDwPOWH_f0qdOWsgRh0g7iC_n8GJnfqozbVOJB372tsnrD4bbTZw"
 				},
 				"url": "http://wsapi.test/",
 				"username": "admin@westay.org",
@@ -327,7 +327,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1542597612119,
+			"modified": 1542683260495,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -571,9 +571,9 @@
 				}
 			],
 			"isPrivate": false,
-			"metaSortKey": -1532570312566,
+			"metaSortKey": -1532570312666,
 			"method": "POST",
-			"modified": 1542597612455,
+			"modified": 1542683260836,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -605,7 +605,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312616,
 			"method": "POST",
-			"modified": 1542565737867,
+			"modified": 1542683232543,
 			"name": "register",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1406,7 +1406,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1541152628380,
+			"modified": 1542683878555,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2209,7 +2209,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1542604932339,
+			"modified": 1542683219069,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2238,7 +2238,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1542603630927,
+			"modified": 1542680472048,
 			"name": "show",
 			"parameters": [
 				{
@@ -2263,7 +2263,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3143,\n\t\"checkin\": \"2020-11-10 14:00:00\",\n\t\"checkout\": \"2020-11-15 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 4,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 313,\n\t\"checkin\": \"2026-11-10 14:00:00\",\n\t\"checkout\": \"2026-11-15 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 3,\n\t\"booking_type\": 1,\n\t\"payment_method\":4,\n\t\"payment_status\":2,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -2282,7 +2282,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1542608882575,
+			"modified": 1542702966379,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2300,7 +2300,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 1859,\n\t\"checkin\": \"2018-11-19 14:10:00\",\n\t\"checkout\": \"2018-11-22 10:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 50000,\n\t\"price_discount\": 50000,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 4,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 1859,\n\t\"checkin\": \"2019-11-19 14:10:00\",\n\t\"checkout\": \"2019-11-22 10:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 50000,\n\t\"price_discount\": 50000,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 4,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277778,
 			"description": "## Validation\n```php\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -2319,7 +2319,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1542603859369,
+			"modified": 1542702347597,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2329,7 +2329,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings/3502",
+			"url": "{{ api_url  }}bookings/101",
 			"_type": "request"
 		},
 		{
@@ -2398,7 +2398,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883880280.375,
 			"method": "PUT",
-			"modified": 1542603864370,
+			"modified": 1542685637349,
 			"name": "status-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2435,7 +2435,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632255.8125,
 			"method": "PUT",
-			"modified": 1542603829895,
+			"modified": 1542697881829,
 			"name": "money-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2509,7 +2509,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632205.8125,
 			"method": "POST",
-			"modified": 1542603865665,
+			"modified": 1542683391550,
 			"name": "booking-cancel",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -3625,10 +3625,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"taikhoan151do@gmail.com\",\n\t\"email_received\":\"\",\n\t\"phone_received\": \"\",\n\t\"room_id\": 3143,\n\t\"checkin\": \"2036-11-20 14:00:00\",\n\t\"checkout\": \"2036-11-21 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 2,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"taikhoan151do@gmail.com\",\n\t\"email_received\":\"\",\n\t\"phone_received\": \"\",\n\t\"room_id\": 3132,\n\t\"checkin\": \"2036-11-20 14:00:00\",\n\t\"checkout\": \"2036-11-21 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 2,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1542181954384,
-			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
+			"description": "        'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|in:1',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|in:2,3,4,5',\n        'payment_status'   => 'required|in:0',\n        'source'           => 'required|in:4',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -3644,7 +3644,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1542609006152,
+			"modified": 1542705532973,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -3681,7 +3681,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997248.5312,
 			"method": "POST",
-			"modified": 1542603595855,
+			"modified": 1542705550043,
 			"name": "booking-cancel",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -3691,7 +3691,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}bookings/cancel-booking/300",
+			"url": "{{ customer_url  }}bookings/cancel-booking/3529",
 			"_type": "request"
 		},
 		{
@@ -3710,7 +3710,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997373.5312,
 			"method": "GET",
-			"modified": 1542609205525,
+			"modified": 1542685073060,
 			"name": "index",
 			"parameters": [
 				{
@@ -3924,7 +3924,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367260,
 			"method": "GET",
-			"modified": 1542336378687,
+			"modified": 1542695114284,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3953,7 +3953,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367285,
 			"method": "GET",
-			"modified": 1542336384925,
+			"modified": 1542698232777,
 			"name": "booking-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -3982,7 +3982,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367360,
 			"method": "GET",
-			"modified": 1542310581427,
+			"modified": 1542702833043,
 			"name": "booking-type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4011,7 +4011,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367310,
 			"method": "GET",
-			"modified": 1542336361608,
+			"modified": 1542702838839,
 			"name": "type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4040,7 +4040,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367297.5,
 			"method": "GET",
-			"modified": 1538554278697,
+			"modified": 1542698254209,
 			"name": "payment-method-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4069,7 +4069,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367299.0625,
 			"method": "GET",
-			"modified": 1542319697473,
+			"modified": 1542697384011,
 			"name": "payment-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4098,7 +4098,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367303.75,
 			"method": "GET",
-			"modified": 1542319689733,
+			"modified": 1542679961630,
 			"name": "payment-history-type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4127,7 +4127,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367300.625,
 			"method": "GET",
-			"modified": 1536220277675,
+			"modified": 1542698127074,
 			"name": "booking-source-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -4185,7 +4185,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367335,
 			"method": "GET",
-			"modified": 1542331657568,
+			"modified": 1542685453322,
 			"name": "cancel-reason-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
