@@ -105,5 +105,18 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $data;
     }
 
+    /**
+     * Lấy tất cả các bản ghi sắp sắn đến ngày checkin, checkout
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function getAllBookingFuture()
+    {
+        $dateNow             = Carbon::now();
+        $dateNow_timestamp   = Carbon::now()->timestamp;
+        $tomorrow            = $dateNow->addDay();
+        $tomorrow_timestamp  = $tomorrow->timestamp;
+        $data                = $this->model->where('checkin','>=',$dateNow_timestamp)->where('checkout','>=',$dateNow_timestamp)->where('checkin','<',$tomorrow_timestamp)->whereIn('status', [1, 2, 3])->get();
+        return $data;
+    }
 }
 

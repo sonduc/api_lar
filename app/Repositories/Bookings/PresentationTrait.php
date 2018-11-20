@@ -85,6 +85,13 @@ trait PresentationTrait
             : trans2(ErrorCore::UNDEFINED);
     }
 
+    public function getEmailReminder()
+    {
+        return array_key_exists($this->email_reminder, BookingConstant::EMAIL_REMINDER)
+            ? BookingConstant::EMAIL_REMINDER[$this->email_reminder]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
     /**
      * Check a specific permission that belongs to this role
      *

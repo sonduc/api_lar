@@ -31,4 +31,23 @@ class SendEmail
         }
     }
 
+    /**
+     * Email thông báo cho khách trước 48h
+     *
+     */
+    public function mailNotificationBooking($data, $template = 'email.notification')
+    {
+        $email = $data->name->email;
+        $data  = $data->name;
+        try {
+            Mail::send($template,['data' => $data] ,function ($message) use ($email) {
+                $message->from('ndson1998@gmail.com');
+                $message->to('ndson1998@gmail.com')->subject('Thông báo ngày thuê phòng !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
+
 }

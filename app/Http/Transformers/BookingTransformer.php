@@ -77,6 +77,8 @@ class BookingTransformer extends TransformerAbstract
             'payment_method_txt' => $booking->getPaymentMethod(),
             'status'             => $booking->status,
             'status_txt'         => $booking->getBookingStatus(),
+            'email_reminder'     => $booking->email_reminder,
+            'email_reminder_txt' => $booking->getEmailReminder(),
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
             'exchange_rate'      => $booking->exchange_rate,
