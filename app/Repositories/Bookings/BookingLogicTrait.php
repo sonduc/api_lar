@@ -9,6 +9,7 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\Rooms\RoomOptionalPrice;
+use App\User;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\CarbonPeriod;

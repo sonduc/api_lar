@@ -181,8 +181,12 @@ class BookingLogic extends BaseLogic
         return $timeNow->diffInMinutes($timeSubmit);
     }
 
-    public function checkValidBookingUpdate($booking,$re)
+    public function checkValidBookingUpdate($booking,$request)
     {
+       if (array_key_exists($booking->status,[BookingConstant::BOOKING_COMPLETE,BookingConstant::BOOKING_CANCEL]))
+       {
+           throw new \Exception('Bạn không thể cập nhập thông tin cho booking này do đã hoàn thành hoặc đã bị hủy');
+       }
 
 
     }
