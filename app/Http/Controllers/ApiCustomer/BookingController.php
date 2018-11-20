@@ -166,13 +166,18 @@ class BookingController extends ApiController
     }
 
 
+    /**
+     * Tạo mới một booking theo góc độ người dùng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function store(Request $request)
     {
         DB::beginTransaction();
         try {
-            if(!Auth::check()) {
-                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
-            }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             event(new BookingEvent($data));
@@ -202,6 +207,71 @@ class BookingController extends ApiController
             throw $t;
         }
     }
+
+
+    public function update(Request $request,$id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            if(!Auth::check()) {
+                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
+            }
+            $this->validationRules['checkin'] = 'required|date';
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $booking=$this->model->getById($id);
+           // if (Auth::user()->id != $booking->customer_id) throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền cập nhât');
+            $this->model->checkValidBookingUpdate($booking,$request->all());
+            $only = $request->only(
+                'name',
+                'phone',
+                'sex',
+                'birthday',
+                'email',
+                'email_received',
+                'name_received',
+                'phone_received',
+                'checkin',
+                'checkout',
+                'number_of_guests',
+                'booking_type',
+                'payment_method',
+                'exchange_rate'
+            );
+            $data = $this->model->update($id, $request->all());
+            DB::commit();
+            logs('booking', 'sửa booking có code ' . $data->code, $data);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            if ($e instanceof InvalidDateException) {
+                return $this->errorResponse([
+                    'errors'    => $e->getField(),
+                    'exception' => $e->getValue(),
+                ]);
+            }
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+
+    }
+
+
+
 
 
 
@@ -260,57 +330,7 @@ class BookingController extends ApiController
     }
 
 
-    /**
-     *
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param int     $id <p>Mã của booking</p>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function updateBookingMoney(Request $request, $id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('booking.update');
 
-            $validate = array_only($this->validationRules, [
-                'additional_fee',
-                'price_discount',
-            ]);
-            $this->validate($request, $validate, $this->validationMessages);
-
-            $avaiable_option = array_keys($validate);
-
-            $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
-            logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
-
-            DB::commit();
-            return $this->successResponse($data);
-
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
 
     /**
      * Hủy booking
@@ -365,41 +385,6 @@ class BookingController extends ApiController
     }
 
 
-    /**
-     * Hình thức thanh toán
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function paymentMethodList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToOhject(BookingConstant::PAYMENT_METHOD);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
-
-    /**
-     * Trạng thái thanh toán
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Exception
-     */
-    public function paymentStatusList()
-    {
-        try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_STATUS);
-            return response()->json($data);
-        } catch (\Exception $e) {
-            throw $e;
-        }
-    }
 
 
     /**

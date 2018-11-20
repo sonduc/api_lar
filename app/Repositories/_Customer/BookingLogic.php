@@ -28,6 +28,7 @@ use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
+use Illuminate\Support\Facades\Auth;
 
 class BookingLogic extends BaseLogic
 {
@@ -178,6 +179,12 @@ class BookingLogic extends BaseLogic
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
         return $timeNow->diffInMinutes($timeSubmit);
+    }
+
+    public function checkValidBookingUpdate($booking,$re)
+    {
+
+
     }
 
 

@@ -331,5 +331,24 @@ trait BookingLogicTrait
         return $this->booking_cancel->store($data);
     }
 
+    /**
+     * Cập nhật tiền cho booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateBookingMoney($id, $data)
+    {
+        $booking          = parent::getById($id);
+        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
+        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
+        $data             = array_merge($booking->toArray(), $data);
+
+        return $this->update($id, $data);
+    }
+
 
 }

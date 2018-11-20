@@ -21,11 +21,13 @@ $router->group([
      * Booking-customer.
      */
     $router->get('/bookings', 'BookingController@index');
+    $router->put('/bookings/{id}', 'BookingController@update');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
     $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
     $router->post('/bookings', 'BookingController@store');
 });
     $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
+    $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
 
 
 /**
