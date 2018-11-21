@@ -116,16 +116,18 @@ class CouponLogic extends BaseLogic
     public function updateUsable($code)
     {
         $coupon 	= $this->getCouponByCode(strtoupper($code));
-        $id 		= $coupon['id'];
-        $coupon 	= (array) json_decode($coupon);
-        
-        if ($coupon['usable'] > 0) {
-            $coupon['usable'] 	= $coupon['usable']-1;
-            $coupon['used'] 	= $coupon['used']+1;
-            $data_coupon 		= parent::update($id, $coupon);
-            return $data_coupon;
-        } else {
-            throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
+        if ($coupon) {
+            $id 		= $coupon['id'];
+            $coupon 	= (array) json_decode($coupon);
+            
+            if ($coupon['usable'] > 0) {
+                $coupon['usable'] 	= $coupon['usable']-1;
+                $coupon['used'] 	= $coupon['used']+1;
+                $data_coupon 		= parent::update($id, $coupon);
+                return $data_coupon;
+            } else {
+                throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
+            }
         }
     }
 
@@ -147,18 +149,16 @@ class CouponLogic extends BaseLogic
      */
     public function checkSettingDiscount($coupon, $data)
     {
-        
         $data_allDay = $coupon->all_day;
         $data_status    = $coupon->status;
 
         if ($data_status == 1) {
-
             $data_settings  = json_decode($coupon->settings);
 
-            if($data_allDay == 1){
+            if ($data_allDay == 1) {
                 return $this->caculateDiscount($coupon, $data);
             }
-            if($data_allDay == 0){
+            if ($data_allDay == 0) {
                 if ($data['room_id'] != null) {
                     $dataRooms = $data_settings->rooms;
                     foreach ($dataRooms as $key => $value) {

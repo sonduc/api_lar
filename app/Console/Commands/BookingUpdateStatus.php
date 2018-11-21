@@ -42,27 +42,27 @@ class BookingUpdateStatus extends Command
     public function handle()
     {
         $bookings                   = $this->booking->getAllBookingFuture();
-        $current_day                = Carbon::now()->timestamp;
-        $tomorrow                   = $current_day + 1;
-        $the_day_after_tomorow      = $current_day + 86400;
-
+        // $current_day                = Carbon::now()->timestamp;
+        $current_day                = Carbon::now();
+        
         foreach ($bookings as $key => $booking) {
             $checkin                = $booking->checkin;
             $checkout               = $booking->checkout;
-            $checkin_timestamp      = Carbon::parse($checkin)->timestamp;
-            $checkout_timestamp     = Carbon::parse($checkout)->timestamp;
-            if ($booking->email_reminder == 0){
-                if ($current_day - $checkin_timestamp <= 172800){
+            $checkin_timestamp      = Carbon::parse($checkin);
+            $checkout_timestamp     = Carbon::parse($checkout);
+            dd($checkin_timestamp->diffInSeconds($current_day) >= 0);
+            if ($booking->email_reminder == 0) {
+                if ($current_day->diffInHours($checkin_timestamp) <= 48) {
                     event(new Booking_Notification_Event($booking));
                     $booking->email_reminder = 1;
                     $booking->save();
                 }
             }
-            if ($checkout_timestamp >= $current_day && $booking->status == 3){
+            if ($checkout_timestamp->diffInSeconds($current_day) <= 0 && $booking->status == 3) {
                 $booking->status = 4;
                 $booking->save();
             }
-            if ($checkin_timestamp >= $current_day && ($booking->status == 2 || $booking->status == 1)) {
+            if ($checkin_timestamp->diffInSeconds($current_day) >= 0 && ($booking->status == 2 || $booking->status == 1)) {
                 $booking->status = 3;
                 $booking->save();
             }
