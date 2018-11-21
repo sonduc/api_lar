@@ -30,8 +30,8 @@ trait PresentationTrait
 
     public function getCouponAllDay()
     {
-        return array_key_exists($this->status, Coupon::COUPON_ALLDAY)
-            ? Coupon::COUPON_ALLDAY[$this->status]
+        return array_key_exists($this->all_day, Coupon::COUPON_ALLDAY)
+            ? Coupon::COUPON_ALLDAY[$this->all_day]
             : trans2(ErrorCore::UNDEFINED);
     }
 
