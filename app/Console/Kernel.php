@@ -27,6 +27,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->command('booking:status')->everyThirtyMinutes();
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
     }
 

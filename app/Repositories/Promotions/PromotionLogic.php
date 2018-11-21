@@ -42,6 +42,7 @@ class PromotionLogic extends BaseLogic
 
     public function update($id, $data, $excepts = [], $only = [])
     {
+        $data['image'] = rand_name($data['image']);
         $data_promotion = parent::update($id, $data);
         return $data_promotion;
     }

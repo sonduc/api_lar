@@ -26,4 +26,5 @@ $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
+$router->post('coupons', 'CouponController@login');
 

@@ -3883,7 +3883,7 @@
 			"metaSortKey": -1531886360569.75,
 			"method": "POST",
 			"modified": 1542349495975,
-			"name": "caculate-discount ",
+			"name": "calculate-discount ",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
 			"settingDisableRenderRequestBody": false,
@@ -3892,7 +3892,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/caculate-discount",
+			"url": "{{ api_url  }}coupons/calculate-discount",
 			"_type": "request"
 		},
 		{

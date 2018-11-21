@@ -50,7 +50,7 @@ class BookingUpdateStatus extends Command
             $checkout               = $booking->checkout;
             $checkin_timestamp      = Carbon::parse($checkin);
             $checkout_timestamp     = Carbon::parse($checkout);
-            dd($checkin_timestamp->diffInSeconds($current_day) >= 0);
+            // dd($checkin_timestamp->diffInSeconds($current_day) >= 0);
             if ($booking->email_reminder == 0) {
                 if ($current_day->diffInHours($checkin_timestamp) <= 48) {
                     event(new Booking_Notification_Event($booking));
@@ -65,6 +65,9 @@ class BookingUpdateStatus extends Command
             if ($checkin_timestamp->diffInSeconds($current_day) >= 0 && ($booking->status == 2 || $booking->status == 1)) {
                 $booking->status = 3;
                 $booking->save();
+            }
+            if ($checkout_timestamp->diffInHours($current_day) >= 24 && $booking->status == 4){
+                
             }
         }
     }

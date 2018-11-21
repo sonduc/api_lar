@@ -42,7 +42,7 @@ class SendEmail
         try {
             Mail::send($template,['data' => $data] ,function ($message) use ($email) {
                 $message->from('ndson1998@gmail.com');
-                $message->to('ndson1998@gmail.com')->subject('Thông báo ngày thuê phòng !!!');
+                $message->to($email)->subject('Thông báo ngày thuê phòng !!!');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email );
@@ -50,4 +50,22 @@ class SendEmail
         }
     }
 
+    /**
+     * Email mời khách reviews sau checkout
+     *
+     */
+    public function mailReviewsBooking($data, $template = 'email.reviews')
+    {
+        $email = $data->name->email;
+        $data  = $data->name;
+        try {
+            Mail::send($template,['data' => $data] ,function ($message) use ($email) {
+                $message->from('ndson1998@gmail.com');
+                $message->to($email)->subject('Đánh giá căn hộ !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email );
+            throw $e;
+        }
+    }
 }

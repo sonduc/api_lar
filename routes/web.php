@@ -15,7 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
-
-
+Route::get('reviews', function () {
+    return view('email.reviews');
+});
 

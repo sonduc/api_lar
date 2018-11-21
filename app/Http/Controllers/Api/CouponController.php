@@ -25,6 +25,8 @@ class CouponController extends ApiController
         'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',
         'settings.days.*'               =>  'distinct|date|after:now',
         'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',
+
+        'coupon'                        =>  'string|min:4|exists:coupons,code,deleted_at,NULL',
     ];
     protected $validationMessages = [
         'code.required'                 =>  'Mã giảm giá không được để trống',
@@ -72,6 +74,9 @@ class CouponController extends ApiController
         'district_id.exists'        => 'Quận huyện không tồn tại',
         'day.date'                  => 'Ngày áp dụng giảm giá không hợp lệ',
         'day.after'                 => 'Ngày giảm giá không được phép ở thời điểm quá khứ',
+        'coupon.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'coupon.min'                      =>  'Độ dài phải là :min',
+        'coupon.exists'                   =>  'Mã giảm giá không tồn tại',
     ];
 
     /**
@@ -129,8 +134,8 @@ class CouponController extends ApiController
             $this->authorize('coupon.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data_transformed = $this->model->transformCoupon($request->all());
-            $data = $this->model->store($data_transformed);
+            $data = $this->model->store($request->all());
+            $data_transformed = $this->model->transformCoupon($data);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -283,7 +288,7 @@ class CouponController extends ApiController
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscount(Request $request)
+    public function calculateDiscount(Request $request)
     {
         DB::enableQueryLog();
         try {
@@ -304,9 +309,9 @@ class CouponController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
 
             $coupon = $this->model->getCouponByCode($request->coupon);
-
-            // $data = $this->model->checkSettingdiscount($coupon,$request->all());
-            // dd($data);
+            
+            $this->model->checkSettingDiscount($coupon,$request->all());
+            
             $data = [
                 'data' => $this->model->checkSettingDiscount($coupon,$request->all()),
             ];

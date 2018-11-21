@@ -64,6 +64,7 @@ class CouponLogic extends BaseLogic
             throw new \Exception('Không có quyền sửa đổi mục này');
         };
         
+        $data['code']       = strtoupper($data['code']);
         $data['settings'] 	= json_encode($data['settings']);
         $data_coupon 		= parent::update($id, $data);
         return $data_coupon;
@@ -91,12 +92,12 @@ class CouponLogic extends BaseLogic
      */
     public function transformCoupon($data)
     {
-        $settings 		= $data['settings'];
-        
-        $arrRoom 		= $this->room_translate->getRoomByListId($settings['rooms']);
-        $arrCity 		= $this->city->getCityByListId($settings['cities']);
-        $arrDistrict 	= $this->district->getDistrictByListId($settings['districts']);
-        $arrDay 		= $settings['days'];
+        $settings       = json_decode($data['settings']);
+        // dd($settings->rooms);
+        $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
+        $arrCity 		= $this->city->getCityByListId($settings->cities);
+        $arrDistrict 	= $this->district->getDistrictByListId($settings->districts);
+        $arrDay 		= $settings->days;
 
         $arrayTransformSetting = [
             'rooms' 	=> $arrRoom,
@@ -149,6 +150,8 @@ class CouponLogic extends BaseLogic
      */
     public function checkSettingDiscount($coupon, $data)
     {
+        if($coupon) {
+            
         $data_allDay = $coupon->all_day;
         $data_status    = $coupon->status;
 
@@ -156,30 +159,30 @@ class CouponLogic extends BaseLogic
             $data_settings  = json_decode($coupon->settings);
 
             if ($data_allDay == 1) {
-                return $this->caculateDiscount($coupon, $data);
+                return $this->calculateDiscount($coupon, $data);
             }
             if ($data_allDay == 0) {
                 if ($data['room_id'] != null) {
                     $dataRooms = $data_settings->rooms;
                     foreach ($dataRooms as $key => $value) {
-                        if ($data['room_id'] == $value->id) {
-                            return $this->caculateDiscount($coupon, $data);
+                        if ($data['room_id'] == $value) {
+                            return $this->calculateDiscount($coupon, $data);
                         }
                     }
                 }
                 if ($data['city_id'] != null) {
                     $dataCities = $data_settings->cities;
                     foreach ($dataCities as $key => $value) {
-                        if ($data['city_id'] == $value->id) {
-                            return $this->caculateDiscount($coupon, $data);
+                        if ($data['city_id'] == $value) {
+                            return $this->calculateDiscount($coupon, $data);
                         }
                     }
                 }
                 if ($data['district_id'] != null) {
                     $dataDistricts = $data_settings->districts;
                     foreach ($dataDistricts as $key => $value) {
-                        if ($data['district_id'] == $value->id) {
-                            return $this->caculateDiscount($coupon, $data);
+                        if ($data['district_id'] == $value) {
+                            return $this->calculateDiscount($coupon, $data);
                         }
                     }
                 }
@@ -187,7 +190,7 @@ class CouponLogic extends BaseLogic
                     $dataDays = $data_settings->days;
                     foreach ($dataDays as $key => $value) {
                         if ($data['day'] == $value) {
-                            return $this->caculateDiscount($coupon, $data);
+                            return $this->calculateDiscount($coupon, $data);
                         }
                     }
                 }
@@ -196,6 +199,9 @@ class CouponLogic extends BaseLogic
         } else {
             throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
         }
+        } else {
+            throw new \Exception('Mã khuyến mãi không tồn tại');
+        }
     }
 
     /**
@@ -203,7 +209,7 @@ class CouponLogic extends BaseLogic
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscount($coupon, $data)
+    public function calculateDiscount($coupon, $data)
     {
         $price_discount = ($coupon->discount * $data['price_original'])/100;
 
