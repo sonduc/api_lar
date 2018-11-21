@@ -56,6 +56,16 @@ class Room extends Entity
         self::TYPE_DAY  => 'Theo ngày',
         self::TYPE_ALL  => 'Cả ngày và giờ',
     ];
+
+    const REFUND_100  = 100;
+    const REFUND_50   = 50;
+    const REFUND_0    = 0;
+
+    const CACELLATION_POLICY = [
+        self::REFUND_100     => 'Hoàn lại tiền 100%',
+        self::REFUND_50      => 'Hoàn lại tiền 50%',
+        self::REFUND_0       => 'Miễn phí hủy phòng',
+    ];
     protected $table = 'rooms';
     /**
      * The attributes that are mass assignable.
@@ -96,7 +106,8 @@ class Room extends Entity
         'avg_valuable',
         'avg_avg_rating',
         'total_review',
-        'total_recommend'
+        'total_recommend',
+        'settings0'
     ];
     /**
      * The attributes that should be mutated to dates.

@@ -69,7 +69,14 @@ class RoomController extends ApiController
         'room_time_blocks.*.0'               => 'date|after:now',
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
-        'room_time_blocks.*'                 => 'array',
+        'room_time_bloks.*'                 => 'array',
+
+        /**
+         * setting
+         */
+        'settings.refund_100'              => 'required|integer',
+        'settings.refund_50'               => 'required|integer',
+        'settings.refund_0'                => 'required|integer',
 
     ];
 
@@ -164,7 +171,20 @@ class RoomController extends ApiController
         'unlock_days.*.0.date'         => 'Ngày không hợp lệ',
         'unlock_days.*.0.after'        => 'Ngày bắt đầu phải ở tương lai',
         'unlock_days.*.1.date'         => 'Ngày không hợp lệ',
-        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu'
+        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+
+        /**
+         * setting
+         */
+         'settings.refund_100.required'=> 'Trường này không được để trống',
+         'settings.refund_100.integer' => 'Trường này phải là kiểu số nguyên',
+
+         'settings.refund_50.required' => 'Trường này phải là kiểu để trống',
+         'settings.refund_50.integer'  => 'Trường này phải là kiểu số nguyên',
+
+         'settings.refund_0.required'  => 'Trường này phải là kiểu để trống',
+         'settings.refund_0.integer'   => 'Trường này phải là kiểu số nguyên',
+
 
     ];
 

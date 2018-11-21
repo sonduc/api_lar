@@ -68,6 +68,7 @@ class RoomLogic extends BaseLogic
      */
     public function store($data)
     {
+        dd($data['settings']['refund_100']);
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
