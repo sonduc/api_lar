@@ -30,6 +30,7 @@ $app->withEloquent();
 
 // Config file
 // $app->configure('app');
+$app->configure('cors');
 $app->configure('auth');
 $app->configure('singleton');
 $app->configure('permissions');
@@ -74,8 +75,8 @@ $app->singleton(
 */
 
 $app->middleware([
-    App\Http\Middleware\ExampleMiddleware::class,
 \Barryvdh\Cors\HandleCors::class,
+//App\Http\Middleware\ExampleMiddleware::class,
 ]);
 
 // Enable auth middleware (shipped with Lumen)
