@@ -16,6 +16,7 @@ class Kernel extends ConsoleKernel
         = [
             'App\Console\Commands\ValidateCoupon',
             'App\Console\Commands\BookingUpdateStatus',
+            'App\Console\Commands\BookingReviews',
         ];
 
     /**
@@ -28,6 +29,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('booking:status')->everyThirtyMinutes();
+        $schedule->command('booking:status')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
     }
 

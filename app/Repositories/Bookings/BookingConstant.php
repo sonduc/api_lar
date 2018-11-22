@@ -28,6 +28,12 @@ final class BookingConstant
         self::EMAIL_PENDING => 'Chưa gửi email nhắc nhở',
     ];
 
+    // Trạng thái email reviews
+    const EMAIL_REVIEWS = [
+        self::EMAIL_SENT    => 'Đã gửi email review',
+        self::EMAIL_PENDING => 'Chưa gửi email review',
+    ];
+
     // Định nghĩa trạng thái đặt phòng
     const BOOKING_NEW      = 1; // Đơn mới
     const BOOKING_CONFIRM  = 2; // Đã xác nhận

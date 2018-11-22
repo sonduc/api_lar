@@ -54,12 +54,13 @@ class SendEmail
      * Email mời khách reviews sau checkout
      *
      */
-    public function mailReviewsBooking($data, $template = 'email.reviews')
+    public function mailReviewsBooking($dataBooking, $template = 'email.reviews')
     {
-        $email = $data->name->email;
-        $data  = $data->name;
+        $email      = $dataBooking->name->email;
+        $data       = $dataBooking->name;
+        $dataTime   = $dataBooking->data;
         try {
-            Mail::send($template,['data' => $data] ,function ($message) use ($email) {
+            Mail::send($template,['data' => $data,'dataTime' => $dataTime] ,function ($message) use ($email) {
                 $message->from('ndson1998@gmail.com');
                 $message->to($email)->subject('Đánh giá căn hộ !!!');
             });

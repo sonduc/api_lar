@@ -16,7 +16,7 @@ class Booking extends Entity
      */
     protected $fillable = [
         'uuid', 'code', 'name', 'phone', 'email', 'sex', 'birthday', 'email_received', 'name_received', 'phone_received', 'room_id', 'customer_id', 'merchant_id', 'checkin', 'checkout', 'price_original', 'additional_fee', 'price_discount', 'coupon', 'coupon_discount', 'note', 'total_fee',
-        'status','email_reminder', 'number_of_guests', 'service_fee', 'type', 'booking_type', 'payment_method', 'payment_status', 'price_range', 'source', 'exchange_rate',
+        'status','email_reminder','email_reviews', 'number_of_guests', 'service_fee', 'type', 'booking_type', 'payment_method', 'payment_status', 'price_range', 'source', 'exchange_rate',
     ];
 
     /**

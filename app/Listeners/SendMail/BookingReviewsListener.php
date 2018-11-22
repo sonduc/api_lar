@@ -3,7 +3,7 @@
 namespace App\Listeners\SendMail;
 
 
-use App\Events\Booking_Notification_Event;
+use App\Events\Booking_Reviews_Event;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -22,7 +22,7 @@ class BookingReviewsListener implements ShouldQueue
     }
 
 
-    public function handle(Booking_Notification_Event $event)
+    public function handle(Booking_Reviews_Event $event)
     {
         $this->email->mailReviewsBooking($event);
     }

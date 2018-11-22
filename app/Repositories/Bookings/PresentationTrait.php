@@ -92,6 +92,13 @@ trait PresentationTrait
             : trans2(ErrorCore::UNDEFINED);
     }
 
+    public function getEmailReviews()
+    {
+        return array_key_exists($this->email_reviews, BookingConstant::EMAIL_REVIEWS)
+            ? BookingConstant::EMAIL_REVIEWS[$this->email_reviews]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
     /**
      * Check a specific permission that belongs to this role
      *
