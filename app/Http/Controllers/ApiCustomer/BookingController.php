@@ -44,7 +44,7 @@ class BookingController extends ApiController
         'note'             => 'nullable|v_title',
         'number_of_guests' => 'bail|required|guest_check|integer|min:1',
         'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',
-        'status'           => 'required|in:1',
+        'status'           => 'in:1',
         'type'             =>  'required|in:2',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
         'payment_method'   => 'required|in:2,3,4,5',
