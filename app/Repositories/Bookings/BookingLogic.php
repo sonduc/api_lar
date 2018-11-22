@@ -445,6 +445,10 @@ class BookingLogic extends BaseLogic
      */
     public function cancelBooking($id, $data)
     {
+        $data_booking   = parent::getById($id);
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
         $booking_refund_map_days    = array_map(function ($item){
             return $item['days'];
@@ -461,7 +465,6 @@ class BookingLogic extends BaseLogic
 
 
         // số ngày hủy phòng cách thời điểm checkin
-        $data_booking   = parent::getById($id);
         $checkin        =Carbon::parse($data_booking->checkin);
         $date_of_room   = Carbon::now();
         $day            = $checkin->diffInDays($date_of_room);
@@ -473,9 +476,6 @@ class BookingLogic extends BaseLogic
         $data_refund  = $this->booking_refund->getRefund($data_booking->id,$day);
         $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
 
-        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-        }
 
         $booking_update = [
             'status'        => BookingConstant::BOOKING_CANCEL,
@@ -487,37 +487,4 @@ class BookingLogic extends BaseLogic
         return $this->booking_cancel->store($data);
     }
 
-
-    /**
-     *
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $range
-     * @param $i
-     * @return mixed
-     */
-    public function getDay($day, $booking_refund_map_days,$range)
-    {
-        if (in_array($day,$booking_refund_map_days))
-        {
-            return $day;
-        }elseif($day < min($booking_refund_map_days))
-        {
-            return min($booking_refund_map_days);
-
-        }elseif($day > max($booking_refund_map_days))
-        {
-            return max($booking_refund_map_days);
-
-        }
-
-        // check mốc theo theo khoảng
-        foreach ($range as $value) {
-            if (in_array($day,$value))
-            {
-                return max($value);
-                break;
-            }
-        }
-    }
 }

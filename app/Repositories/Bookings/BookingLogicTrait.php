@@ -302,4 +302,38 @@ trait BookingLogicTrait
 
         return $user->id;
     }
+
+
+    /**
+     * Lấy ra mốc thời gian hủy phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $range
+     * @param $i
+     * @return mixed
+     */
+    public function getDay($day, $booking_refund_map_days,$range)
+    {
+        if (in_array($day,$booking_refund_map_days))
+        {
+            return $day;
+        }elseif($day < min($booking_refund_map_days))
+        {
+            return min($booking_refund_map_days);
+
+        }elseif($day > max($booking_refund_map_days))
+        {
+            return max($booking_refund_map_days);
+
+        }
+
+        // check mốc theo theo khoảng
+        foreach ($range as $value) {
+            if (in_array($day,$value))
+            {
+                return max($value);
+                break;
+            }
+        }
+    }
 }
