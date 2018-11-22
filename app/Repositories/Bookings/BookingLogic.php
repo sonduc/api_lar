@@ -75,16 +75,15 @@ class BookingLogic extends BaseLogic
      */
     public function store($data = [])
     {
-        $room = $this->room->getById($data['room_id']);
+        $room = $this->room->getById(3145);
         $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
+        $data['settings']=  $room->settings;;
         $data['customer_id'] =
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
-
-        dd($data);
 
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);

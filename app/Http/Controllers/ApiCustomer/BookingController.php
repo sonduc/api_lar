@@ -169,9 +169,6 @@ class BookingController extends ApiController
     {
         DB::beginTransaction();
         try {
-            if (!Auth::check()) {
-                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
-            }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             event(new BookingEvent($data));
