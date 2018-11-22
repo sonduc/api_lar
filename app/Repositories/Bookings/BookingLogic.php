@@ -31,6 +31,7 @@ class BookingLogic extends BaseLogic
     protected $booking;
     protected $roomTimeBlock;
     protected $booking_cancel;
+    protected $booking_refund;
 
     /**
      * BookingLogic constructor.
@@ -52,7 +53,8 @@ class BookingLogic extends BaseLogic
         RoomRepositoryInterface $room,
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
-        BookingCancelRepositoryInterface $booking_cancel
+        BookingCancelRepositoryInterface $booking_cancel,
+        BookingRefundRepositoryInterface $booking_refund
     ) {
         $this->model          = $booking;
         $this->booking        = $booking;
@@ -63,6 +65,7 @@ class BookingLogic extends BaseLogic
         $this->op             = $op;
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
+        $this->booking_refund = $booking_refund;
     }
 
     /**
@@ -80,7 +83,6 @@ class BookingLogic extends BaseLogic
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
-        $data['settings']=  $room->settings;;
         $data['customer_id'] =
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
@@ -88,6 +90,7 @@ class BookingLogic extends BaseLogic
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
+        $this->booking_refund->storeBookingRefund($data_booking,$room);
         return $data_booking;
     }
 
@@ -444,6 +447,7 @@ class BookingLogic extends BaseLogic
     {
 
 
+
 //        dd($checkout);
 //        $period           = CarbonPeriod::between($checkin, $checkout);
 //        dd($period);
@@ -453,35 +457,32 @@ class BookingLogic extends BaseLogic
 //       $date  = Carbon::now();
 //        $checkin = $data_booking->checkin;
 //        $checkout = $data_booking->checkout;;
-        $data_booking = parent::getById($id);
-        $a= json_decode( $data_booking->settings);
+        $booking_refund = $this->booking_refund->getBookingRefundByBookingId($id);
+        $booking_refund_map_days = array_map(function ($item){
+            return $item['days'];
+        },$booking_refund);
 
-//        foreach ($a as $value) {
-//            dd($value->days);
-//        }
-
-
-        $map = array_map(function ($item){
-            return $item->days;
-        },$a);
-        sort($map);
-        $count = count($map)-1;
+        //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
+        $count = count($booking_refund_map_days)-1;
         $range = [];
         for ($i = 0; $i < $count; $i++)
         {
-            $range[] = range($map[$i],$map[$i+1]);
+            $range[] = range($booking_refund_map_days[$i],$booking_refund_map_days[$i+1]);
 
         }
 
-        $test = array_map(function ($item){
+       // $checkin = $data_booking->checkin;
 
-           if (in_array(9,$item)){
-               return 10;
-           }
 
-        },$range);
+        //  Xuất ra mốc ngày hủy.
+        $day =$this->getDay($range,9);
 
-        dd($test);
+        dd($day);
+
+
+
+
+      //  dd($test);
 
         dd($range);
 
@@ -515,5 +516,25 @@ class BookingLogic extends BaseLogic
 
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $range
+     * @param $i
+     * @return mixed
+     */
+    public function getDay($range, $i)
+    {
+        foreach ($range as $value) {
+            if (in_array($i,$value))
+            {
+                return $i;
+                break;
+            }
+        }
     }
 }

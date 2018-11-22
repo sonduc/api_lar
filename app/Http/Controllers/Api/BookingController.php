@@ -206,7 +206,7 @@ class BookingController extends ApiController
             $this->authorize('booking.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            
+
             // dd(DB::getQueryLog());
             DB::commit();
 

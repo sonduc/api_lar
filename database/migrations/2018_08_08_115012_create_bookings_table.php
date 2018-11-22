@@ -50,7 +50,6 @@ class CreateBookingsTable extends Migration
             $table->tinyInteger('source')->nullable();
             $table->double('exchange_rate')->nullable();
             $table->double('total_refund')->nullable();
-            $table->longText('settings')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
