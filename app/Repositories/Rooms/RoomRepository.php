@@ -61,4 +61,15 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where('room_translates.lang','vi')
             ->where('rooms.id', $id)->first();
     }
+
+
+    public function checkVaildRefund($refund)
+    {
+        $refund_map = array_map(function ($item) {
+            return $item['days'];
+        },$refund);
+        $refund_uique = array_unique($refund_map);
+        if(count($refund_map) > count($refund_uique)) throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
+        return  json_encode($refund);
+    }
 }

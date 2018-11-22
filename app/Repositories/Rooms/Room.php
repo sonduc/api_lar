@@ -57,6 +57,10 @@ class Room extends Entity
         self::TYPE_ALL  => 'Cả ngày và giờ',
     ];
 
+    /**
+     * setting-room
+     */
+
     const REFUND_100  = 100;
     const REFUND_50   = 50;
     const REFUND_0    = 0;
@@ -107,7 +111,7 @@ class Room extends Entity
         'avg_avg_rating',
         'total_review',
         'total_recommend',
-        'settings0'
+        'settings'
     ];
     /**
      * The attributes that should be mutated to dates.

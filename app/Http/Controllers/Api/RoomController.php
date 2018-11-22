@@ -69,14 +69,15 @@ class RoomController extends ApiController
         'room_time_blocks.*.0'               => 'date|after:now',
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
-        'room_time_bloks.*'                 => 'array',
+        'room_time_bloks.*'                  => 'array',
 
         /**
          * setting
          */
-        'settings.refund_100'              => 'required|integer',
-        'settings.refund_50'               => 'required|integer',
-        'settings.refund_0'                => 'required|integer',
+        'settings.refunds.*.days'            => 'required|integer',
+        'settings.refunds.*.amount'          => 'required|integer',
+
+
 
     ];
 
@@ -176,14 +177,13 @@ class RoomController extends ApiController
         /**
          * setting
          */
-         'settings.refund_100.required'=> 'Trường này không được để trống',
-         'settings.refund_100.integer' => 'Trường này phải là kiểu số nguyên',
+         'settings.refunds.*.days.required'     => 'Trường này không được để trống',
+         'settings.refunds.*.days.integer'      => 'Trường này phải là kiểu số nguyên',
 
-         'settings.refund_50.required' => 'Trường này phải là kiểu để trống',
-         'settings.refund_50.integer'  => 'Trường này phải là kiểu số nguyên',
+         'settings.refunds.*.amount.required'   => 'Trường này không được để trống',
+         'settings.refunds.*.amount.integer'    => 'Trường này phải là kiểu số nguyên',
 
-         'settings.refund_0.required'  => 'Trường này phải là kiểu để trống',
-         'settings.refund_0.integer'   => 'Trường này phải là kiểu số nguyên',
+
 
 
     ];
@@ -276,7 +276,7 @@ class RoomController extends ApiController
 
             $data = $this->model->store($request->all());
           // dd(DB::getQueryLog());
-            DB::commit();
+           DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -337,6 +337,9 @@ class RoomController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

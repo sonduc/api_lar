@@ -66,9 +66,9 @@ class RoomLogic extends BaseLogic
      *
      * @return \App\Repositories\Eloquent
      */
-    public function store($data)
+    public function store($data,$room = [])
     {
-        dd($data['settings']['refund_100']);
+        $data['settings']= $this->model->checkVaildRefund($data['settings']['refunds']);
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
@@ -108,8 +108,9 @@ class RoomLogic extends BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
+        $data['settings']= $this->model->checkVaildRefund($data['settings']['refunds']);
+        dd($data['settings']);
         $data_room = parent::update($id, $data);
-
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         $this->roomMedia->updateRoomMedia($data_room, $data);
