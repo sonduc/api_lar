@@ -75,7 +75,7 @@ class BookingLogic extends BaseLogic
      */
     public function store($data = [])
     {
-        $room = $this->room->getById(3145);
+        $room = $this->room->getById($data['room_id']);
         $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
@@ -428,5 +428,82 @@ class BookingLogic extends BaseLogic
         $this->payment->storePaymentHistory($data_booking, $data);
 
         return $data_booking;
+    }
+
+    /**
+     * Hủy booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     * @throews \Exception
+     */
+    public function cancelBooking($id, $data)
+    {
+
+//        dd($checkout);
+//        $period           = CarbonPeriod::between($checkin, $checkout);
+//        dd($period);
+//        $checkin = Carbon::parse($checkin);
+//       / $day = $checkin->diffInDays($date);
+//       dd($day);
+//       $date  = Carbon::now();
+//        $checkin = $data_booking->checkin;
+//        $checkout = $data_booking->checkout;;
+        $data_booking = parent::getById($id);
+        $a= json_decode( $data_booking->settings);
+
+//        foreach ($a as $value) {
+//            dd($value->days);
+//        }
+
+
+        $map = array_map(function ($item){
+            return $item->days;
+        },$a);
+        sort($map);
+        $count = count($map);
+        //dd($count);
+
+
+
+       // $range = [];
+
+        for ($i=0;$i < $count; $i+1)
+        {
+          echo 'a0';
+
+        }
+        die();
+        dd($range);
+
+//        $range = array_map(function ($value){
+//            return range($value,10);
+//        },$map);
+//        dd($range);
+
+        dd($a);
+        foreach ($a as $value)
+        {
+            dd($value);
+        }
+
+
+        die();
+
+
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
+
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
+
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
     }
 }
