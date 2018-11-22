@@ -93,6 +93,8 @@ abstract class BaseRepository implements EntityInterface
      */
     public function store($data)
     {
+
+        dd($this->model);
        return $this->model->create($data);
     }
 
