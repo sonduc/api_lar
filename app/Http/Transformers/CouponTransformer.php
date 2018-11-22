@@ -32,7 +32,7 @@ class CouponTransformer extends TransformerAbstract
             'status_txt'        =>  $coupon->getCouponStatus(),
             'all_day'           =>  $coupon->all_day,
             'all_day_txt'       =>  $coupon->getCouponAllDay(),
-            'settings'          =>  $coupon->settings,
+            'settings'          =>  gettype($coupon->settings) === 'array' ? $coupon->settings : json_decode($coupon->settings),
             'promotion_id'      =>  $coupon->promotion_id,
 
         ];

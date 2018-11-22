@@ -30,14 +30,12 @@ $router->put('register/email-confirm', 'RegisterController@confirm');
  * Router Coupon
  */
 $router->post('coupons/calculate-discount', 'CouponController@calculateDiscount');
-$router->get('coupons', 'CouponController@index');
-$router->get('coupons/{id}', 'CouponController@show');
 $router->get('coupons/status-list', 'CouponController@statusList');
 $router->get('coupons/all-day-list', 'CouponController@allDayList');
+resource('/coupons', 'CouponController', $router);
 
 /**
  * Router Promotion
  */
-$router->get('promotions', 'PromotionController@index');
-$router->get('promotions/{id}', 'PromotionController@show');
-$router->get('/promotions/status-list', 'PromotionController@statusList');
+$router->get('promotions/status-list', 'PromotionController@statusList');
+resource('/promotions', 'PromotionController', $router);
