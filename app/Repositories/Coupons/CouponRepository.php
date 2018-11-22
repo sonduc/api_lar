@@ -22,7 +22,7 @@ class CouponRepository extends BaseRepository implements CouponRepositoryInterfa
      */
     public function getCouponByCode($code)
     {
-        $coupon = $this->model->where('code', $code)->first();
+        $coupon = $this->model->where('code', $code)->with('Promotions')->first();
         return $coupon;
     }
 }

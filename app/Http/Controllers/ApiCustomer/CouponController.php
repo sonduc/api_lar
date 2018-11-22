@@ -58,24 +58,24 @@ class CouponController extends ApiController
         'promotion_id.integer'          =>  'Mã chương trình giảm giá phải là kiểu số',
         'promotion_id.exists'           =>  'Chương trình giảm giá không tồn tại',
 
-        'coupon.min'                => 'Độ dài phải là :min',
-        'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
-        'coupon.exists'             => 'Coupon không tồn tại',
-        'price_original.required'   => 'Giá gốc không được để trống',
-        'price_original.integer'    => 'Giá gốc phải là kiểu số',
-        'price_original.min'        => 'Giá gốc không được dưới 0',
-        'room_id.required'          => 'Vui lòng chọn phòng',
-        'room_id.integer'           => 'Mã phòng phải là kiểu số',
-        'room_id.exists'            => 'Phòng không tồn tại',
-        'city_id.integer'           => 'Mã thành phố phải là kiểu số',
-        'city_id.exists'            => 'Thành phố không tồn tại',
-        'district_id.integer'       => 'Mã quận huyện phải là kiểu số',
-        'district_id.exists'        => 'Quận huyện không tồn tại',
-        'day.date'                  => 'Ngày áp dụng giảm giá không hợp lệ',
-        'day.after'                 => 'Ngày giảm giá không được phép ở thời điểm quá khứ',
-        'coupon.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
-        'coupon.min'                      =>  'Độ dài phải là :min',
-        'coupon.exists'                   =>  'Mã giảm giá không tồn tại',
+        'coupon.min'                    =>  'Độ dài phải là :min',
+        'coupon.string'                 =>  'Coupon không được chứa ký tự đặc biệt',
+        'coupon.exists'                 =>  'Coupon không tồn tại',
+        'price_original.required'       =>  'Giá gốc không được để trống',
+        'price_original.integer'        =>  'Giá gốc phải là kiểu số',
+        'price_original.min'            =>  'Giá gốc không được dưới 0',
+        'room_id.required'              =>  'Vui lòng chọn phòng',
+        'room_id.integer'               =>  'Mã phòng phải là kiểu số',
+        'room_id.exists'                =>  'Phòng không tồn tại',
+        'city_id.integer'               =>  'Mã thành phố phải là kiểu số',
+        'city_id.exists'                =>  'Thành phố không tồn tại',
+        'district_id.integer'           =>  'Mã quận huyện phải là kiểu số',
+        'district_id.exists'            =>  'Quận huyện không tồn tại',
+        'day.date'                      =>  'Ngày áp dụng giảm giá không hợp lệ',
+        'day.after'                     =>  'Ngày giảm giá không được phép ở thời điểm quá khứ',
+        'coupon.string'                 =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'coupon.min'                    =>  'Độ dài phải là :min',
+        'coupon.exists'                 =>  'Mã giảm giá không tồn tại',
     ];
 
     /**
@@ -177,7 +177,7 @@ class CouponController extends ApiController
             $validate['price_original'] = 'required|integer|min:0';
             $validate['city_id'] = 'integer|exists:cities,id,deleted_at,NULL';
             $validate['district_id'] = 'integer|exists:districts,id,deleted_at,NULL';
-            $validate['day'] = 'date|after:now';
+            $validate['day'] = 'date|after:yesterday';
             $this->validate($request, $validate, $this->validationMessages);
 
             $coupon = $this->model->getCouponByCode($request->coupon);
@@ -201,9 +201,9 @@ class CouponController extends ApiController
                     'exception' => $e->getValue(),
                 ]);
             }
-            // return $this->errorResponse([
-            //     'error' => $e->getMessage(),
-            // ]);
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         }
     }
