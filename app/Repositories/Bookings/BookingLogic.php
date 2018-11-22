@@ -443,6 +443,7 @@ class BookingLogic extends BaseLogic
     public function cancelBooking($id, $data)
     {
 
+
 //        dd($checkout);
 //        $period           = CarbonPeriod::between($checkin, $checkout);
 //        dd($period);
@@ -464,20 +465,29 @@ class BookingLogic extends BaseLogic
             return $item->days;
         },$a);
         sort($map);
-        $count = count($map);
+        $count = count($map)-1;
+        $range = [];
+        for ($i = 0; $i < $count; $i++)
+        {
+            $range[] = range($map[$i],$map[$i+1]);
+
+        }
+
+        $test = array_map(function ($item){
+
+           if (in_array(9,$item)){
+               return 10;
+           }
+
+        },$range);
+
+        dd($test);
+
+        dd($range);
+
         //dd($count);
 
 
-
-       // $range = [];
-
-        for ($i=0;$i < $count; $i+1)
-        {
-          echo 'a0';
-
-        }
-        die();
-        dd($range);
 
 //        $range = array_map(function ($value){
 //            return range($value,10);
