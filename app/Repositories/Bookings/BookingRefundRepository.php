@@ -48,9 +48,26 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
 
     }
 
+    /**
+     * Lấy dữ diệu booking_refund theo booking_id
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking_id
+     * @return mixed
+     */
     public function getBookingRefundByBookingId($booking_id)
     {
         return $this->model->where('booking_id',$booking_id)->orderBy('days')->get()->toArray();
     }
+
+
+    public function getRefund($booking_id, $day)
+    {
+        return $this->model->where([
+            ['booking_id',$booking_id],
+            ['days',$day]
+        ])->first();
+    }
+
 
 }

@@ -445,20 +445,8 @@ class BookingLogic extends BaseLogic
      */
     public function cancelBooking($id, $data)
     {
-
-
-
-//        dd($checkout);
-//        $period           = CarbonPeriod::between($checkin, $checkout);
-//        dd($period);
-//        $checkin = Carbon::parse($checkin);
-//       / $day = $checkin->diffInDays($date);
-//       dd($day);
-//       $date  = Carbon::now();
-//        $checkin = $data_booking->checkin;
-//        $checkout = $data_booking->checkout;;
-        $booking_refund = $this->booking_refund->getBookingRefundByBookingId($id);
-        $booking_refund_map_days = array_map(function ($item){
+        $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
+        $booking_refund_map_days    = array_map(function ($item){
             return $item['days'];
         },$booking_refund);
 
@@ -471,49 +459,30 @@ class BookingLogic extends BaseLogic
 
         }
 
-       // $checkin = $data_booking->checkin;
+
+        // số ngày hủy phòng cách thời điểm checkin
+        $data_booking   = parent::getById($id);
+        $checkin        =Carbon::parse($data_booking->checkin);
+        $date_of_room   = Carbon::now();
+        $day            = $checkin->diffInDays($date_of_room);
 
 
-        //  Xuất ra mốc ngày hủy.
-        $day =$this->getDay($range,9);
+        //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
+        $day =$this->getDay($day,$booking_refund_map_days,$range);
 
-        dd($day);
-
-
-
-
-      //  dd($test);
-
-        dd($range);
-
-        //dd($count);
-
-
-
-//        $range = array_map(function ($value){
-//            return range($value,10);
-//        },$map);
-//        dd($range);
-
-        dd($a);
-        foreach ($a as $value)
-        {
-            dd($value);
-        }
-
-
-        die();
-
+        $data_refund  = $this->booking_refund->getRefund($data_booking->id,$day);
+        $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
 
         if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
             throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
         }
 
         $booking_update = [
-            'status' => BookingConstant::BOOKING_CANCEL,
+            'status'        => BookingConstant::BOOKING_CANCEL,
+            'total_refund'  => $total_refund,
         ];
-        parent::update($id, $booking_update);
 
+        parent::update($id, $booking_update);
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
     }
@@ -527,12 +496,26 @@ class BookingLogic extends BaseLogic
      * @param $i
      * @return mixed
      */
-    public function getDay($range, $i)
+    public function getDay($day, $booking_refund_map_days,$range)
     {
+        if (in_array($day,$booking_refund_map_days))
+        {
+            return $day;
+        }elseif($day < min($booking_refund_map_days))
+        {
+            return min($booking_refund_map_days);
+
+        }elseif($day > max($booking_refund_map_days))
+        {
+            return max($booking_refund_map_days);
+
+        }
+
+        // check mốc theo theo khoảng
         foreach ($range as $value) {
-            if (in_array($i,$value))
+            if (in_array($day,$value))
             {
-                return $i;
+                return max($value);
                 break;
             }
         }
