@@ -99,8 +99,6 @@ class CouponController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // $this->model->transformListCoupon($data);
-        // dd($data);
         return $this->successResponse($data);
     }
 
@@ -124,6 +122,39 @@ class CouponController extends ApiController
         }
     }
 
+    /**
+     * Lấy ra các Trạng thái bài viết (theo status)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function statusList()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Coupon::COUPON_STATUS);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+    /**
+     * Lấy ra các điều kiện giảm giá tất cả bài viết (theo status)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function allDayList()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Coupon::COUPON_ALLDAY);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 
     /**
      * Tính khuyến mãi của 1 booking dựa theo coupon

@@ -284,7 +284,7 @@ class CouponController extends ApiController
     }
 
     /**
-     * Tính khuyến mãi của 1 booking dựa theo coupon 
+     * Tính khuyến mãi của 1 booking dựa theo coupon
      *
      * @author sonduc <ndson1998@gmail.com>
      */
@@ -310,10 +310,8 @@ class CouponController extends ApiController
 
             $coupon = $this->model->getCouponByCode($request->coupon);
             
-            $this->model->checkSettingDiscount($coupon,$request->all());
-            
             $data = [
-                'data' => $this->model->checkSettingDiscount($coupon,$request->all()),
+                'data' => $this->model->checkSettingDiscount($coupon, $request->all()),
             ];
 
             return $this->successResponse($data, false);

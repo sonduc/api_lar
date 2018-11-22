@@ -163,4 +163,3 @@ $router->post('register', 'RegisterController@register');
 
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
-

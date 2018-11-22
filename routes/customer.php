@@ -17,7 +17,6 @@ $router->group([
     $router->get('/rooms/{id}', 'RoomController@show');
 });
 
-
 /**
  * Router login, register
  */
@@ -26,4 +25,19 @@ $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
+
+/**
+ * Router Coupon
+ */
 $router->post('coupons/calculate-discount', 'CouponController@calculateDiscount');
+$router->get('coupons', 'CouponController@index');
+$router->get('coupons/{id}', 'CouponController@show');
+$router->get('coupons/status-list', 'CouponController@statusList');
+$router->get('coupons/all-day-list', 'CouponController@allDayList');
+
+/**
+ * Router Promotion
+ */
+$router->get('promotions', 'PromotionController@index');
+$router->get('promotions/{id}', 'PromotionController@show');
+$router->get('/promotions/status-list', 'PromotionController@statusList');
