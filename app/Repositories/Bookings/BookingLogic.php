@@ -56,16 +56,16 @@ class BookingLogic extends BaseLogic
         BookingCancelRepositoryInterface $booking_cancel,
         BookingRefundRepositoryInterface $booking_refund
     ) {
-//        $this->model          = $booking;
-//        $this->booking        = $booking;
-//        $this->status         = $status;
-//        $this->payment        = $payment;
-//        $this->user           = $user;
-//        $this->room           = $room;
-//        $this->op             = $op;
-//        $this->roomTimeBlock  = $roomTimeBlock;
-         dd( $this->booking_cancel = $booking_cancel);
-//        $this->booking_refund = $booking_refund;
+        $this->model          = $booking;
+        $this->booking        = $booking;
+        $this->status         = $status;
+        $this->payment        = $payment;
+        $this->user           = $user;
+        $this->room           = $room;
+        $this->op             = $op;
+        $this->roomTimeBlock  = $roomTimeBlock;
+        $this->booking_cancel = $booking_cancel;
+        $this->booking_refund = $booking_refund;
     }
 
     /**
@@ -484,7 +484,6 @@ class BookingLogic extends BaseLogic
 
      //   parent::update($id, $booking_update);
         $data['booking_id'] = $id;
-        dd($this->booking_refund);
         return $this->booking_cancel->store($data);
     }
 
