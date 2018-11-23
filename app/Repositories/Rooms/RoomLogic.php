@@ -69,7 +69,6 @@ class RoomLogic extends BaseLogic
     public function store($data,$room = [])
     {
         $data['settings']= $this->model->checkVaildRefund($data['settings']);
-        dd($data['settings']);
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);

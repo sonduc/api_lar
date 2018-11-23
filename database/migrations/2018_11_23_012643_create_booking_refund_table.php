@@ -15,10 +15,10 @@ class CreateBookingRefundTable extends Migration
     {
         Schema::create('booking_refund', function (Blueprint $table) {
             $table->increments('id');
-            $table->bigInteger('booking_id');
-            $table->integer('days');
-            $table->tinyInteger('refund');
-            $table->tinyInteger('no_booking_cacel');
+            $table->bigInteger('booking_id')->nullable();
+            $table->integer('days')->nullable();
+            $table->tinyInteger('refund')->nullable();
+            $table->tinyInteger('no_booking_cacel')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

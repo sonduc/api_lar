@@ -450,6 +450,21 @@ class BookingLogic extends BaseLogic
             throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
+
+        if ($booking_refund->no_booking_camcel == 0 )
+        {
+            $total_refund =  ($data_booking->total_fee * 0)/100;
+            $booking_update = [
+                'status'        => BookingConstant::BOOKING_CANCEL,
+                'total_refund'  => $total_refund,
+            ];
+
+            parent::update($id, $booking_update);
+            $data['booking_id'] = $id;
+            return $this->booking_cancel->store($data);
+        }
+
+
         $booking_refund_map_days    = array_map(function ($item){
             return $item['days'];
         },$booking_refund);
@@ -476,7 +491,7 @@ class BookingLogic extends BaseLogic
             'total_refund'  => $total_refund,
         ];
 
-     //   parent::update($id, $booking_update);
+        parent::update($id, $booking_update);
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
     }

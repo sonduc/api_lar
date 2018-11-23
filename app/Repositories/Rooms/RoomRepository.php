@@ -73,7 +73,6 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function checkVaildRefund($data)
     {
-        dd(Room::BOOKING_CACEL_lEVEL -1);
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data))
         {
@@ -94,7 +93,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
 
 
-        // set măc định bốn mức hủy phòng
+        // set măc định bốn mức cho hủy phòng.
             $refund = $data['refunds'];
         if (isset($refund[Room::BOOKING_CACEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
        for ($i = 0; $i < Room::BOOKING_CACEL_lEVEL -1 ;$i++ )
@@ -117,6 +116,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         $refund_uique = array_unique($refund_map);
         if(count($refund_map) > count($refund_uique)) throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
+
         return  json_encode($refund);
     }
 }

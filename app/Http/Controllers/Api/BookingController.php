@@ -208,7 +208,7 @@ class BookingController extends ApiController
             $data = $this->model->store($request->all());
 
             // dd(DB::getQueryLog());
-            DB::commit();
+             DB::commit();
 
             event(new Check_Usable_Coupon_Event($data['coupon']));
             logs('booking', 'tạo booking có code ' . $data->code, $data);

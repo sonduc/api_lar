@@ -61,6 +61,14 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
     }
 
 
+    /**
+     * lấy ra mức hoàn tiền khi hủy b
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking_id
+     * @param $day
+     * @return mixed
+     */
     public function getRefund($booking_id, $day)
     {
         return $this->model->where([
