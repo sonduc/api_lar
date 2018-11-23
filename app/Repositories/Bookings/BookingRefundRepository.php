@@ -36,19 +36,19 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
     public function storeBookingRefund($booking = [], $room = [], $booking_refund = [])
     {
         $room_array = json_decode( $room->settings);
-        if ($room_array == 0 )
+        if ($room_array == BookingConstant::BOOKING_CANCEL_UNAVAILABLE)
         {
-            $data['no_booking_cancel'] = 0;
+            $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
             $data['booking_id']        = $booking->id;
             return parent::store($data);
         }
 
         foreach ($room_array as $value)
         {
-           $list['booking_id'] = $booking->id;
-           $list['days'] = $value->days;
-           $list['refund'] = $value->amount;
-           $booking_refund[] = $list;
+           $list['booking_id']  = $booking->id;
+           $list['days']        = $value->days;
+           $list['refund']      = $value->amount;
+           $booking_refund[]    = $list;
         }
         parent::storeArray($booking_refund);
 

@@ -61,8 +61,6 @@ class Room extends Entity
      * setting-room
      */
 
-    const BOOKING_CACEL_lEVEL = 4;
-
 
 
     protected $table = 'rooms';

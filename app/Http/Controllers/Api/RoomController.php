@@ -74,7 +74,7 @@ class RoomController extends ApiController
         /**
          * setting
          */
-        'settings.no_booking_cacel'          => 'nullable|integer|in:0',
+        'settings.no_booking_cacel'          => 'nullable|integer|in:1',
         'settings.refunds.*.days'            => 'required|integer|max:14',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 

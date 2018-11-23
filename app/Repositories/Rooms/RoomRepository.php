@@ -3,6 +3,7 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Traits\Scope;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
@@ -76,27 +77,25 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data))
         {
-            return $data['no_booking_cacel'] =0;
+            return $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
         }
 
-
-
-        if (isset($data['no_booking_cacel']) )
+        if (isset($data['no_booking_cancel']) )
         {
-           if (empty($data['no_booking_cacel']))
+           if (empty($data['no_booking_cancel']))
            {
-              return $data['no_booking_cacel'] =0;
+              return $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
 
            }
-           return $data['no_booking_cacel'];
+           return $data['no_booking_cancel'];
         }
 
 
 
         // set măc định bốn mức cho hủy phòng.
             $refund = $data['refunds'];
-        if (isset($refund[Room::BOOKING_CACEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
-       for ($i = 0; $i < Room::BOOKING_CACEL_lEVEL -1 ;$i++ )
+        if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
+       for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL -1 ;$i++ )
        {
            if (!empty($refund[$i+1])){
               if ($refund[$i]['amount'] > $refund[$i+1]['amount'] && $refund[$i]['days'] < $refund[$i+1]['days'] )
