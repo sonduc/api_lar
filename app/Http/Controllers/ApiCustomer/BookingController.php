@@ -281,7 +281,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
 
-            $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
+            $data = $this->model->updatBookieBookingMoney($id, $request->only($avaiable_option));
             logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
 
             DB::commit();
