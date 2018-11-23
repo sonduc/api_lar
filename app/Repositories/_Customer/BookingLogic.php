@@ -97,6 +97,7 @@ class BookingLogic extends BaseLogic
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
         $data_booking        = parent::store($data);
+        $this->booking_refund->storeBookingRefund($data_booking,$room);
         return $data_booking;
     }
 
@@ -201,9 +202,11 @@ class BookingLogic extends BaseLogic
             throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
+
         $booking_refund_map_days    = array_map(function ($item){
             return $item['days'];
         },$booking_refund);
+
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
         $count = count($booking_refund_map_days)-1;

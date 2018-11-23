@@ -12,6 +12,7 @@ use App\Repositories\Rooms\RoomOptionalPrice;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\CarbonPeriod;
+use function Couchbase\defaultDecoder;
 
 trait BookingLogicTrait
 {

@@ -171,8 +171,8 @@ class BookingController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            event(new BookingEvent($data));
             DB::commit();
+            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
