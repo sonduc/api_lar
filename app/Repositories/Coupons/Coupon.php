@@ -43,12 +43,11 @@ class Coupon extends Entity
      */
     public function Promotions()
     {
-        return $this->belongsTo(Promotion::class,'promotion_id', 'id');
+        return $this->belongsTo(Promotion::class, 'promotion_id', 'id');
     }
 
 
     public function room_setting()
     {
-        
     }
 }

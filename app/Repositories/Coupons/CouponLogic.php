@@ -7,6 +7,7 @@ use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Cities\CityRepositoryInterface;
 use App\Repositories\Districts\DistrictRepositoryInterface;
+use Carbon\Carbon;
 
 class CouponLogic extends BaseLogic
 {
@@ -150,55 +151,60 @@ class CouponLogic extends BaseLogic
      */
     public function checkSettingDiscount($coupon, $data)
     {
-        if($coupon) {
-            
-        $data_allDay = $coupon->all_day;
-        $data_status    = $coupon->status;
+        if ($coupon) {
+            $data_allDay    = $coupon->all_day;
+            $data_status    = $coupon->status;
+            $start_date     = new Carbon($coupon->Promotions->date_start);
+            $end_date       = new Carbon($coupon->Promotions->date_end);
+            $current_date   = new Carbon($data['day']);
 
-        if ($data_status == 1) {
-            $data_settings  = json_decode($coupon->settings);
+            if ($data_status == 1) {
+                if ($start_date <= $current_date && $end_date >= $current_date) {
+                    if ($data_allDay == 1) {
+                        return $this->calculateDiscount($coupon, $data);
+                    } else {
+                        $data_settings  = json_decode($coupon->settings);
 
-            if ($data_allDay == 1) {
-                return $this->calculateDiscount($coupon, $data);
+                        if ($data['room_id'] != null) {
+                            $dataRooms = $data_settings->rooms;
+                            foreach ($dataRooms as $key => $value) {
+                                if ($data['room_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['city_id'] != null) {
+                            $dataCities = $data_settings->cities;
+                            foreach ($dataCities as $key => $value) {
+                                if ($data['city_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['district_id'] != null) {
+                            $dataDistricts = $data_settings->districts;
+                            foreach ($dataDistricts as $key => $value) {
+                                if ($data['district_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['day'] != null) {
+                            $dataDays = $data_settings->days;
+                            foreach ($dataDays as $key => $value) {
+                                if ($data['day'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
+                    }
+                } else {
+                    throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
+                }
+            } else {
+                throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
             }
-            if ($data_allDay == 0) {
-                if ($data['room_id'] != null) {
-                    $dataRooms = $data_settings->rooms;
-                    foreach ($dataRooms as $key => $value) {
-                        if ($data['room_id'] == $value) {
-                            return $this->calculateDiscount($coupon, $data);
-                        }
-                    }
-                }
-                if ($data['city_id'] != null) {
-                    $dataCities = $data_settings->cities;
-                    foreach ($dataCities as $key => $value) {
-                        if ($data['city_id'] == $value) {
-                            return $this->calculateDiscount($coupon, $data);
-                        }
-                    }
-                }
-                if ($data['district_id'] != null) {
-                    $dataDistricts = $data_settings->districts;
-                    foreach ($dataDistricts as $key => $value) {
-                        if ($data['district_id'] == $value) {
-                            return $this->calculateDiscount($coupon, $data);
-                        }
-                    }
-                }
-                if ($data['day'] != null) {
-                    $dataDays = $data_settings->days;
-                    foreach ($dataDays as $key => $value) {
-                        if ($data['day'] == $value) {
-                            return $this->calculateDiscount($coupon, $data);
-                        }
-                    }
-                }
-                throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
-            }
-        } else {
-            throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
-        }
         } else {
             throw new \Exception('Mã khuyến mãi không tồn tại');
         }

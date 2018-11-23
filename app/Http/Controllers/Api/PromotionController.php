@@ -164,7 +164,6 @@ class PromotionController extends ApiController
      */
     public function singleUpdate(Request $request, $id)
     {
-    
         DB::beginTransaction();
         try {
             $this->authorize('promotion.update');
