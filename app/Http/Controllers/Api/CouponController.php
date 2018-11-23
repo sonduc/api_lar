@@ -13,7 +13,7 @@ use App\Repositories\Coupons\CouponRepository;
 class CouponController extends ApiController
 {
     protected $validationRules = [
-        'code'                          =>  'required|string|min:4|unique:coupons,code',
+        'code'                          =>  'required|without_spaces|string|min:4|unique:coupons,code',
         'discount'                      =>  'required|integer|between:0,100',
         'max_discount'                  =>  'integer|min:0',
         'usable'                        =>  'integer|min:0',
@@ -26,10 +26,11 @@ class CouponController extends ApiController
         'settings.days.*'               =>  'distinct|date|after:now',
         'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',
 
-        'coupon'                        =>  'string|min:4|exists:coupons,code,deleted_at,NULL',
+        'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',
     ];
     protected $validationMessages = [
         'code.required'                 =>  'Mã giảm giá không được để trống',
+        'code.without_spaces'           =>  'Mã giảm giá không được có khoảng trống',
         'code.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
         'code.min'                      =>  'Độ dài phải là :min',
         'code.unique'                   =>  'Mã giảm giá này đã tồn tại',
@@ -75,6 +76,7 @@ class CouponController extends ApiController
         'day.date'                      =>  'Ngày áp dụng giảm giá không hợp lệ',
         'day.after'                     =>  'Ngày giảm giá không được phép ở thời điểm quá khứ',
         'coupon.string'                 =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'coupon.without_spaces'         =>  'Mã giảm giá không được có khoảng trống',
         'coupon.min'                    =>  'Độ dài phải là :min',
         'coupon.exists'                 =>  'Mã giảm giá không tồn tại',
     ];
@@ -101,7 +103,7 @@ class CouponController extends ApiController
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // $this->model->transformListCoupon($data);
+        // $data_transformed = $this->model->transformListCoupon();
         // dd($data);
         return $this->successResponse($data);
     }
@@ -117,7 +119,9 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
-            return $this->successResponse($data);
+
+            $data_transformed = $this->model->transformCoupon($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -159,10 +163,10 @@ class CouponController extends ApiController
             $this->validationRules['code'] .= ',' . $id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
             
-            $data_transformed = $this->model->transformCoupon($request->all());
-            $data = $this->model->update($id, $data_transformed);
+            $data = $this->model->update($id, $request->all());
+            $data_transformed = $this->model->transformCoupon($data);
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),

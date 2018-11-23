@@ -86,6 +86,22 @@ class CouponLogic extends BaseLogic
         return $data_coupon;
     }
 
+    // /**
+    //  * Chuyển đổi json setting sang mảng
+    //  * @param  [type] $data [description]
+    //  * @return [type]       [description]
+    //  */
+    // public function transformListCoupon()
+    // {
+    //     $data = $this->getAll();
+    //     dd($data);
+    //     foreach ($coupon as $key => $value) {
+    //         $dataSetting = $this->transformCoupon($value);
+    //         dd($dataSetting);
+    //     }
+    //     return $data;
+    // }
+
     /**
      * Chuyển đổi json setting sang mảng
      * @param  [type] $data [description]
@@ -94,6 +110,7 @@ class CouponLogic extends BaseLogic
     public function transformCoupon($data)
     {
         $settings       = json_decode($data['settings']);
+        dd($settings);
         // dd($settings->rooms);
         $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
         $arrCity 		= $this->city->getCityByListId($settings->cities);
