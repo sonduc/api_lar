@@ -80,7 +80,7 @@ class BookingTransformer extends TransformerAbstract
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
             'exchange_rate'      => $booking->exchange_rate,
-            'total'              =>  $booking->total_refund ?? 'Tổng số tiền hoàn lại(Dựa theo chính sách huỷ phòng)',
+            'total_refund'              =>  $booking->total_refund ?? 'Tổng số tiền hoàn lại(Dựa theo chính sách huỷ phòng)',
             'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'         => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
         ];

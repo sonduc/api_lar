@@ -455,13 +455,7 @@ class BookingLogic extends BaseLogic
         },$booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
-        $count = count($booking_refund_map_days)-1;
-        $range = [];
-        for ($i = 0; $i < $count; $i++)
-        {
-            $range[] = range($booking_refund_map_days[$i],$booking_refund_map_days[$i+1]);
-
-        }
+        $range = $this->filter_range_day($booking_refund_map_days);
 
 
         // số ngày hủy phòng cách thời điểm checkin

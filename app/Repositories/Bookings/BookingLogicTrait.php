@@ -337,4 +337,26 @@ trait BookingLogicTrait
             }
         }
     }
+
+
+    /**
+     *  Tao khoảng loc để lọc theo ngày mà  khách hủy.
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking_refund_map_days
+     * @return array
+     */
+    public function filter_range_day($booking_refund_map_days)
+    {
+        $count = count($booking_refund_map_days)-1;
+        $range = [];
+        for ($i = 0; $i < $count; $i++)
+        {
+            $range[] = range($booking_refund_map_days[$i],$booking_refund_map_days[$i+1]);
+
+        }
+        return $range;
+    }
+
+
 }
