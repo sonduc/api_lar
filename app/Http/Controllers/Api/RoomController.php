@@ -75,7 +75,7 @@ class RoomController extends ApiController
          * setting
          */
         'settings.refunds.*.days'            => 'required|integer',
-        'settings.refunds.*.amount'          => 'required|integer',
+        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
 
 
@@ -182,6 +182,8 @@ class RoomController extends ApiController
 
          'settings.refunds.*.amount.required'   => 'Trường này không được để trống',
          'settings.refunds.*.amount.integer'    => 'Trường này phải là kiểu số nguyên',
+         'settings.refunds.*.amount.min'        => 'Vượt quá giới hạn chp phép (0)',
+         'settings.refunds.*.amount.max'        => 'Vượt quá giới hạn cho phép (100)',
 
 
 
