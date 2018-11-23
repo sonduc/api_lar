@@ -451,7 +451,7 @@ class BookingLogic extends BaseLogic
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
 
-        if ($booking_refund->no_booking_camcel == 0 )
+        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0 )
         {
             $total_refund =  ($data_booking->total_fee * 0)/100;
             $booking_update = [

@@ -22,7 +22,7 @@ class BookingRefund extends Entity
      * @var array
      */
     protected $fillable = [
-        'booking_id', 'days', 'refund','no_booking_cacel'
+        'booking_id', 'days', 'refund','no_booking_cancel'
     ];
 
     /**

@@ -18,7 +18,7 @@ class CreateBookingRefundTable extends Migration
             $table->bigInteger('booking_id')->nullable();
             $table->integer('days')->nullable();
             $table->tinyInteger('refund')->nullable();
-            $table->tinyInteger('no_booking_cacel')->nullable();
+            $table->tinyInteger('no_booking_cancel')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
