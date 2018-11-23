@@ -74,7 +74,8 @@ class RoomController extends ApiController
         /**
          * setting
          */
-        'settings.refunds.*.days'            => 'required|integer',
+        'settings.no_booking_cacel'          => 'nullable|integer|in:0',
+        'settings.refunds.*.days'            => 'required|integer|max:14',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
 
@@ -177,6 +178,9 @@ class RoomController extends ApiController
         /**
          * setting
          */
+        'settings.no_booking_cacel.integer'     => 'Trường này phải là kiểu số ',
+        'settings.no_booking_cacel.in'          => 'Mã hủy không hợp lệ',
+
          'settings.refunds.*.days.required'     => 'Trường này không được để trống',
          'settings.refunds.*.days.integer'      => 'Trường này phải là kiểu số nguyên',
 

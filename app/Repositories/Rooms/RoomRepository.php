@@ -63,11 +63,58 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     }
 
 
-    public function checkVaildRefund($refund)
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $refund
+     * @return false|string
+     * @throws \Exception
+     */
+    public function checkVaildRefund($data)
     {
+        dd(Room::BOOKING_CACEL_lEVEL -1);
+        //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
+        if (empty($data))
+        {
+            return $data['no_booking_cacel'] =0;
+        }
+
+
+
+        if (isset($data['no_booking_cacel']) )
+        {
+           if (empty($data['no_booking_cacel']))
+           {
+              return $data['no_booking_cacel'] =0;
+
+           }
+           return $data['no_booking_cacel'];
+        }
+
+
+
+        // set măc định bốn mức hủy phòng
+            $refund = $data['refunds'];
+        if (isset($refund[Room::BOOKING_CACEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
+       for ($i = 0; $i < Room::BOOKING_CACEL_lEVEL -1 ;$i++ )
+       {
+           if (!empty($refund[$i+1])){
+              if ($refund[$i]['amount'] > $refund[$i+1]['amount'] && $refund[$i]['days'] < $refund[$i+1]['days'] )
+              {
+                  throw new \Exception('Ngày điền không hợp lệ');
+              }elseif ( $refund[$i]['amount'] < $refund[$i+1]['amount'] && $refund[$i]['days'] > $refund[$i+1]['days'] )
+              {
+                  throw new \Exception('Ngày điền không hợp lệ');
+              }
+           }
+       }
+
+        // kiểm tra cùng một số tiền hoàn lại không thể trùng số ngày với nhau
         $refund_map = array_map(function ($item) {
             return $item['days'];
         },$refund);
+
         $refund_uique = array_unique($refund_map);
         if(count($refund_map) > count($refund_uique)) throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
         return  json_encode($refund);

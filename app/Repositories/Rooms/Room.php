@@ -61,15 +61,10 @@ class Room extends Entity
      * setting-room
      */
 
-    const REFUND_100  = 100;
-    const REFUND_50   = 50;
-    const REFUND_0    = 0;
+    const BOOKING_CACEL_lEVEL = 4;
 
-    const CACELLATION_POLICY = [
-        self::REFUND_100     => 'Hoàn lại tiền 100%',
-        self::REFUND_50      => 'Hoàn lại tiền 50%',
-        self::REFUND_0       => 'Miễn phí hủy phòng',
-    ];
+
+
     protected $table = 'rooms';
     /**
      * The attributes that are mass assignable.
