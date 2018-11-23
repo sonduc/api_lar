@@ -69,6 +69,8 @@ class BookingTransformer extends TransformerAbstract
             'payment_method_txt' => $booking->getPaymentMethod(),
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
+            'status'             => $booking->status,
+            'status_txt'         => $booking->getBookingStatus(),
             'exchange_rate'      => $booking->exchange_rate,
             'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'         => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
