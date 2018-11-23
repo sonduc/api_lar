@@ -332,7 +332,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
+            $data = $this->model->cancelBookingCustomer($id, $request->only($avaiable_option));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
 
             DB::commit();
