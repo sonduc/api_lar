@@ -56,6 +56,13 @@ class Room extends Entity
         self::TYPE_DAY  => 'Theo ngày',
         self::TYPE_ALL  => 'Cả ngày và giờ',
     ];
+
+    /**
+     * setting-room
+     */
+
+
+
     protected $table = 'rooms';
     /**
      * The attributes that are mass assignable.
@@ -96,7 +103,8 @@ class Room extends Entity
         'avg_valuable',
         'avg_avg_rating',
         'total_review',
-        'total_recommend'
+        'total_recommend',
+        'settings'
     ];
     /**
      * The attributes that should be mutated to dates.

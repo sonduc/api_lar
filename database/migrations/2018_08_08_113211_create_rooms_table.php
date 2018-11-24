@@ -49,6 +49,7 @@ class CreateRoomsTable extends Migration
             $table->integer('total_recommend')->nullable()->default(0);
             $table->tinyInteger('status')->default(0);
             $table->integer('sale_id')->nullable();
+            $table->longText('settings')->nullable();
             $table->softDeletes()->nullable()->default(null);
             $table->timestamps();
         });

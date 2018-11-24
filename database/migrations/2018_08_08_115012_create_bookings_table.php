@@ -34,7 +34,7 @@ class CreateBookingsTable extends Migration
             $table->bigInteger('price_original')->nullable()->default(0);
             $table->bigInteger('service_fee')->nullable()->default(0);
             $table->bigInteger('additional_fee')->nullable()->default(0);
-            
+
             $table->bigInteger('price_discount')->nullable()->default(0);
             $table->string('coupon', 50)->nullable();
             $table->bigInteger('coupon_discount')->nullable()->default(0);
@@ -49,6 +49,7 @@ class CreateBookingsTable extends Migration
             $table->tinyInteger('payment_status')->nullable()->default(0);
             $table->tinyInteger('source')->nullable();
             $table->double('exchange_rate')->nullable();
+            $table->double('total_refund')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
