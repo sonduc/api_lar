@@ -86,21 +86,77 @@ class CouponLogic extends BaseLogic
         return $data_coupon;
     }
 
-    // /**
-    //  * Chuyển đổi json setting sang mảng
-    //  * @param  [type] $data [description]
-    //  * @return [type]       [description]
-    //  */
-    // public function transformListCoupon()
-    // {
-    //     $data = $this->getAll();
-    //     dd($data);
-    //     foreach ($coupon as $key => $value) {
-    //         $dataSetting = $this->transformCoupon($value);
-    //         dd($dataSetting);
-    //     }
-    //     return $data;
-    // }
+    /**
+     * Chuyển đổi json setting sang mảng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function transformListCoupon()
+    {
+        $list_room_id       = [];
+        $list_city_id       = [];
+        $list_district_id   = [];
+
+        $data = $this->model->getByQuery([], 10, 0);
+
+        foreach ($data as $key => $value) {
+            $settings           = json_decode($value->settings);
+            $list_room_id       = array_unique(array_merge($settings->rooms, $list_room_id));
+            $list_city_id       = array_unique(array_merge($settings->cities, $list_city_id));
+            $list_district_id   = array_unique(array_merge($settings->districts, $list_district_id));
+        }
+        $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, $settings->days, $data);
+
+        return $arrData;
+    }
+
+    /**
+     * Chuyển đổi json setting sang mảng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $coupons = [])
+    {
+        $arrRoom        = $this->room_translate->getRoomByListIdIndex($rooms);
+        $arrCity 		= $this->city->getCityByListIdIndex($cities);
+        $arrDistrict 	= $this->district->getDistrictByListIdIndex($districts);
+        $arrDay 		= $days;
+        
+        foreach ($coupons as $key => $value) {
+            $settings = json_decode($value->settings);
+            $array_rooms = $settings->rooms;
+            $array_cities = $settings->cities;
+            $array_districts = $settings->districts;
+            
+            $arrRoom = array_values(
+                array_filter($arrRoom, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->rooms);
+                })
+            );
+
+            $arrCity = array_values(
+                array_filter($arrCity, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->cities);
+                })
+            );
+
+            $arrDistrict = array_values(
+                array_filter($arrDistrict, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->districts);
+                })
+            );
+
+            $arrayTransformSetting = [
+                'rooms' 	=> $arrRoom,
+                'cities' 	=> $arrCity,
+                'districts' => $arrDistrict,
+                'days' 		=> $arrDay,
+            ];
+            $coupons[$key]->settings = json_encode($arrayTransformSetting);
+        }
+
+        return $coupons;
+    }
 
     /**
      * Chuyển đổi json setting sang mảng
@@ -110,8 +166,6 @@ class CouponLogic extends BaseLogic
     public function transformCoupon($data)
     {
         $settings       = json_decode($data['settings']);
-        dd($settings);
-        // dd($settings->rooms);
         $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
         $arrCity 		= $this->city->getCityByListId($settings->cities);
         $arrDistrict 	= $this->district->getDistrictByListId($settings->districts);

@@ -102,10 +102,8 @@ class CouponController extends ApiController
         $this->authorize('coupon.view');
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // $data_transformed = $this->model->transformListCoupon();
-        // dd($data);
-        return $this->successResponse($data);
+        $data_transformed = $this->model->transformListCoupon();
+        return $this->successResponse($data_transformed);
     }
 
     /**

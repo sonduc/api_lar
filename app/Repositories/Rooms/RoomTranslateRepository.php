@@ -69,7 +69,7 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
     }
 
     /**
-     * Lấy tên phòng theo id(mảng id) 
+     * Lấy tên phòng theo id(mảng id)
      * @author sonduc <ndson1998@gmail.com>
      *
      * @param $room
@@ -83,9 +83,31 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
                 "id" => $getVal->room_id,
                 "name" => $getVal->name,
             ];
-            array_push($arrRoom,$valueRoom);
+            array_push($arrRoom, $valueRoom);
         }
         return $arrRoom;
         // return $this->model->where('room_id', $id)->where('lang', 'vi')->first();
+    }
+
+    /**
+     * Lấy tên phòng theo id(mảng id)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param $room
+     */
+    public function getRoomByListIdIndex($idRooms)
+    {
+        $getVal = $this->model->whereIn('room_id', $idRooms)->where('lang', 'vi')->get(['room_id', 'name']);
+        $arrRoom = [];
+        foreach ($getVal as $key => $value) {
+            $valueRoom = [
+                "id" => $value->room_id,
+                "name" => $value->name,
+                // $value->room_id => $value->name
+            ];
+            array_push($arrRoom, $valueRoom);
+        }
+        // dd($arrRoom);
+        return $arrRoom;
     }
 }

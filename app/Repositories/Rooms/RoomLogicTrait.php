@@ -39,7 +39,6 @@ trait RoomLogicTrait
             foreach ($period as $day) {
                 $list[] = $day;
             }
-
         }
 
         // Danh sách các ngày block chủ động
@@ -61,5 +60,4 @@ trait RoomLogicTrait
 
         return $list;
     }
-
 }

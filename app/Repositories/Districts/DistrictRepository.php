@@ -20,11 +20,10 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
     public function __construct(District $district)
     {
         $this->model = $district;
-
     }
 
     /**
-     * Lấy tên quận huyện theo id(mảng id) 
+     * Lấy tên quận huyện theo id(mảng id)
      * @author sonduc <ndson1998@gmail.com>
      *
      * @param $room
@@ -38,9 +37,29 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
                 "id" => $getVal->id,
                 "name" => $getVal->name,
             ];
-            array_push($arrDistrict,$valueDistrict);
+            array_push($arrDistrict, $valueDistrict);
         }
         return $arrDistrict;
     }
+    
+    /**
+     * Lấy tên phòng theo id(mảng id)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param $idCity
+     */
+    public function getDistrictByListIdIndex($idDistricts)
+    {
+        $getVal = $this->model->whereIn('id', $idDistricts)->get(['id','name']);
+        $arrDistrict = [];
+        foreach ($getVal as $key => $value) {
+            $valueDistrict = [
+                "id" => $value->id,
+                "name" => $value->name,
+            ];
+            array_push($arrDistrict, $valueDistrict);
+        }
 
+        return $arrDistrict;
+    }
 }
