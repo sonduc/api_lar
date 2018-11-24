@@ -19,6 +19,21 @@ final class BookingConstant
         self::INACTIVE => 'Đã khóa',
     ];
 
+    // Trạng thái email nhắc nhở
+    const EMAIL_SENT    = 1;
+    const EMAIL_PENDING = 0;
+
+    const EMAIL_REMINDER = [
+        self::EMAIL_SENT    => 'Đã gửi email nhắc nhở',
+        self::EMAIL_PENDING => 'Chưa gửi email nhắc nhở',
+    ];
+
+    // Trạng thái email reviews
+    const EMAIL_REVIEWS = [
+        self::EMAIL_SENT    => 'Đã gửi email review',
+        self::EMAIL_PENDING => 'Chưa gửi email review',
+    ];
+
     // Định nghĩa trạng thái đặt phòng
     const BOOKING_NEW      = 1; // Đơn mới
     const BOOKING_CONFIRM  = 2; // Đã xác nhận

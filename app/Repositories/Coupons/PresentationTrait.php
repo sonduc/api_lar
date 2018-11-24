@@ -1,6 +1,9 @@
 <?php
 namespace App\Repositories\Coupons;
 
+use App\Helpers\ErrorCore;
+use App\User;
+
 trait PresentationTrait
 {
     /**
@@ -16,6 +19,20 @@ trait PresentationTrait
             }
         }
         return false;
+    }
+
+    public function getCouponStatus()
+    {
+        return array_key_exists($this->status, Coupon::COUPON_STATUS)
+            ? Coupon::COUPON_STATUS[$this->status]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
+    public function getCouponAllDay()
+    {
+        return array_key_exists($this->all_day, Coupon::COUPON_ALLDAY)
+            ? Coupon::COUPON_ALLDAY[$this->all_day]
+            : trans2(ErrorCore::UNDEFINED);
     }
 
     /**

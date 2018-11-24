@@ -86,6 +86,7 @@ class PromotionController extends ApiController
 
     public function store(Request $request)
     {
+        // dd($request);
         DB::beginTransaction();
         try {
             $this->authorize('promotion.create');
@@ -163,7 +164,6 @@ class PromotionController extends ApiController
      */
     public function singleUpdate(Request $request, $id)
     {
-    
         DB::beginTransaction();
         try {
             $this->authorize('promotion.update');

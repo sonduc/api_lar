@@ -151,8 +151,9 @@ $router->group([
      * Coupons Resource
     */
     $router->get('/coupons/status-list', 'CouponController@statusList');
+    $router->get('/coupons/all-day-list', 'CouponController@allDayList');
     $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
-    $router->post('/coupons/caculate-discount', 'CouponController@caculateDiscount');
+    $router->post('/coupons/calculate-discount', 'CouponController@calculateDiscount');
     resource('/coupons', 'CouponController', $router);
 });
 
@@ -162,4 +163,3 @@ $router->post('register', 'RegisterController@register');
 
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
-

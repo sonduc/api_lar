@@ -21,6 +21,7 @@ class CreateCouponsTable extends Migration
             $table->integer('usable')->nullable();
             $table->integer('used')->nullable();
             $table->tinyInteger('status')->nullable();
+            $table->tinyInteger('all_day')->nullable();
             $table->longText('settings')->nullable();
             $table->integer('promotion_id')->nullable();
             $table->softDeletes();

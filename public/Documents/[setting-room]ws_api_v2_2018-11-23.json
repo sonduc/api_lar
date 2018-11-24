@@ -3904,8 +3904,13 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360569.75,
 			"method": "POST",
+<<<<<<< HEAD:public/Documents/[setting-room]ws_api_v2_2018-11-23.json
 			"modified": 1542909758132,
 			"name": "caculate-discount",
+=======
+			"modified": 1542349495975,
+			"name": "calculate-discount ",
+>>>>>>> fix_son_coupon:public/Documents/ws_api_v2_2018-11-16.json
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
 			"settingDisableRenderRequestBody": false,
@@ -3914,7 +3919,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/caculate-discount",
+			"url": "{{ api_url  }}coupons/calculate-discount",
 			"_type": "request"
 		},
 		{

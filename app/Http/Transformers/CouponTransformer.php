@@ -6,6 +6,10 @@ use League\Fractal\TransformerAbstract;
 use App\Repositories\Coupons\Coupon;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 
+use App\Helpers\ErrorCore;
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
+
 class CouponTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
@@ -25,7 +29,10 @@ class CouponTransformer extends TransformerAbstract
             'usable'            =>  $coupon->usable,
             'used'              =>  $coupon->used,
             'status'            =>  $coupon->status,
-            'settings'          =>  json_decode($coupon->settings),
+            'status_txt'        =>  $coupon->getCouponStatus(),
+            'all_day'           =>  $coupon->all_day,
+            'all_day_txt'       =>  $coupon->getCouponAllDay(),
+            'settings'          =>  gettype($coupon->settings) === 'array' ? $coupon->settings : json_decode($coupon->settings),
             'promotion_id'      =>  $coupon->promotion_id,
 
         ];

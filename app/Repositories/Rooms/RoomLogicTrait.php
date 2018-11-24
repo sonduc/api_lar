@@ -58,5 +58,4 @@ trait RoomLogicTrait
         array_splice($list, 0, 0);
         return $list;
     }
-
 }

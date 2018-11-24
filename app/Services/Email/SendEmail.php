@@ -91,7 +91,24 @@ class SendEmail
             throw $e;
         }
     }
-
+    /**
+     * Email thông báo cho khách trước 48h
+     *
+     */
+    public function mailNotificationBooking($data, $template = 'email.notification')
+    {
+        $email = $data->name->email;
+        $data  = $data->name;
+        try {
+            Mail::send($template, ['data' => $data], function ($message) use ($email) {
+                $message->from('ndson1998@gmail.com');
+                $message->to($email)->subject('Thông báo ngày thuê phòng !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email);
+            throw $e;
+        }
+    }
 
     /**
      * Gửi email cho customer , thông báo cho customer biết booking này có đước xác nhận hay không
@@ -155,10 +172,30 @@ class SendEmail
         }
     }
 
-    private function caculateHours($checkin, $checkout) {
+    private function caculateHours($checkin, $checkout)
+    {
         $checkin_Carbon              = Carbon::parse($checkin);
         $checkout_Carbon             = Carbon::parse($checkout);
         return $checkout_Carbon->copy()->ceilHours()->diffInHours($checkin_Carbon);
     }
 
+    /**
+     * Email mời khách reviews sau checkout
+     *
+     */
+    public function mailReviewsBooking($dataBooking, $template = 'email.reviews')
+    {
+        $email      = $dataBooking->name->email;
+        $data       = $dataBooking->name;
+        $dataTime   = $dataBooking->data;
+        try {
+            Mail::send($template, ['data' => $data,'dataTime' => $dataTime], function ($message) use ($email) {
+                $message->from('ndson1998@gmail.com');
+                $message->to($email)->subject('Đánh giá căn hộ !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email);
+            throw $e;
+        }
+    }
 }

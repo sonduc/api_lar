@@ -13,7 +13,7 @@ use App\Repositories\Coupons\CouponRepository;
 class CouponController extends ApiController
 {
     protected $validationRules = [
-        'code'                          =>  'required|string|min:4|unique:coupons,code',
+        'code'                          =>  'required|without_spaces|string|min:4|unique:coupons,code',
         'discount'                      =>  'required|integer|between:0,100',
         'max_discount'                  =>  'integer|min:0',
         'usable'                        =>  'integer|min:0',
@@ -25,9 +25,12 @@ class CouponController extends ApiController
         'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',
         'settings.days.*'               =>  'distinct|date|after:now',
         'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',
+
+        'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',
     ];
     protected $validationMessages = [
         'code.required'                 =>  'Mã giảm giá không được để trống',
+        'code.without_spaces'           =>  'Mã giảm giá không được có khoảng trống',
         'code.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
         'code.min'                      =>  'Độ dài phải là :min',
         'code.unique'                   =>  'Mã giảm giá này đã tồn tại',
@@ -57,21 +60,25 @@ class CouponController extends ApiController
         'promotion_id.integer'          =>  'Mã chương trình giảm giá phải là kiểu số',
         'promotion_id.exists'           =>  'Chương trình giảm giá không tồn tại',
 
-        'coupon.min'                => 'Độ dài phải là :min',
-        'coupon.string'             => 'Coupon không được chứa ký tự đặc biệt',
-        'coupon.exists'             => 'Coupon không tồn tại',
-        'price_original.required'   => 'Giá gốc không được để trống',
-        'price_original.integer'    => 'Giá gốc phải là kiểu số',
-        'price_original.min'        => 'Giá gốc không được dưới 0',
-        'room_id.required'          => 'Vui lòng chọn phòng',
-        'room_id.integer'           => 'Mã phòng phải là kiểu số',
-        'room_id.exists'            => 'Phòng không tồn tại',
-        'city_id.integer'           => 'Mã thành phố phải là kiểu số',
-        'city_id.exists'            => 'Thành phố không tồn tại',
-        'district_id.integer'       => 'Mã quận huyện phải là kiểu số',
-        'district_id.exists'        => 'Quận huyện không tồn tại',
-        'day.date'                  => 'Ngày áp dụng giảm giá không hợp lệ',
-        'day.after'                 => 'Ngày giảm giá không được phép ở thời điểm quá khứ',
+        'coupon.min'                    =>  'Độ dài phải là :min',
+        'coupon.string'                 =>  'Coupon không được chứa ký tự đặc biệt',
+        'coupon.exists'                 =>  'Coupon không tồn tại',
+        'price_original.required'       =>  'Giá gốc không được để trống',
+        'price_original.integer'        =>  'Giá gốc phải là kiểu số',
+        'price_original.min'            =>  'Giá gốc không được dưới 0',
+        'room_id.required'              =>  'Vui lòng chọn phòng',
+        'room_id.integer'               =>  'Mã phòng phải là kiểu số',
+        'room_id.exists'                =>  'Phòng không tồn tại',
+        'city_id.integer'               =>  'Mã thành phố phải là kiểu số',
+        'city_id.exists'                =>  'Thành phố không tồn tại',
+        'district_id.integer'           =>  'Mã quận huyện phải là kiểu số',
+        'district_id.exists'            =>  'Quận huyện không tồn tại',
+        'day.date'                      =>  'Ngày áp dụng giảm giá không hợp lệ',
+        'day.after'                     =>  'Ngày giảm giá không được phép ở thời điểm quá khứ',
+        'coupon.string'                 =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'coupon.without_spaces'         =>  'Mã giảm giá không được có khoảng trống',
+        'coupon.min'                    =>  'Độ dài phải là :min',
+        'coupon.exists'                 =>  'Mã giảm giá không tồn tại',
     ];
 
     /**
@@ -95,10 +102,8 @@ class CouponController extends ApiController
         $this->authorize('coupon.view');
         $pageSize = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // $this->model->transformListCoupon($data);
-        // dd($data);
-        return $this->successResponse($data);
+        $data_transformed = $this->model->transformListCoupon();
+        return $this->successResponse($data_transformed);
     }
 
     /**
@@ -112,7 +117,9 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
-            return $this->successResponse($data);
+
+            $data_transformed = $this->model->transformCoupon($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -129,8 +136,8 @@ class CouponController extends ApiController
             $this->authorize('coupon.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data_transformed = $this->model->transformCoupon($request->all());
-            $data = $this->model->store($data_transformed);
+            $data = $this->model->store($request->all());
+            $data_transformed = $this->model->transformCoupon($data);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -154,10 +161,10 @@ class CouponController extends ApiController
             $this->validationRules['code'] .= ',' . $id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
             
-            $data_transformed = $this->model->transformCoupon($request->all());
-            $data = $this->model->update($id, $data_transformed);
+            $data = $this->model->update($id, $request->all());
+            $data_transformed = $this->model->transformCoupon($data);
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -208,6 +215,24 @@ class CouponController extends ApiController
             throw $e;
         }
     }
+
+    /**
+     * Lấy ra các điều kiện giảm giá tất cả bài viết (theo status)
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function allDayList()
+    {
+        try {
+            $this->authorize('coupon.view');
+            $data = $this->simpleArrayToObject(Coupon::COUPON_ALLDAY);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
     
     /**
      * Thực hiện cập nhật status
@@ -224,7 +249,7 @@ class CouponController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('coupon.update');
-            $avaiable_option = ['status'];
+            $avaiable_option = ['status','all_day'];
             $option          = $request->get('option');
             if (!in_array($option, $avaiable_option)) {
                 throw new \Exception('Không có quyền sửa đổi mục này');
@@ -261,11 +286,11 @@ class CouponController extends ApiController
     }
 
     /**
-     * Tính khuyến mãi của 1 booking dựa theo coupon 
+     * Tính khuyến mãi của 1 booking dựa theo coupon
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscount(Request $request)
+    public function calculateDiscount(Request $request)
     {
         DB::enableQueryLog();
         try {
@@ -282,15 +307,13 @@ class CouponController extends ApiController
             $validate['price_original'] = 'required|integer|min:0';
             $validate['city_id'] = 'integer|exists:cities,id,deleted_at,NULL';
             $validate['district_id'] = 'integer|exists:districts,id,deleted_at,NULL';
-            $validate['day'] = 'date|after:now';
+            $validate['day'] = 'date|after:yesterday';
             $this->validate($request, $validate, $this->validationMessages);
 
             $coupon = $this->model->getCouponByCode($request->coupon);
-
-            // $data = $this->model->checkSettingdiscount($coupon,$request->all());
-            // dd($data);
+            
             $data = [
-                'data' => $this->model->checkSettingDiscount($coupon,$request->all()),
+                'data' => $this->model->checkSettingDiscount($coupon, $request->all()),
             ];
 
             return $this->successResponse($data, false);

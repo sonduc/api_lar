@@ -7,6 +7,7 @@ use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Cities\CityRepositoryInterface;
 use App\Repositories\Districts\DistrictRepositoryInterface;
+use Carbon\Carbon;
 
 class CouponLogic extends BaseLogic
 {
@@ -64,6 +65,7 @@ class CouponLogic extends BaseLogic
             throw new \Exception('Không có quyền sửa đổi mục này');
         };
         
+        $data['code']       = strtoupper($data['code']);
         $data['settings'] 	= json_encode($data['settings']);
         $data_coupon 		= parent::update($id, $data);
         return $data_coupon;
@@ -89,14 +91,85 @@ class CouponLogic extends BaseLogic
      * @param  [type] $data [description]
      * @return [type]       [description]
      */
+    public function transformListCoupon()
+    {
+        $list_room_id       = [];
+        $list_city_id       = [];
+        $list_district_id   = [];
+
+        $data = $this->model->getByQuery([], 10, 0);
+
+        foreach ($data as $key => $value) {
+            $settings           = json_decode($value->settings);
+            $list_room_id       = array_unique(array_merge($settings->rooms, $list_room_id));
+            $list_city_id       = array_unique(array_merge($settings->cities, $list_city_id));
+            $list_district_id   = array_unique(array_merge($settings->districts, $list_district_id));
+        }
+        $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, $settings->days, $data);
+
+        return $arrData;
+    }
+
+    /**
+     * Chuyển đổi json setting sang mảng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $coupons = [])
+    {
+        $arrRoom        = $this->room_translate->getRoomByListIdIndex($rooms);
+        $arrCity 		= $this->city->getCityByListIdIndex($cities);
+        $arrDistrict 	= $this->district->getDistrictByListIdIndex($districts);
+        $arrDay 		= $days;
+        
+        foreach ($coupons as $key => $value) {
+            $settings = json_decode($value->settings);
+            $array_rooms = $settings->rooms;
+            $array_cities = $settings->cities;
+            $array_districts = $settings->districts;
+            
+            $arrRoom = array_values(
+                array_filter($arrRoom, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->rooms);
+                })
+            );
+
+            $arrCity = array_values(
+                array_filter($arrCity, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->cities);
+                })
+            );
+
+            $arrDistrict = array_values(
+                array_filter($arrDistrict, function ($item) use ($settings) {
+                    return in_array($item['id'], $settings->districts);
+                })
+            );
+
+            $arrayTransformSetting = [
+                'rooms' 	=> $arrRoom,
+                'cities' 	=> $arrCity,
+                'districts' => $arrDistrict,
+                'days' 		=> $arrDay,
+            ];
+            $coupons[$key]->settings = json_encode($arrayTransformSetting);
+        }
+
+        return $coupons;
+    }
+
+    /**
+     * Chuyển đổi json setting sang mảng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function transformCoupon($data)
     {
-        $settings 		= $data['settings'];
-        
-        $arrRoom 		= $this->room_translate->getRoomByListId($settings['rooms']);
-        $arrCity 		= $this->city->getCityByListId($settings['cities']);
-        $arrDistrict 	= $this->district->getDistrictByListId($settings['districts']);
-        $arrDay 		= $settings['days'];
+        $settings       = json_decode($data['settings']);
+        $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
+        $arrCity 		= $this->city->getCityByListId($settings->cities);
+        $arrDistrict 	= $this->district->getDistrictByListId($settings->districts);
+        $arrDay 		= $settings->days;
 
         $arrayTransformSetting = [
             'rooms' 	=> $arrRoom,
@@ -116,16 +189,18 @@ class CouponLogic extends BaseLogic
     public function updateUsable($code)
     {
         $coupon 	= $this->getCouponByCode(strtoupper($code));
-        $id 		= $coupon['id'];
-        $coupon 	= (array) json_decode($coupon);
-        
-        if ($coupon['usable'] > 0) {
-            $coupon['usable'] 	= $coupon['usable']-1;
-            $coupon['used'] 	= $coupon['used']+1;
-            $data_coupon 		= parent::update($id, $coupon);
-            return $data_coupon;
-        } else {
-            throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
+        if ($coupon) {
+            $id 		= $coupon['id'];
+            $coupon 	= (array) json_decode($coupon);
+            
+            if ($coupon['usable'] > 0) {
+                $coupon['usable'] 	= $coupon['usable']-1;
+                $coupon['used'] 	= $coupon['used']+1;
+                $data_coupon 		= parent::update($id, $coupon);
+                return $data_coupon;
+            } else {
+                throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
+            }
         }
     }
 
@@ -147,44 +222,62 @@ class CouponLogic extends BaseLogic
      */
     public function checkSettingDiscount($coupon, $data)
     {
-        $data_settings 	= json_decode($coupon->settings);
-        $data_status 	= $coupon->status;
-        if ($data_status == 1) {
-            if ($data['room_id'] != null) {
-                $dataRooms = $data_settings->rooms;
-                foreach ($dataRooms as $key => $value) {
-                    if ($data['room_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
+        if ($coupon) {
+            $data_allDay    = $coupon->all_day;
+            $data_status    = $coupon->status;
+            $start_date     = new Carbon($coupon->Promotions->date_start);
+            $end_date       = new Carbon($coupon->Promotions->date_end);
+            $current_date   = new Carbon($data['day']);
+
+            if ($data_status == 1) {
+                if ($start_date <= $current_date && $end_date >= $current_date) {
+                    if ($data_allDay == 1) {
+                        return $this->calculateDiscount($coupon, $data);
+                    } else {
+                        $data_settings  = json_decode($coupon->settings);
+
+                        if ($data['room_id'] != null) {
+                            $dataRooms = $data_settings->rooms;
+                            foreach ($dataRooms as $key => $value) {
+                                if ($data['room_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['city_id'] != null) {
+                            $dataCities = $data_settings->cities;
+                            foreach ($dataCities as $key => $value) {
+                                if ($data['city_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['district_id'] != null) {
+                            $dataDistricts = $data_settings->districts;
+                            foreach ($dataDistricts as $key => $value) {
+                                if ($data['district_id'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        if ($data['day'] != null) {
+                            $dataDays = $data_settings->days;
+                            foreach ($dataDays as $key => $value) {
+                                if ($data['day'] == $value) {
+                                    return $this->calculateDiscount($coupon, $data);
+                                }
+                            }
+                        }
+                        throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
                     }
+                } else {
+                    throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
                 }
+            } else {
+                throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
             }
-            if ($data['city_id'] != null) {
-                $dataCities = $data_settings->cities;
-                foreach ($dataCities as $key => $value) {
-                    if ($data['city_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
-                    }
-                }
-            }
-            if ($data['district_id'] != null) {
-                $dataDistricts = $data_settings->districts;
-                foreach ($dataDistricts as $key => $value) {
-                    if ($data['district_id'] == $value->id) {
-                        return $this->caculateDiscount($coupon, $data);
-                    }
-                }
-            }
-            if ($data['day'] != null) {
-                $dataDays = $data_settings->days;
-                foreach ($dataDays as $key => $value) {
-                    if ($data['day'] == $value) {
-                        return $this->caculateDiscount($coupon, $data);
-                    }
-                }
-            }
-            throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
         } else {
-            throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
+            throw new \Exception('Mã khuyến mãi không tồn tại');
         }
     }
 
@@ -193,7 +286,7 @@ class CouponLogic extends BaseLogic
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function caculateDiscount($coupon, $data)
+    public function calculateDiscount($coupon, $data)
     {
         $price_discount = ($coupon->discount * $data['price_original'])/100;
 

@@ -4,6 +4,7 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -132,6 +133,33 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $uuid    = $booking->data['uuid'];
         $booking = $this->getBookingByUuid($uuid);
         parent::update($booking->id, $data);
+    }
+    /**
+     * Lấy tất cả các bản ghi sắp sắn đến ngày checkin, checkout
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function getAllBookingFuture()
+    {
+        $dateNow             = Carbon::now();
+        $dateNow_timestamp   = Carbon::now()->timestamp;
+        $tomorrow            = $dateNow->addDay();
+        $tomorrow_timestamp  = $tomorrow->timestamp;
+        $data                = $this->model->where('checkin', '>=', $dateNow_timestamp)->where('checkout', '>=', $dateNow_timestamp)->where('checkin', '<', $tomorrow_timestamp)->whereIn('status', [1, 2, 3])->get();
+        return $data;
+    }
+
+    /**
+     * Lấy tất cả các bản ghi qua ngày checkout trong khoảng 24h
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function getAllBookingCheckoutOneDay()
+    {
+        $dateNow             = Carbon::now();
+        $dateNow_timestamp   = Carbon::now()->timestamp;
+        $yesterday_timestamp = $dateNow->subHours(27)->timestamp;
+        $data                = $this->model->where('checkout', '<', $dateNow_timestamp)->where('checkout', '>', $yesterday_timestamp)->where('status', 4)->get();
+        // dd($data);
+        return $data;
     }
 
     public function getBookingByUuid($uuid)

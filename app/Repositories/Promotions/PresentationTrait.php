@@ -18,6 +18,13 @@ trait PresentationTrait
         return false;
     }
 
+    public function getPromotionStatus()
+    {
+        return array_key_exists($this->status, Promotion::PROMOTION_STATUS)
+            ? Promotion::PROMOTION_STATUS[$this->status]
+            : trans2(ErrorCore::UNDEFINED);
+    }
+
     /**
      * Check a specific permission that belongs to this role
      * @param  string  $permission

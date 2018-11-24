@@ -66,7 +66,7 @@ class RoomLogic extends BaseLogic
      *
      * @return \App\Repositories\Eloquent
      */
-    public function store($data,$room = [])
+    public function store($data, $room = [])
     {
         $data['settings']= $this->model->checkVaildRefund($data['settings']);
         $data_room = parent::store($data);
