@@ -322,7 +322,6 @@ class BookingController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('booking.update');
             $this->setTransformer(new BookingCancelTransformer);
             $validate         = array_only($this->validationRules, [
                 'note',
@@ -334,7 +333,7 @@ class BookingController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->cancelBookingCustomer($id, $request->only($avaiable_option));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
-
+           // dd(DB::getQueryLog());
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
