@@ -169,13 +169,10 @@ class BookingController extends ApiController
     {
         DB::beginTransaction();
         try {
-            if (!Auth::check()) {
-                throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
-            }
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            event(new BookingEvent($data));
             DB::commit();
+            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -284,7 +281,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
 
-            $data = $this->model->updateBookingMoney($id, $request->only($avaiable_option));
+            $data = $this->model->updatBookieBookingMoney($id, $request->only($avaiable_option));
             logs('booking', 'sửa tiền của booking có code ' . $data->code, $data);
 
             DB::commit();
@@ -335,7 +332,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
+            $data = $this->model->cancelBookingCustomer($id, $request->only($avaiable_option));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
 
             DB::commit();

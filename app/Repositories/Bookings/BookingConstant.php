@@ -8,7 +8,7 @@ final class BookingConstant
     const TIME_BLOCK = 4;
     const TIME_DAY   = 24;
 
-    // Khoảng thời gian trống giữa các lần book
+    // Khoảng thời gian trống  các lần book
     const MINUTE_BETWEEN_BOOK = 60;
     // Trạng thái booking:
     const ACTIVE   = 1;
@@ -152,4 +152,10 @@ final class BookingConstant
         self::PARTLY_PAID => 'Thanh toán một phần',
         self::FULLY_PAID  => 'Thanh toán hoàn tất',
     ];
+
+    /**
+     *
+     */
+    const BOOKING_CANCEL_lEVEL          = 4;
+    const BOOKING_CANCEL_UNAVAILABLE    = 1;
 }

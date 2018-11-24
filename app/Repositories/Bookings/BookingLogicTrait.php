@@ -12,6 +12,7 @@ use App\Repositories\Rooms\RoomOptionalPrice;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\CarbonPeriod;
+use function Couchbase\defaultDecoder;
 
 trait BookingLogicTrait
 {
@@ -305,30 +306,56 @@ trait BookingLogicTrait
 
 
     /**
-     * Hủy booking
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Lấy ra mốc thời gian hủy phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     * @throws \Exception
+     * @param $range
+     * @param $i
+     * @return mixed
      */
-    public function cancelBooking($id, $data)
+    public function getDay($day, $booking_refund_map_days,$range)
     {
-        $data_booking = parent::getById($id);
+        if (in_array($day,$booking_refund_map_days))
+        {
+            return $day;
+        }elseif($day < min($booking_refund_map_days))
+        {
+            return min($booking_refund_map_days);
 
-        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }elseif($day > max($booking_refund_map_days))
+        {
+            return max($booking_refund_map_days);
+
         }
 
-        $booking_update = [
-            'status' => BookingConstant::BOOKING_CANCEL,
-        ];
-        parent::update($id, $booking_update);
+        // check mốc theo theo khoảng
+        foreach ($range as $value) {
+            if (in_array($day,$value))
+            {
+                return max($value);
+                break;
+            }
+        }
+    }
 
-        $data['booking_id'] = $id;
-        return $this->booking_cancel->store($data);
+
+    /**
+     *  Tao khoảng loc để lọc theo ngày mà  khách hủy.
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking_refund_map_days
+     * @return array
+     */
+    public function filter_range_day($booking_refund_map_days)
+    {
+        $count = count($booking_refund_map_days)-1;
+        $range = [];
+        for ($i = 0; $i < $count; $i++)
+        {
+            $range[] = range($booking_refund_map_days[$i],$booking_refund_map_days[$i+1]);
+
+        }
+        return $range;
     }
 
 
