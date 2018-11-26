@@ -80,6 +80,7 @@ class BookingLogic extends BaseLogic
     {
         $room = $this->room->getById($data['room_id']);
         $data = $this->priceCalculator($room, $data);
+        // dd($data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
@@ -90,7 +91,7 @@ class BookingLogic extends BaseLogic
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
-        $this->booking_refund->storeBookingRefund($data_booking,$room);
+        $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
     }
 
@@ -110,7 +111,6 @@ class BookingLogic extends BaseLogic
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
 
-
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -129,11 +129,10 @@ class BookingLogic extends BaseLogic
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
-            $days             = $CO->diffInDays($CI);
+            $days             = $CO->diffInDays($CI) +1;
             $data['days']     = $days;
             $data['checkin']  = $CI->timestamp;
             $data['checkout'] = $CO->timestamp;
-
             // Xử lý logic tính giá phòng vào ngày đặc biệt
             list($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
@@ -156,7 +155,7 @@ class BookingLogic extends BaseLogic
                  - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
-
+        
         return $data;
     }
 
@@ -386,52 +385,32 @@ class BookingLogic extends BaseLogic
         return $data_booking;
     }
 
-    /**
-     * Cập nhật tiền cho booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function updateBookingMoney($id, $data)
-    {
-        $booking          = parent::getById($id);
-        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
-        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
-        $data             = array_merge($booking->toArray(), $data);
+    // /**
+    //  * Hủy booking
+    //  * @author HarikiRito <nxh0809@gmail.com>
+    //  *
+    //  * @param $id
+    //  * @param $data
+    //  *
+    //  * @return \App\Repositories\Eloquent
+    //  * @throws \Exception
+    //  */
+    // public function cancelBooking($id, $data)
+    // {
+    //     $data_booking = parent::getById($id);
 
-        return $this->update($id, $data);
-    }
+    //     if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+    //         throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+    //     }
 
-    /**
-     * Cập nhật booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param int   $id
-     * @param       $data
-     * @param array $excepts
-     * @param array $only
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function update($id, $data, $excepts = [], $only = [])
-    {
-        $room                = $this->room->getById($data['room_id']);
-        $data['merchant_id'] = $room->merchant_id;
+    //     $booking_update = [
+    //         'status' => BookingConstant::BOOKING_CANCEL,
+    //     ];
+    //     parent::update($id, $booking_update);
 
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-
-        $data_booking = parent::update($id, $data);
-
-        $this->status->updateBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-
-        return $data_booking;
-    }
+    //     $data['booking_id'] = $id;
+    //     return $this->booking_cancel->store($data);
+    // }
 
     /**
      * Hủy booking
@@ -528,8 +507,7 @@ class BookingLogic extends BaseLogic
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
 
-        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0 )
-        {
+        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
             $total_refund =  ($data_booking->total_fee * 0)/100;
             $booking_update = [
                 'status'        => BookingConstant::BOOKING_CANCEL,
@@ -542,9 +520,9 @@ class BookingLogic extends BaseLogic
         }
 
 
-        $booking_refund_map_days    = array_map(function ($item){
+        $booking_refund_map_days    = array_map(function ($item) {
             return $item['days'];
-        },$booking_refund);
+        }, $booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
         $range = $this->filter_range_day($booking_refund_map_days);
@@ -557,9 +535,9 @@ class BookingLogic extends BaseLogic
 
 
         //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day =$this->getDay($day,$booking_refund_map_days,$range);
+        $day =$this->getDay($day, $booking_refund_map_days, $range);
 
-        $data_refund  = $this->booking_refund->getRefund($data_booking->id,$day);
+        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
         $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
 
 
@@ -572,5 +550,4 @@ class BookingLogic extends BaseLogic
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
     }
-
 }

@@ -29,6 +29,7 @@ use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
+use Illuminate\Support\Facades\Auth;
 
 class BookingLogic extends BaseLogic
 {
@@ -65,8 +66,7 @@ class BookingLogic extends BaseLogic
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
         BookingRefundRepositoryInterface $booking_refund
-    )
-    {
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -97,7 +97,7 @@ class BookingLogic extends BaseLogic
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
         $data_booking        = parent::store($data);
-        $this->booking_refund->storeBookingRefund($data_booking,$room);
+        $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
     }
 
@@ -138,9 +138,9 @@ class BookingLogic extends BaseLogic
      *
      * @return mixed
      */
-    public function getBooking($id,$pageSize)
+    public function getBooking($id, $pageSize)
     {
-        $booking = $this->booking->getBookingById($id,$pageSize);
+        $booking = $this->booking->getBookingById($id, $pageSize);
         return $booking;
     }
 
@@ -186,6 +186,27 @@ class BookingLogic extends BaseLogic
 
 
     /**
+     *  Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking
+     * @param $request
+     * @throws \Exception
+     */
+    public function checkValidBookingCancel($id)
+    {
+        if (!Auth::check()) {
+            throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
+        }
+
+        $booking=$this->model->getById($id);
+        if (Auth::user()->id != $booking->customer_id) {
+            throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
+        }
+    }
+
+
+    /**
      * Hủy bookiing cho customer
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
@@ -204,8 +225,7 @@ class BookingLogic extends BaseLogic
 
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
 
-        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0 )
-        {
+        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
             $total_refund =  ($data_booking->total_fee * 0)/100;
             $booking_update = [
                 'status'        => BookingConstant::BOOKING_CANCEL,
@@ -217,9 +237,9 @@ class BookingLogic extends BaseLogic
             return $this->booking_cancel->store($data);
         }
 
-        $booking_refund_map_days    = array_map(function ($item){
+        $booking_refund_map_days    = array_map(function ($item) {
             return $item['days'];
-        },$booking_refund);
+        }, $booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
 
@@ -232,13 +252,12 @@ class BookingLogic extends BaseLogic
 
 
         //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day =$this->getDay($day,$booking_refund_map_days,$range);
+        $day =$this->getDay($day, $booking_refund_map_days, $range);
 
-        $data_refund  = $this->booking_refund->getRefund($data_booking->id,$day);
+        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
         $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
 
-        if ($data_booking->status == BookingConstant::BOOKING_NEW)
-        {
+        if ($data_booking->status == BookingConstant::BOOKING_NEW) {
             $booking_update = [
                 'status' => BookingConstant::BOOKING_CANCEL,
                 'total_refund'  => $total_refund,
@@ -248,8 +267,5 @@ class BookingLogic extends BaseLogic
             return $this->booking_cancel->store($data);
         }
         throw new \Exception('Bạn không thể hủy booking này');
-
     }
-
-
 }

@@ -128,14 +128,12 @@ abstract class BaseRepository implements EntityInterface
             $patternArray += array_fill_keys(['created_at', 'updated_at'], $dateNow);
 
             $patternArray = array_only($arr, $fillable) + $patternArray;
-
             if (array_key_exists('status', $patternArray) && is_null($patternArray['status'])) {
                 $patternArray['status'] = 1;
             }
 
             $filterData[] = $patternArray;
         }
-
         return $filterData;
     }
 

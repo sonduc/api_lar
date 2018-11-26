@@ -10,7 +10,12 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-$router->group([], function ($router) {
+
+$router->get('/bookings/booking-type-list', 'BookingController@bookingTypeList');
+$router->get('/bookings/cancel-reason-list', 'BookingController@bookingCancelList');
+$router->group([
+    'middleware' => 'auth',
+], function ($router) {
     $router->get('/rooms', 'RoomController@index');
     $router->get('/rooms/{id}', 'RoomController@show');
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
@@ -19,12 +24,11 @@ $router->group([], function ($router) {
      * Booking-customer.
      */
     $router->get('/bookings', 'BookingController@index');
+    $router->get('/bookings/{id}', 'BookingController@show');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
     $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
-    $router->post('/bookings', 'BookingController@store');
 });
-    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
-
+    $router->post('/bookings', 'BookingController@store');
 /**
  * Router login, register
  */

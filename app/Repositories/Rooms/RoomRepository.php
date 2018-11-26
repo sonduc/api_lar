@@ -82,12 +82,14 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         if (isset($data['no_booking_cancel']) )
         {
-           if (empty($data['no_booking_cancel']))
+           if (!empty($data['no_booking_cancel'])  && $data['no_booking_cancel'] ==1 )
            {
-              return $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
+               $refund = [
+                   'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE
+               ];
 
+               return  json_encode($refund);
            }
-           return $data['no_booking_cancel'];
         }
 
 
@@ -95,6 +97,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         // set măc định bốn mức cho hủy phòng.
             $refund = $data['refunds'];
         if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
+
        for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL -1 ;$i++ )
        {
            if (!empty($refund[$i+1])){
@@ -115,6 +118,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         $refund_uique = array_unique($refund_map);
         if(count($refund_map) > count($refund_uique)) throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
+
+        $refund = [
+            'refund' => $refund,
+            'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE
+        ];
 
         return  json_encode($refund);
     }
