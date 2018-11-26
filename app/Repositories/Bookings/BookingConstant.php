@@ -158,4 +158,5 @@ final class BookingConstant
      */
     const BOOKING_CANCEL_lEVEL          = 4;
     const BOOKING_CANCEL_UNAVAILABLE    = 1;
+    const BOOKING_CANCEL_AVAILABLE      = 0;
 }
