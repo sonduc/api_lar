@@ -80,6 +80,7 @@ class BookingLogic extends BaseLogic
     {
         $room = $this->room->getById($data['room_id']);
         $data = $this->priceCalculator($room, $data);
+        // dd($data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
 
@@ -110,7 +111,6 @@ class BookingLogic extends BaseLogic
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
 
-
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -129,11 +129,10 @@ class BookingLogic extends BaseLogic
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
-            $days             = $CO->diffInDays($CI);
+            $days             = $CO->diffInDays($CI) +1;
             $data['days']     = $days;
             $data['checkin']  = $CI->timestamp;
             $data['checkout'] = $CO->timestamp;
-
             // Xử lý logic tính giá phòng vào ngày đặc biệt
             list($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
@@ -156,7 +155,7 @@ class BookingLogic extends BaseLogic
                  - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
-
+        
         return $data;
     }
 
@@ -386,32 +385,32 @@ class BookingLogic extends BaseLogic
         return $data_booking;
     }
 
-    /**
-     * Hủy booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     * @throws \Exception
-     */
-    public function cancelBooking($id, $data)
-    {
-        $data_booking = parent::getById($id);
+    // /**
+    //  * Hủy booking
+    //  * @author HarikiRito <nxh0809@gmail.com>
+    //  *
+    //  * @param $id
+    //  * @param $data
+    //  *
+    //  * @return \App\Repositories\Eloquent
+    //  * @throws \Exception
+    //  */
+    // public function cancelBooking($id, $data)
+    // {
+    //     $data_booking = parent::getById($id);
 
-        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-        }
+    //     if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+    //         throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+    //     }
 
-        $booking_update = [
-            'status' => BookingConstant::BOOKING_CANCEL,
-        ];
-        parent::update($id, $booking_update);
+    //     $booking_update = [
+    //         'status' => BookingConstant::BOOKING_CANCEL,
+    //     ];
+    //     parent::update($id, $booking_update);
 
-        $data['booking_id'] = $id;
-        return $this->booking_cancel->store($data);
-    }
+    //     $data['booking_id'] = $id;
+    //     return $this->booking_cancel->store($data);
+    // }
 
     /**
      * Hủy booking
