@@ -100,9 +100,9 @@ class CouponController extends ApiController
     {
         DB::enableQueryLog();
         $this->authorize('coupon.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data_transformed = $this->model->transformListCoupon();
+        $pageSize           = $request->get('limit', 25);
+        $this->trash        = $this->trashStatus($request);
+        $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data_transformed);
     }
 

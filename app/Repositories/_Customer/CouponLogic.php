@@ -102,7 +102,7 @@ class CouponLogic extends BaseLogic
             $data_status    = $coupon->status;
             $start_date     = new Carbon($coupon->Promotions->date_start);
             $end_date       = new Carbon($coupon->Promotions->date_end);
-            $current_date   = new Carbon($data['day']);
+            $current_date   = Carbon::now();
 
             if ($data_status == 1) {
                 if ($start_date <= $current_date && $end_date >= $current_date) {
@@ -135,10 +135,10 @@ class CouponLogic extends BaseLogic
                                 }
                             }
                         }
-                        if ($data['day'] != null) {
+                        if ($current_date != null) {
                             $dataDays = $data_settings->days;
                             foreach ($dataDays as $key => $value) {
-                                if ($data['day'] == $value) {
+                                if ($current_date == $value) {
                                     return $this->calculateDiscount($coupon, $data);
                                 }
                             }
@@ -146,7 +146,7 @@ class CouponLogic extends BaseLogic
                         throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
                     }
                 } else {
-                    throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
+                    throw new \Exception('Mã khuyến mãi Không còn thời gian sử dụng');
                 }
             } else {
                 throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');

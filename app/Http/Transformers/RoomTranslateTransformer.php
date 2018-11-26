@@ -42,6 +42,4 @@ class RoomTranslateTransformer extends TransformerAbstract
 
         return $data;
     }
-
-
 }

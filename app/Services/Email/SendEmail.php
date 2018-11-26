@@ -36,7 +36,7 @@ class SendEmail
         $info  = $data->name;
         try {
             Mail::send($template, ['data' => $info], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Xác thực tài khoản !!!');
             });
         } catch (\Exception $e) {
@@ -51,7 +51,7 @@ class SendEmail
         $email = 'taikhoan149do@gmail.com';
         try {
             Mail::send($template, ['new_booking' => $booking->data], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Thông tin booking mới');
             });
         } catch (\Exception $e) {
@@ -83,7 +83,7 @@ class SendEmail
 
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử lý');
             });
         } catch (\Exception $e) {
@@ -132,7 +132,7 @@ class SendEmail
         $email                = $booking->data['email'];
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đã được chủ nhà xác nhận');
             });
         } catch (\Exception $e) {
@@ -163,7 +163,7 @@ class SendEmail
 
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Thông tin booking mới !!!');
             });
         } catch (\Exception $e) {

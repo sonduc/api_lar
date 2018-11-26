@@ -17,6 +17,7 @@ use function Couchbase\defaultDecoder;
 
 trait BookingLogicTrait
 {
+    protected $cp;
     protected $op;
     protected $room;
     protected $user;
@@ -37,8 +38,8 @@ trait BookingLogicTrait
         $checkin              = Carbon::parse($data['checkin']);
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
-
-
+        $coupon               = $this->cp->getCouponByCode($data['coupon']);
+        $coupon_discount      = $this->cp->checkSettingDiscount($coupon, $data);
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -75,7 +76,7 @@ trait BookingLogicTrait
 
         $data['price_original']  = $money;
         $data['service_fee']     = $room->cleaning_fee;
-        $data['coupon_discount'] = 0; // TODO Làm thêm phần coupon
+        $data['coupon_discount'] = $coupon_discount; // TODO Làm thêm phần coupon
 
         $price = $money
             + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
