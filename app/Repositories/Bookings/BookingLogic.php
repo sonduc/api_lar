@@ -155,7 +155,7 @@ class BookingLogic extends BaseLogic
                  - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
-        
+
         return $data;
     }
 
@@ -427,83 +427,6 @@ class BookingLogic extends BaseLogic
         $data_booking   = parent::getById($id);
         if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
             throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
 

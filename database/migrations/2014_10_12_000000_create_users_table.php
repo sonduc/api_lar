@@ -51,6 +51,8 @@ class CreateUsersTable extends Migration
             $table->longText('source')->nullable();
             $table->integer('sale_id')->default(0);
             $table->timestamp('time_add_sale')->nullable();
+            $table->longText('settings')->nullable();
+            $table->longText('subcribe')->default(1);
             $table->rememberToken()->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
