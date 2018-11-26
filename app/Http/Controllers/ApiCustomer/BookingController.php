@@ -205,56 +205,25 @@ class BookingController extends ApiController
 
 
     /**
-     * Tính giá tiền cho phòng
-     * @author HarikiRito <nxh0809@gmail.com>
+     * ducchien0612
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
-     *
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function priceCalculator(Request $request)
+    public function show(Request $request, $id)
     {
-        DB::enableQueryLog();
         try {
-            $this->authorize('booking.create');
-            // Tái cấu trúc validate để tính giá tiền
-            $validate            = array_only($this->validationRules, [
-                'room_id',
-                'checkin',
-                'checkout',
-                'additional_fee',
-                'price_discount',
-                'coupon',
-                'number_of_guests',
-                'booking_type',
-            ]);
-            $validate['checkin'] = 'required|date';
-            $this->validate($request, $validate, $this->validationMessages);
-
-            $room = $this->room->getById($request->room_id);
-            $data = [
-                'data' => $this->model->priceCalculator($room, $request->all()),
-            ];
-            return $this->successResponse($data, false);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
+            $data    = $this->model->getById($id);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
         } catch (\Exception $e) {
-            DB::rollBack();
-            if ($e instanceof InvalidDateException) {
-                return $this->errorResponse([
-                    'errors'    => $e->getField(),
-                    'exception' => $e->getValue(),
-                ]);
-            }
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
             throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
         }
     }
 
@@ -388,7 +357,6 @@ class BookingController extends ApiController
     public function bookingTypeList()
     {
         try {
-            $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::BOOKING_TYPE);
             return response()->json($data);
         } catch (\Exception $e) {
@@ -406,8 +374,7 @@ class BookingController extends ApiController
     public function bookingCancelList()
     {
         try {
-            $this->authorize('booking.view');
-            $data = $this->simpleArrayToObject(BookingCancel::getBookingCancel());
+            $data = $this->simpleArrayToObject(BookingCancel::getBookingCancelCustomer());
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
