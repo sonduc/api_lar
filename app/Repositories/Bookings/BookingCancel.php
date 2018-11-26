@@ -18,6 +18,7 @@ class BookingCancel extends Entity
     const NO_RESPONSE         = 11;
     const STAFF_SLOW_RESPONSE = 14;
     const RUSHING             = 15;
+    const BUSY                = 16;
 
 
     protected $table = 'booking_cancel';
@@ -54,6 +55,18 @@ class BookingCancel extends Entity
             self::NO_RESPONSE         => trans2('booking/cancel.no_response'),
             self::STAFF_SLOW_RESPONSE => trans2('booking/cancel.staff_slow'),
             self::RUSHING             => trans2('booking/cancel.rushing'),
+        ];
+    }
+
+
+    public static function getBookingCancelCustomer()
+    {
+        return [
+            self::OTHER               => trans2('booking/cancel.other'),
+            self::UNQUALIFIED         => trans2('booking/cancel.unqualified'),
+            self::LOOK_AROUND         => trans2('booking/cancel.look_around'),
+            self::STAFF_SLOW_RESPONSE => trans2('booking/cancel.staff_slow'),
+            self::BUSY                => trans2('booking/cancel.busy')
         ];
     }
 }

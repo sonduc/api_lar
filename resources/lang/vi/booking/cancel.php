@@ -10,4 +10,5 @@ return [
     'no_response'  => 'Khách không phản hồi',
     'staff_slow'   => 'Nhân viên trả lời chậm',
     'rushing'      => 'Khách đặt phòng gấp',
+    'busy'         => 'Bận đột xuất',
 ];

@@ -90,7 +90,7 @@ class BookingLogic extends BaseLogic
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
-        $this->booking_refund->storeBookingRefund($data_booking,$room);
+        $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
     }
 
@@ -387,50 +387,30 @@ class BookingLogic extends BaseLogic
     }
 
     /**
-     * Cập nhật tiền cho booking
+     * Hủy booking
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $id
      * @param $data
      *
      * @return \App\Repositories\Eloquent
+     * @throws \Exception
      */
-    public function updateBookingMoney($id, $data)
+    public function cancelBooking($id, $data)
     {
-        $booking          = parent::getById($id);
-        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
-        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
-        $data             = array_merge($booking->toArray(), $data);
+        $data_booking = parent::getById($id);
 
-        return $this->update($id, $data);
-    }
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
 
-    /**
-     * Cập nhật booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param int   $id
-     * @param       $data
-     * @param array $excepts
-     * @param array $only
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function update($id, $data, $excepts = [], $only = [])
-    {
-        $room                = $this->room->getById($data['room_id']);
-        $data['merchant_id'] = $room->merchant_id;
+        $booking_update = [
+            'status' => BookingConstant::BOOKING_CANCEL,
+        ];
+        parent::update($id, $booking_update);
 
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-
-        $data_booking = parent::update($id, $data);
-
-        $this->status->updateBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-
-        return $data_booking;
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
     }
 
     /**
@@ -451,8 +431,7 @@ class BookingLogic extends BaseLogic
         }
         $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
 
-        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0 )
-        {
+        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
             $total_refund =  ($data_booking->total_fee * 0)/100;
             $booking_update = [
                 'status'        => BookingConstant::BOOKING_CANCEL,
@@ -465,9 +444,9 @@ class BookingLogic extends BaseLogic
         }
 
 
-        $booking_refund_map_days    = array_map(function ($item){
+        $booking_refund_map_days    = array_map(function ($item) {
             return $item['days'];
-        },$booking_refund);
+        }, $booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
         $range = $this->filter_range_day($booking_refund_map_days);
@@ -480,9 +459,9 @@ class BookingLogic extends BaseLogic
 
 
         //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day =$this->getDay($day,$booking_refund_map_days,$range);
+        $day =$this->getDay($day, $booking_refund_map_days, $range);
 
-        $data_refund  = $this->booking_refund->getRefund($data_booking->id,$day);
+        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
         $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
 
 
@@ -495,5 +474,4 @@ class BookingLogic extends BaseLogic
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
     }
-
 }

@@ -9,6 +9,7 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\Rooms\RoomOptionalPrice;
+use App\User;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use Carbon\CarbonPeriod;
@@ -16,7 +17,6 @@ use function Couchbase\defaultDecoder;
 
 trait BookingLogicTrait
 {
-
     protected $op;
     protected $room;
     protected $user;
@@ -49,9 +49,10 @@ trait BookingLogicTrait
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
                 ?? 0;
 
-            if ($money == 0) $money =
+            if ($money == 0) {
+                $money =
                 $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
-
+            }
         } else {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
@@ -62,10 +63,9 @@ trait BookingLogicTrait
             $data['checkout'] = $CO->timestamp;
 
             // Xử lý logic tính giá phòng vào ngày đặc biệt
-            list ($money, $totalDay) =
+            list($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
             $money += $room->price_day * ($days - $totalDay);
-
         }
 
         // Tính tiền dựa theo số khách
@@ -97,7 +97,6 @@ trait BookingLogicTrait
      */
     protected function checkValidBookingTime($room, $data = [])
     {
-
         $checkin  = Carbon::parse($data['checkin']);
         $checkout = Carbon::parse($data['checkout']);
 
@@ -144,8 +143,6 @@ trait BookingLogicTrait
         if (count(array_intersect($blocked_schedule, $days))) {
             throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
         }
-
-
     }
 
     /**
@@ -188,7 +185,9 @@ trait BookingLogicTrait
 
             $period = CarbonPeriod::between($checkin, $checkout->addDay());
             foreach ($period as $day) {
-                if (in_array($day->dayOfWeek + 1, $weekDays)) $listDays[] = $day->format('Y-m-d');
+                if (in_array($day->dayOfWeek + 1, $weekDays)) {
+                    $listDays[] = $day->format('Y-m-d');
+                }
             }
 
             // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
@@ -226,7 +225,7 @@ trait BookingLogicTrait
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
                     }
                 }
-            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+            } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
@@ -304,7 +303,6 @@ trait BookingLogicTrait
         return $user->id;
     }
 
-
     /**
      * Lấy ra mốc thời gian hủy phòng
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -313,31 +311,24 @@ trait BookingLogicTrait
      * @param $i
      * @return mixed
      */
-    public function getDay($day, $booking_refund_map_days,$range)
+    public function getDay($day, $booking_refund_map_days, $range)
     {
-        if (in_array($day,$booking_refund_map_days))
-        {
+        if (in_array($day, $booking_refund_map_days)) {
             return $day;
-        }elseif($day < min($booking_refund_map_days))
-        {
+        } elseif ($day < min($booking_refund_map_days)) {
             return min($booking_refund_map_days);
-
-        }elseif($day > max($booking_refund_map_days))
-        {
+        } elseif ($day > max($booking_refund_map_days)) {
             return max($booking_refund_map_days);
-
         }
 
         // check mốc theo theo khoảng
         foreach ($range as $value) {
-            if (in_array($day,$value))
-            {
+            if (in_array($day, $value)) {
                 return max($value);
                 break;
             }
         }
     }
-
 
     /**
      *  Tao khoảng loc để lọc theo ngày mà  khách hủy.
@@ -350,13 +341,27 @@ trait BookingLogicTrait
     {
         $count = count($booking_refund_map_days)-1;
         $range = [];
-        for ($i = 0; $i < $count; $i++)
-        {
-            $range[] = range($booking_refund_map_days[$i],$booking_refund_map_days[$i+1]);
-
+        for ($i = 0; $i < $count; $i++) {
+            $range[] = range($booking_refund_map_days[$i], $booking_refund_map_days[$i+1]);
         }
         return $range;
     }
+    /**
+     * Cập nhật tiền cho booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateBookingMoney($id, $data)
+    {
+        $booking          = parent::getById($id);
+        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
+        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
+        $data             = array_merge($booking->toArray(), $data);
 
-
+        return $this->update($id, $data);
+    }
 }
