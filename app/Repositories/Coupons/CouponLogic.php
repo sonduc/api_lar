@@ -101,11 +101,11 @@ class CouponLogic extends BaseLogic
         if (sizeOf($data)  != 0) {
             foreach ($data as $key => $value) {
                 $settings           = json_decode($value->settings);
-                $list_room_id       = array_unique(array_merge($settings->rooms, $list_room_id));
-                $list_city_id       = array_unique(array_merge($settings->cities, $list_city_id));
-                $list_district_id   = array_unique(array_merge($settings->districts, $list_district_id));
+                $list_room_id       = array_unique(array_merge((!empty($settings->rooms) ? $settings->rooms : []), $list_room_id));
+                $list_city_id       = array_unique(array_merge((!empty($settings->cities) ? $settings->cities : []), $list_city_id));
+                $list_district_id   = array_unique(array_merge((!empty($settings->districts) ? $settings->districts : []), $list_district_id));
             }
-            $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, $settings->days, $data);
+            $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, (!empty($settings->days) ? $settings->days : []), $data);
             return $arrData;
         } else {
             return $data;
@@ -128,19 +128,19 @@ class CouponLogic extends BaseLogic
             $settings = json_decode($value->settings);
             $arrRoom_filter = array_values(
                     array_filter($arrRoom, function ($item) use ($settings) {
-                        return in_array($item['id'], $settings->rooms);
+                        return in_array($item['id'], (!empty($settings->rooms) ? $settings->rooms : []));
                     })
                 );
 
             $arrCity_filter = array_values(
                     array_filter($arrCity, function ($item) use ($settings) {
-                        return in_array($item['id'], $settings->cities);
+                        return in_array($item['id'], (!empty($settings->cities) ? $settings->cities : []));
                     })
                 );
 
             $arrDistrict_filter = array_values(
                     array_filter($arrDistrict, function ($item) use ($settings) {
-                        return in_array($item['id'], $settings->districts);
+                        return in_array($item['id'], (!empty($settings->districts) ? $settings->districts : []));
                     })
                 );
 
@@ -164,10 +164,10 @@ class CouponLogic extends BaseLogic
     public function transformCoupon($data)
     {
         $settings       = json_decode($data['settings']);
-        $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
-        $arrCity 		= $this->city->getCityByListId($settings->cities);
-        $arrDistrict 	= $this->district->getDistrictByListId($settings->districts);
-        $arrDay 		= $settings->days;
+        $arrRoom        = !empty($settings->rooms) ? $this->room_translate->getRoomByListId($settings->rooms) : [];
+        $arrCity 		= !empty($settings->cities) ? $this->city->getCityByListId($settings->cities) : [];
+        $arrDistrict 	= !empty($settings->districts) ? $this->district->getDistrictByListId($settings->districts) : [];
+        $arrDay 		= !empty($settings->days) ? $settings->days : [];
 
         $arrayTransformSetting = [
             'rooms' 	=> $arrRoom,
@@ -226,9 +226,9 @@ class CouponLogic extends BaseLogic
             $end_date       = new Carbon($coupon->Promotions->date_end);
             $current_date   = Carbon::now();
 
-            if ($data_status == 1) {
+            if ($data_status == Coupon::AVAILABLE) {
                 if ($start_date <= $current_date && $end_date >= $current_date) {
-                    if ($data_allDay == 1) {
+                    if ($data_allDay == Coupon::AVAILABLE) {
                         return $this->calculateDiscount($coupon, $data);
                     } else {
                         $data_settings  = json_decode($coupon->settings);
