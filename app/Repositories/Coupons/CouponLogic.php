@@ -139,10 +139,10 @@ class CouponLogic extends BaseLogic
                 );
 
             $arrDistrict_filter = array_values(
-                    array_filter($arrDistrict, function ($item) use ($settings) {
-                        return in_array($item['id'], (!empty($settings->districts) ? $settings->districts : []));
-                    })
-                );
+                array_filter($arrDistrict, function ($item) use ($settings) {
+                    return in_array($item['id'], (!empty($settings->districts) ? $settings->districts : []));
+                })
+            );
 
             $arrayTransformSetting = [
                 'rooms' 	=> $arrRoom_filter,
@@ -232,32 +232,29 @@ class CouponLogic extends BaseLogic
                         return $this->calculateDiscount($coupon, $data);
                     } else {
                         $data_settings  = json_decode($coupon->settings);
-
+                        
                         if ($data['room_id'] != null) {
                             $dataRooms = $data_settings->rooms;
-                            foreach ($dataRooms as $key => $value) {
-                                if ($data['room_id'] == $value) {
+                            array_filter($dataRooms, function ($item) use ($data) {
+                                if ($data['room_id'] == $item) {
                                     return $this->calculateDiscount($coupon, $data);
                                 }
-                            }
-                        }
-                        if ($data['city_id'] != null) {
+                            });
+                        } elseif ($data['city_id'] != null) {
                             $dataCities = $data_settings->cities;
-                            foreach ($dataCities as $key => $value) {
-                                if ($data['city_id'] == $value) {
+                            array_filter($dataCities, function ($item) use ($data) {
+                                if ($data['city_id'] == $item) {
                                     return $this->calculateDiscount($coupon, $data);
                                 }
-                            }
-                        }
-                        if ($data['district_id'] != null) {
+                            });
+                        } elseif ($data['district_id'] != null) {
                             $dataDistricts = $data_settings->districts;
-                            foreach ($dataDistricts as $key => $value) {
-                                if ($data['district_id'] == $value) {
+                            array_filter($dataDistricts, function ($item) use ($data) {
+                                if ($data['district_id'] == $item) {
                                     return $this->calculateDiscount($coupon, $data);
                                 }
-                            }
-                        }
-                        if ($current_date != null) {
+                            });
+                        } elseif ($current_date != null) {
                             $dataDays = $data_settings->days;
                             foreach ($dataDays as $key => $value) {
                                 if ($current_date == $value) {
@@ -265,7 +262,11 @@ class CouponLogic extends BaseLogic
                                 }
                             }
                         }
-                        throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
+                        $discount = [
+                            'message'        => 'Mã giảm giá không thể áp dụng cho đơn đặt phòng này',
+                            'price_discount' => 0
+                        ];
+                        return $discount;
                     }
                 } else {
                     throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');

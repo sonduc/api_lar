@@ -55,5 +55,4 @@ class ApiController extends Controller
 
         return $arr2d;
     }
-
 }
