@@ -8,6 +8,7 @@ use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Cities\CityRepositoryInterface;
 use App\Repositories\Districts\DistrictRepositoryInterface;
 use App\Repositories\Coupons\CouponRepositoryInterface;
+use App\Repositories\Coupons\Coupon;
 use Carbon\Carbon;
 
 class CouponLogic extends BaseLogic
@@ -40,11 +41,10 @@ class CouponLogic extends BaseLogic
     public function transformCoupon($data)
     {
         $settings       = json_decode($data['settings']);
-        // dd($settings->rooms);
-        $arrRoom        = $this->room_translate->getRoomByListId($settings->rooms);
-        $arrCity 		= $this->city->getCityByListId($settings->cities);
-        $arrDistrict 	= $this->district->getDistrictByListId($settings->districts);
-        $arrDay 		= $settings->days;
+        $arrRoom        = !empty($settings->rooms) ? $this->room_translate->getRoomByListId($settings->rooms) : [];
+        $arrCity 		= !empty($settings->cities) ? $this->city->getCityByListId($settings->cities) : [];
+        $arrDistrict 	= !empty($settings->districts) ? $this->district->getDistrictByListId($settings->districts) : [];
+        $arrDay 		= !empty($settings->days) ? $settings->days : [];
 
         $arrayTransformSetting = [
             'rooms' 	=> $arrRoom,
@@ -52,7 +52,6 @@ class CouponLogic extends BaseLogic
             'districts' => $arrDistrict,
             'days' 		=> $arrDay,
         ];
-        $objectSetting 		= json_encode($arrayTransformSetting);
         $data['settings'] 	= $arrayTransformSetting;
         return $data;
     }
@@ -104,9 +103,9 @@ class CouponLogic extends BaseLogic
             $end_date       = new Carbon($coupon->Promotions->date_end);
             $current_date   = Carbon::now();
 
-            if ($data_status == 1) {
+            if ($data_status == Coupon::AVAILABLE) {
                 if ($start_date <= $current_date && $end_date >= $current_date) {
-                    if ($data_allDay == 1) {
+                    if ($data_allDay == Coupon::AVAILABLE) {
                         return $this->calculateDiscount($coupon, $data);
                     } else {
                         $data_settings  = json_decode($coupon->settings);
@@ -146,7 +145,7 @@ class CouponLogic extends BaseLogic
                         throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
                     }
                 } else {
-                    throw new \Exception('Mã khuyến mãi Không còn thời gian sử dụng');
+                    throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
                 }
             } else {
                 throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
