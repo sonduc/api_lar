@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-11-27T08:20:22.263Z",
+	"__export_date": "2018-11-27T08:43:08.364Z",
 	"__export_source": "insomnia.desktop.app:v6.2.0",
 	"resources": [
 		{
@@ -2137,7 +2137,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1536131277742,
-			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\nmerchants: Int\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\nstatus: int\nrooms: int,\ncheckin: Y-m-d,\ncheckout: Y-m-d\n```",
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\nmerchants: Int\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\nstatus: int\nroom: int,\ndate_in: Y-m-d,\ndate_out: Y-m-d\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -2148,7 +2148,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1543306757333,
+			"modified": 1543308166943,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2158,7 +2158,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": false,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings?rooms=3502",
+			"url": "{{ api_url  }}bookings?date_in=2020-12-12",
 			"_type": "request"
 		},
 		{

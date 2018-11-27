@@ -3,6 +3,7 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\GlobalTrait;
+use Carbon\Carbon;
 
 trait FilterTrait
 {
@@ -81,19 +82,21 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeDateCheckin($query, $q)
+    public function scopeDateIn($query, $q)
     {
         if ($q) {
-            $query->where('bookings.checkin', '>=', $q);
+            $q_timestamp = Carbon::parse($q)->timestamp;
+            $query->where('bookings.checkin', '>=', $q_timestamp);
         }
 
         return $query;
     }
 
-    public function scopeDateCheckout($query, $q)
+    public function scopeDateOut($query, $q)
     {
         if ($q) {
-            $query->where('bookings.checkout', '<=', $q);
+            $q_timestamp = Carbon::parse($q)->timestamp;
+            $query->where('bookings.checkout', '<=', $q_timestamp);
         }
 
         return $query;
