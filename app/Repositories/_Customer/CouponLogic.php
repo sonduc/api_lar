@@ -164,9 +164,8 @@ class CouponLogic extends BaseLogic
     public function calculateDiscount($coupon, $data)
     {
         $price_discount = ($coupon->discount * $data['price_original'])/100;
-
         if ($price_discount > $coupon->max_discount) {
-            $price_discount = $data['price_original'] - $coupon->max_discount;
+            $price_discount = $coupon->max_discount;
         }
 
         $price_remain = $data['price_original'] -  $price_discount;

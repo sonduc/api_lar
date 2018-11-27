@@ -44,11 +44,12 @@ trait BookingLogicTrait
             $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
             $data['hours'] = $hours;
 
+            $data['checkin']  = $checkin->timestamp;
+            $data['checkout'] = $checkout->timestamp;
             // Xử lý logic tính giá phòng vào ngày đặc biệt
             $money =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
                 ?? 0;
-
             if ($money == 0) {
                 $money =
                 $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
@@ -77,9 +78,11 @@ trait BookingLogicTrait
         $data['service_fee']     = $room->cleaning_fee;
         if ($data['coupon']) {
             $coupon                  = $this->cp->getCouponByCode($data['coupon']);
+            $data['city_id']         = $room->city_id;
+            $data['district_id']     = $room->district_id;
             $coupon_discount         = $this->cp->checkSettingDiscount($coupon, $data);
             
-            $data['coupon_discount'] = $coupon_discount;
+            $data['coupon_discount'] = $coupon_discount['price_discount'];
         }
 
         $price = $money
@@ -102,12 +105,12 @@ trait BookingLogicTrait
      */
     protected function checkValidBookingTime($room, $data = [])
     {
-        $checkin  = Carbon::parse($data['checkin']);
-        $checkout = Carbon::parse($data['checkout']);
+        $checkin    = Carbon::parse($data['checkin']);
+        $checkout   = Carbon::parse($data['checkout']);
 
-        $hours = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $dayCI = $checkin->copy()->toDateString();
-        $dayCO = $checkout->copy()->toDateString();
+        $hours      = $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $dayCI      = $checkin->copy()->toDateString();
+        $dayCO      = $checkout->copy()->toDateString();
 
         // Trả về lỗi nếu đặt theo giờ nhưng ngày không giống nhau
         if ($dayCI !== $dayCO
@@ -228,6 +231,7 @@ trait BookingLogicTrait
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
                     }
                 }
+                // dd($money);
             } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {

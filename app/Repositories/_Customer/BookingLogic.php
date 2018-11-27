@@ -56,7 +56,7 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     * @param CouponLogic|CouponRepository                       $cp
+     * @param CouponLogic                                                      $cp
      */
     public function __construct(
         BookingRepositoryInterface $booking,
