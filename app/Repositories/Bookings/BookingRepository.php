@@ -179,6 +179,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $this->model->where('uuid', $uuid)->first();
     }
 
+    /**
+     * Lấy tất cả danh sách email khách hàng tạo booking thành công
+     * @author sonduc <ndson1998@gmail.com>
+     */
     public function getBookingSuccess($params)
     {
         $query = $this->model
@@ -198,6 +202,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $query->get();
     }
 
+    /**
+     * Lấy tất cả danh sách email trong khoảng tháng
+     * @author sonduc <ndson1998@gmail.com>
+     */
     public function getBookingCheckout($params)
     {
         $the_begin_of_the_year = Carbon::parse('first day of January')->timestamp;

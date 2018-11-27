@@ -29,7 +29,7 @@ class EmailCustomerController extends ApiController
     }
 
     /**
-     * Lấy danh sách khách hàng đã tạo booking thành công
+     * Lấy danh sách email khách hàng đã tạo booking thành công
      * @author sonduc <ndson1998@gmail.com>
      */
     public function bookingSuccess(Request $request)
@@ -37,18 +37,17 @@ class EmailCustomerController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('emailcustomer.view');
-            // $pageSize = $request->get('limit', 25);
-            // $this->trash = $this->trashStatus($request);
             $data = $this->model->getBookingSuccess($request->all());
-            // dd($data);
-            // dd(DB::getQueryLog());
             return response()->json($data);
-            // return $this->successResponse($data);
         } catch (\Exception $e) {
             throw $e;
         }
     }
 
+    /**
+     * Lấy danh sách email khách hàng, chủ nhà (thuộc city nào)
+     * @author sonduc <ndson1998@gmail.com>
+     */
     public function userOwner(Request $request)
     {
         DB::enableQueryLog();
@@ -61,6 +60,10 @@ class EmailCustomerController extends ApiController
         }
     }
 
+    /**
+     * Lấy danh sách emai khách hàng trong khoảng tháng (từ đầu năm đến khoảng tháng chọn)
+     * @author sonduc <ndson1998@gmail.com>
+     */
     public function bookingCheckout(Request $request)
     {
         DB::enableQueryLog();
