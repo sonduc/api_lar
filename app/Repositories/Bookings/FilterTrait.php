@@ -81,6 +81,24 @@ trait FilterTrait
         return $query;
     }
 
+    public function scopeDateCheckin($query, $q)
+    {
+        if ($q) {
+            $query->where('bookings.checkin', '>=', $q);
+        }
+
+        return $query;
+    }
+
+    public function scopeDateCheckout($query, $q)
+    {
+        if ($q) {
+            $query->where('bookings.checkout', '<=', $q);
+        }
+
+        return $query;
+    }
+
     public function scopePaymentStatus($query, $q)
     {
         if ($q && is_numeric($q)) {
@@ -117,5 +135,12 @@ trait FilterTrait
         return $query;
     }
 
+    public function scopeRooms($query, $q)
+    {
+        if ($q) {
+            $query->where('bookings.room_id', '=', $q);
+        }
 
+        return $query;
+    }
 }

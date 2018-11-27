@@ -66,7 +66,9 @@ if (!function_exists('getLocale')) {
     function getLocale()
     {
         $locale = \Illuminate\Support\Facades\Cookie::get('locale');
-        if (!array_key_exists($locale, config('languages'))) $locale = config('app.locale');
+        if (!array_key_exists($locale, config('languages'))) {
+            $locale = config('app.locale');
+        }
         return $locale;
     }
 }
@@ -87,4 +89,17 @@ function resource($uri, $controller, Laravel\Lumen\Routing\Router $router)
     $router->post($uri, $controller . '@store');
     $router->put($uri . '/{id}', $controller . '@update');
     $router->delete($uri . '/{id}', $controller . '@destroy');
+}
+
+function arrayToObject($arr = []): array
+{
+    $array_value = [];
+    foreach ($arr as $key => $item) {
+        $array_value[] = [
+                'id'    => $key,
+                'value' => $item,
+            ];
+    }
+
+    return $array_value;
 }

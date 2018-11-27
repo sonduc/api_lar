@@ -50,6 +50,7 @@ trait FilterTrait
                     break;
                 case User::NOT_OWNER:
                     $query->where('users.owner', User::NOT_OWNER);
+                    break;
                 default:
                     $query;
                     break;
@@ -58,5 +59,4 @@ trait FilterTrait
 
         return $query;
     }
-
 }
