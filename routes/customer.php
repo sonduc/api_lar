@@ -33,6 +33,7 @@ $router->group([
      */
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/settings', 'ProfileController@settings');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 });
     $router->post('/bookings', 'BookingController@store');

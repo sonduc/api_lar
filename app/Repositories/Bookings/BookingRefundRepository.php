@@ -11,6 +11,7 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 
+
 class BookingRefundRepository extends BaseRepository implements BookingRefundRepositoryInterface
 {
     protected $model;
@@ -36,6 +37,7 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
     public function storeBookingRefund($booking = [], $room = [], $booking_refund = [])
     {
         $room_array = json_decode( $room->settings);
+        
 
         if (!empty($room_array->no_booking_cancel) && $room_array->no_booking_cancel == BookingConstant::BOOKING_CANCEL_UNAVAILABLE)
         {

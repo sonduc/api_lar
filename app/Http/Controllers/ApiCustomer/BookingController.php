@@ -298,7 +298,7 @@ class BookingController extends ApiController
             ];
             if ($minutes > 10) {
                 event(new ConfirmBookingTime($data));
-                throw new \Exception('Booking này đã bị hủy do thời gia bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
+                throw new \Exception('Booking này đã bị hủy do thời gian bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
             }
 
             $validate = array_only($this->validationRules, [

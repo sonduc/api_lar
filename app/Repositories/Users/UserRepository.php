@@ -4,6 +4,7 @@ namespace App\Repositories\Users;
 
 use App\Repositories\BaseRepository;
 use App\User;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -45,11 +46,94 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function update($id, $data, $except = [], $only = [])
     {
         $user = parent::update($id, $data);
-
         $roles = array_get($data, 'roles', []);
         $user->roles()->detach();
         $user->roles()->attach($roles);
         return $user;
+    }
+
+
+    /**
+     * Cập nhập thông tin cho customer
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param int $id
+     * @param $data
+     * @param array $except
+     * @param array $only
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateInfoCustomer($id, $data, $except = [], $only = [])
+    {
+        $data = array_only($data, $only);
+
+        if (isset($data['subcribe']) && empty($data['subcribe']))
+        {
+            $data['subcribe'] =1;
+        }
+
+       if (isset( $data['settings']))
+       {
+           $data['settings'] = json_encode( $data['settings']);
+       }
+
+        $user = parent::update($id, $data);
+        return $user;
+    }
+
+    /**
+     *  Cập nhập settings cho customer
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @param array $except
+     * @param array $only
+     * @param array $list
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateSettingCustomer($id, $data, $except = [], $only = [],$list= [])
+    {
+        $data = array_only($data, $only);
+
+        if (empty($data['subcribe']))
+        {
+            $data['subcribe'] =1;
+        }
+        if (isset($data['settings']) && !empty($data['settings']))
+        {
+            foreach ($data['settings'] as $k => $val)
+            {
+                if (empty($val))
+                {
+                    $list[$k] = User::DISABLE;
+                }else
+                {
+                    $list[$k] = $data['settings'][$k];
+                }
+            }
+        }
+
+        $data['settings'] = json_encode($list);
+        $user = parent::update($id, $data);
+        return $user;
+
+    }
+
+
+    public function checkValidPassword($user ,$request)
+    {
+
+      if (!Hash::check($request['old_password'],$user->password))
+      {
+          throw new \Exception('Mật khẩu không chính xác');
+
+      }elseif($request['old_password'] === $request['password'])
+      {
+          throw new \Exception('Mật khẩu không được trùng với mật khẩu cũ');
+      }
+
+
     }
 
     /**

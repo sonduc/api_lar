@@ -93,9 +93,9 @@ class BookingLogic extends BaseLogic
         $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
-        $data['customer_id'] =
-            array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
+        $data['customer_id'] = Auth::check()? Auth::user()->id : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
+        dd($data);
         $data_booking        = parent::store($data);
         $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
@@ -114,16 +114,18 @@ class BookingLogic extends BaseLogic
     private function checkUserExist($data = [])
     {
         $user = $this->user->getUserByEmailOrPhone($data);
-
         if (!$user) {
             $data['password'] = $data['phone'];
             $data['type']     = User::USER;
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
             $user             = $this->user->store($data);
+            return $user->id;
         }
 
         return $user->id;
+
+
     }
 
 
