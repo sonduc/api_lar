@@ -34,5 +34,4 @@ class Log extends Entity
     {
         return $this->belongsTo(\App\User::class, 'causer_id');
     }
-
 }

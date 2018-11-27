@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Repositories\Collections;
-use App\Repositories\GlobalTrait;
 
+use App\Repositories\GlobalTrait;
 
 trait FilterTrait
 {
@@ -75,15 +75,9 @@ trait FilterTrait
             $columns                = self::mergeUnique($collectionColumns, $collectionTransColumns);
             $query
                 ->addSelect($columns)
-                ->join('collection_translates','collection_translates.collection_id','=','collections.id')
+                ->join('collection_translates', 'collection_translates.collection_id', '=', 'collections.id')
                 ->where('collection_translates.name', 'like', "%${q}%");
         }
         return $query;
     }
-
-
-
-
-
-
 }

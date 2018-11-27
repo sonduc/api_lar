@@ -8,8 +8,6 @@
 
 namespace App\Repositories\Blogs;
 
-
 interface TagRepositoryInterface
 {
-
 }

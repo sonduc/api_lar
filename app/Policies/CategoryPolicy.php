@@ -1,4 +1,4 @@
-n <?php
+<?php
 /**
  * Created by PhpStorm.
  * User: ducchien
@@ -10,6 +10,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+
 class CategoryPolicy
 {
     use HandlesAuthorization;
@@ -53,5 +54,4 @@ class CategoryPolicy
     {
         return $user->hasAccess(['category.delete']);
     }
-
 }

@@ -30,7 +30,6 @@ class AppServiceProvider extends ServiceProvider
         }
         // Aliases
         $this->app->alias('mailer', \Illuminate\Contracts\Mail\Mailer::class);
-
     }
 
     public function boot()

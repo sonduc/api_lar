@@ -21,9 +21,7 @@ class BlogRepository extends BaseRepository implements BlogRepositoryInterface
      */
     public function __construct(
         Blog $blog
-    )
-    {
+    ) {
         $this->model         = $blog;
     }
-
 }

@@ -35,5 +35,4 @@ class LogRepository extends BaseRepository
     {
         return parent::getByQuery($data, $pageSize);
     }
-
 }

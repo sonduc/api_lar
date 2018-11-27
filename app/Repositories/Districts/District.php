@@ -61,5 +61,4 @@ class District extends Entity
     {
         return $this->hasMany(\App\User::class, 'district_id');
     }
-
 }

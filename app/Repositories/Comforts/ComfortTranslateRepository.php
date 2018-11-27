@@ -59,5 +59,4 @@ class ComfortTranslateRepository extends BaseRepository
     {
         return $this->model->where('comfort_id', $id)->select('id')->get();
     }
-
 }

@@ -1,8 +1,8 @@
 <?php
 
 namespace App\Repositories\Blogs;
-use App\Repositories\GlobalTrait;
 
+use App\Repositories\GlobalTrait;
 
 trait FilterTrait
 {
@@ -119,12 +119,12 @@ trait FilterTrait
         if ($q) {
             $blogColumns      = $this->columnsConverter(['id', 'created_at', 'updated_at']);
             $tagsColmns = $this->columnsConverter(['name'], 'tags', false);
-            $columns         = self::mergeUnique($blogColumns,$tagsColmns);
+            $columns         = self::mergeUnique($blogColumns, $tagsColmns);
             $query
                 ->addSelect($columns)
                 ->join('blog_tags', 'blog_id', '=', 'blogs.id')
                 ->join('tags', 'tags.id', '=', 'blog_tags.tag_id')
-                ->where('tags.name','=',$q);
+                ->where('tags.name', '=', $q);
         }
         return $query;
     }
@@ -140,24 +140,17 @@ trait FilterTrait
      */
     public function scopeDateStart($query, $q)
     {
-        if ($q)
-        {
-            $query->where('blogs.created_at','>=',$q);
+        if ($q) {
+            $query->where('blogs.created_at', '>=', $q);
         }
         return $query;
-
     }
 
     public function scopeDateEnd($query, $q)
     {
-        if ($q)
-        {
-            $query->where('blogs.created_at','<=',$q);
+        if ($q) {
+            $query->where('blogs.created_at', '<=', $q);
         }
         return $query;
-
     }
-
-
-
 }

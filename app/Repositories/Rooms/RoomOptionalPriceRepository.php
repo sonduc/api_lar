@@ -106,8 +106,10 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
         $price_hour       =
             array_key_exists('price_hour', $data['optional_prices']) ? $data['optional_prices']['price_hour'] : 0;
         $price_after_hour =
-            array_key_exists('price_after_hour',
-                             $data['optional_prices']) ? $data['optional_prices']['price_after_hour'] : 0;
+            array_key_exists(
+                'price_after_hour',
+                             $data['optional_prices']
+            ) ? $data['optional_prices']['price_after_hour'] : 0;
 
         foreach ($data['optional_prices']['days'] as $day) {
             $obj                     = $data;
@@ -126,5 +128,4 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
     {
         return $this->model->where('room_id', $id)->get();
     }
-
 }

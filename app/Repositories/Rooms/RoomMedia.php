@@ -38,5 +38,4 @@ class RoomMedia extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

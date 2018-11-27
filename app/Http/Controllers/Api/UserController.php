@@ -73,7 +73,6 @@ class UserController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
-
     }
     public function store(Request $request)
     {

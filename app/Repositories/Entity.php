@@ -25,5 +25,4 @@ class Entity extends Model
         }
         return $query;
     }
-
 }

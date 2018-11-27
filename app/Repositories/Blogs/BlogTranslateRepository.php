@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Blogs;
 
-
 use App\Repositories\BaseRepository;
 
 class BlogTranslateRepository extends BaseRepository implements BlogTranslateRepositoryInterface
@@ -71,5 +70,4 @@ class BlogTranslateRepository extends BaseRepository implements BlogTranslateRep
     {
         $this->model->where('blog_id', $id)->forceDelete();
     }
-
 }

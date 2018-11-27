@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Bookings;
 
-
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -30,5 +29,4 @@ class BookingRefund extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

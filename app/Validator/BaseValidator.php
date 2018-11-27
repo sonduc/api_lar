@@ -8,7 +8,6 @@
 
 namespace App\Validator;
 
-
 use App\Helpers\ErrorCore;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Validation\Validator;
@@ -29,9 +28,13 @@ abstract class BaseValidator implements Rule
     }
 
 
-    public function passes($attribute, $value) { }
+    public function passes($attribute, $value)
+    {
+    }
 
-    public function message() { }
+    public function message()
+    {
+    }
 
     /**
      * Kiêm tra xem validate có pass hay không
@@ -42,7 +45,9 @@ abstract class BaseValidator implements Rule
     public function checkValidate()
     {
         $status = $this->validator->failed() ? false : true;
-        if (!$status) $this->validator->setCustomMessages([trans2(ErrorCore::VALIDATION_INTERRUPTED)]);
+        if (!$status) {
+            $this->validator->setCustomMessages([trans2(ErrorCore::VALIDATION_INTERRUPTED)]);
+        }
 
         return $status;
     }

@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Categories;
 
-
 use App\Repositories\BaseLogic;
 
 class CategoryLogic extends BaseLogic
@@ -42,7 +41,6 @@ class CategoryLogic extends BaseLogic
         $data_category = parent::store($data);
         $this->categoryTranslate->storeCategoryTranslate($data_category, $data);
         return $data_category;
-
     }
 
     /**

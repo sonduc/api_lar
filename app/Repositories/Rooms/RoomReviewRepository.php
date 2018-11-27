@@ -8,7 +8,7 @@
 
 namespace App\Repositories\Rooms;
 
-use App\Repositories\BaseRepository;;
+use App\Repositories\BaseRepository;
 
 class RoomReviewRepository extends BaseRepository implements RoomReviewRepositoryInterface
 {
@@ -35,5 +35,4 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
         ])->first();
         return $data;
     }
-
 }

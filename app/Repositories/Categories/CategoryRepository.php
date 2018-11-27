@@ -12,11 +12,7 @@ class CategoryRepository extends BaseRepository implements CategoryRepositoryInt
      */
     public function __construct(
         Category $category
-    )
-    {
+    ) {
         $this->model = $category;
     }
-
-
-
 }

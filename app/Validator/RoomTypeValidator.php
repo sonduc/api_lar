@@ -2,7 +2,6 @@
 
 namespace App\Validator;
 
-
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingMessage;
 use App\Repositories\Rooms\Room;
@@ -41,13 +40,15 @@ class RoomTypeValidator extends BaseValidator
         try {
             $this->setValidator($validator);
 
-            if (!$this->checkValidate()) return false;
+            if (!$this->checkValidate()) {
+                return false;
+            }
 
             $data = $this->validator->valid();
             $room = $this->room->getById($data['room_id']);
 
             // Kiểm tra kiểu đặt phòng hợp lệ
-            if ($room->rent_type != Room::TYPE_ALL && $room->rent_type != $value ) {
+            if ($room->rent_type != Room::TYPE_ALL && $room->rent_type != $value) {
                 $this->validator->setCustomMessages([
                     $attribute . '.booking_type_check' => trans2(BookingMessage::ERR_BOOKING_TYPE_INVALID, [
                         'type' => Room::ROOM_RENT_TYPE[$value]
@@ -64,12 +65,9 @@ class RoomTypeValidator extends BaseValidator
 
     public function passes($attribute, $value)
     {
-
     }
 
     public function message()
     {
-
     }
-
 }

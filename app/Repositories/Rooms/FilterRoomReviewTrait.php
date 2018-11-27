@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Rooms;
 
-
 use App\Repositories\GlobalTrait;
 
 trait FilterRoomReviewTrait
@@ -87,7 +86,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.created_at', '>=', $q);
         }
         return $query;
-
     }
 
     public function scopeDateEnd($query, $q)
@@ -96,7 +94,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.created_at', '<=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -115,7 +112,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.cleanliness', '=', $q);
         }
         return $query;
-
     }
 
     public function scopeService($query, $q)
@@ -124,7 +120,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.service', '=', $q);
         }
         return $query;
-
     }
 
     public function scopeValuable($query, $q)
@@ -133,7 +128,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.valuable', '=', $q);
         }
         return $query;
-
     }
 
     public function scopeQuality($query, $q)
@@ -142,7 +136,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.quality', '=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -161,7 +154,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.quality', '>=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -180,7 +172,6 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.recommend', '=', $q);
         }
         return $query;
-
     }
 
     /**
@@ -199,8 +190,5 @@ trait FilterRoomReviewTrait
             $query->where('room_reviews.like', '=', $q);
         }
         return $query;
-
     }
-
-
 }

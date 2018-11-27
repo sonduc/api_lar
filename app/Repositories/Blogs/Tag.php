@@ -10,6 +10,7 @@ namespace App\Repositories\Blogs;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class Tag extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
@@ -30,5 +31,4 @@ class Tag extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

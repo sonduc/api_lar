@@ -21,9 +21,9 @@ class CollectionLogic extends BaseLogic
      * @param ColectionTranslateRepositoryInterface|CollectionTranslateRepository $collectionTranslate
      */
     public function __construct(
-        CollectionRepositoryInterface $collection, ColectionTranslateRepositoryInterface $collectionTranslate
-    )
-    {
+        CollectionRepositoryInterface $collection,
+        ColectionTranslateRepositoryInterface $collectionTranslate
+    ) {
         $this->model               = $collection;
         $this->collectionTranslate = $collectionTranslate;
     }
@@ -54,7 +54,7 @@ class CollectionLogic extends BaseLogic
      */
     public function storeCollectionRoom($data_collection, $data)
     {
-        if (!empty ($data)) {
+        if (!empty($data)) {
             if (isset($data['rooms'])) {
                 $data_collection->rooms()->attach($data['rooms']);
             }
@@ -91,7 +91,7 @@ class CollectionLogic extends BaseLogic
      */
     public function updateCollectionRoom($data_collection, $data)
     {
-        if (!empty ($data)) {
+        if (!empty($data)) {
             if (isset($data['rooms'])) {
                 $data_collection->rooms()->detach();
                 $data_collection->rooms()->attach($data['rooms']);
@@ -125,5 +125,4 @@ class CollectionLogic extends BaseLogic
         $data_collection = parent::update($id, $data);
         return $data_collection;
     }
-
 }

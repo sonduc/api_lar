@@ -10,6 +10,7 @@ namespace App\Repositories\Collections;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+
 class CollectionTranslate extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;

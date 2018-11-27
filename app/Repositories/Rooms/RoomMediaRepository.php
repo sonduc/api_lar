@@ -67,5 +67,4 @@ class RoomMediaRepository extends BaseRepository implements RoomMediaRepositoryI
         }
         parent::storeArray($list);
     }
-
 }

@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Rooms;
 
-
 trait PresentationRoomReviewTrait
 {
 
@@ -28,7 +27,6 @@ trait PresentationRoomReviewTrait
     public function sumLike() :int
     {
         return $this->where('room_id', '=', $this->room_id)->sum('like');
-
     }
 
     public function reviewQuality()
@@ -39,19 +37,16 @@ trait PresentationRoomReviewTrait
     public function reviewService()
     {
         return isset(self::SERVICE[$this->service]) ? self::SERVICE[$this->service] : 'Chưa đánh giá';
-
     }
 
     public function reviewCleanliness()
     {
         return isset(self::CLEANLINESS[$this->cleanliness]) ? self::CLEANLINESS[$this->cleanliness] : 'Chưa đánh giá';
-
     }
 
     public function reviewValuable()
     {
         return isset(self::VALUABLE[$this->valuable]) ? self::VALUABLE[$this->valuable] : 'Chưa đánh giá';
-
     }
 
     public function reviewStatus()
@@ -68,5 +63,4 @@ trait PresentationRoomReviewTrait
     {
         return self::RECOMMEND[$this->status ?? self::UNAVAILABLE];
     }
-
 }

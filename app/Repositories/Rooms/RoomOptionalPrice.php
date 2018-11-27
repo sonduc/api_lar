@@ -27,6 +27,4 @@ class RoomOptionalPrice extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
-
 }

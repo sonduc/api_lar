@@ -14,6 +14,4 @@ class PromotionRepository extends BaseRepository implements PromotionRepositoryI
     {
         $this->model = $promotion;
     }
-
-
 }

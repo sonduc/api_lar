@@ -66,7 +66,6 @@ class ComfortRepository extends BaseRepository
      * @param $id
      */
     public function deleteComfort($id)
-
     {
         $list_id = $this->comfortTranslate->getByComfortID($id);
         foreach ($list_id as $comfort) {
@@ -74,5 +73,4 @@ class ComfortRepository extends BaseRepository
         }
         parent::delete($id);
     }
-
 }

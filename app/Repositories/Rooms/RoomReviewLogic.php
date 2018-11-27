@@ -2,11 +2,9 @@
 
 namespace App\Repositories\Rooms;
 
-
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
-
 
 class RoomReviewLogic extends BaseLogic
 {
@@ -24,8 +22,7 @@ class RoomReviewLogic extends BaseLogic
         RoomReviewRepositoryInterface $roomReview,
         RoomRepositoryInterface $room,
         BookingRepositoryInterface $booking
-    )
-    {
+    ) {
         $this->model   = $roomReview;
         $this->room    = $room;
         $this->booking = $booking;
@@ -40,13 +37,14 @@ class RoomReviewLogic extends BaseLogic
      * @return \App\Repositories\Eloquent
      * @throws \Exception
      */
-    public function store($data,$list = [])
+    public function store($data, $list = [])
     {
         $check_review = $this->model->getBookingByID($data['booking_id']);
-        if (!empty($check_review)) throw  new \Exception('Bạn đã từng đánh giá phòng này nên chỉ có quyền sửa đổi');
+        if (!empty($check_review)) {
+            throw  new \Exception('Bạn đã từng đánh giá phòng này nên chỉ có quyền sửa đổi');
+        }
         $list_booking = $this->booking->getBookingByCheckout($data['booking_id']);
-        if (!empty($data))
-        {
+        if (!empty($data)) {
             $data['user_id'] = $list_booking->customer_id;
             $data['room_id'] = $list_booking->room_id;
         }
@@ -67,6 +65,4 @@ class RoomReviewLogic extends BaseLogic
     {
         return parent::update($id, $data);
     }
-
-
 }

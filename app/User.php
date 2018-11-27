@@ -116,8 +116,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
             $model->uuid = hashid_encode($model->id);
             $model->save();
         });
-
-
     }
 
     public function setPasswordAttribute($value)

@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Rooms;
 
-
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -115,5 +114,4 @@ class RoomReview extends Entity
     {
         return $this->belongsTo(\App\User::class, 'user_id');
     }
-
 }

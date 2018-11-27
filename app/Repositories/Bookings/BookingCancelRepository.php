@@ -6,7 +6,6 @@ use App\Repositories\BaseRepository;
 
 class BookingCancelRepository extends BaseRepository implements BookingcancelRepositoryInterface
 {
-
     protected $model;
 
     /**
@@ -18,6 +17,4 @@ class BookingCancelRepository extends BaseRepository implements BookingcancelRep
     {
         $this->model = $booking;
     }
-
-
 }

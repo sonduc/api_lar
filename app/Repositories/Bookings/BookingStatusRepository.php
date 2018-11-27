@@ -67,5 +67,4 @@ class BookingStatusRepository extends BaseRepository implements BookingStatusRep
     {
         return $this->model->where('booking_id', $booking->id)->first();
     }
-
 }

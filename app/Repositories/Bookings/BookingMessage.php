@@ -2,7 +2,6 @@
 
 namespace App\Repositories\Bookings;
 
-
 final class BookingMessage
 {
     public const ERR_TIME_BETWEEN_BOOK      = 'error/booking.TIME_BETWEEN_BOOK';

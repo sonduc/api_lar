@@ -8,8 +8,6 @@
 
 namespace App\Repositories\Bookings;
 
-
 interface BookingRepositoryInterface
 {
-
 }

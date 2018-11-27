@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-
 abstract class BaseLogic
 {
     /**
@@ -16,7 +15,8 @@ abstract class BaseLogic
      *
      * @return Illuminate\Support\Collection
      */
-    public function getAll() {
+    public function getAll()
+    {
         return $this->model->getAll();
     }
 
@@ -60,7 +60,7 @@ abstract class BaseLogic
 
     public function store($data)
     {
-         return $this->model->store($data);
+        return $this->model->store($data);
     }
 
     /**

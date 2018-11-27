@@ -14,5 +14,4 @@ class CollectionRepository extends BaseRepository implements CollectionRepositor
     {
         $this->model = $collection;
     }
-
 }

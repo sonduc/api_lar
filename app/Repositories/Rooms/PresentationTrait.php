@@ -100,5 +100,4 @@ trait PresentationTrait
     {
         return $this->permissions[$permission] ?? false;
     }
-
 }

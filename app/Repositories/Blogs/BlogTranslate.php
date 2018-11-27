@@ -29,5 +29,4 @@ class BlogTranslate extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

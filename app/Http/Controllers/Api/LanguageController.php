@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-
 class LanguageController extends ApiController
 {
 
@@ -15,5 +14,4 @@ class LanguageController extends ApiController
         $languages = config('languages');
         return response()->json($languages, 200);
     }
-
 }

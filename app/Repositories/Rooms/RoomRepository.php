@@ -57,9 +57,9 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
     public function getRoom($id)
     {
-       return $this->model
+        return $this->model
             ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
-            ->where('room_translates.lang','vi')
+            ->where('room_translates.lang', 'vi')
             ->where('rooms.id', $id)->first();
     }
 
@@ -75,49 +75,47 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function checkVaildRefund($data)
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
-        if (empty($data))
-        {
+        if (empty($data)) {
             return $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
         }
 
-        if (isset($data['no_booking_cancel']) )
-        {
-           if (!empty($data['no_booking_cancel'])  && $data['no_booking_cancel'] ==1 )
-           {
-               $refund = [
+        if (isset($data['no_booking_cancel'])) {
+            if (!empty($data['no_booking_cancel'])  && $data['no_booking_cancel'] ==1) {
+                $refund = [
                    'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE
                ];
 
-               return  json_encode($refund);
-           }
+                return  json_encode($refund);
+            }
         }
 
 
 
         // set măc định bốn mức cho hủy phòng.
-            $refund = $data['refunds'];
-        if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) throw new \Exception('không được phép tạo thêm mức hủy phòng');
+        $refund = $data['refunds'];
+        if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) {
+            throw new \Exception('không được phép tạo thêm mức hủy phòng');
+        }
 
-       for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL -1 ;$i++ )
-       {
-           if (!empty($refund[$i+1])){
-              if ($refund[$i]['amount'] > $refund[$i+1]['amount'] && $refund[$i]['days'] < $refund[$i+1]['days'] )
-              {
-                  throw new \Exception('Ngày điền không hợp lệ');
-              }elseif ( $refund[$i]['amount'] < $refund[$i+1]['amount'] && $refund[$i]['days'] > $refund[$i+1]['days'] )
-              {
-                  throw new \Exception('Ngày điền không hợp lệ');
-              }
-           }
-       }
+        for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL -1 ;$i++) {
+            if (!empty($refund[$i+1])) {
+                if ($refund[$i]['amount'] > $refund[$i+1]['amount'] && $refund[$i]['days'] < $refund[$i+1]['days']) {
+                    throw new \Exception('Ngày điền không hợp lệ');
+                } elseif ($refund[$i]['amount'] < $refund[$i+1]['amount'] && $refund[$i]['days'] > $refund[$i+1]['days']) {
+                    throw new \Exception('Ngày điền không hợp lệ');
+                }
+            }
+        }
 
         // kiểm tra cùng một số tiền hoàn lại không thể trùng số ngày với nhau
         $refund_map = array_map(function ($item) {
             return $item['days'];
-        },$refund);
+        }, $refund);
 
         $refund_uique = array_unique($refund_map);
-        if(count($refund_map) > count($refund_uique)) throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
+        if (count($refund_map) > count($refund_uique)) {
+            throw new \Exception('Số ngày ở các nức hoàn tiền không thể giống nhau');
+        }
 
         $refund = [
             'refund' => $refund,

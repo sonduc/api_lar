@@ -27,5 +27,4 @@ class RoomTimeBlock extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

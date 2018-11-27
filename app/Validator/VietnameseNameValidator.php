@@ -12,7 +12,6 @@ class VietnameseNameValidator extends BaseValidator
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -45,7 +44,5 @@ class VietnameseNameValidator extends BaseValidator
      */
     public function message()
     {
-
     }
-
 }

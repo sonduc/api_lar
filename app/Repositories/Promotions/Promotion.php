@@ -39,6 +39,6 @@ class Promotion extends Entity
      */
     public function coupons()
     {
-        return $this->hasMany(Coupon::class,'promotion_id','id');
+        return $this->hasMany(Coupon::class, 'promotion_id', 'id');
     }
 }

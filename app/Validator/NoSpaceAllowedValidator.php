@@ -13,7 +13,6 @@ class NoSpaceAllowedValidator extends BaseValidator
      */
     public function __construct()
     {
-
     }
 
     /**
@@ -34,17 +33,13 @@ class NoSpaceAllowedValidator extends BaseValidator
         } catch (ModelNotFoundException $e) {
             return false;
         }
-
     }
 
     public function passes($attribute, $value)
     {
-
     }
 
     public function message()
     {
-
     }
-
 }

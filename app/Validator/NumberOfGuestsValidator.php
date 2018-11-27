@@ -36,7 +36,9 @@ class NumberOfGuestsValidator extends BaseValidator
     {
         try {
             $this->setValidator($validator);
-            if (!$this->checkValidate()) return false;
+            if (!$this->checkValidate()) {
+                return false;
+            }
 
             $data = $this->validator->valid();
             $room  = $this->room->getById($data['room_id']);
@@ -49,17 +51,13 @@ class NumberOfGuestsValidator extends BaseValidator
         } catch (ModelNotFoundException $e) {
             return false;
         }
-
     }
 
     public function passes($attribute, $value)
     {
-
     }
 
     public function message()
     {
-
     }
-
 }

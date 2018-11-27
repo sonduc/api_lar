@@ -8,7 +8,6 @@
 
 namespace App\Repositories\Rooms;
 
-
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
@@ -18,7 +17,7 @@ trait RoomTimeBlockTrait
     /**
      * Thu gọn khoảng thời gian block phòng
      * @author HarikiRito <nxh0809@gmail.com>
-     *
+     *s
      * @param array $blocks
      * @param array $unlock
      *
@@ -26,14 +25,15 @@ trait RoomTimeBlockTrait
      */
     public function minimizeBlock(array $blocks, array $unlock = []): array
     {
-        if (!$blocks) return [];
-         sort($blocks);
+        if (!$blocks) {
+            return [];
+        }
+        sort($blocks);
         list($rangeSet, $singleSet) = $this->organizeDates($blocks);
         $list   = $this->processCarbonPeriod($rangeSet, $singleSet);
         $list   = $this->unlockDays($list, $unlock);
         $blocks = $this->setUpListTimeBlock($list);
         return $blocks;
-
     }
 
     /**
@@ -139,7 +139,6 @@ trait RoomTimeBlockTrait
                 $block[] = $pair;
                 $pair    = [];
             }
-
         }
 
         return $block;
@@ -159,7 +158,7 @@ trait RoomTimeBlockTrait
         foreach ($blocks as $item) {
             if (\count($item) === 2) {
                 $rangeSet[] = CarbonPeriod::between($item[0], $item[1]);
-            } else if (\count($item) === 1) {
+            } elseif (\count($item) === 1) {
                 $singleSet[] = Carbon::parse($item[0]);
             } else {
                 throw new InvalidDateException('not-valid-block-date', 'INVALID');
@@ -167,5 +166,4 @@ trait RoomTimeBlockTrait
         }
         return [$rangeSet, $singleSet];
     }
-
 }

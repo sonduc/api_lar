@@ -7,9 +7,9 @@
  */
 
 namespace App\Repositories\Categories;
+
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
 
 class CategoryTranslate extends Entity
 {
@@ -25,6 +25,4 @@ class CategoryTranslate extends Entity
         = [
             'name','lang','category_id','slug'
         ];
-
-
 }

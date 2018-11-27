@@ -2,9 +2,6 @@
 
 namespace App\Repositories;
 
-
-
-
 trait GlobalTrait
 {
     public static function isJoined($query, $table = null)
@@ -55,5 +52,4 @@ trait GlobalTrait
         }
         return array_unique($result);
     }
-
 }

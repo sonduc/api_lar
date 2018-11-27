@@ -10,6 +10,7 @@ namespace App\Policies;
 
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+
 class CollectionPolicy
 {
     use HandlesAuthorization;
@@ -61,5 +62,4 @@ class CollectionPolicy
     {
         return $user->hasAccess(['collection.delete']);
     }
-
 }

@@ -63,6 +63,4 @@ class CategoryTranslateRepository extends BaseRepository implements CategoryTran
     {
         $this->model->where('category_id', $id)->forceDelete();
     }
-
-
 }

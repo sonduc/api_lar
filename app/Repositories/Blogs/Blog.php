@@ -62,7 +62,7 @@ class Blog extends Entity
      */
     public function tags()
     {
-        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id','tag_id');
+        return $this->belongsToMany(Tag::class, 'blog_tags', 'blog_id', 'tag_id');
     }
 
     /**
@@ -73,7 +73,7 @@ class Blog extends Entity
      */
     public function categories()
     {
-        return $this->belongsTo(\App\Repositories\Categories\Category::class,'category_id');
+        return $this->belongsTo(\App\Repositories\Categories\Category::class, 'category_id');
     }
 
     /**
@@ -85,11 +85,6 @@ class Blog extends Entity
 
     public function user()
     {
-        return $this->belongsTo(\App\User::class,'user_id');
+        return $this->belongsTo(\App\User::class, 'user_id');
     }
-
-
-
-
-
 }

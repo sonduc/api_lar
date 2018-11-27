@@ -45,5 +45,4 @@ class RoomTranslate extends Entity
      * Relationship với ngôn ngữ
      * @return Relation
      */
-
 }
