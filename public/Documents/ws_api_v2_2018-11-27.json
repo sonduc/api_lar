@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-11-27T03:27:52.875Z",
+	"__export_date": "2018-11-27T08:20:22.263Z",
 	"__export_source": "insomnia.desktop.app:v6.2.0",
 	"resources": [
 		{
@@ -2137,7 +2137,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1536131277742,
-			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\nmerchants: Int\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\n```",
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\nmerchants: Int\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\nstatus: int\nrooms: int,\ncheckin: Y-m-d,\ncheckout: Y-m-d\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -2148,7 +2148,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1543219214586,
+			"modified": 1543306757333,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2158,7 +2158,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": false,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings",
+			"url": "{{ api_url  }}bookings?rooms=3502",
 			"_type": "request"
 		},
 		{
@@ -2177,7 +2177,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1543206996327,
+			"modified": 1543306451641,
 			"name": "show",
 			"parameters": [
 				{
@@ -2202,7 +2202,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3502,\n\t\"checkin\": \"2018-11-30 14:00:00\",\n\t\"checkout\": \"2018-12-04 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM30\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3502,\n\t\"checkin\": \"2018-12-10 14:00:00\",\n\t\"checkout\": \"2018-12-12 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM10\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -2221,7 +2221,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1543288509278,
+			"modified": 1543299751809,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2276,7 +2276,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\": 3502,\n\t\"checkin\": \"2018-11-29 14:00:00\",\n\t\"checkout\": \"2018-11-29 18:00:00\",\n\t\"additional_fee\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 2,\n\t\"booking_type\": 1\n}"
+				"text": "{\n\t\"room_id\": 3502,\n\t\"checkin\": \"2018-11-29 14:00:00\",\n\t\"checkout\": \"2018-11-29 18:00:00\",\n\t\"additional_fee\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM10\",\n\t\"number_of_guests\": 2,\n\t\"booking_type\": 1\n}"
 			},
 			"created": 1538712917734,
 			"description": "## Validation\n```\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'checkin'          => 'required|date',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'number_of_guests' => 'required|integer|min:1',\n        'booking_type'     => 'required|integer|between:1,2',\n```\n",
@@ -2295,7 +2295,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885368427.75,
 			"method": "POST",
-			"modified": 1543289234515,
+			"modified": 1543299876014,
 			"name": "price-calculator",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2411,7 +2411,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884872378.625,
 			"method": "POST",
-			"modified": 1543288507658,
+			"modified": 1543289443909,
 			"name": "image-upload",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -3642,7 +3642,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1543288444139,
+			"modified": 1543305467696,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3671,7 +3671,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889336908.25,
 			"method": "GET",
-			"modified": 1543224474692,
+			"modified": 1543290153841,
 			"name": "show",
 			"parameters": [
 				{
@@ -3688,7 +3688,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/1",
+			"url": "{{ api_url  }}coupons/6",
 			"_type": "request"
 		},
 		{
@@ -3696,7 +3696,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\" : \"GIAM30\",\n\t\"discount\" : \"30\",\n\t\"max_discount\" : \"50000\",\n\t\"usable\" : 1,\n\t\"used\" : 0,\n\t\"status\" : 1,\n\t\"all_day\": 0,\n\t\"settings\" : {\n\t\t\"rooms\" : [795,1000,3143],\n\t\t\"cities\" : [3,2],\n\t\t\"districts\" : [891,890],\n\t\t\"days\" : [\"2018-11-28\",\"2018-11-29\"]\n\t},\n\t\"promotion_id\" :1\n}"
+				"text": "{\n\t\"code\" : \"GIAM10022\",\n\t\"discount\" : \"10\",\n\t\"max_discount\" : \"50000\",\n\t\"usable\" : 100,\n\t\"used\" : 0,\n\t\"status\" : 1,\n\t\"all_day\": 0,\n\t\"settings\" : {\n\t\t\"rooms\" : [795,1000,3143],\n\t\t\"cities\" : [3,2],\n\t\t\"days\" : [\"2018-11-28\",\"2018-11-29\"],\n\t\t\"booking_type\": 1\n\t},\n\t\"promotion_id\": 1\n}"
 			},
 			"created": 1541398458512,
 			"description": "~~~php\n        'code'                          =>  'required|min:4|unique:coupons,code',\n        'discount'                      =>  'required|integer|between:0,100',\n        'max_discount'                  =>  'integer|min:0',\n        'usable'                        =>  'integer|min:0',\n        'used'                          =>  'integer|min:0',\n        'status'                        =>  'required|integer|between:0,1',\n        'settings'                      =>  'min:1',\n        'settings.rooms.*'              =>  'distinct|exists:rooms,id,deleted_at,NULL',\n        'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',\n        'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',\n        'settings.days.*'               =>  'distinct|date|after:now',\n        'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',\n~~~",
@@ -3715,7 +3715,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531888344797.5,
 			"method": "POST",
-			"modified": 1543288136166,
+			"modified": 1543304680412,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3870,7 +3870,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"coupon\" : \"GIAM15\",\n  \"price_original\" : 2700000,\n  \"room_id\": 3143,\n  \"city_id\": 43,\n  \"district_id\": 871,\n\t\"day\": \"2018-11-26\"\n}"
+				"text": "{\n\t\"coupon\" : \"GIAM100\",\n  \"price_original\" : 2700000,\n  \"room_id\": 3131,\n  \"city_id\": 33,\n  \"district_id\": 70,\n\t\"day\": \"2018-11-30\"\n}"
 			},
 			"created": 1542273016111,
 			"description": "\n",
@@ -3889,7 +3889,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360569.75,
 			"method": "POST",
-			"modified": 1543222063657,
+			"modified": 1543300145854,
 			"name": "caculate-discount",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3918,7 +3918,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541062673715,
 			"method": "GET",
-			"modified": 1542855490318,
+			"modified": 1543305466543,
 			"name": "all-day-list",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -4112,7 +4112,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1543288392533,
+			"modified": 1543290514227,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4178,7 +4178,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997373.5312,
 			"method": "GET",
-			"modified": 1543227570027,
+			"modified": 1543290510127,
 			"name": "index",
 			"parameters": [
 				{
@@ -4256,7 +4256,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997361.0312,
 			"method": "GET",
-			"modified": 1543284248970,
+			"modified": 1543290513771,
 			"name": "show",
 			"parameters": [
 				{
