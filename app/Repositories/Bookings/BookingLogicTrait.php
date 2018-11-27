@@ -38,8 +38,7 @@ trait BookingLogicTrait
         $checkin              = Carbon::parse($data['checkin']);
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
-        $coupon               = $this->cp->getCouponByCode($data['coupon']);
-        $coupon_discount      = $this->cp->checkSettingDiscount($coupon, $data);
+        // dd($room_optional_prices);
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
@@ -76,7 +75,12 @@ trait BookingLogicTrait
 
         $data['price_original']  = $money;
         $data['service_fee']     = $room->cleaning_fee;
-        $data['coupon_discount'] = $coupon_discount; // TODO Làm thêm phần coupon
+        if ($data['coupon']) {
+            $coupon                  = $this->cp->getCouponByCode($data['coupon']);
+            $coupon_discount         = $this->cp->checkSettingDiscount($coupon, $data);
+            
+            $data['coupon_discount'] = $coupon_discount;
+        }
 
         $price = $money
             + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
@@ -159,8 +163,8 @@ trait BookingLogicTrait
      */
     public function optionalPriceCalculator($rop, $room, $data = [], $type = BookingConstant::BOOKING_TYPE_DAY)
     {
-        $checkin            = Carbon::parse($data['checkin']);
-        $checkout           = Carbon::parse($data['checkout']);
+        $checkin            = Carbon::createFromTimestamp($data['checkin']);
+        $checkout           = Carbon::createFromTimestamp($data['checkout']);
         $listDays           = $specialDays = $weekDays = $optionalDays = $optionalWeekDays = [];
         $money              = 0;
         $totalDayOfDiscount = 0;
@@ -183,8 +187,7 @@ trait BookingLogicTrait
             // Lấy tất cả các ngày trong khoảng thời gian checkin và checkout
             $checkin->setTimeFromTimeString($room->checkin);
             $checkout->setTimeFromTimeString($room->checkout);
-
-            $period = CarbonPeriod::between($checkin, $checkout->addDay());
+            $period = CarbonPeriod::between($checkin, $checkout);
             foreach ($period as $day) {
                 if (in_array($day->dayOfWeek + 1, $weekDays)) {
                     $listDays[] = $day->format('Y-m-d');
@@ -193,11 +196,10 @@ trait BookingLogicTrait
 
             // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
             $otherDays = array_diff($listDays, $specialDays);
-
             // Tính tiền cho các ngày đặc biệt cụ thể
             foreach ($optionalDays as $op) {
                 if ($op->day !== null) {
-                    $day = Carbon::parse($op->day);
+                    $day = Carbon::parse($op->day)->addHours(15);
                     if ($day->between($checkin, $checkout)) {
                         $money += $op->price_day;
                         $totalDayOfDiscount++;
@@ -208,7 +210,7 @@ trait BookingLogicTrait
             // Tính tiền cho các ngày giảm giá trong tuần;
             foreach ($optionalWeekDays as $op) {
                 foreach ($otherDays as $day) {
-                    $day = Carbon::parse($day);
+                    $day = Carbon::parse($day)->addHours(15);
                     if ($op->weekday == ($day->dayOfWeek + 1)) {
                         $money += $op->price_day;
                         $totalDayOfDiscount++;
