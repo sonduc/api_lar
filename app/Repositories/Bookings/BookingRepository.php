@@ -3,8 +3,8 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Bookings\BookingConstant;
 use Carbon\Carbon;
-use Carbon\CarbonImmutable;
 use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -64,7 +64,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $data;
     }
 
-
     /**
      *
      * @author HarikiRito <nxh0809@gmail.com>
@@ -78,10 +77,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     {
         try {
             list($y_start, $m_start, $d_start) = explode('-', $start);
-            list($y_end, $m_end, $d_end) = explode('-', $end);
+            list($y_end, $m_end, $d_end)       = explode('-', $end);
 
-            $checkIn  = Carbon::createSafe((int)$y_start, (int)$m_start, (int)$d_start)->endOfDay()->timestamp;
-            $checkOut = Carbon::createSafe((int)$y_end, (int)$m_end, (int)$d_end)->endOfDay()->timestamp;
+            $checkIn  = Carbon::createSafe((int) $y_start, (int) $m_start, (int) $d_start)->endOfDay()->timestamp;
+            $checkOut = Carbon::createSafe((int) $y_end, (int) $m_end, (int) $d_end)->endOfDay()->timestamp;
         } catch (InvalidDateException | \ErrorException $exception) {
             $checkIn  = Carbon::now()->addDay()->endOfDay()->timestamp;
             $checkOut = Carbon::now()->addDay()->addMonth()->endOfDay()->timestamp;
@@ -140,11 +139,20 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      */
     public function getAllBookingFuture()
     {
-        $dateNow             = Carbon::now();
-        $dateNow_timestamp   = Carbon::now()->timestamp;
-        $tomorrow            = $dateNow->addDay();
-        $tomorrow_timestamp  = $tomorrow->timestamp;
-        $data                = $this->model->where('checkin', '>=', $dateNow_timestamp)->where('checkout', '>=', $dateNow_timestamp)->where('checkin', '<', $tomorrow_timestamp)->whereIn('status', [1, 2, 3])->get();
+        $dateNow            = Carbon::now();
+        $dateNow_timestamp  = Carbon::now()->timestamp;
+        $tomorrow           = $dateNow->addDay();
+        $tomorrow_timestamp = $tomorrow->timestamp;
+        $data               = $this->model
+            ->where('checkin', '>=', $dateNow_timestamp)
+            ->where('checkout', '>=', $dateNow_timestamp)
+            ->where('checkin', '<', $tomorrow_timestamp)
+            ->whereIn('status', [
+                BookingConstant::BOOKING_NEW,
+                BookingConstant::BOOKING_CONFIRM,
+                BookingConstant::BOOKING_USING,
+            ])
+            ->get();
         return $data;
     }
 
@@ -157,7 +165,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $dateNow             = Carbon::now();
         $dateNow_timestamp   = Carbon::now()->timestamp;
         $yesterday_timestamp = $dateNow->subHours(27)->timestamp;
-        $data                = $this->model->where('checkout', '<', $dateNow_timestamp)->where('checkout', '>', $yesterday_timestamp)->where('status', 4)->get();
+        $data                = $this->model
+            ->where('checkout', '<', $dateNow_timestamp)
+            ->where('checkout', '>', $yesterday_timestamp)
+            ->where('status', BookingConstant::BOOKING_COMPLETE)
+            ->get();
         // dd($data);
         return $data;
     }
@@ -165,5 +177,45 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     public function getBookingByUuid($uuid)
     {
         return $this->model->where('uuid', $uuid)->first();
+    }
+
+    public function getBookingSuccess($params)
+    {
+        $query = $this->model
+            ->select('bookings.name', 'bookings.email')
+            ->join('users', 'bookings.customer_id', '=', 'users.id')
+            ->where('bookings.status', BookingConstant::BOOKING_COMPLETE)
+            ->where('bookings.email', '<>', null)
+            ->groupBy('bookings.email');
+
+        if (isset($params['owner']) == true && is_numeric($params['owner'])) {
+            $query->where('users.owner', $params['owner']);
+            if (isset($params['city']) == true && is_numeric($params['city'])) {
+                $query->where('users.city_id', $params['city']);
+            }
+        }
+
+        return $query->get();
+    }
+
+    public function getBookingCheckout($params)
+    {
+        $the_begin_of_the_year = Carbon::parse('first day of January')->timestamp;
+        $today                 = Carbon::now();
+
+        $query = $this->model
+            ->select('name', 'email', 'checkout')
+            ->where('email', '<>', null)
+            ->where('status', BookingConstant::BOOKING_COMPLETE)
+            ->groupBy('email');
+
+        if (isset($params['month']) == true && is_numeric($params['month'])) {
+            $ojDay = $today->subMonths($params['month'])->timestamp;
+        } else {
+            $ojDay = $today->subMonths(3)->timestamp;
+        }
+        $query->where('checkout', '<', $ojDay);
+        $query->where('checkout', '', $the_begin_of_the_year);
+        return $query->get();
     }
 }

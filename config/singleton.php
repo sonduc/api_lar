@@ -150,4 +150,11 @@ return [
         \App\Repositories\Districts\DistrictRepository::class,
     ],
 
+    /**
+     * EmailCustomer Blinding
+     */
+    App\Repositories\EmailCustomers\EmailCustomer::class => [
+        App\Repositories\EmailCustomers\EmailCustomersRepositoryInterface::class,
+        App\Repositories\EmailCustomers\EmailCustomersRepository::class,
+    ],
 ];
