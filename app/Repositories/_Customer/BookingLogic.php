@@ -23,8 +23,8 @@ use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTimeBlockRepository;
 use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
-use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Repositories\_Customer\CouponLogic;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -43,6 +43,7 @@ class BookingLogic extends BaseLogic
     protected $roomTimeBlock;
     protected $booking_cancel;
     protected $booking_refund;
+    protected $cp;
 
     /**
      * BookingLogic constructor.
@@ -55,6 +56,7 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
+     * @param CouponLogic                                                      $cp
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -65,7 +67,8 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
-        BookingRefundRepositoryInterface $booking_refund
+        BookingRefundRepositoryInterface $booking_refund,
+        CouponLogic $cp
     ) {
         $this->model          = $booking;
         $this->booking        = $booking;
@@ -77,6 +80,7 @@ class BookingLogic extends BaseLogic
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
         $this->booking_refund = $booking_refund;
+        $this->cp             = $cp;
     }
 
     /**

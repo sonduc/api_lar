@@ -14,7 +14,6 @@ class CreateBookingsTable extends Migration
     public function up()
     {
         Schema::create('bookings', function (Blueprint $table) {
-
             $table->bigIncrements('id');
             $table->string('uuid', 20)->nullable();
             $table->string('code', 50)->nullable();
@@ -51,7 +50,7 @@ class CreateBookingsTable extends Migration
             $table->tinyInteger('payment_status')->nullable()->default(0);
             $table->tinyInteger('source')->nullable();
             $table->double('exchange_rate')->nullable();
-            $table->double('total_refund')->nullable();
+            $table->double('total_refund')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
