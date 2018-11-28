@@ -161,4 +161,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
         return $query->get();
     }
+    
+    public function getUserByListIdIndex($idUsers, $params)
+    {
+        $getVal = $this->model->whereIn('id', $idUsers)->where('owner', $params)->get(['id', 'name']);
+
+        $arrMerchants = [];
+        foreach ($getVal as $key => $value) {
+            $valueMerchants = [
+                "id"    => $value->id,
+                "name"  => $value->name
+            ];
+            array_push($arrMerchants, $valueMerchants);
+        }
+        return $arrMerchants;
+    }
 }
