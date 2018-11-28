@@ -29,6 +29,7 @@ $router->group([
     $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
 });
     $router->post('/bookings', 'BookingController@store');
+    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
 /**
  * Router login, register
  */

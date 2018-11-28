@@ -159,6 +159,62 @@ class BookingController extends ApiController
         return $this->successResponse($data);
     }
 
+    
+    /**
+     * Tính giá tiền cho phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    
+    public function priceCalculator(Request $request)
+    {
+        DB::enableQueryLog();
+        try {
+            // Tái cấu trúc validate để tính giá tiền
+            $validate            = array_only($this->validationRules, [
+                'room_id',
+                'checkin',
+                'checkout',
+                'additional_fee',
+                'price_discount',
+                'coupon',
+                'number_of_guests',
+                'booking_type',
+            ]);
+            $validate['checkin'] = 'required|date';
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $room = $this->room->getById($request->room_id);
+            $data = [
+                'data' => $this->model->priceCalculator($room, $request->all()),
+            ];
+
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            if ($e instanceof InvalidDateException) {
+                return $this->errorResponse([
+                    'errors'    => $e->getField(),
+                    'exception' => $e->getValue(),
+                ]);
+            }
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        }
+    }
+
 
     /**
      * Tạo mới một booking theo góc độ người dùng

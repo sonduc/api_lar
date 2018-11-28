@@ -102,16 +102,25 @@ class CouponLogic extends BaseLogic
         $list_room_id       = [];
         $list_city_id       = [];
         $list_district_id   = [];
+        $list_merchant_id   = [];
+        $list_user_id   = [];
 
         $data               = $this->model->getByQuery($scope, $pageSize, $trash);
         if (sizeOf($data)  != 0) {
             foreach ($data as $key => $value) {
-                $settings           = json_decode($value->settings);
-                $list_room_id       = array_unique(array_merge((!empty($settings->rooms) ? $settings->rooms : []), $list_room_id));
-                $list_city_id       = array_unique(array_merge((!empty($settings->cities) ? $settings->cities : []), $list_city_id));
-                $list_district_id   = array_unique(array_merge((!empty($settings->districts) ? $settings->districts : []), $list_district_id));
+                $settings               = json_decode($value->settings);
+
+                $list_room_id           = array_unique(array_merge((!empty($settings->rooms) ? $settings->rooms : []), $list_room_id));
+
+                $list_city_id           = array_unique(array_merge((!empty($settings->cities) ? $settings->cities : []), $list_city_id));
+
+                $list_district_id       = array_unique(array_merge((!empty($settings->districts) ? $settings->districts : []), $list_district_id));
+
+                $list_merchant_id      = array_unique(array_merge((!empty($settings->merchants) ? $settings->merchants : []), $list_merchant_id));
+
+                $list_user_id           = array_unique(array_merge((!empty($settings->user) ? $settings->user : []), $list_user_id));
             }
-            $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, (!empty($settings->days) ? $settings->days : []), $data);
+            $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, (!empty($settings->days) ? $settings->days : []), $list_merchant_id, $list_user_id, $data);
             return $arrData;
         } else {
             return $data;
@@ -123,15 +132,44 @@ class CouponLogic extends BaseLogic
      * @param  [type] $data [description]
      * @return [type]       [description]
      */
-    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $coupons = [], $merchants = [], $users = [])
+    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $merchants = [], $users = [], $coupons = [])
     {
         $arrRoom        = $this->room_translate->getRoomByListIdIndex($rooms);
         $arrCity 		= $this->city->getCityByListIdIndex($cities);
         $arrDistrict 	= $this->district->getDistrictByListIdIndex($districts);
         $arrBookingType = arrayToObject(BookingConstant::BOOKING_TYPE);
         $arrMerchants 	= $this->user->getUserByListIdIndex($merchants, User::IS_OWNER);
-
-        $arrUsers 	= $this->user->getUserByListIdIndex($users, User::NOT_OWNER);
+        $arrUsers 	    = $this->user->getUserByListIdIndex($users, User::NOT_OWNER);
+        $arrDate        = [
+            [
+                "id" => Carbon::MONDAY + 1,
+                "name" => "Thứ hai"
+            ],
+            [
+                "id" => Carbon::TUESDAY + 1,
+                "name" => "Thứ ba"
+            ],
+            [
+                "id" => Carbon::WEDNESDAY + 1,
+                "name" => "Thứ tư"
+            ],
+            [
+                "id" => Carbon::THURSDAY + 1,
+                "name" => "Thứ năm"
+            ],
+            [
+                "id" => Carbon::FRIDAY + 1,
+                "name" => "Thứ sáu"
+            ],
+            [
+                "id" => Carbon::SATURDAY + 1,
+                "name" => "Thứ bảy"
+            ],
+            [
+                "id" => Carbon::SUNDAY + 1,
+                "name" => "Chủ nhật"
+            ]
+        ];
 
         $arrDay 		= $days;
         
@@ -167,13 +205,19 @@ class CouponLogic extends BaseLogic
 
             $arrMerchant_filter = array_values(
                 array_filter($arrMerchants, function ($item) use ($settings) {
-                    return in_array($item['id'], (!empty($settings->merchants) ? [$settings->merchants] : []));
+                    return in_array($item['id'], (!empty($settings->merchants) ? $settings->merchants : []));
                 })
             );
 
             $arrUser_filter = array_values(
                 array_filter($arrUsers, function ($item) use ($settings) {
-                    return in_array($item['id'], (!empty($settings->users) ? [$settings->users] : []));
+                    return in_array($item['id'], (!empty($settings->users) ? $settings->users : []));
+                })
+            );
+
+            $arrDate_filter = array_values(
+                array_filter($arrUsers, function ($item) use ($settings) {
+                    return in_array($item['id'], (!empty($settings->days_of_week) ? $settings->days_of_week : []));
                 })
             );
 
@@ -189,7 +233,7 @@ class CouponLogic extends BaseLogic
                 'booking_stay'      => $arrBookingStay_filter,
                 'merchants' 		=> $arrMerchant_filter,
                 'users' 	        => $arrUser_filter,
-                // 'days_of_week' 	    => $arrDate,
+                'days_of_week' 	    => $arrDate_filter,
                 'room_type'         => $arrRoomType_filter,
             ];
             $coupons[$key]->settings = json_encode($arrayTransformSetting);

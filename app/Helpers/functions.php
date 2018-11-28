@@ -97,7 +97,7 @@ function arrayToObject($arr = []): array
     foreach ($arr as $key => $item) {
         $array_value[] = [
                 'id'    => $key,
-                'value' => $item,
+                'name'  => $item,
             ];
     }
 
