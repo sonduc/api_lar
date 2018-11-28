@@ -101,7 +101,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $data;
     }
 
-
     /**
      * Lấy thông tin user thông qua uuid;
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -115,7 +114,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $this->model->where('uuid', $uuid)->first();
     }
 
-
     /**
      * Lấy thông tin User theo uuid và status
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -127,7 +125,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         return $this->model->where('uuid', $data['uuid'])->where('status', 1)->first();
     }
-
 
     /**
      * Update mã kích hoạt tài hoản cho người dùng
@@ -143,5 +140,25 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user = $this->getUserByUuid($uuid);
         $user = parent::update($user->id, $data);
         return $user;
+    }
+
+    public function getUserOwner($params)
+    {
+        if (isset($params['owner']) == true && is_numeric($params['owner'])) {
+            $query = $this->model
+                ->select('name', 'email')
+                ->where('owner', $params['owner'])
+                ->where('email', '<>', null)
+                ->groupBy('email');
+            if (isset($params['city']) == true && is_numeric($params['city'])) {
+                $query->where('city_id', $params['city']);
+            }
+        } else {
+            $query = $this->model
+                ->select('name', 'email')
+                ->where('email', '<>', null)
+                ->groupBy('email');
+        }
+        return $query->get();
     }
 }

@@ -181,5 +181,14 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
-
+    'emailcustomer'       => [
+        'title' => 'Quản lý Email khách hàng',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
 ];

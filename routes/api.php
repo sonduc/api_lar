@@ -155,6 +155,14 @@ $router->group([
     $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
     $router->post('/coupons/calculate-discount', 'CouponController@calculateDiscount');
     resource('/coupons', 'CouponController', $router);
+
+    /**
+     * EmailCustomer Resource
+     */
+    $router->get('/emailcustomers/booking-success', 'EmailCustomerController@bookingSuccess');
+    $router->get('/emailcustomers/user-owner', 'EmailCustomerController@userOwner');
+    $router->get('/emailcustomers/booking-checkout', 'EmailCustomerController@bookingCheckout');
+    // resource('/emailcustomers', 'EmailCustomerController', $router);
 });
 
 

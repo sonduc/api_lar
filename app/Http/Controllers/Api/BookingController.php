@@ -159,7 +159,7 @@ class BookingController extends ApiController
      * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Illuminate\Auth\Access\AuthorizationException
+     * @throws \Illuminate\Auth\Access\AuthorizationExceptionB
      */
     public function index(Request $request)
     {
