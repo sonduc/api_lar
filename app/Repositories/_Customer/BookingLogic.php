@@ -95,7 +95,6 @@ class BookingLogic extends BaseLogic
         $data = $this->addPriceRange($data);
         $data['customer_id'] = Auth::check()? Auth::user()->id : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
-        dd($data);
         $data_booking        = parent::store($data);
         $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
