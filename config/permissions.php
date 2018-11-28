@@ -111,16 +111,6 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
-    'booking'    => [
-        'title' => 'Quản lý booking',
-        'list'  => [
-            'view'    => 'View',
-            'create'  => 'Create',
-            'update'  => 'Update',
-            'delete'  => 'Delete',
-            'confirm' => 'Confirm',
-        ],
-    ],
     'log'        => [
         'title' => 'Quản lý Logging',
         'list'  => [
@@ -161,16 +151,6 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
-    'promotion'       => [
-        'title' => 'Quản lý promotion',
-        'list'  => [
-            'view'    => 'View',
-            'create'  => 'Create',
-            'update'  => 'Update',
-            'delete'  => 'Delete',
-            'confirm' => 'Confirm',
-        ],
-    ],
     'coupon'       => [
         'title' => 'Quản lý coupon',
         'list'  => [
@@ -191,4 +171,15 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+    'guidebookcategory'       => [
+        'title' => 'Quản lý Email khách hàng',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
+
 ];

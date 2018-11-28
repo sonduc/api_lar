@@ -162,7 +162,8 @@ $router->group([
     $router->get('/emailcustomers/booking-success', 'EmailCustomerController@bookingSuccess');
     $router->get('/emailcustomers/user-owner', 'EmailCustomerController@userOwner');
     $router->get('/emailcustomers/booking-checkout', 'EmailCustomerController@bookingCheckout');
-    // resource('/emailcustomers', 'EmailCustomerController', $router);
+
+     resource('/guidebookcategories', 'GuidebookCategoryController', $router);
 });
 
 
