@@ -3,6 +3,7 @@
 namespace App\Repositories\Coupons;
 
 use App\Repositories\BaseLogic;
+use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Cities\CityRepositoryInterface;
@@ -97,16 +98,19 @@ class CouponLogic extends BaseLogic
      * @param  [type] $data [description]
      * @return [type]       [description]
      */
-    public function transformListCoupon($scope, $pageSize, $trash)
+    public function transformListCoupon($scope, $pageSize, $trash, $coupon)
     {
         $list_room_id       = [];
         $list_city_id       = [];
         $list_district_id   = [];
         $list_merchant_id   = [];
-        $list_user_id   = [];
-
-        $data               = $this->model->getByQuery($scope, $pageSize, $trash);
-        if (sizeOf($data)  != 0) {
+        $list_user_id       = [];
+        if (!$coupon) {
+            $data = $this->model->getByQuery($scope, $pageSize, $trash);
+        } else {
+            $data = [$coupon];
+        }
+        if (sizeOf($data) != 0) {
             foreach ($data as $key => $value) {
                 $settings               = json_decode($value->settings);
 
@@ -121,7 +125,7 @@ class CouponLogic extends BaseLogic
                 $list_user_id           = array_unique(array_merge((!empty($settings->user) ? $settings->user : []), $list_user_id));
             }
             $arrData = $this->transformCouponIndex($list_room_id, $list_city_id, $list_district_id, (!empty($settings->days) ? $settings->days : []), $list_merchant_id, $list_user_id, $data);
-            return $arrData;
+            return sizeOf($data) == 1 ? $arrData[0] : $arrData ;
         } else {
             return $data;
         }
@@ -140,6 +144,8 @@ class CouponLogic extends BaseLogic
         $arrBookingType = arrayToObject(BookingConstant::BOOKING_TYPE);
         $arrMerchants 	= $this->user->getUserByListIdIndex($merchants, User::IS_OWNER);
         $arrUsers 	    = $this->user->getUserByListIdIndex($users, User::NOT_OWNER);
+        $arrRoomType    = arrayToObject(Room::ROOM_TYPE);
+        $arrDay 		= $days;
         $arrDate        = [
             [
                 "id" => Carbon::MONDAY + 1,
@@ -170,8 +176,6 @@ class CouponLogic extends BaseLogic
                 "name" => "Chủ nhật"
             ]
         ];
-
-        $arrDay 		= $days;
         
         foreach ($coupons as $key => $value) {
             $settings = json_decode($value->settings);
@@ -198,30 +202,34 @@ class CouponLogic extends BaseLogic
                     return in_array($item['id'], (!empty($settings->booking_type) ? [$settings->booking_type] : []));
                 })
             );
-
+            
             $arrBookingCreate_filter    = !empty($settings->booking_create) ? $settings->booking_create : [];
-
+            
             $arrBookingStay_filter      = !empty($settings->booking_stay) ? $settings->booking_stay : [];
-
+            
             $arrMerchant_filter = array_values(
                 array_filter($arrMerchants, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->merchants) ? $settings->merchants : []));
                 })
             );
-
+            
             $arrUser_filter = array_values(
                 array_filter($arrUsers, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->users) ? $settings->users : []));
                 })
             );
-
+            
             $arrDate_filter = array_values(
                 array_filter($arrUsers, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->days_of_week) ? $settings->days_of_week : []));
                 })
             );
-
-            $arrRoomType_filter         = !empty($settings->room_type) ? $settings->room_type : [];
+            
+            $arrRoomType_filter = array_values(
+                array_filter($arrRoomType, function ($item) use ($settings) {
+                    return in_array($item['id'], (!empty($settings->room_type) ? [$settings->room_type] : []));
+                })
+            );
 
             $arrayTransformSetting = [
                 'rooms' 	        => $arrRoom_filter,
@@ -238,46 +246,45 @@ class CouponLogic extends BaseLogic
             ];
             $coupons[$key]->settings = json_encode($arrayTransformSetting);
         }
-
         return $coupons;
     }
 
-    /**
-     * Chuyển đổi json setting sang mảng
-     * @param  [type] $data [description]
-     * @return [type]       [description]
-     */
-    public function transformCoupon($data)
-    {
-        $settings           = json_decode($data['settings']);
-        $arrRoom            = !empty($settings->rooms) ? $this->room_translate->getRoomByListId($settings->rooms) : [];
-        $arrCity 		    = !empty($settings->cities) ? $this->city->getCityByListId($settings->cities) : [];
-        $arrDistrict 	    = !empty($settings->districts) ? $this->district->getDistrictByListId($settings->districts) : [];
-        $arrDay 		    = !empty($settings->days) ? $settings->days : [];
-        $arrBookingType     = !empty($settings->booking_type) ? $settings->booking_type : [];
-        $arrBookingCreate   = !empty($settings->booking_create) ? $settings->booking_create : [];
-        $arrBookingStay     = !empty($settings->booking_stay) ? $settings->booking_stay : [];
-        $arrMerchant        = !empty($settings->merchants) ? $settings->merchants : [];
-        $arrUser            = !empty($settings->users) ? $settings->users : [];
-        $arrDate            = !empty($settings->days_of_week) ? $settings->days_of_week : [];
-        $arrRoomType        = !empty($settings->room_type) ? $settings->room_type : [];
+    // /**
+    //  * Chuyển đổi json setting sang mảng
+    //  * @param  [type] $data [description]
+    //  * @return [type]       [description]
+    //  */
+    // public function transformCoupon($data)
+    // {
+    //     $settings           = json_decode($data['settings']);
+    //     $arrRoom            = !empty($settings->rooms) ? $this->room_translate->getRoomByListIdIndex($settings->rooms) : [];
+    //     $arrCity 		    = !empty($settings->cities) ? $this->city->getCityByListIdIndex($settings->cities) : [];
+    //     $arrDistrict 	    = !empty($settings->districts) ? $this->district->getDistrictByListIdIndex($settings->districts) : [];
+    //     $arrDay 		    = !empty($settings->days) ? $settings->days : [];
+    //     $arrBookingType     = !empty($settings->booking_type) ? $settings->booking_type : [];
+    //     $arrBookingCreate   = !empty($settings->booking_create) ? $settings->booking_create : [];
+    //     $arrBookingStay     = !empty($settings->booking_stay) ? $settings->booking_stay : [];
+    //     $arrMerchant        = !empty($settings->merchants) ? $settings->merchants : [];
+    //     $arrUser            = !empty($settings->users) ? $settings->users : [];
+    //     $arrDate            = !empty($settings->days_of_week) ? $settings->days_of_week : [];
+    //     $arrRoomType        = !empty($settings->room_type) ? $settings->room_type : [];
 
-        $arrayTransformSetting = [
-            'rooms' 	        => $arrRoom,
-            'cities' 	        => $arrCity,
-            'districts'         => $arrDistrict,
-            'days' 		        => $arrDay,
-            'booking_type' 	    => $arrBookingType,
-            'booking_create' 	=> $arrBookingCreate,
-            'booking_stay'      => $arrBookingStay,
-            'merchants' 		=> $arrMerchant,
-            'users' 	        => $arrUser,
-            'days_of_week' 	    => $arrDate,
-            'room_type'         => $arrRoomType,
-        ];
-        $data['settings'] 	= $arrayTransformSetting;
-        return $data;
-    }
+    //     $arrayTransformSetting = [
+    //         'rooms' 	        => $arrRoom,
+    //         'cities' 	        => $arrCity,
+    //         'districts'         => $arrDistrict,
+    //         'days' 		        => $arrDay,
+    //         'booking_type' 	    => $arrBookingType,
+    //         'booking_create' 	=> $arrBookingCreate,
+    //         'booking_stay'      => $arrBookingStay,
+    //         'merchants' 		=> $arrMerchant,
+    //         'users' 	        => $arrUser,
+    //         'days_of_week' 	    => $arrDate,
+    //         'room_type'         => $arrRoomType,
+    //     ];
+    //     $data['settings'] 	= $arrayTransformSetting;
+    //     return $data;
+    // }
 
     /**
      * Cập nhật số lần dùng cho 1 coupon
@@ -291,8 +298,8 @@ class CouponLogic extends BaseLogic
             $coupon 	= (array) json_decode($coupon);
             
             if ($coupon['usable'] > 0) {
-                $coupon['usable'] 	= $coupon['usable']-1;
-                $coupon['used'] 	= $coupon['used']+1;
+                $coupon['usable'] 	= $coupon['usable'] - 1;
+                $coupon['used'] 	= $coupon['used']   + 1;
                 $data_coupon 		= parent::update($id, $coupon);
                 return $data_coupon;
             } else {
