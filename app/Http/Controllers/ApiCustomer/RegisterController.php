@@ -44,8 +44,6 @@ class RegisterController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email','password');
-            $params['token']  = Hash::make( str_random(60));
-
             $username         = $params['email'];
             $password         = $params['password'];
             // Create new user

@@ -37,7 +37,7 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
     public function storeBookingRefund($booking = [], $room = [], $booking_refund = [])
     {
         $room_array = json_decode( $room->settings);
-        
+
 
         if (!empty($room_array->no_booking_cancel) && $room_array->no_booking_cancel == BookingConstant::BOOKING_CANCEL_UNAVAILABLE)
         {
@@ -73,7 +73,7 @@ class BookingRefundRepository extends BaseRepository implements BookingRefundRep
 
 
     /**
-     * lấy ra mức hoàn tiền khi hủy b
+     * lấy ra mức hoàn tiền khi hủy booking.
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $booking_id

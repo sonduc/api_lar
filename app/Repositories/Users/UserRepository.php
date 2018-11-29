@@ -196,15 +196,19 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
 
     /**
-     * Lấy thông tin user thông qua uuid;
+     * Lấy thông tin user thông qua uuid or token ;
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $uuid
      * @return mixed
      */
 
-    public function getUserByUuid($uuid){
-        return $this->model->where('uuid', $uuid)->first();
+    public function getUserByUuidOrToken($data= [])
+    {
+        $uuid = array_key_exists('uuid', $data) ? $data['uuid'] : null;
+        $token = array_key_exists('token', $data) ? $data['token'] : null;
+        $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
+        return $data;
     }
 
 
@@ -232,15 +236,13 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function updateStatus($data)
     {
-        $uuid = $data['uuid'];
-        $user = $this->getUserByUuid($uuid);
-        $user = parent::update($user->id, $data);
-        return $user;
+        $user = $this->getUserByUuidOrToken($data);
+        return parent::update($user->id, $data);
     }
 
 
     /**
-     * reset lại mật khẩu theo
+     * reset lại mật khẩu theo uuid và cập nhập lại token cho user
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
@@ -248,11 +250,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function resetPasswordCustomer($data)
     {
-        $uuid = $data['uuid'];
-        $user = $this->getUserByUuid($uuid);
+        $user = $this->getUserByUuidOrToken($data);
 
-        $user = parent::update($user->id, $data);
-        return $user;
+        $data['token'] = Hash::make( str_random(60));
+        return parent::update($user->id, $data);
     }
 
     /**
@@ -265,10 +266,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
      public function checkValidToken($data)
      {
-         $token = isset($data['token']) ? $data['token'] : null;
-         $uuid = $data['uuid'];
-         $user = $this->getUserByUuid($uuid);
-         if ($user->token  != $token) throw new \Exception('Đường dẫn không tồn tại');
+         $user = $this->getUserByUuidOrToken($data);
+         if (empty($user)) throw new \Exception('Đường dẫn không tồn tại');
 
      }
 
@@ -287,34 +286,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
         $minutes    =  $timeNow->diffInMinutes($timeSubmit);
-        // Nếu sao 60 phút khách hàng không phản hồi thì đườndẫn bị hủy
+        // Nếu sao 60 phút khách hàng không phản hồi thì đường dẫn bị hủy
         if ($minutes > 60) {
             throw new \Exception('Đường dẫn không tồn tại ');
         }
 
     }
-
-    /**
-     *  Trong thời gian đườngg link reset password còn tồn tại chỉ được update một l
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $data
-     */
-
-    public function checkUpdate($data)
-    {
-        $uuid = $data['uuid'];
-        $user = $this->getUserByUuid($uuid);
-
-        $timeNow    = Carbon::now();
-        $minutes    =  $timeNow->diffInMinutes($user->updated_at);
-        // Nếu sao 60 phút khách hàng không phản hồi thì đườndẫn bị hủy
-        if ($minutes < 60) {
-            throw new \Exception('60 phút sau bạn mới có thể update');
-        }
-
-
-    }
-
 
 }

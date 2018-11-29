@@ -39,13 +39,11 @@ class ResetPasswordController extends ApiController
     {
         DB::beginTransaction();
         try {
+             // Kiểm tra token có trùng với token trong database user không
+             $this->user->checkValidToken($request->all());
 
-            $this->user->checkValidToken($request->all());
-
+            // Kiểm tra sự tồn tại của đường link
             $this->user->checkTime($time);
-
-            //  Trong thời gian đường dẫn còn tồn tại chỉ được update 1 l
-            $this->user->checkUpdate($request->all());
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 

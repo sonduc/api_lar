@@ -343,7 +343,7 @@
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p style="font-size: 25px;"><b>Xin chào.{!! empty($user->data->name) ? $user->data->name : $user->data->email !!}</b></p>
+                                        <p style="font-size: 25px;"><b>Xin chào.{!! !empty($user->data->name) ? $user->data->name : $user->data->email !!}</b></p>
                                         <p style="font-size: 25px;"><b>Bạn đã quên mật khẩu</b></p>
                                         <p>Đừng lo ! Bạn chỉ cần nhấp vào nút bên dưới để lấy lại mật khẩu </p>
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
@@ -353,7 +353,7 @@
                                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         <tr>
-                                                            <td style="margin: 0 auto"> <a href= "http://wsapi.test/customer-api/reset-password/.{!! $user->data->timeSubmit.'?token='. $user->data->token !!} " target="_blank">Cài đặt lại mật khẩu</a> </td>
+                                                            <td style="margin: 0 auto"> <a href= "http://wsapi.test/customer-api/reset-password/.{!! $user->data->timeSubmit!!} " target="_blank">Cài đặt lại mật khẩu</a> </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

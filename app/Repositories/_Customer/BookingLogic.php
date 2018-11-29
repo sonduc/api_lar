@@ -2,6 +2,7 @@
 
 namespace App\Repositories\_Customer;
 
+use App\Events\Customer_Register_Event;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
@@ -119,6 +120,7 @@ class BookingLogic extends BaseLogic
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
             $user             = $this->user->store($data);
+            event(new Customer_Register_Event($user));
             return $user->id;
         }
 
@@ -228,14 +230,19 @@ class BookingLogic extends BaseLogic
 
         if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
             $total_refund =  ($data_booking->total_fee * 0)/100;
-            $booking_update = [
-                'status'        => BookingConstant::BOOKING_CANCEL,
-                'total_refund'  => $total_refund,
-            ];
 
-            parent::update($id, $booking_update);
-            $data['booking_id'] = $id;
-            return $this->booking_cancel->store($data);
+            // Chỉ có booking có trạng thái là đơn mới thì mới có quyền hủy
+            if ($data_booking->status == BookingConstant::BOOKING_NEW) {
+                $booking_update = [
+                    'status'        => BookingConstant::BOOKING_CANCEL,
+                    'total_refund'  => $total_refund,
+                ];
+                parent::update($id, $booking_update);
+                $data['booking_id'] = $id;
+                return $this->booking_cancel->store($data);
+            }
+            throw new \Exception('Bạn không thể hủy booking này');
+
         }
 
         $booking_refund_map_days    = array_map(function ($item) {
@@ -243,7 +250,6 @@ class BookingLogic extends BaseLogic
         }, $booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
-
         $range = $this->filter_range_day($booking_refund_map_days);
 
         // số ngày hủy phòng cách thời điểm checkin

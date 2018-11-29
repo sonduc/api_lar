@@ -11,6 +11,7 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\Events\Reset_Password_Event;
 use Illuminate\Http\Request;
 use App\Repositories\Users\UserRepositoryInterface;
+use Illuminate\Support\Facades\Hash;
 
 class ForgetPasswordController extends ApiController
 {
@@ -51,6 +52,10 @@ class ForgetPasswordController extends ApiController
             {
                throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
+
+            // Cập nhâp token mỗi khi gửi mail
+            $data['token'] = Hash::make( str_random(60));
+            $user = $this->user->update($user->id, $data);
             event(new Reset_Password_Event($user));
             return $this->successResponse(['data' => ['message' => 'Đường dẫn đổi mật khẩu đã được gửi đến'.$request->email]], false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
