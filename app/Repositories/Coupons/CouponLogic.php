@@ -12,6 +12,7 @@ use App\Repositories\Users\UserRepositoryInterface;
 use App\User;
 use App\Repositories\Bookings\BookingConstant;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class CouponLogic extends BaseLogic
 {
@@ -120,7 +121,7 @@ class CouponLogic extends BaseLogic
 
                 $list_district_id       = array_unique(array_merge((!empty($settings->districts) ? $settings->districts : []), $list_district_id));
 
-                $list_merchant_id      = array_unique(array_merge((!empty($settings->merchants) ? $settings->merchants : []), $list_merchant_id));
+                $list_merchant_id       = array_unique(array_merge((!empty($settings->merchants) ? $settings->merchants : []), $list_merchant_id));
 
                 $list_user_id           = array_unique(array_merge((!empty($settings->user) ? $settings->user : []), $list_user_id));
             }
@@ -148,56 +149,60 @@ class CouponLogic extends BaseLogic
         $arrDay 		= $days;
         $arrDate        = [
             [
-                "id" => Carbon::MONDAY + 1,
-                "name" => "Thứ hai"
+                "id"    => Carbon::MONDAY + 1,
+                "name"  => "Thứ hai"
             ],
             [
-                "id" => Carbon::TUESDAY + 1,
-                "name" => "Thứ ba"
+                "id"    => Carbon::TUESDAY + 1,
+                "name"  => "Thứ ba"
             ],
             [
-                "id" => Carbon::WEDNESDAY + 1,
-                "name" => "Thứ tư"
+                "id"    => Carbon::WEDNESDAY + 1,
+                "name"  => "Thứ tư"
             ],
             [
-                "id" => Carbon::THURSDAY + 1,
-                "name" => "Thứ năm"
+                "id"    => Carbon::THURSDAY + 1,
+                "name"  => "Thứ năm"
             ],
             [
-                "id" => Carbon::FRIDAY + 1,
-                "name" => "Thứ sáu"
+                "id"    => Carbon::FRIDAY + 1,
+                "name"  => "Thứ sáu"
             ],
             [
-                "id" => Carbon::SATURDAY + 1,
-                "name" => "Thứ bảy"
+                "id"    => Carbon::SATURDAY + 1,
+                "name"  => "Thứ bảy"
             ],
             [
-                "id" => Carbon::SUNDAY + 1,
-                "name" => "Chủ nhật"
+                "id"    => Carbon::SUNDAY + 1,
+                "name"  => "Chủ nhật"
             ]
         ];
         
         foreach ($coupons as $key => $value) {
             $settings = json_decode($value->settings);
-            $arrRoom_filter = array_values(
-                    array_filter($arrRoom, function ($item) use ($settings) {
-                        return in_array($item['id'], (!empty($settings->rooms) ? $settings->rooms : []));
-                    })
-                );
+            
+            $bind                       = (!empty($settings->bind) ? $settings->bind : []);
+            
+            $arrRoom_filter             = array_values(
+                array_filter($arrRoom, function ($item) use ($settings) {
+                    return in_array($item['id'], (!empty($settings->rooms) ? $settings->rooms : []));
+                })
+            );
 
-            $arrCity_filter = array_values(
-                    array_filter($arrCity, function ($item) use ($settings) {
-                        return in_array($item['id'], (!empty($settings->cities) ? $settings->cities : []));
-                    })
-                );
+            $arrCity_filter             = array_values(
+                array_filter($arrCity, function ($item) use ($settings) {
+                    return in_array($item['id'], (!empty($settings->cities) ? $settings->cities : []));
+                })
+            );
 
-            $arrDistrict_filter = array_values(
+            
+            $arrDistrict_filter         = array_values(
                 array_filter($arrDistrict, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->districts) ? $settings->districts : []));
                 })
             );
 
-            $arrBookingType_filter = array_values(
+            $arrBookingType_filter      = array_values(
                 array_filter($arrBookingType, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->booking_type) ? [$settings->booking_type] : []));
                 })
@@ -207,31 +212,34 @@ class CouponLogic extends BaseLogic
             
             $arrBookingStay_filter      = !empty($settings->booking_stay) ? $settings->booking_stay : [];
             
-            $arrMerchant_filter = array_values(
+            $arrMerchant_filter         = array_values(
                 array_filter($arrMerchants, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->merchants) ? $settings->merchants : []));
                 })
             );
             
-            $arrUser_filter = array_values(
+            $arrUser_filter             = array_values(
                 array_filter($arrUsers, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->users) ? $settings->users : []));
                 })
             );
             
-            $arrDate_filter = array_values(
+            $arrDate_filter             = array_values(
                 array_filter($arrUsers, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->days_of_week) ? $settings->days_of_week : []));
                 })
             );
             
-            $arrRoomType_filter = array_values(
+            $arrRoomType_filter         = array_values(
                 array_filter($arrRoomType, function ($item) use ($settings) {
                     return in_array($item['id'], (!empty($settings->room_type) ? [$settings->room_type] : []));
                 })
             );
+            
+            $arrMinPrice_filter         = !empty($settings->min_price) ? $settings->min_price : [];
 
-            $arrayTransformSetting = [
+            $arrayTransformSetting      = [
+                'bind'              => $bind,
                 'rooms' 	        => $arrRoom_filter,
                 'cities' 	        => $arrCity_filter,
                 'districts'         => $arrDistrict_filter,
@@ -243,48 +251,13 @@ class CouponLogic extends BaseLogic
                 'users' 	        => $arrUser_filter,
                 'days_of_week' 	    => $arrDate_filter,
                 'room_type'         => $arrRoomType_filter,
+                'min_price'         => $arrMinPrice_filter,
             ];
-            $coupons[$key]->settings = json_encode($arrayTransformSetting);
+
+            $coupons[$key]->settings    = json_encode($arrayTransformSetting);
         }
         return $coupons;
     }
-
-    // /**
-    //  * Chuyển đổi json setting sang mảng
-    //  * @param  [type] $data [description]
-    //  * @return [type]       [description]
-    //  */
-    // public function transformCoupon($data)
-    // {
-    //     $settings           = json_decode($data['settings']);
-    //     $arrRoom            = !empty($settings->rooms) ? $this->room_translate->getRoomByListIdIndex($settings->rooms) : [];
-    //     $arrCity 		    = !empty($settings->cities) ? $this->city->getCityByListIdIndex($settings->cities) : [];
-    //     $arrDistrict 	    = !empty($settings->districts) ? $this->district->getDistrictByListIdIndex($settings->districts) : [];
-    //     $arrDay 		    = !empty($settings->days) ? $settings->days : [];
-    //     $arrBookingType     = !empty($settings->booking_type) ? $settings->booking_type : [];
-    //     $arrBookingCreate   = !empty($settings->booking_create) ? $settings->booking_create : [];
-    //     $arrBookingStay     = !empty($settings->booking_stay) ? $settings->booking_stay : [];
-    //     $arrMerchant        = !empty($settings->merchants) ? $settings->merchants : [];
-    //     $arrUser            = !empty($settings->users) ? $settings->users : [];
-    //     $arrDate            = !empty($settings->days_of_week) ? $settings->days_of_week : [];
-    //     $arrRoomType        = !empty($settings->room_type) ? $settings->room_type : [];
-
-    //     $arrayTransformSetting = [
-    //         'rooms' 	        => $arrRoom,
-    //         'cities' 	        => $arrCity,
-    //         'districts'         => $arrDistrict,
-    //         'days' 		        => $arrDay,
-    //         'booking_type' 	    => $arrBookingType,
-    //         'booking_create' 	=> $arrBookingCreate,
-    //         'booking_stay'      => $arrBookingStay,
-    //         'merchants' 		=> $arrMerchant,
-    //         'users' 	        => $arrUser,
-    //         'days_of_week' 	    => $arrDate,
-    //         'room_type'         => $arrRoomType,
-    //     ];
-    //     $data['settings'] 	= $arrayTransformSetting;
-    //     return $data;
-    // }
 
     /**
      * Cập nhật số lần dùng cho 1 coupon
@@ -327,11 +300,11 @@ class CouponLogic extends BaseLogic
     public function checkSettingDiscount($coupon, $data)
     {
         if ($coupon) {
-            $data_allDay    = $coupon->all_day;
-            $data_status    = $coupon->status;
-            $start_date     = new Carbon($coupon->Promotions->date_start);
-            $end_date       = new Carbon($coupon->Promotions->date_end);
-            $current_date   = Carbon::now();
+            $data_allDay        = $coupon->all_day;
+            $data_status        = $coupon->status;
+            $start_date         = new Carbon($coupon->Promotions->date_start);
+            $end_date           = new Carbon($coupon->Promotions->date_end);
+            $current_date       = Carbon::now();
 
             if ($data_status == Coupon::AVAILABLE) {
                 if ($start_date <= $current_date && $end_date >= $current_date) {
@@ -339,40 +312,9 @@ class CouponLogic extends BaseLogic
                         return $this->calculateDiscount($coupon, $data);
                     } else {
                         $data_settings  = json_decode($coupon->settings);
-                        
-                        if ($data['room_id'] != null) {
-                            $dataRooms = $data_settings->rooms;
-                            array_filter($dataRooms, function ($item) use ($data) {
-                                if ($data['room_id'] == $item) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            });
-                        } elseif ($data['city_id'] != null) {
-                            $dataCities = $data_settings->cities;
-                            array_filter($dataCities, function ($item) use ($data) {
-                                if ($data['city_id'] == $item) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            });
-                        } elseif ($data['district_id'] != null) {
-                            $dataDistricts = $data_settings->districts;
-                            array_filter($dataDistricts, function ($item) use ($data) {
-                                if ($data['district_id'] == $item) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            });
-                        } elseif ($current_date != null) {
-                            $dataDays = $data_settings->days;
-                            foreach ($dataDays as $key => $value) {
-                                if ($current_date == $value) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            }
-                        }
-                        $discount = [
-                            'message'        => 'Mã giảm giá không thể áp dụng cho đơn đặt phòng này',
-                            'price_discount' => 0
-                        ];
+
+                        $discount = $this->couponSettingsValidate($data_settings, $data, $coupon);
+
                         return $discount;
                     }
                 } else {
@@ -384,6 +326,98 @@ class CouponLogic extends BaseLogic
         } else {
             throw new \Exception('Mã khuyến mãi không tồn tại');
         }
+    }
+
+
+    public function couponSettingsValidate($data_settings, $data, $coupon)
+    {
+        $current_date       = Carbon::now();
+        $day_of_week        = date('N', strtotime(date("l")));
+  
+        if ($data_settings->bind) {
+            $conditions = $data_settings->bind;
+        }
+        $flag = 0;
+
+        if ($data_settings->rooms && !empty($data['room_id']) && in_array($data['room_id'], $data_settings->rooms)) {
+            $flag++;
+        }
+
+        if ($data_settings->cities && !empty($data['city_id']) && in_array($data['city_id'], $data_settings->cities)) {
+            $flag++;
+        }
+
+        if ($data_settings->districts && !empty($data['district_id']) && in_array($data['district_id'], $data_settings->districts)) {
+            $flag++;
+        }
+
+        if ($data_settings->days && !empty($data['day']) && in_array($data['day'], $data_settings->days)) {
+            $flag++;
+        }
+
+        if ($data_settings->booking_type && !empty($data['booking_type']) && in_array($data['booking_type'], [$data_settings->booking_type])) {
+            $flag++;
+        }
+
+        if ($data_settings->booking_create) {
+            $dataBookingCreate  = $data_settings->booking_create;
+            $start_date         = Carbon::parse($dataBookingCreate[0]);
+            $end_date           = Carbon::parse($dataBookingCreate[1]);
+            if ($current_date->between($start_date, $end_date, false)) {
+                $flag++;
+            }
+        }
+
+        if ($data_settings->booking_stay) {
+            $dataBookingCreate      = $data_settings->booking_stay;
+
+            $start_discount         = Carbon::parse($dataBookingCreate[0]);
+            $end_discount           = Carbon::parse($dataBookingCreate[1]);
+            $period_discount        = CarbonPeriod::between($start_discount, $end_discount);
+            
+            foreach ($period_discount as $day) {
+                $list_discount[] = $day;
+            }
+
+            $checkin    = $data['checkin'];
+            $checkout   = $data['checkout'];
+
+            $period_stay = CarbonPeriod::between(Carbon::parse($checkin), Carbon::parse($checkout));
+            foreach ($period_stay as $day) {
+                $list_stay[] = $day;
+            }
+            // dd(array_intersect($list_discount, $list_stay));
+            dd($list_stay, $list_discount);
+        }
+
+        if ($data_settings->merchants && !empty($data['merchant_id']) && in_array($data['merchant_id'], $data_settings->merchants)) {
+            $flag++;
+        }
+
+        if ($data_settings->users && !empty($data['user_id']) && in_array($data['user_id'], $data_settings->users)) {
+            $flag++;
+        }
+
+        if ($data_settings->days_of_week && in_array($day_of_week, $data_settings->days_of_week)) {
+            $flag++;
+        }
+
+        if ($data_settings->room_type && !empty($data['room_type']) && in_array($data['room_type'], $data_settings->room_type)) {
+            $flag++;
+        }
+        
+        if (sizeof($data_settings->bind) > 0 && $flag >= sizeof($data_settings->bind)) {
+            $discount =  $this->calculateDiscount($coupon, $data);
+        } elseif ($flag > sizeof($data_settings->bind)) {
+            $discount =  $this->calculateDiscount($coupon, $data);
+        } else {
+            $discount = [
+                'message'        => 'Mã giảm giá không thể áp dụng cho đơn đặt phòng này',
+                'price_discount' => 0
+            ];
+        }
+
+        return $discount;
     }
 
     /**
