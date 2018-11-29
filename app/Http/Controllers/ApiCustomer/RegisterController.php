@@ -5,9 +5,11 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\Events\Customer_Register_Event;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use App\User;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends ApiController
 {
@@ -15,8 +17,6 @@ class RegisterController extends ApiController
         'email'                 => 'required|email|max:255|unique:users,email',
         'password'              => 'required|min:6|max:255',
         'password_confirmation' => 'required|min:6|max:255|same:password',
-        'status'                => 'numeric |between:0,1|filled',
-        'type'                  => 'numeric |between:0,1|filled',
     ];
 
     protected $validationMessages = [
@@ -31,13 +31,6 @@ class RegisterController extends ApiController
         'password_confirmation.min'         => 'Mật khẩu cần lớn hơn :min kí tự',
         'password_confirmation.max'         => 'Mật khẩu cần nhỏ hơn :max kí tự',
         'password_confirmation.same'        => 'Mật khẩu không khớp nhau',
-        'type.between'                      => 'Mã không hợp lệ',
-        'type.numeric'                      => 'Kiểu phải là kiểu số',
-        'type.filled'                       => 'Vui lòng nhập kiểu tài khoản vào ',
-        'status.numeric'                    => 'Mã kích hoạt tài khoản phải là kiểu số',
-        'status.between'                    => 'Mã kích hoạt tài khoản không phù hợp',
-        'status.filled'                     => 'Vui lòng nhập mã trạng thái ',
-
     ];
 
     public function __construct(UserRepository $user, UserTransformer $transformer)
@@ -48,13 +41,13 @@ class RegisterController extends ApiController
 
     public function register(Request $request)
     {
-
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params    = $request->all();
-            $username  = $params['email'];
-            $password  = $params['password'];
+            $params           = $request->only('email','password');
+            $params['token']  = Hash::make( str_random(60));
 
+            $username         = $params['email'];
+            $password         = $params['password'];
             // Create new user
             $newClient = $this->getResource()->store($params);
 

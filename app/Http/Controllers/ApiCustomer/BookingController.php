@@ -310,14 +310,21 @@ class BookingController extends ApiController
             if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL) {
                 throw new \Exception('Bạn đã từng xác nhận hoặc từ chối booking này  !!!!');
             }
+
+            /**
+             * Cập nhâp trạng thái đơn đã được xác nhận
+             */
             $data               = $this->model->updateStatusBooking($request->all());
+            DB::commit();
+            /**
+             * Gửi email thông báo cho customer là đơn đã được xác nhận.
+             */
             if ($data->status == BookingConstant::BOOKING_CONFIRM) {
                 $merchant                   = $this->user->getById($data->merchant_id);
                 $room_name                  = $this->room->getRoom($data->room_id);
                 event(new BookingConfirmEvent($data, $merchant, $room_name));
             }
             logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
-            DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();

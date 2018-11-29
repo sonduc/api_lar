@@ -40,6 +40,10 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\Logic\ConfirmBookingTimeListener::class,
         ],
 
+        \App\Events\Reset_Password_Event::class => [
+            \App\Listeners\SendMail\ResetPasswordListener::class,
+        ],
+
         \App\Events\Booking_Notification_Event::class => [
             \App\Listeners\SendMail\BookingNotificationListener::class,
         ],

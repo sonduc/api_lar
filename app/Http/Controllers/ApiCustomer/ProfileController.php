@@ -13,6 +13,7 @@ use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ProfileController extends ApiController
 {
@@ -80,12 +81,13 @@ class ProfileController extends ApiController
 
     public function update(Request $request)
     {
-        $this->validationRules['email'] .= ',' . $request->user()->id;
+        DB::beginTransaction();
         try {
+            $this->validationRules['email'] .= ',' . $request->user()->id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->updateInfoCustomer($request->user()->id, $request->all(),[], ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe']);
-
+            DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -111,14 +113,14 @@ class ProfileController extends ApiController
      */
     public function settings( Request $request)
     {
-        $this->validationRules = array_only($this->validationRules, ['subcribe','settings']);
-        $this->validationRules['subcribe']   = 'bail|filled|integer|between:0,1';
-        $this->validationRules['settings.*'] = 'bail|nullable|integer|between:0,1';
-
+        DB::beginTransaction();
         try {
+            $this->validationRules = array_only($this->validationRules, ['subcribe','settings']);
+            $this->validationRules['subcribe']   = 'bail|filled|integer|between:0,1';
+            $this->validationRules['settings.*'] = 'bail|nullable|integer|between:0,1';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->updateSettingCustomer($request->user()->id, $request->all(),[], ['settings','subcribe']);
-
+            DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
@@ -145,12 +147,12 @@ class ProfileController extends ApiController
 
     public function changePassword(Request $request)
     {
-        $this->validationRules = array_only($this->validationRules, ['old_password','password']);
+        DB::beginTransaction();
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $this->model->checkValidPassword($request->user(),$request->all());
             $this->model->updateInfoCustomer($request->user()->id, $request->all(), [], ['password']);
-
+            DB::commit();
             return $this->successResponse(['data' => ['message' => 'Đổi mật khẩu thành công']], false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([

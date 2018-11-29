@@ -91,6 +91,7 @@ class SendEmail
             throw $e;
         }
     }
+
     /**
      * Email thông báo cho khách trước 48h
      *
@@ -198,4 +199,23 @@ class SendEmail
             throw $e;
         }
     }
+
+    public function sendMailResetPassword($user, $template = 'email.reset_password')
+    {
+
+          $timeSubmit                = Carbon::now()->timestamp;
+          $user->data->timeSubmit    = base64_encode($timeSubmit);
+          $email                     = $user->data->email;
+        try {
+            Mail::send($template, ['user' => $user], function ($message) use ($email) {
+                $message->from(env('MAIL_USERNAME'));
+                $message->to($email)->subject('Khôi phục mật khẩu !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại ' . $email);
+            throw $e;
+        }
+
+    }
+
 }

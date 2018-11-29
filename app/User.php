@@ -100,6 +100,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'status',
         'sale_id',
         'account_number',
+        'token',
         'subcribe',
         'settings',
     ];

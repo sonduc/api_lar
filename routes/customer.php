@@ -37,12 +37,15 @@ $router->group([
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 });
     $router->post('/bookings', 'BookingController@store');
+
 /**
- * Router login, register
+ * Router login, register , reset pass, forget pass
  */
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
+$router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->post('forget-password', 'ForgetPasswordController@forgetPassword');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
 
