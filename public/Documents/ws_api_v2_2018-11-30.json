@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-11-30T04:08:52.596Z",
+	"__export_date": "2018-11-30T04:38:33.849Z",
 	"__export_source": "insomnia.desktop.app:v6.2.0",
 	"resources": [
 		{
@@ -1212,7 +1212,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1543543484928,
+			"modified": 1543551158548,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1222,7 +1222,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=prices",
+			"url": "{{ api_url  }}rooms?include=blocks",
 			"_type": "request"
 		},
 		{
@@ -3414,7 +3414,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1543378239186,
+			"modified": 1543551090843,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
@@ -3653,7 +3653,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1543550508782,
+			"modified": 1543551694250,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3682,7 +3682,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889336908.25,
 			"method": "GET",
-			"modified": 1543549679106,
+			"modified": 1543551081562,
 			"name": "show",
 			"parameters": [
 				{
@@ -3707,7 +3707,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\": \"WES2T2sY1222\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1234,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": []\n\t},\n\t\"promotion_id\": 1\n}"
+				"text": "{\n\t\"code\": \"WES2T2sY12222sadasd\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1234,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": [],\n\t\t\"min_price\": 0\n\t},\n\t\"promotion_id\": 1\n}"
 			},
 			"created": 1541398458512,
 			"description": "~~~php\n        'code'                          =>  'required|without_spaces|string|min:4|unique:coupons,code',\n        'discount'                      =>  'required|integer|between:0,100',\n        'max_discount'                  =>  'integer|min:0',\n        'usable'                        =>  'integer|min:0',\n        'used'                          =>  'integer|min:0',\n        'status'                        =>  'required|integer|between:0,1',\n        'settings'                      =>  'min:1',\n        'settings.rooms.*'              =>  'distinct|exists:rooms,id,deleted_at,NULL',\n        'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',\n        'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',\n        'settings.days.*'               =>  'distinct|date|after:now',\n        'settings.booking_type.*'       =>  'integer|between:1,3',\n        'settings.booking_create.*'     =>  'nullable',\n        'settings.booking_stay.*'       =>  'nullable',\n        'settings.merchants.*'          =>  'distinct|exists:users,id,deleted_at,NULL',\n        'settings.users.*'              =>  'distinct|exists:users,id,deleted_at,NULL',\n        'settings.days_of_week.*'       =>  'nullable',\n        'settings.room_type.*'          =>  'nullable',\n        'settings.bind.*'               =>  'nullable',\n        'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',\n\n        'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',\n~~~",
@@ -3726,7 +3726,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531888344797.5,
 			"method": "POST",
-			"modified": 1543550885756,
+			"modified": 1543552687140,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3744,7 +3744,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\": \"WESTAY123222\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": []\n\t},\n\t\"promotion_id\": 1\n}"
+				"text": "{\n\t\"code\": \"WESTAY123222\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": [],\n\t\t\"min_price\": 0\n\t},\n\t\"promotion_id\": 1\n}"
 			},
 			"created": 1541398458515,
 			"description": "   \t\t 'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',",
@@ -3763,7 +3763,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1543550566351,
+			"modified": 1543552695658,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3826,7 +3826,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541231602091,
 			"method": "GET",
-			"modified": 1543394248666,
+			"modified": 1543551077295,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3900,7 +3900,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360569.75,
 			"method": "POST",
-			"modified": 1543549713273,
+			"modified": 1543551452923,
 			"name": "calculate-discount",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
