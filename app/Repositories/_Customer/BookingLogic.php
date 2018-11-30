@@ -227,10 +227,10 @@ class BookingLogic extends BaseLogic
             throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
         }
 
-        $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
+        $booking_refund = $this->booking_refund->getBookingRefundByBookingId($id);
 
         if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
-            $total_refund =  ($data_booking->total_fee * 0)/100;
+            $total_refund   = ($data_booking->total_fee * 0)/100;
             $booking_update = [
                 'status'        => BookingConstant::BOOKING_CANCEL,
                 'total_refund'  => $total_refund,
@@ -250,16 +250,16 @@ class BookingLogic extends BaseLogic
         $range = $this->filter_range_day($booking_refund_map_days);
 
         // số ngày hủy phòng cách thời điểm checkin
-        $checkin        =Carbon::parse($data_booking->checkin);
+        $checkin        = Carbon::parse($data_booking->checkin);
         $date_of_room   = Carbon::now();
         $day            = $checkin->diffInDays($date_of_room);
 
 
         //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day =$this->getDay($day, $booking_refund_map_days, $range);
+        $day            = $this->getDay($day, $booking_refund_map_days, $range);
 
-        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
-        $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
+        $data_refund    = $this->booking_refund->getRefund($data_booking->id, $day);
+        $total_refund   = ($data_booking->total_fee * $data_refund->refund)/100;
 
         if ($data_booking->status == BookingConstant::BOOKING_NEW) {
             $booking_update = [

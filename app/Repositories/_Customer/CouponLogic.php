@@ -369,10 +369,10 @@ class CouponLogic extends BaseLogic
         $total_discountable = 0;
 
         foreach ($discount_date as $k => $val) {
-            $weekday = Carbon::parse($val)->weekday() + 1;
-            $day = $val->format('Y-m-d');
+            $weekday    = Carbon::parse($val)->weekday() + 1;
+            $day        = $val->format('Y-m-d');
 
-            $response = $this->op->getPriceByDay($data['room_id'], ["weekday" => $weekday,"day" => $day]);
+            $response   = $this->op->getPriceByDay($data['room_id'], ["weekday" => $weekday,"day" => $day]);
 
             if ($response) {
                 $total_discountable += $response->price_day;
@@ -388,12 +388,12 @@ class CouponLogic extends BaseLogic
             $price_discount = $total_discount;
         }
         
-        $price_discount_remain = $total_discountable -  $price_discount;
+        $price_discount_remain  = $total_discountable -  $price_discount;
 
-        $price_remain = $total_non_discount + $price_discount_remain;
+        $price_remain           = $total_non_discount + $price_discount_remain;
 
         $dataDiscount = [
-            'message'        => "Mã giảm giá được áp dụng thành công hahaha",
+            'message'        => "Mã giảm giá được áp dụng thành công",
             'price_discount' => $price_discount,
             'price_remain'   => $price_remain
         ];

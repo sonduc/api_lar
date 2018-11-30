@@ -48,13 +48,13 @@ class RoomLogic extends BaseLogic
         $check_in       = $collect_params->get('check_in');
         $check_out      = $collect_params->get('check_out');
         $booking        = $this->booking->getAllBookingInPeriod($check_in, $check_out);
-        $list_room_id = $booking->map(function ($item) {
+        $list_room_id   = $booking->map(function ($item) {
             return $item->room_id;
         })->all();
 
-        $list_room_id = array_unique($list_room_id);
+        $list_room_id   = array_unique($list_room_id);
 
-        $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
+        $rooms          = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
         
         return $rooms;
     }
