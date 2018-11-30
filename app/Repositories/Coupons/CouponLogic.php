@@ -210,10 +210,37 @@ class CouponLogic extends BaseLogic
                     return in_array($item['id'], (!empty($settings->booking_type) ? [$settings->booking_type] : []));
                 })
             );
-            
-            $arrBookingCreate_filter    = !empty($settings->booking_create) ? $settings->booking_create : [];
-            
-            $arrBookingStay_filter      = !empty($settings->booking_stay) ? $settings->booking_stay : [];
+       
+            if (!empty($settings->booking_stay)) {
+                $dataBookingStay        = $settings->booking_stay;
+
+                $start_stay         = Carbon::parse($dataBookingStay[0]);
+                $end_stay           = Carbon::parse($dataBookingStay[1]);
+                $period_stay        = CarbonPeriod::between($start_stay, $end_stay);
+
+                foreach ($period_stay as $day) {
+                    $list_stay[] = $day->format('Y-m-d');
+                }
+            } else {
+                $list_stay = [];
+            }
+
+            if (!empty($settings->booking_create)) {
+                $dataBookingCreate      = $settings->booking_create;
+
+                $start_create         = Carbon::parse($dataBookingCreate[0]);
+                $end_create           = Carbon::parse($dataBookingCreate[1]);
+                $period_create        = CarbonPeriod::between($start_create, $end_create);
+
+                foreach ($period_discount as $day) {
+                    $list_create[] = $day->format('Y-m-d');
+                }
+            } else {
+                $list_create = [];
+            }
+
+            $arrBookingCreate_filter = $list_create;
+            $arrBookingStay_filter = $list_stay;
             
             $arrMerchant_filter         = array_values(
                 array_filter($arrMerchants, function ($item) use ($settings) {
@@ -392,12 +419,12 @@ class CouponLogic extends BaseLogic
         }
 
         if ($data_settings->booking_stay) {
-            $dataBookingCreate      = $data_settings->booking_stay;
+            $dataBookingStay        = $data_settings->booking_stay;
 
-            $start_discount         = Carbon::parse($dataBookingCreate[0]);
-            $end_discount           = Carbon::parse($dataBookingCreate[1]);
+            $start_discount         = Carbon::parse($dataBookingStay[0]);
+            $end_discount           = Carbon::parse($dataBookingStay[1]);
             $period_discount        = CarbonPeriod::between($start_discount, $end_discount);
-            
+
             foreach ($period_discount as $day) {
                 $list_discount[] = $day;
             }
@@ -429,7 +456,7 @@ class CouponLogic extends BaseLogic
         }
 
         if ($data_settings->users && !empty($data['user_id']) && in_array($data['user_id'], $data_settings->users)) {
-            if (in_array("rooms", $data_settings->bind)) {
+            if (in_array("users", $data_settings->bind)) {
                 $flag_bind++;
             }
             $flag++;
