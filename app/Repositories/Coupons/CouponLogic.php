@@ -528,7 +528,7 @@ class CouponLogic extends BaseLogic
         $price_discount = ($coupon->discount * $price_original)/100;
 
         if ($price_discount > $coupon->max_discount) {
-            $price_discount = $price_original - $coupon->max_discount;
+            $price_discount = $coupon->max_discount;
         }
 
         $price_remain = $price_original -  $price_discount;
