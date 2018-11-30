@@ -163,7 +163,22 @@ $router->group([
     $router->get('/emailcustomers/user-owner', 'EmailCustomerController@userOwner');
     $router->get('/emailcustomers/booking-checkout', 'EmailCustomerController@bookingCheckout');
 
-     resource('/guidebookcategories', 'GuidebookCategoryController', $router);
+    /**
+     * GuidebookCategory Resource
+     */
+    resource('/guidebookcategories', 'GuidebookCategoryController', $router);
+
+    /**
+     * Place Resource
+     */
+    $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
+    $router->get('/places/status-list', 'PlaceController@statusList');
+    resource('/places', 'PlaceController', $router);
+
+    /**
+     * PlaceTranslate Resource
+     */
+    resource('/placetranslates', 'PlaceTranslateController', $router);
 });
 
 

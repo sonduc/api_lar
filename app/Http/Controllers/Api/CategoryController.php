@@ -17,7 +17,7 @@ class CategoryController extends ApiController
         'hot'                               => 'integer|between:0,1|filled',
         'status'                            => 'integer|between:0,1|filled',
         'new'                               => 'integer|between:0,1|filled',
-        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',
+        'image'                             => 'required|image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
     ];
@@ -35,8 +35,9 @@ class CategoryController extends ApiController
         'new.between'                       => 'Mã danh mục mới nhất không phù hợp',
         'new.filled'                        => 'Vui lòng nhập mã trạng thái',
 
-        //'image.image'                   =>'Định dạng không phải là hình ảnh',
-       // 'image.mimes'                   => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
+        'image.required'                    => 'Hình ảnh không đưọc bỏ trống',
+        'image.image'                       => 'Định dạng không phải là hình ảnh',
+        'image.mimes'                       => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
         'details.*.*.name.required'         => 'Tên không được để trống',
         'details.*.*.name.unique'           => 'Tên này đã tồn tại',
         'details.*.*.name.v_title'          => 'Tên danh mục không hợp lệ',

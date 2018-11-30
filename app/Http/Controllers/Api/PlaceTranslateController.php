@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use App\Repositories\GuidebookCategories\GuidebookCategoryLogic;
-use App\Repositories\GuidebookCategories\GuidebookCategory;
-
-use App\Http\Transformers\GuidebookCategoryTransformer;
-use App\Repositories\GuidebookCategories\GuidebookCategoryRepository;
+use App\Http\Transformers\PlaceTranslateTransformer;
+use App\Repositories\PlaceTranslates\PlaceTranslate;
+use App\Repositories\PlaceTranslates\PlaceTranslateLogic;
+use App\Repositories\PlaceTranslates\PlaceTranslateRepository;
 use DB;
+use Illuminate\Http\Request;
 
-class GuidebookCategoryController extends ApiController
+class PlaceTranslateController extends ApiController
 {
     protected $validationRules = [
-        'name'                      =>  'required|v_title|unique:promotions,name',
-        'icon'                      =>  'required',
-        'lang'                      =>  'required|v_title',
+        'name'                 => 'required|v_title',
+        'description'          => 'required',
+        'lang'                 => 'required|v_title',
+        'place_id'             => 'required|integer|exists:places,id,deleted_at,NULL',
     ];
     protected $validationMessages = [
-        'name.required'             =>  'Vui lòng điền tên',
-        'name.v_title'              =>  'Tên không đúng định dạng',
-        'name.unique'               =>  'Tên danh mục hướng dẫn này đã tồn tại',
-        'icon.required'             =>  'Vui lòng điền mục icon',
-        'lang.required'             =>  'Vui lòng chọn định dạng ngôn ngữ',
-        'lang.v_title'              =>  'Định dạng ngôn ngữ không hợp lệ',
+        'name.required'        => 'Vui lòng điền tên',
+        'name.v_title'         => 'Tên không đúng định dạng',
+        'name.unique'          => 'Tên dịch địa điểm này đã tồn tại',
+        'description.required' => 'Mô tả không được để trống',
+        'lang.required'        => 'Vui lòng chọn định dạng ngôn ngữ',
+        'lang.v_title'         => 'Định dạng ngôn ngữ không hợp lệ',
+        'place_id.required'    => 'Địa điểm không được để trống',
+        'place_id.integer'     => 'Mã địa điểm phải là kiểu số',
+        'place_id.exists'      => 'Địa điểm không tồn tại',
     ];
 
     /**
-     * GuidebookCategoryController constructor.
-     * @param GuidebookCategoryRepository $guidebookcategory
+     * PlaceTranslateController constructor.
+     * @param PlaceTranslateRepository $placetranslate
      */
-    public function __construct(GuidebookCategoryLogic $guidebookcategory)
+    public function __construct(PlaceTranslateLogic $placetranslate)
     {
-        $this->model = $guidebookcategory;
-        $this->setTransformer(new GuidebookCategoryTransformer);
+        $this->model = $placetranslate;
+        $this->setTransformer(new PlaceTranslateTransformer);
     }
 
     /**
@@ -46,10 +49,10 @@ class GuidebookCategoryController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('guidebookcategory.view');
-        $pageSize = $request->get('limit', 25);
+        $this->authorize('place.view');
+        $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
         return $this->successResponse($data);
     }
 
@@ -65,9 +68,9 @@ class GuidebookCategoryController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('guidebookcategory.view');
+            $this->authorize('place.view');
             $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -91,7 +94,7 @@ class GuidebookCategoryController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->authorize('guidebookcategory.create');
+            $this->authorize('place.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
@@ -99,8 +102,8 @@ class GuidebookCategoryController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Exception $e) {
             throw $e;
@@ -121,20 +124,17 @@ class GuidebookCategoryController extends ApiController
     public function update(Request $request, $id)
     {
         try {
-            DB::beginTransaction();
-            $this->authorize('guidebookcategory.update');
-
-            $this->validationRules['name'] .= ',' . $id;
+            $this->authorize('place.update');
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
-            DB::commit();
+
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -156,7 +156,7 @@ class GuidebookCategoryController extends ApiController
     public function destroy($id)
     {
         try {
-            $this->authorize('guidebookcategory.delete');
+            $this->authorize('place.delete');
             $this->model->delete($id);
 
             return $this->deleteResponse();
