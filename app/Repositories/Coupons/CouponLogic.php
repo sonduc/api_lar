@@ -419,32 +419,33 @@ class CouponLogic extends BaseLogic
         }
 
         if ($data_settings->booking_stay) {
-            $dataBookingStay        = $data_settings->booking_stay;
+            $checkin        = !empty($data['checkin']) ? $data['checkin'] : null;
+            $checkout       = !empty($data['checkout']) ? $data['checkout'] : null;
+            
+            if ($checkin && $checkout) {
+                $dataBookingStay        = $data_settings->booking_stay;
 
-            $start_discount         = Carbon::parse($dataBookingStay[0]);
-            $end_discount           = Carbon::parse($dataBookingStay[1]);
-            $period_discount        = CarbonPeriod::between($start_discount, $end_discount);
+                $start_discount         = Carbon::parse($dataBookingStay[0]);
+                $end_discount           = Carbon::parse($dataBookingStay[1]);
+                $period_discount        = CarbonPeriod::between($start_discount, $end_discount);
 
-            foreach ($period_discount as $day) {
-                $list_discount[] = $day;
-            }
-
-            $checkin        = $data['checkin'];
-            $checkout       = $data['checkout'];
-
-            $period_stay    = CarbonPeriod::between(Carbon::parse($checkin)->startOfDay(), Carbon::parse($checkout)->subDay()->startOfDay());
-
-            foreach ($period_stay as $day) {
-                $list_stay[] = $day;
-            }
-            $discountable = array_intersect($list_discount, $list_stay);
-            $non_discount = array_diff($list_stay, $list_discount);
-            if ($discountable) {
-                if (in_array("booking_stay", $data_settings->bind)) {
-                    $flag_bind++;
-                    $booking_stay_condition = true;
+                foreach ($period_discount as $day) {
+                    $list_discount[] = $day;
                 }
-                $flag++;
+                $period_stay    = CarbonPeriod::between(Carbon::parse($checkin)->startOfDay(), Carbon::parse($checkout)->subDay()->startOfDay());
+
+                foreach ($period_stay as $day) {
+                    $list_stay[] = $day;
+                }
+                $discountable = array_intersect($list_discount, $list_stay);
+                $non_discount = array_diff($list_stay, $list_discount);
+                if ($discountable) {
+                    if (in_array("booking_stay", $data_settings->bind)) {
+                        $flag_bind++;
+                        $booking_stay_condition = true;
+                    }
+                    $flag++;
+                }
             }
         }
 
@@ -508,13 +509,14 @@ class CouponLogic extends BaseLogic
      */
     public function calculateDiscount($coupon, $data)
     {
-        $price_discount = ($coupon->discount * $data['price_original'])/100;
+        $price_original = !empty($data['price_original']) ? $data['price_original'] : 0;
+        $price_discount = ($coupon->discount * $price_original)/100;
 
         if ($price_discount > $coupon->max_discount) {
-            $price_discount = $data['price_original'] - $coupon->max_discount;
+            $price_discount = $price_original - $coupon->max_discount;
         }
 
-        $price_remain = $data['price_original'] -  $price_discount;
+        $price_remain = $price_original -  $price_discount;
 
         $dataDiscount = [
             'message'        => "Mã giảm giá được áp dụng thành công",
