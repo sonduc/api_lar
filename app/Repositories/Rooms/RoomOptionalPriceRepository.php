@@ -128,4 +128,15 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
     {
         return $this->model->where('room_id', $id)->get();
     }
+
+    public function getPriceByDay($id, $day)
+    {
+        $room               = $this->model->where('room_id', $id)->where("status", 1)->get();
+        foreach ($room as $key => $value) {
+            if ($value->weekday === $day["weekday"] || $value->day === $day["day"]) {
+                return $value;
+            }
+        }
+        return [];
+    }
 }

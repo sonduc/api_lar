@@ -97,11 +97,11 @@ class CouponLogic extends BaseLogic
     public function checkSettingDiscount($coupon, $data)
     {
         if ($coupon) {
-            $data_allDay    = $coupon->all_day;
-            $data_status    = $coupon->status;
-            $start_date     = new Carbon($coupon->Promotions->date_start);
-            $end_date       = new Carbon($coupon->Promotions->date_end);
-            $current_date   = Carbon::now();
+            $data_allDay        = $coupon->all_day;
+            $data_status        = $coupon->status;
+            $start_date         = new Carbon($coupon->Promotions->date_start);
+            $end_date           = new Carbon($coupon->Promotions->date_end);
+            $current_date       = Carbon::now();
 
             if ($data_status == Coupon::AVAILABLE) {
                 if ($start_date <= $current_date && $end_date >= $current_date) {
@@ -110,39 +110,9 @@ class CouponLogic extends BaseLogic
                     } else {
                         $data_settings  = json_decode($coupon->settings);
 
-                        if ($data['room_id'] != null) {
-                            $dataRooms = $data_settings->rooms;
-                            foreach ($dataRooms as $key => $value) {
-                                if ($data['room_id'] == $value) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            }
-                        }
-                        if ($data['city_id'] != null) {
-                            $dataCities = $data_settings->cities;
-                            foreach ($dataCities as $key => $value) {
-                                if ($data['city_id'] == $value) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            }
-                        }
-                        if ($data['district_id'] != null) {
-                            $dataDistricts = $data_settings->districts;
-                            foreach ($dataDistricts as $key => $value) {
-                                if ($data['district_id'] == $value) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            }
-                        }
-                        if ($current_date != null) {
-                            $dataDays = $data_settings->days;
-                            foreach ($dataDays as $key => $value) {
-                                if ($current_date == $value) {
-                                    return $this->calculateDiscount($coupon, $data);
-                                }
-                            }
-                        }
-                        throw new \Exception('Mã giảm giá không thể áp dụng cho đơn đặt phòng này');
+                        $discount = $this->couponSettingsValidate($data_settings, $data, $coupon);
+
+                        return $discount;
                     }
                 } else {
                     throw new \Exception('Mã khuyến mãi không hợp lệ hoặc đã hết hạn');
