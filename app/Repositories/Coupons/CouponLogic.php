@@ -53,6 +53,9 @@ class CouponLogic extends BaseLogic
     public function store($data)
     {
         $data['code'] 		= strtoupper($data['code']);
+        if (empty($data['settings']['min_price'])) {
+            $data['settings']['min_price'] = 0;
+        };
         $data['settings'] 	= json_encode($data['settings']);
         $data_coupon 		= parent::store($data);
         return $data_coupon;
@@ -77,6 +80,9 @@ class CouponLogic extends BaseLogic
         };
         
         $data['code']       = strtoupper($data['code']);
+        if (empty($data['settings']['min_price'])) {
+            $data['settings']['min_price'] = 0;
+        };
         $data['settings'] 	= json_encode($data['settings']);
         $data_coupon 		= parent::update($id, $data);
         return $data_coupon;
@@ -266,7 +272,7 @@ class CouponLogic extends BaseLogic
                 })
             );
             
-            $arrMinPrice_filter         = !empty($settings->min_price) ? $settings->min_price : [];
+            $arrMinPrice_filter         = !empty($settings->min_price) ? $settings->min_price : 0;
 
             $arrayTransformSetting      = [
                 'bind'              => $bind,
@@ -476,6 +482,15 @@ class CouponLogic extends BaseLogic
             }
             $flag++;
         }
+
+        if ($data_settings->min_price && !empty($data['price_original']) && $data['price_original'] >= $data_settings->min_price) {
+            if (in_array("min_price", $data_settings->bind)) {
+                $flag_bind++;
+            }
+            $flag++;
+        }
+
+
         if ($booking_stay_condition == false) {
             if (sizeof($data_settings->bind) > 0 && $flag_bind >= sizeof($data_settings->bind)) {
                 $discount =  $this->calculateDiscount($coupon, $data);

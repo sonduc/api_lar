@@ -32,6 +32,7 @@ class CouponController extends ApiController
         'settings.days_of_week.*'       =>  'nullable',
         'settings.room_type.*'          =>  'nullable',
         'settings.bind.*'               =>  'nullable',
+        'settings.min_price.*'          =>  'nullable',
         'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',
 
         'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',

@@ -85,7 +85,7 @@ class CouponLogic extends BaseLogic
         $arrMerchants 	        = !empty($settings->merchants) ? $settings->merchants : [];
         $arrUsers		        = !empty($settings->users) ? $settings->users : [];
         $arrDayOfWeek		    = !empty($settings->days_of_week) ? $settings->days_of_week : [];
-
+        $arrMinPrice            = !empty($settings->min_price) ? $settings->min_pirce : 0;
         $arrayTransformSetting = [
             'rooms' 	        => $arrRoom,
             'cities' 	        => $arrCity,
@@ -296,6 +296,15 @@ class CouponLogic extends BaseLogic
             }
             $flag++;
         }
+
+        if ($data_settings->min_price && !empty($data['price_original']) && $data['price_original'] >= $data_settings->min_price) {
+            if (in_array("min_price", $data_settings->bind)) {
+                $flag_bind++;
+            }
+            $flag++;
+        }
+
+
         if ($booking_stay_condition == false) {
             if (sizeof($data_settings->bind) > 0 && $flag_bind >= sizeof($data_settings->bind)) {
                 $discount =  $this->calculateDiscount($coupon, $data);
