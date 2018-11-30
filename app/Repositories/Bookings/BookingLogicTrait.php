@@ -76,7 +76,7 @@ trait BookingLogicTrait
 
         $data['price_original']  = $money;
         $data['service_fee']     = $room->cleaning_fee;
-        if ($data['coupon']) {
+        if (!empty($data['coupon'])) {
             $coupon                  = $this->cp->getCouponByCode($data['coupon']);
             $data['city_id']         = $room->city_id;
             $data['district_id']     = $room->district_id;
