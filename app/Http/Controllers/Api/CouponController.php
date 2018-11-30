@@ -153,13 +153,13 @@ class CouponController extends ApiController
             $this->authorize('coupon.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->model->store($request->all());
+            $data               = $this->model->store($request->all());
             $pageSize           = $request->get('limit', 25);
             $this->trash        = $this->trashStatus($request);
-            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
+            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
 
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -182,9 +182,10 @@ class CouponController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             
             $data = $this->model->update($id, $request->all());
+
             $pageSize           = $request->get('limit', 25);
             $this->trash        = $this->trashStatus($request);
-            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
+            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
 
             DB::commit();
             return $this->successResponse($data_transformed);
