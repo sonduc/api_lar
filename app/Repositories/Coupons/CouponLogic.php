@@ -367,46 +367,46 @@ class CouponLogic extends BaseLogic
 
     public function couponSettingsValidate($data_settings, $data, $coupon)
     {
-        $current_date       = Carbon::now();
-        $day_of_week        = date('N', strtotime(date("l")));
-  
+        $current_date           = Carbon::now();
+        $day_of_week            = date('N', strtotime(date("l")));
+        $flag = $flag_bind      = 0;
+        $booking_stay_condition = false;
+        $hour_booking           = 0;
+
         if ($data_settings->bind) {
             $conditions = $data_settings->bind;
         }
-        $flag                   = 0;
-        $booking_stay_condition = false;
-        $flag_bind              = 0;
 
         if ($data_settings->rooms && !empty($data['room_id']) && in_array($data['room_id'], $data_settings->rooms)) {
-            if (in_array("rooms", $data_settings->bind)) {
+            if (in_array("rooms", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->cities && !empty($data['city_id']) && in_array($data['city_id'], $data_settings->cities)) {
-            if (in_array("cities", $data_settings->bind)) {
+            if (in_array("cities", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->districts && !empty($data['district_id']) && in_array($data['district_id'], $data_settings->districts)) {
-            if (in_array("districts", $data_settings->bind)) {
+            if (in_array("districts", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->days && !empty($data['day']) && in_array($data['day'], $data_settings->days)) {
-            if (in_array("days", $data_settings->bind)) {
+            if (in_array("days", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->booking_type && !empty($data['booking_type']) && in_array($data['booking_type'], [$data_settings->booking_type])) {
-            if (in_array("booking_type", $data_settings->bind)) {
+            if (in_array("booking_type", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
@@ -417,7 +417,7 @@ class CouponLogic extends BaseLogic
             $start_date         = Carbon::parse($dataBookingCreate[0]);
             $end_date           = Carbon::parse($dataBookingCreate[1]);
             if ($current_date->between($start_date, $end_date, false)) {
-                if (in_array("booking_create", $data_settings->bind)) {
+                if (in_array("booking_create", $conditions)) {
                     $flag_bind++;
                 }
                 $flag++;
@@ -440,13 +440,20 @@ class CouponLogic extends BaseLogic
                 }
                 $period_stay    = CarbonPeriod::between(Carbon::parse($checkin)->startOfDay(), Carbon::parse($checkout)->subDay()->startOfDay());
 
-                foreach ($period_stay as $day) {
-                    $list_stay[] = $day;
+                if (!empty($data['booking_type']) && $data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
+                    foreach ($period_stay as $day) {
+                        $list_stay[] = $day;
+                    }
+                    $non_discount = array_diff($list_stay, $list_discount);
+                    $discountable = array_intersect($list_discount, $list_stay);
+                } else {
+                    $hour_booking = Carbon::parse($checkin)->diffInHours(Carbon::parse($checkout));
+                    $discountable = in_array(Carbon::parse($checkin)->format('Y-m-d'), $list_discount) ? [Carbon::parse($checkin)->format('Y-m-d')] : [];
+                    
+                    $non_discount = array_diff([Carbon::parse($checkin)->format('Y-m-d')], $list_discount);
                 }
-                $discountable = array_intersect($list_discount, $list_stay);
-                $non_discount = array_diff($list_stay, $list_discount);
                 if ($discountable) {
-                    if (in_array("booking_stay", $data_settings->bind)) {
+                    if (in_array("booking_stay", $conditions)) {
                         $flag_bind++;
                         $booking_stay_condition = true;
                     }
@@ -456,35 +463,35 @@ class CouponLogic extends BaseLogic
         }
 
         if ($data_settings->merchants && !empty($data['merchant_id']) && in_array($data['merchant_id'], $data_settings->merchants)) {
-            if (in_array("merchants", $data_settings->bind)) {
+            if (in_array("merchants", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->users && !empty($data['user_id']) && in_array($data['user_id'], $data_settings->users)) {
-            if (in_array("users", $data_settings->bind)) {
+            if (in_array("users", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->days_of_week && in_array($day_of_week, $data_settings->days_of_week)) {
-            if (in_array("days_of_week", $data_settings->bind)) {
+            if (in_array("days_of_week", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->room_type && !empty($data['room_type']) && in_array($data['room_type'], $data_settings->room_type)) {
-            if (in_array("room_type", $data_settings->bind)) {
+            if (in_array("room_type", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
         }
 
         if ($data_settings->min_price && !empty($data['price_original']) && $data['price_original'] >= $data_settings->min_price) {
-            if (in_array("min_price", $data_settings->bind)) {
+            if (in_array("min_price", $conditions)) {
                 $flag_bind++;
             }
             $flag++;
@@ -492,9 +499,9 @@ class CouponLogic extends BaseLogic
 
 
         if ($booking_stay_condition == false) {
-            if (sizeof($data_settings->bind) > 0 && $flag_bind >= sizeof($data_settings->bind)) {
+            if (sizeof($conditions) > 0 && $flag_bind >= sizeof($conditions)) {
                 $discount =  $this->calculateDiscount($coupon, $data);
-            } elseif (sizeof($data_settings->bind) == 0 && $flag > sizeof($data_settings->bind)) {
+            } elseif (sizeof($conditions) == 0 && $flag > sizeof($conditions)) {
                 $discount =  $this->calculateDiscount($coupon, $data);
             } else {
                 $discount = [
@@ -503,10 +510,10 @@ class CouponLogic extends BaseLogic
                 ];
             }
         } else {
-            if (sizeof($data_settings->bind) > 0 && $flag_bind >= sizeof($data_settings->bind)) {
-                $discount =  $this->calculateDiscountByDateStay($coupon, $data, $discountable, $non_discount);
-            } elseif ($flag_bind > sizeof($data_settings->bind)) {
-                $discount =  $this->calculateDiscountByDateStay($coupon, $data, $discountable, $non_discount);
+            if (sizeof($conditions) > 0 && $flag_bind >= sizeof($conditions)) {
+                $discount =  $this->calculateDiscountByDateStay($coupon, $data, $discountable, $non_discount, $hour_booking);
+            } elseif ($flag_bind > sizeof($conditions)) {
+                $discount =  $this->calculateDiscountByDateStay($coupon, $data, $discountable, $non_discount, $hour_booking);
             } else {
                 $discount = [
                     'message'        => 'Mã giảm giá không thể áp dụng cho đơn đặt phòng này',
@@ -546,7 +553,7 @@ class CouponLogic extends BaseLogic
      *
      * @author sonduc <ndson1998@gmail.com>
      */
-    public function calculateDiscountByDateStay($coupon, $data, $discount_date, $non_discount)
+    public function calculateDiscountByDateStay($coupon, $data, $discount_date, $non_discount, $booking_type, $hour_booking = 0)
     {
         $room               = $this->room->getById($data['room_id']);
         $room_op            = $this->op->getOptionalPriceByRoomId($data['room_id']);
