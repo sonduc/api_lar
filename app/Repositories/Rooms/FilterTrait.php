@@ -489,7 +489,7 @@ trait FilterTrait
             if ($q == 5) {
                 $query->where('rooms.standard_point', '=', $q);
             } else {
-                $query->where('rooms.standard_point', '<=', 4);
+                $query->where('rooms.standard_point', '<=', $q);
             }
         }
         return $query;

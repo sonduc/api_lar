@@ -57,6 +57,16 @@ class Room extends Entity
         self::TYPE_ALL  => 'Cả ngày và giờ',
     ];
 
+    // AVG Rating
+    const DISAPPOINTED      = 'Không hài lòng';
+    const NOT_GOOD          = 'Không được như mong muốn';
+    const NORMAL            = 'Khá ổn';
+    const GOOD              = 'Tốt';
+    const EXCELLENT         = 'Rất tuyệt vời';
+    const NULL_REVIEW       = 'Chưa có đánh giá';
+
+
+
     /**
      * setting-room
      */

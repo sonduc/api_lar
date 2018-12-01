@@ -121,8 +121,8 @@ class CouponLogic extends BaseLogic
             $coupon 	= (array) json_decode($coupon);
             
             if ($coupon['usable'] > 0) {
-                $coupon['usable'] 	= $coupon['usable']-1;
-                $coupon['used'] 	= $coupon['used']+1;
+                $coupon['usable'] 	= $coupon['usable'] - 1;
+                $coupon['used'] 	= $coupon['used']   + 1;
                 $data_coupon 		= parent::update($id, $coupon);
                 return $data_coupon;
             } else {
