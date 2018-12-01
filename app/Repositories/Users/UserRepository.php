@@ -44,9 +44,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function update($id, $data, $except = [], $only = [])
     {
-        $user = parent::update($id, $data);
+        $user   = parent::update($id, $data);
 
-        $roles = array_get($data, 'roles', []);
+        $roles  = array_get($data, 'roles', []);
         $user->roles()->detach();
         $user->roles()->attach($roles);
         return $user;

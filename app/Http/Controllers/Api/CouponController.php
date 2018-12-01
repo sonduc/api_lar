@@ -24,61 +24,76 @@ class CouponController extends ApiController
         'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',
         'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',
         'settings.days.*'               =>  'distinct|date|after:now',
+        'settings.booking_type.*'       =>  'integer|between:1,3',
+        'settings.booking_create.*'     =>  'nullable',
+        'settings.booking_stay.*'       =>  'nullable',
+        'settings.merchants.*'          =>  'distinct|exists:users,id,deleted_at,NULL',
+        'settings.users.*'              =>  'distinct|exists:users,id,deleted_at,NULL',
+        'settings.days_of_week.*'       =>  'nullable',
+        'settings.room_type.*'          =>  'nullable',
+        'settings.bind.*'               =>  'nullable',
+        'settings.min_price.*'          =>  'nullable',
         'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',
 
         'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',
     ];
     protected $validationMessages = [
-        'code.required'                 =>  'Mã giảm giá không được để trống',
-        'code.without_spaces'           =>  'Mã giảm giá không được có khoảng trống',
-        'code.string'                   =>  'Mã giảm giá không được chứa ký tự đặc biệt',
-        'code.min'                      =>  'Độ dài phải là :min',
-        'code.unique'                   =>  'Mã giảm giá này đã tồn tại',
-        'discount.required'             =>  'Phần trăm giảm giá không được để trống',
-        'discount.integer'              =>  'Phần trăm giảm giá không phải là dạng số',
-        'discount.between'              =>  'Phần trăm giảm giá không phù hợp',
-        'max_discount.integer'          =>  'Số tiền tối đa được giảm không phải là số',
-        'max_discount.min'              =>  'Số tiền tối đa được giảm không được dưới 0',
-        'usable.integer'                =>  'Số lần sử dụng tối đa không phải là số',
-        'usable.min'                    =>  'Số lần sử dụng tối đa không được dưới 0',
-        'used.integer'                  =>  'Số lần đã sử dụng không phải là số',
-        'used.min'                      =>  'Số lần đã sử dụng không được dưới 0',
-        'status.required'               =>  'Trạng thái không được để trống',
-        'status.integer'                =>  'Trạng thái không phải là dạng số',
-        'status.between'                =>  'Trạng thái không phù hợp',
-        'settings.min'                  =>  'Phải có ít nhất 1 điều kiện giảm giá',
-        'settings.rooms.*.distinct'     =>  'Các phòng không được trùng nhau',
-        'settings.rooms.*.exists'       =>  'Phòng không tồn tại',
-        'settings.cities.*.distinct'    =>  'Các thành phố không được trùng nhau',
-        'settings.cities.*.exists'      =>  'Thành phố không tồn tại',
-        'settings.districts.*.distinct' =>  'Các quận huyện không được trùng nhau',
-        'settings.districts.*.exists'   =>  'Quận huyện không tồn tại',
-        'settings.days.*.distinct'      =>  'Các ngày áp dụng giảm giá không được trùng nhau',
-        'settings.days.*.date'          =>  'Các ngày áp dụng giảm giá không hợp lệ',
-        'settings.days.*.after'         =>  'Thời gian áp dụng cho những ngày giảm giá không được phép ở thời điểm quá khứ',
-        'promotion_id.required'         =>  'Vui lòng chọn chương trình giảm giá',
-        'promotion_id.integer'          =>  'Mã chương trình giảm giá phải là kiểu số',
-        'promotion_id.exists'           =>  'Chương trình giảm giá không tồn tại',
+        'code.required'                     =>  'Mã giảm giá không được để trống',
+        'code.without_spaces'               =>  'Mã giảm giá không được có khoảng trống',
+        'code.string'                       =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'code.min'                          =>  'Độ dài phải là :min',
+        'code.unique'                       =>  'Mã giảm giá này đã tồn tại',
+        'discount.required'                 =>  'Phần trăm giảm giá không được để trống',
+        'discount.integer'                  =>  'Phần trăm giảm giá không phải là dạng số',
+        'discount.between'                  =>  'Phần trăm giảm giá không phù hợp',
+        'max_discount.integer'              =>  'Số tiền tối đa được giảm không phải là số',
+        'max_discount.min'                  =>  'Số tiền tối đa được giảm không được dưới 0',
+        'usable.integer'                    =>  'Số lần sử dụng tối đa không phải là số',
+        'usable.min'                        =>  'Số lần sử dụng tối đa không được dưới 0',
+        'used.integer'                      =>  'Số lần đã sử dụng không phải là số',
+        'used.min'                          =>  'Số lần đã sử dụng không được dưới 0',
+        'status.required'                   =>  'Trạng thái không được để trống',
+        'status.integer'                    =>  'Trạng thái không phải là dạng số',
+        'status.between'                    =>  'Trạng thái không phù hợp',
+        'settings.min'                      =>  'Phải có ít nhất 1 điều kiện giảm giá',
+        'settings.rooms.*.distinct'         =>  'Các phòng không được trùng nhau',
+        'settings.rooms.*.exists'           =>  'Phòng không tồn tại',
+        'settings.cities.*.distinct'        =>  'Các thành phố không được trùng nhau',
+        'settings.cities.*.exists'          =>  'Thành phố không tồn tại',
+        'settings.districts.*.distinct'     =>  'Các quận huyện không được trùng nhau',
+        'settings.districts.*.exists'       =>  'Quận huyện không tồn tại',
+        'settings.days.*.distinct'          =>  'Các ngày áp dụng giảm giá không được trùng nhau',
+        'settings.days.*.date'              =>  'Các ngày áp dụng giảm giá không hợp lệ',
+        'settings.days.*.after'             =>  'Thời gian áp dụng cho những ngày giảm giá không được phép ở thời điểm quá khứ',
+        'settings.booking_type.*.integer'   =>  'Loại đặt phòng không phù hợp',
+        'settings.booking_type.*.between'   =>  'Loại đặt phòng không tồn tại',
+        'settings.merchants.*.distinct'     =>  'Mã chủ nhà không được trùng nhau',
+        'settings.merchants.*.exists'       =>  'Mã chủ nhà không tồn tại',
+        'settings.users.*.distinct'         =>  'Mã khách hàng không được trùng nhau',
+        'settings.users.*.exists'           =>  'Mã khách hàng không tồn tại',
+        'promotion_id.required'             =>  'Vui lòng chọn chương trình giảm giá',
+        'promotion_id.integer'              =>  'Mã chương trình giảm giá phải là kiểu số',
+        'promotion_id.exists'               =>  'Chương trình giảm giá không tồn tại',
 
-        'coupon.min'                    =>  'Độ dài phải là :min',
-        'coupon.string'                 =>  'Coupon không được chứa ký tự đặc biệt',
-        'coupon.exists'                 =>  'Coupon không tồn tại',
-        'price_original.required'       =>  'Giá gốc không được để trống',
-        'price_original.integer'        =>  'Giá gốc phải là kiểu số',
-        'price_original.min'            =>  'Giá gốc không được dưới 0',
-        'room_id.required'              =>  'Vui lòng chọn phòng',
-        'room_id.integer'               =>  'Mã phòng phải là kiểu số',
-        'room_id.exists'                =>  'Phòng không tồn tại',
-        'city_id.integer'               =>  'Mã thành phố phải là kiểu số',
-        'city_id.exists'                =>  'Thành phố không tồn tại',
-        'district_id.integer'           =>  'Mã quận huyện phải là kiểu số',
-        'district_id.exists'            =>  'Quận huyện không tồn tại',
-        'day.date'                      =>  'Ngày áp dụng giảm giá không hợp lệ',
-        'day.after'                     =>  'Ngày giảm giá không được phép ở thời điểm quá khứ',
-        'coupon.string'                 =>  'Mã giảm giá không được chứa ký tự đặc biệt',
-        'coupon.without_spaces'         =>  'Mã giảm giá không được có khoảng trống',
-        'coupon.min'                    =>  'Độ dài phải là :min',
-        'coupon.exists'                 =>  'Mã giảm giá không tồn tại',
+        'coupon.min'                        =>  'Độ dài phải là :min',
+        'coupon.string'                     =>  'Coupon không được chứa ký tự đặc biệt',
+        'coupon.exists'                     =>  'Coupon không tồn tại',
+        'price_original.required'           =>  'Giá gốc không được để trống',
+        'price_original.integer'            =>  'Giá gốc phải là kiểu số',
+        'price_original.min'                =>  'Giá gốc không được dưới 0',
+        'room_id.required'                  =>  'Vui lòng chọn phòng',
+        'room_id.integer'                   =>  'Mã phòng phải là kiểu số',
+        'room_id.exists'                    =>  'Phòng không tồn tại',
+        'city_id.integer'                   =>  'Mã thành phố phải là kiểu số',
+        'city_id.exists'                    =>  'Thành phố không tồn tại',
+        'district_id.integer'               =>  'Mã quận huyện phải là kiểu số',
+        'district_id.exists'                =>  'Quận huyện không tồn tại',
+        'day.date'                          =>  'Ngày áp dụng giảm giá không hợp lệ',
+        'day.after'                         =>  'Ngày giảm giá không được phép ở thời điểm quá khứ',
+        'coupon.string'                     =>  'Mã giảm giá không được chứa ký tự đặc biệt',
+        'coupon.without_spaces'             =>  'Mã giảm giá không được có khoảng trống',
+        'coupon.min'                        =>  'Độ dài phải là :min',
+        'coupon.exists'                     =>  'Mã giảm giá không tồn tại',
     ];
 
     /**
@@ -102,7 +117,7 @@ class CouponController extends ApiController
         $this->authorize('coupon.view');
         $pageSize           = $request->get('limit', 25);
         $this->trash        = $this->trashStatus($request);
-        $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash);
+        $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
         return $this->successResponse($data_transformed);
     }
 
@@ -115,10 +130,13 @@ class CouponController extends ApiController
     {
         try {
             $this->authorize('coupon.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
+            $pageSize           = $request->get('limit', 25);
+            $this->trash        = $this->trashStatus($request);
 
-            $data_transformed = $this->model->transformCoupon($data);
+            $data = $this->model->getById($id, $this->trash);
+            
+            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
+
             return $this->successResponse($data_transformed);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -136,10 +154,13 @@ class CouponController extends ApiController
             $this->authorize('coupon.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->model->store($request->all());
-            $data_transformed = $this->model->transformCoupon($data);
+            $data               = $this->model->store($request->all());
+            $pageSize           = $request->get('limit', 25);
+            $this->trash        = $this->trashStatus($request);
+            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
+
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse($data_transformed);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -162,7 +183,11 @@ class CouponController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             
             $data = $this->model->update($id, $request->all());
-            $data_transformed = $this->model->transformCoupon($data);
+
+            $pageSize           = $request->get('limit', 25);
+            $this->trash        = $this->trashStatus($request);
+            $data_transformed   = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
+
             DB::commit();
             return $this->successResponse($data_transformed);
         } catch (\Illuminate\Validation\ValidationException $validationException) {

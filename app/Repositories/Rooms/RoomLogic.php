@@ -171,7 +171,6 @@ class RoomLogic extends BaseLogic
      */
     public function ratingCalculate($room_id, $review)
     {
-        // dd($review);
         \DB::enableQueryLog();
         $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
         $denominator    = sizeof($room['reviews']);
