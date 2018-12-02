@@ -171,6 +171,7 @@ $router->group([
     /**
      * Place Resource
      */
+    $router->post('/places/update-room-place', 'PlaceController@editRoomPlace');
     $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
     $router->get('/places/status-list', 'PlaceController@statusList');
     resource('/places', 'PlaceController', $router);

@@ -21,5 +21,13 @@ class PlaceRepository extends BaseRepository implements PlaceRepositoryInterface
         $this->model = $place;
     }
 
-
+    /**
+     * Lấy dữ liệu dựa theo longitude và latitude
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function getValuePlace($data)
+    {
+        return $this->model->where("longitude",$data['longitude'])->where('latitude',$data['latitude'])->first();
+    }
 }

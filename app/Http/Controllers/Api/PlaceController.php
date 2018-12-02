@@ -45,6 +45,10 @@ class PlaceController extends ApiController
         'name.v_title'                   => 'Không được có ký tự đặc biệt',
         'description.required'           => 'Mô tả không được để trống',
 
+        'edit_place_id.integer'           =>  'Mã địa điểm phải là kiểu số',
+        'edit_place_id.exists'            =>  'địa điểm không tồn tại',
+        'edit_place_id.required'          =>  'địa điểm không được để trông',
+
         // 'details.*.*.name.required'        => 'Tên dịch địa điểm không được để trông',
         // 'details.*.*.name.min'             => 'Tối thiểu 10 ký tự',
         // 'details.*.*.name.max'             => 'Tối đa 255 ký tự',
@@ -157,9 +161,14 @@ class PlaceController extends ApiController
         DB::beginTransaction();
         try {
             $this->authorize('place.update');
-
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
+            $validate = array_only($this->validationRules, [
+                'latitude',
+                'longitude',
+                'status',
+                'guidebook_category_id',
+                'name',
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
@@ -268,5 +277,40 @@ class PlaceController extends ApiController
             DB::rollBack();
             throw $t;
         }
+    }
+
+    public function editRoomPlace(Request $request)
+    {
+       {
+        DB::beginTransaction();
+        try {
+            $this->authorize('place.update');
+             $validate            = array_only($this->validationRules, [
+                'edit_place_id',
+                'room_id',
+            ]);
+            $validate['edit_place_id'] = 'required|integer|exists:places,id,deleted_at,NULL';
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $data = $this->model->editRoomPlace($request->all());
+            DB::commit();
+            return $this->successResponse($data,false);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+ 
     }
 }
