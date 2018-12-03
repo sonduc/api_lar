@@ -150,4 +150,11 @@ return [
         \App\Repositories\Districts\DistrictRepository::class,
     ],
 
+    /**
+     * Wish-List Blinding
+     */
+    \App\Repositories\WishLists\WishList::class => [
+        \App\Repositories\WishLists\WishListRepositoryInterface::class,
+        \App\Repositories\WishLists\WishListRepository::class,
+    ],
 ];

@@ -35,6 +35,13 @@ $router->group([
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/settings', 'ProfileController@settings');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
+
+
+    /**
+     * Wish-list: Danh sách ưu thích
+     */
+    resource('/wish-list', 'WishListController', $router);
+
 });
     $router->post('/bookings', 'BookingController@store');
 

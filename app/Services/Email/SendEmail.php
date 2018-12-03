@@ -144,6 +144,14 @@ class SendEmail
     }
 
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking
+     * @param string $template
+     * @throws \Exception
+     */
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
         // lâý thông tin về phòng và merchant
@@ -200,6 +208,15 @@ class SendEmail
         }
     }
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $user
+     * @param string $template
+     * @throws \Exception
+     */
+
     public function sendMailResetPassword($user, $template = 'email.reset_password')
     {
 
@@ -217,5 +234,29 @@ class SendEmail
         }
 
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $user
+     * @param string $template
+     * @throws \Exception
+     */
+    public function setPassword($user, $template = 'email.set_password')
+    {
+        $email                     = $user->data->email;
+        try {
+            Mail::send($template, ['user' => $user], function ($message) use ($email) {
+                $message->from(env('MAIL_USERNAME'));
+                $message->to($email)->subject('Thiết lập mật khẩu !!!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại ' . $email);
+            throw $e;
+        }
+
+    }
+
 
 }

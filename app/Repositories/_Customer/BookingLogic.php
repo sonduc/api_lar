@@ -2,7 +2,6 @@
 
 namespace App\Repositories\_Customer;
 
-use App\Events\Customer_Register_Event;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
@@ -17,7 +16,6 @@ use App\Repositories\Bookings\BookingStatusRepositoryInterface;
 use App\Repositories\Payments\PaymentHistoryRepository;
 use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
 use App\Repositories\Rooms\RoomLogicTrait;
-use App\Repositories\Rooms\RoomOptionalPrice;
 use App\Repositories\Rooms\RoomOptionalPriceRepository;
 use App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface;
 use App\Repositories\Rooms\RoomRepository;
@@ -28,9 +26,8 @@ use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Support\Facades\Auth;
+use App\Events\Customer_Register_TypeBooking_Event;
 
 class BookingLogic extends BaseLogic
 {
@@ -120,7 +117,7 @@ class BookingLogic extends BaseLogic
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
             $user             = $this->user->store($data);
-            event(new Customer_Register_Event($user));
+            event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;
         }
 
