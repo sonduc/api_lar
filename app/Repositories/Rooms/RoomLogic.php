@@ -174,30 +174,32 @@ class RoomLogic extends BaseLogic
         \DB::enableQueryLog();
         $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
         $denominator    = sizeof($room['reviews']);
-        $cleanliness    = 0;
-        $service        = 0;
-        $quality        = 0;
-        $avg_rating     = 0;
-        $valuable       = 0;
-        $recommend      = 0;
-        foreach ($room['reviews'] as $key => $value) {
-            $cleanliness    += $value->cleanliness;
-            $service        += $value->service;
-            $quality        += $value->quality;
-            $avg_rating     += $value->avg_rating;
-            $valuable       += $value->valuable;
-            $recommend      += $value->recommend;
+
+        $current_cleanliness    = $room->avg_cleanliness * $denominator;
+        $current_service        = $room->avg_service * $denominator;
+        $current_quality        = $room->avg_quality * $denominator;
+        $current_avg_rating     = $room->avg_avg_rating * $denominator;
+        $current_valuable       = $room->avg_valuable * $denominator;
+        $current_recommend      = $room->total_recommend;
+
+        foreach ($reviews as $key => $value) {
+            $current_cleanliness    += $value->cleanliness;
+            $current_service        += $value->service;
+            $current_quality        += $value->quality;
+            $current_avg_rating     += $value->avg_rating;
+            $current_valuable       += $value->valuable;
+            $current_recommend      += $value->recommend;
         }
         \DB::beginTransaction();
         try {
             $room->update([
-                'avg_cleanliness'   => round(($value->cleanliness / $denominator), 2),
-                'avg_service'       => round(($value->service / $denominator), 2),
-                'avg_quality'       => round(($value->quality / $denominator), 2),
-                'avg_avg_rating'    => round(($value->avg_rating / $denominator), 2),
-                'avg_valuable'      => round(($value->valuable / $denominator), 2),
+                'avg_cleanliness'   => round(($current_cleanliness / $denominator), 2),
+                'avg_service'       => round(($current_service / $denominator), 2),
+                'avg_quality'       => round(($current_quality / $denominator), 2),
+                'avg_avg_rating'    => round(($current_avg_rating / $denominator), 2),
+                'avg_valuable'      => round(($current_valuable / $denominator), 2),
                 'total_review'      => $denominator + 1,
-                'total_recommend'   => $recommend
+                'total_recommend'   => $current_recommend
             ]);
             \DB::commit();
         } catch (\Throwable $t) {

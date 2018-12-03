@@ -37,7 +37,7 @@ class SendEmail
         try {
             Mail::send($template, ['data' => $info], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Xác thực tài khoản !!!');
+                $message->to($email)->subject('Xác thực tài khoản');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email xác nhận gửi thất bại ' . $email);
@@ -101,8 +101,8 @@ class SendEmail
         $data  = $data->name;
         try {
             Mail::send($template, ['data' => $data], function ($message) use ($email) {
-                $message->from('ndson1998@gmail.com');
-                $message->to($email)->subject('Thông báo ngày thuê phòng !!!');
+                $message->from(env('MAIL_TEST'));
+                $message->to($email)->subject('Thông báo ngày thuê phòng');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);
@@ -164,7 +164,7 @@ class SendEmail
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Thông tin booking mới !!!');
+                $message->to($email)->subject('Thông tin booking mới');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);
@@ -190,8 +190,8 @@ class SendEmail
         $dataTime   = $dataBooking->data;
         try {
             Mail::send($template, ['data' => $data,'dataTime' => $dataTime], function ($message) use ($email) {
-                $message->from('ndson1998@gmail.com');
-                $message->to($email)->subject('Đánh giá căn hộ !!!');
+                $message->from(env('MAIL_TEST'));
+                $message->to($email)->subject('Đánh giá căn hộ');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);

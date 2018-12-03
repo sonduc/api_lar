@@ -78,6 +78,29 @@ trait PresentationTrait
     }
 
     /**
+     * Kiểu phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return string
+     */
+    public function getTextAvgRating($rating)
+    {
+        if ($rating >= 4) {
+            return self::EXCELLENT;
+        } elseif ($rating >= 3 && $rating < 4) {
+            return self::GOOD;
+        } elseif ($rating > 2.5 && $rating < 3) {
+            return self::NORMAL;
+        } elseif ($rating >= 1.5 && $rating < 2.5) {
+            return self::NOT_GOOD;
+        } elseif ($rating > 0 && $rating < 1.5) {
+            return self::DISAPPOINTED;
+        } elseif ($rating == 0) {
+            return self::NULL_REVIEW;
+        }
+    }
+
+    /**
      *
      * @author HarikiRito <nxh0809@gmail.com>
      *

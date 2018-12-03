@@ -1,8 +1,8 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-11-28T03:00:10.904Z",
-	"__export_source": "insomnia.desktop.app:v6.2.0",
+	"__export_date": "2018-12-03T06:52:38.317Z",
+	"__export_source": "insomnia.desktop.app:v6.2.3",
 	"resources": [
 		{
 			"_id": "wrk_327599f26ab6415f860de9d912114313",
@@ -138,20 +138,20 @@
 			"color": "#1fcb11",
 			"created": 1532578358045,
 			"data": {
-				"api_url": "http://ws-api.test/api/",
-				"customer_url": "http://ws-api.test/customer-api/",
+				"api_url": "http://ws-api.lc/api/",
+				"customer_url": "http://ws-api.lc/customer-api/",
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQ4NDU5ZmE4YmJhOTMwOTM0NTVjNzU4ZmU1Yzc4MmQ5NTU1NmMyZTQ1NmZlMjgwM2RlNmVjZjJjMDUwODBiNmRjNjRhZGY3YWJkMGE5ODA3In0.eyJhdWQiOiIyIiwianRpIjoiZDg0NTlmYThiYmE5MzA5MzQ1NWM3NThmZTVjNzgyZDk1NTU2YzJlNDU2ZmUyODAzZGU2ZWNmMmMwNTA4MGI2ZGM2NGFkZjdhYmQwYTk4MDciLCJpYXQiOjE1NDMyMTY2OTUsIm5iZiI6MTU0MzIxNjY5NSwiZXhwIjoxNTc0NzUyNjk1LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.NHZrozZe-Y8MeimpRK22AmOxxKBeP5uxhJ4wqcqv4_uvF0osYbrF0C_8uytoOmZC6-tJnVlAfZcOaFj84w1znp0tQRYzwAYTm5AFB86mFmsKoHJISl5QpcjgLKsEw3EQwUdwmKMAXJbWZ3Qt9hGtrqPa5Y1WxHPAv1bZYDMfH7Fxmu7DtONM04HWmYmRBDr7l_TxRFe6zB79eY8zzUU80u86Q-jfn0vt8XBtHDZOVply5iWOh_gxCw1CdQZjwjVRF2JOd7rltH5MQgD7_OBm54nGOR1tg8GQoEWVcOw2F3YUzWsSGmu71ndC8eUBHkbs9rgQmyTbRpNPLjh2-ejxk9HXT7-tXTvJz5vANVPryhGronNSiNoj65d3Zu7ukpLhKdpnof8jYGQyWtUu3jslNrfAc8gy7kHr8TgFAXhTvaxuNX0RSi3_XMxuZw6gNAammlhZFRfv8CVUWxtDy9Vgu1APyeOiRXjwTbKW9ORWWWsOUqOXJhxk7sMtne74Rs8Up_xk8cGuU_KaNWwyHrJo76E1UbEmOENwmjJl-q2kB83vBTLIgY_9KHX1js2vbtCc-3ysoF3FGTMIos54yXbEgJdHTqhwtYbnEaBAhkAt-E16pWqHf1y7pqlUulzD-Arbpw0VGZLAoyZsWYxdmUf7A9jcUwR4wtj7JU4Pi6ZhUqw"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjljZjRkZjAxYTUzNDBkZWU3MDdiODYyNjkyMThjZmJkYTQxYzM2YTIyNTEwMjI2MzM5NGFiYzI1MjFiMDJkYWYzMjgwN2IwOTYxYTk4N2E0In0.eyJhdWQiOiIyIiwianRpIjoiOWNmNGRmMDFhNTM0MGRlZTcwN2I4NjI2OTIxOGNmYmRhNDFjMzZhMjI1MTAyMjYzMzk0YWJjMjUyMWIwMmRhZjMyODA3YjA5NjFhOTg3YTQiLCJpYXQiOjE1NDM1NTk4MTgsIm5iZiI6MTU0MzU1OTgxOCwiZXhwIjoxNTc1MDk1ODE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.kfUhQrl2NkYKkc-2LBApRzGgnCDzfAxX3H3em053fmWNWuM_AOPsYNIJ6xDny-DMOwlqKrylN1ZMslrrpuh0Dd0G9kUCn54vsTXgVsAIDxl7jkNLirTUDuSFj1hPPSRcK_zIV0D2Rpy3GkYoq1rrp2sfbESD9RgOcHdksNbJ626JmBtN3XAVzlzNLHI3--eONH_59LyF4d3Y4fLRmvze953IBGsCn6oLVm2yzqo-o4uHApFP0MB84iReKnGcP6qHQIxkbkR6I91scUnDCkcSTK0h7GX1USu-n8MItOpVYCqXuWRpdGNiUKCf7TYvoob2GT85qCWgxsUzQTlts1TUEklaIbWv7j79s5a7yeY5cIoXe2IQIP9hmcV_mDKJXZrM5brzVIFkHxtftsjK5ELT9nCrTGobyboXI9S2QRSmVPnu0WOR3To6JlT_mmH2WRcLESl4YKcfq8SFaS4eOHCgm25EkUwJzmYSWI2gPLQGdGEq48TY1Upv5a7cUp3I-fSNshBYvebhvKxJVYHqCHrbD-PIwa8BgyGr340oL_Oqinw5pq_I-NiLgsAcPoWD3OrW3x4fiAA_KZ8kUYk773f2afxywPZwxxXWcZbf5GPGAbyUAr2qPXZuF8XFB5TtqiuaB1pR-ERCG52O4j8VNqNCxNTh_FdF74xgXle8POwr5Y8"
 				},
-				"url": "http://ws-api.test/",
+				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
 				"z_img": "data:image/png;base64,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"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1543216709577,
+			"modified": 1543640698163,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -162,6 +162,7 @@
 			"created": 1540878661984,
 			"data": {
 				"api_url": "https://api.westay.org/api/",
+				"customer_url": "http://api.westay.org/customer-api/",
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
@@ -173,7 +174,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1540879351834,
+			"modified": 1543810667652,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -397,7 +398,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1543216683876,
+			"modified": 1543815140718,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1212,7 +1213,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1542964002171,
+			"modified": 1543551158548,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1222,7 +1223,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=user",
+			"url": "{{ api_url  }}rooms?include=blocks",
 			"_type": "request"
 		},
 		{
@@ -1241,7 +1242,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1542879332655,
+			"modified": 1543543484389,
 			"name": "show",
 			"parameters": [
 				{
@@ -1258,7 +1259,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms/3147?include=prices",
+			"url": "{{ api_url  }}rooms/3143?include=prices",
 			"_type": "request"
 		},
 		{
@@ -1266,7 +1267,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 0,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"source\": \"{{ z_img  }}\",\n\t\t\t\"type\": 1\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t[\n\t\t\t\"2019-11-09\",\n\t\t\t\"2019-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2019-01-01\",\n\t\t\t\"2019-01-31\"\n\t\t]\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2018-01-07\",\n\t\t\t\"2018-08-08\",\n\t\t\t\"2018-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 1,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"12:00\",\n\t\"checkout\": \"10:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 1,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"no_booking_cancel\" : 0,\n\t\t\"refunds\": [\n\t\t\t{\n\t\t\t\t\"days\": 7,\n\t\t\t\t\"amount\": 100\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"days\": 5,\n\t\t\t\t\"amount\": 50\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"days\": 2,\n\t\t\t\t\"amount\": 0\n\t\t\t}\n\t\t]\n\t}\n}"
+				"text": "{\n\t\"comforts\": [\n\t\t8,\n\t\t9,\n\t\t10\n\t],\n\t\"details\": {\n\t\t\"data\": [\n\t\t\t{\n\t\t\t\t\"id\": 2009,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc Vi</p>\",\n\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name Vi\"\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"id\": 2010,\n\t\t\t\t\"address\": \"100 Ngõ Thái Thịnh 1, Đống Đa, Hanoi, Vietnam\",\n\t\t\t\t\"description\": \"<p>abc En</p>\",\n\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\"space\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"note\": \"<p>Kh&ocirc;ng c&oacute; lỗi</p>\",\n\t\t\t\t\"name\": \"Room Name En\"\n\t\t\t}\n\t\t]\n\t},\n\t\"weekday_price\": [\n\t\t{\n\t\t\t\"title\": \"Thứ Hai\",\n\t\t\t\"weekday\": \"2\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 20000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Tư\",\n\t\t\t\"weekday\": \"4\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": \"123123\",\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 20000\n\t\t},\n\t\t{\n\t\t\t\"title\": \"Thứ Năm\",\n\t\t\t\"weekday\": \"5\",\n\t\t\t\"status\": 1,\n\t\t\t\"price_day\": 100000,\n\t\t\t\"price_hour\": 100000,\n\t\t\t\"price_after_hour\": 25000\n\t\t}\n\t],\n\t\"images\": [\n\t\t{\n\t\t\t\"source\": \"{{ z_img  }}\",\n\t\t\t\"type\": 1\n\t\t}\n\t],\n\t\"room_time_blocks\": [\n\t\t[\n\t\t\t\"2019-11-09\",\n\t\t\t\"2019-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2019-01-01\",\n\t\t\t\"2019-01-31\"\n\t\t]\n\t],\n\t\"optional_prices\": {\n\t\t\"days\": [\n\t\t\t\"2019-12-01\",\n\t\t\t\"2019-12-04\",\n\t\t\t\"2019-09-08\"\n\t\t],\n\t\t\"price_day\": \"123123\",\n\t\t\"price_hour\": 123,\n\t\t\"price_after_hour\": 10000,\n\t\t\"price_charge_guest\": null,\n\t\t\"status\": 1\n\t},\n\t\"max_additional_guest\": 1,\n\t\"price_charge_guest\": 100000,\n\t\"rent_type\": 3,\n\t\"price_day\": 1200000,\n\t\"price_hour\": 800000,\n\t\"price_after_hour\": 200000,\n\t\"number_bed\": 2,\n\t\"max_guest\": 4,\n\t\"checkin\": \"14:00\",\n\t\"checkout\": \"12:00\",\n\t\"room_type\": 3,\n\t\"number_room\": 1,\n\t\"merchant_id\": 1,\n\t\"city_id\": 3,\n\t\"district_id\": 26,\n\t\"cleaning_fee\": 10000,\n\t\"standard_point\": 0,\n\t\"is_manager\": 1,\n\t\"hot\": 1,\n\t\"new\": 1,\n\t\"latest_deal\": 1,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"no_booking_cancel\" : 0,\n\t\t\"refunds\": [\n\t\t\t{\n\t\t\t\t\"days\": 7,\n\t\t\t\t\"amount\": 100\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"days\": 5,\n\t\t\t\t\"amount\": 50\n\t\t\t},\n\t\t\t{\n\t\t\t\t\"days\": 2,\n\t\t\t\t\"amount\": 0\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1534475997475,
 			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n\t\t\t\t\t\t\n\t\t\t\t\t/**\n         * setting\n         */\n         'settings.no_booking_cacel'          => 'nullable|integer|in:1',\n        'settings.refunds.*.days'            => 'required|integer|max:14',\n        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',\n        \n```",
@@ -1285,7 +1286,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1543199868103,
+			"modified": 1543628982814,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1295,7 +1296,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms",
+			"url": "{{ api_url  }}rooms?include=prices",
 			"_type": "request"
 		},
 		{
@@ -1322,7 +1323,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1542878895746,
+			"modified": 1543543481654,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1430,7 +1431,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884128304.9375,
 			"method": "PUT",
-			"modified": 1541468399562,
+			"modified": 1543466197257,
 			"name": "prop-update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1464,7 +1465,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884252317.2188,
 			"method": "GET",
-			"modified": 1542878786024,
+			"modified": 1543466776246,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1474,7 +1475,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms/schedule/3147",
+			"url": "{{ api_url  }}rooms/schedule/3143",
 			"_type": "request"
 		},
 		{
@@ -1498,7 +1499,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889336908.25,
 			"method": "GET",
-			"modified": 1542961883675,
+			"modified": 1543543466071,
 			"name": "getName",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1535,7 +1536,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885864476.875,
 			"method": "PUT",
-			"modified": 1543373992061,
+			"modified": 1543544015987,
 			"name": "update-block",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2159,7 +2160,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1543297198855,
+			"modified": 1543629229845,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2169,7 +2170,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": false,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings?",
+			"url": "{{ api_url  }}bookings?page=2",
 			"_type": "request"
 		},
 		{
@@ -2213,7 +2214,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3147,\n\t\"checkin\": \"2021-11-25 14:00:00\",\n\t\"checkout\": \"2021-11-29 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"abcd@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 3508,\n\t\"checkin\": \"2019-11-29 14:00:00\",\n\t\"checkout\": \"2019-12-03 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"coupon\": \"WESTAY\",\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -2232,7 +2233,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1542964188680,
+			"modified": 1543549686628,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2287,7 +2288,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-13 18:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 3,\n\t\"booking_type\": 1\n}"
+				"text": "{\n\t\"room_id\": 3144,\n\t\"checkin\": \"2018-11-29 14:00:00\",\n\t\"checkout\": \"2018-11-30 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 2,\n\t\"booking_type\": 2\n}"
 			},
 			"created": 1538712917734,
 			"description": "## Validation\n```\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'checkin'          => 'required|date',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'number_of_guests' => 'required|integer|min:1',\n        'booking_type'     => 'required|integer|between:1,2',\n```\n",
@@ -2306,7 +2307,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885368427.75,
 			"method": "POST",
-			"modified": 1542880521264,
+			"modified": 1543549674747,
 			"name": "price-calculator",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2422,7 +2423,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884872378.625,
 			"method": "POST",
-			"modified": 1539742348637,
+			"modified": 1543549673808,
 			"name": "image-upload",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2888,7 +2889,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1540196480680,
+			"modified": 1543400003540,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -2925,7 +2926,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1540181289035,
+			"modified": 1543400008099,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -3044,7 +3045,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539830237008,
 			"method": "POST",
-			"modified": 1541152759832,
+			"modified": 1543547432387,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -3118,7 +3119,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832157861,
 			"method": "GET",
-			"modified": 1542351352233,
+			"modified": 1543547434125,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -3152,7 +3153,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539831197434.5,
 			"method": "GET",
-			"modified": 1542351362397,
+			"modified": 1543547433341,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_e635e7e4329b4821906d36196d40b399",
@@ -3414,7 +3415,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1543218006113,
+			"modified": 1543551090843,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
@@ -3424,7 +3425,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}promotions",
+			"url": "{{ api_url  }}promotions?include=coupons",
 			"_type": "request"
 		},
 		{
@@ -3443,7 +3444,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1542350515579,
+			"modified": 1543378913371,
 			"name": "show",
 			"parameters": [
 				{
@@ -3468,7 +3469,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"Test comeedmand\",\n\t\"description\" : \"bbbbbbbbsffdbbbbbbb\",\n\t\"date_start\" : \"2020-11-16 14:00:00\",\n\t\"date_end\" : \"2020-11-20 14:00:00\",\n\t\"status\" : 0\n}"
+				"text": "{\n\t\"name\" : \"Test comeedmand\",\n\t\"description\" : \"bbbbbbbbsffdbbbbbbb\",\n\t\"date_start\" : \"2018-11-30 14:00:00\",\n\t\"date_end\" : \"2018-12-31 14:00:00\",\n\t\"status\" : 1\n}"
 			},
 			"created": 1541065206991,
 			"description": "~~~php\n## Create\n        'name'                      =>  'required|v_title|unique:promotions,name',\n        'description'               =>  'required',\n        // 'image'                     =>  'image|mimes:jpeg,bmp,png,jpg',\n        'date_start'                =>  'required|date|after:now',\n        'date_end'                  =>  'required|date|after:date_start',\n        'status'                    =>  'required|integer|between:0,1',\n~~~",
@@ -3487,7 +3488,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531888344797.5,
 			"method": "POST",
-			"modified": 1542913180470,
+			"modified": 1543559920577,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
@@ -3587,7 +3588,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541231602091,
 			"method": "GET",
-			"modified": 1541753328054,
+			"modified": 1543377583387,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
@@ -3653,7 +3654,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1542769061953,
+			"modified": 1543551694250,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3663,7 +3664,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons?",
+			"url": "{{ api_url  }}coupons",
 			"_type": "request"
 		},
 		{
@@ -3682,7 +3683,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889336908.25,
 			"method": "GET",
-			"modified": 1542737993522,
+			"modified": 1543551081562,
 			"name": "show",
 			"parameters": [
 				{
@@ -3699,7 +3700,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/4",
+			"url": "{{ api_url  }}coupons/24",
 			"_type": "request"
 		},
 		{
@@ -3707,10 +3708,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\" : \"GIAM5ee\",\n\t\"discount\" : \"5\",\n\t\"max_discount\" : \"50000\",\n\t\"usable\" : 1,\n\t\"used\" : 0,\n\t\"status\" : 1,\n\t\"settings\" : {\n\t\t\"rooms\" : [3143,3142,3001],\n\t\t\"cities\" : [3,2],\n\t\t\"districts\" : [891,890],\n\t\t\"days\" : [\"2019-11-18\",\"2020-11-18\"]\n\t},\n\t\"promotion_id\" :1\n}"
+				"text": "{\n\t\"code\": \"GIAM8\",\n\t\"discount\": \"8\",\n\t\"max_discount\": \"80000\",\n\t\"usable\": 1234,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508,\n\t\t\t3523\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": [],\n\t\t\"min_price\": 0\n\t},\n\t\"promotion_id\": 2\n}"
 			},
 			"created": 1541398458512,
-			"description": "~~~php\n        'code'                          =>  'required|min:4|unique:coupons,code',\n        'discount'                      =>  'required|integer|between:0,100',\n        'max_discount'                  =>  'integer|min:0',\n        'usable'                        =>  'integer|min:0',\n        'used'                          =>  'integer|min:0',\n        'status'                        =>  'required|integer|between:0,1',\n        'settings'                      =>  'min:1',\n        'settings.rooms.*'              =>  'distinct|exists:rooms,id,deleted_at,NULL',\n        'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',\n        'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',\n        'settings.days.*'               =>  'distinct|date|after:now',\n        'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',\n~~~",
+			"description": "~~~php\n        'code'                          =>  'required|without_spaces|string|min:4|unique:coupons,code',\n        'discount'                      =>  'required|integer|between:0,100',\n        'max_discount'                  =>  'integer|min:0',\n        'usable'                        =>  'integer|min:0',\n        'used'                          =>  'integer|min:0',\n        'status'                        =>  'required|integer|between:0,1',\n        'settings'                      =>  'min:1',\n        'settings.rooms.*'              =>  'distinct|exists:rooms,id,deleted_at,NULL',\n        'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',\n        'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',\n        'settings.days.*'               =>  'distinct|date|after:now',\n        'settings.booking_type.*'       =>  'integer|between:1,3',\n        'settings.booking_create.*'     =>  'nullable',\n        'settings.booking_stay.*'       =>  'nullable',\n        'settings.merchants.*'          =>  'distinct|exists:users,id,deleted_at,NULL',\n        'settings.users.*'              =>  'distinct|exists:users,id,deleted_at,NULL',\n        'settings.days_of_week.*'       =>  'nullable',\n        'settings.room_type.*'          =>  'nullable',\n        'settings.bind.*'               =>  'nullable',\n        'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',\n\n        'coupon'                        =>  'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',\n~~~",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -3726,7 +3727,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531888344797.5,
 			"method": "POST",
-			"modified": 1542910116001,
+			"modified": 1543565266490,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3744,7 +3745,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\" : \"GIAM5\",\n\t\"discount\" : \"50\",\n\t\"max_discount\" : \"50000\",\n\t\"usable\" : \"887\",\n\t\"used\" : \"0\",\n\t\"status\" : 0,\n\t\"settings\" : {\n\t\t\"rooms\" : [3143,3142,3001],\n\t\t\"cities\" : [],\n\t\t\"districts\" : [],\n\t\t\"days\" : []\n\t},\n\t\"promotion_id\" :1\n}"
+				"text": "{\n\t\"code\": \"WESTAY123222\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"cities\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [],\n\t\t\"booking_stay\": [\"2019-12-01\",\"2019-12-31\"],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": [],\n\t\t\"min_price\": 0\n\t},\n\t\"promotion_id\": 1\n}"
 			},
 			"created": 1541398458515,
 			"description": "   \t\t 'hot'                               => 'numeric|between:0,1',\n            'status'                            => 'required|numeric|between:0,1',\n            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',\n            'category_id'                       => 'required|numeric|exists:categories,id',\n            'user_id'                           => 'required|numeric',\n            'details.*.*.title'                 => 'required|unique:blog_translates,title',\n            'details.*.*.lang'                  =>'required',\n            'details.*.*.content'               =>'required',\n            'tags.*.*.name'                     =>'required',",
@@ -3763,7 +3764,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1542277028468,
+			"modified": 1543552695658,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3773,7 +3774,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/5",
+			"url": "{{ api_url  }}coupons/28",
 			"_type": "request"
 		},
 		{
@@ -3826,7 +3827,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541231602091,
 			"method": "GET",
-			"modified": 1542737987771,
+			"modified": 1543551077295,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3863,7 +3864,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885368452.75,
 			"method": "PUT",
-			"modified": 1542349496348,
+			"modified": 1543550506222,
 			"name": "single-update",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -3881,7 +3882,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"coupon\" : \"GIAM50\",\n  \"price_original\" : 2700000,\n  \"room_id\": 301,\n  \"city_id\": 43,\n  \"district_id\": 871,\n\t\"day\": \"2019-11-18\"\n}"
+				"text": "{\n\t\"coupon\": \"GIAM8\",\n\t\"price_original\": 2700000,\n\t\"room_id\": 3523,\n\t\"city_id\": 2,\n\t\"district_id\": 871,\n\t\"checkin\": \"2019-11-29 14:00:00\",\n\t\"checkout\": \"2019-12-03 12:00:00\",\n\t\"booking_type\": 2,\n\t\"merchant_id\": 2,\n\t\"user_id\": 1,\n\t\"room_type\": 2,\n\t\"number_of_guest\": 3,\n\t\"day\": \"2019-11-18\"\n}"
 			},
 			"created": 1542273016111,
 			"description": "\n",
@@ -3900,8 +3901,8 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360569.75,
 			"method": "POST",
-			"modified": 1543036265416,
-			"name": "caculate-discount",
+			"modified": 1543566996862,
+			"name": "calculate-discount",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
 			"settingDisableRenderRequestBody": false,
@@ -3910,7 +3911,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}coupons/caculate-discount",
+			"url": "{{ api_url  }}coupons/calculate-discount",
 			"_type": "request"
 		},
 		{
@@ -3929,7 +3930,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541062673715,
 			"method": "GET",
-			"modified": 1542855490318,
+			"modified": 1543461728387,
 			"name": "all-day-list",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -4041,7 +4042,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1540893759979,
-			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|clealiness|int|Độ sạch sẽ|\n|service|int|Dịch vụ|\n|valuable|int|Giá trị|\n|quality|int|Chất lượng|\n|avg_rating|float|Đánh giá trung bình|\n|recommend|int|Đề nghị|\n\n\n",
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city_id|int|Mã thành phố|\n|district_id|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|clealiness|int|Độ sạch sẽ|\n|service|int|Dịch vụ|\n|valuable|int|Giá trị|\n|quality|int|Chất lượng|\n|avg_rating|float|Đánh giá trung bình|\n|recommend|int|Đề nghị|\n\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -4052,7 +4053,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745339,
 			"method": "GET",
-			"modified": 1542623671341,
+			"modified": 1543819807420,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -4062,7 +4063,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms?service=1",
+			"url": "{{ customer_url  }}rooms?include=user,details,comforts,blocks,media&city_id=1",
 			"_type": "request"
 		},
 		{
@@ -4084,7 +4085,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1542361877363,
+			"modified": 1543812150597,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -4198,7 +4199,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\": 3143,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-14 18:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 1,\n\t\"booking_type\": 2\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-14 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"number_of_guests\": 1,\n\t\"booking_type\": 2\n}"
 			},
 			"created": 1542181882111,
 			"description": "## Validation\n```\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'checkin'          => 'required|date',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'number_of_guests' => 'required|integer|min:1',\n        'booking_type'     => 'required|integer|between:1,2',\n```\n",
@@ -4217,7 +4218,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997298.5312,
 			"method": "POST",
-			"modified": 1542878069933,
+			"modified": 1543640725894,
 			"name": "price-calculator",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4235,7 +4236,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"taikhoan151do@gmail.com\",\n\t\"email_received\":\"\",\n\t\"phone_received\": \"\",\n\t\"room_id\": 3146,\n\t\"checkin\": \"2019-12-23 14:00:00\",\n\t\"checkout\": \"2019-12-27 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 2,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"0982488555\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"taikhoan151do@gmail.com\",\n\t\"email_received\":\"\",\n\t\"phone_received\": \"\",\n\t\"room_id\": 3523,\n\t\"checkin\": \"2019-12-23 14:00:00\",\n\t\"checkout\": \"2019-12-27 23:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 2,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 2,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1542181954384,
 			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
@@ -4254,7 +4255,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1542964336184,
+			"modified": 1543629738667,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4291,7 +4292,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997248.5312,
 			"method": "POST",
-			"modified": 1542964350208,
+			"modified": 1543630773798,
 			"name": "booking-cancel",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4320,7 +4321,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997373.5312,
 			"method": "GET",
-			"modified": 1542964357385,
+			"modified": 1543815148930,
 			"name": "index",
 			"parameters": [
 				{
@@ -4369,7 +4370,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997423.5312,
 			"method": "PUT",
-			"modified": 1542878081485,
+			"modified": 1543629693640,
 			"name": "confirm-booking",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4398,7 +4399,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997361.0312,
 			"method": "GET",
-			"modified": 1543197787571,
+			"modified": 1543630161060,
 			"name": "show",
 			"parameters": [
 				{
@@ -4423,10 +4424,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"coupon\" : \"GIAM223\",\n  \"price_original\" : 2700000,\n  \"room_id\": 3001,\n  \"city_id\": 43,\n  \"district_id\": 871,\n\t\"day\": \"2019-11-18\"\n}"
+				"text": "{\n\t\"coupon\": \"GIAM8\",\n\t\"price_original\": 2700000,\n\t\"room_id\": 3523,\n\t\"city_id\": 2,\n\t\"district_id\": 871,\n\t\"checkin\": \"2019-11-29 14:00:00\",\n\t\"checkout\": \"2019-12-03 12:00:00\",\n\t\"booking_type\": 2,\n\t\"merchant_id\": 2,\n\t\"user_id\": 1,\n\t\"room_type\": 2,\n\t\"number_of_guest\": 3,\n\t\"day\": \"2019-11-18\"\n}"
 			},
 			"created": 1542789252407,
-			"description": "\n",
+			"description": "",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -4442,7 +4443,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889584935.9375,
 			"method": "POST",
-			"modified": 1543200055628,
+			"modified": 1543630762466,
 			"name": "calculate-discount",
 			"parameters": [],
 			"parentId": "fld_861b5a11e5d84e5aaa0e7f3093593ed1",
@@ -4460,7 +4461,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1542854083296,
-			"description": "## SCOPE PARAMETER\n```params\n-q: String (Tên mã giảm giá),\n-status: Int,\n-allday: Int,\n\n```\n",
+			"description": "## SCOPE PARAMETER\n```params\n-q: String (Tên mã giảm giá),\n-status: Int,\n-allday: Int,\n\n```\n```params\n-booking_stay: Khoảng ngày,\n-booking_create: Khoảng ngày\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -4471,7 +4472,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889584985.9375,
 			"method": "GET",
-			"modified": 1543021819814,
+			"modified": 1543629380188,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_861b5a11e5d84e5aaa0e7f3093593ed1",
@@ -4500,7 +4501,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889584960.9375,
 			"method": "GET",
-			"modified": 1542855811495,
+			"modified": 1543628998373,
 			"name": "show",
 			"parameters": [
 				{
@@ -4517,7 +4518,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}coupons/1",
+			"url": "{{ customer_url }}coupons/15",
 			"_type": "request"
 		},
 		{
@@ -4536,7 +4537,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889584954.6875,
 			"method": "GET",
-			"modified": 1542855748335,
+			"modified": 1543546291553,
 			"name": "status-list",
 			"parameters": [],
 			"parentId": "fld_861b5a11e5d84e5aaa0e7f3093593ed1",
@@ -4565,7 +4566,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531889584948.4375,
 			"method": "GET",
-			"modified": 1542855322890,
+			"modified": 1543546293471,
 			"name": "all-day-list",
 			"parameters": [],
 			"parentId": "fld_861b5a11e5d84e5aaa0e7f3093593ed1",
@@ -4594,7 +4595,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890080991.3125,
 			"method": "GET",
-			"modified": 1542855743213,
+			"modified": 1543547965043,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_df1abc364a3e427da8124e7c1b53d791",
@@ -4604,7 +4605,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}promotions?include=coupon",
+			"url": "{{ customer_url }}promotions?include=coupons",
 			"_type": "request"
 		},
 		{
@@ -4693,7 +4694,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531882888157.125,
 			"method": "GET",
-			"modified": 1539842921463,
+			"modified": 1543546575779,
 			"name": "roomType",
 			"parameters": [],
 			"parentId": "fld_75aec1a6eeb4476d9e81d28d0570b19c",
