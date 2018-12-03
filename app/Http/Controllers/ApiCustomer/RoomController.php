@@ -41,7 +41,8 @@ class RoomController extends ApiController
     {
         try {
             DB::enableQueryLog();
-            $data = $this->model->getRooms($request->all());
+            $page_size  = $request->get('limit', 10);
+            $data       = $this->model->getRooms($request->all(), $page_size);
             // dd(DB::getQueryLog());
             return $this->successResponse($data);
         } catch (\Exception $e) {
