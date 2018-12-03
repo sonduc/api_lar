@@ -143,7 +143,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNjZGQwNDMxNjVlZjA3NTg0NjcyMDY3MTYxZmQ2ODM3NDBlNDE5NzZiOGQ2MzA3ZmJhMTExZWIxMTMwNWQ0OTMxODY1YTg3ZjllMGJkNTk5In0.eyJhdWQiOiIyIiwianRpIjoiY2NkZDA0MzE2NWVmMDc1ODQ2NzIwNjcxNjFmZDY4Mzc0MGU0MTk3NmI4ZDYzMDdmYmExMTFlYjExMzA1ZDQ5MzE4NjVhODdmOWUwYmQ1OTkiLCJpYXQiOjE1NDMzNzY5ODksIm5iZiI6MTU0MzM3Njk4OSwiZXhwIjoxNTc0OTEyOTg4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.fcZTcr5bzXnmMNugKlQLZ6Y5X01_yV7jt12vsU1fgOoMGzS_LFtL5ce1-u-L7TKrUBrdIX5Xmh-M8L2gM6bGjnlh4kjZ_CAPLUgQ85QPBJ4Rjc_yUW26NeBrmrjvbeaI4ysJtCC_IsE6D3i-M_cEGu63uejHHXgsgyVFgaB9XM2bKcl7Yi304Z7Bi-vQiRuaomT-EtW1MY01LdI1-N8OuWbFV2xnoYv3KokX4SApTeYjUT-EU-MwN6GOMCuIpUCWGYn4xVGFW5EA4QMEZxvO9khSSzPFkgBBgRr7WiRX3mf3lfzqfE_rW86-PBDu7b1R7TlwTFuLUpmlmZPZ74O6kPm9uUWxN3BuM-Z9brFMTBDGhx9v4WpLxiAFFqAPz3iwSz0C54V5RiNZ_PXGqjiUrrsdNQLxWDTJOymV-p2hvTvtxCymcwKX4IO3USYvUkHUPwJwCsbBWFvRAfeY_n5GQpAwnexLXbnY_fCvPPgfYHVOTlNhw3qhYNuhpEnecVCZ0d9rp1qqpQOjK4o84OkI_LIVdrUHI6GVJtfIE-sAsVMIJ18p_riYwnub9Kpd2II9bwJplFyq1mTLKPz2IVjAgIFALywir-_TLEymjYZDW_dT_xvpxNzIhXK2Mq7xxODG0xLymzemUTPMPlueCvIiiT1WTXF-4avPDBiHWAOjGGU"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjljZjRkZjAxYTUzNDBkZWU3MDdiODYyNjkyMThjZmJkYTQxYzM2YTIyNTEwMjI2MzM5NGFiYzI1MjFiMDJkYWYzMjgwN2IwOTYxYTk4N2E0In0.eyJhdWQiOiIyIiwianRpIjoiOWNmNGRmMDFhNTM0MGRlZTcwN2I4NjI2OTIxOGNmYmRhNDFjMzZhMjI1MTAyMjYzMzk0YWJjMjUyMWIwMmRhZjMyODA3YjA5NjFhOTg3YTQiLCJpYXQiOjE1NDM1NTk4MTgsIm5iZiI6MTU0MzU1OTgxOCwiZXhwIjoxNTc1MDk1ODE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.kfUhQrl2NkYKkc-2LBApRzGgnCDzfAxX3H3em053fmWNWuM_AOPsYNIJ6xDny-DMOwlqKrylN1ZMslrrpuh0Dd0G9kUCn54vsTXgVsAIDxl7jkNLirTUDuSFj1hPPSRcK_zIV0D2Rpy3GkYoq1rrp2sfbESD9RgOcHdksNbJ626JmBtN3XAVzlzNLHI3--eONH_59LyF4d3Y4fLRmvze953IBGsCn6oLVm2yzqo-o4uHApFP0MB84iReKnGcP6qHQIxkbkR6I91scUnDCkcSTK0h7GX1USu-n8MItOpVYCqXuWRpdGNiUKCf7TYvoob2GT85qCWgxsUzQTlts1TUEklaIbWv7j79s5a7yeY5cIoXe2IQIP9hmcV_mDKJXZrM5brzVIFkHxtftsjK5ELT9nCrTGobyboXI9S2QRSmVPnu0WOR3To6JlT_mmH2WRcLESl4YKcfq8SFaS4eOHCgm25EkUwJzmYSWI2gPLQGdGEq48TY1Upv5a7cUp3I-fSNshBYvebhvKxJVYHqCHrbD-PIwa8BgyGr340oL_Oqinw5pq_I-NiLgsAcPoWD3OrW3x4fiAA_KZ8kUYk773f2afxywPZwxxXWcZbf5GPGAbyUAr2qPXZuF8XFB5TtqiuaB1pR-ERCG52O4j8VNqNCxNTh_FdF74xgXle8POwr5Y8"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -151,7 +151,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1543376998024,
+			"modified": 1543640698163,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -162,6 +162,7 @@
 			"created": 1540878661984,
 			"data": {
 				"api_url": "https://api.westay.org/api/",
+				"customer_url": "http://api.westay.org/customer-api/",
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
@@ -173,7 +174,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1540879351834,
+			"modified": 1543810667652,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -397,7 +398,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1543376998361,
+			"modified": 1543815140718,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -2169,7 +2170,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": false,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings?",
+			"url": "{{ api_url  }}bookings?page=2",
 			"_type": "request"
 		},
 		{
@@ -4052,7 +4053,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745339,
 			"method": "GET",
-			"modified": 1542623671341,
+			"modified": 1543819807420,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -4062,7 +4063,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms?service=1",
+			"url": "{{ customer_url  }}rooms?include=user,details,comforts,blocks,media&city_id=1",
 			"_type": "request"
 		},
 		{
@@ -4084,7 +4085,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1542361877363,
+			"modified": 1543812150597,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -4198,7 +4199,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\": 3143,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-14 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"number_of_guests\": 1,\n\t\"booking_type\": 2\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"checkin\": \"2018-11-13 14:00:00\",\n\t\"checkout\": \"2018-11-14 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"price_discount\": 0,\n\t\"number_of_guests\": 1,\n\t\"booking_type\": 2\n}"
 			},
 			"created": 1542181882111,
 			"description": "## Validation\n```\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'checkin'          => 'required|date',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'number_of_guests' => 'required|integer|min:1',\n        'booking_type'     => 'required|integer|between:1,2',\n```\n",
@@ -4217,7 +4218,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997298.5312,
 			"method": "POST",
-			"modified": 1543549536595,
+			"modified": 1543640725894,
 			"name": "price-calculator",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4291,7 +4292,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997248.5312,
 			"method": "POST",
-			"modified": 1543385419874,
+			"modified": 1543630773798,
 			"name": "booking-cancel",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4320,7 +4321,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997373.5312,
 			"method": "GET",
-			"modified": 1543385501090,
+			"modified": 1543815148930,
 			"name": "index",
 			"parameters": [
 				{
@@ -4369,7 +4370,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997423.5312,
 			"method": "PUT",
-			"modified": 1542878081485,
+			"modified": 1543629693640,
 			"name": "confirm-booking",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -4398,7 +4399,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997361.0312,
 			"method": "GET",
-			"modified": 1543385500709,
+			"modified": 1543630161060,
 			"name": "show",
 			"parameters": [
 				{

@@ -16,10 +16,6 @@ $router->get('/bookings/cancel-reason-list', 'BookingController@bookingCancelLis
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {
-    $router->get('/rooms', 'RoomController@index');
-    $router->get('/rooms/{id}', 'RoomController@show');
-    $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
-
     /**
      * Booking-customer.
      */
@@ -28,8 +24,19 @@ $router->group([
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
     $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
 });
-    $router->post('/bookings', 'BookingController@store');
-    $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
+
+/*
+ * Rooms Router
+ */
+$router->get('/rooms', 'RoomController@index');
+$router->get('/rooms/{id}', 'RoomController@show');
+$router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+
+/*
+ * Booking Router
+ */
+$router->post('/bookings', 'BookingController@store');
+$router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
 /**
  * Router login, register
  */

@@ -32,7 +32,7 @@ trait FilterTrait
      *
      * @return mixed
      */
-    public function scopeCity($query, $q)
+    public function scopeCityId($query, $q)
     {
         if (is_numeric($q)) {
             $query->where('rooms.city_id', $q);
@@ -50,7 +50,7 @@ trait FilterTrait
      *
      * @return mixed
      */
-    public function scopeDistrict($query, $q)
+    public function scopeDistrictId($query, $q)
     {
         if (is_numeric($q)) {
             $query->where('rooms.district_id', $q);
@@ -399,7 +399,7 @@ trait FilterTrait
         if (is_numeric($q)) {
             $query->where('rooms.avg_cleanliness', '>=', $q);
         }
-        
+
         return $query;
     }
 
@@ -472,7 +472,7 @@ trait FilterTrait
         }
         return $query;
     }
-    
+
     /**
      * Scope theo standard_point : = 5 hoặc <= 4
      * @author tuananh1402 <tuananhpham1402@gmail.com>

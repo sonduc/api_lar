@@ -167,17 +167,17 @@ class Room extends Entity
 
     public function prices()
     {
-        return $this->hasMany(\App\Repositories\Rooms\RoomOptionalPrice::class, 'room_id');
+        return $this->hasMany(RoomOptionalPrice::class, 'room_id');
     }
 
     public function blocks()
     {
-        return $this->hasMany(\App\Repositories\Rooms\RoomTimeBlock::class, 'room_id');
+        return $this->hasMany(RoomTimeBlock::class, 'room_id');
     }
 
     public function media()
     {
-        return $this->hasMany(\App\Repositories\Rooms\RoomMedia::class, 'room_id');
+        return $this->hasMany(RoomMedia::class, 'room_id');
     }
 
     public function city()
@@ -204,6 +204,6 @@ class Room extends Entity
 
     public function reviews()
     {
-        return $this->hasMany(\App\Repositories\Rooms\RoomReview::class, 'room_id');
+        return $this->hasMany(RoomReview::class, 'room_id');
     }
 }
