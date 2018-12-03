@@ -175,11 +175,6 @@ $router->group([
     $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
     $router->get('/places/status-list', 'PlaceController@statusList');
     resource('/places', 'PlaceController', $router);
-
-    /**
-     * PlaceTranslate Resource
-     */
-    resource('/placetranslates', 'PlaceTranslateController', $router);
 });
 
 

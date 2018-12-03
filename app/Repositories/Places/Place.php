@@ -46,17 +46,8 @@ class Place extends Entity
      *
      * @author sonduc <ndson1998@gmail.com>
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
      */
-    public function placeTrans($lang = null)
-    {
-        $eq = $this->hasMany(PlaceTranslate::class,'place_id','id');
-        if ($lang) {
-            $eq = $eq->where('lang', $lang);
-        }
-        return $eq;
-    }
-
     public function rooms()
     {
         return $this->belongsToMany(\App\Repositories\Rooms\Room::class, 'room_places', 'place_id', 'room_id');

@@ -12,7 +12,6 @@ class PlaceTransformer extends TransformerAbstract
     use FilterTrait;
 
     protected $availableIncludes = [
-        'details',
     ];
 
     public function transform(Place $place = null)
@@ -33,27 +32,6 @@ class PlaceTransformer extends TransformerAbstract
             'created_at'            => $place->created_at ? $place->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'            => $place->updated_at ? $place->updated_at->format('Y-m-d H:i:s') : null,
         ];
-    }
-
-    /**
-     *
-     * @author sonduc <ndson1998@gmail.com>
-     *
-     *
-     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
-     */
-    public function includeDetails(Place $place = null, ParamBag $params = null)
-    {
-        if (is_null($place)) {
-            return $this->null();
-        }
-
-        $columns = ['*'];
-        $data    = $place->placeTrans();
-
-        $data = $this->pagination($params, $data, $columns);
-
-        return $this->collection($data, new PlaceTranslateTransformer);
     }
 
 }

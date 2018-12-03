@@ -173,12 +173,4 @@ return [
         App\Repositories\Places\PlaceRepositoryInterface::class,
         App\Repositories\Places\PlaceRepository::class,
     ],
-
-    /**
-     * PlaceTranslaste Blinding
-     */
-    App\Repositories\Places\PlaceTranslate::class => [
-        App\Repositories\Places\PlaceTranslateRepositoryInterface::class,
-        App\Repositories\Places\PlaceTranslateRepository::class,
-    ],
 ];

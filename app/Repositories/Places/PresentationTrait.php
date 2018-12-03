@@ -1,5 +1,6 @@
 <?php
 namespace App\Repositories\Places;
+use App\Helpers\ErrorCore;
 
 trait PresentationTrait
 {

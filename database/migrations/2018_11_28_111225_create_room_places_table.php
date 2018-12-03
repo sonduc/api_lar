@@ -14,11 +14,8 @@ class CreateRoomPlacesTable extends Migration
     public function up()
     {
         Schema::create('room_places', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('room_id')->nullable();
             $table->integer('place_id')->nullable();
-            $table->softDeletes();
-            $table->timestamps();
         });
     }
 

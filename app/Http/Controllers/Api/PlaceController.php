@@ -14,7 +14,7 @@ class PlaceController extends ApiController
     protected $validationRules = [
         'latitude'              => 'required',
         'longitude'             => 'required',
-        'status'                => 'required|integer|between:0,1',
+        'status'                => 'integer|between:0,1',
         'guidebook_category_id' => 'required|integer|exists:guidebook_category,id,deleted_at,NULL',
 
         'name'                  => 'required|min:10|max:255|v_title',
@@ -28,7 +28,6 @@ class PlaceController extends ApiController
     protected $validationMessages = [
         'latitude.required'              => 'Vĩ độ không được để trống',
         'longitude.required'             => 'kinh độ không được để trống',
-        'status.required'                => 'Trạng thái không được để trống',
         'status.integer'                 => 'Trạng thái không phải là dạng số',
         'status.between'                 => 'Trạng thái không phù hợp',
         'guidebook_category_id.required' => 'Danh mục hướng dẫn không được để trống',
@@ -45,9 +44,9 @@ class PlaceController extends ApiController
         'name.v_title'                   => 'Không được có ký tự đặc biệt',
         'description.required'           => 'Mô tả không được để trống',
 
-        'edit_place_id.integer'           =>  'Mã địa điểm phải là kiểu số',
-        'edit_place_id.exists'            =>  'địa điểm không tồn tại',
-        'edit_place_id.required'          =>  'địa điểm không được để trông',
+        'edit_place_id.*.integer'          => 'Mã địa điểm phải là kiểu số',
+        'edit_place_id.*.exists'           => 'địa điểm không tồn tại',
+        'edit_place_id.*.required'         => 'địa điểm không được để trông',
 
         // 'details.*.*.name.required'        => 'Tên dịch địa điểm không được để trông',
         // 'details.*.*.name.min'             => 'Tối thiểu 10 ký tự',
@@ -129,7 +128,7 @@ class PlaceController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             logs('place', 'tạo địa điểm mã ' . $data->id, $data);
-            return $this->successResponse($data, true, 'details');
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -281,20 +280,19 @@ class PlaceController extends ApiController
 
     public function editRoomPlace(Request $request)
     {
-       {
         DB::beginTransaction();
         try {
             $this->authorize('place.update');
-             $validate            = array_only($this->validationRules, [
+            $validate = array_only($this->validationRules, [
                 'edit_place_id',
                 'room_id',
             ]);
-            $validate['edit_place_id'] = 'required|integer|exists:places,id,deleted_at,NULL';
+            $validate['edit_place_id.*'] = 'required|integer|exists:places,id,deleted_at,NULL';
             $this->validate($request, $validate, $this->validationMessages);
 
             $data = $this->model->editRoomPlace($request->all());
             DB::commit();
-            return $this->successResponse($data,false);
+            return $this->successResponse($data, false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -310,7 +308,5 @@ class PlaceController extends ApiController
             DB::rollBack();
             throw $t;
         }
-    }
- 
     }
 }
