@@ -53,6 +53,7 @@ $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
 $router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
 $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
+$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
 

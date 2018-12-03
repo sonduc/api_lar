@@ -10,6 +10,7 @@ use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Events\Customer_Register_TypeBooking_Event;
 
 class RegisterController extends ApiController
 {
@@ -42,10 +43,25 @@ class RegisterController extends ApiController
     public function register(Request $request)
     {
         try {
+            $this->validationRules['email'] = 'required|email|max:255';
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $user = $this->user->checkEmail($request->all());
+
+            // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
+            // thì gửi cho nó cái mail để thiết lập mật khẩu.
+            if (!empty($user))
+            {
+                event(new Customer_Register_TypeBooking_Event($user));
+                throw new \Exception('Bạn hãy vui lòng check mail để thiết lập mât khẩu');
+            }
+
+
+            $this->validationRules['email'] = 'required|email|max:255|unique:users,email';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email','password');
             $username         = $params['email'];
             $password         = $params['password'];
+
             // Create new user
             $newClient = $this->getResource()->store($params);
 

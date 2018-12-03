@@ -50,7 +50,7 @@ class ResetPasswordController extends ApiController
             $data = $this->user->resetPasswordCustomer($request->all(), [], ['password']);
             logs('user', 'Khôi phục mật khẩu ' . $data->email , $data);
             DB::commit();
-           return $this->successResponse(['data' => ['message' => 'Đổi mật khẩu thành công']], false);
+           return $this->successResponse(['data' => ['message' => 'Thành công !!! Cám ơn bạn đã sử dụng dịch vụ của WESTAY']], false);
 
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();

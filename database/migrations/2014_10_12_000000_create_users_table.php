@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->integer('city_id')->nullable();
             $table->integer('district_id')->nullable();
             $table->integer('type')->nullable()->default(0);
+            $table->integer('type_create')->nullable()->default(1);
             $table->integer('provider_id')->nullable();
             $table->tinyInteger('vip')->nullable();
             $table->tinyInteger('is_confirm')->nullable();

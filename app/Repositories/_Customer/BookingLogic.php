@@ -28,7 +28,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use App\Events\Customer_Register_TypeBooking_Event;
-
+use Illuminate\Support\Facades\Hash;
 class BookingLogic extends BaseLogic
 {
     use RoomLogicTrait, BookingLogicTrait;
@@ -116,11 +116,12 @@ class BookingLogic extends BaseLogic
             $data['type']     = User::USER;
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
+            // Cập nhâp token  cho user vừa tạo
+            $data['token']    = Hash::make( str_random(60));
             $user             = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;
         }
-
         return $user->id;
 
 

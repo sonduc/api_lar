@@ -26,22 +26,30 @@ class EventServiceProvider extends ServiceProvider
             \App\Listeners\AverageRoomRatingListener::class,
         ],
 
+
         \App\Events\BookingEvent::class => [
             \App\Listeners\SendMail\sendBookingAdminListener::class,
             \App\Listeners\SendMail\sendBookingCustomerListener::class,
             \App\Listeners\SendMail\sendBookingHostListener::class
         ],
 
+        // Host xác nhân booking này và chuyển về trạng thái là đơn đã xác nhận
         \App\Events\BookingConfirmEvent::class => [
             \App\Listeners\SendMail\sendBookingConfirmedCustomerListener::class,
         ],
 
+        // nếu quá thời gian cho phép mà host không xács nhận booking này thì chuyển về trạng thái hủy
         \App\Events\ConfirmBookingTime::class => [
             \App\Listeners\Logic\ConfirmBookingTimeListener::class,
         ],
 
         \App\Events\Reset_Password_Event::class => [
             \App\Listeners\SendMail\ResetPasswordListener::class,
+        ],
+
+       // set password cho customer nếu người này tạo booking mà chưa có tài khoản
+        \App\Events\Customer_Register_TypeBooking_Event::class => [
+            \App\Listeners\SendMail\SetPasswordListener::class,
         ],
 
         \App\Events\Booking_Notification_Event::class => [

@@ -194,6 +194,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $data;
     }
 
+    public function checkEmail($data = [])
+    {
+        return $this->model->where('type_create', User::BOOKING)->orWhere('email', $data['email'])->first();
+    }
+
 
     /**
      * Lấy thông tin user thông qua uuid or token ;

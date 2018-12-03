@@ -83,6 +83,7 @@ class ProfileController extends ApiController
     {
         DB::beginTransaction();
         try {
+            $this->validationRules = array_only($this->validationRules, ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe']);
             $this->validationRules['email'] .= ',' . $request->user()->id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
