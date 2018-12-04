@@ -12,6 +12,7 @@ class PlaceTransformer extends TransformerAbstract
     use FilterTrait;
 
     protected $availableIncludes = [
+        'rooms',
     ];
 
     public function transform(Place $place = null)
@@ -34,4 +35,14 @@ class PlaceTransformer extends TransformerAbstract
         ];
     }
 
+    public function includeRooms(Place $place, ParamBag $params = null)
+    {
+        if (is_null($place)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $place->rooms());
+
+        return $this->collection($data, new RoomTransformer);
+    }
 }
