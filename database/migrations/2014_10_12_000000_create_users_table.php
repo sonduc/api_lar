@@ -41,6 +41,7 @@ class CreateUsersTable extends Migration
             $table->integer('city_id')->nullable();
             $table->integer('district_id')->nullable();
             $table->integer('type')->nullable()->default(0);
+            $table->integer('type_create')->nullable()->default(1);
             $table->integer('provider_id')->nullable();
             $table->tinyInteger('vip')->nullable();
             $table->tinyInteger('is_confirm')->nullable();
@@ -51,6 +52,9 @@ class CreateUsersTable extends Migration
             $table->longText('source')->nullable();
             $table->integer('sale_id')->default(0);
             $table->timestamp('time_add_sale')->nullable();
+            $table->longText('settings')->nullable();
+            $table->tinyInteger('subcribe')->default(1);
+            $table->string('token')->nullable();
             $table->rememberToken()->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();

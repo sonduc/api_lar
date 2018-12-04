@@ -4,6 +4,8 @@ namespace App\Repositories\Users;
 
 use App\Repositories\BaseRepository;
 use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -52,6 +54,84 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $user;
     }
 
+
+    /**
+     * Cập nhập thông tin cho customer
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param int $id
+     * @param $data
+     * @param array $except
+     * @param array $only
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateInfoCustomer($id, $data, $except = [], $only = [])
+    {
+        $data = array_only($data, $only);
+
+        if (isset($data['subcribe']) && empty($data['subcribe'])) {
+            $data['subcribe'] =1;
+        }
+
+        if (isset($data['settings'])) {
+            $data['settings'] = json_encode($data['settings']);
+        }
+
+        $user = parent::update($id, $data);
+        return $user;
+    }
+
+    /**
+     *  Cập nhập settings cho customer
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @param array $except
+     * @param array $only
+     * @param array $list
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateSettingCustomer($id, $data, $except = [], $only = [], $list= [])
+    {
+        $data = array_only($data, $only);
+
+        if (empty($data['subcribe'])) {
+            $data['subcribe'] =1;
+        }
+        if (isset($data['settings']) && !empty($data['settings'])) {
+            foreach ($data['settings'] as $k => $val) {
+                if (empty($val)) {
+                    $list[$k] = User::DISABLE;
+                } else {
+                    $list[$k] = $data['settings'][$k];
+                }
+            }
+        }
+
+        $data['settings'] = json_encode($list);
+        $user = parent::update($id, $data);
+        return $user;
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $user
+     * @param $request
+     * @throws \Exception
+     */
+    public function checkValidPassword($user, $request)
+    {
+        if (!Hash::check($request['old_password'], $user->password)) {
+            throw new \Exception('Mật khẩu không chính xác');
+        } elseif ($request['old_password'] === $request['password']) {
+            throw new \Exception('Mật khẩu không được trùng với mật khẩu cũ');
+        }
+    }
+
     /**
      * Lấy dữ liệu về giới tính
      * @author HarikiRito <nxh0809@gmail.com>
@@ -95,23 +175,55 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function getUserByEmailOrPhone($data = [])
     {
-        $email = array_key_exists('email', $data) ? $data['email'] : null;
-        $phone = array_key_exists('phone', $data) ? $data['phone'] : null;
+        $email = array_key_exists('email', $data) ? $data['email'] : 'Không xác định';
+        $phone = array_key_exists('phone', $data) ? $data['phone'] : 'Không xác định';
         $data  = $this->model->where('email', $email)->orWhere('phone', $phone)->first();
         return $data;
     }
 
     /**
-     * Lấy thông tin user thông qua uuid;
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function checkEmailOrPhone($data = [])
+    {
+        $email = array_key_exists('email', $data) ? $data['email'] : 'Không xác định';
+        $phone = array_key_exists('phone', $data) ? $data['phone'] : 'Không xác định';
+//        dd($data);
+        return $this->model
+            ->where([
+                'type_create' => User::BOOKING ,
+                'email' => $email ,
+                'status' => User::DISABLE
+            ])
+            ->orWhere(function ($query) use ($phone) {
+                return $query->where([
+                    'type_create' => User::BOOKING ,
+                    'phone' => $phone ,
+                    'status' => User::DISABLE
+                ]);
+            })
+            ->first();
+    }
+
+
+    /**
+     * Lấy thông tin user thông qua uuid or token ;
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $uuid
      * @return mixed
      */
 
-    public function getUserByUuid($uuid)
+    public function getUserByUuidOrToken($data= [])
     {
-        return $this->model->where('uuid', $uuid)->first();
+        $uuid = array_key_exists('uuid', $data) ? $data['uuid'] : null;
+        $token = array_key_exists('token', $data) ? $data['token'] : null;
+        $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
+        return $data;
     }
 
     /**
@@ -136,10 +248,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function updateStatus($data)
     {
-        $uuid = $data['uuid'];
-        $user = $this->getUserByUuid($uuid);
-        $user = parent::update($user->id, $data);
-        return $user;
+        $user = $this->getUserByUuidOrToken($data);
+        return parent::update($user->id, $data);
     }
 
     public function getUserOwner($params)
@@ -175,5 +285,58 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             array_push($arrMerchants, $valueMerchants);
         }
         return $arrMerchants;
+    }
+
+    /**
+     * reset lại mật khẩu theo uuid và cập nhập lại token cho user
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return \App\Repositories\Eloquent|mixed
+     */
+    public function resetPasswordCustomer($data)
+    {
+        $user = $this->getUserByUuidOrToken($data);
+
+        $data['token'] = Hash::make(str_random(60));
+        $data['status']= User::ENABLE;
+        return parent::update($user->id, $data);
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @throws \Exception
+     */
+
+    public function checkValidToken($data)
+    {
+        $user = $this->getUserByUuidOrToken($data);
+        if (empty($user)) {
+            throw new \Exception('Đường dẫn không tồn tại');
+        }
+    }
+
+
+    /**
+     * Kiểm tra thời gian tồn tại của đường link xác nhận mật khẩu
+   * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $code
+     *
+     * @return int
+     */
+    public function checkTime($code)
+    {
+        $timeNow    = Carbon::now();
+        $timeSubmit = base64_decode($code);
+        $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
+        $minutes    =  $timeNow->diffInMinutes($timeSubmit);
+        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy
+        if ($minutes > 1440) {
+            throw new \Exception('Đường dẫn không tồn tại ');
+        }
     }
 }

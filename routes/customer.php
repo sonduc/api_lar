@@ -23,6 +23,20 @@ $router->group([
     $router->get('/bookings/{id}', 'BookingController@show');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
     $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
+
+    /**
+     * Profile Resource
+     */
+    $router->get('/profile', 'ProfileController@index');
+    $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/settings', 'ProfileController@settings');
+    $router->put('/profile/change-password', 'ProfileController@changePassword');
+
+
+    /**
+     * Wish-list: Danh sách ưu thích
+     */
+    resource('/wish-list', 'WishListController', $router);
 });
 
 /*
@@ -38,11 +52,14 @@ $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
 $router->post('/bookings', 'BookingController@store');
 $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
 /**
- * Router login, register
+ * Router login, register , reset pass, forget pass
  */
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
 $router->put('register/email-confirm', 'RegisterController@confirm');
+$router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->post('forget-password', 'ForgetPasswordController@forgetPassword');
+$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
 

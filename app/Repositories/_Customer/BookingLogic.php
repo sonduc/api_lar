@@ -16,7 +16,6 @@ use App\Repositories\Bookings\BookingStatusRepositoryInterface;
 use App\Repositories\Payments\PaymentHistoryRepository;
 use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
 use App\Repositories\Rooms\RoomLogicTrait;
-use App\Repositories\Rooms\RoomOptionalPrice;
 use App\Repositories\Rooms\RoomOptionalPriceRepository;
 use App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface;
 use App\Repositories\Rooms\RoomRepository;
@@ -27,9 +26,9 @@ use App\Repositories\Users\UserRepositoryInterface;
 use App\Repositories\_Customer\CouponLogic;
 use App\User;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
-use Carbon\Exceptions\InvalidDateException;
 use Illuminate\Support\Facades\Auth;
+use App\Events\Customer_Register_TypeBooking_Event;
+use Illuminate\Support\Facades\Hash;
 
 class BookingLogic extends BaseLogic
 {
@@ -97,8 +96,7 @@ class BookingLogic extends BaseLogic
         $data = $this->priceCalculator($room, $data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
-        $data['customer_id'] =
-            array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
+        $data['customer_id'] = Auth::check()? Auth::user()->id : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
         $data_booking        = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
@@ -120,13 +118,17 @@ class BookingLogic extends BaseLogic
     private function checkUserExist($data = [])
     {
         $user = $this->user->getUserByEmailOrPhone($data);
-
         if (!$user) {
             $data['password'] = $data['phone'];
             $data['type']     = User::USER;
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
+            // Cập nhâp token  cho user vừa tạo
+            $data['token']    = Hash::make(str_random(60));
+            $data['type_create'] = User::BOOKING;
             $user             = $this->user->store($data);
+            event(new Customer_Register_TypeBooking_Event($user));
+            return $user->id;
         }
 
         return $user->id;
@@ -232,15 +234,24 @@ class BookingLogic extends BaseLogic
         $booking_refund = $this->booking_refund->getBookingRefundByBookingId($id);
 
         if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
-            $total_refund   = ($data_booking->total_fee * 0)/100;
-            $booking_update = [
-                'status'        => BookingConstant::BOOKING_CANCEL,
-                'total_refund'  => $total_refund,
-            ];
+            // $total_refund   = ($data_booking->total_fee * 0)/100;
+            // $booking_update = [
+            //     'status'        => BookingConstant::BOOKING_CANCEL,
+            //     'total_refund'  => $total_refund,
+            // ];
+            $total_refund =  ($data_booking->total_fee * 0)/100;
 
-            parent::update($id, $booking_update);
-            $data['booking_id'] = $id;
-            return $this->booking_cancel->store($data);
+            // Chỉ có booking có trạng thái là đơn mới thì mới có quyền hủy
+            if ($data_booking->status == BookingConstant::BOOKING_NEW) {
+                $booking_update = [
+                    'status'        => BookingConstant::BOOKING_CANCEL,
+                    'total_refund'  => $total_refund,
+                ];
+                parent::update($id, $booking_update);
+                $data['booking_id'] = $id;
+                return $this->booking_cancel->store($data);
+            }
+            throw new \Exception('Bạn không thể hủy booking này');
         }
 
         $booking_refund_map_days    = array_map(function ($item) {
@@ -248,7 +259,6 @@ class BookingLogic extends BaseLogic
         }, $booking_refund);
 
         //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
-
         $range = $this->filter_range_day($booking_refund_map_days);
 
         // số ngày hủy phòng cách thời điểm checkin

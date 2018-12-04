@@ -5,9 +5,13 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\Events\Customer_Register_Event;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use App\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use App\Events\Customer_Register_TypeBooking_Event;
 
 class RegisterController extends ApiController
 {
@@ -15,8 +19,6 @@ class RegisterController extends ApiController
         'email'                 => 'required|email|max:255|unique:users,email',
         'password'              => 'required|min:6|max:255',
         'password_confirmation' => 'required|min:6|max:255|same:password',
-        'status'                => 'numeric |between:0,1|filled',
-        'type'                  => 'numeric |between:0,1|filled',
     ];
 
     protected $validationMessages = [
@@ -31,13 +33,6 @@ class RegisterController extends ApiController
         'password_confirmation.min'         => 'Mật khẩu cần lớn hơn :min kí tự',
         'password_confirmation.max'         => 'Mật khẩu cần nhỏ hơn :max kí tự',
         'password_confirmation.same'        => 'Mật khẩu không khớp nhau',
-        'type.between'                      => 'Mã không hợp lệ',
-        'type.numeric'                      => 'Kiểu phải là kiểu số',
-        'type.filled'                       => 'Vui lòng nhập kiểu tài khoản vào ',
-        'status.numeric'                    => 'Mã kích hoạt tài khoản phải là kiểu số',
-        'status.between'                    => 'Mã kích hoạt tài khoản không phù hợp',
-        'status.filled'                     => 'Vui lòng nhập mã trạng thái ',
-
     ];
 
     public function __construct(UserRepository $user, UserTransformer $transformer)
@@ -48,12 +43,41 @@ class RegisterController extends ApiController
 
     public function register(Request $request)
     {
-
+        DB::enableQueryLog();
         try {
+            $this->validationRules['email']                 = 'required|email|max:255';
+            $this->validationRules['password']              = '';
+            $this->validationRules['password_confirmation'] = '';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params    = $request->all();
-            $username  = $params['email'];
-            $password  = $params['password'];
+            $user = $this->user->checkEmailOrPhone($request->all());
+//             dd(DB::getQueryLog());
+            // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
+            // mà ở trạng thái chưa kích hoạt
+            // thì gửi cho nó cái mail để thiết lập mật khẩu.
+            if (!empty($user))
+            {
+                $timeNow = Carbon::now();
+                $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
+                if ($minutes < 1440)
+                {
+                    return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+                }
+
+                event(new Customer_Register_TypeBooking_Event($user));
+                $data['updated_at'] = Carbon::now();
+                $this->user->update($user->id, $data);
+
+
+                return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+            }
+
+            $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
+            $this->validationRules['password']              = 'required|min:6|max:255';
+            $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $params           = $request->only('email','password');
+            $username         = $params['email'];
+            $password         = $params['password'];
 
             // Create new user
             $newClient = $this->getResource()->store($params);
@@ -89,6 +113,9 @@ class RegisterController extends ApiController
             ], $clientException->getCode());
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

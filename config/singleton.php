@@ -173,4 +173,11 @@ return [
         App\Repositories\Places\PlaceRepositoryInterface::class,
         App\Repositories\Places\PlaceRepository::class,
     ],
+    /**
+     * Wish-List Blinding
+     */
+    \App\Repositories\WishLists\WishList::class => [
+        \App\Repositories\WishLists\WishListRepositoryInterface::class,
+        \App\Repositories\WishLists\WishListRepository::class,
+    ],
 ];

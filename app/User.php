@@ -37,6 +37,16 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::OTHER  => 'Khác',
         self::NONE   => 'Không xác định',
     ];
+
+    // Định nghĩa kiểu tạo tài khoản.
+    const SYSTEM = 1;
+    const BOOKING = 2;
+    const TYPE_CREATE   = [
+        self::SYSTEM  => 'Trực tiếp từ hệ thống',
+        self::BOOKING => 'Tạo tự động qua booking',
+    ];
+
+
     const BROZE  = 0;
     const SILVER = 1;
     // Định nghĩa cấp độ
@@ -100,6 +110,11 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'status',
         'sale_id',
         'account_number',
+        'token',
+        'subcribe',
+        'settings',
+        'type_create',
+        'updated_at'
     ];
     /**
      * The attributes excluded from the model's JSON form.
