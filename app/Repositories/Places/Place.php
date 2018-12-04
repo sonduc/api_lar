@@ -21,6 +21,9 @@ class Place extends Entity
      *
      * @var array
      */
+    
+    protected $table = 'places';
+
     protected $fillable = [
         'name','description','guidebook_category_id','latitude','longitude','status'
     ];

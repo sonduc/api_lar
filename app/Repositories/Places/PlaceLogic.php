@@ -72,12 +72,33 @@ class PlaceLogic extends BaseLogic
         $data_place = parent::update($id, $data);
         return $data_place;
     }
+
     public function editRoomPlace($data)
     {
+        $arrPlace = []; 
+        $arrPlaceId = [];
+        foreach ($data['places'] as $key => $value) {
+            if(!isset($value['id'])){
+                $arrPlace[] = $value;
+            }
+            if(isset($value['id'])){
+                $arrPlaceId[] = $value['id'];
+            }
+        }
+
+        foreach ($arrPlace as $key => $value) {
+            $place = $this->model->getValuePlace($value);
+            if ($place == null) {
+                $data_place = parent::store($value);
+                array_push($arrPlaceId,$data_place->id);
+            } else {
+                array_push($arrPlaceId,$place->id);
+            }
+        }
         DB::table('room_places')->where('room_id',$data['room_id'])->delete();
 
         $data_room = $this->room->getById($data["room_id"]);
-        $data_room->places()->sync($data['edit_place_id']);
+        $data_room->places()->sync($arrPlaceId);
         $dataReturn = [
             'message'        => "Cập nhật thành công",
         ];

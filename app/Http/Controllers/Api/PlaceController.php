@@ -26,35 +26,35 @@ class PlaceController extends ApiController
         // 'details.*.*.lang'        => 'required|v_title',
     ];
     protected $validationMessages = [
-        'latitude.required'              => 'Vĩ độ không được để trống',
-        'longitude.required'             => 'kinh độ không được để trống',
-        'status.integer'                 => 'Trạng thái không phải là dạng số',
-        'status.between'                 => 'Trạng thái không phù hợp',
-        'guidebook_category_id.required' => 'Danh mục hướng dẫn không được để trống',
-        'guidebook_category_id.integer'  => 'Mã danh mục hướng dẫn phải là kiểu số',
-        'guidebook_category_id.exists'   => 'Danh mục hướng dẫn không tồn tại',
+        'latitude.required'                       => 'Vĩ độ không được để trống',
+        'longitude.required'                      => 'kinh độ không được để trống',
+        'status.integer'                          => 'Trạng thái không phải là dạng số',
+        'status.between'                          => 'Trạng thái không phù hợp',
+        'guidebook_category_id.required'          => 'Danh mục hướng dẫn không được để trống',
+        'guidebook_category_id.integer'           => 'Mã danh mục hướng dẫn phải là kiểu số',
+        'guidebook_category_id.exists'            => 'Danh mục hướng dẫn không tồn tại',
 
-        'room_id.required'               => 'Phòng không được để trống',
-        'room_id.integer'                => 'Mã phòng phải là kiểu số',
-        'room_id.exists'                 => 'Phòng không tồn tại',
+        'room_id.required'                        => 'Phòng không được để trống',
+        'room_id.integer'                         => 'Mã phòng phải là kiểu số',
+        'room_id.exists'                          => 'Phòng không tồn tại',
 
-        'name.required'                  => 'Tên dịch địa điểm không được để trông',
-        'name.min'                       => 'Tối thiểu 10 ký tự',
-        'name.max'                       => 'Tối đa 255 ký tự',
-        'name.v_title'                   => 'Không được có ký tự đặc biệt',
-        'description.required'           => 'Mô tả không được để trống',
+        'name.required'                           => 'Tên dịch địa điểm không được để trông',
+        'name.min'                                => 'Tối thiểu 10 ký tự',
+        'name.max'                                => 'Tối đa 255 ký tự',
+        'name.v_title'                            => 'Không được có ký tự đặc biệt',
+        //'description.required'           => 'Mô tả không được để trống',
 
-        'edit_place_id.*.integer'          => 'Mã địa điểm phải là kiểu số',
-        'edit_place_id.*.exists'           => 'địa điểm không tồn tại',
-        'edit_place_id.*.required'         => 'địa điểm không được để trông',
+        'places.*.name.required'                  => 'Tên dịch địa điểm không được để trông',
+        'places.*.name.min'                       => 'Tối thiểu 10 ký tự',
+        'places.*.name.max'                       => 'Tối đa 255 ký tự',
+        'places.*.name.v_title'                   => 'Không được có ký tự đặc biệt',
 
-        // 'details.*.*.name.required'        => 'Tên dịch địa điểm không được để trông',
-        // 'details.*.*.name.min'             => 'Tối thiểu 10 ký tự',
-        // 'details.*.*.name.max'             => 'Tối đa 255 ký tự',
-        // 'details.*.*.name.v_title'         => 'Không được có ký tự đặc biệt',
-        // 'details.*.*.description.required' => 'Mô tả không được để trống',
-        // 'details.*.*.lang.required'        => 'Định dạng ngôn ngữ không được để trống',
-        // 'details.*.*.lang.v_title'         => 'Định dạng ngôn ngữ không được có ký tự đặc biệt',
+        'places.*.latitude.required'              => 'Vĩ độ không được để trống',
+        'places.*.longitude.required'             => 'kinh độ không được để trống',
+
+        'places.*.guidebook_category_id.required' => 'Danh mục hướng dẫn không được để trống',
+        'places.*.guidebook_category_id.integer'  => 'Mã danh mục hướng dẫn phải là kiểu số',
+        'places.*.guidebook_category_id.exists'   => 'Danh mục hướng dẫn không tồn tại',
     ];
 
     /**
@@ -284,10 +284,13 @@ class PlaceController extends ApiController
         try {
             $this->authorize('place.update');
             $validate = array_only($this->validationRules, [
-                'edit_place_id',
                 'room_id',
+                'places',
             ]);
-            $validate['edit_place_id.*'] = 'required|integer|exists:places,id,deleted_at,NULL';
+            $validate['places.*.name']                  = 'required|min:10|max:255|v_title';
+            $validate['places.*.latitude']              = 'required';
+            $validate['places.*.longitude']             = 'required';
+            $validate['places.*.guidebook_category_id'] = 'required|integer|exists:guidebook_category,id,deleted_at,NULL';
             $this->validate($request, $validate, $this->validationMessages);
 
             $data = $this->model->editRoomPlace($request->all());
