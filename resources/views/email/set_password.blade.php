@@ -343,7 +343,7 @@
                             <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                 <tr>
                                     <td>
-                                        <p style="font-size: 25px;"><b>Cám ơn .{!! !empty($user->data->name) ? $user->data->name : $user->data->email !!} đã đặt phòng trên hệ thống WESTAY </b></p>
+                                        <p style="font-size: 25px;"><b>Chào {!! !empty($user->data->name) ? $user->data->name : $user->data->email !!}  </b></p>
                                         <p> Bạn có thể đăng ký tài khoản trên hệ thống WESTAY để có thể nhân được nhiều ưu đãi và các chương trình khuyến mãi hơn từ hệ thống <br /></p>
                                         <p> Bằng cách nhấp vào link dưới đây của hệ thống </p>
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">

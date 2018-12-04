@@ -13,7 +13,7 @@ use App\Events\Customer_Register_TypeBooking_Event;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class SetPasswordListener
+class SetPasswordListener implements ShouldQueue
 {
     protected $email;
     /**

@@ -47,7 +47,7 @@ class ResetPasswordController extends ApiController
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->user->resetPasswordCustomer($request->all(), [], ['password']);
+            $data = $this->user->resetPasswordCustomer($request->all(), [], ['password','status']);
             logs('user', 'Khôi phục mật khẩu ' . $data->email , $data);
             DB::commit();
            return $this->successResponse(['data' => ['message' => 'Thành công !!! Cám ơn bạn đã sử dụng dịch vụ của WESTAY']], false);

@@ -118,6 +118,7 @@ class BookingLogic extends BaseLogic
             $data['status']   = User::DISABLE;
             // Cập nhâp token  cho user vừa tạo
             $data['token']    = Hash::make( str_random(60));
+            $data['type_create'] = User::BOOKING;
             $user             = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;

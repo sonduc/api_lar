@@ -18,13 +18,14 @@ class WishListController extends ApiController
     protected $room;
     protected $validationRules = [
 
-        'room_id'               => 'required|integer|unique:wish_lists,room_id',
+        'room_id'               => 'required|integer|unique:wish_lists,room_id|exists:rooms,id,deleted_at,NULL',
 
     ];
     protected $validationMessages = [
         'room_id.required'      => 'Trường này không được để trống',
         'room_id.integer'       => 'Trường này phải là kiểu số',
         'room_id.unique'        => 'Phòng này đã tồn tại trong danh sách',
+        'room_id.exists'        => 'Phòng không tồn tại',
     ];
 
     /**
@@ -89,20 +90,24 @@ class WishListController extends ApiController
      */
     public function store(Request $request)
     {
+        DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
             $data = $this->model->store($request->all());
-
-            return $this->successResponse($data);
+            DB::commit();
+            return $this->successResponse($data, true, 'rooms');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }
@@ -118,20 +123,25 @@ class WishListController extends ApiController
      */
     public function update(Request $request, $id)
     {
+        DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $model = $this->model->update($id, $request->all());
-
-            return $this->successResponse($model);
+            DB::commit();
+            return $this->successResponse($model, true, 'rooms');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage()
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
             throw $t;

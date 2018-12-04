@@ -30,7 +30,7 @@ class ProfileController extends ApiController
             /**
              * settings
              */
-            'subcribe'                  => 'bail|nullable|integer|in:1',
+            'status'                  => 'bail|nullable|integer|in:1',
             'settings.*'                => 'bail|nullable|integer|in:0',
 
 

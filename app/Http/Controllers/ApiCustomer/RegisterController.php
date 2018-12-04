@@ -42,19 +42,20 @@ class RegisterController extends ApiController
 
     public function register(Request $request)
     {
+        DB::enableQueryLog();
         try {
             $this->validationRules['email'] = 'required|email|max:255';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $user = $this->user->checkEmail($request->all());
-
+            $user = $this->user->checkEmailOrPhone($request->all());
+//             dd(DB::getQueryLog());
             // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
+            // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
             if (!empty($user))
             {
                 event(new Customer_Register_TypeBooking_Event($user));
                 throw new \Exception('Bạn hãy vui lòng check mail để thiết lập mât khẩu');
             }
-
 
             $this->validationRules['email'] = 'required|email|max:255|unique:users,email';
             $this->validate($request, $this->validationRules, $this->validationMessages);
@@ -96,6 +97,9 @@ class RegisterController extends ApiController
             ], $clientException->getCode());
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

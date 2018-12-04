@@ -194,9 +194,33 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return $data;
     }
 
-    public function checkEmail($data = [])
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param array $data
+     * @return mixed
+     */
+    public function checkEmailOrPhone($data = [])
     {
-        return $this->model->where('type_create', User::BOOKING)->orWhere('email', $data['email'])->first();
+        $email = array_key_exists('email', $data) ? $data['email'] : 'Không xác định';
+        $phone = array_key_exists('phone', $data) ? $data['phone'] : 'Không xác định';
+//        dd($data);
+        return $this->model
+            ->where([
+                'type_create' => User::BOOKING ,
+                'email' => $email ,
+                'status' => User::DISABLE
+            ])
+            ->orWhere(function ($query) use ($phone) {
+                return $query->where([
+                    'type_create' => User::BOOKING ,
+                    'phone' => $phone ,
+                    'status' => User::DISABLE
+                ]);
+            })
+            ->first();
     }
 
 
@@ -258,6 +282,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $user = $this->getUserByUuidOrToken($data);
 
         $data['token'] = Hash::make( str_random(60));
+        $data['status']= User::ENABLE;
         return parent::update($user->id, $data);
     }
 
