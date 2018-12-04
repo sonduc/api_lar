@@ -20,6 +20,7 @@ use function Couchbase\defaultDecoder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Events\Check_Usable_Coupon_Event;
 
 class BookingController extends ApiController
 {
@@ -231,6 +232,8 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             DB::commit();
+
+            event(new Check_Usable_Coupon_Event($data['coupon']));
             event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
