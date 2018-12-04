@@ -25,6 +25,8 @@ class AuthServiceProvider extends ServiceProvider
             \App\Repositories\Bookings\Booking::class    => \App\Policies\BookingPolicy::class,
             \App\Repositories\Blogs\Blog::class          => \App\Policies\BlogPolicy::class,
             \App\Repositories\Categories\Category::class => \App\Policies\CategoryPolicy::class,
+
+            \App\Repositories\GuidebookCategories\GuidebookCategory::class => \App\Policies\GuidebookCategoryPolicy::class,
         ];
 
     /**

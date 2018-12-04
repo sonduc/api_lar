@@ -157,4 +157,20 @@ return [
         App\Repositories\EmailCustomers\EmailCustomersRepositoryInterface::class,
         App\Repositories\EmailCustomers\EmailCustomersRepository::class,
     ],
+
+    /**
+     * GuidebookCategory Blinding
+     */
+    App\Repositories\GuidebookCategories\GuidebookCategory::class => [
+        App\Repositories\GuidebookCategories\GuidebookCategoryRepositoryInterface::class,
+        App\Repositories\GuidebookCategories\GuidebookCategoryRepository::class,
+    ],
+
+    /**
+     * Place Blinding
+     */
+    App\Repositories\Places\Place::class => [
+        App\Repositories\Places\PlaceRepositoryInterface::class,
+        App\Repositories\Places\PlaceRepository::class,
+    ],
 ];

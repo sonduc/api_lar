@@ -165,6 +165,11 @@ class Room extends Entity
         return $this->belongsToMany(\App\Repositories\Comforts\Comfort::class, 'room_comforts', 'room_id', 'comfort_id');
     }
 
+    public function places()
+    {
+        return $this->belongsToMany(\App\Repositories\Places\Place::class, 'room_places', 'room_id', 'place_id');
+    }
+
     public function prices()
     {
         return $this->hasMany(RoomOptionalPrice::class, 'room_id');

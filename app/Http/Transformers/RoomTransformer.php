@@ -21,6 +21,7 @@ class RoomTransformer extends TransformerAbstract
         'district',
         'bookings',
         'reviews',
+        'places',
     ];
 
 
@@ -145,6 +146,17 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->comforts());
 
         return $this->collection($data, new ComfortTransformer);
+    }
+
+    public function includePlaces(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->places());
+
+        return $this->collection($data, new PlaceTransformer);
     }
 
     /**

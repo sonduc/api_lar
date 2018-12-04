@@ -109,7 +109,7 @@ class RoomLogic extends BaseLogic
     public function update($id, $data, $excepts = [], $only = [])
     {
         $data['settings']= $this->model->checkVaildRefund($data['settings']['refunds']);
-        dd($data['settings']);
+        // dd($data['settings']);
         $data_room = parent::update($id, $data);
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);

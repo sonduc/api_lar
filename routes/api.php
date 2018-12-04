@@ -162,7 +162,19 @@ $router->group([
     $router->get('/emailcustomers/booking-success', 'EmailCustomerController@bookingSuccess');
     $router->get('/emailcustomers/user-owner', 'EmailCustomerController@userOwner');
     $router->get('/emailcustomers/booking-checkout', 'EmailCustomerController@bookingCheckout');
-    // resource('/emailcustomers', 'EmailCustomerController', $router);
+
+    /**
+     * GuidebookCategory Resource
+     */
+    resource('/guidebookcategories', 'GuidebookCategoryController', $router);
+
+    /**
+     * Place Resource
+     */
+    $router->post('/places/update-room-place', 'PlaceController@editRoomPlace');
+    $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
+    $router->get('/places/status-list', 'PlaceController@statusList');
+    resource('/places', 'PlaceController', $router);
 });
 
 

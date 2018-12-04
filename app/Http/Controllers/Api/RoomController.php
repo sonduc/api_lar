@@ -78,7 +78,10 @@ class RoomController extends ApiController
         'settings.refunds.*.days'            => 'required|integer|max:14',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
-
+        /**
+         * place
+         */
+        
 
     ];
 
