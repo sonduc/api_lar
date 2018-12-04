@@ -8,7 +8,7 @@ use League\Fractal\TransformerAbstract;
 class RoomTranslateTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
-
+        'description','note','space'
     ];
 
     public function transform(RoomTranslate $room = null)
@@ -18,12 +18,35 @@ class RoomTranslateTransformer extends TransformerAbstract
         }
 
         return [
-            'id'          => $room->id,
             'name'        => $room->name,
-            'slug_name'   => $room->slug_name,
             'address'     => $room->address,
-            'lang'        => $room->lang,
         ];
     }
 
+    public function includeDescription(RoomTranslate $room)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->primitive($room->description);
+    }
+
+    public function includeNote(RoomTranslate $room)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->primitive($room->note);
+    }
+    
+    public function includeSpace(RoomTranslate $room)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->primitive($room->space);
+    }
 }

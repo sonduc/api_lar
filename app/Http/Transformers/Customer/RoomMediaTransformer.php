@@ -18,13 +18,7 @@ class RoomMediaTransformer extends TransformerAbstract
         }
 
         return [
-            'id'         => $room->id,
             'image'      => $room->image,
-            'type'       => $room->type,
-            'type_txt'   => $room->roomMedia(),
-            'status'     => $room->status,
-            'status_txt' => $room->status == 1 ? trans2('status.activate') : trans2('status.deactivate'),
         ];
     }
-
 }
