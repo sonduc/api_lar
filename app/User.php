@@ -113,7 +113,8 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'token',
         'subcribe',
         'settings',
-        'type_create'
+        'type_create',
+        'updated_at'
     ];
     /**
      * The attributes excluded from the model's JSON form.

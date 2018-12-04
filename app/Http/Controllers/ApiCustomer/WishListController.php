@@ -56,28 +56,6 @@ class WishListController extends ApiController
         return $this->successResponse($data);
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function show(Request $request, $id)
-    {
-        try {
-            $data = $this->model->getById($id);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
 
     /**
      * Store a record into database
@@ -112,41 +90,7 @@ class WishListController extends ApiController
         }
     }
 
-    /**
-     * Update a record
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function update(Request $request, $id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $model = $this->model->update($id, $request->all());
-            DB::commit();
-            return $this->successResponse($model, true, 'rooms');
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
 
     /**
      * Destroy a record

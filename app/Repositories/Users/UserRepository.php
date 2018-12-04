@@ -316,8 +316,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
         $minutes    =  $timeNow->diffInMinutes($timeSubmit);
-        // Nếu sao 60 phút khách hàng không phản hồi thì đường dẫn bị hủy
-        if ($minutes > 60) {
+        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy
+        if ($minutes > 1440) {
             throw new \Exception('Đường dẫn không tồn tại ');
         }
 

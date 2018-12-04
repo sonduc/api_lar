@@ -123,6 +123,7 @@ class BookingLogic extends BaseLogic
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;
         }
+
         return $user->id;
 
 

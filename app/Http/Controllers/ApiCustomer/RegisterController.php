@@ -6,6 +6,7 @@ use App\Events\Customer_Register_Event;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
 use App\User;
+use Carbon\Carbon;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -44,7 +45,9 @@ class RegisterController extends ApiController
     {
         DB::enableQueryLog();
         try {
-            $this->validationRules['email'] = 'required|email|max:255';
+            $this->validationRules['email']                 = 'required|email|max:255';
+            $this->validationRules['password']              = '';
+            $this->validationRules['password_confirmation'] = '';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $user = $this->user->checkEmailOrPhone($request->all());
 //             dd(DB::getQueryLog());
@@ -53,11 +56,24 @@ class RegisterController extends ApiController
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
             if (!empty($user))
             {
+                $timeNow = Carbon::now();
+                $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
+                if ($minutes < 1440)
+                {
+                    return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+                }
+
                 event(new Customer_Register_TypeBooking_Event($user));
-                throw new \Exception('Bạn hãy vui lòng check mail để thiết lập mât khẩu');
+                $data['updated_at'] = Carbon::now();
+                $this->user->update($user->id, $data);
+
+
+                return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
             }
 
-            $this->validationRules['email'] = 'required|email|max:255|unique:users,email';
+            $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
+            $this->validationRules['password']              = 'required|min:6|max:255';
+            $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email','password');
             $username         = $params['email'];
