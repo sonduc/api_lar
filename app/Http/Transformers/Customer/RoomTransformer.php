@@ -12,7 +12,8 @@ class RoomTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-        'media', 'details', 'comforts', 'user', 'reviews', 'city','district', 'prices'
+        'media', 'details', 'comforts', 'user', 'reviews', 'city','district', 'prices',
+        'places',
     ];
 
     public function transform(Room $room = null)
@@ -213,5 +214,16 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->prices());
 
         return $this->collection($data, new RoomOptionalPriceTransformer);
+    }
+
+    public function includePlaces(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->places());
+
+        return $this->collection($data, new PlaceTransformer);
     }
 }
