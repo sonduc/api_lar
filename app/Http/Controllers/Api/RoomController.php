@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Transformers\RoomReviewTranformer;
 use App\Http\Transformers\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
@@ -74,14 +73,13 @@ class RoomController extends ApiController
         /**
          * setting
          */
-        'settings.no_booking_cancel'          => 'nullable|integer|in:0,1',
+        'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',
         'settings.refunds.*.days'            => 'required|integer|max:14',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
         /**
          * place
          */
-        
 
     ];
 
@@ -141,59 +139,69 @@ class RoomController extends ApiController
         'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
         'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-        'cleaning_fee.integer'         => 'Giá dọn phòng phải là kiểu số',
-        'standard_point.integer'       => 'Điểm phải là kiểu số',
-        'is_manager.integer'           => 'Kiểu quản lý phải là kiểu số',
-        'is_manager.between'           => 'Kiểu quản lý không hợp lệ',
-        'hot.integer'                  => 'Nổi bật phải là kiểu số',
-        'hot.between'                  => 'Mã không hợp lệ',
-        'new.between'                  => 'Mã không hợp lệ',
-        'new.integer'                  => 'Mới nhất phải là kiểu số',
-        'latest_deal.integer'          => 'Giá hạ sàn phải là kiểu số',
-        'details.*.*.address.required' => 'Vui lòng điền địa chỉ',
-        'rent_type.integer'            => 'Kiểu thuê phòng phải là dạng số',
-        'longitude.required'           => 'Kinh độ không được để trống',
-        'latitude.required'            => 'Vĩ độ không được để trống',
-        'sale_id.integer'              => 'Mã saler phải là kiểu số',
-        'sale_id.exists'               => 'Saler không tồn tại',
-        'lang_id.integer'              => 'Mã ngôn ngữ phải là kiểu số',
-        'lang_id.exists'               => 'Ngôn ngữ không hợp lệ',
-        'note.v_title'                 => 'Chỉ cho phép chữ và số',
-        'status.integer'               => 'Mã trạng thái phải là kiểu số',
-        'status.between'               => 'Mã không hợp lệ',
-        'room_time_blocks.*.*.date'    => 'Ngày không hợp lệ',
-        'room_time_blocks.*.0.date'    => 'Ngày không hợp lệ',
-        'room_time_blocks.*.0.after'   => 'Ngày bắt đầu phải ở tương lai',
-        'room_time_blocks.*.1.date'    => 'Ngày không hợp lệ',
-        'room_time_blocks.*.1.after'   => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
-        'room_time_blocks.array'       => 'Dữ liệu phải là dạng mảng',
-        'room_time_blocks.*.array'     => 'Dữ liệu phải là dạng mảng',
-        'room_id.required'             => 'Phòng không được để trống',
-        'room_id.exists'               => 'Phòng không tồn tại',
-        'room_id.integer'              => 'Mã phòng không hợp lệ',
-        'unlock_days.array'            => 'Danh sách ngày phải là kiểu mảng',
-        'unlock_days.*.array'          => 'Phải là kiểu mảng',
-        'unlock_days.*.0.date'         => 'Ngày không hợp lệ',
-        'unlock_days.*.0.after'        => 'Ngày bắt đầu phải ở tương lai',
-        'unlock_days.*.1.date'         => 'Ngày không hợp lệ',
-        'unlock_days.*.1.after'        => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+        'cleaning_fee.integer'                           => 'Giá dọn phòng phải là kiểu số',
+        'standard_point.integer'                         => 'Điểm phải là kiểu số',
+        'is_manager.integer'                             => 'Kiểu quản lý phải là kiểu số',
+        'is_manager.between'                             => 'Kiểu quản lý không hợp lệ',
+        'hot.integer'                                    => 'Nổi bật phải là kiểu số',
+        'hot.between'                                    => 'Mã không hợp lệ',
+        'new.between'                                    => 'Mã không hợp lệ',
+        'new.integer'                                    => 'Mới nhất phải là kiểu số',
+        'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
+        'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
+        'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
+        'longitude.required'                             => 'Kinh độ không được để trống',
+        'latitude.required'                              => 'Vĩ độ không được để trống',
+        'sale_id.integer'                                => 'Mã saler phải là kiểu số',
+        'sale_id.exists'                                 => 'Saler không tồn tại',
+        'lang_id.integer'                                => 'Mã ngôn ngữ phải là kiểu số',
+        'lang_id.exists'                                 => 'Ngôn ngữ không hợp lệ',
+        'note.v_title'                                   => 'Chỉ cho phép chữ và số',
+        'status.integer'                                 => 'Mã trạng thái phải là kiểu số',
+        'status.between'                                 => 'Mã không hợp lệ',
+        'room_time_blocks.*.*.date'                      => 'Ngày không hợp lệ',
+        'room_time_blocks.*.0.date'                      => 'Ngày không hợp lệ',
+        'room_time_blocks.*.0.after'                     => 'Ngày bắt đầu phải ở tương lai',
+        'room_time_blocks.*.1.date'                      => 'Ngày không hợp lệ',
+        'room_time_blocks.*.1.after'                     => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
+        'room_time_blocks.array'                         => 'Dữ liệu phải là dạng mảng',
+        'room_time_blocks.*.array'                       => 'Dữ liệu phải là dạng mảng',
+        'room_id.required'                               => 'Phòng không được để trống',
+        'room_id.exists'                                 => 'Phòng không tồn tại',
+        'room_id.integer'                                => 'Mã phòng không hợp lệ',
+        'unlock_days.array'                              => 'Danh sách ngày phải là kiểu mảng',
+        'unlock_days.*.array'                            => 'Phải là kiểu mảng',
+        'unlock_days.*.0.date'                           => 'Ngày không hợp lệ',
+        'unlock_days.*.0.after'                          => 'Ngày bắt đầu phải ở tương lai',
+        'unlock_days.*.1.date'                           => 'Ngày không hợp lệ',
+        'unlock_days.*.1.after'                          => 'Ngày kết thúc phải lớn hơn ngày bắt đầu',
 
         /**
          * setting
          */
-        'settings.no_booking_cancel.integer'     => 'Trường này phải là kiểu số ',
-        'settings.no_booking_cancel.in'          => 'Mã hủy không hợp lệ',
+        'settings.no_booking_cancel.integer'             => 'Trường này phải là kiểu số ',
+        'settings.no_booking_cancel.in'                  => 'Mã hủy không hợp lệ',
 
-         'settings.refunds.*.days.required'     => 'Trường này không được để trống',
-         'settings.refunds.*.days.integer'      => 'Trường này phải là kiểu số nguyên',
+        'settings.refunds.*.days.required'               => 'Trường này không được để trống',
+        'settings.refunds.*.days.integer'                => 'Trường này phải là kiểu số nguyên',
 
-         'settings.refunds.*.amount.required'   => 'Trường này không được để trống',
-         'settings.refunds.*.amount.integer'    => 'Trường này phải là kiểu số nguyên',
-         'settings.refunds.*.amount.min'        => 'Vượt quá giới hạn chp phép (0)',
-         'settings.refunds.*.amount.max'        => 'Vượt quá giới hạn cho phép (100)',
+        'settings.refunds.*.amount.required'             => 'Trường này không được để trống',
+        'settings.refunds.*.amount.integer'              => 'Trường này phải là kiểu số nguyên',
+        'settings.refunds.*.amount.min'                  => 'Vượt quá giới hạn chp phép (0)',
+        'settings.refunds.*.amount.max'                  => 'Vượt quá giới hạn cho phép (100)',
 
-
-
+        'lat_min.required'                               => 'Trường này không được để trống',
+        'lat_min.numeric'                                => 'Trường này phải là đinh dạng số',
+        'lat_min.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
+        'lat_max.required'                               => 'Trường này không được để trống',
+        'lat_max.numeric'                                => 'Trường này phải là đinh dạng số',
+        'lat_max.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
+        'long_min.required'                              => 'Trường này không được để trống',
+        'long_min.numeric'                               => 'Trường này phải là đinh dạng số',
+        'long_min.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
+        'long_max.required'                              => 'Trường này không được để trống',
+        'long_max.numeric'                               => 'Trường này phải là đinh dạng số',
+        'long_max.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
 
     ];
 
@@ -236,7 +244,7 @@ class RoomController extends ApiController
 
         $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 //        dd($data);
-//        dd(DB::getQueryLog());
+        //        dd(DB::getQueryLog());
         return $this->successResponse($data);
     }
 
@@ -413,7 +421,7 @@ class RoomController extends ApiController
                 'standard_point',
                 'is_manager',
             ];
-            $option          = $request->get('option');
+            $option = $request->get('option');
 
             if (!in_array($option, $avaiable_option)) {
                 throw new \Exception('Không có quyền sửa đổi mục này');
@@ -614,5 +622,27 @@ class RoomController extends ApiController
             'data' => $test,
         ];
         return $this->successResponse($data, false);
+    }
+
+    public function getRoomLatLong(Request $request)
+    {
+        try {
+            $this->authorize('room.update');
+            $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
+            $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
+            $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
+            $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
+            $this->validate($request, $validate, $this->validationMessages);
+            $pageSize    = $request->get('limit', 25);
+            $data = $this->model->getRoomLatLong($request->all(),$pageSize);
+       
+            return $this->successResponse($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
 }
