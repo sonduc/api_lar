@@ -26,7 +26,8 @@ class RoomLogic extends BaseLogic
         RoomRepositoryInterface $model,
         BookingRepositoryInterface $booking,
         RoomTimeBlockRepositoryInterface $roomTimeBlock
-    ) {
+    )
+    {
         $this->model         = $model;
         $this->booking       = $booking;
         $this->roomTimeBlock = $roomTimeBlock;
@@ -52,10 +53,8 @@ class RoomLogic extends BaseLogic
             return $item->room_id;
         })->all();
 
-        $list_room_id   = array_unique($list_room_id);
+        $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
 
-        $rooms          = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
-        
         return $rooms;
     }
 
@@ -65,6 +64,7 @@ class RoomLogic extends BaseLogic
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
+     *
      * @return array
      */
 

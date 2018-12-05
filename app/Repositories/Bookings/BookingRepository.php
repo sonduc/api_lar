@@ -102,9 +102,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->whereNotIn(
                 'bookings.status',
                 [BookingConstant::BOOKING_CANCEL, BookingConstant::BOOKING_COMPLETE]
-            )->get();
-
-        // dd($data);
+            )->distinct()->select('room_id')->get();
 
         return $data;
     }
