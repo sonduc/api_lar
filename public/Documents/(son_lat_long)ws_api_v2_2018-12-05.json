@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-12-05T03:11:33.571Z",
+	"__export_date": "2018-12-05T03:53:51.613Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -1575,10 +1575,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"lat_min\": 444,\n\t\"lat_max\": 123,\n\t\"long_min\": 1111,\n\t\"long_max\": 131\n}"
+				"text": "{\n\t\"lat_min\": 85.555555555,\n\t\"lat_max\": 81,\n\t\"long_min\": 111,\n\t\"long_max\": 131\n}"
 			},
 			"created": 1543911969376,
-			"description": "## Validation\n```\n'lat-min'           => 'required',\n'lat-max'           => 'required',\n'long-min'          => 'required',\n'long-min'          => 'required',\n```",
+			"description": "## Validation\n```\n'lat-min'           => 'required|numeric|between:-86.00,86.00',\n'lat-max'           => 'required|numeric|between:-86.00,86.00',\n'long-min'          => 'required|numeric|between:-180.00,180.00',\n'long-min'          => 'required|numeric|between:-180.00,180.00',\n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -1594,7 +1594,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886236513.7188,
 			"method": "POST",
-			"modified": 1543979303582,
+			"modified": 1543981919446,
 			"name": "room-lat-long",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",

@@ -191,9 +191,17 @@ class RoomController extends ApiController
         'settings.refunds.*.amount.max'                  => 'Vượt quá giới hạn cho phép (100)',
 
         'lat_min.required'                               => 'Trường này không được để trống',
+        'lat_min.numeric'                                => 'Trường này phải là đinh dạng số',
+        'lat_min.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
         'lat_max.required'                               => 'Trường này không được để trống',
+        'lat_max.numeric'                                => 'Trường này phải là đinh dạng số',
+        'lat_max.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
         'long_min.required'                              => 'Trường này không được để trống',
+        'long_min.numeric'                               => 'Trường này phải là đinh dạng số',
+        'long_min.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
         'long_max.required'                              => 'Trường này không được để trống',
+        'long_max.numeric'                               => 'Trường này phải là đinh dạng số',
+        'long_max.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
 
     ];
 
@@ -620,10 +628,10 @@ class RoomController extends ApiController
     {
         try {
             $this->authorize('room.update');
-            $validate['lat_min']  = 'required';
-            $validate['lat_max']  = 'required';
-            $validate['long_min'] = 'required';
-            $validate['long_max'] = 'required';
+            $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
+            $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
+            $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
+            $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
             $this->validate($request, $validate, $this->validationMessages);
             $pageSize    = $request->get('limit', 25);
             $data = $this->model->getRoomLatLong($request->all(),$pageSize);
