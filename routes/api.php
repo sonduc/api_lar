@@ -49,6 +49,7 @@ $router->group([
     /**
      * Room Resource
      */
+    $router->post('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
     $router->get('/rooms/type', 'RoomController@getRoomType');
     $router->get('/rooms/get-name', 'RoomController@getRoomName');
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');

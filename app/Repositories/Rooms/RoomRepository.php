@@ -124,4 +124,16 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return  json_encode($refund);
     }
+
+    public function getRoomLatLong($data,$size)
+    {
+        $room = $this->model
+        ->where('longitude', '>', $data["long_min"])
+        ->where('longitude', '<', $data["long_max"])
+        ->where('latitude', '>', $data["lat_min"])
+        ->where('latitude', '<', $data["lat_max"])
+        ->paginate($size);
+
+        return $room;
+    }
 }
