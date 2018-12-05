@@ -106,4 +106,28 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     *   đưa ra các phòng tương tự với 1 phòng nào đó 
+     *
+     * @author sonduc <ndson1998@gmail.com>
+     * @param  Request $request [description]
+     * @param  [type]  $id      [description]
+     * @return [type]           [description]
+     */
+    public function getRoomRecommend(Request $request,$id)
+    {
+        try {
+            $pageSize    = $request->get('limit', 5);
+            $data = $this->model->getRoomRecommend($pageSize,$id);
+       
+            return $this->successResponse($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }
