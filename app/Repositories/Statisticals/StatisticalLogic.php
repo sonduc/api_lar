@@ -5,6 +5,7 @@ namespace App\Repositories\Statisticals;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 
 class StatisticalLogic extends BaseLogic
 {
@@ -23,10 +24,10 @@ class StatisticalLogic extends BaseLogic
     {
         switch ($data['view']) {
             case 'day':
-                $dayStart = Carbon::parse($data['date_start'])->day;
-                $dayEnd = Carbon::parse($data['date_end'])->day;
-                
-                dd($dayStart,$dayEnd);
+                $period = CarbonPeriod::create($data['date_start'],$data['date_end']);
+                foreach ($period as $key => $value) {
+                    // dump($value->format('Y-m-d'));
+                }
                 break;
 
             case 'week':
@@ -45,10 +46,10 @@ class StatisticalLogic extends BaseLogic
                 break;
         }
 
-        $date_start = $data['date_start'];
-        $date_end = $data['date_end'];
-        // $bookings = $this->booking
-        //     ->where('create_at');
-        dd($date_start);
+        $bookings = $this->booking->getAll();
+        foreach ($bookings as $key => $value) {
+            dd($value['created_at']->format('Y-m-d'));
+        }
+        dd('$bookings');
     }
 }
