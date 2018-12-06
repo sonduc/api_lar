@@ -4,11 +4,9 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
-use App\Repositories\Traits\Scope;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {
-
 
     /**
      * RoomRepository constructor.
@@ -52,6 +50,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return $this->model
             ->whereNotIn('rooms.id', $list)
             ->where('rooms.status', Room::AVAILABLE)
+            ->orderBy('is_manager', 'desc')
+            ->orderBy('avg_avg_rating', 'desc')
+            ->orderBy('total_review', 'desc')
+            ->orderBy('total_recommend', 'desc')
             ->paginate($size);
     }
 
@@ -62,7 +64,6 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where('room_translates.lang', 'vi')
             ->where('rooms.id', $id)->first();
     }
-
 
     /**
      *
@@ -80,16 +81,14 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         if (isset($data['no_booking_cancel'])) {
-            if (!empty($data['no_booking_cancel'])  && $data['no_booking_cancel'] ==1) {
+            if (!empty($data['no_booking_cancel']) && $data['no_booking_cancel'] == 1) {
                 $refund = [
-                   'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE
-               ];
+                    'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
+                ];
 
-                return  json_encode($refund);
+                return json_encode($refund);
             }
         }
-
-
 
         // set măc định bốn mức cho hủy phòng.
         $refund = $data['refunds'];
@@ -97,11 +96,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             throw new \Exception('không được phép tạo thêm mức hủy phòng');
         }
 
-        for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL -1 ;$i++) {
-            if (!empty($refund[$i+1])) {
-                if ($refund[$i]['amount'] > $refund[$i+1]['amount'] && $refund[$i]['days'] < $refund[$i+1]['days']) {
+        for ($i = 0; $i < BookingConstant::BOOKING_CANCEL_lEVEL - 1; $i++) {
+            if (!empty($refund[$i + 1])) {
+                if ($refund[$i]['amount'] > $refund[$i + 1]['amount'] && $refund[$i]['days'] < $refund[$i + 1]['days']) {
                     throw new \Exception('Ngày điền không hợp lệ');
-                } elseif ($refund[$i]['amount'] < $refund[$i+1]['amount'] && $refund[$i]['days'] > $refund[$i+1]['days']) {
+                } elseif ($refund[$i]['amount'] < $refund[$i + 1]['amount'] && $refund[$i]['days'] > $refund[$i + 1]['days']) {
                     throw new \Exception('Ngày điền không hợp lệ');
                 }
             }
@@ -118,22 +117,52 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         $refund = [
-            'refund' => $refund,
-            'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE
+            'refund'            => $refund,
+            'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
         ];
 
-        return  json_encode($refund);
+        return json_encode($refund);
     }
 
-    public function getRoomLatLong($data,$size)
+    public function getRoomLatLong($data, $size)
     {
         $room = $this->model
-        ->where('longitude', '>', $data["long_min"])
-        ->where('longitude', '<', $data["long_max"])
-        ->where('latitude', '>', $data["lat_min"])
-        ->where('latitude', '<', $data["lat_max"])
-        ->paginate($size);
+            ->where('longitude', '>', $data["long_min"])
+            ->where('longitude', '<', $data["long_max"])
+            ->where('latitude', '>', $data["lat_min"])
+            ->where('latitude', '<', $data["lat_max"])
+            ->paginate($size);
 
         return $room;
+    }
+
+    public function getRoomRecommend($size, $id)
+    {
+        $room = $this->model->find($id);
+
+        $rooms = $this->model
+            ->where('city_id', $room->city_id)
+            ->where('district_id', $room->district_id)
+            ->where('max_guest', '>=', $room->max_guest)
+            ->where('status', Room::AVAILABLE);
+
+        if ($room->standard_point != null) {
+            $rooms->where('standard_point', '>=', $room->standard_point);
+        }
+
+        if ($room->rent_type != null) {
+            $rooms->whereIn('rent_type', [$room->rent_type, Room::TYPE_ALL]);
+        }
+
+        $rooms->orderBy('is_manager', 'desc')
+            ->orderBy('avg_avg_rating', 'desc')
+            ->orderBy('total_review', 'desc')
+            ->orderBy('total_recommend', 'desc');
+
+        if($size == -1){
+            return $rooms->get();
+        }
+        
+        return $rooms->paginate($size);
     }
 }

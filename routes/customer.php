@@ -46,6 +46,7 @@ $router->post('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 $router->get('/rooms', 'RoomController@index');
 $router->get('/rooms/{id}', 'RoomController@show');
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+$router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
 
 /*
  * Booking Router

@@ -212,4 +212,9 @@ class RoomLogic extends BaseLogic
     {
         return $this->model->getRoomLatLong($data, $size);
     }
+
+    public function getRoomRecommend($size,$id)
+    {
+        return $this->model->getRoomRecommend($size,$id);
+    }
 }
