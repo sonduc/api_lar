@@ -106,4 +106,25 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    public function getRoomLatLong(Request $request)
+    {
+        try {
+            $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
+            $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
+            $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
+            $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
+            $this->validate($request, $validate, $this->validationMessages);
+            $pageSize    = $request->get('limit', 25);
+            $data = $this->model->getRoomLatLong($request->all(), $pageSize);
+       
+            return $this->successResponse($data);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }

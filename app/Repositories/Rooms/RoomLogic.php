@@ -208,8 +208,8 @@ class RoomLogic extends BaseLogic
         }
     }
 
-    public function getRoomLatLong($data,$size)
+    public function getRoomLatLong($data, $size)
     {
-        return $this->model->getRoomLatLong($data,$size);
+        return $this->model->getRoomLatLong($data, $size);
     }
 }
