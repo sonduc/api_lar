@@ -628,7 +628,7 @@ class RoomController extends ApiController
 
     /**
      *  lấy danh sách phòng trong khoảng bản đồ
-     *  
+     *
      *  @author sonduc <ndson1998@gmail.com>
      * @param  Request $request [description]
      * @return [type]           [description]
@@ -636,14 +636,14 @@ class RoomController extends ApiController
     public function getRoomLatLong(Request $request)
     {
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.view');
             $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
             $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
             $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
             $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
             $this->validate($request, $validate, $this->validationMessages);
             $pageSize    = $request->get('limit', 25);
-            $data = $this->model->getRoomLatLong($request->all(),$pageSize);
+            $data = $this->model->getRoomLatLong($request->all(), $pageSize);
        
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -656,19 +656,19 @@ class RoomController extends ApiController
     }
 
     /**
-     *   đưa ra các phòng tương tự với 1 phòng nào đó 
+     *   đưa ra các phòng tương tự với 1 phòng nào đó
      *
      * @author sonduc <ndson1998@gmail.com>
      * @param  Request $request [description]
      * @param  [type]  $id      [description]
      * @return [type]           [description]
      */
-    public function getRoomRecommend(Request $request,$id)
+    public function getRoomRecommend(Request $request, $id)
     {
         try {
             $this->authorize('room.view');
             $pageSize    = $request->get('limit', 5);
-            $data = $this->model->getRoomRecommend($pageSize,$id);
+            $data = $this->model->getRoomRecommend($pageSize, $id);
        
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
