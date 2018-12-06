@@ -191,4 +191,15 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
+    'statistical'             => [
+        'title' => 'Quản lý thống kê',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
 ];

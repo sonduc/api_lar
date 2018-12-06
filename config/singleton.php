@@ -180,4 +180,12 @@ return [
         \App\Repositories\WishLists\WishListRepositoryInterface::class,
         \App\Repositories\WishLists\WishListRepository::class,
     ],
+
+    /**
+     * Statistical Blinding
+     */
+    \App\Repositories\Statisticals\Statistical::class => [
+        \App\Repositories\Statisticals\StatisticalRepositoryInterface::class,
+        \App\Repositories\Statisticals\StatisticalRepository::class,
+    ],
 ];

@@ -176,6 +176,11 @@ $router->group([
     $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
     $router->get('/places/status-list', 'PlaceController@statusList');
     resource('/places', 'PlaceController', $router);
+
+    /**
+     * Statistical Resource
+     */
+    $router->get('/statisticals/booking-month', 'StatisticalController@bookingMonth');
 });
 
 
