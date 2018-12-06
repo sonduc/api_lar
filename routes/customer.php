@@ -28,6 +28,7 @@ $router->group([
 /*
  * Rooms Router
  */
+$router->post('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 $router->get('/rooms', 'RoomController@index');
 $router->get('/rooms/{id}', 'RoomController@show');
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
