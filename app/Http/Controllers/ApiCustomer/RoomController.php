@@ -117,6 +117,7 @@ class RoomController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
             $pageSize    = $request->get('limit', 25);
             $data = $this->model->getRoomLatLong($request->all(), $pageSize);
+            return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
