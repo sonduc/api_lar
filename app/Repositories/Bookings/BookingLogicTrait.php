@@ -343,9 +343,9 @@ trait BookingLogicTrait
     public function cancelBooking($id, $data)
     {
         $data_booking   = parent::getById($id);
-        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-        }
+//        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+//            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+//        }
 
         $booking_settings           = json_decode($data_booking->settings);
 
@@ -369,11 +369,10 @@ trait BookingLogicTrait
 
         // thời gian hủy phòng
         $timeNow= Carbon::now();
-        $minutes =  $checkin->diffInMinutes($timeNow);
-
-        if ($minutes >= $booking_settings->refund[0]->days * 24 *60)
+        $seconds =  $checkin->diffInSeconds($timeNow);
+        if ($seconds >= $booking_settings->refund[0]->days * 24 *3600)
         {
-            // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100 tiền
+            // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100% tiền
             $total_refund   =  ($data_booking->total_fee * 100)/100;
             $booking_update = [
                 'status'        => BookingConstant::BOOKING_CANCEL,
@@ -384,7 +383,6 @@ trait BookingLogicTrait
             $data['booking_id'] = $id;
             return $this->booking_cancel->store($data);
         }
-
         // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100 tiền
         $total_refund   =  ($data_booking->total_fee * 0)/100;
         $booking_update = [

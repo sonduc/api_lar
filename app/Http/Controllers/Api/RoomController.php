@@ -434,6 +434,7 @@ class RoomController extends ApiController
             $validate = array_only($this->validationRules, [
                 $option,
             ]);
+
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->minorRoomUpdate($id, $request->only($option));
             DB::commit();
@@ -678,6 +679,47 @@ class RoomController extends ApiController
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+
+    public function updateRoomSettings(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'settings.no_booking_cancel',
+                'settings.refunds.*.days',
+                'settings.refunds.*.amount',
+            ]);
+            $validate['room_id']         = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['settings.no_booking_cancel']         = 'nullable|integer|in:0,1';
+            $validate['settings.refunds.*.days']            = 'required|integer|max:14|min:1';
+            $validate['settings.refunds.*.amount']          = 'required|integer|min:0|max:100';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomSettings($request->only([
+                'room_id', 'settings',
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

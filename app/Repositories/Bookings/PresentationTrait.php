@@ -4,6 +4,7 @@ namespace App\Repositories\Bookings;
 
 use App\Helpers\ErrorCore;
 use App\User;
+use Carbon\Carbon;
 
 trait PresentationTrait
 {
@@ -97,6 +98,32 @@ trait PresentationTrait
         return array_key_exists($this->email_reviews, BookingConstant::EMAIL_REVIEWS)
             ? BookingConstant::EMAIL_REVIEWS[$this->email_reviews]
             : trans2(ErrorCore::UNDEFINED);
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $bookinng
+     * @return string
+     */
+    public function getTotalRefund($bookinng)
+    {
+        $booking_settings           = json_decode($bookinng->settings);
+        if (empty($booking_settings) || $booking_settings->no_booking_cancel == 1 )
+        {
+           return 'Bạn sẽ không được hoàn lại khoản tiền nào nếu hủy booking này';
+        }
+
+        // thời gian check_in booking
+        $checkin = $bookinng['checkin'];
+       // Thời gian cách ngày checkin cho phép hoàn lại tiền.
+        $time_refund = $booking_settings->refund[0]->days* 24 *3600;
+
+        $time_free_booking_caccel = Carbon::createFromTimestamp($checkin - $time_refund);
+        return 'Hủy không tốn phí trước'.' '. $time_free_booking_caccel. ' (giờ địa phương)';
+
     }
 
     /**

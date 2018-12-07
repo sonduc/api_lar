@@ -19,19 +19,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $this->model = $room;
     }
 
-    /**
-     * Cập nhật riêng lẻ các thuộc tính của phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param       $id
-     * @param array $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function minorRoomUpdate($id, $data = [])
-    {
-        return parent::update($id, $data);
-    }
+
 
     /**
      * Lấy tất cả phòng trừ các phòng có ID trong danh sách
@@ -77,7 +65,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data)) {
-            return $data['no_booking_cancel'] = BookingConstant::BOOKING_CANCEL_UNAVAILABLE;
+            $refund = [
+                'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
+            ];
+
+            return json_encode($refund);
         }
 
         if (isset($data['no_booking_cancel'])) {

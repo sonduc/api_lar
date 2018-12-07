@@ -70,7 +70,9 @@ class BookingTransformer extends TransformerAbstract
             'status'             => $booking->status,
             'status_txt'         => $booking->getBookingStatus(),
             'exchange_rate'      => $booking->exchange_rate,
-            'total_refund'       =>  $booking->total_refund ?? 0,
+            'total_refund'       =>  $booking->total_refund,
+            'total_txt'          =>  $booking->getTotalRefund($booking),
+            'settings'           =>  json_decode($booking->settings),
             'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'         => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
         ];
