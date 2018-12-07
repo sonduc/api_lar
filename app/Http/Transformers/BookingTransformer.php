@@ -85,6 +85,7 @@ class BookingTransformer extends TransformerAbstract
             'price_range_txt'    => $booking->getPriceRange(),
             'exchange_rate'      => $booking->exchange_rate,
             'total_refund'       =>  $booking->total_refund ?? 0,
+            'settings'           =>  json_decode($booking->settings),
             'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'         => $booking->updated_at ? $booking->updated_at->format('Y-m-d H:i:s') : null,
         ];

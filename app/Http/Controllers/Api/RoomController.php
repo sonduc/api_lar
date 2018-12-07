@@ -74,7 +74,7 @@ class RoomController extends ApiController
          * setting
          */
         'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',
-        'settings.refunds.*.days'            => 'required|integer|max:14',
+        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
         /**
@@ -186,10 +186,12 @@ class RoomController extends ApiController
 
         'settings.refunds.*.days.required'               => 'Trường này không được để trống',
         'settings.refunds.*.days.integer'                => 'Trường này phải là kiểu số nguyên',
+        'settings.refunds.*.days.min'                    => 'Vượt quá giới hạn cho phép (1)',
+        'settings.refunds.*.days.max'                    => 'Vượt quá giới hạn cho phép (14)',
 
         'settings.refunds.*.amount.required'             => 'Trường này không được để trống',
         'settings.refunds.*.amount.integer'              => 'Trường này phải là kiểu số nguyên',
-        'settings.refunds.*.amount.min'                  => 'Vượt quá giới hạn chp phép (0)',
+        'settings.refunds.*.amount.min'                  => 'Vượt quá giới hạn cho phép (0)',
         'settings.refunds.*.amount.max'                  => 'Vượt quá giới hạn cho phép (100)',
 
         'lat_min.required'                               => 'Trường này không được để trống',
@@ -295,7 +297,7 @@ class RoomController extends ApiController
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
-            DB::commit();
+             DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -644,7 +646,7 @@ class RoomController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
             $pageSize    = $request->get('limit', 25);
             $data = $this->model->getRoomLatLong($request->all(), $pageSize);
-       
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -669,7 +671,7 @@ class RoomController extends ApiController
             $this->authorize('room.view');
             $pageSize    = $request->get('limit', 5);
             $data = $this->model->getRoomRecommend($pageSize, $id);
-       
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

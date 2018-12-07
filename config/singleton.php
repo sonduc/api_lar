@@ -61,10 +61,7 @@ return [
         \App\Repositories\Bookings\BookingCancelRepositoryInterface::class,
         \App\Repositories\Bookings\BookingCancelRepository::class,
     ],
-    \App\Repositories\Bookings\BookingRefund::class  => [
-        \App\Repositories\Bookings\BookingRefundRepositoryInterface::class,
-        \App\Repositories\Bookings\BookingRefundRepository::class,
-    ],
+
 
     /**
      * Payments Binding

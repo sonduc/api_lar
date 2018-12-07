@@ -160,7 +160,7 @@ class BookingController extends ApiController
         return $this->successResponse($data);
     }
 
-    
+
     /**
      * Tính giá tiền cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -170,7 +170,7 @@ class BookingController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    
+
     public function priceCalculator(Request $request)
     {
         DB::enableQueryLog();
@@ -310,7 +310,7 @@ class BookingController extends ApiController
 
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->cancelBookingCustomer($id, $request->only($avaiable_option));
+            $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
             // dd(DB::getQueryLog());
             DB::commit();
