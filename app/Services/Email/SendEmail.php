@@ -78,7 +78,7 @@ class SendEmail
         $booking->room     = $room_name;
 
         // Tính tổng số giờ thuê phòng
-        $booking->data->hours = $this->caculateHours($booking->data->checkin, $booking->data->checkout);
+        $booking->data->hours = $this->calculateHours($booking->data->checkin, $booking->data->checkout);
         $email                = $booking->data->email;
 
         try {
@@ -129,7 +129,7 @@ class SendEmail
         $booking->room     = $room_name;
 
         // Tính tổng số giờ thuê phòng
-        $booking->data->hours = $this->caculateHours($booking->data->checkin, $booking->data->checkout);
+        $booking->data->hours = $this->calculateHours($booking->data->checkin, $booking->data->checkout);
         $email                = $booking->data['email'];
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
@@ -168,7 +168,7 @@ class SendEmail
         }
 
         // Tính tổng số giờ thuê phòng
-        $booking->data->hours = $this->caculateHours($booking->data->checkin, $booking->data->checkout);
+        $booking->data->hours = $this->calculateHours($booking->data->checkin, $booking->data->checkout);
 
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
@@ -181,7 +181,7 @@ class SendEmail
         }
     }
 
-    private function caculateHours($checkin, $checkout)
+    private function calculateHours($checkin, $checkout)
     {
         $checkin_Carbon              = Carbon::parse($checkin);
         $checkout_Carbon             = Carbon::parse($checkout);
