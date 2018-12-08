@@ -6,6 +6,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
+use DB;
 use Illuminate\Database\Eloquent\Collection;
 
 class BookingRepository extends BaseRepository implements BookingRepositoryInterface
@@ -223,5 +224,129 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $query->where('checkout', '<', $ojDay);
         $query->where('checkout', '', $the_begin_of_the_year);
         return $query->get();
+    }
+
+    /**
+     * đếm booking trong khoảng ngày và theo trạng thái
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingDay($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('cast(created_at as DATE) as date')
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('cast(created_at as DATE)'))
+            ->get();
+        return $booking;
+    }
+
+    /**
+     * đếm booking trong khoảng tuần và theo trạng thái
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingWeek($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
+    }
+
+    /**
+     * đếm booking trong khoảng tháng và theo trạng thái
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingMonth($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
+    }
+
+    /**
+     * đếm booking trong khoảng năm và theo trạng thái
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingYear($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
     }
 }

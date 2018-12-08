@@ -180,7 +180,7 @@ $router->group([
     /**
      * Statistical Resource
      */
-    $router->get('/statisticals/booking-month', 'StatisticalController@bookingMonth');
+    $router->get('/statisticals/booking-month', 'StatisticalController@bookingStatistical');
 });
 
 

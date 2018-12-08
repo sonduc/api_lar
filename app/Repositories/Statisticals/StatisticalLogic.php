@@ -20,36 +20,35 @@ class StatisticalLogic extends BaseLogic
         $this->booking = $booking;
     }
 
-    public function bookingMonth($data)
+    public function bookingStatistical($data)
     {
+        if (isset($data['date_start']) == false) {
+            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
+        }
+        if (isset($data['date_end']) == false) {
+            $data['date_end'] = Carbon::now()->toDateTimeString();
+        }
         switch ($data['view']) {
             case 'day':
-                $period = CarbonPeriod::create($data['date_start'],$data['date_end']);
-                foreach ($period as $key => $value) {
-                    // dump($value->format('Y-m-d'));
-                }
+                $booking = $this->booking->countBookingDay($data['date_start'],$data['date_end']);
                 break;
 
             case 'week':
-                # code...
+                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
                 break;
 
             case 'month':
-                # code...
+                $booking = $this->booking->countBookingMonth($data['date_start'],$data['date_end']);
                 break;
 
             case 'year':
-                # code...
+                $booking = $this->booking->countBookingYear($data['date_start'],$data['date_end']);
                 break;
             default:
-                # code...
+                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
                 break;
         }
 
-        $bookings = $this->booking->getAll();
-        foreach ($bookings as $key => $value) {
-            dd($value['created_at']->format('Y-m-d'));
-        }
-        dd('$bookings');
+        return $booking;
     }
 }

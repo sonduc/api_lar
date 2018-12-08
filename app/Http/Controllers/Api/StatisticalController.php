@@ -13,10 +13,14 @@ use DB;
 class StatisticalController extends ApiController
 {
     protected $validationRules = [
-
+        'date_start'                =>  'date',
+        'date_end'                  =>  'date|after:date_start',
     ];
     protected $validationMessages = [
-
+        'date_start.date_format'    =>  'Ngày bắt đầu thống kê phải có định dạng Y-m-d H:i:s',
+     
+        'date_end.date_format'      =>  'Ngày kết thúc thống kê phải có định dạng Y-m-d H:i:s',
+        'date_end.after'            =>  'Thời gian kết thúc thống kê phải sau thời gian bắt đầu thống kê',
     ];
 
     /**
@@ -29,141 +33,18 @@ class StatisticalController extends ApiController
         $this->setTransformer(new StatisticalTransformer);
     }
 
-    /**
-     * Display a listing of the resource.
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    public function index(Request $request)
+    public function bookingStatistical(Request $request)
     {
-        $this->authorize('statistical.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function show(Request $request, $id)
-    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data = $this->model->getById($id, $trashed);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Store a record into database
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function store(Request $request)
-    {
-        try {
-            $this->authorize('statistical.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $data = $this->model->store($request->all());
-
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
-            ]);
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Update a record
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function update(Request $request, $id)
-    {
-        try {
-            $this->authorize('statistical.update');
-
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $model = $this->model->update($id, $request->all());
-
-            return $this->successResponse($model);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors' => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage()
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Destroy a record
-     *
-     * @param $id
-     *
-     * @return mixed
-     * @throws Throwable
-     */
-    public function destroy($id)
-    {
-        try {
-            $this->authorize('statistical.delete');
-            $this->model->delete($id);
-
-            return $this->deleteResponse();
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    public function bookingMonth(Request $request)
-    {
-        try {
-            $this->authorize('statistical.view');
-            $data = $this->model->bookingMonth($request->all());
-            return $this->successResponse($data);
+            $data = $this->model->bookingStatistical($request->all());
+            $data = [
+                'data' => $data->toArray()
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
