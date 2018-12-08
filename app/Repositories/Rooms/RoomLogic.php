@@ -68,7 +68,7 @@ class RoomLogic extends BaseLogic
      */
     public function store($data, $room = [])
     {
-        $data['settings']= $this->model->checkVaildRefund($data['settings']);
+        $data['settings']= $this->model->checkValidRefund($data['settings']);
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
@@ -108,7 +108,7 @@ class RoomLogic extends BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
-        $data['settings']= $this->model->checkVaildRefund($data['settings']['refunds']);
+        $data['settings']= $this->model->checkValidRefund($data['settings']);
         // dd($data['settings']);
         $data_room = parent::update($id, $data);
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
@@ -159,6 +159,7 @@ class RoomLogic extends BaseLogic
         $this->roomTimeBlock->updateRoomTimeBlock($room, $data->all());
         return $room;
     }
+
 
     /**
      * Tính toán rating trung bình cho từng phòng
@@ -216,5 +217,35 @@ class RoomLogic extends BaseLogic
     public function getRoomRecommend($size,$id)
     {
         return $this->model->getRoomRecommend($size,$id);
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param array $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function minorRoomUpdate($id, $data = [])
+    {
+        $data['settings']= $this->model->checkValidRefund($data['settings']);
+        return parent::update($id, $data);
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function updateRoomSettings($data)
+    {
+        $data['settings']= $this->model->checkValidRefund($data['settings']);
+        return parent::update($data['room_id'], $data);
     }
 }

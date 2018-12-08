@@ -81,7 +81,7 @@ trait BookingLogicTrait
             $data['city_id']         = $room->city_id;
             $data['district_id']     = $room->district_id;
             $coupon_discount         = $this->cp->checkSettingDiscount($coupon, $data);
-            
+
             $data['coupon_discount'] = $coupon_discount['price_discount'];
         }
 
@@ -310,49 +310,7 @@ trait BookingLogicTrait
         return $user->id;
     }
 
-    /**
-     * Lấy ra mốc thời gian hủy phòng
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $range
-     * @param $i
-     * @return mixed
-     */
-    public function getDay($day, $booking_refund_map_days, $range)
-    {
-        if (in_array($day, $booking_refund_map_days)) {
-            return $day;
-        } elseif ($day < min($booking_refund_map_days)) {
-            return min($booking_refund_map_days);
-        } elseif ($day > max($booking_refund_map_days)) {
-            return max($booking_refund_map_days);
-        }
 
-        // check mốc theo theo khoảng
-        foreach ($range as $value) {
-            if (in_array($day, $value)) {
-                return max($value);
-                break;
-            }
-        }
-    }
-
-    /**
-     *  Tao khoảng loc để lọc theo ngày mà  khách hủy.
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $booking_refund_map_days
-     * @return array
-     */
-    public function filter_range_day($booking_refund_map_days)
-    {
-        $count = count($booking_refund_map_days)-1;
-        $range = [];
-        for ($i = 0; $i < $count; $i++) {
-            $range[] = range($booking_refund_map_days[$i], $booking_refund_map_days[$i+1]);
-        }
-        return $range;
-    }
     /**
      * Cập nhật tiền cho booking
      * @author HarikiRito <nxh0809@gmail.com>
@@ -370,5 +328,71 @@ trait BookingLogicTrait
         $data             = array_merge($booking->toArray(), $data);
 
         return $this->update($id, $data);
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function cancelBooking($id, $data)
+    {
+        $data_booking   = parent::getById($id);
+//        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+//            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+//        }
+
+        $booking_settings           = json_decode($data_booking->settings);
+
+
+        // Nếu book này có settigns == null hoặc không có chính sách hủy phòng
+        if (empty($booking_settings) || $booking_settings->no_booking_cancel == 1 )
+        {
+            $total_refund   =  ($data_booking->total_fee * 0)/100;
+            $booking_update = [
+                'status'        => BookingConstant::BOOKING_CANCEL,
+                'total_refund'  => $total_refund,
+            ];
+
+            parent::update($id, $booking_update);
+            $data['booking_id'] = $id;
+            return $this->booking_cancel->store($data);
+        }
+
+        // thời gian check_in booking
+        $checkin = Carbon::createFromTimestamp($data_booking['checkin']);
+
+        // thời gian hủy phòng
+        $timeNow= Carbon::now();
+        $seconds =  $checkin->diffInSeconds($timeNow);
+        if ($seconds >= $booking_settings->refund[0]->days * 24 *3600)
+        {
+            // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100% tiền
+            $total_refund   =  ($data_booking->total_fee * 100)/100;
+            $booking_update = [
+                'status'        => BookingConstant::BOOKING_CANCEL,
+                'total_refund'  => $total_refund,
+            ];
+
+            parent::update($id, $booking_update);
+            $data['booking_id'] = $id;
+            return $this->booking_cancel->store($data);
+        }
+        // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100 tiền
+        $total_refund   =  ($data_booking->total_fee * 0)/100;
+        $booking_update = [
+            'status'        => BookingConstant::BOOKING_CANCEL,
+            'total_refund'  => $total_refund,
+        ];
+
+        parent::update($id, $booking_update);
+        $data['booking_id'] = $id;
+        return $this->booking_cancel->store($data);
+
     }
 }

@@ -59,6 +59,7 @@ $router->group([
     $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
+    $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
     resource('/rooms', 'RoomController', $router);
     /**
      * Room Review Resource

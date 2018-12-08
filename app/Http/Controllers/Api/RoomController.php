@@ -74,7 +74,7 @@ class RoomController extends ApiController
          * setting
          */
         'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',
-        'settings.refunds.*.days'            => 'required|integer|max:14',
+        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
         /**
@@ -186,10 +186,12 @@ class RoomController extends ApiController
 
         'settings.refunds.*.days.required'               => 'Trường này không được để trống',
         'settings.refunds.*.days.integer'                => 'Trường này phải là kiểu số nguyên',
+        'settings.refunds.*.days.min'                    => 'Vượt quá giới hạn cho phép (1)',
+        'settings.refunds.*.days.max'                    => 'Vượt quá giới hạn cho phép (14)',
 
         'settings.refunds.*.amount.required'             => 'Trường này không được để trống',
         'settings.refunds.*.amount.integer'              => 'Trường này phải là kiểu số nguyên',
-        'settings.refunds.*.amount.min'                  => 'Vượt quá giới hạn chp phép (0)',
+        'settings.refunds.*.amount.min'                  => 'Vượt quá giới hạn cho phép (0)',
         'settings.refunds.*.amount.max'                  => 'Vượt quá giới hạn cho phép (100)',
 
         'lat_min.required'                               => 'Trường này không được để trống',
@@ -295,7 +297,7 @@ class RoomController extends ApiController
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
-            DB::commit();
+             DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -432,6 +434,7 @@ class RoomController extends ApiController
             $validate = array_only($this->validationRules, [
                 $option,
             ]);
+
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->minorRoomUpdate($id, $request->only($option));
             DB::commit();
@@ -644,7 +647,7 @@ class RoomController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
             $pageSize    = $request->get('limit', 25);
             $data = $this->model->getRoomLatLong($request->all(), $pageSize);
-       
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -669,13 +672,54 @@ class RoomController extends ApiController
             $this->authorize('room.view');
             $pageSize    = $request->get('limit', 5);
             $data = $this->model->getRoomRecommend($pageSize, $id);
-       
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+
+    public function updateRoomSettings(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'settings.no_booking_cancel',
+                'settings.refunds.*.days',
+                'settings.refunds.*.amount',
+            ]);
+            $validate['room_id']         = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['settings.no_booking_cancel']         = 'nullable|integer|in:0,1';
+            $validate['settings.refunds.*.days']            = 'required|integer|max:14|min:1';
+            $validate['settings.refunds.*.amount']          = 'required|integer|min:0|max:100';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomSettings($request->only([
+                'room_id', 'settings',
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

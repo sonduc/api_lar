@@ -57,7 +57,6 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
-        BookingRefundRepositoryInterface $booking_refund,
         CouponLogic $cp
     ) {
         $this->model          = $booking;
@@ -69,7 +68,6 @@ class BookingLogic extends BaseLogic
         $this->op             = $op;
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
-        $this->booking_refund = $booking_refund;
         $this->cp             = $cp;
     }
 
@@ -93,10 +91,12 @@ class BookingLogic extends BaseLogic
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
 
+        $data['settings']    = $room->settings;
+       // return json_encode($refund);
+
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
-        $this->booking_refund->storeBookingRefund($data_booking, $room);
         return $data_booking;
     }
 
@@ -388,94 +388,5 @@ class BookingLogic extends BaseLogic
     {
         $data_booking = parent::update($id, $data);
         return $data_booking;
-    }
-
-    // /**
-    //  * Hủy booking
-    //  * @author HarikiRito <nxh0809@gmail.com>
-    //  *
-    //  * @param $id
-    //  * @param $data
-    //  *
-    //  * @return \App\Repositories\Eloquent
-    //  * @throws \Exception
-    //  */
-    // public function cancelBooking($id, $data)
-    // {
-    //     $data_booking = parent::getById($id);
-
-    //     if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-    //         throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-    //     }
-
-    //     $booking_update = [
-    //         'status' => BookingConstant::BOOKING_CANCEL,
-    //     ];
-    //     parent::update($id, $booking_update);
-
-    //     $data['booking_id'] = $id;
-    //     return $this->booking_cancel->store($data);
-    // }
-
-    /**
-     * Hủy booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     * @throews \Exception
-     */
-    public function cancelBooking($id, $data)
-    {
-        $data_booking   = parent::getById($id);
-        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-        }
-        $booking_refund             = $this->booking_refund->getBookingRefundByBookingId($id);
-
-        if (!empty($booking_refund[0]['no_booking_cancel']) && $booking_refund[0]['no_booking_cancel'] == 0) {
-            $total_refund   =  ($data_booking->total_fee * 0)/100;
-            $booking_update = [
-                'status'        => BookingConstant::BOOKING_CANCEL,
-                'total_refund'  => $total_refund,
-            ];
-
-            parent::update($id, $booking_update);
-            $data['booking_id'] = $id;
-            return $this->booking_cancel->store($data);
-        }
-
-
-        $booking_refund_map_days    = array_map(function ($item) {
-            return $item['days'];
-        }, $booking_refund);
-
-        //  Tao khoảng loc để lọc theo ngày mà  khách hủy.
-        $range = $this->filter_range_day($booking_refund_map_days);
-
-
-        // số ngày hủy phòng cách thời điểm checkin
-        $checkin        = Carbon::parse($data_booking->checkin);
-        $date_of_room   = Carbon::now();
-        $day            = $checkin->diffInDays($date_of_room);
-
-
-        //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day =$this->getDay($day, $booking_refund_map_days, $range);
-
-        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
-        $total_refund =  ($data_booking->total_fee * $data_refund->refund)/100;
-
-
-        $booking_update = [
-            'status'        => BookingConstant::BOOKING_CANCEL,
-            'total_refund'  => $total_refund,
-        ];
-
-        parent::update($id, $booking_update);
-        $data['booking_id'] = $id;
-        return $this->booking_cancel->store($data);
     }
 }

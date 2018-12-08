@@ -10,4 +10,5 @@ namespace App\Repositories\Rooms;
 
 interface RoomRepositoryInterface
 {
+
 }
