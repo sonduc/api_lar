@@ -177,4 +177,9 @@ return [
         \App\Repositories\WishLists\WishListRepositoryInterface::class,
         \App\Repositories\WishLists\WishListRepository::class,
     ],
+
+    /**
+     * BAO-KIM
+     */
+
 ];

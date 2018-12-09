@@ -172,6 +172,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $data;
     }
 
+
     public function getBookingByUuid($uuid)
     {
         return $this->model->where('uuid', $uuid)->first();

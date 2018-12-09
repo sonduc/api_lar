@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ApiCustomer;
 
+use App\BaoKim\BaoKimPayment;
+use App\BaoKim\BaoKimPaymentPro;
 use App\Events\BookingConfirmEvent;
 use App\Events\BookingEvent;
 use App\Events\ConfirmBookingTime;
@@ -10,6 +12,7 @@ use App\Http\Transformers\Customer\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
+use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Bookings\PresentationTrait;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
@@ -124,6 +127,9 @@ class BookingController extends ApiController
     protected $browser;
     protected $room;
     protected $user;
+    protected $bookingRepository;
+    protected $baokim;
+    protected $baokimpro;
 
     /**
      * BookingController constructor.
@@ -132,11 +138,22 @@ class BookingController extends ApiController
      * @param RoomRepositoryInterface|RoomRepository $room
      * @param UserRepositoryInterface|UserRepository $user
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room, UserRepositoryInterface $user)
+    public function __construct(
+        BookingLogic $booking, RoomRepositoryInterface $room,
+        UserRepositoryInterface $user,
+        BookingRepositoryInterface $bookingRepository,
+        BaoKimPayment $baokim,
+        BaoKimPaymentPro $baokimpro
+
+
+    )
     {
-        $this->model = $booking;
-        $this->room  = $room;
-        $this->user  = $user;
+        $this->model                = $booking;
+        $this->room                 = $room;
+        $this->user                 = $user;
+        $this->bookingRepository    = $bookingRepository;
+        $this->baokim               = $baokim;
+        $this->baokimpro            = $baokimpro;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -438,5 +455,69 @@ class BookingController extends ApiController
         } catch (\Exception $e) {
             throw $e;
         }
+    }
+
+    /**
+     * Payment
+     */
+
+
+    public function payment($uuid)
+    {
+        $booking  = $this->bookingRepository->getBookingByUuid($uuid);
+        $payment_methods = BookingConstant::getAllPaymentMethod();
+        return $this->successResponse(['data' => ['payment_methods' => $payment_methods, 'booking' => $booking]], false);
+    }
+
+    public function storePayment($uuid, Request $request)
+    {
+        $payment_method_id = (int) $request->get('bank_payment_method_id');
+        $payment_method    = (int) $request->get('payment_method');
+        try {
+            $result  = $this->bookingRepository->getBookingByUuid($uuid)->toArray();
+            // cập nhật trạng hình thức thanh toán
+            $result['payment_method'] = $payment_method;
+            $booking = $this->bookingRepository->update($result['id'],$result);
+
+
+            if($booking) {
+                $data     = [
+                    'order_id'         => isset($booking['code']) ? $booking['code'] : null,
+                    'total_amount'     => isset($booking['total_fee']) ? $booking['total_fee'] : 0,
+                    'payer_name'       => isset($booking['name']) ? $booking['name'] : null,
+                    'payer_phone_no'   => isset($booking['phone']) ? $booking['phone'] : 0,
+                ];
+
+
+                // Thanh toán qua Bảo Kim
+//                if ($request['payment_method'] == BookingConstant::BAOKIM) {
+//                    return redirect($this->baokim->createRequestUrl($data));
+//                }
+
+                // Thanh toán bằng thẻ
+                if($booking['payment_method'] == BookingConstant::ATM || $booking['payment_method'] == BookingConstant::VISA) {
+                    $data['bank_payment_method_id'] = (int) $request->get('bank_payment_method_id');
+                    $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
+                    $result                         = $this->baokimpro->pay_by_card($data);
+                    dd($result);
+                    $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
+                    return redirect($baokim_url);
+                }
+
+                activity('booking')->withProperties(['object' => $result->toArray(), 'ip' => \Request::ip()])->log('Tạo booking mới có mã <mark>' . $result->code . '</mark>' . ' với phòng <mark>' . ($result->room ? $result->room->name : '') . '</mark> (từ web)');
+            }
+        } catch (Exception $e) {
+            return redirect()->route('baokim-payment-error', [$uuid]);
+        }
+    }
+
+    /**
+     *
+     */
+    public function bankList(Request $request)
+    {
+        $payment_methods = BookingConstant::getAllPaymentMethod();
+        return $this->successResponse(['data' => ['message' => $payment_methods]], false);
+
     }
 }

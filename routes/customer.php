@@ -53,6 +53,11 @@ $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
  */
 $router->post('/bookings', 'BookingController@store');
 $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
+
+// thanh toan
+$router->get('/thanh-toan/{uuid}', 'BookingController@payment');
+$router->post('/thanh-toan/{uuid}', 'BookingController@storePayment');
+$router->get('/bank-list', 'BookingController@bankList');
 /**
  * Router login, register , reset pass, forget pass
  */
@@ -78,3 +83,9 @@ resource('/coupons', 'CouponController', $router);
  */
 $router->get('promotions/status-list', 'PromotionController@statusList');
 resource('/promotions', 'PromotionController', $router);
+
+/* thanh toan*/
+
+$router->get('payment/success','PaymentController@success');
+$router->get('payment/fail/{code}','PaymentController@fail');
+
