@@ -23,7 +23,7 @@ class PromotionLogic extends BaseLogic
     */
     public function store($data)
     {
-        $data['image'] = rand_name($data['image']);
+        $data['image'] = rand_name();
         $data_promotion = parent::store($data);
         return $data_promotion;
     }
@@ -42,7 +42,7 @@ class PromotionLogic extends BaseLogic
 
     public function update($id, $data, $excepts = [], $only = [])
     {
-        $data['image'] = rand_name($data['image']);
+        $data['image'] = rand_name();
         $data_promotion = parent::update($id, $data);
         return $data_promotion;
     }
