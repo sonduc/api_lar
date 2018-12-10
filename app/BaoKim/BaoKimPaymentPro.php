@@ -2,7 +2,7 @@
 namespace App\BaoKim;
 require_once(__DIR__ . '/constants.php');
 use App\BaoKim\CallRestful;
-
+use Illuminate\Http\Request;
 
 /**
  * Created by PhpStorm.
@@ -53,10 +53,10 @@ class BaoKimPaymentPro{
 	 */
 	public function pay_by_card($data)
 	{
-		$base_url     = "http://" . request()->server('SERVER_NAME');
-		dd($base_url);
-		$url_success  = route('baokim-payment-success');
-		$url_cancel   = route('baokim-payment-error', $data['order_id']);
+		$base_url     = "http://" . $_SERVER['HTTP_HOST'];
+        $url_success = $base_url.'/success';
+        $url_cancel = $base_url.'/cancel';
+
 		$order_id     = isset($data['order_id']) ? $data['order_id'] : time();
 		$total_amount = str_replace('.','',$data['total_amount']);
 
@@ -83,7 +83,6 @@ class BaoKimPaymentPro{
 
 		$call_restfull = new CallRestful();
 		$result = json_decode($call_restfull->call_API("POST", $params, BAOKIM_API_PAY_BY_CARD), true);
-
 		return $result;
 	}
 

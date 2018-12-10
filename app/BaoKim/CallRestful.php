@@ -24,6 +24,7 @@ class CallRestful
 		$arrayGet    = array();
 
 		ksort($data);
+
 		if ($method == 'GET') {
 			$arrayGet = $data;
 		} else {

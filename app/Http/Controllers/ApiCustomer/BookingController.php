@@ -499,15 +499,16 @@ class BookingController extends ApiController
                     $data['bank_payment_method_id'] = (int) $request->get('bank_payment_method_id');
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
-                    dd($result);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
+                    dd($baokim_url);
                     return redirect($baokim_url);
                 }
 
-                activity('booking')->withProperties(['object' => $result->toArray(), 'ip' => \Request::ip()])->log('Tạo booking mới có mã <mark>' . $result->code . '</mark>' . ' với phòng <mark>' . ($result->room ? $result->room->name : '') . '</mark> (từ web)');
+                //activity('booking')->withProperties(['object' => $result->toArray(), 'ip' => \Request::ip()])->log('Tạo booking mới có mã <mark>' . $result->code . '</mark>' . ' với phòng <mark>' . ($result->room ? $result->room->name : '') . '</mark> (từ web)');
             }
         } catch (Exception $e) {
-            return redirect()->route('baokim-payment-error', [$uuid]);
+            dd($e);
+           // return redirect()->route('baokim-payment-error', [$uuid]);
         }
     }
 
