@@ -37,13 +37,6 @@ class BookingLogic extends BaseLogic
     use RoomLogicTrait, BookingLogicTrait, CouponLogicTrait;
     protected $status;
     protected $payment;
-    protected $user;
-    protected $room;
-    protected $op;
-    protected $booking;
-    protected $roomTimeBlock;
-    protected $booking_cancel;
-    protected $cp;
 
     /**
      * BookingLogic constructor.
@@ -56,7 +49,6 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     * @param BookingRefundRepositoryInterface|BookingRefundRepository         $booking_refund
      * @param CouponRepositoryInterface|CouponRepository                       $cp
      */
     public function __construct(
