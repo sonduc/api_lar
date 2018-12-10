@@ -160,7 +160,7 @@ class BookingController extends ApiController
         return $this->successResponse($data);
     }
 
-    
+
     /**
      * Tính giá tiền cho phòng
      * @author HarikiRito <nxh0809@gmail.com>
@@ -170,7 +170,7 @@ class BookingController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    
+
     public function priceCalculator(Request $request)
     {
         DB::enableQueryLog();
@@ -233,8 +233,8 @@ class BookingController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
 
-            event(new Check_Usable_Coupon_Event($data['coupon']));
-            event(new BookingEvent($data));
+//            event(new Check_Usable_Coupon_Event($data['coupon']));
+//            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {

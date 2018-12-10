@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Response;
 
+use App\Helpers\ResponseCode;
 use App\Http\Transformers\OptimusPrime;
 
 trait ResponseHandler
@@ -11,7 +12,7 @@ trait ResponseHandler
     public function deleteResponse()
     {
         $response = [
-            'code'    => 200,
+            'code'    => ResponseCode::OK,
             'status'  => 'success',
             'data'    => [],
             'message' => 'Resource Deleted',
@@ -22,7 +23,7 @@ trait ResponseHandler
     public function errorResponse($data)
     {
         $response = [
-            'code'    => 422,
+            'code'    => ResponseCode::UNPROCESSABLE_ENTITY,
             'status'  => 'error',
             'data'    => $data,
             'message' => 'Unprocessable Entity',
@@ -48,13 +49,13 @@ trait ResponseHandler
 
         if ($transform) {
             $response = array_merge([
-                'code'   => 200,
+                'code'   => ResponseCode::OK,
                 'status' => 'success',
             ], $this->transform($data, $include));
             return response()->json($response, $response['code']);
         } else {
             $response = array_merge([
-                'code'   => 200,
+                'code'   => ResponseCode::OK,
                 'status' => 'success',
             ], $data);
             return response()->json($response, 200);
@@ -76,7 +77,7 @@ trait ResponseHandler
     protected function notFoundResponse()
     {
         $response = [
-            'code'    => 404,
+            'code'    => ResponseCode::NOT_FOUND,
             'status'  => 'error',
             'data'    => 'Resource Not Found',
             'message' => 'Not Found',
@@ -87,7 +88,7 @@ trait ResponseHandler
     protected function notSupportedMediaResponse($data)
     {
         $response = [
-            'code'    => 415,
+            'code'    => ResponseCode::UNSUPPORTED_MEDIA_TYPE,
             'status'  => 'error',
             'data'    => $data,
             'message' => 'Unsupported Media Type',

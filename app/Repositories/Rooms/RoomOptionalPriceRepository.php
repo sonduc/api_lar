@@ -7,8 +7,7 @@ use App\Repositories\BaseRepository;
 class RoomOptionalPriceRepository extends BaseRepository implements RoomOptionalPriceRepositoryInterface
 {
     /**
-     * RoomOptionalPrice model.
-     * @var Model
+     * @var RoomOptionalPrice
      */
     protected $model;
 
@@ -71,22 +70,20 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
     }
 
     /**
-     * Thêm giá theo các ngày trong tuần cho phòng
+     *
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param       $room
      * @param array $data
-     * @param array $list
      *
      * @return array
      */
-    public function storeRoomOptionalWeekdayPrice($room, $data = [], $list = [])
+    public function storeRoomOptionalWeekdayPrice($room, $data = []): array
     {
-        foreach ($data['weekday_price'] as $obj) {
-            $obj['room_id'] = $room->id;
-            $list[]         = $obj;
-        }
-        return $list;
+        return array_map(function ($item) use ($room) {
+            $item['room_id'] = $room->id;
+            return $item;
+        }, $data['weekday_price']);
     }
 
     /**
@@ -102,13 +99,18 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
     public function storeRoomOptionalDayPrice($room, $data = [], $list = [])
     {
         $price_day        =
-            array_key_exists('price_day', $data['optional_prices']) ? $data['optional_prices']['price_day'] : 0;
+            array_key_exists('price_day',
+                $data['optional_prices']
+            ) ? $data['optional_prices']['price_day'] : 0;
         $price_hour       =
-            array_key_exists('price_hour', $data['optional_prices']) ? $data['optional_prices']['price_hour'] : 0;
+            array_key_exists(
+                'price_hour',
+                $data['optional_prices']
+            ) ? $data['optional_prices']['price_hour'] : 0;
         $price_after_hour =
             array_key_exists(
                 'price_after_hour',
-                             $data['optional_prices']
+                $data['optional_prices']
             ) ? $data['optional_prices']['price_after_hour'] : 0;
 
         foreach ($data['optional_prices']['days'] as $day) {
@@ -124,16 +126,34 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
         return $list;
     }
 
+    /**
+     * Lấy giá phòng tùy chọn theo mã phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     *
+     * @return mixed
+     */
     public function getOptionalPriceByRoomId($id)
     {
         return $this->model->where('room_id', $id)->get();
     }
 
+    /**
+     * Lấy giá theo ngày
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     * @param $day
+     *
+     * @return array
+     */
     public function getPriceByDay($id, $day)
     {
-        $room               = $this->model->where('room_id', $id)->where("status", 1)->get();
+        $room = $this->model->where('room_id', $id)->where('status', Room::AVAILABLE)->get();
+
         foreach ($room as $key => $value) {
-            if ($value->weekday === $day["weekday"] || $value->day === $day["day"]) {
+            if ($value->weekday === $day['weekday'] || $value->day === $day['day']) {
                 return $value;
             }
         }

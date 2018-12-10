@@ -91,14 +91,14 @@ function resource($uri, $controller, Laravel\Lumen\Routing\Router $router)
     $router->delete($uri . '/{id}', $controller . '@destroy');
 }
 
-function arrayToObject($arr = []): array
+function arrayToObject(array $arr = []): array
 {
     $array_value = [];
     foreach ($arr as $key => $item) {
         $array_value[] = [
-                'id'    => $key,
-                'name'  => $item,
-            ];
+            'id'   => $key,
+            'name' => $item,
+        ];
     }
 
     return $array_value;
@@ -108,22 +108,23 @@ function arrayToObject($arr = []): array
  * Lấy ra khoảng cách giữa 2 điểm dựa vào kinh độ và vĩ độ
  * @author tuananh1402 <tuananhpham1402@gmail.com>
  * @date   2017-07-17
- * @param  int                       $lat_1        First place latitude
- * @param  int                       $lat_2        Second place latitude
- * @param  int                       $long_1        First place longitude
- * @param  int                       $long_2        Second place longitude
+ *
+ * @param  int $lat_1  First place latitude
+ * @param  int $lat_2  Second place latitude
+ * @param  int $long_1 First place longitude
+ * @param  int $long_2 Second place longitude
  */
 function getDistance($lat_1, $long_1, $lat_2, $long_2)
 {
-    $theta      = $long_1 - $long_2;
-    $miles      = rad2deg(acos((sin(deg2rad($lat_1)) * sin(deg2rad($lat_2))) + (cos(deg2rad($lat_1)) * cos(deg2rad($lat_2)) * cos(deg2rad($theta)))));
+    $theta = $long_1 - $long_2;
+    $miles = rad2deg(acos((sin(deg2rad($lat_1)) * sin(deg2rad($lat_2))) + (cos(deg2rad($lat_1)) * cos(deg2rad($lat_2)) * cos(deg2rad($theta)))));
 
     $kilometers = $miles * 1.609344;
     $meters     = $kilometers * 1000;
     $distance   = [
-        "miles"         => $miles,
-        "kilometers"    => $kilometers,
-        "meters"        => $meters
+        "miles"      => $miles,
+        "kilometers" => $kilometers,
+        "meters"     => $meters,
     ];
 
     return $distance;

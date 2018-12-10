@@ -3,6 +3,7 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
 class RoomTranslateRepository extends BaseRepository implements RoomTranslateRepositoryInterface
 {
@@ -69,10 +70,12 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
     }
 
     /**
-     * Lấy tên phòng theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
      *
-     * @param $room
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $idRooms
+     *
+     * @return array
      */
     public function getRoomByListId($idRooms)
     {
@@ -91,23 +94,21 @@ class RoomTranslateRepository extends BaseRepository implements RoomTranslateRep
 
     /**
      * Lấy tên phòng theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $room
+     * @param $idRooms
+     *
+     * @return array
      */
-    public function getRoomByListIdIndex($idRooms)
+    public function getRoomByListIdIndex(array $idRooms): array
     {
+        /** @var Collection $getVal */
         $getVal = $this->model->whereIn('room_id', $idRooms)->where('lang', 'vi')->get(['room_id', 'name']);
-        $arrRoom = [];
-        foreach ($getVal as $key => $value) {
-            $valueRoom = [
-                "id" => $value->room_id,
-                "name" => $value->name,
-                // $value->room_id => $value->name
+        return $getVal->map(function ($value) {
+            return [
+                'id' => $value->room_id,
+                'name' => $value->name,
             ];
-            array_push($arrRoom, $valueRoom);
-        }
-        // dd($arrRoom);
-        return $arrRoom;
+        })->toArray();
     }
 }

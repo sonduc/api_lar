@@ -28,7 +28,8 @@ abstract class BaseLogic
      * @param int   $size
      * @param int   $trash
      *
-     * @return Illuminate\Pagination\Paginator
+     * @return mixed
+     * @throws \ReflectionException
      */
     public function getByQuery($params = [], $size = 25, $trash = BaseRepository::NO_TRASH)
     {

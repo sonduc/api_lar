@@ -5,6 +5,7 @@ namespace App\Repositories\Users;
 use App\Repositories\BaseRepository;
 use App\User;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
@@ -46,9 +47,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function update($id, $data, $except = [], $only = [])
     {
-        $user   = parent::update($id, $data);
+        $user = parent::update($id, $data);
 
-        $roles  = array_get($data, 'roles', []);
+        $roles = array_get($data, 'roles', []);
         $user->roles()->detach();
         $user->roles()->attach($roles);
         return $user;
@@ -59,10 +60,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * Cập nhập thông tin cho customer
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param int $id
-     * @param $data
+     * @param int   $id
+     * @param       $data
      * @param array $except
      * @param array $only
+     *
      * @return \App\Repositories\Eloquent
      */
     public function updateInfoCustomer($id, $data, $except = [], $only = [])
@@ -70,7 +72,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         $data = array_only($data, $only);
 
         if (isset($data['subcribe']) && empty($data['subcribe'])) {
-            $data['subcribe'] =1;
+            $data['subcribe'] = 1;
         }
 
         if (isset($data['settings'])) {
@@ -85,19 +87,20 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *  Cập nhập settings cho customer
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param $id
-     * @param $data
+     * @param       $id
+     * @param       $data
      * @param array $except
      * @param array $only
      * @param array $list
+     *
      * @return \App\Repositories\Eloquent
      */
-    public function updateSettingCustomer($id, $data, $except = [], $only = [], $list= [])
+    public function updateSettingCustomer($id, $data, $except = [], $only = [], $list = [])
     {
         $data = array_only($data, $only);
 
         if (empty($data['subcribe'])) {
-            $data['subcribe'] =1;
+            $data['subcribe'] = 1;
         }
         if (isset($data['settings']) && !empty($data['settings'])) {
             foreach ($data['settings'] as $k => $val) {
@@ -110,7 +113,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
 
         $data['settings'] = json_encode($list);
-        $user = parent::update($id, $data);
+        $user             = parent::update($id, $data);
         return $user;
     }
 
@@ -121,13 +124,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *
      * @param $user
      * @param $request
+     *
      * @throws \Exception
      */
     public function checkValidPassword($user, $request)
     {
         if (!Hash::check($request['old_password'], $user->password)) {
             throw new \Exception('Mật khẩu không chính xác');
-        } elseif ($request['old_password'] === $request['password']) {
+        } else if ($request['old_password'] === $request['password']) {
             throw new \Exception('Mật khẩu không được trùng với mật khẩu cũ');
         }
     }
@@ -186,6 +190,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param array $data
+     *
      * @return mixed
      */
     public function checkEmailOrPhone($data = [])
@@ -195,35 +200,18 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 //        dd($data);
         return $this->model
             ->where([
-                'type_create' => User::BOOKING ,
-                'email' => $email ,
-                'status' => User::DISABLE
+                'type_create' => User::BOOKING,
+                'email'       => $email,
+                'status'      => User::DISABLE,
             ])
             ->orWhere(function ($query) use ($phone) {
                 return $query->where([
-                    'type_create' => User::BOOKING ,
-                    'phone' => $phone ,
-                    'status' => User::DISABLE
+                    'type_create' => User::BOOKING,
+                    'phone'       => $phone,
+                    'status'      => User::DISABLE,
                 ]);
             })
             ->first();
-    }
-
-
-    /**
-     * Lấy thông tin user thông qua uuid or token ;
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $uuid
-     * @return mixed
-     */
-
-    public function getUserByUuidOrToken($data= [])
-    {
-        $uuid = array_key_exists('uuid', $data) ? $data['uuid'] : null;
-        $token = array_key_exists('token', $data) ? $data['token'] : null;
-        $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
-        return $data;
     }
 
     /**
@@ -231,6 +219,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return mixed
      */
     public function checkUserByStatus($data)
@@ -243,6 +232,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return \App\Repositories\Eloquent
      */
 
@@ -250,6 +240,23 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $user = $this->getUserByUuidOrToken($data);
         return parent::update($user->id, $data);
+    }
+
+    /**
+     * Lấy thông tin user thông qua uuid or token ;
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     *
+     * @return mixed
+     */
+
+    public function getUserByUuidOrToken($data = [])
+    {
+        $uuid  = array_key_exists('uuid', $data) ? $data['uuid'] : null;
+        $token = array_key_exists('token', $data) ? $data['token'] : null;
+        $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
+        return $data;
     }
 
     public function getUserOwner($params)
@@ -271,20 +278,27 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         }
         return $query->get();
     }
-    
-    public function getUserByListIdIndex($idUsers, $params)
+
+    /**
+     * Get users by list id
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $idUsers
+     * @param $params
+     *
+     * @return array
+     */
+    public function getUserByListIdIndex($idUsers, $params): array
     {
+        /** @var Collection $getVal */
         $getVal = $this->model->whereIn('id', $idUsers)->where('owner', $params)->get(['id', 'name']);
 
-        $arrMerchants = [];
-        foreach ($getVal as $key => $value) {
-            $valueMerchants = [
-                "id"    => $value->id,
-                "name"  => $value->name
+        return $getVal->map(function ($value) {
+            return [
+                'id'   => $value->id,
+                'name' => $value->name,
             ];
-            array_push($arrMerchants, $valueMerchants);
-        }
-        return $arrMerchants;
+        })->toArray();
     }
 
     /**
@@ -292,14 +306,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return \App\Repositories\Eloquent|mixed
      */
     public function resetPasswordCustomer($data)
     {
         $user = $this->getUserByUuidOrToken($data);
 
-        $data['token'] = Hash::make(str_random(60));
-        $data['status']= User::ENABLE;
+        $data['token']  = Hash::make(str_random(60));
+        $data['status'] = User::ENABLE;
         return parent::update($user->id, $data);
     }
 
@@ -308,6 +323,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @throws \Exception
      */
 
@@ -322,18 +338,18 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     /**
      * Kiểm tra thời gian tồn tại của đường link xác nhận mật khẩu
-   * @author ducchien0612 <ducchien0612@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
      * @param $code
      *
-     * @return int
+     * @throws \Exception
      */
     public function checkTime($code)
     {
         $timeNow    = Carbon::now();
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
-        $minutes    =  $timeNow->diffInMinutes($timeSubmit);
+        $minutes    = $timeNow->diffInMinutes($timeSubmit);
         // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy
         if ($minutes > 1440) {
             throw new \Exception('Đường dẫn không tồn tại ');

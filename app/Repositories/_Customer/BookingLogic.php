@@ -2,17 +2,22 @@
 
 namespace App\Repositories\_Customer;
 
+use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingLogicTrait;
 use App\Repositories\Bookings\BookingMessage;
+use App\Repositories\Bookings\BookingRefundRepository;
 use App\Repositories\Bookings\BookingRefundRepositoryInterface;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Bookings\BookingStatusRepository;
 use App\Repositories\Bookings\BookingStatusRepositoryInterface;
+use App\Repositories\Coupons\CouponLogicTrait;
+use App\Repositories\Coupons\CouponRepository;
+use App\Repositories\Coupons\CouponRepositoryInterface;
 use App\Repositories\Payments\PaymentHistoryRepository;
 use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
 use App\Repositories\Rooms\RoomLogicTrait;
@@ -22,27 +27,19 @@ use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTimeBlockRepository;
 use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use App\Repositories\_Customer\CouponLogic;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Events\Customer_Register_TypeBooking_Event;
 use Illuminate\Support\Facades\Hash;
 
 class BookingLogic extends BaseLogic
 {
-    use RoomLogicTrait, BookingLogicTrait;
+    use RoomLogicTrait, BookingLogicTrait, CouponLogicTrait;
     protected $status;
     protected $payment;
-    protected $user;
-    protected $room;
-    protected $op;
-    protected $booking;
-    protected $roomTimeBlock;
-    protected $booking_cancel;
     protected $booking_refund;
-    protected $cp;
 
     /**
      * BookingLogic constructor.
@@ -55,7 +52,8 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     * @param CouponLogic                                                      $cp
+     * @param BookingRefundRepositoryInterface|BookingRefundRepository         $booking_refund
+     * @param CouponRepositoryInterface|CouponRepository                       $cp
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -67,8 +65,9 @@ class BookingLogic extends BaseLogic
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
         BookingRefundRepositoryInterface $booking_refund,
-        CouponLogic $cp
-    ) {
+        CouponRepositoryInterface $cp
+    )
+    {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -92,16 +91,17 @@ class BookingLogic extends BaseLogic
      */
     public function store($data = [])
     {
-        $room = $this->room->getById($data['room_id']);
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-        $data['customer_id'] = Auth::check()? Auth::user()->id : $this->checkUserExist($data);
+        $room                = $this->room->getById($data['room_id']);
+        $data                = $this->priceCalculator($room, $data);
+        $data                = $this->dateToTimestamp($data);
+        $data                = $this->addPriceRange($data);
+        $data['customer_id'] = Auth::check() ? Auth::user()->id : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
         $data_booking        = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
         $this->booking_refund->storeBookingRefund($data_booking, $room);
+        dd($data_booking);
         return $data_booking;
     }
 
@@ -124,17 +124,15 @@ class BookingLogic extends BaseLogic
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
             // Cập nhâp token  cho user vừa tạo
-            $data['token']    = Hash::make(str_random(60));
+            $data['token']       = Hash::make(str_random(60));
             $data['type_create'] = User::BOOKING;
-            $user             = $this->user->store($data);
+            $user                = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;
         }
 
         return $user->id;
     }
-
-
 
 
     /**
@@ -170,6 +168,14 @@ class BookingLogic extends BaseLogic
     }
 
 
+    /**
+     * Check booking status by uuid
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $uuid
+     *
+     * @return mixed
+     */
     public function checkBookingStatus($uuid)
     {
         return $this->model->getBookingByUuid($uuid)->status;
@@ -194,11 +200,11 @@ class BookingLogic extends BaseLogic
 
 
     /**
-     *  Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
-     * @author ducchien0612 <ducchien0612@gmail.com>
+     * Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $booking
-     * @param $request
+     * @param $id
+     *
      * @throws \Exception
      */
     public function checkValidBookingCancel($id)
@@ -207,7 +213,8 @@ class BookingLogic extends BaseLogic
             throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
         }
 
-        $booking=$this->model->getById($id);
+        $booking = $this->model->getById($id);
+
         if (Auth::user()->id != $booking->customer_id) {
             throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
         }
@@ -215,11 +222,12 @@ class BookingLogic extends BaseLogic
 
 
     /**
-     * Hủy bookiing cho customer
+     * Hủy booking cho customer
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      * @param $data
+     *
      * @return \App\Repositories\Eloquent
      * @throws \Exception
      */
@@ -239,22 +247,22 @@ class BookingLogic extends BaseLogic
             //     'status'        => BookingConstant::BOOKING_CANCEL,
             //     'total_refund'  => $total_refund,
             // ];
-            $total_refund =  ($data_booking->total_fee * 0)/100;
+            $total_refund = ($data_booking->total_fee * 0) / 100;
 
             // Chỉ có booking có trạng thái là đơn mới thì mới có quyền hủy
             if ($data_booking->status == BookingConstant::BOOKING_NEW) {
-                $booking_update = [
-                    'status'        => BookingConstant::BOOKING_CANCEL,
-                    'total_refund'  => $total_refund,
+                $booking_update     = [
+                    'status'       => BookingConstant::BOOKING_CANCEL,
+                    'total_refund' => $total_refund,
                 ];
-                parent::update($id, $booking_update);
                 $data['booking_id'] = $id;
+                parent::update($id, $booking_update);
                 return $this->booking_cancel->store($data);
             }
             throw new \Exception('Bạn không thể hủy booking này');
         }
 
-        $booking_refund_map_days    = array_map(function ($item) {
+        $booking_refund_map_days = array_map(function ($item) {
             return $item['days'];
         }, $booking_refund);
 
@@ -262,21 +270,21 @@ class BookingLogic extends BaseLogic
         $range = $this->filter_range_day($booking_refund_map_days);
 
         // số ngày hủy phòng cách thời điểm checkin
-        $checkin        = Carbon::parse($data_booking->checkin);
-        $date_of_room   = Carbon::now();
-        $day            = $checkin->diffInDays($date_of_room);
+        $checkin      = Carbon::parse($data_booking->checkin);
+        $date_of_room = Carbon::now();
+        $day          = $checkin->diffInDays($date_of_room);
 
 
         //  Xuất ra mốc ngày hủy.từ số ngày hủy phòng cách thời điểm checkin
-        $day            = $this->getDay($day, $booking_refund_map_days, $range);
+        $day = $this->getDay($day, $booking_refund_map_days, $range);
 
-        $data_refund    = $this->booking_refund->getRefund($data_booking->id, $day);
-        $total_refund   = ($data_booking->total_fee * $data_refund->refund)/100;
+        $data_refund  = $this->booking_refund->getRefund($data_booking->id, $day);
+        $total_refund = ($data_booking->total_fee * $data_refund->refund) / 100;
 
         if ($data_booking->status == BookingConstant::BOOKING_NEW) {
             $booking_update = [
-                'status' => BookingConstant::BOOKING_CANCEL,
-                'total_refund'  => $total_refund,
+                'status'       => BookingConstant::BOOKING_CANCEL,
+                'total_refund' => $total_refund,
             ];
             parent::update($id, $booking_update);
             $data['booking_id'] = $id;

@@ -3,6 +3,7 @@
 namespace App\Repositories\Cities;
 
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
 class CityRepository extends BaseRepository implements CityRepositoryInterface
 {
@@ -24,17 +25,19 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
 
     /**
      * Lấy tên thành phố theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $room
+     * @param $idCities
+     *
+     * @return array
      */
     public function getCityByListId($idCities)
     {
-        $arrCity =[];
+        $arrCity = [];
         foreach ($idCities as $k => $idCity) {
-            $getVal = $this->model->find($idCity);
+            $getVal    = $this->model->find($idCity);
             $valueCity = [
-                "id" => $getVal->id,
+                "id"   => $getVal->id,
                 "name" => $getVal->name,
             ];
             array_push($arrCity, $valueCity);
@@ -42,25 +45,25 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
         return $arrCity;
         // return $this->model->where('room_id', $id)->where('lang', 'vi')->first();
     }
-    
+
     /**
-     * Lấy tên phòng theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
+     * Lấy thành phố theo id(mảng id)
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $idCity
+     * @param $idCities
+     *
+     * @return array
      */
     public function getCityByListIdIndex($idCities)
     {
-        $getVal = $this->model->whereIn('id', $idCities)->get(['id','name']);
-        $arrCity = [];
-        foreach ($getVal as $key => $value) {
-            $valueCity = [
-                "id" => $value->id,
-                "name" => $value->name,
-            ];
-            array_push($arrCity, $valueCity);
-        }
+        /** @var Collection $getVal */
+        $getVal = $this->model->whereIn('id', $idCities)->get(['id', 'name']);
 
-        return $arrCity;
+        return $getVal->map(function ($value) {
+            return [
+                'id'   => $value->id,
+                'name' => $value->name,
+            ];
+        })->toArray();
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repositories\Districts;
 
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Collection;
 
 class DistrictRepository extends BaseRepository implements DistrictRepositoryInterface
 {
@@ -24,9 +25,11 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
 
     /**
      * Lấy tên quận huyện theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $room
+     * @param $idDistricts
+     *
+     * @return array
      */
     public function getDistrictByListId($idDistricts)
     {
@@ -37,29 +40,30 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
                 "id" => $getVal->id,
                 "name" => $getVal->name,
             ];
-            array_push($arrDistrict, $valueDistrict);
+            $arrDistrict[] = $valueDistrict;
         }
         return $arrDistrict;
     }
-    
-    /**
-     * Lấy tên phòng theo id(mảng id)
-     * @author sonduc <ndson1998@gmail.com>
-     *
-     * @param $idCity
-     */
-    public function getDistrictByListIdIndex($idDistricts)
-    {
-        $getVal = $this->model->whereIn('id', $idDistricts)->get(['id','name']);
-        $arrDistrict = [];
-        foreach ($getVal as $key => $value) {
-            $valueDistrict = [
-                "id" => $value->id,
-                "name" => $value->name,
-            ];
-            array_push($arrDistrict, $valueDistrict);
-        }
 
-        return $arrDistrict;
+    /**
+     * Lấy districts theo id(mảng id)
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $idDistricts
+     *
+     * @return array
+     */
+    public function getDistrictByListIdIndex(array $idDistricts): array
+    {
+        /** @var Collection $getVal */
+        $getVal = $this->model->whereIn('id', $idDistricts)->get(['id','name']);
+
+        return $getVal->map(function ($item) {
+          return [
+              'id' => $item->id,
+              'name' => $item->name
+          ];
+        })->toArray();
+
     }
 }
