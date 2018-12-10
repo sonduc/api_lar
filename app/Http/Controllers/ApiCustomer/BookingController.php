@@ -479,7 +479,6 @@ class BookingController extends ApiController
             $result['payment_method'] = $payment_method;
             $booking = $this->bookingRepository->update($result['id'],$result);
 
-
             if($booking) {
                 $data     = [
                     'order_id'         => isset($booking['code']) ? $booking['code'] : null,
@@ -490,9 +489,9 @@ class BookingController extends ApiController
 
 
                 // Thanh toán qua Bảo Kim
-//                if ($request['payment_method'] == BookingConstant::BAOKIM) {
-//                    return redirect($this->baokim->createRequestUrl($data));
-//                }
+                if ($request['payment_method'] == BookingConstant::BAOKIM) {
+                    return redirect($this->baokim->createRequestUrl($data));
+                }
 
                 // Thanh toán bằng thẻ
                 if($booking['payment_method'] == BookingConstant::ATM || $booking['payment_method'] == BookingConstant::VISA) {

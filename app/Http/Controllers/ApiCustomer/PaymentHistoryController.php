@@ -47,15 +47,14 @@ class PaymentHistoryController extends ApiController
             if (empty($transaction)) {
                 return $this->cancel($request['order_id']);
             }
-            if ($request['transaction_status'] == '' || $request['transaction_status'] == 13) {
+            if ($request['transaction_status'] == 4 || $request['transaction_status'] == 13) {
                 // Lấy thông tin booking theo mã code nhận được từ bảo kim trả về
                 $booking = $this->booking->getBookingByCode($request['order_id']);
                 $payment_history = [
-                    //  'money_received' => $request['total_amount'],
-                    //  'payment_type'   => BookingConstant::PAY_IN,
-                    'note'           => $booking->payment_method == BookingConstant::PAID ? 'Xác nhận đã thanh toán booking mã: '. $request['order_id'] . 'từ Bảo Kim' : 'Thanh toán booking: ' . $request['order_id'] . 'qua ATM nội địa',
-                    'confirm'        => BookingConstant::CONFIRM,
-                    'status'         => BookingConstant::FULLY_PAID,
+                     'money_received' => $request['total_amount'],
+                     'note'           => $booking->payment_method == BookingConstant::PAID ? 'Xác nhận đã thanh toán booking mã: '. $request['order_id'] . 'từ Bảo Kim' : 'Thanh toán booking: ' . $request['order_id'] . 'qua ATM nội địa',
+                     'confirm'        => BookingConstant::CONFIRM,
+                     'status'         => BookingConstant::FULLY_PAID,
                 ];
 
                 $data    = $this->model->storePaymentHistory($booking, $payment_history);
@@ -63,7 +62,7 @@ class PaymentHistoryController extends ApiController
 
                 DB::commit();
 
-                event(new BookingEvent($data));
+               // event(new BookingEvent($data));
 
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             } else {
