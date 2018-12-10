@@ -54,8 +54,8 @@ class BaoKimPaymentPro{
 	public function pay_by_card($data)
 	{
 		$base_url     = "http://" . $_SERVER['HTTP_HOST'];
-        $url_success = $base_url.'/success';
-        $url_cancel = $base_url.'/cancel';
+        $url_success = $base_url.'/customer-api/success';
+        $url_cancel = $base_url.'/customer-api/cancel'.$data['order_id'];
 
 		$order_id     = isset($data['order_id']) ? $data['order_id'] : time();
 		$total_amount = str_replace('.','',$data['total_amount']);

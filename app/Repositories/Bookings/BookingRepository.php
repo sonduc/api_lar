@@ -173,9 +173,28 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @return mixed
+     */
     public function getBookingByUuid($uuid)
     {
         return $this->model->where('uuid', $uuid)->first();
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $code
+     * @return mixed
+     */
+    public function getBookingByCode($code)
+    {
+        return $this->model->where('code', $code)->first();
     }
 
     /**

@@ -6,7 +6,7 @@ use App\Http\Transformers\PaymentHistoryTransformer;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Payments\PaymentHistoryRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 class PaymentHistoryController extends ApiController
@@ -118,6 +118,6 @@ class PaymentHistoryController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
-
     }
+
 }

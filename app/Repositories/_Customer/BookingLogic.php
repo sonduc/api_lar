@@ -97,8 +97,6 @@ class BookingLogic extends BaseLogic
         $data['settings']    = $room->settings;
         $data_booking        = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
-        $this->payment->storePaymentHistory($data_booking, $data);
-
         return $data_booking;
     }
 
