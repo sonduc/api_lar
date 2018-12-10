@@ -2,6 +2,7 @@
 
 namespace App\Repositories\_Customer;
 
+use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
@@ -12,6 +13,9 @@ use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Bookings\BookingStatusRepository;
 use App\Repositories\Bookings\BookingStatusRepositoryInterface;
+use App\Repositories\Coupons\CouponLogicTrait;
+use App\Repositories\Coupons\CouponRepository;
+use App\Repositories\Coupons\CouponRepositoryInterface;
 use App\Repositories\Payments\PaymentHistoryRepository;
 use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
 use App\Repositories\Rooms\RoomLogicTrait;
@@ -21,17 +25,16 @@ use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTimeBlockRepository;
 use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
+use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-use App\Repositories\_Customer\CouponLogic;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-use App\Events\Customer_Register_TypeBooking_Event;
 use Illuminate\Support\Facades\Hash;
 
 class BookingLogic extends BaseLogic
 {
-    use RoomLogicTrait, BookingLogicTrait;
+    use RoomLogicTrait, BookingLogicTrait, CouponLogicTrait;
     protected $status;
     protected $payment;
     protected $user;
@@ -53,7 +56,8 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     * @param CouponLogic                                                      $cp
+     * @param BookingRefundRepositoryInterface|BookingRefundRepository         $booking_refund
+     * @param CouponRepositoryInterface|CouponRepository                       $cp
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -64,8 +68,9 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
-        CouponLogic $cp
-    ) {
+        CouponRepositoryInterface $cp
+    )
+    {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -88,11 +93,11 @@ class BookingLogic extends BaseLogic
      */
     public function store($data = [])
     {
-        $room = $this->room->getById($data['room_id']);
-        $data = $this->priceCalculator($room, $data);
-        $data = $this->dateToTimestamp($data);
-        $data = $this->addPriceRange($data);
-        $data['customer_id'] = Auth::check()? Auth::user()->id : $this->checkUserExist($data);
+        $room                = $this->room->getById($data['room_id']);
+        $data                = $this->priceCalculator($room, $data);
+        $data                = $this->dateToTimestamp($data);
+        $data                = $this->addPriceRange($data);
+        $data['customer_id'] = Auth::check() ? Auth::user()->id : $this->checkUserExist($data);
         $data['merchant_id'] = $room->merchant_id;
         $data['settings']    = $room->settings;
         $data_booking        = parent::store($data);
@@ -121,17 +126,15 @@ class BookingLogic extends BaseLogic
             $data['owner']    = User::NOT_OWNER;
             $data['status']   = User::DISABLE;
             // Cập nhâp token  cho user vừa tạo
-            $data['token']    = Hash::make(str_random(60));
+            $data['token']       = Hash::make(str_random(60));
             $data['type_create'] = User::BOOKING;
-            $user             = $this->user->store($data);
+            $user                = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;
         }
 
         return $user->id;
     }
-
-
 
 
     /**
@@ -167,6 +170,14 @@ class BookingLogic extends BaseLogic
     }
 
 
+    /**
+     * Check booking status by uuid
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $uuid
+     *
+     * @return mixed
+     */
     public function checkBookingStatus($uuid)
     {
         return $this->model->getBookingByUuid($uuid)->status;
@@ -191,11 +202,11 @@ class BookingLogic extends BaseLogic
 
 
     /**
-     *  Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
-     * @author ducchien0612 <ducchien0612@gmail.com>
+     * Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @param $booking
-     * @param $request
+     * @param $id
+     *
      * @throws \Exception
      */
     public function checkValidBookingCancel($id)
@@ -204,7 +215,8 @@ class BookingLogic extends BaseLogic
             throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
         }
 
-        $booking=$this->model->getById($id);
+        $booking = $this->model->getById($id);
+
         if (Auth::user()->id != $booking->customer_id) {
             throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
         }

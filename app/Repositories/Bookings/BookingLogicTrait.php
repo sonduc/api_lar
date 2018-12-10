@@ -9,15 +9,16 @@
 namespace App\Repositories\Bookings;
 
 use App\Repositories\Rooms\RoomOptionalPrice;
+use App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
-use Carbon\Exceptions\InvalidDateException;
 use Carbon\CarbonPeriod;
-use function Couchbase\defaultDecoder;
+use Carbon\Exceptions\InvalidDateException;
 
 trait BookingLogicTrait
 {
     protected $cp;
+    /** @var RoomOptionalPriceRepositoryInterface $op */
     protected $op;
     protected $room;
     protected $user;
@@ -38,6 +39,7 @@ trait BookingLogicTrait
         $checkin              = Carbon::parse($data['checkin']);
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
+
         // dd($room_optional_prices);
         // Tính tiền dựa theo kiểu booking
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
@@ -52,7 +54,7 @@ trait BookingLogicTrait
                 ?? 0;
             if ($money == 0) {
                 $money =
-                $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+                    $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
             }
         } else {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
@@ -74,83 +76,26 @@ trait BookingLogicTrait
             $money += $additional_guest * $room->price_charge_guest;
         }
 
-        $data['price_original']  = $money;
-        $data['service_fee']     = $room->cleaning_fee;
+        $data['price_original'] = $money;
+        $data['service_fee']    = $room->cleaning_fee;
         if (!empty($data['coupon'])) {
-            $coupon                  = $this->cp->getCouponByCode($data['coupon']);
-            $data['city_id']         = $room->city_id;
-            $data['district_id']     = $room->district_id;
-            $coupon_discount         = $this->cp->checkSettingDiscount($coupon, $data);
+            $coupon              = $this->cp->getCouponByCode($data['coupon']);
+            $data['city_id']     = $room->city_id;
+            $data['district_id'] = $room->district_id;
+            $coupon_discount     = $this->checkSettingDiscount($coupon, $data);
 
             $data['coupon_discount'] = $coupon_discount['price_discount'];
         }
 
         $price = $money
-            + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
-            + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
-            - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
-            - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
+                 + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
+                 + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
+                 - (array_key_exists('coupon_discount', $data) ? $data['coupon_discount'] : 0)
+                 - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
 
         return $data;
-    }
-
-    /**
-     * Kiểm tra validate của các trường khi booking
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param       $room
-     * @param array $data
-     */
-    protected function checkValidBookingTime($room, $data = [])
-    {
-        $checkin    = Carbon::parse($data['checkin']);
-        $checkout   = Carbon::parse($data['checkout']);
-
-        $hours      = $checkout->copy()->ceilHours()->diffInHours($checkin);
-        $dayCI      = $checkin->copy()->toDateString();
-        $dayCO      = $checkout->copy()->toDateString();
-
-        // Trả về lỗi nếu đặt theo giờ nhưng ngày không giống nhau
-        if ($dayCI !== $dayCO
-            && $data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR
-        ) {
-            throw new InvalidDateException('validate-hour', trans2(BookingMessage::ERR_BOOKING_HOUR_INVALID));
-        }
-
-        // Trả về lỗi nếu đặt theo kiểu ngày nhưng lại trừng ngày
-        if ($dayCI === $dayCO && $data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
-            throw new InvalidDateException('validate-hour', trans2(BookingMessage::ERR_BOOKING_INVALID_DAY));
-        }
-
-        // Khoảng thời gian đặt phòng phải tối thiểu là TIME_BLOCK
-        if ($hours < BookingConstant::TIME_BLOCK) {
-            throw new InvalidDateException('time-too-short', trans2(BookingMessage::ERR_SHORTER_THAN_TIMEBLOCK));
-        }
-
-        // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
-
-        $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
-
-        $minCI = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
-
-        if ($checkin->between($minCI, $roomCI, false)) {
-            throw new InvalidDateException('booking-between', trans2(BookingMessage::ERR_TIME_BETWEEN_BOOK));
-        }
-
-        // Trả về lỗi nếu thời gian đặt bị trùng với các ngày đã có booking hoặc bị khóa
-        $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
-        $period           = CarbonPeriod::between($checkin, $checkout);
-        $days             = [];
-
-        foreach ($period as $item) {
-            $days[] = $item->format('Y-m-d');
-        }
-
-        if (count(array_intersect($blocked_schedule, $days))) {
-            throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
-        }
     }
 
     /**
@@ -232,7 +177,7 @@ trait BookingLogicTrait
                     }
                 }
                 // dd($money);
-            } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
@@ -259,7 +204,6 @@ trait BookingLogicTrait
 
         return $data;
     }
-
 
     /**
      * Thêm khoảng giá
@@ -394,5 +338,86 @@ trait BookingLogicTrait
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
 
+    }
+
+    /**
+     * Kiểm tra validate của các trường khi booking
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     */
+    protected function checkValidBookingTime($room, $data = [])
+    {
+        $checkin  = Carbon::parse($data['checkin']);
+        $checkout = Carbon::parse($data['checkout']);
+
+        $hours = $checkout->copy()->ceilHours()->diffInHours($checkin);
+        $dayCI = $checkin->copy()->toDateString();
+        $dayCO = $checkout->copy()->toDateString();
+
+        // Trả về lỗi nếu đặt theo giờ nhưng ngày không giống nhau
+        if ($dayCI !== $dayCO
+            && $data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR
+        ) {
+            throw new InvalidDateException('validate-hour', trans2(BookingMessage::ERR_BOOKING_HOUR_INVALID));
+        }
+
+        // Trả về lỗi nếu đặt theo kiểu ngày nhưng lại trừng ngày
+        if ($dayCI === $dayCO && $data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
+            throw new InvalidDateException('validate-hour', trans2(BookingMessage::ERR_BOOKING_INVALID_DAY));
+        }
+
+        // Khoảng thời gian đặt phòng phải tối thiểu là TIME_BLOCK
+        if ($hours < BookingConstant::TIME_BLOCK) {
+            throw new InvalidDateException('time-too-short', trans2(BookingMessage::ERR_SHORTER_THAN_TIMEBLOCK));
+        }
+
+        // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
+
+        $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
+
+        $minCI = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
+
+        if ($checkin->between($minCI, $roomCI, false)) {
+            throw new InvalidDateException('booking-between', trans2(BookingMessage::ERR_TIME_BETWEEN_BOOK));
+        }
+
+        // Trả về lỗi nếu thời gian đặt bị trùng với các ngày đã có booking hoặc bị khóa
+        $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+        $period           = CarbonPeriod::between($checkin, $checkout);
+        $days             = [];
+
+        foreach ($period as $item) {
+            $days[] = $item->format('Y-m-d');
+        }
+
+        if (count(array_intersect($blocked_schedule, $days))) {
+            throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
+        }
+    }
+
+    /**
+     * Kiểm tra xem có user tồn tại
+     * Nếu không tồn tại thì tự động thêm user mới
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return mixed
+     */
+    private function checkUserExist($data = [])
+    {
+        $user = $this->user->getUserByEmailOrPhone($data);
+
+        if (!$user) {
+            $data['password'] = $data['phone'];
+            $data['type']     = User::USER;
+            $data['owner']    = User::NOT_OWNER;
+            $data['status']   = User::DISABLE;
+            $user             = $this->user->store($data);
+        }
+
+        return $user->id;
     }
 }

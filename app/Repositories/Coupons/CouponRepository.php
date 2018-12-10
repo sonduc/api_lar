@@ -16,13 +16,15 @@ class CouponRepository extends BaseRepository implements CouponRepositoryInterfa
     }
 
     /**
-     * Lấy dữ liệu theo mã code
+     * Lấy dữ liệu theo mã Coupon
+     * @author HarikiRito <nxh0809@gmail.com>
      *
-     * @author sonduc <ndson1998@gmail.com>
+     * @param string $code
+     *
+     * @return mixed
      */
-    public function getCouponByCode($code)
+    public function getCouponByCode(string $code)
     {
-        $coupon = $this->model->where('code', $code)->with('Promotions')->first();
-        return $coupon;
+        return $this->model->where('code', $code)->with('Promotions')->first();
     }
 }

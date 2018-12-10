@@ -1,4 +1,4 @@
-    <?php
+<?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
@@ -75,8 +75,8 @@ $app->singleton(
 */
 
 $app->middleware([
-\Barryvdh\Cors\HandleCors::class,
-//App\Http\Middleware\ExampleMiddleware::class,
+    \Barryvdh\Cors\HandleCors::class,
+    //App\Http\Middleware\ExampleMiddleware::class,
 ]);
 
 // Enable auth middleware (shipped with Lumen)
@@ -140,6 +140,7 @@ $app->router->group([
     require_once __DIR__ . '/../routes/web.php';
 });
 
+// Admin API
 $app->router->group([
     'prefix'    => 'api',
     'namespace' => 'App\Http\Controllers\Api',
@@ -147,11 +148,20 @@ $app->router->group([
     require_once __DIR__ . '/../routes/api.php';
 });
 
+// Customer API
 $app->router->group([
     'prefix'    => 'customer-api',
     'namespace' => 'App\Http\Controllers\ApiCustomer',
 ], function ($router) {
     require_once __DIR__ . '/../routes/customer.php';
+});
+
+// Merchant API
+$app->router->group([
+    'prefix'    => 'merchant-api',
+    'namespace' => 'App\Http\Controllers\ApiMerchant',
+], function ($router) {
+    require_once __DIR__ . '/../routes/merchant.php';
 });
 
 return $app;
