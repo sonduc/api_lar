@@ -249,11 +249,10 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             DB::commit();
-
-            event(new Check_Usable_Coupon_Event($data['coupon']));
-            event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-            return $this->successResponse($data);
+            event(new Check_Usable_Coupon_Event($data['coupon']));
+
+            //return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -458,24 +457,35 @@ class BookingController extends ApiController
     }
 
     /**
-     * Payment
+     * Bank-list
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @return \Illuminate\Http\JsonResponse
      */
-
-
-    public function payment($uuid)
+    public function bankList($uuid)
     {
         $booking  = $this->bookingRepository->getBookingByUuid($uuid);
         $payment_methods = BookingConstant::getAllPaymentMethod();
         return $this->successResponse(['data' => ['payment_methods' => $payment_methods, 'booking' => $booking]], false);
     }
 
-    public function storePayment($uuid, Request $request)
+
+    /**
+     * Payment
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector|string
+     */
+    public function payment($uuid, Request $request)
     {
         $payment_method_id = (int) $request->get('bank_payment_method_id');
         $payment_method    = (int) $request->get('payment_method');
         try {
             $result  = $this->bookingRepository->getBookingByUuid($uuid)->toArray();
-            // cập nhật trạng hình thức thanh toán
+            // cập nhật trạng hình thức thanh toán.
             $result['payment_method'] = $payment_method;
             $booking = $this->bookingRepository->update($result['id'],$result);
 
@@ -499,25 +509,14 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    dd($baokim_url);
                     return redirect($baokim_url);
                 }
 
-                //activity('booking')->withProperties(['object' => $result->toArray(), 'ip' => \Request::ip()])->log('Tạo booking mới có mã <mark>' . $result->code . '</mark>' . ' với phòng <mark>' . ($result->room ? $result->room->name : '') . '</mark> (từ web)');
             }
-        } catch (Exception $e) {
-            dd($e);
-           // return redirect()->route('baokim-payment-error', [$uuid]);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
         }
     }
 
-    /**
-     *
-     */
-    public function bankList(Request $request)
-    {
-        $payment_methods = BookingConstant::getAllPaymentMethod();
-        return $this->successResponse(['data' => ['message' => $payment_methods]], false);
-
-    }
 }

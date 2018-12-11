@@ -55,9 +55,8 @@ $router->post('/bookings', 'BookingController@store');
 $router->post('/bookings/price-calculator', 'BookingController@priceCalculator');
 
 // thanh toan
-$router->get('/payment/{uuid}', 'BookingController@payment');
-$router->post('/payment/{uuid}', 'BookingController@storePayment');
-$router->get('/bank-list', 'BookingController@bankList');
+$router->get('/bank-list/{uuid}', 'BookingController@bankList');
+$router->post('/payment/{uuid}', 'BookingController@payment');
 /**
  * Router login, register , reset pass, forget pass
  */
@@ -87,7 +86,7 @@ resource('/promotions', 'PromotionController', $router);
 /* thanh toan*/
 
 $router->get('/success','PaymentHistoryController@success');
-$router->get('/cancel/{code}','PaymentHistoryController@fail');
+$router->get('/cancel/{code}','PaymentHistoryController@cancel');
 
 
 

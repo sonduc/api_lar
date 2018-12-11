@@ -46,7 +46,7 @@ class BaoKimPayment
 		$total_amount = str_replace('.','',$data['total_amount']);
 		$base_url     = "http://" . $_SERVER['HTTP_HOST'];
 		$url_success = $base_url.'/customer-api/success';
-		$url_cancel = $base_url.'/customer-api/cancel'.$data['order_id'];;
+		$url_cancel = $base_url.'/customer-api/cancel/'.$data['order_id'];
 		$currency     = 'VND'; // USD
 		// Mảng các tham số chuyển tới baokim.vn
 		$params = array(

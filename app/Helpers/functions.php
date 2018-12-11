@@ -128,3 +128,5 @@ function getDistance($lat_1, $long_1, $lat_2, $long_2)
 
     return $distance;
 }
+
+
