@@ -33,7 +33,7 @@
         </td>
     </tr>
 
-    @if ($new_booking->data->status == 2)
+    @if ($new_booking->data->status == \App\Repositories\Bookings\BookingConstant::BOOKING_CONFIRM)
         <tr>
             <td colspan="2"><p style="margin: 0;background-color: #dff0d8;border-color: #d0e9c6;color: #3c763d;padding: 10px;margin-bottom: 10px;border: 1px solid transparent; border-radius: 4px;font-weight: bold;font-size: 14px;"> Yêu cầu đặt phòng của bạn đã được xác nhận.</p></td>
         </tr>

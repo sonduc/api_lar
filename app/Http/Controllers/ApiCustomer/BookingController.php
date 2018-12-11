@@ -483,7 +483,6 @@ class BookingController extends ApiController
      */
     public function payment($uuid, Request $request)
     {
-        $payment_method_id = (int) $request->get('bank_payment_method_id');
         $payment_method    = (int) $request->get('payment_method');
         try {
             $result  = $this->bookingRepository->getBookingByUuid($uuid)->toArray();
