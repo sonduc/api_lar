@@ -43,7 +43,7 @@ class PaymentHistoryController extends ApiController
     {
         DB::beginTransaction();
         try {
-           // if ($request['transaction_status'] == 4 || $request['transaction_status'] == 13) {
+           // if ($request['transaction_status'] == 5 || $request['transaction_status'] == 5) {
                 // Lấy thông tin booking theo mã code nhận được từ bảo kim trả về
 
                 $booking = $this->booking->getBookingByCode($request['order_id'])->toArray();
@@ -60,9 +60,8 @@ class PaymentHistoryController extends ApiController
                 // Cập nhât lịch sử giao dich.
                 $data    = $this->model->storePaymentHistory($booking, $payment_history);
                  DB::commit();
-                 dd($booking);
                  logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
-                  event(new BookingEvent($booking));
+                 // event(new BookingEvent($booking));
 
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
           //  }
@@ -87,7 +86,7 @@ class PaymentHistoryController extends ApiController
             'status'  => 'error',
             'message' => 'Thanh toán thất bại',
         ];
-        logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $code);
+        logs('payment_history', 'Thanh toán thất bại' . $code);
         return response()->json($response);
     }
 

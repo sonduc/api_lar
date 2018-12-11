@@ -35,7 +35,6 @@ class PaymentHistoryRepository extends BaseRepository implements PaymentHistoryR
      */
     public function storePaymentHistory($booking = [], $data = [])
     {
-        dd($data);
         $data['booking_id']     = $booking->id;
         $data['total_received'] = $this->totalMoneyPaid($booking);
         $data                   = $this->processPaymentMoney($booking, $data);
