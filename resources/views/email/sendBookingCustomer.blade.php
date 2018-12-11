@@ -110,8 +110,8 @@
         <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ date('H:i d-m-Y', $new_booking->data->checkout) }}</p></td>
     </tr>
     <tr>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng thời gian</p></td>
-        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;">{{ $new_booking->data->hours}} giờ</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Trạng thái thanh toán</p></td>
+        <td><p style="margin:  0;color: #777; margin-bottom: 8px; text-align: right;"><b>{{ $new_booking->data->getPaymentStatus() }}</b> </p></td>
     </tr>
     <tr>
         <td><p style="margin:  0;color: #777; margin-bottom: 8px;">Tổng</p></td>
@@ -119,14 +119,9 @@
     </tr>
     <tr>
         <td colspan="2" style=" background-color: #fcf8e3; border-color: #faf2cc;color: #8a6d3b;padding: 10px 15px;">
-            @if ($new_booking->data->status != \App\Repositories\Bookings\BookingConstant::BOOKING_CONFIRM)
-                <p style="font-weight: 600;">Lưu ý rằng yêu cầu đặt phòng của bạn vẫn chưa được xác nhận.</p>
-                <p style="font-style: italic;">Trong vòng 24 giờ, chúng tôi sẽ thông báo cho bạn khi yêu cầu đặt phòng của bạn được chấp nhận hoặc từ chối.</p>
-            @else
                 <p style="font-weight: 600;"> Lưu ý: </p>
                 <p> - Khi đến nhận phòng: Quý khách vui lòng mang theo 01 giấy tờ tùy thân(CMND, hộ chiếu, giấy phép lái xe ...).</p>
                 <p> - Chính sách hủy/thay đổi phòng và Quy trình hoàn trả tiền xem tại <a href="{{ url('/vi/b-20-quy-che-hoat-dong') }}">Quy chế hoạt động</a> điều III.4 và III.5</p>
-            @endif
         </td>
     </tr>
     <tr>
