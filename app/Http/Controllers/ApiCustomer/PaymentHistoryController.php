@@ -57,10 +57,12 @@ class PaymentHistoryController extends ApiController
                // Cập nhật trạng thái đã thanh toán cho booking.
                 $booking['payment_status'] = BookingConstant::PAID;
                 $booking = $this->booking->update($booking['id'],$booking);
-                // Cập nhâtj lịch sử giao dich.
+                // Cập nhât lịch sử giao dich.
                 $data    = $this->model->storePaymentHistory($booking, $payment_history);
-                logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
-                DB::commit();
+                 DB::commit();
+                 dd($booking);
+                 logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
+                  event(new BookingEvent($booking));
 
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
           //  }
