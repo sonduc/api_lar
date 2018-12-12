@@ -10,7 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-resource('/rooms', 'RoomController', $router);
+
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {
@@ -185,6 +185,8 @@ $router->group([
      */
     $router->get('/statisticals/booking-month', 'StatisticalController@bookingStatistical');
 });
+
+resource('/rooms', 'RoomController', $router);
 
 
 $router->post('login', 'LoginController@login');

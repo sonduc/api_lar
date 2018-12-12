@@ -337,7 +337,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+          //  $this->authorize('room.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
 //            dd(DB::getQueryLog());
