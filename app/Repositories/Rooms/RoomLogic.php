@@ -214,9 +214,9 @@ class RoomLogic extends BaseLogic
         return $this->model->getRoomLatLong($data, $size);
     }
 
-    public function getRoomRecommend($size,$id)
+    public function getRoomRecommend($size, $id)
     {
-        return $this->model->getRoomRecommend($size,$id);
+        return $this->model->getRoomRecommend($size, $id);
     }
 
     /**
@@ -230,7 +230,7 @@ class RoomLogic extends BaseLogic
      */
     public function minorRoomUpdate($id, $data = [])
     {
-        $data['settings']= $this->model->checkValidRefund($data['settings']);
+        // $data['settings']= $this->model->checkValidRefund($data['settings']);
         return parent::update($id, $data);
     }
 

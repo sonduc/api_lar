@@ -50,8 +50,8 @@ class BookingController extends ApiController
         'status'           => 'nullable|in:1',
         'type'             =>  'required|in:2',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
-        'payment_method'   => 'required|in:2,3,4,5',
-        'payment_status'   => 'required|in:0',
+        // 'payment_method'   => 'required|in:2,3,4,5',
+        // 'payment_status'   => 'required|in:0',
         'source'           => 'required|in:4',
         'exchange_rate'    => 'nullable|integer',
         'money_received'   => 'integer|filled|min:0',
@@ -104,11 +104,11 @@ class BookingController extends ApiController
         'booking_type.integer'      => 'Mã kiểu phải là kiểu số',
         'booking_type.between'      => 'Mã kiểu không hợp lệ',
 
-        'payment_method.in'         => 'Mã hình thức thanh toán không hợp lệ',
-        'payment_method.required'   => 'Vui lòng chọn kiểu thanh toán',
+        // 'payment_method.in'         => 'Mã hình thức thanh toán không hợp lệ',
+        // 'payment_method.required'   => 'Vui lòng chọn kiểu thanh toán',
 
-         'payment_status.in'        => "Trạng thái thanh toán không hợp lệ",
-         'payment_status.required'  => "Trạng thái thanh toán không được để trống",
+        // 'payment_status.in'        => "Trạng thái thanh toán không hợp lệ",
+        // 'payment_status.required'  => "Trạng thái thanh toán không được để trống",
 
         'source.required'           => 'Vui lòng chọn nguồn booking',
         'source.in'                 => 'Mã nguồn booking không hợp lệ',
