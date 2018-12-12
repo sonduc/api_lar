@@ -245,7 +245,7 @@ trait CouponLogicTrait
     public function calculateDiscountByDateStay($coupon, $data, $discount_date, $non_discount)
     {
         $room               = $this->room->getById($data['room_id']);
-        $charge_guest       = $data['number_of_guest'] - $room['max_guest'];
+        $charge_guest       = $data['number_of_guests'] - $room['max_guest'];
         $total_non_discount = $room->price_day * \count($non_discount);
         $total_discountable = 0;
 

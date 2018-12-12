@@ -58,8 +58,7 @@ class BookingLogic extends BaseLogic
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
         CouponRepositoryInterface $cp
-    )
-    {
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -93,7 +92,8 @@ class BookingLogic extends BaseLogic
         $data['merchant_id'] = $room->merchant_id;
 
         $data['settings']    = $room->settings;
-       // return json_encode($refund);
+        // dd($data['settings']);
+        // return json_encode($refund);
 
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);

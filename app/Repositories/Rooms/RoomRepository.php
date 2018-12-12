@@ -64,7 +64,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function checkValidRefund($data)
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
-        if (empty($data)) {
+        if (empty($data['settings']) || !isset($data['settings'])) {
             $refund = [
                 'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
             ];
@@ -72,8 +72,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             return json_encode($refund);
         }
 
-        if (isset($data['no_booking_cancel'])) {
-            if (!empty($data['no_booking_cancel']) && $data['no_booking_cancel'] == BOOKING_CANCEL_UNAVAILABLE) {
+        if (isset($data['settings']['no_booking_cancel'])) {
+            if (!empty($data['settings']['no_booking_cancel']) && $data['settings']['no_booking_cancel'] == 1) {
                 $refund = [
                     'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
                 ];
@@ -81,20 +81,18 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 return json_encode($refund);
             }
         }
-
         // set măc định 1 mức cho hủy phòng.
-        $refund = $data['refunds'];
+        $refund = $data['settings']['refunds'];
         if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) {
             throw new \Exception('không được phép tạo thêm mức hủy phòng');
         }
 
-
-        $refund = [
-            'refund'            => $refund,
+        $refunds = [
+            'refunds'            => $refund,
             'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
         ];
 
-        return json_encode($refund);
+        return json_encode($refunds);
     }
 
     public function getRoomLatLong($data, $size)
@@ -132,7 +130,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->orderBy('total_review', 'desc')
             ->orderBy('total_recommend', 'desc');
 
-        if($size == -1){
+        if ($size == -1) {
             return $rooms->get();
         }
 

@@ -61,8 +61,7 @@ class BookingLogic extends BaseLogic
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
         CouponRepositoryInterface $cp
-    )
-    {
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -211,5 +210,4 @@ class BookingLogic extends BaseLogic
             throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
         }
     }
-
 }
