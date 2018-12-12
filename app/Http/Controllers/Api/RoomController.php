@@ -292,7 +292,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.create');
+           // $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());

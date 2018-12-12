@@ -10,6 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+resource('/rooms', 'RoomController', $router);
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {
@@ -60,7 +61,7 @@ $router->group([
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
-    resource('/rooms', 'RoomController', $router);
+
     /**
      * Room Review Resource
      */
