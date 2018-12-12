@@ -17,6 +17,7 @@ class Kernel extends ConsoleKernel
             'App\Console\Commands\ValidateCoupon',
             'App\Console\Commands\BookingUpdateStatus',
             'App\Console\Commands\BookingReviews',
+            'App\Console\Commands\AirbnbCalendar',
         ];
 
     /**
@@ -31,6 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('booking:status')->everyThirtyMinutes();
         $schedule->command('booking:status')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
+        $schedule->command('airbnb:calendar')->twiceDaily(3, 14);
     }
 
     // protected function commands()

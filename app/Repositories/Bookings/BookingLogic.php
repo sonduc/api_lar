@@ -15,6 +15,7 @@ use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomTimeBlockRepository;
 use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
+use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use App\User;
@@ -47,6 +48,7 @@ class BookingLogic extends BaseLogic
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
      * @param BookingRefundRepositoryInterface|BookingRefundRepository         $booking_refund
      * @param CouponRepositoryInterface|CouponRepository                       $cp
+     * @param RoomCalendarRepositoryInterface|RoomCalendarRepository           $room_calendar
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -57,9 +59,9 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
-        CouponRepositoryInterface $cp
-    )
-    {
+        CouponRepositoryInterface $cp,
+        RoomCalendarRepositoryInterface $room_calendar
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -70,6 +72,7 @@ class BookingLogic extends BaseLogic
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
         $this->cp             = $cp;
+        $this->room_calendar  = $room_calendar;
     }
 
     /**
@@ -93,11 +96,12 @@ class BookingLogic extends BaseLogic
         $data['merchant_id'] = $room->merchant_id;
 
         $data['settings']    = $room->settings;
-       // return json_encode($refund);
+        // return json_encode($refund);
 
         $data_booking = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
+        $this->room_calendar->storeRoomCalendar($data_booking, $data);
         return $data_booking;
     }
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "844d5b05d540bef7e9fa68b252fd8b79",
+    "content-hash": "fc4d70d7452a0a4051c9f020e7c98472",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2665,6 +2665,54 @@
             "time": "2018-11-04T18:04:52+00:00"
         },
         {
+            "name": "jsvrcek/ics",
+            "version": "0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jasvrcek/ICS.git",
+                "reference": "de8251cccf0ec556375b08ea22c1e2a72aa68b53"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jasvrcek/ICS/zipball/de8251cccf0ec556375b08ea22c1e2a72aa68b53",
+                "reference": "de8251cccf0ec556375b08ea22c1e2a72aa68b53",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.4 || ^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8 || ^5.5"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jsvrcek\\ICS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Justin Svrcek",
+                    "homepage": "https://github.com/jasvrcek"
+                }
+            ],
+            "description": "abstraction layer for creating multi-byte safe RFC 5545 compliant .ics files",
+            "homepage": "https://github.com/jasvrcek/ICS",
+            "keywords": [
+                ".ics",
+                "RFC 5545",
+                "calendar",
+                "export",
+                "ical",
+                "multi-byte safe"
+            ],
+            "time": "2018-04-12T20:25:44+00:00"
+        },
+        {
             "name": "kylekatarnls/laravel-carbon-2",
             "version": "1.0.0",
             "source": {
@@ -4130,6 +4178,53 @@
                 "os"
             ],
             "time": "2016-12-28T16:31:30+00:00"
+        },
+        {
+            "name": "spatie/calendar-links",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/calendar-links.git",
+                "reference": "a3515cfd8aa0a41018bc4800a023fcfa75a550b3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/calendar-links/zipball/a3515cfd8aa0a41018bc4800a023fcfa75a550b3",
+                "reference": "a3515cfd8aa0a41018bc4800a023fcfa75a550b3",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6.0",
+                "spatie/phpunit-snapshot-assertions": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\CalendarLinks\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Generate add to calendar links for Google, iCal and other calendar systems",
+            "homepage": "https://github.com/spatie/calendar-links",
+            "keywords": [
+                "calendar-links",
+                "spatie"
+            ],
+            "time": "2018-10-08T09:21:33+00:00"
         },
         {
             "name": "spatie/laravel-activitylog",

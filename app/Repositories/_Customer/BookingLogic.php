@@ -38,6 +38,7 @@ class BookingLogic extends BaseLogic
     use RoomLogicTrait, BookingLogicTrait, CouponLogicTrait;
     protected $status;
     protected $payment;
+    protected $room_calendar;
 
     /**
      * BookingLogic constructor.
@@ -75,7 +76,7 @@ class BookingLogic extends BaseLogic
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
         $this->cp             = $cp;
-        // $this->calendar       = $ical;
+        $this->room_calendar  = $room_calendar;
     }
 
     /**
@@ -98,7 +99,7 @@ class BookingLogic extends BaseLogic
         $data_booking        = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
         $this->payment->storePaymentHistory($data_booking, $data);
-
+        $this->room_calendar->storeRoomCalendar($data_booking, $data);
         return $data_booking;
     }
 

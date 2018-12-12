@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Carbon\Carbon;
 use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
+use App\Repositories\Roomcalendars\RoomCalendar;
 
 class RoomCalendarController extends ApiController
 {
@@ -21,13 +22,13 @@ class RoomCalendarController extends ApiController
      */
     public function getRoomCalendar($id)
     {
-        $this->model->icalGenerator($id);
+        // $this->model->icalGenerator($id);
+        $this->model->icalGoogleCalendar($id);
     }
-
-    public function updateCalendar($id)
-    {
-        \DB::enableQueryLog();
-        $this->model->updateRoomCalendar($id);
-        // dd(\DB::getQueryLog());
-    }
+    
+    // public function updateCalendar($id)
+    // {
+    //     \DB::enableQueryLog();
+    //     $this->model->updateRoomCalendar($id);
+    // }
 }
