@@ -114,6 +114,7 @@ class Room extends Entity
         'avg_avg_rating',
         'total_review',
         'total_recommend',
+        'airbnb_calendar',
         'settings'
     ];
     /**

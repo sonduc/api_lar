@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a8139c5294470e1c0a1a7f0466cd978b",
+    "content-hash": "844d5b05d540bef7e9fa68b252fd8b79",
     "packages": [
         {
             "name": "anahkiasen/underscore-php",
@@ -2608,6 +2608,61 @@
                 "optimus"
             ],
             "time": "2017-04-21T10:14:58+00:00"
+        },
+        {
+            "name": "johngrogg/ics-parser",
+            "version": "v2.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/u01jmg3/ics-parser.git",
+                "reference": "acb97de72e4b88000f05652279d8d82e5bac9ecc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/u01jmg3/ics-parser/zipball/acb97de72e4b88000f05652279d8d82e5bac9ecc",
+                "reference": "acb97de72e4b88000f05652279d8d82e5bac9ecc",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mbstring": "*",
+                "nesbot/carbon": "~1.34",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "squizlabs/php_codesniffer": "~2.9.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "ICal": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "John Grogg",
+                    "email": "john.grogg@gmail.com",
+                    "role": "Developer/Prior Owner"
+                },
+                {
+                    "name": "Jonathan Goode",
+                    "role": "Developer/Owner"
+                }
+            ],
+            "description": "ICS Parser",
+            "homepage": "https://github.com/u01jmg3/ics-parser",
+            "keywords": [
+                "iCalendar",
+                "ical",
+                "ical-parser",
+                "ics",
+                "ics-parser",
+                "ifb"
+            ],
+            "time": "2018-11-04T18:04:52+00:00"
         },
         {
             "name": "kylekatarnls/laravel-carbon-2",

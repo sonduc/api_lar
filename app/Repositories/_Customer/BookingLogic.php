@@ -27,6 +27,7 @@ use App\Repositories\Rooms\RoomTimeBlockRepository;
 use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ class BookingLogic extends BaseLogic
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
      * @param CouponRepositoryInterface|CouponRepository                       $cp
+     * @param RoomCalendarRepositoryInterface|RoomCalendarRepository           $room_calendar
      */
     public function __construct(
         BookingRepositoryInterface $booking,
@@ -60,9 +62,9 @@ class BookingLogic extends BaseLogic
         RoomOptionalPriceRepositoryInterface $op,
         RoomTimeBlockRepositoryInterface $roomTimeBlock,
         BookingCancelRepositoryInterface $booking_cancel,
-        CouponRepositoryInterface $cp
-    )
-    {
+        CouponRepositoryInterface $cp,
+        RoomCalendarRepositoryInterface $room_calendar
+    ) {
         $this->model          = $booking;
         $this->booking        = $booking;
         $this->status         = $status;
@@ -73,6 +75,7 @@ class BookingLogic extends BaseLogic
         $this->roomTimeBlock  = $roomTimeBlock;
         $this->booking_cancel = $booking_cancel;
         $this->cp             = $cp;
+        // $this->calendar       = $ical;
     }
 
     /**
@@ -213,5 +216,4 @@ class BookingLogic extends BaseLogic
             throw new \Exception('Bạn phaỉ là người đặt phòng này mới có quyền hủy');
         }
     }
-
 }
