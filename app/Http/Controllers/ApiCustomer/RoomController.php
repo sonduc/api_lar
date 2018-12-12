@@ -52,19 +52,17 @@ class RoomController extends ApiController
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
-     * @param         $id
-     *
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
     public function show(Request $request, $id)
     {
         try {
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -139,7 +137,7 @@ class RoomController extends ApiController
         try {
             $pageSize    = $request->get('limit', 5);
             $data = $this->model->getRoomRecommend($pageSize, $id);
-       
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();

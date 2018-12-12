@@ -73,7 +73,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         if (isset($data['no_booking_cancel'])) {
-            if (!empty($data['no_booking_cancel']) && $data['no_booking_cancel'] == 1) {
+            if (!empty($data['no_booking_cancel']) && $data['no_booking_cancel'] == BOOKING_CANCEL_UNAVAILABLE) {
                 $refund = [
                     'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
                 ];

@@ -170,7 +170,7 @@ class RoomLogic extends BaseLogic
      * @return mixed
      * @throws \ReflectionException
      */
-    public function ratingCalculate($room_id, $review)
+    public function ratingCalculate($room_id, $reviews)
     {
         \DB::enableQueryLog();
         $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
