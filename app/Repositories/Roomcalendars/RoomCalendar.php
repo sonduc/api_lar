@@ -11,6 +11,15 @@ class RoomCalendar extends Entity
 
     public $table = 'room_calendar';
 
+    const BLOCKED = 0;
+    const BOOKED  = 1;
+
+    const CALENDAR_TYPE = [
+        self::BLOCKED   => 'Ngày bị khóa',
+        self::BOOKED    => 'Ngày có booking',
+    ];
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -24,7 +33,8 @@ class RoomCalendar extends Entity
         'summary',
         'location',
         'uid',
-        'room_id'
+        'room_id',
+        'type'
     ];
 
     /**

@@ -34,6 +34,7 @@ class BookingLogic extends BaseLogic
     protected $booking_cancel;
     protected $booking_refund;
     protected $cp;
+    protected $room_calendar;
 
     /**
      * BookingLogic constructor.

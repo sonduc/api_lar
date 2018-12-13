@@ -3,6 +3,7 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
+use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
 
 class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRepositoryInterface
 {
@@ -12,15 +13,17 @@ class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRep
      * @var Model
      */
     protected $model;
+    protected $room_calendar;
 
     /**
      * RoomTimeBlockRepository constructor.
      *
      * @param RoomTimeBlock $roomtimeblock
      */
-    public function __construct(RoomTimeBlock $roomtimeblock)
+    public function __construct(RoomTimeBlock $roomtimeblock, RoomCalendarRepositoryInterface $room_calendar)
     {
-        $this->model = $roomtimeblock;
+        $this->model            = $roomtimeblock;
+        $this->room_calendar    = $room_calendar;
     }
 
     /**
@@ -58,16 +61,18 @@ class RoomTimeBlockRepository extends BaseRepository implements RoomTimeBlockRep
      */
     public function storeRoomTimeBlock($room, $data = [], $list = [])
     {
+        // dd($data);
         $collection  = collect($data);
         $unlock_days = $collection->get('unlock_days', []);
         $blocks      = $this->minimizeBlock($data['room_time_blocks'], $unlock_days);
+        // dd($blocks);
         foreach ($blocks as $block) {
             $arr['date_start'] = $block[0];
             $arr['date_end']   = array_key_exists(1, $block) ? $block[1] : $block[0];
             $arr['room_id']    = $room->id;
             $list[]            = $arr;
+            $this->room_calendar->updateCalendarRoomBlock($room, $block);
         }
-
         parent::storeArray($list);
     }
 

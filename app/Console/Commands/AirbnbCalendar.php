@@ -18,7 +18,7 @@ class AirbnbCalendar extends Command
      *
      * @var string
      */
-    protected $signature = 'airbnb:calendar';
+    protected $signature = 'airbnb:sync';
 
     /**
      * The console command description.
@@ -46,10 +46,7 @@ class AirbnbCalendar extends Command
     public function handle()
     {
         $room_list_id = $this->room::where('airbnb_calendar', '!=', '')->pluck('id');
-        // dd($room_list_id);
+
         $this->room_calendar->updateRoomCalendar($room_list_id);
-        // foreach ($room_list_id as $key => $value) {
-        //     $this->room_calendar->updateRoomCalendar($id);
-        // }
     }
 }

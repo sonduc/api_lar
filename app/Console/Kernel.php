@@ -32,7 +32,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('booking:status')->everyThirtyMinutes();
         $schedule->command('booking:status')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
-        $schedule->command('airbnb:calendar')->twiceDaily(3, 14);
+        $schedule->command('airbnb:sync')->twiceDaily(3, 14);
     }
 
     // protected function commands()

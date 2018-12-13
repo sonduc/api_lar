@@ -53,22 +53,33 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         PRODID:-//Westay//Calendar//EN\n";
         
         foreach ($events as $event) {
-            $icalObject .=
-            "BEGIN:VEVENT
-            SUMMARY:$event->summary
-            DTSTART:" . date(ICAL_FORMAT, strtotime($event->starts)) . "
-            DTEND:" . date(ICAL_FORMAT, strtotime($event->ends)) . "
-            DTSTAMP:" . date(ICAL_FORMAT, strtotime($event->created_at)) . "
-            UID:$event->uid
-            STATUS: TENTATIVE" . "
-            DESCRIPTION:" . strtoupper($event->description) . "
-            LAST-MODIFIED:" . date(ICAL_FORMAT, strtotime($event->updated_at)) . "
-            LOCATION:$event->location
-            END:VEVENT\n";
+            // dump($event->location == null);
+            if ($event->location == null) {
+                $icalObject .=
+                "BEGIN:VEVENT
+                SUMMARY:$event->summary
+                DTSTART:".date(ICAL_FORMAT, strtotime($event->starts))."
+                DTEND:". date(ICAL_FORMAT, strtotime($event->ends)) . "
+                UID:$event->uid
+                END:VEVENT\n";
+            } else {
+                $icalObject .=
+                "BEGIN:VEVENT
+                SUMMARY:$event->summary
+                DTSTART:" . date(ICAL_FORMAT, strtotime($event->starts)) . "
+                DTEND:" . date(ICAL_FORMAT, strtotime($event->ends)) . "
+                DTSTAMP:" . date(ICAL_FORMAT, strtotime($event->created_at)) . "
+                UID:$event->uid
+                STATUS:$event->status
+                DESCRIPTION:" . strtoupper($event->description) . "
+                LAST-MODIFIED:" . date(ICAL_FORMAT, strtotime($event->updated_at)) . "
+                LOCATION:$event->location
+                END:VEVENT\n";
+            }
         }
 
         $icalObject .= "END:VCALENDAR";
-
+        
         // Set the headers
         header('Content-type: text/calendar; charset=utf-8');
         header('Content-Disposition: attachment; filename="cal.ics"');
@@ -77,38 +88,48 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         echo $icalObject;
     }
 
-    public function icalGoogleCalendar($id)
-    {
-        $calendar = new Calendar();
-        $calendar->setProdId('-//Westay Calendar');
-        $timezone = config('app.timezone');
-        $timeZone = new \DateTimeZone($timezone);
-        $calendar->setTimezone($timeZone);
-        $calendar->setCustomHeaders([
-            'X-WR-TIMEZONE' => $timezone,
-            'X-WR-CALNAME' => 'Westay Calendar',
-            'X-PUBLISHED-TTL' => 'PT5M'
-        ]);
+    // public function icalGoogleCalendar($id)
+    // {
+    //     // dd('s');
+    //     $calendar = new Calendar();
+    //     define('ICAL_FORMAT', 'Ymd\THis\Z');
 
-        // $events = RoomCalendar::all();
-        $events = $this->model->where('room_id', $id)->get();
-        // dd($events);
-        foreach ($events as $event) {
-            $calendarEvent = new CalendarEvent();
-            $calendarEvent->setStart(Carbon::parse($event->starts))
-                            ->setEnd(Carbon::parse($event->ends))
-                            ->setSummary($event->summary)
-                            ->setStatus($event->status)
-                            ->setUid("event.{$event->id}");
-            $calendar->addEvent($calendarEvent);
-        }
+    //     $calendar->setProdId('-//Westay Calendar');
+    //     $timezone = config('app.timezone');
+    //     $timeZone = new \DateTimeZone($timezone);
+    //     $calendar->setTimezone($timeZone);
+    //     $calendar->setCustomHeaders([
+    //         'X-WR-TIMEZONE' => $timezone,
+    //         'X-WR-CALNAME' => 'Westay Calendar',
+    //         'X-PUBLISHED-TTL' => 'PT5M'
+    //     ]);
 
-        $calendarExport = new CalendarExport(new CalendarStream, new Formatter());
-        $calendarExport->addCalendar($calendar);
-        $this->updateRoomCalendar($id);
-        //output .ics formatted text
-        echo $calendarExport->getStream();
-    }
+    //     // $events = RoomCalendar::all();
+    //     $events = $this->model->where('room_id', $id)->get();
+    //     // dd($events);
+    //     foreach ($events as $event) {
+    //         // dd($event);
+    //         // dd(date(ICAL_FORMAT, strtotime($event->starts)));
+    //         $calendarEvent = new CalendarEvent();
+    //         $calendarEvent
+    //                         ->setStart(Carbon::parse($event->starts))
+    //                         ->setEnd(Carbon::parse($event->ends))
+    //                         // ->setStart(date(ICAL_FORMAT, strtotime($event->starts)))
+    //                         // ->setEnd(date(ICAL_FORMAT, strtotime($event->ends)))
+    //                         ->setSummary($event->summary)
+    //                         ->setUid($event->uid);
+    //         $calendar->addEvent($calendarEvent);
+    //     }
+    //     // dd($calendar);
+
+    //     $calendarExport = new CalendarExport(new CalendarStream, new Formatter());
+    //     // dd($calendar);
+    //     $calendarExport->addCalendar($calendar);
+    //     // $this->updateRoomCalendar($id);
+    //     //output .ics formatted text
+    //     // dd($calendarExport);
+    //     echo $calendarExport->getStream();
+    // }
 
     public function storeRoomCalendar($data_booking, $data)
     {
@@ -131,10 +152,9 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
     public function updateRoomCalendar($list_id)
     {
         $room = $this->room->getListCalendar($list_id);
-        // dd($room);
+
         foreach ($room as $key => $ical_url) {
             // $room_id = $room['id'];
-            // dd($key);
             try {
                 $ical = new ICal($ical_url, array(
                     'defaultSpan'                 => 2,     // Default value
@@ -151,18 +171,19 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                 die($e);
             }
             $events = $ical->events();
-            // dd($ical);
+            // dd($events);
             $now = Carbon::now();
             foreach ($events as $event) {
                 $dt_start   = $ical->iCalDateToDateTime($event->dtstart_array[3], false);
                 // dd($dt_start > $now);
                 if ($dt_start > $now) {
                     $dt_end     = $ical->iCalDateToDateTime($event->dtend_array[3], false);
-                    $name       = $event->summary !== 'Not available' ? $event->summary : 'Room Block';
-                    $summary    = $event->summary !== 'Not available' ? $event->summary : 'Room Block';
-                    $status     = ($dt_start > $now) ? BookingConstant::BOOKING_CONFIRM : ((($dt_start > $now) && ($dt_end < $now)) ? BookingConstant::BOOKING_USING : BookingConstant::BOOKING_COMPLETE);
-                    $location   = $event->location != null ? $event->location : '' ;
+                    $name       = $event->summary;
+                    $summary    = $event->summary;
+                    $status     = $event->status;
+                    $location   = $event->location;
                     $uid        = $event->uid;
+                    $type       = $event->location != null ? RoomCalendar::BOOKED : RoomCalendar::BLOCKED;
                     $created_at = Carbon::now()->toDateTimeString();
                     $updated_at = Carbon::now()->toDateTimeString();
                     $this->model::firstOrCreate([
@@ -170,13 +191,40 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                         'starts'     => $dt_start,
                         'ends'       => $dt_end,
                         'summary'    => $summary,
-                        'status'     => 'CONFIRMED',
+                        'status'     => $status,
                         'location'   => $location,
                         'uid'        => $uid,
+                        'type'       => $type,
                         'room_id'    => $key
                     ]);
                 }
             }
         }
+    }
+
+    public function updateCalendarRoomBlock($room, $data)
+    {
+        // dd(Carbon::parse($data[0])->addDay());
+        $room_name = $this->room_translate->getRoomByListIdIndex([$room['id']]);
+        // dd($room_name[0]['name']);
+        $start = Carbon::parse($data[0])->startOfDay()->toDateTimeString();
+        $end = isset($data[1]) ? Carbon::parse($data[1])->startOfDay()->toDateTimeString() : Carbon::parse($data[0])->addDay()->toDateTimeString();
+        $room_name      = $room[0]['name'];
+        $room_blocked   = $this->model->where('room_id', $room['id'])->where('type', RoomCalendar::BLOCKED)->where('starts', $start)->where('ends', $end)->get();
+        foreach ($room_blocked as $k => $val) {
+            $val->forceDelete();
+        }
+        $this->model->firstOrCreate([
+            'name'       => 'Not available',
+            'starts'     => $start,
+            'ends'       => $end,
+            'summary'    => 'Not available',
+            'status'     => null,
+            'location'   => null,
+            'type'       => RoomCalendar::BLOCKED,
+            'room_id'    => $room['id'],
+            // 'created_at' => $data_booking->created_at,
+            // 'updated_at' => $data_booking->updated_at
+        ], ['uid'        => Crypt::encrypt($room_name[0]['name']).'@westay.org',]);
     }
 }

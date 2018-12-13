@@ -15,14 +15,15 @@ class CreateRoomCalendarTable extends Migration
     {
         Schema::create('room_calendar', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->timestamp('starts')->default(\DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('ends')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->string('status');
-            $table->text('summary');
-            $table->string('location');
-            $table->string('uid');
-            $table->string('room_id');
+            $table->string('status')->nullable();
+            $table->text('summary')->nullable();
+            $table->string('location')->nullable();
+            $table->string('uid')->nullable();
+            $table->string('room_id')->nullable();
+            $table->tinyInteger('type')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

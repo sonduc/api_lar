@@ -22,13 +22,13 @@ class RoomCalendarController extends ApiController
      */
     public function getRoomCalendar($id)
     {
-        // $this->model->icalGenerator($id);
-        $this->model->icalGoogleCalendar($id);
+        $this->model->icalGenerator($id);
+        // $this->model->icalGoogleCalendar($id);
     }
     
-    // public function updateCalendar($id)
-    // {
-    //     \DB::enableQueryLog();
-    //     $this->model->updateRoomCalendar($id);
-    // }
+    public function updateCalendar($id)
+    {
+        \DB::enableQueryLog();
+        $this->model->updateRoomCalendar($id);
+    }
 }
