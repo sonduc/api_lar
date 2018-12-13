@@ -51,4 +51,68 @@ class StatisticalLogic extends BaseLogic
 
         return $booking;
     }
+
+    public function statisticalCity($data)
+    {
+        if (isset($data['date_start']) == false) {
+            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
+        }
+        if (isset($data['date_end']) == false) {
+            $data['date_end'] = Carbon::now()->toDateTimeString();
+        }
+        switch ($data['view']) {
+            case 'day':
+                $booking = $this->booking->countBookingCityDay($data['date_start'],$data['date_end']);
+                break;
+
+            case 'week':
+                $booking = $this->booking->countBookingCityWeek($data['date_start'],$data['date_end']);
+                break;
+
+            case 'month':
+                $booking = $this->booking->countBookingCityMonth($data['date_start'],$data['date_end']);
+                break;
+
+            case 'year':
+                $booking = $this->booking->countBookingCityYear($data['date_start'],$data['date_end']);
+                break;
+            default:
+                $booking = $this->booking->countBookingCityWeek($data['date_start'],$data['date_end']);
+                break;
+        }
+
+        return $booking;
+    }
+
+     public function statisticalDistrict($data)
+    {
+        if (isset($data['date_start']) == false) {
+            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
+        }
+        if (isset($data['date_end']) == false) {
+            $data['date_end'] = Carbon::now()->toDateTimeString();
+        }
+        switch ($data['view']) {
+            case 'day':
+                $booking = $this->booking->countBookingDistrictDay($data['date_start'],$data['date_end']);
+                break;
+
+            case 'week':
+                $booking = $this->booking->countBookingDistrictWeek($data['date_start'],$data['date_end']);
+                break;
+
+            case 'month':
+                $booking = $this->booking->countBookingDistrictMonth($data['date_start'],$data['date_end']);
+                break;
+
+            case 'year':
+                $booking = $this->booking->countBookingDistrictYear($data['date_start'],$data['date_end']);
+                break;
+            default:
+                $booking = $this->booking->countBookingDistrictWeek($data['date_start'],$data['date_end']);
+                break;
+        }
+
+        return $booking;
+    }
 }

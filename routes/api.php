@@ -182,7 +182,9 @@ $router->group([
     /**
      * Statistical Resource
      */
-    $router->get('/statisticals/booking-month', 'StatisticalController@bookingStatistical');
+    $router->get('/statisticals/booking', 'StatisticalController@bookingStatistical');
+    $router->get('/statisticals/booking-city', 'StatisticalController@statisticalCity');
+    $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
 });
 
 
