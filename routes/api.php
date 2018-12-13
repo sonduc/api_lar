@@ -185,6 +185,7 @@ $router->group([
     $router->get('/statisticals/booking', 'StatisticalController@bookingStatistical');
     $router->get('/statisticals/booking-city', 'StatisticalController@statisticalCity');
     $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
+    $router->get('/statisticals/booking-type', 'StatisticalController@statisticalBookingType');
 });
 
 

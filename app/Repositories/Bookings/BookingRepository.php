@@ -581,7 +581,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $convertBooking;
     }
 
-    //----
     /**
      * đếm booking trong khoảng ngày và theo tỉnh thành
      * @author sonduc <ndson1998@gmail.com>
@@ -809,6 +808,230 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
             ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * đếm booking trong khoảng ngày và theo ngày giờ
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingTypeDay($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,type'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('cast(created_at as DATE) as date')
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertBookingType = $this->convertBookingType($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertBookingType,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * đếm booking trong khoảng tuần và theo ngày giờ
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingTypeWeek($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,type'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertBookingType = $this->convertBookingType($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertBookingType,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * đếm booking trong khoảng tháng và theo ngày giờ
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingTypeMonth($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,type'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertBookingType = $this->convertBookingType($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertBookingType,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * đếm booking trong khoảng năm và theo ngày giờ
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingTypeYear($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,type'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertBookingType = $this->convertBookingType($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertBookingType,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+
+    public function convertBookingType($bookings, $date)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->date === $date) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            if ($value->type == BookingConstant::BOOKING_TYPE_DAY){
+                $convertBooking[] = [
+                    'type_booking'  => "Theo ngày",
+                    'total_booking' => $value->total_booking,
+                    'success'       => $value->success,
+                    'cancel'        => $value->cancel,
+                ];
+            }
+
+            if ($value->type == BookingConstant::BOOKING_TYPE_HOUR){
+                $convertBooking[] = [
+                    'type_booking'  => "Theo giờ",
+                    'total_booking' => $value->total_booking,
+                    'success'       => $value->success,
+                    'cancel'        => $value->cancel,
+                ];
+            }
         }
         return $convertBooking;
     }

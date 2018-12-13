@@ -84,7 +84,7 @@ class StatisticalLogic extends BaseLogic
         return $booking;
     }
 
-     public function statisticalDistrict($data)
+    public function statisticalDistrict($data)
     {
         if (isset($data['date_start']) == false) {
             $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
@@ -110,6 +110,38 @@ class StatisticalLogic extends BaseLogic
                 break;
             default:
                 $booking = $this->booking->countBookingDistrictWeek($data['date_start'],$data['date_end']);
+                break;
+        }
+
+        return $booking;
+    }
+
+    public function statisticalBookingType($data)
+    {
+        if (isset($data['date_start']) == false) {
+            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
+        }
+        if (isset($data['date_end']) == false) {
+            $data['date_end'] = Carbon::now()->toDateTimeString();
+        }
+        switch ($data['view']) {
+            case 'day':
+                $booking = $this->booking->countBookingTypeDay($data['date_start'],$data['date_end']);
+                break;
+
+            case 'week':
+                $booking = $this->booking->countBookingTypeWeek($data['date_start'],$data['date_end']);
+                break;
+
+            case 'month':
+                $booking = $this->booking->countBookingTypeMonth($data['date_start'],$data['date_end']);
+                break;
+
+            case 'year':
+                $booking = $this->booking->countBookingTypeYear($data['date_start'],$data['date_end']);
+                break;
+            default:
+                $booking = $this->booking->countBookingTypeWeek($data['date_start'],$data['date_end']);
                 break;
         }
 

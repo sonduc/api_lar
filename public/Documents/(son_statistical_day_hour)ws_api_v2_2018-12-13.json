@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-12-13T08:26:27.253Z",
+	"__export_date": "2018-12-13T16:55:16.236Z",
 	"__export_source": "insomnia.desktop.app:v6.0.2",
 	"resources": [
 		{
@@ -564,8 +564,8 @@
 			"created": 1536131277727,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1532570298671,
-			"modified": 1540883051237,
+			"metaSortKey": -1532570298928.8125,
+			"modified": 1544692882198,
 			"name": "Bookings",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
@@ -2265,7 +2265,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1534052863943,
 			"method": "GET",
-			"modified": 1543568576037,
+			"modified": 1544694221188,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2338,7 +2338,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1543571630225,
+			"modified": 1544694245209,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -4627,6 +4627,35 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_964f383be98d4a15af4d10c7eaae2450",
+			"authentication": {},
+			"body": {},
+			"created": 1544691873273,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\nview:week(day, week, month, year)\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890127577.754,
+			"method": "GET",
+			"modified": 1544720050497,
+			"name": "booking-day-hour",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/booking-type?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
+			"_type": "request"
+		},
+		{
 			"_id": "req_5273cdbc22434831baf9178ca3c5bdf4",
 			"authentication": {},
 			"body": {},
@@ -5479,7 +5508,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367285,
 			"method": "GET",
-			"modified": 1540794105627,
+			"modified": 1544693742224,
 			"name": "booking-status-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -5508,7 +5537,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367360,
 			"method": "GET",
-			"modified": 1542867586054,
+			"modified": 1544694234865,
 			"name": "booking-type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",
@@ -5537,7 +5566,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1536219367310,
 			"method": "GET",
-			"modified": 1542867588113,
+			"modified": 1544693734881,
 			"name": "type-list",
 			"parameters": [],
 			"parentId": "fld_7d655b4daf794dc49b449565cef4cf99",

@@ -54,6 +54,11 @@ class StatisticalController extends ApiController
         }
     }
 
+    /**
+     * thống kê booking theo thành phố
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function statisticalCity(Request $request)
     {
         DB::beginTransaction(); 
@@ -76,6 +81,11 @@ class StatisticalController extends ApiController
         }
     }
 
+    /**
+     * thống kê booking theo quận huyện
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function statisticalDistrict(Request $request)
     {
         DB::beginTransaction(); 
@@ -83,6 +93,33 @@ class StatisticalController extends ApiController
         try {
             $this->authorize('statistical.view');
             $data = $this->model->statisticalDistrict($request->all());
+
+            $data = [
+                'data' => $data   
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * thống kê booking theo ngày giờ
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function statisticalBookingType(Request $request)
+    {
+        DB::beginTransaction(); 
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $data = $this->model->statisticalBookingType($request->all());
 
             $data = [
                 'data' => $data   
