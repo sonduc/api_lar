@@ -1,18 +1,27 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 13/12/2018
+ * Time: 13:31
+ */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiMerchant;
 
+
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Transformers\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
-use App\Repositories\Rooms\RoomLogic;
+use App\Repositories\_Merchant\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
 use App\Repositories\Rooms\RoomReviewRepository;
 use App\Repositories\Rooms\RoomReviewRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
@@ -243,13 +252,10 @@ class RoomController extends ApiController
     {
         DB::enableQueryLog();
         $this->authorize('room.view');
-           //    dd(DB::getQueryLog());
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-//        dd($data);
-
+        //    dd(DB::getQueryLog());
+        $id   =  Auth::user()->id;
+        $pageSize    = $request->get('size');
+        $data = $this->model->getRoom($id, $request->all(),$pageSize);
         return $this->successResponse($data);
     }
 
@@ -267,8 +273,7 @@ class RoomController extends ApiController
     {
         try {
             $this->authorize('room.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -293,12 +298,12 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-           // $this->authorize('room.create');
+            // $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
-             DB::commit();
+            DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -724,4 +729,5 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
 }

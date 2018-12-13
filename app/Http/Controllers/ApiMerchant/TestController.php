@@ -40,7 +40,8 @@ class TestController extends ApiController
                 'message' => 'Hello'
             ]
         ];
-//        $this->authorize('test.view');
+         $test = $this->authorize('test.view');
+         dd($test);
 //        $pageSize = $request->get('limit', 25);
 //        $this->trash = $this->trashStatus($request);
 //        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);

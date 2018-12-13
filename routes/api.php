@@ -61,7 +61,7 @@ $router->group([
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
-
+    resource('/rooms', 'RoomController', $router);
     /**
      * Room Review Resource
      */
@@ -185,9 +185,6 @@ $router->group([
      */
     $router->get('/statisticals/booking-month', 'StatisticalController@bookingStatistical');
 });
-
-resource('/rooms', 'RoomController', $router);
-
 
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');

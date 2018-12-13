@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Repositories\Rooms\Room;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
@@ -17,13 +18,13 @@ class RoomPolicy
      *
      * @return mixed
      */
-    public function view(User $user)
+    public function view(User $user,$id = [])
     {
-        return $user->hasAccess(['room.view']);
+        return  $user->checkOwner($user,$this->getRoomResource($id)) == false? $user->checkOwner($user,$this->getRoomResource($id)) : $user->hasAccess(['room.view']);
     }
 
     /**
-     * Determine whether the user can create role.
+     * Determine whether the user can  create role.
      *
      * @param  \App\User $user
      *
@@ -42,9 +43,9 @@ class RoomPolicy
      *
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, $id = [])
     {
-        return $user->hasAccess(['room.update']);
+        return  $user->checkOwner($user,$this->getRoomResource($id)) == false? $user->checkOwner($user,$this->getRoomResource($id)) : $user->hasAccess(['room.update']);
     }
 
     /**
@@ -55,8 +56,21 @@ class RoomPolicy
      *
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(User $user,$id)
     {
-        return $user->hasAccess(['room.delete']);
+        return  $user->checkOwner($user,$this->getRoomResource($id)) == false? $user->checkOwner($user,$this->getRoomResource($id)) : $user->hasAccess(['room.delete']);
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     */
+    public function getRoomResource($id= [])
+    {
+        return Room::findOrFail($id)->toArray();
+
+    }
+
 }

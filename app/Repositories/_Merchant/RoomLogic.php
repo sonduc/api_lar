@@ -1,13 +1,26 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 13/12/2018
+ * Time: 13:46
+ */
 
-namespace App\Repositories\Rooms;
+namespace App\Repositories\_Merchant;
 
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Rooms\Room;
+use App\Repositories\Rooms\RoomLogicTrait;
+use App\Repositories\Rooms\RoomMediaRepositoryInterface;
+use App\Repositories\Rooms\RoomOptionalPriceRepositoryInterface;
+use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Rooms\RoomReviewRepositoryInterface;
+use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
+use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
-
 class RoomLogic extends BaseLogic
 {
     use RoomLogicTrait;
@@ -57,4 +70,20 @@ class RoomLogic extends BaseLogic
         $this->roomReview        = $roomReview;
         $this->user              = $user;
     }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $pageSize
+     * @return mixed
+     */
+    public function getRoom($id,$params, $pageSize)
+    {
+        $booking = $this->model->getRoomById($id,$params, $pageSize);
+        return $booking;
+    }
+
 }

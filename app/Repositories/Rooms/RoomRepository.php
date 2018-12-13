@@ -136,4 +136,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $rooms->paginate($size);
     }
+
+    public function getRoomById($id, $params,$size)
+    {
+        $this->useScope($params);
+        return $this->model
+            ->where('rooms.merchant_id', $id)
+            ->paginate($size);
+    }
 }
