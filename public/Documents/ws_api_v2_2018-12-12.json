@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2018-12-10T02:13:45.946Z",
+	"__export_date": "2018-12-12T02:14:53.367Z",
 	"__export_source": "insomnia.desktop.app:v6.2.3",
 	"resources": [
 		{
@@ -4826,6 +4826,35 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_aecc63fcf6cb41019aa28ceb8d96191b",
+			"authentication": {},
+			"body": {},
+			"created": 1544558560327,
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|clealiness|int|Độ sạch sẽ|\n|service|int|Dịch vụ|\n|valuable|int|Giá trị|\n|quality|int|Chất lượng|\n|avg_rating|float|Đánh giá trung bình|\n|recommend|int|Đề nghị|\n\n\n",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1540581649570.2031,
+			"method": "GET",
+			"modified": 1544558573904,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}rooms/1",
+			"_type": "request"
+		},
+		{
 			"_id": "req_38802d9d266d4d92b77f2cd055a86817",
 			"authentication": {},
 			"body": {
@@ -5061,6 +5090,17 @@
 			"metaSortKey": -1543026032708,
 			"modified": 1543026032708,
 			"name": "List",
+			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_9eadbb83cd0140ba98f0b4d5010a7bba",
+			"created": 1544386329521,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1544386329521,
+			"modified": 1544386329521,
+			"name": "Payment",
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
 			"_type": "request_group"
 		},
@@ -6906,6 +6946,166 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ customer_url }}bookings/booking-type-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c3385f15c74347e1bb95a7992bafa7e2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1544386338167,
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel','reviews'\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_5a403e392bc84489827c483c6ee2b423",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997367.2812,
+			"method": "GET",
+			"modified": 1544510233396,
+			"name": "bank-list",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_9eadbb83cd0140ba98f0b4d5010a7bba",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}bank-list/alL3YY15",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a304056398594391a66fc4d201024fdb",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"bank_payment_method_id\" : 131,\n\t\"payment_method\": 4\n}"
+			},
+			"created": 1544387165745,
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel','reviews'\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_e42eac0198964a098c06eee009fb2d05",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997364.1562,
+			"method": "POST",
+			"modified": 1544520166891,
+			"name": "payment",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_9eadbb83cd0140ba98f0b4d5010a7bba",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}payment/EwbMJNxV",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b0d3397b799d4824a06264cf50c01e23",
+			"authentication": {},
+			"body": {},
+			"created": 1544414434379,
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel','reviews'\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997314.1562,
+			"method": "GET",
+			"modified": 1544556899339,
+			"name": "success",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_9eadbb83cd0140ba98f0b4d5010a7bba",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}success?created_on=0&customer_location=&fee_amount=0&merchant_id=34526&merchant_location=&net_amount=0&order_id=HMDY1PAL0B&transaction_id=&checksum=FE06D21DAE0BE3DFB44B01974DC87C070A306F5D",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c0ae715c05b345e6a9d935e70492013b",
+			"authentication": {},
+			"body": {},
+			"created": 1544414469318,
+			"description": "## Include\n\n```\n'customer', 'merchant', 'booking_status', 'payments', 'room', 'city', 'district', 'cancel','reviews'\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997339.1562,
+			"method": "GET",
+			"modified": 1544519594502,
+			"name": "cancel",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_9eadbb83cd0140ba98f0b4d5010a7bba",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}cancel/b1Bn331W",
 			"_type": "request"
 		}
 	]

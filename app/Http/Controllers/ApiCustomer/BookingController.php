@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\ApiCustomer;
 
+use App\BaoKim\BaoKimPayment;
+use App\BaoKim\BaoKimPaymentPro;
 use App\Events\BookingConfirmEvent;
 use App\Events\BookingEvent;
 use App\Events\ConfirmBookingTime;
@@ -10,6 +12,7 @@ use App\Http\Transformers\Customer\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
+use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Bookings\PresentationTrait;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
@@ -47,8 +50,8 @@ class BookingController extends ApiController
         'status'           => 'nullable|in:1',
         'type'             =>  'required|in:2',
         'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',
-        'payment_method'   => 'required|in:2,3,4,5',
-        'payment_status'   => 'required|in:0',
+        // 'payment_method'   => 'required|in:2,3,4,5',
+        // 'payment_status'   => 'required|in:0',
         'source'           => 'required|in:4',
         'exchange_rate'    => 'nullable|integer',
         'money_received'   => 'integer|filled|min:0',
@@ -101,11 +104,11 @@ class BookingController extends ApiController
         'booking_type.integer'      => 'Mã kiểu phải là kiểu số',
         'booking_type.between'      => 'Mã kiểu không hợp lệ',
 
-        'payment_method.in'         => 'Mã hình thức thanh toán không hợp lệ',
-        'payment_method.required'   => 'Vui lòng chọn kiểu thanh toán',
+        // 'payment_method.in'         => 'Mã hình thức thanh toán không hợp lệ',
+        // 'payment_method.required'   => 'Vui lòng chọn kiểu thanh toán',
 
-         'payment_status.in'        => "Trạng thái thanh toán không hợp lệ",
-         'payment_status.required'  => "Trạng thái thanh toán không được để trống",
+        // 'payment_status.in'        => "Trạng thái thanh toán không hợp lệ",
+        // 'payment_status.required'  => "Trạng thái thanh toán không được để trống",
 
         'source.required'           => 'Vui lòng chọn nguồn booking',
         'source.in'                 => 'Mã nguồn booking không hợp lệ',
@@ -124,6 +127,9 @@ class BookingController extends ApiController
     protected $browser;
     protected $room;
     protected $user;
+    protected $bookingRepository;
+    protected $baokim;
+    protected $baokimpro;
 
     /**
      * BookingController constructor.
@@ -132,11 +138,22 @@ class BookingController extends ApiController
      * @param RoomRepositoryInterface|RoomRepository $room
      * @param UserRepositoryInterface|UserRepository $user
      */
-    public function __construct(BookingLogic $booking, RoomRepositoryInterface $room, UserRepositoryInterface $user)
-    {
-        $this->model = $booking;
-        $this->room  = $room;
-        $this->user  = $user;
+    public function __construct(
+        BookingLogic $booking,
+        RoomRepositoryInterface $room,
+        UserRepositoryInterface $user,
+        BookingRepositoryInterface $bookingRepository,
+        BaoKimPayment $baokim,
+        BaoKimPaymentPro $baokimpro
+
+
+    ) {
+        $this->model                = $booking;
+        $this->room                 = $room;
+        $this->user                 = $user;
+        $this->bookingRepository    = $bookingRepository;
+        $this->baokim               = $baokim;
+        $this->baokimpro            = $baokimpro;
         $this->setTransformer(new BookingTransformer);
     }
 
@@ -232,11 +249,11 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
             DB::commit();
-
             event(new Check_Usable_Coupon_Event($data['coupon']));
-            event(new BookingEvent($data));
+            // event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
-            return $this->successResponse($data);
+
+            // return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -437,6 +454,68 @@ class BookingController extends ApiController
             return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * Bank-list
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function bankList($uuid)
+    {
+        $booking  = $this->bookingRepository->getBookingByUuid($uuid);
+        $payment_methods = BookingConstant::getAllPaymentMethod();
+        return $this->successResponse(['data' => ['payment_methods' => $payment_methods, 'booking' => $booking]], false);
+    }
+
+
+    /**
+     * Payment
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $uuid
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse|\Laravel\Lumen\Http\Redirector|string
+     */
+    public function payment($uuid, Request $request)
+    {
+        $payment_method    = (int) $request->get('payment_method');
+        try {
+            $result  = $this->bookingRepository->getBookingByUuid($uuid)->toArray();
+            // cập nhật trạng hình thức thanh toán.
+            $result['payment_method'] = $payment_method;
+            $booking = $this->bookingRepository->update($result['id'], $result);
+
+            if ($booking) {
+                $data     = [
+                    'order_id'         => isset($booking['code']) ? $booking['code'] : null,
+                    'total_amount'     => isset($booking['total_fee']) ? $booking['total_fee'] : 0,
+                    'payer_name'       => isset($booking['name']) ? $booking['name'] : null,
+                    'payer_phone_no'   => isset($booking['phone']) ? $booking['phone'] : 0,
+                ];
+
+
+                // Thanh toán qua Bảo Kim
+                if ($request['payment_method'] == BookingConstant::BAOKIM) {
+                    return redirect($this->baokim->createRequestUrl($data));
+                }
+
+                // Thanh toán bằng thẻ
+                if ($booking['payment_method'] == BookingConstant::ATM || $booking['payment_method'] == BookingConstant::VISA) {
+                    $data['bank_payment_method_id'] = (int) $request->get('bank_payment_method_id');
+                    $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
+                    $result                         = $this->baokimpro->pay_by_card($data);
+                    $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
+                    dd($baokim_url);
+                    return redirect($baokim_url);
+                }
+            }
+        } catch (\Exception $e) {
+            DB::rollback();
+            return $e->getMessage();
         }
     }
 }

@@ -68,7 +68,7 @@ class RoomLogic extends BaseLogic
      */
     public function store($data, $room = [])
     {
-        $data['settings']= $this->model->checkValidRefund($data['settings']);
+        $data['settings']= $this->model->checkValidRefund($data);
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
@@ -170,7 +170,7 @@ class RoomLogic extends BaseLogic
      * @return mixed
      * @throws \ReflectionException
      */
-    public function ratingCalculate($room_id, $review)
+    public function ratingCalculate($room_id, $reviews)
     {
         \DB::enableQueryLog();
         $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();

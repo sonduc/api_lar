@@ -2,6 +2,9 @@
 
 namespace App\Repositories\Bookings;
 
+use Illuminate\Support\Facades\App;
+
+
 final class BookingConstant
 {
     const PREFIX     = 'HM';
@@ -174,4 +177,63 @@ final class BookingConstant
     const BOOKING_CANCEL_lEVEL          = 1;
     const BOOKING_CANCEL_UNAVAILABLE    = 1;
     const BOOKING_CANCEL_AVAILABLE      = 0;
+
+    /**
+     * Trang thái giao dịch.
+     */
+    const TRANSACTION_STATUSES = [
+        1  => 'giao dịch chưa xác minh OTP',
+        2  => 'giao dịch đã xác minh OTP',
+        4  => 'giao dịch hoàn thành',
+        5  => 'giao dịch bị hủy',
+        6  => 'giao dịch bị từ chối nhận tiền',
+        7  => 'giao dịch hết hạn',
+        8  => 'giao dịch thất bại',
+        12 => 'giao dịch bị đóng băng',
+        13 => 'giao dịch bị tạm giữ (thanh toán an toàn)',
+    ];
+
+    public static function getAllPaymentMethod()
+    {
+        // Danh sách các ngân hàng online
+        $baokim = App::make('App\BaoKim\BaoKimPaymentPro');
+        $bank_listings = $baokim->get_seller_info();
+        return [
+            self::ATM    => [
+                'title'          => 'Thanh toán qua thẻ ATM nội địa',
+                'payment_method' => self::ATM,
+                'status'         => true,
+                'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_LOCAL_CARD, self::ATM),
+                'default'        => true
+            ],
+            self::VISA   => [
+                'title'          => 'Thanh toán qua thẻ quốc tế Visa Mastercard',
+                'payment_method' => self::VISA,
+                'status'         => true,
+                'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_CREDIT_CARD, self::VISA),
+                'default'        => false
+            ],
+            self::BAOKIM => [
+                'title'          => 'Thanh toán qua ví điện tử bảo kim',
+                'payment_method' => self::BAOKIM,
+                'status'         => false,
+                'banks'          => null,
+                'default'        => false
+            ],
+            self::COD    => [
+                'title'          => 'Thanh toán tại nhà',
+                'payment_method' => self::COD,
+                'status'         => false,
+                'banks'          => null,
+                'default'        => false
+            ],
+            self::CARD   => [
+                'title'          => 'Thanh toán chuyển khoản',
+                'payment_method' => self::CARD,
+                'status'         => false,
+                'banks'          => null,
+                'default'        => false
+            ]
+        ];
+    }
 }

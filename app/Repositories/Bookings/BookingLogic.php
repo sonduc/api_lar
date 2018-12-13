@@ -97,6 +97,7 @@ class BookingLogic extends BaseLogic
         $data['merchant_id'] = $room->merchant_id;
 
         $data['settings']    = $room->settings;
+        // dd($data['settings']);
         // return json_encode($refund);
 
         $data_booking = parent::store($data);
