@@ -7,6 +7,8 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use Illuminate\Support\Facades\Crypt;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Rooms\RoomTimeBlockTrait;
+use App\Repositories\Rooms\RoomTimeBlock;
 use ICal\ICal;
 use App\Repositories\Bookings\BookingConstant;
 use Jsvrcek\ICS\Model\Calendar;
@@ -19,6 +21,8 @@ use Jsvrcek\ICS\CalendarExport;
 
 class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepositoryInterface
 {
+    use RoomTimeBlockTrait;
+
     /**
      * RoomCalendar model.
      * @var Model
@@ -35,10 +39,12 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         RoomCalendar $roomcalendar,
         RoomTranslateRepositoryInterface $room_translate,
         RoomRepositoryInterface $room
+        // RoomTimeBlockRepositoryInterface $room_time_block
     ) {
         $this->model            = $roomcalendar;
         $this->room_translate   = $room_translate;
         $this->room             = $room;
+        // $this->room_time_block  = $room_time_block;
     }
 
     public function icalGenerator($id)
@@ -133,12 +139,19 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
 
     public function storeRoomCalendar($data_booking, $data)
     {
-        $room = $this->room->getRoomByListIdIndex([$data_booking->room_id]);
+        $room = $this->room_translate->getRoomByListIdIndex([$data_booking->room_id]);
         $room_name = $room[0]['name'];
+        $start  = Carbon::parse($data_booking->checkin)->startOfDay();
+        if (BookingConstant::BOOKING_TYPE_HOUR == $data_booking->booking_type) {
+            $end    = Carbon::parse($data_booking->checkout)->addDay()->startOfDay();
+        } else {
+            $end    = Carbon::parse($data_booking->checkout)->startOfDay();
+        }
+
         $this->model->create([
             'name'       => $data_booking->name .' ('. $data_booking->code.')',
-            'starts'     => Carbon::parse($data_booking->checkin)->startOfDay(),
-            'ends'       => Carbon::parse($data_booking->checkout)->startOfDay(),
+            'starts'     => $start,
+            'ends'       => $end,
             'summary'    => $data_booking->name .' '. $data_booking->code,
             'status'     => 'CONFIRMED',
             'location'   => $room_name,
@@ -151,8 +164,8 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
 
     public function updateRoomCalendar($list_id)
     {
-        $room = $this->room->getListCalendar($list_id);
-
+        $room = $this->room->getListCalendar([$list_id]);
+        // dd($room);
         foreach ($room as $key => $ical_url) {
             // $room_id = $room['id'];
             try {
@@ -174,6 +187,12 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             // dd($events);
             $now = Carbon::now();
             foreach ($events as $event) {
+                $time_block_start = Carbon::parse($event->dtstart_array[3])->toDateString();
+                $time_block_end = Carbon::parse($event->dtend_array[3])->toDateString();
+                $blocks[] = [
+                    $time_block_start,$time_block_end
+                ];
+               
                 $dt_start   = $ical->iCalDateToDateTime($event->dtstart_array[3], false);
                 // dd($dt_start > $now);
                 if ($dt_start > $now) {
@@ -184,8 +203,6 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                     $location   = $event->location;
                     $uid        = $event->uid;
                     $type       = $event->location != null ? RoomCalendar::BOOKED : RoomCalendar::BLOCKED;
-                    $created_at = Carbon::now()->toDateTimeString();
-                    $updated_at = Carbon::now()->toDateTimeString();
                     $this->model::firstOrCreate([
                         'name'       => $name,
                         'starts'     => $dt_start,
@@ -198,6 +215,28 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                         'room_id'    => $key
                     ]);
                 }
+            }
+            $current_time_block = RoomTimeBlock::where('room_id', $key)->where('date_start', '>', $now->toDateString())->get(['date_start', 'date_end']);
+
+            \DB::beginTransaction();
+            try {
+                foreach ($current_time_block as $k => $v) {
+                    $blocks[] = [$v->date_start, $v->date_end];
+                }
+                $blocks = $this->minimizeBlock($blocks);
+                // dd($blocks);
+                // RoomTimeBlock::where('room_id', $key)->forceDelete();
+                foreach ($blocks as $block) {
+                    RoomTimeBlock::firstOrCreate([
+                        "date_start"    => $block[0],
+                        "date_end"      => array_key_exists(1, $block) ? $block[1] : $block[0],
+                        "room_id"       => $key
+                    ]);
+                }
+
+                \DB::commit();
+            } catch (\Throwable $th) {
+                \DB::rollBack();
             }
         }
     }
@@ -226,5 +265,20 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             // 'created_at' => $data_booking->created_at,
             // 'updated_at' => $data_booking->updated_at
         ], ['uid'        => Crypt::encrypt($room_name[0]['name']).'@westay.org',]);
+    }
+
+    
+    /**
+     * Lưu những ngày không cho đặt phòng
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param       $room
+     * @param array $data
+     * @param array $list
+     */
+    public function updateRoomTimeBlockAirbnb($room, $data = [], $list =[])
+    {
+        
+        // RoomTimeBlock::storeArray($list);
     }
 }
