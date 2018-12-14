@@ -22,7 +22,6 @@ class RoomLogic extends BaseLogic
     protected $booking;
     protected $roomReview;
     protected $user;
-    protected $room_model;
 
     /**
      * RoomLogic constructor.
@@ -38,7 +37,6 @@ class RoomLogic extends BaseLogic
      */
     public function __construct(
         RoomRepositoryInterface $room,
-        Room $room_model,
         RoomTranslateRepositoryInterface $roomTranslate,
         RoomOptionalPriceRepositoryInterface $roomOptionalPrice,
         RoomMediaRepositoryInterface $roomMedia,
@@ -47,7 +45,6 @@ class RoomLogic extends BaseLogic
         RoomReviewRepositoryInterface $roomReview,
         UserRepositoryInterface $user
     ) {
-        $this->room_model        = $room_model;
         $this->model             = $room;
         $this->roomTranslate     = $roomTranslate;
         $this->roomOptionalPrice = $roomOptionalPrice;
@@ -173,7 +170,7 @@ class RoomLogic extends BaseLogic
     public function ratingCalculate($room_id, $reviews)
     {
         \DB::enableQueryLog();
-        $room           = $this->room_model->where('id', $room_id)->with('reviews')->first();
+        $room = $this->model->getById($room_id)->with('reviews')->first();
         $denominator    = sizeof($room['reviews']);
 
         $current_cleanliness    = $room->avg_cleanliness * $denominator;
