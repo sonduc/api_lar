@@ -10,6 +10,7 @@ use App\Repositories\Bookings\BookingLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Coupons\CouponRepositoryInterface;
 use Carbon\Exceptions\InvalidDateException;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
@@ -190,6 +191,11 @@ class BookingController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -215,6 +221,11 @@ class BookingController extends ApiController
 
 
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -263,6 +274,11 @@ class BookingController extends ApiController
             DB::commit();
             logs('booking', 'sửa booking có code ' . $data->code, $data);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -307,6 +323,11 @@ class BookingController extends ApiController
 //            $this->model->delete($id);
 //             DB::commit();
             return $this->deleteResponse();
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
@@ -353,6 +374,11 @@ class BookingController extends ApiController
             ];
 
             return $this->successResponse($data, false);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -406,6 +432,11 @@ class BookingController extends ApiController
             logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -457,6 +488,11 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -508,6 +544,11 @@ class BookingController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -560,6 +601,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::BOOKING_STATUS);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -578,6 +624,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::BOOKING_TYPE);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -596,6 +647,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::TYPE);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -614,6 +670,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_METHOD);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -632,6 +693,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_STATUS);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -650,6 +716,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_HISTORY_TYPE);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -668,6 +739,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::BOOKING_SOURCE);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -686,6 +762,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingConstant::PRICE_RANGE);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -704,6 +785,11 @@ class BookingController extends ApiController
             $this->authorize('booking.view');
             $data = $this->simpleArrayToObject(BookingCancel::getBookingCancel());
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

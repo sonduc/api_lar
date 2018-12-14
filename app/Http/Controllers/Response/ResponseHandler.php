@@ -85,6 +85,23 @@ trait ResponseHandler
         return response()->json($response, $response['code']);
     }
 
+    protected function forbidden($data)
+    {
+//        $response = [
+//            'code'    => ResponseCode::UNPROCESSABLE_ENTITY,
+//            'status'  => 'error',
+//            'data'    => $data,
+//            'message' => 'Unprocessable Entity',
+//        ];
+        $response = [
+            'code'    => ResponseCode::FORBIDDEN,
+            'status'  => 'error',
+            'data'    => $data,
+            'message' => 'Forbidden',
+        ];
+        return response()->json($response, $response['code']);
+    }
+
     protected function notSupportedMediaResponse($data)
     {
         $response = [

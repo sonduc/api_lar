@@ -20,6 +20,7 @@ use App\Repositories\Rooms\RoomReviewRepository;
 use App\Repositories\Rooms\RoomReviewRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -251,12 +252,27 @@ class RoomController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $this->authorize('room.view');
-        //    dd(DB::getQueryLog());
-        $id   =  Auth::user()->id;
-        $pageSize    = $request->get('size');
-        $data = $this->model->getRoom($id, $request->all(),$pageSize);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('room.view');
+            //    dd(DB::getQueryLog());
+            $id   =  Auth::user()->id;
+            $pageSize    = $request->get('size');
+            $data = $this->model->getRoom($id, $request->all(),$pageSize);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+
     }
 
     /**
@@ -272,12 +288,18 @@ class RoomController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('room.view',$id);
-            $data    = $this->model->getById($id);
+            $this->authorize('room.view', $id);
+            $data = $this->model->getById($id);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -350,6 +372,12 @@ class RoomController extends ApiController
             DB::commit();
             logs('room', 'sửa phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -395,67 +423,16 @@ class RoomController extends ApiController
                 ],
             ];
             return $this->successResponse($data, false);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
-
-    /**
-     * Cập nhật riêng lẻ các thuộc tính của phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function minorRoomUpdate(Request $request, $id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('room.update',$id);
-            $avaiable_option = [
-                'hot',
-                'new',
-                'latest_deal',
-                'merchant_id',
-                'status',
-                'standard_point',
-                'is_manager',
-            ];
-            $option = $request->get('option');
-
-            if (!in_array($option, $avaiable_option)) {
-                throw new \Exception('Không có quyền sửa đổi mục này');
-            }
-
-            $validate = array_only($this->validationRules, [
-                $option,
-            ]);
-
-            $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->minorRoomUpdate($id, $request->only($option));
-            DB::commit();
-
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
+            return $this->forbidden([
+                'error' => $f->getMessage(),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->errorResponse([
                 'error' => $e->getMessage(),
             ]);
@@ -465,6 +442,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
 
     /**
      * Xóa phòng (Soft Delete)
@@ -485,11 +463,19 @@ class RoomController extends ApiController
             DB::commit();
             logs('room', 'xóa phòng mã ' . $id);
             return $this->deleteResponse();
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -510,6 +496,10 @@ class RoomController extends ApiController
             $data = $this->simpleArrayToObject(Room::ROOM_TYPE);
             return response()->json($data);
         } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -609,6 +599,11 @@ class RoomController extends ApiController
             DB::commit();
             logs('room', 'sửa phòng mã ' . $data->id, $data);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -619,6 +614,9 @@ class RoomController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -659,6 +657,11 @@ class RoomController extends ApiController
             $data = $this->model->getRoomLatLong($request->all(), $pageSize);
 
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -667,32 +670,6 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-
-    /**
-     *   đưa ra các phòng tương tự với 1 phòng nào đó
-     *
-     * @author sonduc <ndson1998@gmail.com>
-     * @param  Request $request [description]
-     * @param  [type]  $id      [description]
-     * @return [type]           [description]
-     */
-    public function getRoomRecommend(Request $request, $id)
-    {
-        try {
-            $this->authorize('room.view',$id);
-            $pageSize    = $request->get('limit', 5);
-            $data = $this->model->getRoomRecommend($pageSize, $id);
-
-            return $this->successResponse($data);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
 
     public function updateRoomSettings(Request $request)
     {
@@ -717,6 +694,11 @@ class RoomController extends ApiController
             DB::commit();
             logs('room', 'sửa phòng mã ' . $data->id, $data);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -727,6 +709,9 @@ class RoomController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

@@ -50,14 +50,15 @@ $router->group([
     /**
      * Room Resource
      */
-    $router->post('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
+    $router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
     $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
     $router->get('/rooms/type', 'RoomController@getRoomType');
     $router->get('/rooms/get-name', 'RoomController@getRoomName');
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');
     $router->get('/rooms/rent-type', 'RoomController@roomRentType');
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
-    $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
+    $router->put
+    ('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
