@@ -154,7 +154,7 @@ trait PresentationTrait
         }
 
 
-       if ($data->merchant_id == $user->id)
+       if ($data['merchant_id'] == $user->id)
        {
            return true;
        }

@@ -272,7 +272,7 @@ class RoomController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('room.view');
+            $this->authorize('room.view',$id);
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
@@ -298,7 +298,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            // $this->authorize('room.create');
+             $this->authorize('room.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
@@ -343,7 +343,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$id);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
 //            dd(DB::getQueryLog());
@@ -388,6 +388,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
+            $this->authorize('room.view',$id);
             $data = [
                 'data' => [
                     'blocks' => $this->model->getFutureRoomSchedule($id),
@@ -421,7 +422,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$id);
             $avaiable_option = [
                 'hot',
                 'new',
@@ -478,7 +479,7 @@ class RoomController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->authorize('room.delete');
+            $this->authorize('room.delete',$id);
             $this->model->delete($id);
 
             DB::commit();
@@ -587,7 +588,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$request->room_id);
             $validate = array_only($this->validationRules, [
                 'room_time_blocks.*.0',
                 'room_time_blocks.*.1',
@@ -628,7 +629,10 @@ class RoomController extends ApiController
     public function getRoomName()
     {
         $this->authorize('room.view');
-        $test = DB::table('rooms')->join('room_translates', 'rooms.id', 'room_translates.room_id')->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))->get()->toArray();
+        $test = DB::table('rooms')->where('rooms.merchant_id','=',Auth::user()->id)
+            ->join('room_translates', 'rooms.id', 'room_translates.room_id')
+            ->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))
+            ->get()->toArray();
         $data = [
             'data' => $test,
         ];
@@ -645,7 +649,7 @@ class RoomController extends ApiController
     public function getRoomLatLong(Request $request)
     {
         try {
-            $this->authorize('room.view');
+            $this->authorize('room.create');
             $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
             $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
             $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
@@ -675,7 +679,7 @@ class RoomController extends ApiController
     public function getRoomRecommend(Request $request, $id)
     {
         try {
-            $this->authorize('room.view');
+            $this->authorize('room.view',$id);
             $pageSize    = $request->get('limit', 5);
             $data = $this->model->getRoomRecommend($pageSize, $id);
 
@@ -695,7 +699,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$request->room_id);
             $validate = array_only($this->validationRules, [
                 'settings.no_booking_cancel',
                 'settings.refunds.*.days',
