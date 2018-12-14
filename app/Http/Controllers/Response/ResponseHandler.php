@@ -97,7 +97,7 @@ trait ResponseHandler
             'code'    => ResponseCode::FORBIDDEN,
             'status'  => 'error',
             'data'    => $data,
-            'message' => 'Forbidden',
+            'message' => 'FORBIDDEN',
         ];
         return response()->json($response, $response['code']);
     }
