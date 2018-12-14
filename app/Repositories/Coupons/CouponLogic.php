@@ -56,8 +56,7 @@ class CouponLogic extends BaseLogic
         UserRepositoryInterface $user,
         RoomOptionalPriceRepositoryInterface $op,
         CouponRepositoryInterface $cp
-    )
-    {
+    ) {
         $this->model          = $coupon;
         $this->room           = $room;
         $this->room_translate = $room_translate;
@@ -83,6 +82,7 @@ class CouponLogic extends BaseLogic
             $data['settings']['min_price'] = 0;
         };
         $data['settings'] = json_encode($data['settings']);
+        // dd(json_encode($data['settings']));
         $data_coupon      = parent::store($data);
         return $data_coupon;
     }
@@ -157,13 +157,18 @@ class CouponLogic extends BaseLogic
                 $list_city_id     = array_merge(($settings->cities ?? []), $list_city_id);
                 $list_district_id = array_merge(($settings->districts ?? []), $list_district_id);
                 $list_merchant_id = array_merge(($settings->merchants ?? []), $list_merchant_id);
-                $list_user_id     = array_merge(($settings->user ?? []), $list_user_id);
+                $list_user_id     = array_merge(($settings->users ?? []), $list_user_id);
             }
 
             $arrData = $this->transformCouponIndex(
-                $list_room_id, $list_city_id, $list_district_id,
+                $list_room_id,
+                $list_city_id,
+                $list_district_id,
                 (!empty($settings->days) ? $settings->days : []),
-                $list_merchant_id, $list_user_id, $data);
+                $list_merchant_id,
+                $list_user_id,
+                $data
+            );
 
             return \count($data) === 1 ? $arrData[0] : $arrData;
         }
@@ -338,5 +343,4 @@ class CouponLogic extends BaseLogic
             throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
         }
     }
-
 }

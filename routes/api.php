@@ -191,3 +191,7 @@ $router->post('register', 'RegisterController@register');
 
 // Social login
 $router->get('login/{social}', 'SocialAuthController@social');
+
+//Calendar
+$router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
+// $router->post('update-calendar/{id}', 'RoomCalendarController@updateCalendar');

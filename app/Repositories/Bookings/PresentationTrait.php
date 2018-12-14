@@ -105,25 +105,23 @@ trait PresentationTrait
      *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param $bookinng
+     * @param $booking
      * @return string
      */
-    public function getTotalRefund($bookinng)
+    public function getTotalRefund($booking)
     {
-        $booking_settings           = json_decode($bookinng->settings);
-        if (empty($booking_settings) || $booking_settings->no_booking_cancel == 1 )
-        {
-           return 'Bạn sẽ không được hoàn lại khoản tiền nào nếu hủy booking này';
+        $booking_settings           = json_decode($booking->settings);
+        if (empty($booking_settings) || $booking_settings->no_booking_cancel == 1) {
+            return 'Bạn sẽ không được hoàn lại khoản tiền nào nếu hủy booking này';
         }
 
         // thời gian check_in booking
-        $checkin = $bookinng['checkin'];
-       // Thời gian cách ngày checkin cho phép hoàn lại tiền.
-        $time_refund = $booking_settings->refund[0]->days* 24 *3600;
+        $checkin = $booking['checkin'];
+        // Thời gian cách ngày checkin cho phép hoàn lại tiền.
+        $time_refund = $booking_settings !== null ? $booking_settings->refunds[0]->days * 24 * 3600 : null;
 
         $time_free_booking_caccel = Carbon::createFromTimestamp($checkin - $time_refund);
         return 'Hủy không tốn phí trước'.' '. $time_free_booking_caccel. ' (giờ địa phương)';
-
     }
 
     /**

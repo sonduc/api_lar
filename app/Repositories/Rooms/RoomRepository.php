@@ -136,4 +136,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $rooms->paginate($size);
     }
+
+    public function getListCalendar($list_id)
+    {
+        $airbnb_calendar = $this->model::whereIn('id', $list_id)->pluck('airbnb_calendar', 'id');
+        return $airbnb_calendar;
+    }
 }

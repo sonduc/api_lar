@@ -185,4 +185,12 @@ return [
         \App\Repositories\Statisticals\StatisticalRepositoryInterface::class,
         \App\Repositories\Statisticals\StatisticalRepository::class,
     ],
+
+    /**
+     * Room Calendar Blinding
+     */
+    \App\Repositories\Roomcalendars\RoomCalendar::class => [
+        \App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface::class,
+        \App\Repositories\Roomcalendars\RoomCalendarRepository::class,
+    ],
 ];

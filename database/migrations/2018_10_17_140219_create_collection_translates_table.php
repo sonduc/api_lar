@@ -17,7 +17,7 @@ class CreateCollectionTranslatesTable extends Migration
             $table->increments('id');
             $table->integer('collection_id');
             $table->string('name', 100)->nullable();
-            $table->string('description', 100)->nullable();
+            $table->longText('description')->nullable();
             $table->string('lang', 5)->nullable();
             $table->softDeletes();
             $table->timestamps();

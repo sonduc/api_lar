@@ -27,7 +27,10 @@
     "aws/aws-sdk-php": "^3.69",
     "sinergi/browser-detector": "^6.1",
     "nesbot/carbon": "2.4.0 as 1.34.0",
-    "kylekatarnls/laravel-carbon-2": "^1.0.0"
+    "kylekatarnls/laravel-carbon-2": "^1.0.0",
+    "johngrogg/ics-parser": "^2.1",
+    "spatie/calendar-links": "^1.1",
+    "jsvrcek/ics": "^0.6.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
