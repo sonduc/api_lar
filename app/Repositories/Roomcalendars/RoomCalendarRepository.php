@@ -11,13 +11,6 @@ use App\Repositories\Rooms\RoomTimeBlockTrait;
 use App\Repositories\Rooms\RoomTimeBlock;
 use ICal\ICal;
 use App\Repositories\Bookings\BookingConstant;
-use Jsvrcek\ICS\Model\Calendar;
-use Jsvrcek\ICS\Model\CalendarEvent;
-use Jsvrcek\ICS\Model\Relationship\Attendee;
-use Jsvrcek\ICS\Model\Relationship\Organizer;
-use Jsvrcek\ICS\Utility\Formatter;
-use Jsvrcek\ICS\CalendarStream;
-use Jsvrcek\ICS\CalendarExport;
 
 class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepositoryInterface
 {
@@ -164,10 +157,10 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
 
     public function updateRoomCalendar($list_id)
     {
-        $room = $this->room->getListCalendar([$list_id]);
+        $room = $this->room->getListCalendar($list_id);
         // dd($room);
         foreach ($room as $key => $ical_url) {
-            // $room_id = $room['id'];
+            // $ical_url = 'https://www.airbnb.com/calendar/ical/30510881.ics?s=6154494651e5aeabdccf0d4152d14ef6';
             try {
                 $ical = new ICal($ical_url, array(
                     'defaultSpan'                 => 2,     // Default value
@@ -185,17 +178,17 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             }
             $events = $ical->events();
             // dd($events);
-            $now = Carbon::now();
+            $now = Carbon::now()->startOfDay();
             foreach ($events as $event) {
-                $time_block_start = Carbon::parse($event->dtstart_array[3])->toDateString();
-                $time_block_end = Carbon::parse($event->dtend_array[3])->toDateString();
+                $time_block_start   = Carbon::parse($event->dtstart_array[3])->toDateString();
+                $time_block_end     = Carbon::parse($event->dtend_array[3])->toDateString();
                 $blocks[] = [
                     $time_block_start,$time_block_end
                 ];
                
                 $dt_start   = $ical->iCalDateToDateTime($event->dtstart_array[3], false);
                 // dd($dt_start > $now);
-                if ($dt_start > $now) {
+                if ($dt_start >= $now) {
                     $dt_end     = $ical->iCalDateToDateTime($event->dtend_array[3], false);
                     $name       = $event->summary;
                     $summary    = $event->summary;
@@ -216,9 +209,9 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                     ]);
                 }
             }
-            $current_time_block = RoomTimeBlock::where('room_id', $key)->where('date_start', '>', $now->toDateString())->get(['date_start', 'date_end']);
+            $current_time_block = RoomTimeBlock::where('room_id', $key)->where('date_start', '>=', $now->toDateString())->get(['date_start', 'date_end']);
 
-            \DB::beginTransaction();
+            // \DB::beginTransaction();
             try {
                 foreach ($current_time_block as $k => $v) {
                     $blocks[] = [$v->date_start, $v->date_end];
@@ -233,10 +226,9 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                         "room_id"       => $key
                     ]);
                 }
-
-                \DB::commit();
+                // \DB::commit();
             } catch (\Throwable $th) {
-                \DB::rollBack();
+                // \DB::rollBack();
             }
         }
     }
@@ -265,20 +257,5 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             // 'created_at' => $data_booking->created_at,
             // 'updated_at' => $data_booking->updated_at
         ], ['uid'        => Crypt::encrypt($room_name[0]['name']).'@westay.org',]);
-    }
-
-    
-    /**
-     * Lưu những ngày không cho đặt phòng
-     * @author Tuan Anh <tuananhpham1402@gmail.com>
-     *
-     * @param       $room
-     * @param array $data
-     * @param array $list
-     */
-    public function updateRoomTimeBlockAirbnb($room, $data = [], $list =[])
-    {
-        
-        // RoomTimeBlock::storeArray($list);
     }
 }

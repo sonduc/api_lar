@@ -45,7 +45,6 @@ class RoomTimeBlockTransformer extends TransformerAbstract
     private function checkDate($date)
     {
         $c_date = Carbon::parse($date)->startOfDay()->timestamp;
-        return ($c_date <= $this->now->copy()->timestamp) ? $this->now->toDateString() : $date;
+        return ($c_date <= $this->now->copy()->timestamp) ? $this->now->addDay()->toDateString() : $date;
     }
-
 }
