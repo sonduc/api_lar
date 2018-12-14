@@ -134,4 +134,26 @@ class StatisticalController extends ApiController
             throw $t;
         }
     }
+
+    public function statisticalBookingRevenue(Request $request)
+    {
+        DB::beginTransaction(); 
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $data = $this->model->statisticalBookingRevenue($request->all());
+
+            $data = [
+                'data' => $data->toArray()
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }

@@ -1004,7 +1004,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $convertDataBooking;
     }
 
-
+    /**
+     * lấy những booking có cùng ngày theo loại booking
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
     public function convertBookingType($bookings, $date)
     {
         $dataBooking    = [];
@@ -1015,18 +1019,20 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             }
         }
         foreach ($dataBooking as $key => $value) {
-            if ($value->type == BookingConstant::BOOKING_TYPE_DAY){
+            if ($value->type == BookingConstant::BOOKING_TYPE_DAY) {
                 $convertBooking[] = [
-                    'type_booking'  => "Theo ngày",
+                    'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
+                    'type'          => $value->type,
                     'total_booking' => $value->total_booking,
                     'success'       => $value->success,
                     'cancel'        => $value->cancel,
                 ];
             }
 
-            if ($value->type == BookingConstant::BOOKING_TYPE_HOUR){
+            if ($value->type == BookingConstant::BOOKING_TYPE_HOUR) {
                 $convertBooking[] = [
-                    'type_booking'  => "Theo giờ",
+                    'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
+                    'type'          => $value->type,
                     'total_booking' => $value->total_booking,
                     'success'       => $value->success,
                     'cancel'        => $value->cancel,
@@ -1034,5 +1040,132 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             }
         }
         return $convertBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function totalBookingRevenueDay($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
+                
+                DB::raw('cast(created_at as DATE) as date')
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+
+        return $bookings;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingRevenueWeek($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                created_at,
+                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingRevenueMonth($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingRevenueYear($date_start, $date_end)
+    {
+        $booking = $this->model
+            ->select(
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            created_at,
+                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->where([
+                ['created_at', '>=', $date_start],
+                ['created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date'))
+            ->get();
+        return $booking;
     }
 }
