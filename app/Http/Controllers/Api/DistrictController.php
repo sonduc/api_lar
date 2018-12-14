@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\DistrictTransformer;
 use App\Repositories\Districts\DistrictRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -57,11 +58,17 @@ class DistrictController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('district.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try{
+            $this->authorize('district.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -76,6 +83,10 @@ class DistrictController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -96,6 +107,11 @@ class DistrictController extends ApiController
             DB::commit();
             logs('district', 'thêm tỉnh mã ' . $data->id, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -126,6 +142,11 @@ class DistrictController extends ApiController
             DB::commit();
             logs('district', 'sửa tỉnh mã ' . $data->id, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -153,6 +174,11 @@ class DistrictController extends ApiController
             DB::commit();
             logs('district', 'xóa tỉnh mã ' . $id, $data);
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();

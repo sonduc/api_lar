@@ -6,7 +6,8 @@ use App\Http\Transformers\BlogTransformer;
 use App\Repositories\Blogs\Blog;
 use App\Repositories\Blogs\BlogLogic;
 use App\Repositories\Blogs\BlogRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class BlogController extends ApiController
@@ -67,12 +68,18 @@ class BlogController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $this->authorize('blog.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // dd(DB::getQueryLog());
-        return $this->successResponse($data);
+        try{
+            $this->authorize('blog.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
 
     }
 
@@ -88,6 +95,10 @@ class BlogController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -117,6 +128,11 @@ class BlogController extends ApiController
             DB::commit();
             logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -155,6 +171,11 @@ class BlogController extends ApiController
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());
             return $this->successResponse($model, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -192,6 +213,11 @@ class BlogController extends ApiController
             DB::commit();
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
@@ -233,6 +259,11 @@ class BlogController extends ApiController
             logs('blogs', 'sửa trạng thái của bài viết có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
 
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -268,6 +299,11 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_STATUS);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -286,6 +322,11 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_HOT);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -304,6 +345,11 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_NEW);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

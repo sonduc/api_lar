@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Repositories\GuidebookCategories\GuidebookCategoryLogic;
 use App\Repositories\GuidebookCategories\GuidebookCategory;
 
 use App\Http\Transformers\GuidebookCategoryTransformer;
 use App\Repositories\GuidebookCategories\GuidebookCategoryRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class GuidebookCategoryController extends ApiController
 {
@@ -46,11 +47,18 @@ class GuidebookCategoryController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('guidebookcategory.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+       try{
+           $this->authorize('guidebookcategory.view');
+           $pageSize = $request->get('limit', 25);
+           $this->trash = $this->trashStatus($request);
+           $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+           return $this->successResponse($data);
+       }catch (AuthorizationException $f) {
+           DB::rollBack();
+           return $this->forbidden([
+               'error' => $f->getMessage(),
+           ]);
+       }
     }
 
     /**
@@ -69,6 +77,11 @@ class GuidebookCategoryController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -97,6 +110,11 @@ class GuidebookCategoryController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -131,6 +149,11 @@ class GuidebookCategoryController extends ApiController
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -160,6 +183,11 @@ class GuidebookCategoryController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

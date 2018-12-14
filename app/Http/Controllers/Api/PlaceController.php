@@ -6,7 +6,8 @@ use App\Http\Transformers\PlaceTransformer;
 use App\Repositories\Places\Place;
 use App\Repositories\Places\PlaceLogic;
 use App\Repositories\Places\PlaceRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class PlaceController extends ApiController
@@ -77,11 +78,18 @@ class PlaceController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('place.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('place.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -100,6 +108,11 @@ class PlaceController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -129,6 +142,11 @@ class PlaceController extends ApiController
             DB::commit();
             logs('place', 'tạo địa điểm mã ' . $data->id, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -171,6 +189,11 @@ class PlaceController extends ApiController
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -200,6 +223,11 @@ class PlaceController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -222,6 +250,11 @@ class PlaceController extends ApiController
             $this->authorize('place.view');
             $data = $this->simpleArrayToObject(Place::PLACE_STATUS);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -257,6 +290,11 @@ class PlaceController extends ApiController
             logs('places', 'sửa trạng thái của địa điểm có mã ' . $data->id, $data);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -296,6 +334,11 @@ class PlaceController extends ApiController
             $data = $this->model->editRoomPlace($request->all());
             DB::commit();
             return $this->successResponse($data, false);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),

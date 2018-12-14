@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Repositories\Statisticals\StatisticalLogic;
 use App\Repositories\Statisticals\StatisticalRepositoryInterface;
 
 use App\Http\Transformers\StatisticalTransformer;
 use App\Repositories\Statisticals\StatisticalRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class StatisticalController extends ApiController
 {
@@ -18,7 +19,7 @@ class StatisticalController extends ApiController
     ];
     protected $validationMessages = [
         'date_start.date_format'    =>  'Ngày bắt đầu thống kê phải có định dạng Y-m-d H:i:s',
-     
+
         'date_end.date_format'      =>  'Ngày kết thúc thống kê phải có định dạng Y-m-d H:i:s',
         'date_end.after'            =>  'Thời gian kết thúc thống kê phải sau thời gian bắt đầu thống kê',
     ];
@@ -45,6 +46,11 @@ class StatisticalController extends ApiController
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

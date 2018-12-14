@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\RoleTransformer;
 use App\Repositories\Roles\RoleRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends ApiController
 {
@@ -39,9 +41,15 @@ class RoleController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('role.view');
-        $pageSize = $request->get('limit', 25);
-        return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+       try{
+           $this->authorize('role.view');
+           $pageSize = $request->get('limit', 25);
+           return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+       }catch (AuthorizationException $f) {
+           return $this->forbidden([
+               'error' => $f->getMessage(),
+           ]);
+       }
     }
 
     /**
@@ -54,6 +62,10 @@ class RoleController extends ApiController
         try {
             $this->authorize('role.view');
             return $this->successResponse($this->model->getById($id));
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -71,6 +83,11 @@ class RoleController extends ApiController
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -91,6 +108,11 @@ class RoleController extends ApiController
             $model = $this->model->update($id, $request->all());
 
             return $this->successResponse($model);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -112,6 +134,11 @@ class RoleController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\Rooms\RoomReview;
 use App\Repositories\Rooms\RoomReviewLogic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Http\Transformers\RoomReviewTransformer;
 use Illuminate\Support\Facades\DB;
@@ -66,11 +67,17 @@ class RoomReviewController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('room.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('room.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -89,6 +96,10 @@ class RoomReviewController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -117,6 +128,11 @@ class RoomReviewController extends ApiController
             // dd($data->room_id);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -153,6 +169,11 @@ class RoomReviewController extends ApiController
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -185,6 +206,11 @@ class RoomReviewController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -207,6 +233,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::ROOM_REVIEW_STATUS);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -226,6 +257,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::LIKE);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -245,6 +281,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::RECOMMEND);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -264,6 +305,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::SERVICE);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -283,6 +329,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::QUALITY);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -303,6 +354,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::CLEANLINESS);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -322,6 +378,11 @@ class RoomReviewController extends ApiController
             $this->authorize('room.view');
             $data = $this->simpleArrayToObject(RoomReview::VALUABLE);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

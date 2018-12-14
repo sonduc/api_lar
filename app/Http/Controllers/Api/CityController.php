@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\CityTransformer;
 use App\Repositories\Cities\CityRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -62,11 +63,18 @@ class CityController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('city.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('city.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
+
     }
 
     /**
@@ -81,6 +89,10 @@ class CityController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -101,6 +113,11 @@ class CityController extends ApiController
             DB::commit();
             logs('city', 'thêm thành phố mã ' . $data->id, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -130,6 +147,11 @@ class CityController extends ApiController
             DB::commit();
             logs('city', 'sửa thành phố mã ' . $id, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -157,6 +179,11 @@ class CityController extends ApiController
             DB::commit();
             logs('city', 'xóa thành phố mã ' . $id);
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();

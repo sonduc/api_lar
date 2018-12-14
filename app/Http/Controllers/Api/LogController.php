@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\LogTransformer;
 use App\Repositories\Logs\LogRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class LogController extends ApiController
@@ -35,11 +36,18 @@ class LogController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('log.view');
-        $pageSize = $request->get('limit', 25);
+        try {
+            $this->authorize('log.view');
+            $pageSize = $request->get('limit', 25);
 
-        $data = $this->model->getLog($request->all(), $pageSize);
-        return $this->successResponse($data);
+            $data = $this->model->getLog($request->all(), $pageSize);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -54,6 +62,11 @@ class LogController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
