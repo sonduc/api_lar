@@ -95,16 +95,38 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return json_encode($refunds);
     }
 
-    public function getRoomLatLong($data, $size)
+    public function getRoomLatLong($params = [], $size = 25, $trash = self::NO_TRASH)
     {
+        $sort           = array_get($params, 'sort', 'created_at:-1');
+        $params['sort'] = $sort;
         $room = $this->model
-            ->where('longitude', '>', $data["long_min"])
-            ->where('longitude', '<', $data["long_max"])
-            ->where('latitude', '>', $data["lat_min"])
-            ->where('latitude', '<', $data["lat_max"])
-            ->paginate($size);
+            ->where('longitude', '>=', $params["long_min"])
+            ->where('longitude', '<=', $params["long_max"])
+            ->where('latitude', '>=', $params["lat_min"])
+            ->where('latitude', '<=', $params["lat_max"]);
+            
+        switch ($trash) {
+            case self::WITH_TRASH:
+                $this->model->withTrashed();
+                break;
+            case self::ONLY_TRASH:
+                $this->model->onlyTrashed();
+                break;
+            case self::NO_TRASH:
+            default:
+                break;
+        }
 
-        return $room;
+        switch ($size) {
+            case -1:
+                return $this->model->get();
+                break;
+            case 0:
+                return $this->model->first();
+            default:
+                return $this->model->paginate($size);
+                break;
+        }
     }
 
     public function getRoomRecommend($size, $id)
