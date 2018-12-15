@@ -100,11 +100,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $sort           = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
         $room = $this->model
-            ->where('longitude', '>=', $params["long_min"])
-            ->where('longitude', '<=', $params["long_max"])
-            ->where('latitude', '>=', $params["lat_min"])
-            ->where('latitude', '<=', $params["lat_max"]);
-            
+            ->where('longitude', '>=', floatval($params["long_min"]))
+            ->where('longitude', '<=', floatval($params["long_max"]))
+            ->where('latitude', '>=', floatval($params["lat_min"]))
+            ->where('latitude', '<=', floatval($params["lat_max"]));
         switch ($trash) {
             case self::WITH_TRASH:
                 $room->withTrashed();
