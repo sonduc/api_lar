@@ -42,7 +42,7 @@ $router->group([
 /*
  * Rooms Router
  */
-$router->post('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
+$router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 $router->get('/rooms', 'RoomController@index');
 $router->get('/rooms/{id}', 'RoomController@show');
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
@@ -85,11 +85,5 @@ resource('/promotions', 'PromotionController', $router);
 
 /* thanh toan*/
 
-$router->get('/success','PaymentHistoryController@success');
-$router->get('/cancel/{code}','PaymentHistoryController@cancel');
-
-
-
-
-
-
+$router->get('/success', 'PaymentHistoryController@success');
+$router->get('/cancel/{code}', 'PaymentHistoryController@cancel');

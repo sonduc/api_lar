@@ -107,10 +107,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             
         switch ($trash) {
             case self::WITH_TRASH:
-                $this->model->withTrashed();
+                $room->withTrashed();
                 break;
             case self::ONLY_TRASH:
-                $this->model->onlyTrashed();
+                $room->onlyTrashed();
                 break;
             case self::NO_TRASH:
             default:
@@ -119,12 +119,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         switch ($size) {
             case -1:
-                return $this->model->get();
+                return $room->get();
                 break;
             case 0:
-                return $this->model->first();
+                return $room->first();
             default:
-                return $this->model->paginate($size);
+                return $room->paginate($size);
                 break;
         }
     }

@@ -113,8 +113,10 @@ class RoomController extends ApiController
             $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
             $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
             $this->validate($request, $validate, $this->validationMessages);
+            $this->trash = $this->trashStatus($request);
             $pageSize    = $request->get('limit', 25);
-            $data = $this->model->getRoomLatLong($request->all(), $pageSize);
+            $data = $this->model->getRoomLatLong($request->all(), $pageSize, $this->trash);
+
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
