@@ -53,6 +53,7 @@ class RoomLogic extends BaseLogic
         })->all();
 
         $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize);
+
         return $rooms;
     }
 
@@ -71,7 +72,7 @@ class RoomLogic extends BaseLogic
         $room = parent::getById($id);
         return $this->getBlockedScheduleByRoomId($room->id);
     }
-    
+
     public function getRoomLatLong($data, $size)
     {
         return $this->model->getRoomLatLong($data, $size);

@@ -18,7 +18,10 @@ trait FilterTrait
             $query
                 ->addSelect($columns)
                 ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
-                ->where('room_translates.name', 'like', "%${q}%");
+                ->where([
+                    ['room_translates.name', 'like', "%${q}%"],
+                    ['room_translates.lang', 'vi'],
+                ]);
         }
         return $query;
     }
