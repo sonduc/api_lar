@@ -25,11 +25,11 @@ class CreateRoomsTable extends Migration
             $table->integer('room_type')->nullable();
             $table->time('checkin')->nullable();
             $table->time('checkout')->nullable();
-            $table->integer('price_day')->default(0);
-            $table->integer('price_hour')->default(0);
-            $table->integer('price_after_hour')->default(0);
-            $table->integer('price_charge_guest')->default(0);
-            $table->integer('cleaning_fee')->default(0);
+            $table->integer('price_day')->nullable()->default(0);
+            $table->integer('price_hour')->nullable()->default(0);
+            $table->integer('price_after_hour')->nullable()->default(0);
+            $table->integer('price_charge_guest')->nullable()->default(0);
+            $table->integer('cleaning_fee')->nullable()->default(0);
             $table->tinyInteger('standard_point')->nullable();
             $table->tinyInteger('is_manager')->default(0);
             $table->tinyInteger('hot')->default(0);
