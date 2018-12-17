@@ -13,6 +13,11 @@ class Room extends Entity
     const MANAGER_DEACTIVE = 0;
     const CHECKIN          = "14:00";
 
+    // Quản lý loại phòng
+    const ROOM_MANAGER = [
+        self::MANAGER_ACTIVE   => 'Tự quản lý',
+        self::MANAGER_DEACTIVE => 'Không quản lý',
+    ];
 
     // Phòng tự quản lý
     const CHECKOUT  = "12:00";
@@ -35,16 +40,16 @@ class Room extends Entity
     const VILLA          = 3;
 
     // Kiểu phòng
-    const PRIVATE_ROOM   = 4;
-    const HOTEL          = 5;
-    const ROOM_TYPE      = [
+    const PRIVATE_ROOM = 4;
+    const HOTEL        = 5;
+    const ROOM_TYPE    = [
         self::PRIVATE_HOUSE => 'Nhà riêng',
         self::APARTMENT     => 'Căn hộ/ Chung cư',
         self::VILLA         => 'Biệt thự',
         self::PRIVATE_ROOM  => 'Phòng riêng',
         self::HOTEL         => 'Khách sạn',
     ];
-    const ROOM_STATUS    = [
+    const ROOM_STATUS = [
         self::AVAILABLE      => 'Đang hoạt động',
         self::UNAVAILABLE    => 'Không hoạt động',
         self::NOT_APPROVED   => 'Chưa xác nhận',
@@ -58,20 +63,16 @@ class Room extends Entity
     ];
 
     // AVG Rating
-    const DISAPPOINTED      = 'Không hài lòng';
-    const NOT_GOOD          = 'Không được như mong muốn';
-    const NORMAL            = 'Khá ổn';
-    const GOOD              = 'Tốt';
-    const EXCELLENT         = 'Rất tuyệt vời';
-    const NULL_REVIEW       = 'Chưa có đánh giá';
-
-
+    const DISAPPOINTED = 'Không hài lòng';
+    const NOT_GOOD     = 'Không được như mong muốn';
+    const NORMAL       = 'Khá ổn';
+    const GOOD         = 'Tốt';
+    const EXCELLENT    = 'Rất tuyệt vời';
+    const NULL_REVIEW  = 'Chưa có đánh giá';
 
     /**
      * setting-room
      */
-
-
 
     protected $table = 'rooms';
     /**
@@ -114,7 +115,7 @@ class Room extends Entity
         'avg_avg_rating',
         'total_review',
         'total_recommend',
-        'settings'
+        'settings',
     ];
     /**
      * The attributes that should be mutated to dates.

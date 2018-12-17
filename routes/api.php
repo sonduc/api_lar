@@ -9,7 +9,7 @@
 | It is a breeze. Simply tell Lumen the URIs it should respond to
 | and give it the Closure to call when that URI is requested.
 |
-*/
+ */
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {
@@ -24,7 +24,6 @@ $router->group([
      */
     resource('/logs', 'LogController', $router);
 
-
     /**
      * User Resource
      */
@@ -38,7 +37,6 @@ $router->group([
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
-
 
     $router->get('/permissions', 'PermissionController@index');
     /**
@@ -72,9 +70,6 @@ $router->group([
     $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
     $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
     resource('/reviews', 'RoomReviewController', $router);
-
-
-
 
     /**
      * City Resource
@@ -142,7 +137,6 @@ $router->group([
     $router->put('/collections/single-update/{id}', 'CollectionController@singleUpdate');
     resource('/collections', 'CollectionController', $router);
 
-
     /**
      * Promotions Resource
      */
@@ -152,7 +146,7 @@ $router->group([
 
     /**
      * Coupons Resource
-    */
+     */
     $router->get('/coupons/status-list', 'CouponController@statusList');
     $router->get('/coupons/all-day-list', 'CouponController@allDayList');
     $router->put('/coupons/single-update/{id}', 'CouponController@singleUpdate');
@@ -187,8 +181,10 @@ $router->group([
     $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
     $router->get('/statisticals/booking-type', 'StatisticalController@statisticalBookingType');
     $router->get('/statisticals/booking-revenue', 'StatisticalController@statisticalBookingRevenue');
+    $router->get('/statisticals/booking-manager', 'StatisticalController@statisticalBookingManager');
+    $router->get('/statisticals/booking-source', 'StatisticalController@statisticalBookingSource');
+    $router->get('/statisticals/count-booking-source', 'StatisticalController@statisticalCountBookingSource');
 });
-
 
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');

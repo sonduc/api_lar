@@ -4,6 +4,7 @@ namespace App\Repositories\Bookings;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
+use App\Repositories\Rooms\Room;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use DB;
@@ -1019,25 +1020,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             }
         }
         foreach ($dataBooking as $key => $value) {
-            if ($value->type == BookingConstant::BOOKING_TYPE_DAY) {
-                $convertBooking[] = [
-                    'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
-                    'type'          => $value->type,
-                    'total_booking' => $value->total_booking,
-                    'success'       => $value->success,
-                    'cancel'        => $value->cancel,
-                ];
-            }
-
-            if ($value->type == BookingConstant::BOOKING_TYPE_HOUR) {
-                $convertBooking[] = [
-                    'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
-                    'type'          => $value->type,
-                    'total_booking' => $value->total_booking,
-                    'success'       => $value->success,
-                    'cancel'        => $value->cancel,
-                ];
-            }
+            $convertBooking[] = [
+                'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
+                'type'          => $value->type,
+                'total_booking' => $value->total_booking,
+                'success'       => $value->success,
+                'cancel'        => $value->cancel,
+            ];
         }
         return $convertBooking;
     }
@@ -1055,7 +1044,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                
+
                 DB::raw('cast(created_at as DATE) as date')
             )
             ->where([
@@ -1167,5 +1156,687 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->groupBy(DB::raw('date'))
             ->get();
         return $booking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo loại phòng
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function totalBookingManagerDay($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.is_manager as manager'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+
+                DB::raw('cast(bookings.created_at as DATE) as date')
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.is_manager'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingManager,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo loại phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingManagerWeek($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.is_manager as manager'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.is_manager'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingManager,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo loại phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingManagerMonth($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.is_manager as manager'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.is_manager'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingManager,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo loại phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingManagerYear($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.is_manager as manager'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.is_manager'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingManager,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo loại phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertTotalBookingManager($bookings, $date)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->date === $date) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'manager_txt'   => Room::ROOM_MANAGER[$value->manager],
+                'manager'       => $value->manager,
+                'revenue'       => $value->revenue,
+                'total_revenue' => $value->total_revenue,
+            ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo kiểu phòng
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function totalBookingSourceDay($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+
+                DB::raw('cast(bookings.created_at as DATE) as date')
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingSourceWeek($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingSourceMonth($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function totalBookingSourceYear($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo loại phòng (thống kê doanh thu)
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertTotalBookingSource($bookings, $date)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->date === $date) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'room_type_txt' => Room::ROOM_TYPE[$value->room_type],
+                'room_type'     => $value->room_type,
+                'revenue'       => $value->revenue,
+                'total_revenue' => $value->total_revenue,
+            ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * đếm booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo kiểu phòng
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function countBookingSourceDay($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(bookings.id) as total_booking'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('cast(bookings.created_at as DATE) as date')
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->whereRaw('bookings.room_id = rooms.id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertCountBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * đếm  booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingSourceWeek($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(bookings.id) as total_booking'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    CONCAT(
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        ),
+                        " - ",
+                        CAST(
+                            DATE_ADD(
+                                bookings.created_at,
+                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
+                            ) AS DATE
+                        )
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertCountBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * đếm booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingSourceMonth($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(bookings.id) as total_booking'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
+                        ),
+                        "%m-%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertCountBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo kiểu phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingSourceYear($date_start, $date_end)
+    {
+        $bookings = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(bookings.id) as total_booking'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('
+                    DATE_FORMAT(
+                        DATE_ADD(
+                            bookings.created_at,
+                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
+                        ),
+                        "%Y"
+                    ) AS date'
+                )
+            )
+            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ])
+            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->date);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertCountBookingSource,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo loại phòng (đếm số lượng booking)
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertCountBookingSource($bookings, $date)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->date === $date) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'room_type_txt' => Room::ROOM_TYPE[$value->room_type],
+                'room_type'     => $value->room_type,
+                'total_booking' => $value->total_booking,
+                'success'       => $value->success,
+                'cancel'        => $value->cancel,
+            ];
+        }
+        return $convertBooking;
     }
 }

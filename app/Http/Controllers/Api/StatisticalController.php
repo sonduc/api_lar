@@ -135,6 +135,11 @@ class StatisticalController extends ApiController
         }
     }
 
+    /**
+     * Thống kê doanh thu của booking theo ngày / theo giờ
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function statisticalBookingRevenue(Request $request)
     {
         DB::beginTransaction(); 
@@ -145,6 +150,88 @@ class StatisticalController extends ApiController
 
             $data = [
                 'data' => $data->toArray()
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Thống kê doanh thu của booking theo loại phòng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function statisticalBookingManager(Request $request)
+    {
+        DB::beginTransaction(); 
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $data = $this->model->statisticalBookingManager($request->all());
+
+            $data = [
+                'data' => $data   
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Thống kê doanh thu của booking theo kiểu phòng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function statisticalBookingSource(Request $request)
+    {
+        DB::beginTransaction(); 
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $data = $this->model->statisticalBookingSource($request->all());
+
+            $data = [
+                'data' => $data   
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Đếm booking theo kiểu phòng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function statisticalCountBookingSource(Request $request)
+    {
+        DB::beginTransaction(); 
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $data = $this->model->statisticalCountBookingSource($request->all());
+
+            $data = [
+                'data' => $data   
+                // 'data' => $data->toArray()
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
