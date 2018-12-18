@@ -38,13 +38,13 @@ class StatisticalController extends ApiController
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function bookingStatistical(Request $request)
+    public function bookingByStatusStatistical(Request $request)
     {
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
-            $data = $this->model->bookingStatistical($request->all());
+            $data = $this->model->bookingByStatusStatistical($request->all());
             $data = [
                 'data' => $data->toArray()
             ];

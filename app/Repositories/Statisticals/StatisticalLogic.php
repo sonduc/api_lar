@@ -20,35 +20,14 @@ class StatisticalLogic extends BaseLogic
         $this->booking = $booking;
     }
 
-    public function bookingStatistical($data)
+    public function bookingByStatusStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingDay($data['date_start'], $data['date_end']);
-                break;
+        $view       = isset($data['view']) ? $data['view'] : 'week';
+        $date_start = isset($data['date_start']) ? $data['date_start'] : Carbon::now()->startOfMonth()->toDateTimeString();
+        $date_end   = isset($data['date_end']) ? $data['date_end'] : Carbon::now()->toDateTimeString();
 
-            case 'week':
-                $booking = $this->booking->countBookingWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->countBookingMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->countBookingYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
+        $booking    = $this->booking->countBookingByStatus($date_start, $date_end, $view);
+            
         return $booking;
     }
 

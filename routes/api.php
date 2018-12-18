@@ -176,7 +176,7 @@ $router->group([
     /**
      * Statistical Resource
      */
-    $router->get('/statisticals/booking', 'StatisticalController@bookingStatistical');
+    $router->get('/statisticals/booking-status', 'StatisticalController@bookingByStatusStatistical');
     $router->get('/statisticals/booking-city', 'StatisticalController@statisticalCity');
     $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
     $router->get('/statisticals/booking-type', 'StatisticalController@statisticalBookingType');

@@ -232,121 +232,35 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingDay($date_start, $date_end)
+    public function countBookingByStatus($date_start, $date_end, $view)
     {
-        $booking = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('cast(created_at as DATE) as date')
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('cast(created_at as DATE)'))
-            ->get();
-        return $booking;
-    }
+        switch ($view) {
+            case 'month':
+                $selectRawView = 'DATE_FORMAT(DATE_ADD(created_at,INTERVAL (1 - DAYOFMONTH(created_at)) DAY),"%m-%Y") AS createdAt';
+                break;
+            case 'year':
+                $selectRawView = 'DATE_FORMAT(DATE_ADD(created_at,INTERVAL (1 - DAYOFMONTH(created_at)) DAY),"%Y") AS createdAt';
+                break;
+            case 'week':
+                $selectRawView = 'CONCAT(CAST(DATE_ADD(created_at,INTERVAL (1 - DAYOFWEEK(created_at)) DAY) AS DATE)," - ",CAST(DATE_ADD(created_at,INTERVAL (7 - DAYOFWEEK(created_at)) DAY) AS DATE)) AS createdAt';
+                break;
+            default:
+                $selectRawView = 'cast(created_at as DATE) as createdAt';
+                break;
+        }
 
-    /**
-     * đếm booking trong khoảng tuần và theo trạng thái
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingWeek($date_start, $date_end)
-    {
         $booking = $this->model
             ->select(
                 DB::raw('count(id) as total_booking'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
+                DB::raw($selectRawView)
             )
             ->where([
                 ['created_at', '>=', $date_start],
                 ['created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date'))
-            ->get();
-        return $booking;
-    }
-
-    /**
-     * đếm booking trong khoảng tháng và theo trạng thái
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingMonth($date_start, $date_end)
-    {
-        $booking = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date'))
-            ->get();
-        return $booking;
-    }
-
-    /**
-     * đếm booking trong khoảng năm và theo trạng thái
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingYear($date_start, $date_end)
-    {
-        $booking = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date'))
+            ->groupBy(DB::raw('createdAt'))
             ->get();
         return $booking;
     }
@@ -407,7 +321,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -468,7 +383,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -519,7 +435,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -638,7 +555,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(districts.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -699,7 +617,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(districts.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -750,7 +669,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(districts.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -865,7 +785,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking,type'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -921,7 +842,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking,type'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -969,7 +891,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking,type'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -1069,7 +992,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -1108,7 +1032,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -1139,7 +1064,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -1215,7 +1141,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -1273,7 +1200,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -1323,7 +1251,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -1442,7 +1371,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -1500,7 +1430,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -1550,7 +1481,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -1669,7 +1601,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -1727,7 +1660,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
@@ -1777,7 +1711,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             bookings.created_at,
