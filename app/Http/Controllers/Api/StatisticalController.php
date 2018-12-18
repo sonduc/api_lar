@@ -33,6 +33,11 @@ class StatisticalController extends ApiController
         $this->setTransformer(new StatisticalTransformer);
     }
 
+    /**
+     * thống kê số lượng booking theo trạng thái checkout
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
     public function bookingStatistical(Request $request)
     {
         DB::beginTransaction();
@@ -55,7 +60,7 @@ class StatisticalController extends ApiController
     }
 
     /**
-     * thống kê booking theo thành phố
+     * thống kê số lượng booking theo thành phố
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -82,7 +87,7 @@ class StatisticalController extends ApiController
     }
 
     /**
-     * thống kê booking theo quận huyện
+     * thống kê số lượng booking theo quận huyện
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -136,7 +141,7 @@ class StatisticalController extends ApiController
     }
 
     /**
-     * Thống kê doanh thu của booking theo ngày / theo giờ
+     * Thống kê doanh thu của booking theo trạng thái checkout 
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -163,7 +168,7 @@ class StatisticalController extends ApiController
     }
 
     /**
-     * Thống kê doanh thu của booking theo loại phòng
+     * Thống kê doanh thu của booking theo phòng tự quản lý
      * @param  Request $request [description]
      * @return [type]           [description]
      */

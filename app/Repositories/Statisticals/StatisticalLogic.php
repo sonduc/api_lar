@@ -14,8 +14,8 @@ class StatisticalLogic extends BaseLogic
 
     public function __construct(
         StatisticalRepositoryInterface $statistical,
-        BookingRepositoryInterface $booking) 
-    {
+        BookingRepositoryInterface $booking
+    ) {
         $this->model   = $statistical;
         $this->booking = $booking;
     }
@@ -30,22 +30,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->countBookingDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->countBookingMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->countBookingYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -62,22 +62,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->countBookingCityDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingCityDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->countBookingCityWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingCityWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->countBookingCityMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingCityMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->countBookingCityYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingCityYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->countBookingCityWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingCityWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -94,22 +94,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->countBookingDistrictDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDistrictDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->countBookingDistrictWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDistrictWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->countBookingDistrictMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDistrictMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->countBookingDistrictYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDistrictYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->countBookingDistrictWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingDistrictWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -126,22 +126,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->countBookingTypeDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingTypeDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->countBookingTypeWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingTypeWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->countBookingTypeMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingTypeMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->countBookingTypeYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingTypeYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->countBookingTypeWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingTypeWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -158,22 +158,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->totalBookingRevenueDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingRevenueDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->totalBookingRevenueMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingRevenueMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->totalBookingRevenueYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingRevenueYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -190,22 +190,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->totalBookingManagerDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingManagerDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->totalBookingManagerWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingManagerWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->totalBookingManagerMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingManagerMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->totalBookingManagerYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingManagerYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->totalBookingManagerWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingManagerWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -222,22 +222,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->totalBookingSourceDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingSourceDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->totalBookingSourceWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingSourceWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->totalBookingSourceMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingSourceMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->totalBookingSourceYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingSourceYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->totalBookingSourceWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->totalBookingSourceWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
@@ -254,22 +254,22 @@ class StatisticalLogic extends BaseLogic
         }
         switch ($data['view']) {
             case 'day':
-                $booking = $this->booking->countBookingSourceDay($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingSourceDay($data['date_start'], $data['date_end']);
                 break;
 
             case 'week':
-                $booking = $this->booking->countBookingSourceWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingSourceWeek($data['date_start'], $data['date_end']);
                 break;
 
             case 'month':
-                $booking = $this->booking->countBookingSourceMonth($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingSourceMonth($data['date_start'], $data['date_end']);
                 break;
 
             case 'year':
-                $booking = $this->booking->countBookingSourceYear($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingSourceYear($data['date_start'], $data['date_end']);
                 break;
             default:
-                $booking = $this->booking->countBookingSourceWeek($data['date_start'],$data['date_end']);
+                $booking = $this->booking->countBookingSourceWeek($data['date_start'], $data['date_end']);
                 break;
         }
 
