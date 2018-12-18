@@ -64,7 +64,7 @@ class Room extends Entity
     const GOOD              = 'Tốt';
     const EXCELLENT         = 'Rất tuyệt vời';
     const NULL_REVIEW       = 'Chưa có đánh giá';
-
+    const FINISHED          = 13;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
 
 
     /**
@@ -114,7 +114,8 @@ class Room extends Entity
         'avg_avg_rating',
         'total_review',
         'total_recommend',
-        'settings'
+        'settings',
+        'percent'
     ];
     /**
      * The attributes that should be mutated to dates.

@@ -10,7 +10,7 @@ namespace App\Http\Controllers\ApiMerchant;
 
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Transformers\RoomTransformer;
+use App\Http\Transformers\Merchant\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
@@ -35,25 +35,25 @@ class RoomController extends ApiController
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
-        'merchant_id'                        => 'required|integer|exists:users,id,deleted_at,NULL',
         'max_guest'                          => 'required|integer|min:1',
         'max_additional_guest'               => 'integer|nullable',
         'number_bed'                         => 'required|integer|min:1',
         'number_room'                        => 'required|integer|min:1',
-        'city_id'                            => 'required|integer|nullable|exists:cities,id,deleted_at,NULL',
-        'district_id'                        => 'required|integer|nullable|exists:districts,id,deleted_at,NULL',
+
+        'details.city_id'                    => 'integer|nullable|exists:cities,id,deleted_at,NULL|required_with:details',
+        'details.district_id'                => 'integer|nullable|exists:districts,id,deleted_at,NULL|required_with:details',
         // 'room_type_id'                                   => 'required|integer',
-        'checkin'                            => 'required|date_format:"H:i"',
-        'checkout'                           => 'required|date_format:"H:i"',
-        'price_day'                          => 'required|integer',
-        'price_hour'                         => 'integer|nullable',
-        'price_after_hour'                   => 'integer|required_with:price_hour',
-        'price_charge_guest'                 => 'integer|nullable',
-        'cleaning_fee'                       => 'integer|nullable',
+        'prices.checkin'                     => 'required_with:prices|date_format:"H:i"',
+        'prices.checkout'                    => 'required_with:prices|date_format:"H:i"',
+        'prices.price_day'                   => 'integer|nullable',
+        'prices.price_hour'                  => 'integer|nullable',
+        'prices.price_after_hour'            => 'required_with:prices.price_hour|integer',
+        'prices.price_charge_guest'          => 'required_with:prices|integer|nullable',
+        'prices.cleaning_fee'                => 'required_with:prices|integer|nullable',
+
         'standard_point'                     => 'integer|nullable|min:0',
         'is_manager'                         => 'integer|nullable|between:0,1',
-        'hot'                                => 'integer|between:0,1',
-        'new'                                => 'integer|between:0,1',
+
         'latest_deal'                        => 'integer|nullable|between:0,1',
         'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
@@ -69,12 +69,14 @@ class RoomController extends ApiController
         'weekday_price.*.price_charge_guest' => 'integer|nullable',
         'weekday_price.*.status'             => 'boolean|nullable',
         'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
+
         'optional_prices.days.*'             => 'nullable|date|distinct',
         'optional_prices.price_day'          => 'integer|nullable',
         'optional_prices.price_hour'         => 'integer|nullable',
         'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest' => 'integer|nullable',
         'optional_prices.status'             => 'boolean|nullable',
+
         'room_time_blocks.*.0'               => 'date|after:now',
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
@@ -102,8 +104,7 @@ class RoomController extends ApiController
         'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
         'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
         'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
-        'merchant_id.required'                           => 'Chủ phòng không được để trống',
-        'merchant_id.exists'                             => 'Chủ phòng không tồn tại',
+
         'max_guest.required'                             => 'Số khách tối đa không được để trống',
         'max_guest.integer'                              => 'Trường số khách tối đa phải là kiểu số',
         'max_additional_guest.integer'                   => 'Số khách tối đa phải là kiểu số',
@@ -113,24 +114,30 @@ class RoomController extends ApiController
         'number_room.required'                           => 'Vui lòng điền số phòng',
         'number_room.min'                                => 'Tối thiểu 1 phòng',
         'number_room.integer'                            => 'Số phòng phải là kiểu số',
-        'city_id.integer'                                => 'Mã thành phố phải là kiểu số',
-        'city_id.exists'                                 => 'Thành phố không tồn tại',
-        'city_id.required'                               => 'Thành phố không đưọc để trống',
-        'district_id.integer'                            => 'Mã tỉnh phải là kiểu số',
-        'district_id.exists'                             => 'Tỉnh không tồn tại',
-        'district_id.required'                           => 'Tỉnh không được để trống',
+
+        'details.city_id.integer'                        => 'Mã thành phố phải là kiểu số',
+        'details.city_id.exists'                         => 'Thành phố không tồn tại',
+        'details.city_id.required_with'                  => 'Thành phố không đưọc để trống',
+        'details.district_id.integer'                    => 'Mã tỉnh phải là kiểu số',
+        'details.district_id.exists'                     => 'Tỉnh không tồn tại',
+        'details.district_id.required_with'              => 'Tỉnh không được để trống',
+
         'room_type_id.required'                          => 'Kiểu phòng không được để trống',
         'room_type_id.integer'                           => 'Kiểu phòng phải là kiểu số',
-        'checkin.required'                               => 'Thời gian checkin không được để trống',
-        'checkin.date'                                   => 'Kiểu checkin không đúng định dạng H:i',
-        'checkout.required'                              => 'Thời gian checkout không được để trống',
-        'checkout.date_format'                           => 'Kiểu checkout không đúng định dạng H:i',
-        'price_day.required'                             => 'Giá ngày không được để trống',
-        'price_day.integer'                              => 'Giá phải là kiểu số',
-        'price_hour.integer'                             => 'Giá theo giờ phải là kiểu số',
-        'price_after_hour.required_with'                 => 'Giá theo giờ không được để trống',
-        'price_after_hour.integer'                       => 'Giá theo giờ phải là kiểu số',
-        'price_charge_guest.integer'                     => 'Giá khách thêm phải là kiểu số',
+
+        'prices.checkin.required_with'                   => 'Thời gian checkin không được để trống',
+        'prices.checkin.date'                            => 'Kiểu checkin không đúng định dạng H:i',
+        'prices.checkout.required_with'                  => 'Thời gian checkout không được để trống',
+        'prices.checkout.date_format'                    => 'Kiểu checkout không đúng định dạng H:i',
+
+        'prices.price_day.integer'                       => 'Giá phải là kiểu số',
+        'prices.price_hour.integer'                      => 'Giá theo giờ phải là kiểu số',
+        'prices.price_after_hour.required_with'          => 'Giá theo giờ không được để trống',
+        'prices.price_after_hour.integer'                => 'Giá theo giờ phải là kiểu số',
+        'prices.price_charge_guest.integer'              => 'Giá khách thêm phải là kiểu số',
+        'prices.cleaning_fee.required_with'              => 'Giá dọn phòng phải là kiểu số',
+        'prices.cleaning_fee.integer'                    => 'Giá dọn phòng phải là kiểu số',
+
         'weekday_price.*.price_day.integer'              => 'Giá phải là kiểu số',
         'weekday_price.*.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
         'weekday_price.*.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
@@ -151,14 +158,10 @@ class RoomController extends ApiController
         'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
         'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-        'cleaning_fee.integer'                           => 'Giá dọn phòng phải là kiểu số',
         'standard_point.integer'                         => 'Điểm phải là kiểu số',
         'is_manager.integer'                             => 'Kiểu quản lý phải là kiểu số',
         'is_manager.between'                             => 'Kiểu quản lý không hợp lệ',
-        'hot.integer'                                    => 'Nổi bật phải là kiểu số',
-        'hot.between'                                    => 'Mã không hợp lệ',
-        'new.between'                                    => 'Mã không hợp lệ',
-        'new.integer'                                    => 'Mới nhất phải là kiểu số',
+
         'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
         'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
         'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
@@ -321,7 +324,7 @@ class RoomController extends ApiController
         DB::enableQueryLog();
         try {
              $this->authorize('room.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());

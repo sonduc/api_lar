@@ -1,8 +1,25 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 08:13
+ */
 
-namespace App\Http\Transformers;
+namespace App\Http\Transformers\Merchant;
 
+use App\Http\Transformers\BookingTransformer;
+use App\Http\Transformers\CityTransformer;
+use App\Http\Transformers\ComfortTransformer;
+use App\Http\Transformers\DistrictTransformer;
+use App\Http\Transformers\PlaceTransformer;
+use App\Http\Transformers\RoomMediaTransformer;
+use App\Http\Transformers\RoomOptionalPriceTransformer;
+use App\Http\Transformers\RoomReviewTransformer;
+use App\Http\Transformers\RoomTimeBlockTransformer;
+use App\Http\Transformers\RoomTranslateTransformer;
 use App\Http\Transformers\Traits\FilterTrait;
+use App\Http\Transformers\UserTransformer;
 use App\Repositories\Rooms\Room;
 use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
@@ -61,8 +78,6 @@ class RoomTransformer extends TransformerAbstract
             'standard_point'       => $room->standard_point,
             'is_manager'           => $room->is_manager,
             'manager_txt'          => $room->managerStatus(),
-            'hot'                  => $room->hot ?? 0,
-            'new'                  => $room->new ?? 0,
             'latest_deal'          => $room->latest_deal,
             'latest_deal_txt'      => $room->latest_deal ?? 'Không khả dụng',
             'rent_type'            => $room->rent_type,
@@ -81,7 +96,7 @@ class RoomTransformer extends TransformerAbstract
             'total_recommend'      => $room->total_recommend,
             'status_txt'           => $room->roomStatus(),
             'settings'             => json_decode($room->settings),
-            'percent'              => $room->percent,
+            //'percent'              => $room->percent ?? 0,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
         ];
@@ -266,4 +281,5 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->reviews());
         return $this->collection($data, new RoomReviewTransformer);
     }
+
 }
