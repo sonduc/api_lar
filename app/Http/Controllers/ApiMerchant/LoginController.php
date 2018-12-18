@@ -1,11 +1,17 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 10:10
+ */
 
-namespace App\Http\Controllers\ApiCustomer;
+namespace App\Http\Controllers\ApiMerchant;
 
+use App\Http\Controllers\ApiController;
 use App\User;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
-
 class LoginController extends ApiController
 {
     protected $validationRules
@@ -45,7 +51,7 @@ class LoginController extends ApiController
                     'errors' => ['Thông tin đăng nhập không chính xác.'],
                 ]);
             } else {
-                if ($hasher->check($password, $login->password)) {
+                if ($hasher->check($password, $login->password) == true & $login->type == User::MERCHANT) {
                     // Issue token
                     $guzzle  = new Guzzle;
                     $url     = env('APP_URL') . 'oauth/token';
@@ -83,4 +89,5 @@ class LoginController extends ApiController
             throw $t;
         }
     }
+
 }

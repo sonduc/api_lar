@@ -2,8 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\BookingEvent;
-use App\Events\BroadcastingExample;
 use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortRepository;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -14,12 +12,12 @@ class ComfortController extends ApiController
 {
     protected $validationRules
         = [
-            'details.*.*.name' => 'required|unique:comfort_translates,name',
+            'details.*.name' => 'required|unique:comfort_translates,name',
         ];
     protected $validationMessages
         = [
-            'details.*.*.name.required' => 'Tên không được để trông',
-            'details.*.*.name.unique'   => 'Tiện ích này đã tồn tại',
+            'details.*.name.required' => 'Tên không được để trông',
+            'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
 
         ];
 
@@ -47,7 +45,6 @@ class ComfortController extends ApiController
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-            // event(new BroadcastingExample);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
             return $this->forbidden([
@@ -93,7 +90,6 @@ class ComfortController extends ApiController
             DB::commit();
 
             logs('comfort', 'tạo comfort mã ' . $data->id, $data);
-            event(new BookingEvent($request->all()));
 
             return $this->successResponse($data, true, 'details');
         }catch (AuthorizationException $f) {

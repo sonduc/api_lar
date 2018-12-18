@@ -4,7 +4,7 @@ namespace App\Repositories\Comforts;
 
 use App\Repositories\BaseRepository;
 
-class ComfortTranslateRepository extends BaseRepository
+class ComfortTranslateRepository extends BaseRepository implements ComfortTranslateRepositoryInterface
 {
     /**
      * Model.
@@ -27,13 +27,6 @@ class ComfortTranslateRepository extends BaseRepository
         $this->deleteComfortTranslateByComfortID($comfort);
         $this->storeComfortTranslate($comfort, $data);
 
-//        $data['comfort_id'] = $id;
-//
-//        $count = $this->model->where([
-//            ['comfort_id', $id],
-//            ['lang_id', $data['lang_id']]
-//        ])->first();
-//        $count ? parent::update($id, $data) : parent::store($data);
     }
 
     public function deleteComfortTranslateByComfortID($comfort)
@@ -44,8 +37,8 @@ class ComfortTranslateRepository extends BaseRepository
     public function storeComfortTranslate($comfort, $data = [], $list = [])
     {
         if (!empty($data)) {
-            if (isset($data['details']['data'])) {
-                foreach ($data['details']['data'] as $val) {
+            if (isset($data['details'])) {
+                foreach ($data['details'] as $val) {
                     $val['comfort_id'] = $comfort->id;
                     $list[]            = $val;
                 }

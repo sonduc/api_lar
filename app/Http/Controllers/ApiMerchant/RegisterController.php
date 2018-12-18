@@ -1,16 +1,23 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 10:09
+ */
 
-namespace App\Http\Controllers\ApiCustomer;
+namespace App\Http\Controllers\ApiMerchant;
 
 use App\Events\Customer_Register_Event;
+use App\Http\Controllers\ApiController;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Customer_Register_TypeBooking_Event;
-
 class RegisterController extends ApiController
 {
     protected $validationRules = [
@@ -74,9 +81,9 @@ class RegisterController extends ApiController
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email','password');
+            $params['type']   = User::MERCHANT;
             $username         = $params['email'];
             $password         = $params['password'];
-
             // Create new user
             $newClient = $this->getResource()->store($params);
 
@@ -139,13 +146,10 @@ class RegisterController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $user = $this->user->checkUserByStatus($request->all());
-            if (!empty($user)) throw new \Exception('Tài khoản đã được kích hoạt');
-            $validate = array_only($this->validationRules, [
-                'status',
-            ]);
-            $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->user->updateStatus($request->all());
+            $data = array_only($request->all(),'uuid');
+            $user = $this->user->checkUser($data);
+
+            $data = $this->user->updateStatus($user);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -168,4 +172,5 @@ class RegisterController extends ApiController
             throw $t;
         }
     }
+
 }

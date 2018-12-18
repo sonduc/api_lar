@@ -185,4 +185,21 @@ return [
         \App\Repositories\Statisticals\StatisticalRepositoryInterface::class,
         \App\Repositories\Statisticals\StatisticalRepository::class,
     ],
+
+    /**
+     * Comfort
+     */
+    \App\Repositories\Comforts\Comfort::class => [
+        \App\Repositories\Comforts\ComfortRepositoryInterface::class,
+        \App\Repositories\Comforts\ComfortRepository::class,
+    ],
+
+    /**
+     * ComfortTranslate
+     */
+    \App\Repositories\Comforts\ComfortTranslate::class => [
+        \App\Repositories\Comforts\ComfortTranslateRepositoryInterface::class,
+        \App\Repositories\Comforts\ComfortTranslateRepository::class,
+    ],
+
 ];

@@ -11,7 +11,6 @@ namespace App\Repositories\Bookings;
 use App\Repositories\Coupons\CouponRepository;
 use App\Repositories\Rooms\RoomOptionalPrice;
 use App\Repositories\Rooms\RoomOptionalPriceRepository;
-use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;

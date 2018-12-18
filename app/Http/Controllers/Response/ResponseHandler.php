@@ -85,14 +85,15 @@ trait ResponseHandler
         return response()->json($response, $response['code']);
     }
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return \Illuminate\Http\JsonResponse
+     */
     protected function forbidden($data)
     {
-//        $response = [
-//            'code'    => ResponseCode::UNPROCESSABLE_ENTITY,
-//            'status'  => 'error',
-//            'data'    => $data,
-//            'message' => 'Unprocessable Entity',
-//        ];
         $response = [
             'code'    => ResponseCode::FORBIDDEN,
             'status'  => 'error',

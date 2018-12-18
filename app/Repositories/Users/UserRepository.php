@@ -215,16 +215,22 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     }
 
     /**
-     * Lấy thông tin User theo uuid và status
+     *   Kiểm tra user có tồn tại hay không hoặc đã ở trạng thái đã kích hoạt chưa
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
      *
      * @return mixed
      */
-    public function checkUserByStatus($data)
+    public function checkUser($data)
     {
-        return $this->model->where('uuid', $data['uuid'])->where('status', 1)->first();
+         $user = $this->model->where('uuid', $data['uuid'])->first();
+         if (empty($user)) throw  new \Exception('Đường dẫn không tồn tại');
+
+         if (!empty($user) & $user->status == User::ENABLE) throw new \Exception('Tài khoản đã được kích hoạt');
+
+         return $user;
+
     }
 
     /**
@@ -236,10 +242,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @return \App\Repositories\Eloquent
      */
 
-    public function updateStatus($data)
+    public function updateStatus($user)
     {
-        $user = $this->getUserByUuidOrToken($data);
-        return parent::update($user->id, $data);
+        $data['status'] = User::ENABLE;
+        return parent::update($user->id,  $data);
     }
 
     /**
@@ -253,8 +259,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function getUserByUuidOrToken($data = [])
     {
-        $uuid  = array_key_exists('uuid', $data) ? $data['uuid'] : null;
-        $token = array_key_exists('token', $data) ? $data['token'] : null;
+        $uuid  = array_key_exists('uuid', $data) ? $data['uuid'] : 'không xác định';
+        $token = array_key_exists('token', $data) ? $data['token'] : 'không xác định';
         $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
         return $data;
     }

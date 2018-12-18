@@ -4,7 +4,7 @@ namespace App\Repositories\Comforts;
 
 use App\Repositories\BaseRepository;
 
-class ComfortRepository extends BaseRepository
+class ComfortRepository extends BaseRepository implements ComfortRepositoryInterface
 {
     /**
      * Role model.
@@ -20,7 +20,7 @@ class ComfortRepository extends BaseRepository
      * @param Comfort                    $comfort
      * @param ComfortTranslateRepository $comfortTranslate
      */
-    public function __construct(Comfort $comfort, ComfortTranslateRepository $comfortTranslate)
+    public function __construct(Comfort $comfort, ComfortTranslateRepositoryInterface $comfortTranslate)
     {
         $this->model            = $comfort;
         $this->comfortTranslate = $comfortTranslate;

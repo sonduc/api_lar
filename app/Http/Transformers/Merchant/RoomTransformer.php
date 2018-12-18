@@ -96,6 +96,7 @@ class RoomTransformer extends TransformerAbstract
             'total_recommend'      => $room->total_recommend,
             'status_txt'           => $room->roomStatus(),
             'settings'             => json_decode($room->settings),
+            'percent'              =>  $room->percent,
             //'percent'              => $room->percent ?? 0,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,

@@ -16,6 +16,42 @@ $router->group([
 ], function ($router) {
 
     /**
+     * Profile
+     */
+    $router->get('/profile', 'ProfileController@index');
+    $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/change-password', 'ProfileController@changePassword');
+
+    /**
+     * City Resource
+     */
+    resource('/cities', 'CityController', $router);
+
+    /**
+     * District Resource
+     */
+    resource('/districts', 'DistrictController', $router);
+
+    /**
+     * Comfort Resource
+     */
+    resource('/comforts', 'ComfortController', $router);
+
+    /**
+     * GuidebookCategory Resource
+     */
+    resource('/guidebookcategories', 'GuidebookCategoryController', $router);
+
+    /**
+     * Place Resource
+     */
+    $router->post('/places/update-room-place', 'PlaceController@editRoomPlace');
+    $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
+    $router->get('/places/status-list', 'PlaceController@statusList');
+    resource('/places', 'PlaceController', $router);
+
+
+    /**
      * Room Resource
      */
     $router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
@@ -29,6 +65,16 @@ $router->group([
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
     resource('/rooms', 'RoomController', $router);
 });
+
+/**
+ * Router login, register , reset pass, forget pass
+ */
+$router->post('login', 'LoginController@login');
+$router->post('register', 'RegisterController@register');
+$router->put('register/email-confirm', 'RegisterController@confirm');
+$router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->post('forget-password', 'ForgetPasswordController@forgetPassword');
+$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
 
 resource('/test', 'TestController', $router);
 

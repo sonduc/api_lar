@@ -1,10 +1,18 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 14:39
+ */
 
-namespace App\Repositories\Places;
+namespace App\Repositories\_Merchant;
+
 
 use App\Repositories\BaseLogic;
+use App\Repositories\Places\PlaceLogicTrait;
+use App\Repositories\Places\PlaceRepositoryInterface;
 use App\Repositories\Rooms\RoomRepositoryInterface;
-
 
 class PlaceLogic extends BaseLogic
 {
@@ -17,6 +25,5 @@ class PlaceLogic extends BaseLogic
         $this->model          = $place;
         $this->room           = $room;
     }
-
 
 }
