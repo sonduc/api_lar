@@ -61,14 +61,14 @@ class StatisticalController extends ApiController
      */
     public function statisticalCity(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
             $data = $this->model->statisticalCity($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -88,14 +88,14 @@ class StatisticalController extends ApiController
      */
     public function statisticalDistrict(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
             $data = $this->model->statisticalDistrict($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -115,14 +115,14 @@ class StatisticalController extends ApiController
      */
     public function statisticalBookingType(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
             $data = $this->model->statisticalBookingType($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -142,7 +142,7 @@ class StatisticalController extends ApiController
      */
     public function statisticalBookingRevenue(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
@@ -167,16 +167,16 @@ class StatisticalController extends ApiController
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function statisticalBookingManager(Request $request)
+    public function tatisticalBookingManagerRevenue(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
-            $data = $this->model->statisticalBookingManager($request->all());
+            $data = $this->model->tatisticalBookingManagerRevenue($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -194,16 +194,16 @@ class StatisticalController extends ApiController
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function statisticalBookingSource(Request $request)
+    public function statisticalBookingRoomTypeRevenue(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
-            $data = $this->model->statisticalBookingSource($request->all());
+            $data = $this->model->statisticalBookingRoomTypeRevenue($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -221,16 +221,16 @@ class StatisticalController extends ApiController
      * @param  Request $request [description]
      * @return [type]           [description]
      */
-    public function statisticalCountBookingSource(Request $request)
+    public function statisticalCountBookingRoomType(Request $request)
     {
-        DB::beginTransaction(); 
+        DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
-            $data = $this->model->statisticalCountBookingSource($request->all());
+            $data = $this->model->statisticalCountBookingRoomType($request->all());
 
             $data = [
-                'data' => $data   
+                'data' => $data
                 // 'data' => $data->toArray()
             ];
             // dd(DB::getQueryLog());

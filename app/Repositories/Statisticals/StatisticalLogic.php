@@ -180,7 +180,7 @@ class StatisticalLogic extends BaseLogic
         return $booking;
     }
 
-    public function statisticalBookingManager($data)
+    public function tatisticalBookingManagerRevenue($data)
     {
         if (isset($data['date_start']) == false) {
             $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
@@ -212,7 +212,7 @@ class StatisticalLogic extends BaseLogic
         return $booking;
     }
 
-    public function statisticalBookingSource($data)
+    public function statisticalBookingRoomTypeRevenue($data)
     {
         if (isset($data['date_start']) == false) {
             $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
@@ -244,7 +244,7 @@ class StatisticalLogic extends BaseLogic
         return $booking;
     }
 
-    public function statisticalCountBookingSource($data)
+    public function statisticalCountBookingRoomType($data)
     {
         if (isset($data['date_start']) == false) {
             $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();

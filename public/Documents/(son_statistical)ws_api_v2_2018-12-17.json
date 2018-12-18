@@ -4710,7 +4710,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-manager?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-manager-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -4739,7 +4739,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-source?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -4768,7 +4768,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/count-booking-source?view=week&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/count-booking-room-type?view=week&date_start=2018-07-12&&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{

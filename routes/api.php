@@ -181,9 +181,9 @@ $router->group([
     $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
     $router->get('/statisticals/booking-type', 'StatisticalController@statisticalBookingType');
     $router->get('/statisticals/booking-revenue', 'StatisticalController@statisticalBookingRevenue');
-    $router->get('/statisticals/booking-manager', 'StatisticalController@statisticalBookingManager');
-    $router->get('/statisticals/booking-source', 'StatisticalController@statisticalBookingSource');
-    $router->get('/statisticals/count-booking-source', 'StatisticalController@statisticalCountBookingSource');
+    $router->get('/statisticals/booking-manager-revenue', 'StatisticalController@tatisticalBookingManagerRevenue');
+    $router->get('/statisticals/booking-room-type-revenue', 'StatisticalController@statisticalBookingRoomTypeRevenue');
+    $router->get('/statisticals/count-booking-room-type', 'StatisticalController@statisticalCountBookingRoomType');
 });
 
 $router->post('login', 'LoginController@login');
