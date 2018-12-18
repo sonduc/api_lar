@@ -8,49 +8,56 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-
+    
+    // Quản lý loại phòng
+    // Phòng tự quản lý
     const MANAGER_ACTIVE   = 1;
     const MANAGER_DEACTIVE = 0;
-    const CHECKIN          = "14:00";
-
-
-    // Phòng tự quản lý
-    const CHECKOUT  = "12:00";
-    const TYPE_HOUR = 1;
-
+    
+    const ROOM_MANAGER = [
+        self::MANAGER_ACTIVE   => 'Tự quản lý',
+        self::MANAGER_DEACTIVE => 'Không quản lý',
+    ];
+    
     // Giờ Checkin , checkout mặc định
-    const TYPE_DAY = 2;
-    const TYPE_ALL = 3;
-
+    const CHECKIN   = "14:00";
+    const CHECKOUT  = "12:00";
+    
     // Định nghĩa phòng theo thời gian
-    const NOT_APPROVED = 0; // Theo giờ
-    const AVAILABLE    = 1; // Theo ngày
-    const UNAVAILABLE  = 2; // Theo ngày - giờ
+    const TYPE_HOUR = 1; // Theo giờ
+    const TYPE_DAY  = 2; // Theo ngày
+    const TYPE_ALL  = 3; // Theo ngày - giờ
 
     // Định nghĩa trạng thái phòng
+    const NOT_APPROVED   = 0;
+    const AVAILABLE      = 1;
+    const UNAVAILABLE    = 2;
     const CLEANED        = 3;
     const SETUP_SERVICES = 4;
+
+    // Kiểu phòng
     const PRIVATE_HOUSE  = 1;
     const APARTMENT      = 2;
     const VILLA          = 3;
+    const PRIVATE_ROOM = 4;
+    const HOTEL        = 5;
 
-    // Kiểu phòng
-    const PRIVATE_ROOM   = 4;
-    const HOTEL          = 5;
-    const ROOM_TYPE      = [
+    const ROOM_TYPE    = [
         self::PRIVATE_HOUSE => 'Nhà riêng',
         self::APARTMENT     => 'Căn hộ/ Chung cư',
         self::VILLA         => 'Biệt thự',
         self::PRIVATE_ROOM  => 'Phòng riêng',
         self::HOTEL         => 'Khách sạn',
     ];
-    const ROOM_STATUS    = [
+
+    const ROOM_STATUS = [
         self::AVAILABLE      => 'Đang hoạt động',
         self::UNAVAILABLE    => 'Không hoạt động',
         self::NOT_APPROVED   => 'Chưa xác nhận',
         self::CLEANED        => 'Dọn dẹp phòng',
         self::SETUP_SERVICES => 'Thiết lập dịch vụ',
     ];
+    
     const ROOM_RENT_TYPE = [
         self::TYPE_HOUR => 'Theo giờ',
         self::TYPE_DAY  => 'Theo ngày',
@@ -58,20 +65,16 @@ class Room extends Entity
     ];
 
     // AVG Rating
-    const DISAPPOINTED      = 'Không hài lòng';
-    const NOT_GOOD          = 'Không được như mong muốn';
-    const NORMAL            = 'Khá ổn';
-    const GOOD              = 'Tốt';
-    const EXCELLENT         = 'Rất tuyệt vời';
-    const NULL_REVIEW       = 'Chưa có đánh giá';
-
-
+    const DISAPPOINTED = 'Không hài lòng';
+    const NOT_GOOD     = 'Không được như mong muốn';
+    const NORMAL       = 'Khá ổn';
+    const GOOD         = 'Tốt';
+    const EXCELLENT    = 'Rất tuyệt vời';
+    const NULL_REVIEW  = 'Chưa có đánh giá';
 
     /**
      * setting-room
      */
-
-
 
     protected $table = 'rooms';
     /**

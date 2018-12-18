@@ -5,7 +5,6 @@ namespace App\Repositories\Statisticals;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 
 class StatisticalLogic extends BaseLogic
 {
@@ -14,41 +13,118 @@ class StatisticalLogic extends BaseLogic
 
     public function __construct(
         StatisticalRepositoryInterface $statistical,
-        BookingRepositoryInterface $booking) 
-    {
+        BookingRepositoryInterface $booking
+    ) {
         $this->model   = $statistical;
         $this->booking = $booking;
     }
 
-    public function bookingStatistical($data)
+    /**
+     * Xử lí dữ liệu đầu vào để thống kê booking
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public function checkDataInputStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingDay($data['date_start'],$data['date_end']);
-                break;
+        $dataInput['view']       = isset($data['view']) ? $data['view'] : 'week';
+        $dataInput['date_start'] = isset($data['date_start']) ? $data['date_start'] : Carbon::now()->startOfMonth()->toDateTimeString();
+        $dataInput['date_end']   = isset($data['date_end']) ? $data['date_end'] : Carbon::now()->toDateTimeString();
+        return $dataInput;
+    }
 
-            case 'week':
-                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
-                break;
+    /**
+     * Thống kê trạng thái của booking
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByStatusStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'month':
-                $booking = $this->booking->countBookingMonth($data['date_start'],$data['date_end']);
-                break;
+        return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
 
-            case 'year':
-                $booking = $this->booking->countBookingYear($data['date_start'],$data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingWeek($data['date_start'],$data['date_end']);
-                break;
-        }
+    /**
+     * Thống kê trạng thái của booking theo thành phố
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByCityStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
 
-        return $booking;
+        return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê trạng thái của booking theo quận huyện
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByDistrictStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê trạng thái của booking theo loại booking
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByTypeStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê doanh thu của booking theo ngày / theo giờ
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRevenueStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->totalBookingByRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê doanh thu của booking theo loại phòng quản lý
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByManagerRevenueStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->totalBookingByManagerRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê doanh thu của booking theo kiểu phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRoomTypeRevenueStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->totalBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê trạng thái của booking theo kiểu phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRoomTypeStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 }
