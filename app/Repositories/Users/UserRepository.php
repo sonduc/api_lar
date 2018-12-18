@@ -131,7 +131,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         if (!Hash::check($request['old_password'], $user->password)) {
             throw new \Exception('Mật khẩu không chính xác');
-        } else if ($request['old_password'] === $request['password']) {
+        } elseif ($request['old_password'] === $request['password']) {
             throw new \Exception('Mật khẩu không được trùng với mật khẩu cũ');
         }
     }
@@ -354,5 +354,28 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         if ($minutes > 1440) {
             throw new \Exception('Đường dẫn không tồn tại ');
         }
+    }
+
+    /**
+     * Kiểm tra xem Referral code có hợp lệ không
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param $ref
+     *
+     * @throws \Exception
+     */
+
+    public function isValidReferenceID($ref)
+    {
+        if ($this->model->select('id')->where('uuid', $ref)->first() !== null) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function getIDbyUUID($uuid)
+    {
+        return $this->model->select('id')->where('uuid', $uuid)->first()->id;
     }
 }

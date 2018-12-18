@@ -73,7 +73,7 @@ return [
     ],
 
     /**
-     * Blog Blinding
+     * Blog binding
      */
     \App\Repositories\Blogs\Blog::class              => [
         \App\Repositories\Blogs\BlogRepositoryInterface::class,
@@ -91,7 +91,7 @@ return [
     ],
 
     /**
-     * Blog Blinding
+     * Blog binding
      */
     \App\Repositories\Categories\Category::class          => [
         \App\Repositories\Categories\CategoryRepositoryInterface::class,
@@ -102,7 +102,7 @@ return [
         \App\Repositories\Categories\CategoryTranslateRepository::class,
     ],
     /**
-     * Collection Blinding
+     * Collection binding
      */
     \App\Repositories\Collections\Collection::class       => [
         \App\Repositories\Collections\CollectionRepositoryInterface::class,
@@ -115,7 +115,7 @@ return [
     ],
 
     /**
-     * Promotion Blinding
+     * Promotion binding
      */
     \App\Repositories\Promotions\Promotion::class => [
         \App\Repositories\Promotions\PromotionRepositoryInterface::class,
@@ -123,7 +123,7 @@ return [
     ],
 
     /**
-     * Coupon Blinding
+     * Coupon binding
      */
     \App\Repositories\Coupons\Coupon::class => [
         \App\Repositories\Coupons\CouponRepositoryInterface::class,
@@ -131,7 +131,7 @@ return [
     ],
 
     /**
-     * City Blinding
+     * City binding
      */
     \App\Repositories\Cities\City::class => [
         \App\Repositories\Cities\CityRepositoryInterface::class,
@@ -140,7 +140,7 @@ return [
 
 
     /**
-     * District Blinding
+     * District binding
      */
     \App\Repositories\Districts\District::class => [
         \App\Repositories\Districts\DistrictRepositoryInterface::class,
@@ -148,7 +148,7 @@ return [
     ],
 
     /**
-     * EmailCustomer Blinding
+     * EmailCustomer binding
      */
     App\Repositories\EmailCustomers\EmailCustomer::class => [
         App\Repositories\EmailCustomers\EmailCustomersRepositoryInterface::class,
@@ -156,7 +156,7 @@ return [
     ],
 
     /**
-     * GuidebookCategory Blinding
+     * GuidebookCategory binding
      */
     App\Repositories\GuidebookCategories\GuidebookCategory::class => [
         App\Repositories\GuidebookCategories\GuidebookCategoryRepositoryInterface::class,
@@ -164,14 +164,14 @@ return [
     ],
 
     /**
-     * Place Blinding
+     * Place binding
      */
     App\Repositories\Places\Place::class => [
         App\Repositories\Places\PlaceRepositoryInterface::class,
         App\Repositories\Places\PlaceRepository::class,
     ],
     /**
-     * Wish-List Blinding
+     * Wish-List binding
      */
     \App\Repositories\WishLists\WishList::class => [
         \App\Repositories\WishLists\WishListRepositoryInterface::class,
@@ -179,7 +179,7 @@ return [
     ],
 
     /**
-     * Statistical Blinding
+     * Statistical binding
      */
     \App\Repositories\Statisticals\Statistical::class => [
         \App\Repositories\Statisticals\StatisticalRepositoryInterface::class,
@@ -187,10 +187,18 @@ return [
     ],
 
     /**
-     * Room Calendar Blinding
+     * Room Calendar binding
      */
     \App\Repositories\Roomcalendars\RoomCalendar::class => [
         \App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface::class,
         \App\Repositories\Roomcalendars\RoomCalendarRepository::class,
+    ],
+
+    /**
+     * Referral binding
+     */
+    \App\Repositories\Referrals\Referral::class => [
+        \App\Repositories\Referrals\ReferralRepositoryInterface::class,
+        \App\Repositories\Referrals\ReferralRepository::class,
     ],
 ];

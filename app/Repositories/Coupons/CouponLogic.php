@@ -18,6 +18,7 @@ use App\Repositories\Rooms\RoomTranslateRepository;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
@@ -34,6 +35,7 @@ class CouponLogic extends BaseLogic
     protected $user;
     protected $op;
     protected $cp;
+    protected $referral;
 
     /**
      * CouponLogic constructor.
@@ -46,6 +48,7 @@ class CouponLogic extends BaseLogic
      * @param UserRepositoryInterface|UserRepository                           $user
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param CouponRepositoryInterface|CouponRepository                       $cp
+     * @param ReferralRepositoryInterface|ReferralRepository                   $referral
      */
     public function __construct(
         CouponRepositoryInterface $coupon,
@@ -55,7 +58,8 @@ class CouponLogic extends BaseLogic
         DistrictRepositoryInterface $district,
         UserRepositoryInterface $user,
         RoomOptionalPriceRepositoryInterface $op,
-        CouponRepositoryInterface $cp
+        CouponRepositoryInterface $cp,
+        ReferralRepositoryInterface $referral
     ) {
         $this->model          = $coupon;
         $this->room           = $room;
@@ -65,6 +69,7 @@ class CouponLogic extends BaseLogic
         $this->user           = $user;
         $this->op             = $op;
         $this->cp             = $cp;
+        $this->referral       = $referral;
     }
 
     /**
@@ -342,5 +347,30 @@ class CouponLogic extends BaseLogic
 
             throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
         }
+    }
+
+    /**
+     * Tạo coupon cho người dùng có referral hợp lệ
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param $code
+     *
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function createReferralCoupon()
+    {
+        $now        = Carbon::now();
+        // $secret     =
+        $user_refer = $this->referral->getAllReferralUser();
+        
+        $code = hash_hmac('sha256', $secret, $timestamp);
+        if (empty($data['settings']['min_price'])) {
+            $data['settings']['min_price'] = 0;
+        };
+        $data['settings'] = json_encode($data['settings']);
+        // dd(json_encode($data['settings']));
+        $data_coupon      = parent::store($data);
+        return $data_coupon;
     }
 }
