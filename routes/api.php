@@ -177,13 +177,13 @@ $router->group([
      * Statistical Resource
      */
     $router->get('/statisticals/booking-status', 'StatisticalController@bookingByStatusStatistical');
-    $router->get('/statisticals/booking-city', 'StatisticalController@statisticalCity');
-    $router->get('/statisticals/booking-district', 'StatisticalController@statisticalDistrict');
-    $router->get('/statisticals/booking-type', 'StatisticalController@statisticalBookingType');
-    $router->get('/statisticals/booking-revenue', 'StatisticalController@statisticalBookingRevenue');
-    $router->get('/statisticals/booking-manager-revenue', 'StatisticalController@tatisticalBookingManagerRevenue');
-    $router->get('/statisticals/booking-room-type-revenue', 'StatisticalController@statisticalBookingRoomTypeRevenue');
-    $router->get('/statisticals/count-booking-room-type', 'StatisticalController@statisticalCountBookingRoomType');
+    $router->get('/statisticals/booking-city', 'StatisticalController@bookingByCityStatistical');
+    $router->get('/statisticals/booking-district', 'StatisticalController@bookingByDistrictStatistical');
+    $router->get('/statisticals/booking-type', 'StatisticalController@bookingByTypeStatistical');
+    $router->get('/statisticals/booking-revenue', 'StatisticalController@bookingByRevenueStatistical');
+    $router->get('/statisticals/booking-manager-revenue', 'StatisticalController@bookingByManagerRevenueStatistical');
+    $router->get('/statisticals/booking-room-type-revenue', 'StatisticalController@bookingByRoomTypeRevenueStatistical');
+    $router->get('/statisticals/count-booking-room-type', 'StatisticalController@bookingByRoomTypeStatistical');
 });
 
 $router->post('login', 'LoginController@login');

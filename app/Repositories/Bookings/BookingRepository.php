@@ -228,26 +228,36 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking trong khoảng ngày và theo trạng thái
+     * Xử lí dữ liệu ngày, tháng, năm để thống kê booking
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public function switchViewBookingCreatedAt($view)
+    {
+        switch ($view) {
+            case 'day':
+                $selectRawView = 'cast(bookings.created_at as DATE) as createdAt';
+                break;
+            case 'month':
+                $selectRawView = 'DATE_FORMAT(DATE_ADD(bookings.created_at,INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY),"%m-%Y") AS createdAt';
+                break;
+            case 'year':
+                $selectRawView = 'DATE_FORMAT(DATE_ADD(bookings.created_at,INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY),"%Y") AS createdAt';
+                break;
+            default:
+                $selectRawView = 'CONCAT(CAST(DATE_ADD(bookings.created_at,INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY) AS DATE)," - ",CAST(DATE_ADD(bookings.created_at,INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY) AS DATE)) AS createdAt';
+                break;
+        }
+        return $selectRawView;
+    }
+    /**
+     * đếm booking theo trạng thái
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
     public function countBookingByStatus($date_start, $date_end, $view)
     {
-        switch ($view) {
-            case 'month':
-                $selectRawView = 'DATE_FORMAT(DATE_ADD(created_at,INTERVAL (1 - DAYOFMONTH(created_at)) DAY),"%m-%Y") AS createdAt';
-                break;
-            case 'year':
-                $selectRawView = 'DATE_FORMAT(DATE_ADD(created_at,INTERVAL (1 - DAYOFMONTH(created_at)) DAY),"%Y") AS createdAt';
-                break;
-            case 'week':
-                $selectRawView = 'CONCAT(CAST(DATE_ADD(created_at,INTERVAL (1 - DAYOFWEEK(created_at)) DAY) AS DATE)," - ",CAST(DATE_ADD(created_at,INTERVAL (7 - DAYOFWEEK(created_at)) DAY) AS DATE)) AS createdAt';
-                break;
-            default:
-                $selectRawView = 'cast(created_at as DATE) as createdAt';
-                break;
-        }
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
 
         $booking = $this->model
             ->select(
@@ -266,79 +276,21 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking trong khoảng ngày và theo tỉnh thành
+     * đếm booking theo tỉnh thành
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingCityDay($date_start, $date_end)
+    public function countBookingByCity($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('cities. NAME as name_city'),
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('cast(bookings.created_at as DATE) as date')
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('cities', 'cities.id', '=', 'rooms.city_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.city_id = cities.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_city'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCityBooking = $this->convertCityBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCityBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng tuần và theo tỉnh thành
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingCityWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('cities. NAME as name_city'),
-                DB::raw('count(cities.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
+                DB::raw($selectRawView)
             )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->join('cities', 'cities.id', '=', 'rooms.city_id')
@@ -348,13 +300,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,name_city'))
+            ->groupBy(DB::raw('createdAt,name_city'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -362,111 +314,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCityBooking = $this->convertCityBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCityBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng tháng và theo tỉnh thành
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingCityMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('cities. NAME as name_city'),
-                DB::raw('count(cities.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('cities', 'cities.id', '=', 'rooms.city_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.city_id = cities.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_city'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCityBooking = $this->convertCityBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCityBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng năm và theo tỉnh thành
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingCityYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('cities. NAME as name_city'),
-                DB::raw('count(cities.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('cities', 'cities.id', '=', 'rooms.city_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.city_id = cities.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_city'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCityBooking = $this->convertCityBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertCityBooking,
             ];
         }
@@ -479,12 +327,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function convertCityBooking($bookings, $date)
+    public function convertCityBooking($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }
@@ -500,79 +348,21 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking trong khoảng ngày và theo tỉnh thành
+     * đếm booking theo tỉnh thành
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingDistrictDay($date_start, $date_end)
+    public function countBookingByDistrict($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('districts. NAME as name_district'),
                 DB::raw('count(districts.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('cast(bookings.created_at as DATE) as date')
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('districts', 'districts.id', '=', 'rooms.district_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.district_id = districts.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_district'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertDistrictBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng tuần và theo tỉnh thành
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingDistrictWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('districts. NAME as name_district'),
-                DB::raw('count(districts.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
+                DB::raw($selectRawView)
             )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->join('districts', 'districts.id', '=', 'rooms.district_id')
@@ -582,13 +372,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,name_district'))
+            ->groupBy(DB::raw('createdAt,name_district'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -596,7 +386,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertDistrictBooking,
             ];
         }
@@ -605,120 +395,16 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking trong khoảng tháng và theo tỉnh thành
+     * lấy những booking có cùng ngày theo tỉnh thành
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingDistrictMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('districts. NAME as name_district'),
-                DB::raw('count(districts.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('districts', 'districts.id', '=', 'rooms.district_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.district_id = districts.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_district'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertDistrictBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng năm và theo tỉnh thành
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingDistrictYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('districts. NAME as name_district'),
-                DB::raw('count(districts.name) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->join('districts', 'districts.id', '=', 'rooms.district_id')
-            ->whereRaw('bookings.room_id = rooms.id')
-            ->whereRaw('rooms.district_id = districts.id')
-            ->where("bookings.created_at", '>=', $date_start)
-            ->where("bookings.created_at", '<=', $date_end)
-            ->groupBy(DB::raw('date,name_district'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertDistrictBooking,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * lấy những booking có cùng ngày theo thành phố
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function convertDistrictBooking($bookings, $date)
+    public function convertDistrictBooking($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }
@@ -734,30 +420,32 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking trong khoảng ngày và theo ngày giờ
+     * đếm booking theo type
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingTypeDay($date_start, $date_end)
+    public function countBookingByType($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('count(id) as total_booking,type'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('cast(created_at as DATE) as date')
+                DB::raw($selectRawView)
             )
             ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,type'))
+            ->groupBy(DB::raw('createdAt,type'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -765,162 +453,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBookingType = $this->convertBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertBookingType,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng tuần và theo ngày giờ
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingTypeWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking,type'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertBookingType = $this->convertBookingType($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertBookingType,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng tháng và theo ngày giờ
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingTypeMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking,type'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertBookingType = $this->convertBookingType($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertBookingType,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking trong khoảng năm và theo ngày giờ
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingTypeYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('count(id) as total_booking,type'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertBookingType = $this->convertBookingType($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertBookingType,
             ];
         }
@@ -933,12 +466,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function convertBookingType($bookings, $date)
+    public function convertBookingType($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }
@@ -955,164 +488,61 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function totalBookingRevenueDay($date_start, $date_end)
+    public function totalBookingByRevenue($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
-
                 DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-
-                DB::raw('cast(created_at as DATE) as date')
+                DB::raw($selectRawView)
             )
             ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date'))
+            ->groupBy(DB::raw('createdAt'))
             ->get();
 
         return $bookings;
     }
 
     /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingRevenueWeek($date_start, $date_end)
-    {
-        $booking = $this->model
-            ->select(
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (1 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                created_at,
-                                INTERVAL (7 - DAYOFWEEK(created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date'))
-            ->get();
-        return $booking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingRevenueMonth($date_start, $date_end)
-    {
-        $booking = $this->model
-            ->select(
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date'))
-            ->get();
-        return $booking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingRevenueYear($date_start, $date_end)
-    {
-        $booking = $this->model
-            ->select(
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            created_at,
-                            INTERVAL (1 - DAYOFMONTH(created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date'))
-            ->get();
-        return $booking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo loại phòng
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking dựa theo loại phòng quản lý
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function totalBookingManagerDay($date_start, $date_end)
+    public function totalBookingByManagerRevenue($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('rooms.is_manager as manager'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-
-                DB::raw('cast(bookings.created_at as DATE) as date')
+                DB::raw($selectRawView)
             )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,rooms.is_manager'))
+            ->groupBy(DB::raw('createdAt,rooms.is_manager'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -1120,7 +550,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertTotalBookingManager,
             ];
         }
@@ -1129,177 +559,16 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo loại phòng
+     * lấy những booking có cùng ngày theo loại phòng quản lý
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function totalBookingManagerWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.is_manager as manager'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.is_manager'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingManager,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo loại phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingManagerMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.is_manager as manager'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.is_manager'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingManager,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo loại phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingManagerYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.is_manager as manager'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.is_manager'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingManager,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * lấy những booking có cùng ngày theo loại phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function convertTotalBookingManager($bookings, $date)
+    public function convertTotalBookingManager($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }
@@ -1315,34 +584,35 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo kiểu phòng
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking dựa theo kiểu phòng
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function totalBookingSourceDay($date_start, $date_end)
+    public function totalBookingByRoomType($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('rooms.room_type as room_type'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
 
                 DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-
-                DB::raw('cast(bookings.created_at as DATE) as date')
+                DB::raw($selectRawView)
             )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->groupBy(DB::raw('createdAt,rooms.room_type'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -1350,168 +620,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingSourceWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingSourceMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function totalBookingSourceYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
-
-                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertTotalBookingSource,
             ];
         }
@@ -1524,12 +633,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function convertTotalBookingSource($bookings, $date)
+    public function convertTotalBookingSource($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }
@@ -1545,20 +654,22 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * đếm booking theo trạng thái thanh toán và trạng thái booking trong khoảng ngày dựa theo kiểu phòng
+     * đếm booking theo trạng thái thanh toán và trạng thái booking dựa theo kiểu phòng
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function countBookingSourceDay($date_start, $date_end)
+    public function countBookingByRoomType($date_start, $date_end, $view)
     {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
         $bookings = $this->model
             ->select(
                 DB::raw('rooms.room_type as room_type'),
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('cast(bookings.created_at as DATE) as date')
+                DB::raw($selectRawView)
             )
             ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
             ->whereRaw('bookings.room_id = rooms.id')
@@ -1566,13 +677,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
+            ->groupBy(DB::raw('createdAt,rooms.room_type'))
             ->get();
 
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
+            array_push($data_date, $value->createdAt);
         }
 
         $date_unique = array_unique($data_date);
@@ -1580,168 +691,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCountBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm  booking theo trạng thái thanh toán và trạng thái booking trong khoảng tuần dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingSourceWeek($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('count(bookings.id) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    CONCAT(
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        ),
-                        " - ",
-                        CAST(
-                            DATE_ADD(
-                                bookings.created_at,
-                                INTERVAL (7 - DAYOFWEEK(bookings.created_at)) DAY
-                            ) AS DATE
-                        )
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCountBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * đếm booking theo trạng thái thanh toán và trạng thái booking trong khoảng tháng dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingSourceMonth($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('count(bookings.id) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFWEEK(bookings.created_at)) DAY
-                        ),
-                        "%m-%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertCountBookingSource,
-            ];
-        }
-
-        return $convertDataBooking;
-    }
-
-    /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking trong khoảng năm dựa theo kiểu phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countBookingSourceYear($date_start, $date_end)
-    {
-        $bookings = $this->model
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('count(bookings.id) as total_booking'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
-                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw(
-                    '
-                    DATE_FORMAT(
-                        DATE_ADD(
-                            bookings.created_at,
-                            INTERVAL (1 - DAYOFMONTH(bookings.created_at)) DAY
-                        ),
-                        "%Y"
-                    ) AS date'
-                )
-            )
-            ->join('rooms', 'rooms.id', '=', 'bookings.room_id')
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('date,rooms.room_type'))
-            ->get();
-
-        $data_date          = [];
-        $convertDataBooking = [];
-        foreach ($bookings as $key => $value) {
-            array_push($data_date, $value->date);
-        }
-
-        $date_unique = array_unique($data_date);
-        foreach ($date_unique as $k => $val) {
-            $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
-
-            $convertDataBooking[] = [
-                'date' => $val,
+                'createdAt' => $val,
                 'data' => $convertCountBookingSource,
             ];
         }
@@ -1754,12 +704,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function convertCountBookingSource($bookings, $date)
+    public function convertCountBookingSource($bookings, $createdAt)
     {
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
-            if ($value->date === $date) {
+            if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
         }

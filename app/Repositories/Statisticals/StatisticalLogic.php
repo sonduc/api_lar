@@ -5,7 +5,6 @@ namespace App\Repositories\Statisticals;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use Carbon\Carbon;
-use Carbon\CarbonPeriod;
 
 class StatisticalLogic extends BaseLogic
 {
@@ -20,238 +19,112 @@ class StatisticalLogic extends BaseLogic
         $this->booking = $booking;
     }
 
+    /**
+     * Xử lí dữ liệu đầu vào để thống kê booking
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public function checkDataInputStatistical($data)
+    {
+        $dataInput['view']       = isset($data['view']) ? $data['view'] : 'week';
+        $dataInput['date_start'] = isset($data['date_start']) ? $data['date_start'] : Carbon::now()->startOfMonth()->toDateTimeString();
+        $dataInput['date_end']   = isset($data['date_end']) ? $data['date_end'] : Carbon::now()->toDateTimeString();
+        return $dataInput;
+    }
+
+    /**
+     * Thống kê trạng thái của booking
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
     public function bookingByStatusStatistical($data)
     {
-        $view       = isset($data['view']) ? $data['view'] : 'week';
-        $date_start = isset($data['date_start']) ? $data['date_start'] : Carbon::now()->startOfMonth()->toDateTimeString();
-        $date_end   = isset($data['date_end']) ? $data['date_end'] : Carbon::now()->toDateTimeString();
+        $dataInput = $this->checkDataInputStatistical($data);
 
-        $booking    = $this->booking->countBookingByStatus($date_start, $date_end, $view);
-            
-        return $booking;
+        return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalCity($data)
+    /**
+     * Thống kê trạng thái của booking theo thành phố
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByCityStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingCityDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->countBookingCityWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->countBookingCityMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->countBookingCityYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingCityWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalDistrict($data)
+    /**
+     * Thống kê trạng thái của booking theo quận huyện
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByDistrictStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingDistrictDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->countBookingDistrictWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->countBookingDistrictMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->countBookingDistrictYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingDistrictWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalBookingType($data)
+    /**
+     * Thống kê trạng thái của booking theo loại booking
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByTypeStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingTypeDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->countBookingTypeWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->countBookingTypeMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->countBookingTypeYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingTypeWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalBookingRevenue($data)
+    /**
+     * Thống kê doanh thu của booking theo ngày / theo giờ
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRevenueStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->totalBookingRevenueDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->totalBookingRevenueMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->totalBookingRevenueYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->totalBookingRevenueWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->totalBookingByRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function tatisticalBookingManagerRevenue($data)
+    /**
+     * Thống kê doanh thu của booking theo loại phòng quản lý
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByManagerRevenueStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->totalBookingManagerDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->totalBookingManagerWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->totalBookingManagerMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->totalBookingManagerYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->totalBookingManagerWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->totalBookingByManagerRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalBookingRoomTypeRevenue($data)
+    /**
+     * Thống kê doanh thu của booking theo kiểu phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRoomTypeRevenueStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->totalBookingSourceDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->totalBookingSourceWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->totalBookingSourceMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->totalBookingSourceYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->totalBookingSourceWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->totalBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
-    public function statisticalCountBookingRoomType($data)
+    /**
+     * Thống kê trạng thái của booking theo kiểu phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByRoomTypeStatistical($data)
     {
-        if (isset($data['date_start']) == false) {
-            $data['date_start'] = Carbon::now()->startOfMonth()->toDateTimeString();
-        }
-        if (isset($data['date_end']) == false) {
-            $data['date_end'] = Carbon::now()->toDateTimeString();
-        }
-        switch ($data['view']) {
-            case 'day':
-                $booking = $this->booking->countBookingSourceDay($data['date_start'], $data['date_end']);
-                break;
+        $dataInput = $this->checkDataInputStatistical($data);
 
-            case 'week':
-                $booking = $this->booking->countBookingSourceWeek($data['date_start'], $data['date_end']);
-                break;
-
-            case 'month':
-                $booking = $this->booking->countBookingSourceMonth($data['date_start'], $data['date_end']);
-                break;
-
-            case 'year':
-                $booking = $this->booking->countBookingSourceYear($data['date_start'], $data['date_end']);
-                break;
-            default:
-                $booking = $this->booking->countBookingSourceWeek($data['date_start'], $data['date_end']);
-                break;
-        }
-
-        return $booking;
+        return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 }
