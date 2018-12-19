@@ -26,11 +26,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
 
+
 class RoomController extends ApiController
 {
     protected $booking;
     protected $user;
     protected $roomReview;
+    protected $roomOptionalPrice;
 
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
@@ -243,10 +245,10 @@ class RoomController extends ApiController
         BookingRepositoryInterface $booking,
         RoomReviewRepositoryInterface $roomReview
     ) {
-        $this->model      = $room;
-        $this->user       = $user;
-        $this->booking    = $booking;
-        $this->roomReview = $roomReview;
+        $this->model             = $room;
+        $this->user              = $user;
+        $this->booking           = $booking;
+        $this->roomReview        = $roomReview;
         $this->setTransformer(new RoomTransformer);
     }
 
@@ -699,6 +701,61 @@ class RoomController extends ApiController
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->updateRoomSettings($request->only([
                 'room_id', 'settings',
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    public function updateRoomOptionalPrice(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update',$request->room_id);
+            $validate = array_only($this->validationRules, [
+                'weekday_price.*.price_day',
+                'weekday_price.*.price_hour',
+                'weekday_price.*.price_after_hour' ,
+                'weekday_price.*.price_charge_guest',
+                'weekday_price.*.status',
+                'weekday_price.*.weekday',
+
+                'optional_prices.days.*',
+                'optional_prices.price_day',
+                'optional_prices.price_hour',
+                'optional_prices.price_after_hour' ,
+                'optional_prices.price_charge_guest',
+                'optional_prices.status',
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomOptionalPrice($request->only([
+                'optional_prices', 'weekday_price','room_id'
             ]));
 
             DB::commit();

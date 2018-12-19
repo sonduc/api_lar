@@ -110,9 +110,6 @@ class RoomLogic extends BaseLogic
 
         $list['settings']        = $this->model->checkValidRefund($data);
 
-
-
-
         $data_room = parent::store($list);
 
        if (isset($data['details']) & !empty($data['details']))
@@ -270,6 +267,16 @@ class RoomLogic extends BaseLogic
         $this->roomTimeBlock->updateRoomTimeBlock($room, $data->all());
         return $room;
     }
+
+
+    public function updateRoomOptionalPrice($data)
+    {
+        $room    = $this->model->getById($data['room_id']);
+        $this->roomOptionalPrice->updateRoomOptionalPrice($room, $data);
+        return $room;
+    }
+
+
 
 
 
