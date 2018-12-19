@@ -15,12 +15,15 @@ class StatisticalController extends ApiController
     protected $validationRules = [
         'date_start'                =>  'date',
         'date_end'                  =>  'date|after:date_start',
+        'status'                    =>  'integer|between:4,5',
     ];
     protected $validationMessages = [
         'date_start.date_format'    =>  'Ngày bắt đầu thống kê phải có định dạng Y-m-d',
      
         'date_end.date_format'      =>  'Ngày kết thúc thống kê phải có định dạng Y-m-d',
         'date_end.after'            =>  'Thời gian kết thúc thống kê phải sau thời gian bắt đầu thống kê',
+        'status.integer'            =>  'Trạng thái không phải là kiểu số',
+        'status.between'            =>  'Trạng thái không phù hợp',
     ];
 
     /**
@@ -44,6 +47,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByStatusStatistical($request->all());
             $data = [
                 'data' => $data->toArray()
@@ -70,6 +74,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByCityStatistical($request->all());
             $data = [
                 'data' => $data
@@ -95,6 +100,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByDistrictStatistical($request->all());
 
             $data = [
@@ -121,6 +127,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByTypeStatistical($request->all());
 
             $data = [
@@ -147,6 +154,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRevenueStatistical($request->all());
 
             $data = [
@@ -174,6 +182,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByManagerRevenueStatistical($request->all());
             
             $data = [
@@ -200,6 +209,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRoomTypeRevenueStatistical($request->all());
 
             $data = [
@@ -226,6 +236,7 @@ class StatisticalController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRoomTypeStatistical($request->all());
 
             $data = [

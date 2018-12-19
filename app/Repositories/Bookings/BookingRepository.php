@@ -275,8 +275,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingByStatus($date_start, $date_end, $view)
-    {
+    public function countBookingByStatus($date_start, $date_end, $view, $status)
+    {   
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
         $booking = $this->model
@@ -286,13 +286,16 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
                 DB::raw($selectRawView)
             )
+
             ->where([
-                ['created_at', '>=', $date_start],
-                ['created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt'))
-            ->get();
-        return $booking;
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+            if($status != null ) {
+                $booking->where('bookings.status',$status);
+            }
+            
+        return $booking->groupBy(DB::raw('createdAt'))->get();
     }
 
     /**
@@ -300,7 +303,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingByCity($date_start, $date_end, $view)
+    public function countBookingByCity($date_start, $date_end, $view, $status)
     {
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
@@ -319,9 +322,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt,name_city'))
-            ->get();
+            ]);
+        if($status != null ) {
+            $bookings->where('bookings.status',$status);
+        }
+        $bookings = $bookings->groupBy(DB::raw('createdAt,name_city'))->get();
 
         $data_date          = [];
         $convertDataBooking = [];
@@ -372,7 +377,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingByDistrict($date_start, $date_end, $view)
+    public function countBookingByDistrict($date_start, $date_end, $view, $status)
     {
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
@@ -391,10 +396,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt,name_district'))
-            ->get();
+            ]);
 
+        if($status != null ) {
+            $bookings->where('bookings.status',$status);
+        }
+
+        $bookings = $bookings->groupBy(DB::raw('createdAt,name_district'))->get();    
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
@@ -444,7 +452,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countBookingByType($date_start, $date_end, $view)
+    public function countBookingByType($date_start, $date_end, $view, $status)
     {
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
@@ -458,9 +466,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt,type'))
-            ->get();
+            ]);
+
+        if($status != null ) {
+            $bookings->where('bookings.status',$status);
+        }
+        
+        $bookings = $bookings->groupBy(DB::raw('createdAt,type'))->get();
 
         $data_date          = [];
         $convertDataBooking = [];
@@ -679,7 +691,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function countBookingByRoomType($date_start, $date_end, $view)
+    public function countBookingByRoomType($date_start, $date_end, $view, $status)
     {
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
@@ -696,9 +708,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt,rooms.room_type'))
-            ->get();
+            ]);
+            
+        if($status != null ) {
+            $bookings->where('bookings.status',$status);
+        }
+        
+        $bookings = $bookings->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
 
         $data_date          = [];
         $convertDataBooking = [];

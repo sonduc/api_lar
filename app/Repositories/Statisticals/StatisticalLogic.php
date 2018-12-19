@@ -25,7 +25,8 @@ class StatisticalLogic extends BaseLogic
      * @return [type]       [description]
      */
     public function checkDataInputStatistical($data)
-    {
+    {        
+        $dataInput['status'] = (isset($data['status']) && $data['status'] != null) ? $data['status'] : null;
         $dataInput['view']       = isset($data['view']) ? $data['view'] : 'week';
         $dataInput['date_start'] = isset($data['date_start']) ? $data['date_start'] : Carbon::now()->startOfMonth()->toDateTimeString();
         $dataInput['date_end']   = isset($data['date_end']) ? $data['date_end'] : Carbon::now()->toDateTimeString();
@@ -41,7 +42,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkDataInputStatistical($data);
 
-        return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 
     /**
@@ -53,7 +54,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkDataInputStatistical($data);
 
-        return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 
     /**
@@ -65,7 +66,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkDataInputStatistical($data);
 
-        return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 
     /**
@@ -77,7 +78,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkDataInputStatistical($data);
 
-        return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 
     /**
@@ -125,6 +126,6 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkDataInputStatistical($data);
 
-        return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 }
