@@ -7,6 +7,7 @@ use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
+use App\Repositories\Bookings\BookingConstant;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -377,5 +378,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getIDbyUUID($uuid)
     {
         return $this->model->select('id')->where('uuid', $uuid)->first()->id;
+    }
+
+    public function countBookingCustomer($uid)
+    {
+        $count_booking_complete = $this->model->where('status', BookingConstant::BOOKING_COMPLETE)->where('customer_id', $uid)->count();
     }
 }

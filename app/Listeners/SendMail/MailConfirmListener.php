@@ -8,7 +8,6 @@
 
 namespace App\Listeners\SendMail;
 
-
 use App\Events\Customer_Register_Event;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -32,5 +31,4 @@ class MailConfirmListener implements ShouldQueue
     {
         $this->email->mailConfirm($event);
     }
-
 }

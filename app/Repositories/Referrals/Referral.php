@@ -15,8 +15,8 @@ class Referral extends Entity
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'refer_id',
+        'user_id', // người invite
+        'refer_id', // người được invite
         'status'
     ];
 

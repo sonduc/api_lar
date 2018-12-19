@@ -362,8 +362,9 @@ class CouponLogic extends BaseLogic
     {
         $now        = Carbon::now()->timestamp;
         $user_refer = $this->referral->getAllReferralUser();
+        // $is_first_booking = $this->booking->
         foreach ($user_refer as $key => $value) {
-            $secret                 = $value['refer_id'] . env('APP_KEY');
+            $secret                 = $value['refer_id'] . env('APP_KEY') . $value['user_id'];
             $hashed                 = hash_hmac('sha256', $secret, $now);
             $code                   = substr(strtoupper($hashed), 0, 8);
             $start_date             = $now->toDateString();
@@ -377,25 +378,26 @@ class CouponLogic extends BaseLogic
             $booking_create_setting = [];
             $booking_stay_setting   = [];
             $merchants_setting      = [];
-            $users_setting          = [];
+            $users_setting          = [$value['user_id']];
             $days_of_week_setting   = [];
             $room_type_setting      = [];
             $settings = [
                             "settings" => [
-                                "start_date" => $start_date,
-                                "end_date" => $end_date,
-                                "bind" => $bind_setting,
-                                "rooms" => $room_setting,
-                                "cities" => $cities_setting,
-                                "districts" =>$districts_setting,
-                                "days" => $days_setting,
-                                "booking_type" =>$booking_type_setting,
-                                "booking_create" =>$booking_create_setting,
-                                "booking_stay" => $booking_stay_setting,
-                                "merchants" => $merchants_setting,
-                                "users"=> $users_setting,
-                                "days_of_week" => $days_of_week_setting,
-                                "room_type" => $room_type_setting
+                                "date_start"        => $start_date,
+                                "date_end"          => $end_date,
+                                "bind"              => $bind_setting,
+                                "rooms"             => $room_setting,
+                                "cities"            => $cities_setting,
+                                "districts"         => $districts_setting,
+                                "days"              => $days_setting,
+                                "booking_type"      => $booking_type_setting,
+                                "booking_create"    => $booking_create_setting,
+                                "booking_stay"      => $booking_stay_setting,
+                                "merchants"         => $merchants_setting,
+                                "users"             => $users_setting,
+                                "days_of_week"      => $days_of_week_setting,
+                                "room_type"         => $room_type_setting,
+                                "min_price"         => 1000000
                             ]
                         ];
             $discount       = 10;
@@ -414,6 +416,63 @@ class CouponLogic extends BaseLogic
             ];
             $data_coupon      = parent::store($data);
         }
+        return $data_coupon;
+    }
+
+    public function createRegisteredCoupon($user)
+    {
+        $now        = Carbon::now()->timestamp;
+
+        $secret                 = $user['uuid'] . env('APP_KEY') . $user['phone'];
+        $hashed                 = hash_hmac('sha256', $secret, $now);
+        $code                   = substr(strtoupper($hashed), 0, 8);
+        $start_date             = Carbon::now()->toDateString();
+        $end_date               = Carbon::now()->addMonths(3)->toDateString();
+        $bind_setting           = ["min_price", "users"];
+        $room_setting           = [];
+        $cities_setting         = [];
+        $districts_setting      = [];
+        $days_setting           = [];
+        $booking_type_setting   = Room::TYPE_ALL;
+        $booking_create_setting = [];
+        $booking_stay_setting   = [];
+        $merchants_setting      = [];
+        $users_setting          = [$user['id']];
+        $days_of_week_setting   = [];
+        $room_type_setting      = [];
+        $settings = [
+                        "date_start"        => $start_date,
+                        "date_end"          => $end_date,
+                        "bind"              => $bind_setting,
+                        "rooms"             => $room_setting,
+                        "cities"            => $cities_setting,
+                        "districts"         => $districts_setting,
+                        "days"              => $days_setting,
+                        "booking_type"      => $booking_type_setting,
+                        "booking_create"    => $booking_create_setting,
+                        "booking_stay"      => $booking_stay_setting,
+                        "merchants"         => $merchants_setting,
+                        "users"             => $users_setting,
+                        "days_of_week"      => $days_of_week_setting,
+                        "room_type"         => $room_type_setting,
+                        "min_price"         => 1000000
+                    ];
+        $discount       = 10;
+        $usable         = 1;
+        $used           = 0;
+        $status         = 1;
+        $promotion_id   = null;
+        $data = [
+                "code"          => $code,
+                "discount"      => $discount,
+                "max_discount"  => 100000,
+                "usable"        => $usable,
+                "status"        => $status,
+                "settings"      => json_encode($settings),
+                "promotion_id"  => $promotion_id
+            ];
+        $data_coupon      = parent::store($data);
+        // dd($data_coupon);
         return $data_coupon;
     }
 }

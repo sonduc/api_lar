@@ -30,7 +30,5 @@ class sendBookingCustomerListener implements ShouldQueue
     public function handle(BookingEvent $event)
     {
         $this->email->sendBookingCustomer($event);
-
     }
-
 }

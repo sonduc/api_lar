@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\Referrals\ReferralRepositoryInterface;
+use App\Repositories\Coupons\CouponLogic;
+use App\Jobs\SendCouponRegisterUser;
 
 class RegisterController extends ApiController
 {
@@ -36,10 +38,11 @@ class RegisterController extends ApiController
         'password_confirmation.same'        => 'Mật khẩu không khớp nhau',
     ];
 
-    public function __construct(UserRepository $user, UserTransformer $transformer, ReferralRepositoryInterface $referral)
+    public function __construct(UserRepository $user, UserTransformer $transformer, ReferralRepositoryInterface $referral, CouponLogic $coupon)
     {
         $this->user     = $user;
         $this->referral = $referral;
+        $this->coupon   = $coupon;
         $this->setTransformer($transformer);
     }
 
@@ -95,8 +98,17 @@ class RegisterController extends ApiController
             // Create new user
             // dd($params);
             $newClient = $this->getResource()->store($params);
-            if ($params['ref_code'] !== null) {
-                $storeReferral = $this->referral->storeReferralUser($newClient->id, $user_id);
+
+            if ($newClient && $params['ref_code'] !== null) {
+                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id);
+                $coupon         = $this->coupon->createRegisteredCoupon($newClient);
+                // dd($coupon);
+                if ($coupon) {
+                    $user_ref = $this->user->getById($newClient->id);
+                    $coupon   = $this->coupon->getById($coupon->id);
+                    $sendCouponRegister = (new SendCouponRegisterUser($newClient, $coupon))->delay(Carbon::now()->addHours(24));
+                    dispatch($sendCouponRegister);
+                }
             }
 
             // Issue token

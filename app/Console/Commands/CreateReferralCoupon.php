@@ -7,7 +7,7 @@ use App\Repositories\Coupons\CouponRepositoryInterface;
 
 use Carbon\Carbon;
 
-class AirbnbCalendar extends Command
+class CreateReferralCoupon extends Command
 {
     /**
      * The name and signature of the console command.

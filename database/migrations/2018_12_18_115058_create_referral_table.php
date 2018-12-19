@@ -13,10 +13,10 @@ class CreateReferralTable extends Migration
      */
     public function up()
     {
-        Schema::create('referral', function (Blueprint $table) {
-            $table->increments('user_id');
-            $table->increments('refer_id');
-            $table->increments('status')->default(0);
+        Schema::create('referrals', function (Blueprint $table) {
+            $table->integer('user_id'); // Người invite
+            $table->integer('refer_id'); // Người được invite
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateReferralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referral');
+        Schema::dropIfExists('referrals');
     }
 }

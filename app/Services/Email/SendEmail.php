@@ -219,10 +219,9 @@ class SendEmail
 
     public function sendMailResetPassword($user, $template = 'email.reset_password')
     {
-
-          $timeSubmit                = Carbon::now()->timestamp;
-          $user->data->timeSubmit    = base64_encode($timeSubmit);
-          $email                     = $user->data->email;
+        $timeSubmit                = Carbon::now()->timestamp;
+        $user->data->timeSubmit    = base64_encode($timeSubmit);
+        $email                     = $user->data->email;
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
                 $message->from(env('MAIL_USERNAME'));
@@ -232,7 +231,6 @@ class SendEmail
             logs('emails', 'Email gửi thất bại ' . $email);
             throw $e;
         }
-
     }
 
     /**
@@ -257,8 +255,32 @@ class SendEmail
             logs('emails', 'Email gửi thất bại ' . $email);
             throw $e;
         }
-
     }
 
-
+    /**
+     * Email mời khách reviews sau checkout
+     *
+     */
+    public function userRegisterReferralCoupon($dataUser, $dataCoupon, $template = 'email.user_register_coupon_referral')
+    {
+        $email      = $dataUser->email;
+        $setting    = json_decode($dataCoupon->settings);
+        $date_start = $setting->date_start;
+        $date_end   = $setting->date_end;
+        $min_price  = $setting->min_price;
+        $dataSetting = [
+            "date_start" => $date_start,
+            "date_end"   => $date_end,
+            "min_price"  => $min_price
+        ];
+        try {
+            Mail::send($template, ['data' => $dataUser,'coupon' => $dataCoupon,"setting" => $dataSetting], function ($message) use ($email) {
+                $message->from(env('MAIL_TEST'));
+                $message->to($email)->subject('Westay có một bất ngờ nhỏ dành cho bạn !');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email);
+            throw $e;
+        }
+    }
 }
