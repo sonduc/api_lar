@@ -429,7 +429,7 @@ class CouponLogic extends BaseLogic
         $user_refer     = $this->referral->getAllReferralUser();
         // dd($user_refer);
         $user_with_first_booking = $this->booking->getUserFirstBooking($user_refer, $start_checkout, $end_checkout);
-        dd($user_with_first_booking);
+        // dd($user_with_first_booking);
         foreach ($user_refer as $key => $value) {
             $secret                 = $value['refer_id'] . env('APP_KEY') . $value['user_id'];
             $hashed                 = hash_hmac('sha256', $secret, $now);
