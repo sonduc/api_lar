@@ -732,7 +732,7 @@ class RoomController extends ApiController
                 'settings.refunds.*.days',
                 'settings.refunds.*.amount',
             ]);
-            $validate['room_id']         = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['room_id']                            = 'required|integer|exists:rooms,id,deleted_at,NULL';
             $validate['settings.no_booking_cancel']         = 'nullable|integer|in:0,1';
             $validate['settings.refunds.*.days']            = 'required|integer|max:14|min:1';
             $validate['settings.refunds.*.amount']          = 'required|integer|min:0|max:100';

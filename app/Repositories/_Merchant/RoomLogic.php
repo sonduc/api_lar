@@ -82,38 +82,51 @@ class RoomLogic extends BaseLogic
      * @return \App\Repositories\Eloquent
      */
 
-    public function store($data, $room = [])
+    public function store($data, $room = [],$list = [])
     {
-        // Tính số phần trăm hoàn thành
-        $percen         = count($data)/Room::FINISHED *100;
-        $data['percent'] = round($percen);
+
+        if (isset($data['basic']) & !empty($data['basic']))
+        {
+            $list = $data['basic'];
+            $list['percent'] = $this->model->calculation_percent($data);
+        }
+
 
         if (isset($data['prices']) & !empty($data['prices']))
         {
-           $data = array_merge($data,$data['prices']);
+            $list = array_merge($list,$data['prices']);
         }
 
         if (isset($data['details']) & !empty($data['details']))
         {
-            $data['city_id']     = $data['details']['city_id'];
-            $data['district_id'] = $data['details']['district_id'];
+            $list['city_id']     = $data['details']['city_id'];
+            $list['district_id'] = $data['details']['district_id'];
+            $list['longitude']   = $data['details']['longitude'];
+            $list['latitude']    = $data['details']['latitude'];
         }
-        $data['merchant_id']     = Auth::user()->id;
-        $data['standard_point']  = 0;
-        $data['status']          = 0;
-        $data['settings']        = $this->model->checkValidRefund($data);
+        $list['merchant_id']     = Auth::user()->id;
+        $list['standard_point']  = 0;
+        $list['status']          = Room::NOT_APPROVED;
 
-        $data_room = parent::store($data);
+        $list['settings']        = $this->model->checkValidRefund($data);
+
+
+
+
+        $data_room = parent::store($list);
 
        if (isset($data['details']) & !empty($data['details']))
        {
            $this->roomTranslate->storeRoomTranslate($data_room, $data);
        }
 
-        if (isset($data['weekday_price']) & !empty($data['weekday_price']))
+        if (isset($data['comforts']) & !empty($data['comforts']))
         {
-            $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
+            $this->storeRoomComforts($data_room, $data);
+
         }
+
+
         if (isset($data['images']) & !empty($data['images']))
         {
             $this->roomMedia->storeRoomMedia($data_room, $data);
@@ -124,10 +137,9 @@ class RoomLogic extends BaseLogic
             $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
         }
 
-        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks']))
+        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices']))
         {
-            $this->storeRoomComforts($data_room, $data);
-
+            $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         }
 
         return $data_room;
@@ -162,35 +174,45 @@ class RoomLogic extends BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
-        // Tính số phần trăm hoàn thành
-        $percen         = count($data)/Room::FINISHED *100;
-        $data['percent'] = round($percen);
+        if (isset($data['basic']) & !empty($data['basic']))
+        {
+            $list = $data['basic'];
+            $list['percent'] = $this->model->calculation_percent($data);
+        }
+
 
         if (isset($data['prices']) & !empty($data['prices']))
         {
-            $data = array_merge($data,$data['prices']);
+            $list = array_merge($list,$data['prices']);
         }
 
         if (isset($data['details']) & !empty($data['details']))
         {
-            $data['city_id']     = $data['details']['city_id'];
-            $data['district_id'] = $data['details']['district_id'];
+            $list['city_id']     = $data['details']['city_id'];
+            $list['district_id'] = $data['details']['district_id'];
+            $list['longitude']   = $data['details']['longitude'];
+            $list['latitude']    = $data['details']['latitude'];
         }
+        $list['merchant_id']     = Auth::user()->id;
+        $list['standard_point']  = 0;
+        $list['status']          = Room::NOT_APPROVED;
+        $list['settings']        = $this->model->checkValidRefund($data);
 
-
-        $data['settings']= $this->model->checkValidRefund($data);
         // dd($data['settings']);
-        $data_room = parent::update($id, $data);
-
-
-
+        $data_room = parent::update($id, $list);
 
         if (isset($data['details']) & !empty($data['details']))
         {
             $this->roomTranslate->updateRoomTranslate($data_room, $data);
         }
 
-        if (isset($data['weekday_price']) & !empty($data['weekday_price']))
+        if (isset($data['comforts']) & !empty($data['comforts']))
+        {
+            $this->storeRoomComforts($data_room, $data);
+
+        }
+
+        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices']))
         {
             $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         }
@@ -204,11 +226,7 @@ class RoomLogic extends BaseLogic
             $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
         }
 
-        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks']))
-        {
-            $this->storeRoomComforts($data_room, $data);
 
-        }
 
         return $data_room;
     }

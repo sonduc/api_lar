@@ -64,7 +64,7 @@ class Room extends Entity
     const GOOD              = 'Tốt';
     const EXCELLENT         = 'Rất tuyệt vời';
     const NULL_REVIEW       = 'Chưa có đánh giá';
-    const FINISHED          = 14;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
+    const FINISHED          = 6;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
 
 
     /**

@@ -101,6 +101,7 @@ class ImageProcessor
 
         $img = $arr[1];
         $this->pre = $this->manager->make($img)->encode($this->format, $this->quality);
+
     }
 
     /**

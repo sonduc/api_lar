@@ -65,10 +65,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data['settings']) || !isset($data['settings']) ) {
+            $refund = [['days' => 14, 'amount' => 100 ]];
             $refund = [
-                'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
+                'refunds'            => $refund,
+                'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
             ];
-
             return json_encode($refund);
         }
 
@@ -83,6 +84,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
         // set măc định 1 mức cho hủy phòng.
         $refund = $data['settings']['refunds'];
+
         if (isset($refund[BookingConstant::BOOKING_CANCEL_lEVEL])) {
             throw new \Exception('không được phép tạo thêm mức hủy phòng');
         }
@@ -143,5 +145,27 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return $this->model
             ->where('rooms.merchant_id', $id)
             ->paginate($size);
+    }
+
+
+    /**
+     *  // Tính số phần trăm hoàn thành
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $data
+     * @return float
+     */
+
+    public function calculation_percent($data)
+    {
+        // Tính số phần trăm hoàn thành
+        $data = array_only($data, ['weekday_price','room_time_blocks','optional_prices', 'basic','details','comforts', 'images', 'prices','settings']);
+        $except = ['weekday_price','room_time_blocks','optional_prices'];
+        empty($data['comforts']) ? array_push($except,'comforts') : null ;
+        empty($data['images']) ? array_push($except,'images') : null ;
+
+        $count = array_except($data,$except);
+        $percent         = count($count)/Room::FINISHED *100;
+         return round($percent);
     }
 }

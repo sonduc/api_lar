@@ -72,10 +72,11 @@ class RoomLogic extends BaseLogic
         $data_room = parent::store($data);
 
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
+        $this->storeRoomComforts($data_room, $data);
         $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         $this->roomMedia->storeRoomMedia($data_room, $data);
         $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
-        $this->storeRoomComforts($data_room, $data);
+
         return $data_room;
     }
 
@@ -231,7 +232,6 @@ class RoomLogic extends BaseLogic
      */
     public function minorRoomUpdate($id, $data = [])
     {
-        // $data['settings']= $this->model->checkValidRefund($data['settings']);
         return parent::update($id, $data);
     }
 

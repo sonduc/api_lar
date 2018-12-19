@@ -87,6 +87,7 @@ class RoomTransformer extends TransformerAbstract
             'latitude'             => $room->latitude,
             'total_booking'        => $room->total_booking,
             'status'               => $room->status,
+            'status_txt'           => $room->roomStatus(),
             'cleanliness'          => $room->avg_cleanliness,
             'quality'              => $room->avg_quality,
             'service'              => $room->avg_service,
@@ -94,7 +95,7 @@ class RoomTransformer extends TransformerAbstract
             'avg_rating'           => $room->avg_avg_rating,
             'total_review'         => $room->total_review,
             'total_recommend'      => $room->total_recommend,
-            'status_txt'           => $room->roomStatus(),
+
             'settings'             => json_decode($room->settings),
             'percent'              =>  $room->percent,
             //'percent'              => $room->percent ?? 0,

@@ -35,34 +35,34 @@ class RoomController extends ApiController
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
-        'max_guest'                          => 'required|integer|min:1',
-        'max_additional_guest'               => 'integer|nullable',
-        'number_bed'                         => 'required|integer|min:1',
-        'number_room'                        => 'required|integer|min:1',
+
+        'basic.max_guest'                    => 'required|integer|between:1,100',
+        'basic.max_additional_guest'         => 'integer|nullable|between:1,100',
+        'basic.number_bed'                   => 'required|integer|between:1,100',
+        'basic.number_room'                  => 'required|integer|between:1,100',
+        'basic.room_type'                    => 'required|integer|between:1,5',
 
         'details.city_id'                    => 'integer|nullable|exists:cities,id,deleted_at,NULL|required_with:details',
         'details.district_id'                => 'integer|nullable|exists:districts,id,deleted_at,NULL|required_with:details',
         // 'room_type_id'                                   => 'required|integer',
         'prices.checkin'                     => 'required_with:prices|date_format:"H:i"',
         'prices.checkout'                    => 'required_with:prices|date_format:"H:i"',
-        'prices.price_day'                   => 'integer|nullable',
-        'prices.price_hour'                  => 'integer|nullable',
+        'prices.price_day'                   => 'required_if:prices.rent_type,2,3|integer|nullable',
+        'prices.price_hour'                  => 'required_if:prices.rent_type,1,3|integer|nullable',
         'prices.price_after_hour'            => 'required_with:prices.price_hour|integer',
         'prices.price_charge_guest'          => 'required_with:prices|integer|nullable',
         'prices.cleaning_fee'                => 'required_with:prices|integer|nullable',
+        'prices.rent_type'                   => 'required_with:prices|integer|min:1|between:1,3',
 
-        'standard_point'                     => 'integer|nullable|min:0',
-        'is_manager'                         => 'integer|nullable|between:0,1',
 
-        'latest_deal'                        => 'integer|nullable|between:0,1',
-        'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
         // 'latitude'                                       => 'required',
         'details.*.*.address'                => 'required|v_title',
         'note'                               => 'nullable|v_title',
         'sale_id'                            => 'integer|nullable|exists:users,id,deleted_at,NULL',
         'lang_id'                            => 'integer|exists:languages,id',
-        'status'                             => 'integer|between:0,4',
+
+
         'weekday_price.*.price_day'          => 'integer|nullable',
         'weekday_price.*.price_hour'         => 'integer|nullable',
         'weekday_price.*.price_after_hour'   => 'integer|nullable|required_with:weekday_price.*.price_hour',
@@ -96,24 +96,26 @@ class RoomController extends ApiController
     ];
 
     protected $validationMessages = [
-        'details.*.*.name.required'                      => 'Tên không được để trông',
-        'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
-        'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
-        'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
-        'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
         'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
         'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
         'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
 
-        'max_guest.required'                             => 'Số khách tối đa không được để trống',
-        'max_guest.integer'                              => 'Trường số khách tối đa phải là kiểu số',
-        'max_additional_guest.integer'                   => 'Số khách tối đa phải là kiểu số',
-        'number_bed.required'                            => 'Vui lòng điền số giường',
-        'number_bed.min'                                 => 'Tối thiểu 1 giường',
-        'number_bed.integer'                             => 'Số giường phải là kiểu số',
-        'number_room.required'                           => 'Vui lòng điền số phòng',
-        'number_room.min'                                => 'Tối thiểu 1 phòng',
-        'number_room.integer'                            => 'Số phòng phải là kiểu số',
+        'basic.max_guest.required'                       => 'Số khách tối đa không được để trống',
+        'basic.max_guest.integer'                        => 'Trường số khách tối đa phải là kiểu số',
+        'basic.max_guest.between'                        => 'Trường số khách tối đa không hợp lệ',
+        'basic.max_additional_guest.integer'             => 'Số khách tối đa phải là kiểu số',
+        'basic.max_additional_guest.between'             => 'Số khách tối đa không hợp lệ',
+        'basic.number_bed.required'                      => 'Vui lòng điền số giường',
+        'basic.number_bed.min'                           => 'Tối thiểu 1 giường',
+        'basic.number_bed.integer'                       => 'Số giường phải là kiểu số',
+        'basic.number_bed.between'                       => 'Số giường không hợp lệ',
+        'basic.number_room.required'                     => 'Vui lòng điền số phòng',
+        'basic.number_room.min'                          => 'Tối thiểu 1 phòng',
+        'basic.number_room.integer'                      => 'Số phòng phải là kiểu số',
+        'basic.number_room.between'                      => 'Số phòng không howpl lệ',
+        'basic.room_type.required'                       => 'Kiểu phòng không được để trống',
+        'basic.room_type.integer'                        => 'Kiểu phòng phải là kiểu số',
+        'basic.room_type.between'                        => 'Kiểu phòng không hợp lệ',
 
         'details.city_id.integer'                        => 'Mã thành phố phải là kiểu số',
         'details.city_id.exists'                         => 'Thành phố không tồn tại',
@@ -122,8 +124,13 @@ class RoomController extends ApiController
         'details.district_id.exists'                     => 'Tỉnh không tồn tại',
         'details.district_id.required_with'              => 'Tỉnh không được để trống',
 
-        'room_type_id.required'                          => 'Kiểu phòng không được để trống',
-        'room_type_id.integer'                           => 'Kiểu phòng phải là kiểu số',
+        'details.*.*.name.required'                      => 'Tên không được để trông',
+        'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
+        'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
+        'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
+        'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
+
+
 
         'prices.checkin.required_with'                   => 'Thời gian checkin không được để trống',
         'prices.checkin.date'                            => 'Kiểu checkin không đúng định dạng H:i',
@@ -131,12 +138,18 @@ class RoomController extends ApiController
         'prices.checkout.date_format'                    => 'Kiểu checkout không đúng định dạng H:i',
 
         'prices.price_day.integer'                       => 'Giá phải là kiểu số',
+        'prices.price_day.required_if'                   => 'Giá theo ngày không được để trống',
         'prices.price_hour.integer'                      => 'Giá theo giờ phải là kiểu số',
+        'prices.price_hour.required_if'                  => 'Giá theo giờ không được để trống',
         'prices.price_after_hour.required_with'          => 'Giá theo giờ không được để trống',
         'prices.price_after_hour.integer'                => 'Giá theo giờ phải là kiểu số',
         'prices.price_charge_guest.integer'              => 'Giá khách thêm phải là kiểu số',
         'prices.cleaning_fee.required_with'              => 'Giá dọn phòng phải là kiểu số',
         'prices.cleaning_fee.integer'                    => 'Giá dọn phòng phải là kiểu số',
+        'prices.rent_type.integer'                       => 'Kiểu phòng phải là kiểu số',
+        'prices.rent_type.required_with'                 => 'Kiểu thuê phòng phải là kiểu số',
+        'prices.rent_type.between'                       => 'Kiểu thuê phòng không hợp lệ',
+
 
         'weekday_price.*.price_day.integer'              => 'Giá phải là kiểu số',
         'weekday_price.*.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
@@ -158,13 +171,8 @@ class RoomController extends ApiController
         'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
         'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-        'standard_point.integer'                         => 'Điểm phải là kiểu số',
-        'is_manager.integer'                             => 'Kiểu quản lý phải là kiểu số',
-        'is_manager.between'                             => 'Kiểu quản lý không hợp lệ',
 
-        'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
         'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
-        'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
         'longitude.required'                             => 'Kinh độ không được để trống',
         'latitude.required'                              => 'Vĩ độ không được để trống',
         'sale_id.integer'                                => 'Mã saler phải là kiểu số',
@@ -172,8 +180,7 @@ class RoomController extends ApiController
         'lang_id.integer'                                => 'Mã ngôn ngữ phải là kiểu số',
         'lang_id.exists'                                 => 'Ngôn ngữ không hợp lệ',
         'note.v_title'                                   => 'Chỉ cho phép chữ và số',
-        'status.integer'                                 => 'Mã trạng thái phải là kiểu số',
-        'status.between'                                 => 'Mã không hợp lệ',
+
         'room_time_blocks.*.*.date'                      => 'Ngày không hợp lệ',
         'room_time_blocks.*.0.date'                      => 'Ngày không hợp lệ',
         'room_time_blocks.*.0.after'                     => 'Ngày bắt đầu phải ở tương lai',
@@ -215,10 +222,10 @@ class RoomController extends ApiController
         'lat_max.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
         'long_min.required'                              => 'Trường này không được để trống',
         'long_min.numeric'                               => 'Trường này phải là đinh dạng số',
-        'long_min.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
+        'long_min.between'                               => 'Trường này không nằm trong khoảng -180.00,180.00',
         'long_max.required'                              => 'Trường này không được để trống',
         'long_max.numeric'                               => 'Trường này phải là đinh dạng số',
-        'long_max.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
+        'long_max.between'                               => 'Trường này không nằm trong khoảng -180.00,180.00',
 
     ];
 
