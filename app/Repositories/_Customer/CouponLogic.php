@@ -46,8 +46,7 @@ class CouponLogic extends BaseLogic
         CityRepositoryInterface $city,
         DistrictRepositoryInterface $district,
         RoomOptionalPriceRepositoryInterface $op
-    )
-    {
+    ) {
         $this->model          = $coupon;
         $this->room           = $room;
         $this->room_translate = $room_translate;
@@ -55,5 +54,4 @@ class CouponLogic extends BaseLogic
         $this->district       = $district;
         $this->op             = $op;
     }
-
 }

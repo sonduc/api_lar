@@ -133,6 +133,9 @@ trait CouponLogicTrait
             $this->checkBindingProp('min_price', $data_settings);
         }
 
+        if ($data_settings->users && \Auth::user()->id && in_array(\Auth::user()->id, $data_settings->users)) {
+            $this->checkBindingProp('users', $data_settings);
+        }
 
         if ($data_settings->booking_stay) {
             $checkin  = array_key_exists('checkin', $data) ? Carbon::parse($data['checkin'])->startOfDay() : null;

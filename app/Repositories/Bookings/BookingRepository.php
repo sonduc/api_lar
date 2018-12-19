@@ -281,7 +281,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     CONCAT(
                         CAST(
                             DATE_ADD(
@@ -320,7 +321,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -351,7 +353,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw('count(id) as total_booking'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
-                DB::raw('
+                DB::raw(
+                    '
                     DATE_FORMAT(
                         DATE_ADD(
                             created_at,
@@ -368,5 +371,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->groupBy(DB::raw('date'))
             ->get();
         return $booking;
+    }
+
+    public function getUserFirstBooking($list_id, $start_checkout, $end_checkout)
+    {
+        return $this->model->whereIn('bookings.customer_id', $list_id)->where('checkout', '>=', $start_checkout)->where('checkout', '<=', $end_checkout)->get();
     }
 }

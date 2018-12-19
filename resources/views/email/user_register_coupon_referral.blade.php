@@ -451,7 +451,7 @@
                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 10px;"><![endif]-->
                         <div style="line-height:120%;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;color:#892C63; padding-right: 20px; padding-left: 20px; padding-top: 20px; padding-bottom: 10px;">
                           <div style="line-height:14px;font-size:12px;color:#892C63;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
-                            <p style="margin: 0;line-height: 14px;font-size: 12px"><span style="font-size: 14px; line-height: 16px;"><strong>Điều kiện sử dụng mã giảm giá</strong></span></p>
+                            <p style="margin: 0;line-height: 14px;font-size: 18px"><span style="font-size: 14px; line-height: 16px;"><strong>Điều kiện sử dụng mã giảm giá</strong></span></p>
                           </div>
                         </div>
                         <!--[if mso]></td></tr></table><![endif]-->
@@ -462,23 +462,23 @@
                         <!--[if mso]><table width="100%" cellpadding="0" cellspacing="0" border="0"><tr><td style="padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 20px;"><![endif]-->
                         <div style="line-height:150%;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;color:#555555; padding-right: 20px; padding-left: 20px; padding-top: 0px; padding-bottom: 20px;">
                           <div style="font-size:12px;line-height:18px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
-                            <p style="margin: 0;font-size: 12px;line-height: 18px">Mã giảm giá này sẽ hết hạn vào ngày
+                            <p style="margin: 0;font-size: 15px;line-height: 18px">Mã giảm giá này sẽ hết hạn vào ngày
                               <b>{{$setting['date_end']}}</b></p>
                           </div>
-                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 12px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 15px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
                           </div>
                           <div style="font-size:12px;line-height:18px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
-                            <p style="margin: 0;font-size: 12px;line-height: 18px">Mã giảm giá này được áp dụng cho các đơn đặt phòng có giá trị trên {{number_format($setting['min_price'])}} đồng</p>
+                            <p style="margin: 0;font-size: 15px;line-height: 18px">Mã giảm giá này được áp dụng cho các đơn đặt phòng có giá trị trên {{number_format($setting['min_price'])}} đồng</p>
                           </div>
-                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 12px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
-                          </div>
-                          <div style="font-size:12px;line-height:18px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
-                            <p style="margin: 0;font-size: 12px;line-height: 18px">Mã giảm giá này sẽ chỉ được sử dụng một lần duy nhất.</p>
-                          </div>
-                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 12px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 15px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
                           </div>
                           <div style="font-size:12px;line-height:18px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
-                            <p style="margin: 0;font-size: 12px;line-height: 18px">Mã giảm giá này chỉ dành riêng cho bạn&#160;!</p>
+                            <p style="margin: 0;font-size: 15px;line-height: 18px">Mã giảm giá này sẽ chỉ được sử dụng một lần duy nhất.</p>
+                          </div>
+                          <div style="line-height: 14px;margin-top: 0;margin-bottom: 0;font-size: 15px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif">
+                          </div>
+                          <div style="font-size:12px;line-height:18px;color:#555555;font-family:Arial, 'Helvetica Neue', Helvetica, sans-serif;text-align:left;">
+                            <p style="margin: 0;font-size: 15px;line-height: 18px">Mã giảm giá này chỉ dành riêng cho bạn&#160;!</p>
                           </div>
                         </div>
                         <!--[if mso]></td></tr></table><![endif]-->

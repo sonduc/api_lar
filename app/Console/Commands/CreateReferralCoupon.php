@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Repositories\Coupons\CouponRepositoryInterface;
+use App\Repositories\Coupons\CouponLogic;
 
 use Carbon\Carbon;
 
@@ -27,7 +27,7 @@ class CreateReferralCoupon extends Command
      *
      * @return void
      */
-    public function __construct(CouponRepositoryInterface $coupon)
+    public function __construct(CouponLogic $coupon)
     {
         parent::__construct();
         $this->coupon    = $coupon;

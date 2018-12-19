@@ -12,7 +12,7 @@ class CouponRepository extends BaseRepository implements CouponRepositoryInterfa
      */
     public function __construct(Coupon $coupon)
     {
-        $this->model = $coupon;
+        $this->model    = $coupon;
     }
 
     /**

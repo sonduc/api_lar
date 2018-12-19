@@ -78,14 +78,13 @@ class RegisterController extends ApiController
             $this->validationRules['password']              = 'required|min:6|max:255';
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params           = $request->only('email', 'password', 'name', 'phone');
+            $params           = $request->only('email', 'password');
 
             if ($request->get('ref') !== null) {
                 if (!$this->user->isValidReferenceID($request->get('ref'))) {
                     $params['ref_code'] = null;
                 } else {
                     $params['ref_code'] = $request->get('ref');
-
                     $user_id = $this->user->getIDbyUUID($request->get('ref'));
                 }
             }
@@ -93,13 +92,11 @@ class RegisterController extends ApiController
             // dd($user_id);
             $username           = $params['email'];
             $password           = $params['password'];
-            $username           = $params['name'];
-            $password           = $params['phone'];
             // Create new user
             // dd($params);
             $newClient = $this->getResource()->store($params);
 
-            if ($newClient && $params['ref_code'] !== null) {
+            if ($newClient && isset($params['ref_code'])) {
                 $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id);
                 $coupon         = $this->coupon->createRegisteredCoupon($newClient);
                 // dd($coupon);

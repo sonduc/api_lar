@@ -17,6 +17,7 @@ class CreateReferralTable extends Migration
             $table->integer('user_id'); // Người invite
             $table->integer('refer_id'); // Người được invite
             $table->integer('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
