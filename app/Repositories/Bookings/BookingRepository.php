@@ -5,6 +5,7 @@ namespace App\Repositories\Bookings;
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Rooms\Room;
+use App\User;
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidDateException;
 use DB;
@@ -174,7 +175,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return $data;
     }
 
-
     /**
      *
      * @author ducchien0612 <ducchien0612@gmail.com>
@@ -276,7 +276,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @return [type] [description]
      */
     public function countBookingByStatus($date_start, $date_end, $view, $status)
-    {   
+    {
         $selectRawView = $this->switchViewBookingCreatedAt($view);
 
         $booking = $this->model
@@ -291,10 +291,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ]);
-            if($status != null ) {
-                $booking->where('bookings.status',$status);
-            }
-            
+        if ($status != null) {
+            $booking->where('bookings.status', $status);
+        }
+
         return $booking->groupBy(DB::raw('createdAt'))->get();
     }
 
@@ -323,8 +323,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ]);
-        if($status != null ) {
-            $bookings->where('bookings.status',$status);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
         }
         $bookings = $bookings->groupBy(DB::raw('createdAt,name_city'))->get();
 
@@ -340,7 +340,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertCityBooking,
+                'data'      => $convertCityBooking,
             ];
         }
 
@@ -398,11 +398,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '<=', $date_end],
             ]);
 
-        if($status != null ) {
-            $bookings->where('bookings.status',$status);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
         }
 
-        $bookings = $bookings->groupBy(DB::raw('createdAt,name_district'))->get();    
+        $bookings           = $bookings->groupBy(DB::raw('createdAt,name_district'))->get();
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
@@ -415,7 +415,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertDistrictBooking,
+                'data'      => $convertDistrictBooking,
             ];
         }
 
@@ -468,10 +468,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '<=', $date_end],
             ]);
 
-        if($status != null ) {
-            $bookings->where('bookings.status',$status);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
         }
-        
+
         $bookings = $bookings->groupBy(DB::raw('createdAt,type'))->get();
 
         $data_date          = [];
@@ -486,7 +486,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertBookingType,
+                'data'      => $convertBookingType,
             ];
         }
 
@@ -583,7 +583,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertTotalBookingManager,
+                'data'      => $convertTotalBookingManager,
             ];
         }
 
@@ -653,7 +653,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertTotalBookingSource,
+                'data'      => $convertTotalBookingSource,
             ];
         }
 
@@ -709,11 +709,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ]);
-            
-        if($status != null ) {
-            $bookings->where('bookings.status',$status);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
         }
-        
+
         $bookings = $bookings->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
 
         $data_date          = [];
@@ -728,7 +727,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
             $convertDataBooking[] = [
                 'createdAt' => $val,
-                'data' => $convertCountBookingSource,
+                'data'      => $convertCountBookingSource,
             ];
         }
 
@@ -753,6 +752,217 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBooking[] = [
                 'room_type_txt' => Room::ROOM_TYPE[$value->room_type],
                 'room_type'     => $value->room_type,
+                'total_booking' => $value->total_booking,
+                'success'       => $value->success,
+                'cancel'        => $value->cancel,
+            ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * đếm booking theo giới tính
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingBySex($date_start, $date_end, $view, $status)
+    {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,sex'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw($selectRawView)
+            )
+            ->whereRaw('bookings.sex IS NOT NULL')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
+        }
+
+        $bookings = $bookings->groupBy(DB::raw('createdAt,sex'))->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingSex = $this->convertCountBookingSex($bookings, $val);
+
+            $convertDataBooking[] = [
+                'createdAt' => $val,
+                'data'      => $convertCountBookingSex,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo giới tính
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertCountBookingSex($bookings, $createdAt)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->createdAt === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'sex_txt'       => User::SEX[$value->sex],
+                'sex'           => $value->sex,
+                'total_booking' => $value->total_booking,
+                'success'       => $value->success,
+                'cancel'        => $value->cancel,
+            ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * đếm booking theo khoảng giá
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countBookingByPriceRange($date_start, $date_end, $view, $status)
+    {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,price_range'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw($selectRawView)
+            )
+            ->whereRaw('bookings.price_range IS NOT NULL')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
+        }
+
+        $bookings = $bookings->groupBy(DB::raw('createdAt,price_range'))->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingPriceRange = $this->convertCountBookingPriceRange($bookings, $val);
+
+            $convertDataBooking[] = [
+                'createdAt' => $val,
+                'data'      => $convertCountBookingPriceRange,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo khoảng tuổi
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertCountBookingPriceRange($bookings, $createdAt)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->createdAt === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'price_range_txt' => BookingConstant::PRICE_RANGE[$value->price_range],
+                'price_range'     => $value->price_range,
+                'total_booking'   => $value->total_booking,
+                'success'         => $value->success,
+                'cancel'          => $value->cancel,
+            ];
+        }
+        return $convertBooking;
+    }
+
+    public function countBookingByAgeRange($date_start, $date_end, $view, $status)
+    {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
+        $bookings = $this->model
+            ->select(
+                DB::raw('count(id) as total_booking,age_range'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw($selectRawView)
+            )
+            ->whereRaw('bookings.age_range IS NOT NULL')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
+        }
+
+        $bookings = $bookings->groupBy(DB::raw('createdAt,age_range'))->get();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingAgeRange = $this->convertCountBookingAgeRange($bookings, $val);
+
+            $convertDataBooking[] = [
+                'createdAt' => $val,
+                'data'      => $convertCountBookingAgeRange,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo khoảng tuổi
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertCountBookingAgeRange($bookings, $createdAt)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->createdAt === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'age_range_txt' => User::AGE_RANGE[$value->age_range],
+                'age_range'     => $value->age_range,
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,

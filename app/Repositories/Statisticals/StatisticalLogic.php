@@ -128,4 +128,40 @@ class StatisticalLogic extends BaseLogic
 
         return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
+
+    /**
+     * Thống kê trạng thái của booking theo giới tính
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingBySexStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingBySex($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+    }
+
+    /**
+     * Thống kê trạng thái của booking theo khoảng giá
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByPriceRangeStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingByPriceRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+    }
+
+    /**
+     * Thống kê trạng thái của booking theo khoảng tuổi
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function bookingByAgeRangeStatistical($data)
+    {
+        $dataInput = $this->checkDataInputStatistical($data);
+
+        return $this->booking->countBookingByAgeRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+    }
 }

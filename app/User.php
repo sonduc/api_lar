@@ -70,6 +70,24 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::USER     => 'Người sử dụng',
     ];
 
+    // Khoảng tuổi
+    const AGE_RANGE = [
+        1  => 'Nhỏ hơn 18',
+        2  => 'Từ 18-22',
+        3  => 'Từ 23-27',
+        4  => 'Từ 28-32',
+        5  => 'Từ 33-37',
+        6  => 'Lớn hơn 37',
+    ];
+
+    const AGE_RANGE_LIST = [
+        1  => 18,
+        2  => 22,
+        3  => 27,
+        4  => 32,
+        5  => 37,
+    ];
+
     const IS_OWNER  = 1;
     const NOT_OWNER = 0;
     const OWNER     = [

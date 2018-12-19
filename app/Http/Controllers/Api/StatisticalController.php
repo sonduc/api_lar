@@ -251,4 +251,80 @@ class StatisticalController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * thống kê số lượng booking theo giới tính
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function bookingBySexStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->bookingBySexStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * thống kê số lượng booking theo khoảng giá
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function bookingByPriceRangeStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->bookingByPriceRangeStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    public function bookingByAgeRangeStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->bookingByAgeRangeStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }

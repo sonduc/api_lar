@@ -135,4 +135,11 @@ trait PresentationTrait
     {
         return $this->permissions[$permission] ?? false;
     }
+
+    public function getAgeRange()
+    {
+        return array_key_exists($this->age_range, User::AGE_RANGE)
+            ? User::AGE_RANGE[$this->age_range]
+            : trans2(ErrorCore::UNDEFINED);
+    }
 }
