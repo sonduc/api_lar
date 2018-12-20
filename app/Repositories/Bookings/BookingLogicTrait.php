@@ -14,6 +14,7 @@ use App\Repositories\Rooms\RoomOptionalPriceRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
+use App\User;
 
 trait BookingLogicTrait
 {
