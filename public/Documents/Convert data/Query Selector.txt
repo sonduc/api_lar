@@ -3,7 +3,7 @@
 SELECT id, uuid, name, email, password, sex as gender, phone, birthday, NULL as sub_email, avatar, address, owner, facebook as facebook_id, null as google_id, level, 0 as point, money, null as passport_last_name, null as passport_first_name, null as passport_infomation, id_card1 as passport_front_card, id_card2 as passport_back_card, null as account_number, city_id, district_id, type, 1 as status, sale_id, remember_token, deleted_at, created_at, updated_at from users;
 
 -- Rooms 
-SELECT id, client_id as merchant_id, number_people as max_guest, null as max_additional_guest, number_bed, bedroom as number_room, city_id, district_id, type as room_type, checkin, checkout, price_by_day as price_day, price_block as price_hour, price_by_hour as price_after_hour, additional_guest as price_charge_guest, cleaning_fee, standard_point, is_manager, hot, 0 as new, is_last_mile as latest_deal, by_time as rent_type, null as rules, longitude, latitude,(select count(*) from booking where booking.room_id = rooms.id and booking.payment_status IN (3, 4) AND booking.STATUS = 4) as total_booking, 0 as avg_cleanliness, 0 as avg_service,0 as avg_quality,0 as avg_valuable, 0 as avg_avg_rating, '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' as settings, 0 as total_review, null as airbnb_calendar, null as total_recommend, status, sale_id, deleted_at, created_at, updated_at FROM `rooms`;
+SELECT id, client_id as merchant_id, number_people as max_guest, null as max_additional_guest, number_bed, bedroom as number_room, city_id, district_id, type as room_type, checkin, checkout, price_by_day as price_day, price_block as price_hour, price_by_hour as price_after_hour, additional_guest as price_charge_guest, cleaning_fee, standard_point, is_manager, hot, 0 as new, is_last_mile as latest_deal, by_time as rent_type, null as rules, longitude, latitude,(select count(*) from booking where booking.room_id = rooms.id and booking.payment_status IN (3, 4) AND booking.STATUS = 4) as total_booking, 0 as avg_cleanliness, 0 as avg_service,0 as avg_quality,0 as avg_valuable, 0 as avg_avg_rating, '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' as settings, 0 as total_review, null as airbnb_calendar, null as total_recommend, 0 as percent, status, sale_id, deleted_at, created_at, updated_at FROM `rooms`;
 
 -- Room_Translates
 
@@ -40,3 +40,7 @@ SELECT id,city_id,name,short_name,code,kind_from,kind_to,0 as hot,0 as priority,
 
 -- Payment Histories
 select booking_id, total_received, total_debt,note, (status - 1) as status, confirm, created_at, updated_at  from payment_histories where status <> 4;
+
+-- Update Room percent
+
+update rooms set percent = 100 where status = 1

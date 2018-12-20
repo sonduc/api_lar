@@ -14,7 +14,7 @@ class AddAgeRangeToBookingsTable extends Migration
     public function up()
     {
         Schema::table('bookings', function (Blueprint $table) {
-            $table->integer('age_range')->nullable();
+            $table->integer('age_range')->after('price_range')->nullable();
         });
     }
 
