@@ -414,47 +414,6 @@ class RoomController extends ApiController
         }
     }
 
-    /**
-     * Lấy các ngày đã khóa theo mã phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function getRoomSchedule($id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('room.view',$id);
-            $data = [
-                'data' => [
-                    'blocks' => $this->model->getFutureRoomSchedule($id),
-                ],
-            ];
-            return $this->successResponse($data, false);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
-
 
     /**
      * Xóa phòng (Soft Delete)
@@ -683,6 +642,14 @@ class RoomController extends ApiController
         }
     }
 
+    /**
+     * Update các cài đặt về chính sách hủy phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function updateRoomSettings(Request $request)
     {
         DB::beginTransaction();
@@ -731,6 +698,15 @@ class RoomController extends ApiController
         }
     }
 
+
+    /**
+     *Update giá của phòng vào những ngaỳ đặc biệt hoặc cuối tuần
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
     public function updateRoomOptionalPrice(Request $request)
     {
         DB::beginTransaction();

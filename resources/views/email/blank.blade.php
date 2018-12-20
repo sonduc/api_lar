@@ -326,57 +326,67 @@
     </style>
 </head>
 <body class="">
-<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
-    <tr>
-        <td>&nbsp;</td>
 
-        <td class="container">
-            <div class="content">
+<form action="http://wsapi.test/api/email-confirm" method="PUT">
+    <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
+        <tr>
+            <td>&nbsp;</td>
 
-                <table role="presentation" class="main">
-                    <img src="https://www.vlance.vn/uploads/portfolio/1200x630/westay-dat-phong-homestay-30345.jpeg" alt="">
+            <td class="container">
+                <div class="content">
 
-                    <!-- START MAIN CONTENT AREA -->
-                    <tr>
-                        <td class="wrapper">
+                    <table role="presentation" class="main">
+                        <img src="https://www.vlance.vn/uploads/portfolio/1200x630/westay-dat-phong-homestay-30345.jpeg" alt="">
 
-                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                <tr>
-                                    <td>
-                                        <p style="font-size: 25px;"><b>Xác minh địa chỉ email của bạn</b></p>
-                                        <p>Bạn vừa tạo tài khoản với địa chỉ email: <a href="">{!! $data->email !!}</a>
-                                            Nhấn nút "Xác nhận" để chứng thực địa chỉ email và mở khóa cho toàn bộ tài khoản.
-                                            Chúng tôi cũng sẽ nhập các đặt phòng bạn đã thực hiện với địa chỉ email này..</p>
-                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left">
-                                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td style="margin: 0 auto"> <a href="http://wsapi.test/api/email-confirm" target="_blank">Xác nhận</a> </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                        <!-- START MAIN CONTENT AREA -->
+                        <tr>
+                            <td class="wrapper">
 
-                    <!-- END MAIN CONTENT AREA -->
-                </table>
+                                <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                        <td>
+                                            <p style="font-size: 25px;"><b>Xác minh địa chỉ email của bạn</b></p>
+                                            <p>Bạn vừa tạo tài khoản với địa chỉ email: <a href="">{!! $data->email !!}</a>
+                                                Nhấn nút "Xác nhận" để chứng thực địa chỉ email và mở khóa cho toàn bộ tài khoản.
+                                                Chúng tôi cũng sẽ nhập các đặt phòng bạn đã thực hiện với địa chỉ email này..</p>
+                                            <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
+                                                <tbody>
+                                                <tr>
+                                                    <td align="left">
+                                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                                                            <tbody>
 
-                <!-- END CENTERED WHITE CONTAINER -->
-            </div>
-        </td>
-        <td>&nbsp;</td>
-    </tr>
-</table>
+                                                            <tr>
+                                                                <td style="margin: 0 auto">
+                                                                    <input type="submit" class="btn btn-info" value="Xác nhận" name="btnLogin">
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+
+                        <!-- END MAIN CONTENT AREA -->
+                    </table>
+
+                    <!-- END CENTERED WHITE CONTAINER -->
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+
+</form>
+
 </body>
 </html>
+
+
 

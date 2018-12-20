@@ -15,7 +15,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function __construct(
         Room $room
-    ) {
+    )
+    {
         $this->model = $room;
     }
 
@@ -64,12 +65,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data['settings']) || !isset($data['settings'])) {
-            $refund = [['days' => 14, 'amount' => 100 ]];
-            $refund = [
-                'refunds'            => $refund,
+            $refund = [['days' => 14, 'amount' => 100]];
+            $refunds = [
+                'refunds'           => $refund,
                 'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
             ];
-            return json_encode($refund);
+            return json_encode($refunds);
         }
 
         if (isset($data['settings']['no_booking_cancel'])) {
@@ -88,7 +89,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         $refunds = [
-            'refunds'            => $refund,
+            'refunds' => $refund,
             'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
         ];
 
@@ -97,7 +98,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
     public function getRoomLatLong($params = [], $size = 25, $trash = self::NO_TRASH)
     {
-        $sort           = array_get($params, 'sort', 'created_at:-1');
+        $sort = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
         $room = $this->model
             ->where('longitude', '>=', floatval($params["long_min"]))
@@ -163,7 +164,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $airbnb_calendar = $this->model::whereIn('id', $list_id)->pluck('airbnb_calendar', 'id');
         return $airbnb_calendar;
     }
-    public function getRoomById($id, $params, $size)
+
+    public function getRoomByMerchantId($id, $params, $size)
     {
         $this->useScope($params);
         return $this->model
@@ -183,13 +185,13 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function calculation_percent($data)
     {
         // Tính số phần trăm hoàn thành
-        $data = array_only($data, ['weekday_price','room_time_blocks','optional_prices', 'basic','details','comforts', 'images', 'prices','settings']);
-        $except = ['weekday_price','room_time_blocks','optional_prices'];
-        empty($data['comforts']) ? array_push($except, 'comforts') : null ;
-        empty($data['images']) ? array_push($except, 'images') : null ;
+        $data = array_only($data, ['weekday_price', 'room_time_blocks', 'optional_prices', 'basic', 'details', 'comforts', 'images', 'prices', 'settings']);
+        $except = ['weekday_price', 'room_time_blocks', 'optional_prices'];
+        empty($data['comforts']) ? array_push($except, 'comforts') : null;
+        empty($data['images']) ? array_push($except, 'images') : null;
 
         $count = array_except($data, $except);
-        $percent         = count($count)/Room::FINISHED *100;
+        $percent = count($count) / Room::FINISHED * 100;
         return round($percent);
     }
 }

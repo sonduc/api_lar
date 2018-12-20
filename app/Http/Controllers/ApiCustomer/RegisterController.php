@@ -169,10 +169,6 @@ class RegisterController extends ApiController
             if (!empty($user)) {
                 throw new \Exception('Tài khoản đã được kích hoạt');
             }
-            $validate = array_only($this->validationRules, [
-                'status',
-            ]);
-            $this->validate($request, $validate, $this->validationMessages);
             $data = $this->user->updateStatus($request->all());
             DB::commit();
             return $this->successResponse($data);
