@@ -83,6 +83,8 @@ class BookingTransformer extends TransformerAbstract
             'email_reviews_txt'  => $booking->getEmailReviews(),
             'price_range'        => $booking->price_range,
             'price_range_txt'    => $booking->getPriceRange(),
+            'age_range'          => $booking->age_range,
+            'age_range_txt'      => $booking->getAgeRange(),
             'exchange_rate'      => $booking->exchange_rate,
             'total_refund'       =>  $booking->total_refund,
             'total_txt'          =>  $booking->getTotalRefund($booking),

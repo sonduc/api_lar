@@ -91,6 +91,7 @@ class BookingLogic extends BaseLogic
         // dd($data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
+        $data = $this->addAgeRange($data);
 
         $data['customer_id'] =
             array_key_exists('customer_id', $data) ? $data['customer_id'] : $this->checkUserExist($data);

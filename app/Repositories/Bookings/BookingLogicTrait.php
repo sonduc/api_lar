@@ -372,4 +372,28 @@ trait BookingLogicTrait
         return $this->booking_cancel->store($data);
 
     }
+
+    /**
+     * Thêm khoảng tuổi
+     * @author sonduc <ndson1998@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return array
+     */
+    public function addAgeRange($data = [])
+    {
+        $list_range = User::AGE_RANGE_LIST;
+        $age = Carbon::parse($data['birthday'])->age;
+        $age_range = array_keys(User::AGE_RANGE)[count(User::AGE_RANGE) - 1];
+
+        foreach ($list_range as $key => $item) {
+            if ($age <= $item ) {
+                $age_range = $key;
+                break;
+            }
+        }
+        $data['age_range'] = $age_range;
+        return $data;
+    }
 }

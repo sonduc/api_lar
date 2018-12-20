@@ -184,6 +184,9 @@ $router->group([
     $router->get('/statisticals/booking-manager-revenue', 'StatisticalController@bookingByManagerRevenueStatistical');
     $router->get('/statisticals/booking-room-type-revenue', 'StatisticalController@bookingByRoomTypeRevenueStatistical');
     $router->get('/statisticals/count-booking-room-type', 'StatisticalController@bookingByRoomTypeStatistical');
+    $router->get('/statisticals/booking-sex', 'StatisticalController@bookingBySexStatistical');
+    $router->get('/statisticals/booking-price-range', 'StatisticalController@bookingByPriceRangeStatistical');
+    $router->get('/statisticals/booking-age-range', 'StatisticalController@bookingByAgeRangeStatistical');
 });
 
 $router->post('login', 'LoginController@login');
