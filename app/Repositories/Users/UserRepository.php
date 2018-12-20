@@ -225,13 +225,16 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function checkUser($data)
     {
-         $user = $this->model->where('uuid', $data['uuid'])->first();
-         if (empty($user)) throw  new \Exception('Đường dẫn không tồn tại');
+        $user = $this->model->where('uuid', $data['uuid'])->first();
+        if (empty($user)) {
+            throw  new \Exception('Đường dẫn không tồn tại');
+        }
 
-         if (!empty($user) & $user->status == User::ENABLE) throw new \Exception('Tài khoản đã được kích hoạt');
+        if (!empty($user) & $user->status == User::ENABLE) {
+            throw new \Exception('Tài khoản đã được kích hoạt');
+        }
 
-         return $user;
-
+        return $user;
     }
 
     /**
@@ -246,7 +249,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function updateStatus($user)
     {
         $data['status'] = User::ENABLE;
-        return parent::update($user->id,  $data);
+        return parent::update($user->id, $data);
     }
 
     /**
@@ -298,6 +301,8 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function getUserByListIdIndex($idUsers, $params): array
     {
         /** @var Collection $getVal */
+        // dd($idUsers);
+        // dd($idUsers, $params, $this->model->whereIn('id', $idUsers)->where('owner', $params)->toSql());
         $getVal = $this->model->whereIn('id', $idUsers)->where('owner', $params)->get(['id', 'name']);
 
         return $getVal->map(function ($value) {
@@ -389,5 +394,10 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function countBookingCustomer($uid)
     {
         $count_booking_complete = $this->model->where('status', BookingConstant::BOOKING_COMPLETE)->where('customer_id', $uid)->count();
+    }
+
+    public function getListUserById($listUser, $owner)
+    {
+        return $this->model->whereIn('id', $listUser)->where('owner', $owner)->get();
     }
 }

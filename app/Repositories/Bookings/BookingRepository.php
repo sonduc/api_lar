@@ -977,8 +977,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      */
     public function getUserFirstBooking($list_id, $start_checkout, $end_checkout, $total_fee)
     {
-        // dd('asdf');
-        return $this->model->select('customer_id')->whereIn('bookings.customer_id', $list_id)
+        return $this->model->whereIn('bookings.customer_id', $list_id)
         ->where(
             [
             ['checkout', '<=', $end_checkout],
@@ -986,6 +985,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ['status','=', BookingConstant::BOOKING_COMPLETE],
             ['payment_status','=',BookingConstant::PAID],
             ['total_fee', '>=', $total_fee]]
-        )->get();
+        )->pluck('customer_id');
     }
 }

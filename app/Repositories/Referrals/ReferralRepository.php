@@ -27,9 +27,16 @@ class ReferralRepository extends BaseRepository implements ReferralRepositoryInt
         return parent::store($data);
     }
 
-    public function getAllReferralUser()
+    public function getAllReferralUser($user_id = null, $ref_id = null)
     {
-        return $this->model->select('refer_id')->where('status', Referral::PENDING)->get();
+        $query = $this->model->where('status', Referral::PENDING);
+        if ($user_id != null) {
+            return $query->where('user_id', $user_id)->pluck('refer_id');
+        }
+        if ($ref_id != null) {
+            return $query->where('refer_id', $ref_id)->get()->toArray();
+        }
+        return $query->pluck('refer_id');
     }
 
     public function updateStatusReferral($uid, $refer_id)

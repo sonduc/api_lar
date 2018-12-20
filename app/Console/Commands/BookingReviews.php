@@ -51,19 +51,19 @@ class BookingReviews extends Command
             $checkin_timestamp      = Carbon::parse($checkin);
             $checkout_timestamp     = Carbon::parse($checkout);
             // dd($checkout_timestamp->diffInHours($current_day));
-            if ($checkout_timestamp->diffInHours($current_day) <= 36 && $booking->status == 4 && $booking->reviews == 0) {
+            if ($checkout_timestamp->diffInHours($current_day) <= 36 && $booking->status == 4 && $booking->email_reviews == 0) {
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_DAY) {
                     $dataTime['read_timeCheckin']  = $checkin_timestamp->isoFormat('LL');
                     $dataTime['read_timeCheckout'] = $checkout_timestamp->isoFormat('LL');
                     $dataTime['count_bookingTime'] = $checkin_timestamp->diffInDays($checkout_timestamp)+1;
-                    $booking->reviews = 1;
+                    $booking->email_reviews = 1;
                     $booking->save();
                     event(new Booking_Reviews_Event($booking, $dataTime));
                 }
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_HOUR) {
                     $dataTime['read_timeBooking']  = $checkin_timestamp->isoFormat('LL');
                     $dataTime['count_bookingTime'] = $checkin_timestamp->diffInHours($checkout_timestamp);
-                    $booking->reviews = 1;
+                    $booking->email_reviews = 1;
                     $booking->save();
                     event(new Booking_Reviews_Event($booking, $dataTime));
                 }

@@ -382,8 +382,8 @@ class CouponLogic extends BaseLogic
         $promotion_id           = null;
 
         $now                    = Carbon::now()->timestamp;
-        $end_checkout           = Carbon::now()->startOfDay();
-        $start_checkout         = Carbon::now()->subDay();
+        $end_checkout           = Carbon::now()->startOfDay()->timestamp;
+        $start_checkout         = Carbon::now()->subDay()->timestamp;
         $total_fee              = 1000000;
         $start_date             = Carbon::now()->toDateString();
         $end_date               = Carbon::now()->addMonths(3)->toDateString();
@@ -391,11 +391,18 @@ class CouponLogic extends BaseLogic
         if ($user != null) {
             $listUser           = [$user];
         } else {
-            $list_ref_user              = $this->referral->getAllReferralUser(); // lấy danh sách người được mời
-            $list_user_first_booking    = $this->booking->getUserFirstBooking($list_ref_user, $start_checkout, $end_checkout, $total_fee);
-            $listUser                   = $this->user->getUserByListIdIndex($list_user_first_booking, User::USER);
-        }
+            $list_refer_id       = $this->referral->getAllReferralUser(null, null); // lấy danh sách người được mời list refer_id
 
+            $list_user_first_booking = $this->booking->getUserFirstBooking($list_refer_id, $start_checkout, $end_checkout, $total_fee); // lấy danh sách người dược mời mà có booking thỏa mãn điều kiện
+
+            if (count($list_user_first_booking)) {
+                $listUser                = $this->referral->getAllReferralUser(null, $list_user_first_booking);
+            } else {
+                return null;
+            }
+            $column_user_id     = array_column($listUser, 'user_id');
+            $column_refer_id    = array_column($listUser, 'refer_id');
+        }
         foreach ($listUser as $key => $value) {
             $secret                 = env('APP_KEY') . $now;
             $hashed                 = hash_hmac('sha256', $secret, $now);
@@ -412,7 +419,7 @@ class CouponLogic extends BaseLogic
                 "booking_create"    => $booking_create_setting,
                 "booking_stay"      => $booking_stay_setting,
                 "merchants"         => $merchants_setting,
-                "users"             => [$value['id']],
+                "users"             => $user != null ? [$value['id']] : [$value['user_id']],
                 "days_of_week"      => $days_of_week_setting,
                 "room_type"         => $room_type_setting,
                 "min_price"         => $total_fee
@@ -431,9 +438,11 @@ class CouponLogic extends BaseLogic
 
             $data_coupon      = parent::store($data);
             if ($user == null) {
-                $ref_user = $this->user->getById($value);
-                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $coupon))->delay(Carbon::now()->addHours(24));
-                dispatch($sendCouponRegister);
+                $ref_user = $this->user->getById($value['user_id']);
+                $this->referral->updateStatusReferral($value['user_id'], $value['refer_id']);
+
+                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $data_coupon))->delay(Carbon::now()->addHours(16));
+                dispatch($sendCouponReferralUser);
             }
         }
         return $data_coupon;

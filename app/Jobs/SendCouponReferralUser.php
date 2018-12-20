@@ -45,7 +45,7 @@ class SendCouponReferralUser extends Job
             "min_price"  => $min_price
         ];
         try {
-            Mail::send('email.user_referral_coupon.blade', ['data' => $dataUser,'coupon' => $dataCoupon,"setting" => $dataSetting], function ($message) use ($email) {
+            Mail::send('email.user_referral_coupon', ['data' => $dataUser,'coupon' => $dataCoupon,"setting" => $dataSetting], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Westay có một bất ngờ nhỏ dành cho bạn !');
             });
