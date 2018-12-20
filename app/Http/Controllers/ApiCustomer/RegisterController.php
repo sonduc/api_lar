@@ -13,6 +13,7 @@ use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\Repositories\Coupons\CouponLogic;
 use App\Jobs\SendCouponRegisterUser;
+use App\User;
 
 class RegisterController extends ApiController
 {
@@ -77,7 +78,7 @@ class RegisterController extends ApiController
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email', 'password');
-
+            $params['type']   = User::USER;
             if ($request->get('ref') !== null) {
                 if (!$this->user->isValidReferenceID($request->get('ref'))) {
                     $params['ref_code'] = null;

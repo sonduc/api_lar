@@ -23,6 +23,7 @@ use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Jobs\SendCouponReferralUser;
 
 class CouponLogic extends BaseLogic
 {
@@ -381,43 +382,50 @@ class CouponLogic extends BaseLogic
         $promotion_id           = null;
 
         $now                    = Carbon::now()->timestamp;
-        $end_checkout           = Carbon::now()->startOfDay();
-        $start_checkout         = Carbon::now()->subDay();
+        $end_checkout           = Carbon::now()->startOfDay()->timestamp;
+        $start_checkout         = Carbon::now()->subDay()->timestamp;
         $total_fee              = 1000000;
         $start_date             = Carbon::now()->toDateString();
         $end_date               = Carbon::now()->addMonths(3)->toDateString();
 
         if ($user != null) {
-            $users_setting          = [$user['id']];
-            $listUser = [$user];
+            $listUser           = [$user];
         } else {
-            $list_ref_user              = $this->referral->getAllReferralUser();
-            $listUser    = $this->booking->getUserFirstBooking($listUser, $start_checkout, $end_checkout, $total_fee);
-        }
+            $list_refer_id       = $this->referral->getAllReferralUser(null, null); // lấy danh sách người được mời list refer_id
 
+            $list_user_first_booking = $this->booking->getUserFirstBooking($list_refer_id, $start_checkout, $end_checkout, $total_fee); // lấy danh sách người dược mời mà có booking thỏa mãn điều kiện
+
+            if (count($list_user_first_booking)) {
+                $listUser                = $this->referral->getAllReferralUser(null, $list_user_first_booking);
+            } else {
+                return null;
+            }
+            $column_user_id     = array_column($listUser, 'user_id');
+            $column_refer_id    = array_column($listUser, 'refer_id');
+        }
         foreach ($listUser as $key => $value) {
             $secret                 = env('APP_KEY') . $now;
             $hashed                 = hash_hmac('sha256', $secret, $now);
             $code                   = substr(strtoupper($hashed), 0, 8);
-            $settings = [
-                        "date_start"        => $start_date,
-                        "date_end"          => $end_date,
-                        "bind"              => $bind_setting,
-                        "rooms"             => $room_setting,
-                        "cities"            => $cities_setting,
-                        "districts"         => $districts_setting,
-                        "days"              => $days_setting,
-                        "booking_type"      => $booking_type_setting,
-                        "booking_create"    => $booking_create_setting,
-                        "booking_stay"      => $booking_stay_setting,
-                        "merchants"         => $merchants_setting,
-                        "users"             => $users_setting,
-                        "days_of_week"      => $days_of_week_setting,
-                        "room_type"         => $room_type_setting,
-                        "min_price"         => $total_fee
-                    ];
+            $settings   = [
+                "date_start"        => $start_date,
+                "date_end"          => $end_date,
+                "bind"              => $bind_setting,
+                "rooms"             => $room_setting,
+                "cities"            => $cities_setting,
+                "districts"         => $districts_setting,
+                "days"              => $days_setting,
+                "booking_type"      => $booking_type_setting,
+                "booking_create"    => $booking_create_setting,
+                "booking_stay"      => $booking_stay_setting,
+                "merchants"         => $merchants_setting,
+                "users"             => $user != null ? [$value['id']] : [$value['user_id']],
+                "days_of_week"      => $days_of_week_setting,
+                "room_type"         => $room_type_setting,
+                "min_price"         => $total_fee
+            ];
        
-            $data = [
+            $data       = [
                 "code"          => $code,
                 "discount"      => $discount,
                 "max_discount"  => 100000,
@@ -429,6 +437,13 @@ class CouponLogic extends BaseLogic
             ];
 
             $data_coupon      = parent::store($data);
+            if ($user == null) {
+                $ref_user = $this->user->getById($value['user_id']);
+                $this->referral->updateStatusReferral($value['user_id'], $value['refer_id']);
+
+                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $data_coupon))->delay(Carbon::now()->addHours(16));
+                dispatch($sendCouponReferralUser);
+            }
         }
         return $data_coupon;
     }

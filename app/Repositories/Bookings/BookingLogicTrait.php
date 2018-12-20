@@ -96,7 +96,7 @@ trait BookingLogicTrait
                  - (array_key_exists('price_discount', $data) ? $data['price_discount'] : 0);
 
         $data['total_fee'] = $price;
-
+        
         return $data;
     }
 

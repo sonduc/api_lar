@@ -31,8 +31,9 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('booking:status')->everyThirtyMinutes();
-        $schedule->command('booking:status')->dailyAt('14:00:00');
+        $schedule->command('booking:review')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
+        $schedule->command('referral:coupon')->dailyAt('02:00:00');
         $schedule->command('airbnb:sync')->twiceDaily(3, 14);
     }
 
