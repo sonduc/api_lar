@@ -14,6 +14,7 @@ use App\Repositories\Rooms\RoomOptionalPriceRepository;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
+use App\User;
 
 trait BookingLogicTrait
 {
@@ -235,7 +236,7 @@ trait BookingLogicTrait
                     }
                 }
                 // dd($money);
-            } else if (in_array($checkin->dayOfWeek + 1, $weekDays)) {
+            } elseif (in_array($checkin->dayOfWeek + 1, $weekDays)) {
                 foreach ($optionalWeekDays as $op) {
                     if ($op->weekday == $checkin->dayOfWeek + 1) {
                         $money += $op->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $op->price_after_hour;
@@ -369,7 +370,6 @@ trait BookingLogicTrait
         parent::update($id, $booking_update);
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);
-
     }
 
     /**
@@ -387,7 +387,7 @@ trait BookingLogicTrait
         $age_range = array_keys(User::AGE_RANGE)[count(User::AGE_RANGE) - 1];
 
         foreach ($list_range as $key => $item) {
-            if ($age <= $item ) {
+            if ($age <= $item) {
                 $age_range = $key;
                 break;
             }

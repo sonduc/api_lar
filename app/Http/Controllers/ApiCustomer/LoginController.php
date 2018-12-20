@@ -48,7 +48,7 @@ class LoginController extends ApiController
                 if ($hasher->check($password, $login->password)) {
                     // Issue token
                     $guzzle  = new Guzzle;
-                    $url     = env('APP_URL') . 'oauth/token';
+                    $url     = env('APP_URL') . '/oauth/token';
                     $options = [
                         'json'   => [
                             'grant_type'    => 'password',
