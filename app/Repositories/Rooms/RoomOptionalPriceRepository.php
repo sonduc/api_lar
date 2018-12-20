@@ -30,6 +30,7 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
      */
     public function updateRoomOptionalPrice($room, $data = [])
     {
+
         $this->deleteRoomOptionalPriceByRoomID($room);
         $this->storeRoomOptionalPrice($room, $data);
     }
@@ -55,6 +56,7 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
      */
     public function storeRoomOptionalPrice($room, $data = [], $list = [])
     {
+
         if (!empty($data)) {
             if (isset($data['weekday_price'])) {
                 $roomWeekPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
@@ -66,7 +68,9 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
                 $list          = array_merge($list, $roomDayPrices);
             }
         }
-        parent::storeArray($list);
+
+         parent::storeArray($list);
+
     }
 
     /**

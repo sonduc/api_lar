@@ -132,7 +132,7 @@ return [
         ],
     ],
     'category'          => [
-        'title' => 'Quản lý blog',
+        'title' => 'Quản lý danh muc blog',
         'list'  => [
             'view'    => 'View',
             'create'  => 'Create',

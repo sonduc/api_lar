@@ -32,7 +32,6 @@ class BookingLogic extends BaseLogic
     protected $booking;
     protected $roomTimeBlock;
     protected $booking_cancel;
-    protected $booking_refund;
     protected $cp;
     protected $room_calendar;
 
@@ -47,7 +46,6 @@ class BookingLogic extends BaseLogic
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param RoomTimeBlockRepositoryInterface|RoomTimeBlockRepository         $roomTimeBlock
      * @param BookingCancelRepositoryInterface|BookingCancelRepository         $booking_cancel
-     * @param BookingRefundRepositoryInterface|BookingRefundRepository         $booking_refund
      * @param CouponRepositoryInterface|CouponRepository                       $cp
      * @param RoomCalendarRepositoryInterface|RoomCalendarRepository           $room_calendar
      */

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\Collections\Collection;
 use App\Repositories\Collections\CollectionLogic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CollectionTransformer;
@@ -70,11 +71,17 @@ class CollectionController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('collection.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try{
+            $this->authorize('collection.view');
+            $pageSize = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -93,6 +100,10 @@ class CollectionController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -125,6 +136,11 @@ class CollectionController extends ApiController
             DB::commit();
             logs('collection', 'tạo bộ sưu tập mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -168,6 +184,11 @@ class CollectionController extends ApiController
             DB::commit();
             logs('collection', 'sửa bộ sưu tập' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -192,6 +213,11 @@ class CollectionController extends ApiController
             $this->model->destroyColection($id);
 
             return $this->deleteResponse();
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -232,6 +258,11 @@ class CollectionController extends ApiController
             logs('blogs', 'sửa trạng thái của bộ sưu tập có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -266,6 +297,11 @@ class CollectionController extends ApiController
             $this->authorize('collection.view');
             $data = $this->simpleArrayToObject(Collection::COLLECTION_STATUS);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -284,6 +320,11 @@ class CollectionController extends ApiController
             $this->authorize('collection.view');
             $data = $this->simpleArrayToObject(Collection::COLLECTION_HOT);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -302,6 +343,11 @@ class CollectionController extends ApiController
             $this->authorize('collection.view');
             $data = $this->simpleArrayToObject(Collection::COLLECTION_NEW);
             return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }

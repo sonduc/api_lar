@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -45,13 +46,19 @@ class UserController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $this->authorize('user.view');
-        $pageSize = $request->get('limit', 25);
+       try {
+           $this->authorize('user.view');
+           $pageSize = $request->get('limit', 25);
 
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+           $this->trash = $this->trashStatus($request);
+           $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
 //        dd(DB::getQueryLog());
-        return $this->successResponse($data);
+           return $this->successResponse($data);
+       }catch (AuthorizationException $f) {
+           return $this->forbidden([
+               'error' => $f->getMessage(),
+           ]);
+       }
     }
 
     /**
@@ -66,6 +73,10 @@ class UserController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -84,6 +95,11 @@ class UserController extends ApiController
             DB::commit();
             logs('user', 'tạo user mã '. $data->id);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -112,6 +128,11 @@ class UserController extends ApiController
             logs('user', 'sửa user mã '. $data->id);
 
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -138,6 +159,11 @@ class UserController extends ApiController
             DB::commit();
             logs('user', 'sửa user mã '. $id);
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();

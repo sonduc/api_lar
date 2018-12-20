@@ -1,15 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 10:12
+ */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiMerchant;
 
+use App\Http\Controllers\ApiController;
 use App\Http\Transformers\PlaceTransformer;
 use App\Repositories\Places\Place;
-use App\Repositories\Places\PlaceLogic;
+use App\Repositories\_Merchant\PlaceLogic;
 use App\Repositories\Places\PlaceRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-
 class PlaceController extends ApiController
 {
     protected $validationRules = [
@@ -81,7 +87,6 @@ class PlaceController extends ApiController
         try {
             $this->authorize('place.view');
             $pageSize    = $request->get('limit', 25);
-            $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
@@ -105,8 +110,7 @@ class PlaceController extends ApiController
     {
         try {
             $this->authorize('place.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $data    = $this->model->getById($id);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
             DB::rollBack();
@@ -355,4 +359,5 @@ class PlaceController extends ApiController
             throw $t;
         }
     }
+
 }

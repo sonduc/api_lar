@@ -2,6 +2,8 @@
 
 namespace App\Repositories\Users;
 
+
+
 trait PresentationTrait
 {
     /**
@@ -14,11 +16,11 @@ trait PresentationTrait
     public function hasAccess(array $permissions): bool
     {
         foreach ($this->roles as $role) {
-            if ($role->hasAccess(['admin.super-admin']) || $role->hasAccess($permissions)) {
+            if ($role->hasAccess(['admin.super-admin']) || ($role->hasAccess($permissions )) ) {
                 return true;
             }
         }
-        return false;
+       return false;
     }
 
     /**
@@ -131,5 +133,32 @@ trait PresentationTrait
     public function getAccountType()
     {
         return self::TYPE_ACCOUNT[$this->type ?? 0];
+    }
+
+
+    /**
+     * Kiểm tra chủ sở hữu của tài nguyên
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $user
+     * @param $data
+     * @return bool
+     */
+    public function checkOwner($user,$data )
+    {
+        // Nếu không truyền điều kiện kiểm tra thì trả vê true
+        if (empty($data))
+        {
+           return true;
+
+        }
+
+
+       if ($data['merchant_id'] == $user->id)
+       {
+           return true;
+       }
+       return false;
+
     }
 }

@@ -1,12 +1,20 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 13/12/2018
+ * Time: 13:31
+ */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiMerchant;
 
-use App\Http\Transformers\RoomTransformer;
+
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Transformers\Merchant\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Rooms\Room;
-use App\Repositories\Rooms\RoomLogic;
+use App\Repositories\_Merchant\RoomLogic;
 use App\Repositories\Rooms\RoomMedia;
 use App\Repositories\Rooms\RoomReviewRepository;
 use App\Repositories\Rooms\RoomReviewRepositoryInterface;
@@ -14,58 +22,63 @@ use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
+
 
 class RoomController extends ApiController
 {
     protected $booking;
     protected $user;
     protected $roomReview;
+    protected $roomOptionalPrice;
 
     protected $validationRules = [
         'details.*.*.name'                   => 'required|min:10|max:255|v_title',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
-        'merchant_id'                        => 'required|integer|exists:users,id,deleted_at,NULL',
-        'max_guest'                          => 'required|integer|min:1',
-        'max_additional_guest'               => 'integer|nullable',
-        'number_bed'                         => 'required|integer|min:1',
-        'number_room'                        => 'required|integer|min:1',
-        'city_id'                            => 'required|integer|nullable|exists:cities,id,deleted_at,NULL',
-        'district_id'                        => 'required|integer|nullable|exists:districts,id,deleted_at,NULL',
+
+        'basic.max_guest'                    => 'required|integer|between:1,100',
+        'basic.max_additional_guest'         => 'integer|nullable|between:1,100',
+        'basic.number_bed'                   => 'required|integer|between:1,100',
+        'basic.number_room'                  => 'required|integer|between:1,100',
+        'basic.room_type'                    => 'required|integer|between:1,5',
+
+        'details.city_id'                    => 'integer|nullable|exists:cities,id,deleted_at,NULL|required_with:details',
+        'details.district_id'                => 'integer|nullable|exists:districts,id,deleted_at,NULL|required_with:details',
         // 'room_type_id'                                   => 'required|integer',
-        'checkin'                            => 'required|date_format:"H:i"',
-        'checkout'                           => 'required|date_format:"H:i"',
-        'price_day'                          => 'required|integer',
-        'price_hour'                         => 'integer|nullable',
-        'price_after_hour'                   => 'integer|required_with:price_hour',
-        'price_charge_guest'                 => 'integer|nullable',
-        'cleaning_fee'                       => 'integer|nullable',
-        'standard_point'                     => 'integer|nullable|min:0',
-        'is_manager'                         => 'integer|nullable|between:0,1',
-        'hot'                                => 'integer|between:0,1',
-        'new'                                => 'integer|between:0,1',
-        'latest_deal'                        => 'integer|nullable|between:0,1',
-        'rent_type'                          => 'integer',
+        'prices.checkin'                     => 'required_with:prices|date_format:"H:i"',
+        'prices.checkout'                    => 'required_with:prices|date_format:"H:i"',
+        'prices.price_day'                   => 'required_if:prices.rent_type,2,3|integer|nullable',
+        'prices.price_hour'                  => 'required_if:prices.rent_type,1,3|integer|nullable',
+        'prices.price_after_hour'            => 'required_with:prices.price_hour|integer',
+        'prices.price_charge_guest'          => 'required_with:prices|integer|nullable',
+        'prices.cleaning_fee'                => 'required_with:prices|integer|nullable',
+        'prices.rent_type'                   => 'required_with:prices|integer|min:1|between:1,3',
+
+
         // 'longitude'                                      => 'required',
         // 'latitude'                                       => 'required',
         'details.*.*.address'                => 'required|v_title',
         'note'                               => 'nullable|v_title',
         'sale_id'                            => 'integer|nullable|exists:users,id,deleted_at,NULL',
         'lang_id'                            => 'integer|exists:languages,id',
-        'status'                             => 'integer|between:0,4',
+
+
         'weekday_price.*.price_day'          => 'integer|nullable',
         'weekday_price.*.price_hour'         => 'integer|nullable',
         'weekday_price.*.price_after_hour'   => 'integer|nullable|required_with:weekday_price.*.price_hour',
         'weekday_price.*.price_charge_guest' => 'integer|nullable',
         'weekday_price.*.status'             => 'boolean|nullable',
         'weekday_price.*.weekday'            => 'required|integer|distinct|between:1,7',
+
         'optional_prices.days.*'             => 'nullable|date|distinct',
         'optional_prices.price_day'          => 'integer|nullable',
         'optional_prices.price_hour'         => 'integer|nullable',
         'optional_prices.price_after_hour'   => 'integer|nullable|required_with:optional_prices.price_hour',
         'optional_prices.price_charge_guest' => 'integer|nullable',
         'optional_prices.status'             => 'boolean|nullable',
+
         'room_time_blocks.*.0'               => 'date|after:now',
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
@@ -85,43 +98,61 @@ class RoomController extends ApiController
     ];
 
     protected $validationMessages = [
+        'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
+        'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
+        'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
+
+        'basic.max_guest.required'                       => 'Số khách tối đa không được để trống',
+        'basic.max_guest.integer'                        => 'Trường số khách tối đa phải là kiểu số',
+        'basic.max_guest.between'                        => 'Trường số khách tối đa không hợp lệ',
+        'basic.max_additional_guest.integer'             => 'Số khách tối đa phải là kiểu số',
+        'basic.max_additional_guest.between'             => 'Số khách tối đa không hợp lệ',
+        'basic.number_bed.required'                      => 'Vui lòng điền số giường',
+        'basic.number_bed.min'                           => 'Tối thiểu 1 giường',
+        'basic.number_bed.integer'                       => 'Số giường phải là kiểu số',
+        'basic.number_bed.between'                       => 'Số giường không hợp lệ',
+        'basic.number_room.required'                     => 'Vui lòng điền số phòng',
+        'basic.number_room.min'                          => 'Tối thiểu 1 phòng',
+        'basic.number_room.integer'                      => 'Số phòng phải là kiểu số',
+        'basic.number_room.between'                      => 'Số phòng không howpl lệ',
+        'basic.room_type.required'                       => 'Kiểu phòng không được để trống',
+        'basic.room_type.integer'                        => 'Kiểu phòng phải là kiểu số',
+        'basic.room_type.between'                        => 'Kiểu phòng không hợp lệ',
+
+        'details.city_id.integer'                        => 'Mã thành phố phải là kiểu số',
+        'details.city_id.exists'                         => 'Thành phố không tồn tại',
+        'details.city_id.required_with'                  => 'Thành phố không đưọc để trống',
+        'details.district_id.integer'                    => 'Mã tỉnh phải là kiểu số',
+        'details.district_id.exists'                     => 'Tỉnh không tồn tại',
+        'details.district_id.required_with'              => 'Tỉnh không được để trống',
+
         'details.*.*.name.required'                      => 'Tên không được để trông',
         'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
         'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
         'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
         'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
-        'comforts.*.integer'                             => 'Mã dịch vụ phải là kiểu số',
-        'comforts.*.exists'                              => 'Mã dịch vụ không tồn tại trong hệ thống',
-        'comforts.*.distinct'                            => 'Mã dịch vụ bị trùng lặp',
-        'merchant_id.required'                           => 'Chủ phòng không được để trống',
-        'merchant_id.exists'                             => 'Chủ phòng không tồn tại',
-        'max_guest.required'                             => 'Số khách tối đa không được để trống',
-        'max_guest.integer'                              => 'Trường số khách tối đa phải là kiểu số',
-        'max_additional_guest.integer'                   => 'Số khách tối đa phải là kiểu số',
-        'number_bed.required'                            => 'Vui lòng điền số giường',
-        'number_bed.min'                                 => 'Tối thiểu 1 giường',
-        'number_bed.integer'                             => 'Số giường phải là kiểu số',
-        'number_room.required'                           => 'Vui lòng điền số phòng',
-        'number_room.min'                                => 'Tối thiểu 1 phòng',
-        'number_room.integer'                            => 'Số phòng phải là kiểu số',
-        'city_id.integer'                                => 'Mã thành phố phải là kiểu số',
-        'city_id.exists'                                 => 'Thành phố không tồn tại',
-        'city_id.required'                               => 'Thành phố không đưọc để trống',
-        'district_id.integer'                            => 'Mã tỉnh phải là kiểu số',
-        'district_id.exists'                             => 'Tỉnh không tồn tại',
-        'district_id.required'                           => 'Tỉnh không được để trống',
-        'room_type_id.required'                          => 'Kiểu phòng không được để trống',
-        'room_type_id.integer'                           => 'Kiểu phòng phải là kiểu số',
-        'checkin.required'                               => 'Thời gian checkin không được để trống',
-        'checkin.date'                                   => 'Kiểu checkin không đúng định dạng H:i',
-        'checkout.required'                              => 'Thời gian checkout không được để trống',
-        'checkout.date_format'                           => 'Kiểu checkout không đúng định dạng H:i',
-        'price_day.required'                             => 'Giá ngày không được để trống',
-        'price_day.integer'                              => 'Giá phải là kiểu số',
-        'price_hour.integer'                             => 'Giá theo giờ phải là kiểu số',
-        'price_after_hour.required_with'                 => 'Giá theo giờ không được để trống',
-        'price_after_hour.integer'                       => 'Giá theo giờ phải là kiểu số',
-        'price_charge_guest.integer'                     => 'Giá khách thêm phải là kiểu số',
+
+
+
+        'prices.checkin.required_with'                   => 'Thời gian checkin không được để trống',
+        'prices.checkin.date'                            => 'Kiểu checkin không đúng định dạng H:i',
+        'prices.checkout.required_with'                  => 'Thời gian checkout không được để trống',
+        'prices.checkout.date_format'                    => 'Kiểu checkout không đúng định dạng H:i',
+
+        'prices.price_day.integer'                       => 'Giá phải là kiểu số',
+        'prices.price_day.required_if'                   => 'Giá theo ngày không được để trống',
+        'prices.price_hour.integer'                      => 'Giá theo giờ phải là kiểu số',
+        'prices.price_hour.required_if'                  => 'Giá theo giờ không được để trống',
+        'prices.price_after_hour.required_with'          => 'Giá theo giờ không được để trống',
+        'prices.price_after_hour.integer'                => 'Giá theo giờ phải là kiểu số',
+        'prices.price_charge_guest.integer'              => 'Giá khách thêm phải là kiểu số',
+        'prices.cleaning_fee.required_with'              => 'Giá dọn phòng phải là kiểu số',
+        'prices.cleaning_fee.integer'                    => 'Giá dọn phòng phải là kiểu số',
+        'prices.rent_type.integer'                       => 'Kiểu phòng phải là kiểu số',
+        'prices.rent_type.required_with'                 => 'Kiểu thuê phòng phải là kiểu số',
+        'prices.rent_type.between'                       => 'Kiểu thuê phòng không hợp lệ',
+
+
         'weekday_price.*.price_day.integer'              => 'Giá phải là kiểu số',
         'weekday_price.*.price_hour.integer'             => 'Giá theo giờ phải là kiểu số',
         'weekday_price.*.price_after_hour.required_with' => 'Giá theo giờ không được để trống',
@@ -142,17 +173,8 @@ class RoomController extends ApiController
         'optional_prices.price_charge_guest.integer'     => 'Giá khách thêm phải là kiểu số',
         'optional_prices.status.boolean'                 => 'Mã trạng thái phải là kiểu số 0 hoặc 1',
 
-        'cleaning_fee.integer'                           => 'Giá dọn phòng phải là kiểu số',
-        'standard_point.integer'                         => 'Điểm phải là kiểu số',
-        'is_manager.integer'                             => 'Kiểu quản lý phải là kiểu số',
-        'is_manager.between'                             => 'Kiểu quản lý không hợp lệ',
-        'hot.integer'                                    => 'Nổi bật phải là kiểu số',
-        'hot.between'                                    => 'Mã không hợp lệ',
-        'new.between'                                    => 'Mã không hợp lệ',
-        'new.integer'                                    => 'Mới nhất phải là kiểu số',
-        'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
+
         'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
-        'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
         'longitude.required'                             => 'Kinh độ không được để trống',
         'latitude.required'                              => 'Vĩ độ không được để trống',
         'sale_id.integer'                                => 'Mã saler phải là kiểu số',
@@ -160,8 +182,7 @@ class RoomController extends ApiController
         'lang_id.integer'                                => 'Mã ngôn ngữ phải là kiểu số',
         'lang_id.exists'                                 => 'Ngôn ngữ không hợp lệ',
         'note.v_title'                                   => 'Chỉ cho phép chữ và số',
-        'status.integer'                                 => 'Mã trạng thái phải là kiểu số',
-        'status.between'                                 => 'Mã không hợp lệ',
+
         'room_time_blocks.*.*.date'                      => 'Ngày không hợp lệ',
         'room_time_blocks.*.0.date'                      => 'Ngày không hợp lệ',
         'room_time_blocks.*.0.after'                     => 'Ngày bắt đầu phải ở tương lai',
@@ -203,10 +224,10 @@ class RoomController extends ApiController
         'lat_max.between'                                => 'Trường này không nằm trong khoảng -86.00,86.00',
         'long_min.required'                              => 'Trường này không được để trống',
         'long_min.numeric'                               => 'Trường này phải là đinh dạng số',
-        'long_min.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
+        'long_min.between'                               => 'Trường này không nằm trong khoảng -180.00,180.00',
         'long_max.required'                              => 'Trường này không được để trống',
         'long_max.numeric'                               => 'Trường này phải là đinh dạng số',
-        'long_max.between'                                => 'Trường này không nằm trong khoảng -180.00,180.00',
+        'long_max.between'                               => 'Trường này không nằm trong khoảng -180.00,180.00',
 
     ];
 
@@ -224,10 +245,10 @@ class RoomController extends ApiController
         BookingRepositoryInterface $booking,
         RoomReviewRepositoryInterface $roomReview
     ) {
-        $this->model      = $room;
-        $this->user       = $user;
-        $this->booking    = $booking;
-        $this->roomReview = $roomReview;
+        $this->model             = $room;
+        $this->user              = $user;
+        $this->booking           = $booking;
+        $this->roomReview        = $roomReview;
         $this->setTransformer(new RoomTransformer);
     }
 
@@ -243,15 +264,27 @@ class RoomController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $this->authorize('room.view');
-           //    dd(DB::getQueryLog());
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
+        try {
+            $this->authorize('room.view');
+            //    dd(DB::getQueryLog());
+            $id   =  Auth::user()->id;
+            $pageSize    = $request->get('size');
+            $data = $this->model->getRoom($id, $request->all(),$pageSize);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
 
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-//        dd($data);
-
-        return $this->successResponse($data);
     }
 
     /**
@@ -267,9 +300,8 @@ class RoomController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('room.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $this->authorize('room.view', $id);
+            $data = $this->model->getById($id);
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();
@@ -279,6 +311,7 @@ class RoomController extends ApiController
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -299,19 +332,14 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+             $this->authorize('room.create');
+             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();
             logs('room', 'tạo phòng mã ' . $data->id, $data);
             return $this->successResponse($data, true, 'details');
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -349,7 +377,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$id);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
 //            dd(DB::getQueryLog());
@@ -361,6 +389,7 @@ class RoomController extends ApiController
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
+
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -399,78 +428,23 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
+            $this->authorize('room.view',$id);
             $data = [
                 'data' => [
                     'blocks' => $this->model->getFutureRoomSchedule($id),
                 ],
             ];
             return $this->successResponse($data, false);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
-
-    /**
-     * Cập nhật riêng lẻ các thuộc tính của phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param Request $request
-     * @param         $id
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function minorRoomUpdate(Request $request, $id)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('room.update');
-            $avaiable_option = [
-                'hot',
-                'new',
-                'latest_deal',
-                'merchant_id',
-                'status',
-                'standard_point',
-                'is_manager',
-            ];
-            $option = $request->get('option');
-
-            if (!in_array($option, $avaiable_option)) {
-                throw new \Exception('Không có quyền sửa đổi mục này');
-            }
-
-            $validate = array_only($this->validationRules, [
-                $option,
-            ]);
-
-            $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->minorRoomUpdate($id, $request->only($option));
-            DB::commit();
-
-            return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
+            DB::rollBack();
             return $this->errorResponse([
                 'error' => $e->getMessage(),
             ]);
@@ -480,6 +454,7 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
 
     /**
      * Xóa phòng (Soft Delete)
@@ -494,17 +469,25 @@ class RoomController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->authorize('room.delete');
+            $this->authorize('room.delete',$id);
             $this->model->delete($id);
 
             DB::commit();
             logs('room', 'xóa phòng mã ' . $id);
             return $this->deleteResponse();
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -525,6 +508,10 @@ class RoomController extends ApiController
             $data = $this->simpleArrayToObject(Room::ROOM_TYPE);
             return response()->json($data);
         } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -603,7 +590,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$request->room_id);
             $validate = array_only($this->validationRules, [
                 'room_time_blocks.*.0',
                 'room_time_blocks.*.1',
@@ -639,6 +626,9 @@ class RoomController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -649,7 +639,10 @@ class RoomController extends ApiController
     public function getRoomName()
     {
         $this->authorize('room.view');
-        $test = DB::table('rooms')->join('room_translates', 'rooms.id', 'room_translates.room_id')->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))->get()->toArray();
+        $test = DB::table('rooms')->where('rooms.merchant_id','=',Auth::user()->id)
+            ->join('room_translates', 'rooms.id', 'room_translates.room_id')
+            ->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))
+            ->get()->toArray();
         $data = [
             'data' => $test,
         ];
@@ -666,16 +659,14 @@ class RoomController extends ApiController
     public function getRoomLatLong(Request $request)
     {
         try {
-            $this->authorize('room.view');
+            $this->authorize('room.create');
             $validate['lat_min']  = 'required|numeric|between:-86.00,86.00';
             $validate['lat_max']  = 'required|numeric|between:-86.00,86.00';
             $validate['long_min'] = 'required|numeric|between:-180.00,180.00';
             $validate['long_max'] = 'required|numeric|between:-180.00,180.00';
             $this->validate($request, $validate, $this->validationMessages);
-            $this->trash = $this->trashStatus($request);
-
             $pageSize    = $request->get('limit', 25);
-            $data = $this->model->getRoomLatLong($request->all(), $pageSize, $this->trash);
+            $data = $this->model->getRoomLatLong($request->all(), $pageSize);
 
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
@@ -691,50 +682,19 @@ class RoomController extends ApiController
             throw $t;
         }
     }
-
-    /**
-     *   đưa ra các phòng tương tự với 1 phòng nào đó
-     *
-     * @author sonduc <ndson1998@gmail.com>
-     * @param  Request $request [description]
-     * @param  [type]  $id      [description]
-     * @return [type]           [description]
-     */
-    public function getRoomRecommend(Request $request, $id)
-    {
-        try {
-            $this->authorize('room.view');
-            $pageSize    = $request->get('limit', 5);
-            $data = $this->model->getRoomRecommend($pageSize, $id);
-
-            return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
 
     public function updateRoomSettings(Request $request)
     {
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update');
+            $this->authorize('room.update',$request->room_id);
             $validate = array_only($this->validationRules, [
                 'settings.no_booking_cancel',
                 'settings.refunds.*.days',
                 'settings.refunds.*.amount',
             ]);
-            $validate['room_id']                            = 'required|integer|exists:rooms,id,deleted_at,NULL';
+            $validate['room_id']         = 'required|integer|exists:rooms,id,deleted_at,NULL';
             $validate['settings.no_booking_cancel']         = 'nullable|integer|in:0,1';
             $validate['settings.refunds.*.days']            = 'required|integer|max:14|min:1';
             $validate['settings.refunds.*.amount']          = 'required|integer|min:0|max:100';
@@ -761,10 +721,69 @@ class RoomController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
         }
     }
+
+    public function updateRoomOptionalPrice(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update',$request->room_id);
+            $validate = array_only($this->validationRules, [
+                'weekday_price.*.price_day',
+                'weekday_price.*.price_hour',
+                'weekday_price.*.price_after_hour' ,
+                'weekday_price.*.price_charge_guest',
+                'weekday_price.*.status',
+                'weekday_price.*.weekday',
+
+                'optional_prices.days.*',
+                'optional_prices.price_day',
+                'optional_prices.price_hour',
+                'optional_prices.price_after_hour' ,
+                'optional_prices.price_charge_guest',
+                'optional_prices.status',
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomOptionalPrice($request->only([
+                'optional_prices', 'weekday_price','room_id'
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
 }

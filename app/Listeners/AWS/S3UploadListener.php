@@ -7,7 +7,7 @@ use App\Services\Amazon\S3\ImageProcessor;
 use App\Services\Amazon\S3\S3Processor;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class S3UploadListener implements ShouldQueue
+class S3UploadListener implements  ShouldQueue
 {
     protected $img;
     /**
@@ -35,7 +35,6 @@ class S3UploadListener implements ShouldQueue
     public function handle(AmazonS3_Upload_Event $event)
     {
         $this->processor->setImage($event->name, $event->data);
-
         $this->s3Upload();
     }
 

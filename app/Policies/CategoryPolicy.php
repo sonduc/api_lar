@@ -14,6 +14,8 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 class CategoryPolicy
 {
     use HandlesAuthorization;
+
+
     public function view(User $user)
     {
         return $user->hasAccess(['category.view']);

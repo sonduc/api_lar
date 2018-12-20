@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Events\BookingEvent;
-use App\Events\BroadcastingExample;
 use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,12 +12,12 @@ class ComfortController extends ApiController
 {
     protected $validationRules
         = [
-            'details.*.*.name' => 'required|unique:comfort_translates,name',
+            'details.*.name' => 'required|unique:comfort_translates,name',
         ];
     protected $validationMessages
         = [
-            'details.*.*.name.required' => 'Tên không được để trông',
-            'details.*.*.name.unique'   => 'Tiện ích này đã tồn tại',
+            'details.*.name.required' => 'Tên không được để trông',
+            'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
 
         ];
 
@@ -41,12 +40,17 @@ class ComfortController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('comfort.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        // event(new BroadcastingExample);
-        return $this->successResponse($data);
+        try{
+            $this->authorize('comfort.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -61,6 +65,10 @@ class ComfortController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -82,9 +90,13 @@ class ComfortController extends ApiController
             DB::commit();
 
             logs('comfort', 'tạo comfort mã ' . $data->id, $data);
-            event(new BookingEvent($request->all()));
 
             return $this->successResponse($data, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -113,6 +125,11 @@ class ComfortController extends ApiController
 
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -143,6 +160,11 @@ class ComfortController extends ApiController
             logs('comfort', 'xóa tiện ích mã ' . $id);
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             //DB::rollBack();
             return $this->notFoundResponse();

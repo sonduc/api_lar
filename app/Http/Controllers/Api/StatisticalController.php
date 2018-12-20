@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use App\Repositories\Statisticals\StatisticalLogic;
 use App\Repositories\Statisticals\StatisticalRepositoryInterface;
 
 use App\Http\Transformers\StatisticalTransformer;
 use App\Repositories\Statisticals\StatisticalRepository;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class StatisticalController extends ApiController
 {
@@ -144,7 +145,7 @@ class StatisticalController extends ApiController
     }
 
     /**
-     * Thống kê doanh thu của booking theo trạng thái checkout 
+     * Thống kê doanh thu của booking theo trạng thái checkout
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -162,6 +163,11 @@ class StatisticalController extends ApiController
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

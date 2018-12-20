@@ -1,19 +1,23 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 10:09
+ */
 
-namespace App\Http\Controllers\ApiCustomer;
+namespace App\Http\Controllers\ApiMerchant;
 
 use App\Events\Customer_Register_Event;
+use App\Http\Controllers\ApiController;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Customer_Register_TypeBooking_Event;
-use App\Repositories\Referrals\ReferralRepositoryInterface;
-use App\Repositories\Coupons\CouponLogic;
-use App\Jobs\SendCouponRegisterUser;
-
 class RegisterController extends ApiController
 {
     protected $validationRules = [
@@ -36,11 +40,9 @@ class RegisterController extends ApiController
         'password_confirmation.same'        => 'Mật khẩu không khớp nhau',
     ];
 
-    public function __construct(UserRepository $user, UserTransformer $transformer, ReferralRepositoryInterface $referral, CouponLogic $coupon)
+    public function __construct(UserRepository $user, UserTransformer $transformer)
     {
-        $this->user     = $user;
-        $this->referral = $referral;
-        $this->coupon   = $coupon;
+        $this->user = $user;
         $this->setTransformer($transformer);
     }
 
@@ -57,10 +59,12 @@ class RegisterController extends ApiController
             // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
-            if (!empty($user)) {
+            if (!empty($user))
+            {
                 $timeNow = Carbon::now();
                 $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
-                if ($minutes < 1440) {
+                if ($minutes < 1440)
+                {
                     return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
                 }
 
@@ -76,35 +80,12 @@ class RegisterController extends ApiController
             $this->validationRules['password']              = 'required|min:6|max:255';
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params           = $request->only('email', 'password');
-
-            if ($request->get('ref') !== null) {
-                if (!$this->user->isValidReferenceID($request->get('ref'))) {
-                    $params['ref_code'] = null;
-                } else {
-                    $params['ref_code'] = $request->get('ref');
-                    $user_id = $this->user->getIDbyUUID($request->get('ref'));
-                }
-            }
-
-            // dd($user_id);
-            $username           = $params['email'];
-            $password           = $params['password'];
+            $params           = $request->only('email','password');
+            $params['type']   = User::MERCHANT;
+            $username         = $params['email'];
+            $password         = $params['password'];
             // Create new user
-            // dd($params);
             $newClient = $this->getResource()->store($params);
-
-            if ($newClient && isset($params['ref_code'])) {
-                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id);
-                $coupon         = $this->coupon->createReferralCoupon($newClient);
-                // dd($coupon);
-                if ($coupon) {
-                    $user_ref = $this->user->getById($newClient->id);
-                    $coupon   = $this->coupon->getById($coupon->id);
-                    $sendCouponRegister = (new SendCouponRegisterUser($newClient, $coupon))->delay(Carbon::now()->addHours(24));
-                    dispatch($sendCouponRegister);
-                }
-            }
 
             // Issue token
             $guzzle  = new Guzzle;
@@ -165,15 +146,10 @@ class RegisterController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $user = $this->user->checkUserByStatus($request->all());
-            if (!empty($user)) {
-                throw new \Exception('Tài khoản đã được kích hoạt');
-            }
-            $validate = array_only($this->validationRules, [
-                'status',
-            ]);
-            $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->user->updateStatus($request->all());
+            $data = array_only($request->all(),'uuid');
+            $user = $this->user->checkUser($data);
+
+            $data = $this->user->updateStatus($user);
             DB::commit();
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -196,4 +172,5 @@ class RegisterController extends ApiController
             throw $t;
         }
     }
+
 }

@@ -15,7 +15,66 @@ $router->group([
     'middleware' => 'auth',
 ], function ($router) {
 
+    /**
+     * Profile
+     */
+    $router->get('/profile', 'ProfileController@index');
+    $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/change-password', 'ProfileController@changePassword');
+
+    /**
+     * City Resource
+     */
+    resource('/cities', 'CityController', $router);
+
+    /**
+     * District Resource
+     */
+    resource('/districts', 'DistrictController', $router);
+
+    /**
+     * Comfort Resource
+     */
+    resource('/comforts', 'ComfortController', $router);
+
+    /**
+     * GuidebookCategory Resource
+     */
+    resource('/guidebookcategories', 'GuidebookCategoryController', $router);
+
+    /**
+     * Place Resource
+     */
+    $router->post('/places/update-room-place', 'PlaceController@editRoomPlace');
+    $router->put('/places/single-update/{id}', 'PlaceController@singleUpdate');
+    $router->get('/places/status-list', 'PlaceController@statusList');
+    resource('/places', 'PlaceController', $router);
+
+
+    /**
+     * Room Resource
+     */
+    
+    $router->get('/rooms/type', 'RoomController@getRoomType');
+    $router->get('/rooms/get-name', 'RoomController@getRoomName');
+    $router->get('/rooms/media-type', 'RoomController@roomMediaType');
+    $router->get('/rooms/rent-type', 'RoomController@roomRentType');
+
+    $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
+    $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
+    $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
+    resource('/rooms', 'RoomController', $router);
 });
+
+/**
+ * Router login, register , reset pass, forget pass
+ */
+$router->post('login', 'LoginController@login');
+$router->post('register', 'RegisterController@register');
+$router->put('register/email-confirm', 'RegisterController@confirm');
+$router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->post('forget-password', 'ForgetPasswordController@forgetPassword');
+$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
 
 resource('/test', 'TestController', $router);
 

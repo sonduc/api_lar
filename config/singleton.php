@@ -201,4 +201,20 @@ return [
         \App\Repositories\Referrals\ReferralRepositoryInterface::class,
         \App\Repositories\Referrals\ReferralRepository::class,
     ],
+    /**
+     * Comfort
+     */
+    \App\Repositories\Comforts\Comfort::class => [
+        \App\Repositories\Comforts\ComfortRepositoryInterface::class,
+        \App\Repositories\Comforts\ComfortRepository::class,
+    ],
+
+    /**
+     * ComfortTranslate
+     */
+    \App\Repositories\Comforts\ComfortTranslate::class => [
+        \App\Repositories\Comforts\ComfortTranslateRepositoryInterface::class,
+        \App\Repositories\Comforts\ComfortTranslateRepository::class,
+    ],
+
 ];

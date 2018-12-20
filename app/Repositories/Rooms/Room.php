@@ -65,12 +65,14 @@ class Room extends Entity
     ];
 
     // AVG Rating
-    const DISAPPOINTED = 'Không hài lòng';
-    const NOT_GOOD     = 'Không được như mong muốn';
-    const NORMAL       = 'Khá ổn';
-    const GOOD         = 'Tốt';
-    const EXCELLENT    = 'Rất tuyệt vời';
-    const NULL_REVIEW  = 'Chưa có đánh giá';
+    const DISAPPOINTED      = 'Không hài lòng';
+    const NOT_GOOD          = 'Không được như mong muốn';
+    const NORMAL            = 'Khá ổn';
+    const GOOD              = 'Tốt';
+    const EXCELLENT         = 'Rất tuyệt vời';
+    const NULL_REVIEW       = 'Chưa có đánh giá';
+    const FINISHED          = 6;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
+
 
     /**
      * setting-room
@@ -118,7 +120,8 @@ class Room extends Entity
         'total_review',
         'total_recommend',
         'airbnb_calendar',
-        'settings'
+        'settings',
+        'percent'
     ];
     /**
      * The attributes that should be mutated to dates.

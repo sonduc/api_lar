@@ -11,7 +11,6 @@ namespace App\Repositories\Bookings;
 use App\Repositories\Coupons\CouponRepository;
 use App\Repositories\Rooms\RoomOptionalPrice;
 use App\Repositories\Rooms\RoomOptionalPriceRepository;
-use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
@@ -322,9 +321,9 @@ trait BookingLogicTrait
     public function cancelBooking($id, $data)
     {
         $data_booking = parent::getById($id);
-//        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
-//            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
-//        }
+        if ($data_booking->status == BookingConstant::BOOKING_CANCEL) {
+            throw new \Exception(trans2(BookingMessage::ERR_BOOKING_CANCEL_ALREADY));
+        }
 
         $booking_settings = json_decode($data_booking->settings);
 

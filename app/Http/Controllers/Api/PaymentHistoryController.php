@@ -6,6 +6,7 @@ use App\Http\Transformers\PaymentHistoryTransformer;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Payments\PaymentHistoryRepository;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
@@ -49,11 +50,17 @@ class PaymentHistoryController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('booking.view');
-        $pageSize    = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try{
+            $this->authorize('booking.view');
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -68,6 +75,10 @@ class PaymentHistoryController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -90,6 +101,10 @@ class PaymentHistoryController extends ApiController
             DB::commit();
             logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -111,6 +126,10 @@ class PaymentHistoryController extends ApiController
             $data = $this->simpleArrayToObject(BookingConstant::PAYMENT_HISTORY_STATUS);
 
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

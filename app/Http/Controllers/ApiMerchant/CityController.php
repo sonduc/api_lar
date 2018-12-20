@@ -1,13 +1,21 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 10:17
+ */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiMerchant;
 
-use App\Http\Transformers\LogTransformer;
-use App\Repositories\Logs\LogRepository;
+
+use App\Http\Controllers\Api\ApiController;
+use App\Http\Transformers\CityTransformer;
+use App\Repositories\Cities\CityRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
-class LogController extends ApiController
+class CityController extends ApiController
 {
     protected $validationRules
         = [
@@ -19,14 +27,14 @@ class LogController extends ApiController
         ];
 
     /**
-     * LogController constructor.
+     * CityController constructor.
      *
-     * @param LogRepository $log
+     * @param CityRepository $city
      */
-    public function __construct(LogRepository $log)
+    public function __construct(CityRepository $city)
     {
-        $this->model = $log;
-        $this->setTransformer(new LogTransformer);
+        $this->model = $city;
+        $this->setTransformer(new CityTransformer);
     }
 
     /**
@@ -37,17 +45,15 @@ class LogController extends ApiController
     public function index(Request $request)
     {
         try {
-            $this->authorize('log.view');
-            $pageSize = $request->get('limit', 25);
-
-            $data = $this->model->getLog($request->all(), $pageSize);
+            $this->authorize('city.view');
+            $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
+        }catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
         }
+
     }
 
     /**
@@ -58,12 +64,10 @@ class LogController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('log.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $this->authorize('city.view');
+            $data    = $this->model->getById($id);
             return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
+        }catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -75,5 +79,8 @@ class LogController extends ApiController
             throw $t;
         }
     }
+
+
+
 
 }

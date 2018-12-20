@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Repositories\Categories\Category;
 use App\Repositories\Categories\CategoryLogic;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 use App\Http\Transformers\CategoryTransformer;
@@ -61,10 +62,17 @@ class CategoryController extends ApiController
      */
     public function index(Request $request)
     {
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('category.view');
+            $pageSize = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -75,10 +83,14 @@ class CategoryController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            //$this->authorize('category.view');
+            $this->authorize('category.view');
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -99,6 +111,11 @@ class CategoryController extends ApiController
             DB::commit();
             // dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
@@ -123,6 +140,11 @@ class CategoryController extends ApiController
             DB::commit();
             // dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -151,6 +173,11 @@ class CategoryController extends ApiController
             //dd(DB::getQueryLog());
             DB::commit();
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             DB::rollBack();
             return $this->notFoundResponse();
@@ -192,6 +219,11 @@ class CategoryController extends ApiController
             logs('categories', 'sửa trạng thái của danh mục có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

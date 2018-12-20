@@ -1,33 +1,32 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: ducchien
+ * Date: 18/12/2018
+ * Time: 11:20
+ */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiMerchant;
 
-use App\Http\Transformers\LogTransformer;
-use App\Repositories\Logs\LogRepository;
+use App\Http\Controllers\ApiController;
+use App\Http\Transformers\ComfortTransformer;
+use App\Repositories\Comforts\ComfortRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-
-class LogController extends ApiController
+class ComfortController extends ApiController
 {
-    protected $validationRules
-        = [
-
-        ];
-    protected $validationMessages
-        = [
-
-        ];
 
     /**
-     * LogController constructor.
+     * ComfortController constructor.
      *
-     * @param LogRepository $log
+     * @param ComfortRepository $comfort
      */
-    public function __construct(LogRepository $log)
+    public function __construct(ComfortRepository $comfort)
     {
-        $this->model = $log;
-        $this->setTransformer(new LogTransformer);
+        $this->model = $comfort;
+        $this->setTransformer(new ComfortTransformer);
     }
+
 
     /**
      * Display a listing of the resource.
@@ -36,14 +35,11 @@ class LogController extends ApiController
      */
     public function index(Request $request)
     {
-        try {
-            $this->authorize('log.view');
-            $pageSize = $request->get('limit', 25);
-
-            $data = $this->model->getLog($request->all(), $pageSize);
+        try{
+            $this->authorize('comfort.view');
+            $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
+        }catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -58,12 +54,10 @@ class LogController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('log.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
+            $this->authorize('comfort.view');
+            $data    = $this->model->getById($id);
             return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            DB::rollBack();
+        }catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);

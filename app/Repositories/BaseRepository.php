@@ -107,7 +107,7 @@ abstract class BaseRepository implements EntityInterface
     public function storeArray($data)
     {
         $data = $this->filterData($data);
-        return $this->model->insert($data);
+         $this->model->insert($data);
     }
 
     /**

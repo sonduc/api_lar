@@ -7,6 +7,7 @@ use App\Repositories\Coupons\Coupon;
 use App\Repositories\Coupons\CouponLogic;
 use App\Repositories\Coupons\CouponRepository;
 use App\Repositories\Coupons\CouponRepositoryInterface;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -121,11 +122,17 @@ class CouponController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        $this->authorize('coupon.view');
-        $pageSize         = $request->get('limit', 25);
-        $this->trash      = $this->trashStatus($request);
-        $data_transformed = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
-        return $this->successResponse($data_transformed);
+        try {
+            $this->authorize('coupon.view');
+            $pageSize         = $request->get('limit', 25);
+            $this->trash      = $this->trashStatus($request);
+            $data_transformed = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
+            return $this->successResponse($data_transformed) ;
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        }
     }
 
     /**
@@ -150,6 +157,10 @@ class CouponController extends ApiController
             $data_transformed = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
 
             return $this->successResponse($data_transformed);
+        }catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -173,6 +184,11 @@ class CouponController extends ApiController
 
             DB::commit();
             return $this->successResponse($data_transformed);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -202,6 +218,11 @@ class CouponController extends ApiController
 
             DB::commit();
             return $this->successResponse($data_transformed);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -226,6 +247,11 @@ class CouponController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -248,6 +274,11 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $data = $this->simpleArrayToObject(Coupon::COUPON_STATUS);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -266,6 +297,11 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $data = $this->simpleArrayToObject(Coupon::COUPON_ALLDAY);
             return response()->json($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -301,6 +337,11 @@ class CouponController extends ApiController
             logs('coupon', 'sửa trạng thái của mã giảm giá có mã ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -354,6 +395,11 @@ class CouponController extends ApiController
             ];
 
             return $this->successResponse($data, false);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -393,6 +439,11 @@ class CouponController extends ApiController
             logs('coupon', 'Sửa số lần sử dụng của mã giảm giá có mã ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
