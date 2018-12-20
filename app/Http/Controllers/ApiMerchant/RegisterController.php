@@ -18,6 +18,7 @@ use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Customer_Register_TypeBooking_Event;
+
 class RegisterController extends ApiController
 {
     protected $validationRules = [
@@ -59,12 +60,10 @@ class RegisterController extends ApiController
             // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
-            if (!empty($user))
-            {
+            if (!empty($user)) {
                 $timeNow = Carbon::now();
                 $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
-                if ($minutes < 1440)
-                {
+                if ($minutes < 1440) {
                     return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
                 }
 
@@ -80,7 +79,7 @@ class RegisterController extends ApiController
             $this->validationRules['password']              = 'required|min:6|max:255';
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params           = $request->only('email','password');
+            $params           = $request->only('email', 'password');
             $params['type']   = User::MERCHANT;
             $username         = $params['email'];
             $password         = $params['password'];
@@ -89,7 +88,7 @@ class RegisterController extends ApiController
 
             // Issue token
             $guzzle  = new Guzzle;
-            $url     = env('APP_URL') . 'oauth/token';
+            $url     = env('APP_URL') . '/oauth/token';
             $options = [
                 'json'   => [
                     'grant_type'    => 'password',
@@ -146,7 +145,7 @@ class RegisterController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $data = array_only($request->all(),'uuid');
+            $data = array_only($request->all(), 'uuid');
             $user = $this->user->checkUser($data);
 
             $data = $this->user->updateStatus($user);
@@ -172,5 +171,4 @@ class RegisterController extends ApiController
             throw $t;
         }
     }
-
 }

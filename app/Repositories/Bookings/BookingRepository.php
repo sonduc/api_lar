@@ -970,7 +970,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
         return $convertBooking;
     }
+    /**
+     *
+     * Lấy ra tất cả người ID người dùng có booking đầu tiên và đã checkout
 
+     */
     public function getUserFirstBooking($list_id, $start_checkout, $end_checkout, $total_fee)
     {
         // dd('asdf');

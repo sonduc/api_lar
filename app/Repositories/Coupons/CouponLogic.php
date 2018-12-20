@@ -23,6 +23,7 @@ use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Jobs\SendCouponReferralUser;
 
 class CouponLogic extends BaseLogic
 {
@@ -388,36 +389,36 @@ class CouponLogic extends BaseLogic
         $end_date               = Carbon::now()->addMonths(3)->toDateString();
 
         if ($user != null) {
-            $users_setting          = [$user['id']];
-            $listUser = [$user];
+            $listUser           = [$user];
         } else {
-            $list_ref_user              = $this->referral->getAllReferralUser();
-            $listUser    = $this->booking->getUserFirstBooking($listUser, $start_checkout, $end_checkout, $total_fee);
+            $list_ref_user              = $this->referral->getAllReferralUser(); // lấy danh sách người được mời
+            $list_user_first_booking    = $this->booking->getUserFirstBooking($list_ref_user, $start_checkout, $end_checkout, $total_fee);
+            $listUser                   = $this->user->getUserByListIdIndex($list_user_first_booking, User::USER);
         }
 
         foreach ($listUser as $key => $value) {
             $secret                 = env('APP_KEY') . $now;
             $hashed                 = hash_hmac('sha256', $secret, $now);
             $code                   = substr(strtoupper($hashed), 0, 8);
-            $settings = [
-                        "date_start"        => $start_date,
-                        "date_end"          => $end_date,
-                        "bind"              => $bind_setting,
-                        "rooms"             => $room_setting,
-                        "cities"            => $cities_setting,
-                        "districts"         => $districts_setting,
-                        "days"              => $days_setting,
-                        "booking_type"      => $booking_type_setting,
-                        "booking_create"    => $booking_create_setting,
-                        "booking_stay"      => $booking_stay_setting,
-                        "merchants"         => $merchants_setting,
-                        "users"             => $users_setting,
-                        "days_of_week"      => $days_of_week_setting,
-                        "room_type"         => $room_type_setting,
-                        "min_price"         => $total_fee
-                    ];
+            $settings   = [
+                "date_start"        => $start_date,
+                "date_end"          => $end_date,
+                "bind"              => $bind_setting,
+                "rooms"             => $room_setting,
+                "cities"            => $cities_setting,
+                "districts"         => $districts_setting,
+                "days"              => $days_setting,
+                "booking_type"      => $booking_type_setting,
+                "booking_create"    => $booking_create_setting,
+                "booking_stay"      => $booking_stay_setting,
+                "merchants"         => $merchants_setting,
+                "users"             => [$value['id']],
+                "days_of_week"      => $days_of_week_setting,
+                "room_type"         => $room_type_setting,
+                "min_price"         => $total_fee
+            ];
        
-            $data = [
+            $data       = [
                 "code"          => $code,
                 "discount"      => $discount,
                 "max_discount"  => 100000,
@@ -429,6 +430,11 @@ class CouponLogic extends BaseLogic
             ];
 
             $data_coupon      = parent::store($data);
+            if ($user == null) {
+                $ref_user = $this->user->getById($value);
+                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $coupon))->delay(Carbon::now()->addHours(24));
+                dispatch($sendCouponRegister);
+            }
         }
         return $data_coupon;
     }

@@ -12,6 +12,7 @@ use App\Http\Controllers\ApiController;
 use App\User;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
+
 class LoginController extends ApiController
 {
     protected $validationRules
@@ -54,7 +55,7 @@ class LoginController extends ApiController
                 if ($hasher->check($password, $login->password) == true & $login->type == User::MERCHANT) {
                     // Issue token
                     $guzzle  = new Guzzle;
-                    $url     = env('APP_URL') . 'oauth/token';
+                    $url     = env('APP_URL') . '/oauth/token';
                     $options = [
                         'json'   => [
                             'grant_type'    => 'password',
@@ -89,5 +90,4 @@ class LoginController extends ApiController
             throw $t;
         }
     }
-
 }
