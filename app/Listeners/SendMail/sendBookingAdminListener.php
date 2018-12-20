@@ -45,6 +45,4 @@ class sendBookingAdminListener implements ShouldQueue
     {
         $this->email->sendBookingAdmin($event);
     }
-
-
 }

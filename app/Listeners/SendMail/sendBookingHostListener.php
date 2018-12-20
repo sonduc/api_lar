@@ -11,6 +11,7 @@ namespace App\Listeners\SendMail;
 use App\Events\BookingEvent;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
 class sendBookingHostListener implements ShouldQueue
 {
     protected $email;
@@ -28,8 +29,6 @@ class sendBookingHostListener implements ShouldQueue
 
     public function handle(BookingEvent $event)
     {
-       $this->email->sendBookingHost($event);
-
+        $this->email->sendBookingHost($event);
     }
-
 }

@@ -4,7 +4,6 @@ namespace App\Repositories\Bookings;
 
 use Illuminate\Support\Facades\App;
 
-
 final class BookingConstant
 {
     const PREFIX     = 'HM';

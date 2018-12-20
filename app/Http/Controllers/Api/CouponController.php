@@ -33,7 +33,7 @@ class CouponController extends ApiController
         'settings.room_type.*'      => 'nullable',
         'settings.bind.*'           => 'nullable',
         'settings.min_price.*'      => 'nullable',
-        'promotion_id'              => 'required|integer|exists:promotions,id,deleted_at,NULL',
+        // 'promotion_id'              => 'required|integer|exists:promotions,id,deleted_at,NULL',
 
         'coupon' => 'string|without_spaces|min:4|exists:coupons,code,deleted_at,NULL',
     ];
@@ -71,9 +71,9 @@ class CouponController extends ApiController
         'settings.merchants.*.exists'     => 'Mã chủ nhà không tồn tại',
         'settings.users.*.distinct'       => 'Mã khách hàng không được trùng nhau',
         'settings.users.*.exists'         => 'Mã khách hàng không tồn tại',
-        'promotion_id.required'           => 'Vui lòng chọn chương trình giảm giá',
-        'promotion_id.integer'            => 'Mã chương trình giảm giá phải là kiểu số',
-        'promotion_id.exists'             => 'Chương trình giảm giá không tồn tại',
+        // 'promotion_id.required'           => 'Vui lòng chọn chương trình giảm giá',
+        // 'promotion_id.integer'            => 'Mã chương trình giảm giá phải là kiểu số',
+        // 'promotion_id.exists'             => 'Chương trình giảm giá không tồn tại',
 
         'price_original.required' => 'Giá gốc không được để trống',
         'price_original.integer'  => 'Giá gốc phải là kiểu số',

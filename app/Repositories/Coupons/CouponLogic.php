@@ -18,9 +18,11 @@ use App\Repositories\Rooms\RoomTranslateRepository;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\User;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
+use App\Repositories\Bookings\BookingRepositoryInterface;
 
 class CouponLogic extends BaseLogic
 {
@@ -34,6 +36,7 @@ class CouponLogic extends BaseLogic
     protected $user;
     protected $op;
     protected $cp;
+    protected $referral;
 
     /**
      * CouponLogic constructor.
@@ -46,6 +49,7 @@ class CouponLogic extends BaseLogic
      * @param UserRepositoryInterface|UserRepository                           $user
      * @param RoomOptionalPriceRepositoryInterface|RoomOptionalPriceRepository $op
      * @param CouponRepositoryInterface|CouponRepository                       $cp
+     * @param ReferralRepositoryInterface|ReferralRepository                   $referral
      */
     public function __construct(
         CouponRepositoryInterface $coupon,
@@ -55,7 +59,9 @@ class CouponLogic extends BaseLogic
         DistrictRepositoryInterface $district,
         UserRepositoryInterface $user,
         RoomOptionalPriceRepositoryInterface $op,
-        CouponRepositoryInterface $cp
+        CouponRepositoryInterface $cp,
+        ReferralRepositoryInterface $referral,
+        BookingRepositoryInterface $booking
     ) {
         $this->model          = $coupon;
         $this->room           = $room;
@@ -65,6 +71,8 @@ class CouponLogic extends BaseLogic
         $this->user           = $user;
         $this->op             = $op;
         $this->cp             = $cp;
+        $this->referral       = $referral;
+        $this->booking        = $booking;
     }
 
     /**
@@ -342,5 +350,86 @@ class CouponLogic extends BaseLogic
 
             throw new \Exception('Mã khuyến mãi đã hết số lần sử dụng');
         }
+    }
+       
+    /**
+     * Tạo coupon cho người dùng đăng ký bằng ref và người giới thiệu
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param $code
+     *
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function createReferralCoupon($user = null)
+    {
+        $bind_setting           = ["min_price", "users"];
+        $room_setting           = [];
+        $cities_setting         = [];
+        $districts_setting      = [];
+        $days_setting           = [];
+        $booking_type_setting   = Room::TYPE_ALL;
+        $booking_create_setting = [];
+        $booking_stay_setting   = [];
+        $merchants_setting      = [];
+        $days_of_week_setting   = [];
+        $room_type_setting      = [];
+        $discount               = 10;
+        $usable                 = 1;
+        $used                   = 0;
+        $status                 = 1;
+        $promotion_id           = null;
+
+        $now                    = Carbon::now()->timestamp;
+        $end_checkout           = Carbon::now()->startOfDay();
+        $start_checkout         = Carbon::now()->subDay();
+        $total_fee              = 1000000;
+        $start_date             = Carbon::now()->toDateString();
+        $end_date               = Carbon::now()->addMonths(3)->toDateString();
+
+        if ($user != null) {
+            $users_setting          = [$user['id']];
+            $listUser = [$user];
+        } else {
+            $list_ref_user              = $this->referral->getAllReferralUser();
+            $listUser    = $this->booking->getUserFirstBooking($listUser, $start_checkout, $end_checkout, $total_fee);
+        }
+
+        foreach ($listUser as $key => $value) {
+            $secret                 = env('APP_KEY') . $now;
+            $hashed                 = hash_hmac('sha256', $secret, $now);
+            $code                   = substr(strtoupper($hashed), 0, 8);
+            $settings = [
+                        "date_start"        => $start_date,
+                        "date_end"          => $end_date,
+                        "bind"              => $bind_setting,
+                        "rooms"             => $room_setting,
+                        "cities"            => $cities_setting,
+                        "districts"         => $districts_setting,
+                        "days"              => $days_setting,
+                        "booking_type"      => $booking_type_setting,
+                        "booking_create"    => $booking_create_setting,
+                        "booking_stay"      => $booking_stay_setting,
+                        "merchants"         => $merchants_setting,
+                        "users"             => $users_setting,
+                        "days_of_week"      => $days_of_week_setting,
+                        "room_type"         => $room_type_setting,
+                        "min_price"         => $total_fee
+                    ];
+       
+            $data = [
+                "code"          => $code,
+                "discount"      => $discount,
+                "max_discount"  => 100000,
+                "usable"        => $usable,
+                "used"          => $used,
+                "status"        => $status,
+                "settings"      => json_encode($settings),
+                "promotion_id"  => $promotion_id
+            ];
+
+            $data_coupon      = parent::store($data);
+        }
+        return $data_coupon;
     }
 }

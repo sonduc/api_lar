@@ -8,7 +8,6 @@
 
 namespace App\Listeners\SendMail;
 
-
 use App\Events\Reset_Password_Event;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -45,5 +44,4 @@ class ResetPasswordListener implements ShouldQueue
     {
         $this->email->sendMailResetPassword($event);
     }
-
 }

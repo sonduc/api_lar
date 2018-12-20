@@ -11,6 +11,7 @@ namespace App\Listeners\Logic;
 use App\Events\ConfirmBookingTime;
 use App\Repositories\Bookings\BookingRepository;
 use Illuminate\Contracts\Queue\ShouldQueue;
+
 class ConfirmBookingTimeListener implements ShouldQueue
 {
     protected $booking;
@@ -35,5 +36,4 @@ class ConfirmBookingTimeListener implements ShouldQueue
     {
         $this->booking->updatStatusBooking($event);
     }
-
 }

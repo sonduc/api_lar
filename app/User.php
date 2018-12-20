@@ -20,17 +20,25 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
     const ENABLE   = 1;
     const DISABLE  = 0;
-    const ADMIN    = 2;
-    const MERCHANT = 1;
-
+    
     // Định nghĩa loại tài khoản
-    const USER   = 0;
-    const MALE   = 1;
-    const FEMALE = 2;
+    const ADMIN     = 2;
+    const MERCHANT  = 1;
+    const USER      = 0;
+
+    const TYPE_ACCOUNT = [
+        self::ADMIN    => 'Quản trị hệ  thống',
+        self::MERCHANT => 'Đối tác cung cấp',
+        self::USER     => 'Người sử dụng',
+    ];
+
 
     // Định nghĩa giới tính
+    const MALE   = 1;
+    const FEMALE = 2;
     const OTHER  = 3;
     const NONE   = 0;
+
     const SEX    = [
         self::MALE   => 'Nam',
         self::FEMALE => 'Nữ',
@@ -39,17 +47,17 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     ];
 
     // Định nghĩa kiểu tạo tài khoản.
-    const SYSTEM = 1;
-    const BOOKING = 2;
+    const SYSTEM    = 1;
+    const BOOKING   = 2;
     const TYPE_CREATE   = [
         self::SYSTEM  => 'Trực tiếp từ hệ thống',
         self::BOOKING => 'Tạo tự động qua booking',
     ];
 
 
-    const BROZE  = 0;
-    const SILVER = 1;
     // Định nghĩa cấp độ
+    const BROZE        = 0;
+    const SILVER       = 1;
     const GOLD         = 2;
     const PLATINUM     = 3;
     const DIAMOND      = 4;
@@ -60,15 +68,10 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::PLATINUM => 'Bạch Kim',
         self::DIAMOND  => 'Kim Cương',
     ];
-    const VIP_ACTIVE   = 1;
-    const VIP_DEACTIVE = 0;
 
     // Định nghĩa VIP
-    const TYPE_ACCOUNT = [
-        self::ADMIN    => 'Quản trị hệ  thống',
-        self::MERCHANT => 'Đối tác cung cấp',
-        self::USER     => 'Người sử dụng',
-    ];
+    const VIP_ACTIVE   = 1;
+    const VIP_DEACTIVE = 0;
 
     // Khoảng tuổi
     const AGE_RANGE = [
@@ -131,6 +134,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'token',
         'subcribe',
         'settings',
+        'ref_code',
         'type_create',
         'updated_at'
     ];

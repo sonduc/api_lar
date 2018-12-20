@@ -18,6 +18,7 @@ class Kernel extends ConsoleKernel
             'App\Console\Commands\BookingUpdateStatus',
             'App\Console\Commands\BookingReviews',
             'App\Console\Commands\AirbnbCalendar',
+            'App\Console\Commands\CreateReferralCoupon',
         ];
 
     /**

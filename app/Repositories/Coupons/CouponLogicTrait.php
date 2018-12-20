@@ -35,17 +35,23 @@ trait CouponLogicTrait
         if ($coupon) {
             $data_allDay  = $coupon->all_day;
             $data_status  = $coupon->status;
-            $start_date   = Carbon::parse($coupon->Promotions->date_start);
-            $end_date     = Carbon::parse($coupon->Promotions->date_end);
+            $data_settings  = json_decode($coupon->settings);
             $current_date = Carbon::now();
+            if ($coupon->Promotions !== null) {
+                $start_date   = Carbon::parse($coupon->Promotions->date_start);
+                $end_date     = Carbon::parse($coupon->Promotions->date_end);
+            } else {
+                $start_date     = Carbon::parse($data_settings->date_start);
+                $end_date       = Carbon::parse($data_settings->date_end);
+            }
             if ($data_status == Coupon::AVAILABLE && $start_date <= $current_date && $end_date >= $current_date) {
                 if ($data_allDay == Coupon::AVAILABLE) {
                     return $this->calculateDiscount($coupon, $data);
                 }
-                $data_settings = json_decode($coupon->settings);
                 $discount      = $this->couponSettingsValidate($data_settings, $data, $coupon);
                 return $discount;
             }
+            
             throw new \Exception(trans2(CouponMessage::ERR_OUTDATED_COUPON));
         }
 
@@ -127,6 +133,9 @@ trait CouponLogicTrait
             $this->checkBindingProp('min_price', $data_settings);
         }
 
+        if ($data_settings->users && \Auth::user()->id && in_array(\Auth::user()->id, $data_settings->users)) {
+            $this->checkBindingProp('users', $data_settings);
+        }
 
         if ($data_settings->booking_stay) {
             $checkin  = array_key_exists('checkin', $data) ? Carbon::parse($data['checkin'])->startOfDay() : null;
@@ -225,7 +234,9 @@ trait CouponLogicTrait
     {
         $status = in_array($bindingField, $data_settings->bind);
 
-        if ($status) $this->flag_bind++;
+        if ($status) {
+            $this->flag_bind++;
+        }
         $this->flag++;
 
         return $status;

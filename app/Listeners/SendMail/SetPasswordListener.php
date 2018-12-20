@@ -8,7 +8,6 @@
 
 namespace App\Listeners\SendMail;
 
-
 use App\Events\Customer_Register_TypeBooking_Event;
 use App\Services\Email\SendEmail;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -31,8 +30,5 @@ class SetPasswordListener implements ShouldQueue
     public function handle(Customer_Register_TypeBooking_Event $event)
     {
         $this->email->setPassword($event);
-
     }
-
-
 }

@@ -20,7 +20,6 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     }
 
 
-
     /**
      * Lấy tất cả phòng trừ các phòng có ID trong danh sách
      * @author HarikiRito <nxh0809@gmail.com>
