@@ -24,6 +24,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
+use App\Events\CreateBookingTransactionEvent;
 
 class BookingController extends ApiController
 {
@@ -251,6 +252,7 @@ class BookingController extends ApiController
             DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
             // event(new BookingEvent($data));
+            event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             // return $this->successResponse($data);
@@ -328,9 +330,13 @@ class BookingController extends ApiController
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
-            logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
+            
+            $dataBooking = $this->model->getById($id);
             // dd(DB::getQueryLog());
             DB::commit();
+            event(new CreateBookingTransactionEvent($dataBooking));
+            logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
+
             return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -509,7 +515,7 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    dd($baokim_url);
+                    // dd($baokim_url);
                     return redirect($baokim_url);
                 }
             }

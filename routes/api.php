@@ -88,6 +88,11 @@ $router->group([
     resource('/comforts', 'ComfortController', $router);
 
     /**
+     * Transaction Resource
+     */
+    resource('/transactions', 'TransactionController', $router);
+
+    /**
      * Booking Resource
      */
     $router->get('/bookings/booking-status-list', 'BookingController@bookingStatusList');
