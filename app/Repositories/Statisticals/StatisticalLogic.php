@@ -82,7 +82,7 @@ class StatisticalLogic extends BaseLogic
     }
 
     /**
-     * Thống kê doanh thu của booking theo ngày / theo giờ
+     * Thống kê doanh thu của booking theo trạng thái checkout
      * @param  [type] $data [description]
      * @return [type]       [description]
      */

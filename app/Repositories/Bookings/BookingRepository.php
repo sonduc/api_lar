@@ -248,7 +248,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * Xử lí dữ liệu ngày, tháng, năm để thống kê booking
+     * Xử lí dữ liệu ngày, tháng, năm để thống kê booking theo trường create_at
      * @param  [type] $view [description]
      * @return [type]       [description]
      */
@@ -270,6 +270,31 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
         return $selectRawView;
     }
+
+    /**
+     * Xử lí dữ liệu ngày, tháng, năm để thống kê booking theo trường checkout
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public function switchViewBookingCheckout($view)
+    {
+        switch ($view) {
+            case 'day':
+                $selectRawView = "cast(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d') AS DATE) AS checkout_day";
+                break;
+            case 'month':
+                $selectRawView = "DATE_FORMAT(DATE_ADD(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'),INTERVAL (1 - DAYOFMONTH(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'))) DAY),'%m-%Y') AS checkout_day";
+                break;
+            case 'year':
+                $selectRawView = "DATE_FORMAT(DATE_ADD(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'),INTERVAL (1 - DAYOFMONTH(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'))) DAY),'%Y') AS checkout_day";
+                break;
+            default:
+                $selectRawView = "CONCAT(CAST(DATE_ADD(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'),INTERVAL (1 - DAYOFWEEK(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'))) DAY) AS DATE),' - ',CAST(DATE_ADD(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'),INTERVAL (7 - DAYOFWEEK(DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d'))) DAY) AS DATE)) AS checkout_day";
+                break;
+        }
+        return $selectRawView;
+    }
+
     /**
      * đếm booking theo trạng thái
      * @author sonduc <ndson1998@gmail.com>
@@ -520,29 +545,106 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking
+     * thống kê doanh thu
+     */
+    public function statisticalRevenue($date_start, $date_end, $view, $query = [])
+    {
+        if (isset($query['generalSelect']) && $query['generalSelect'] != '' && $query['generalSelect'] != null) {
+            $bookings = $this->model->select(DB::raw($query['generalSelect']));
+        } else {
+            $bookings = $this->model;
+        }
+
+        if (isset($query['revenueGroupBy']) && $query['revenueGroupBy'] != '' && $query['revenueGroupBy'] != null) {
+            $revenueGroupBy = $query['revenueGroupBy'];
+        } else {
+            $revenueGroupBy = 'checkout_day';
+        }
+        $selectRawView = $this->switchViewBookingCheckout($view);
+        $bookings      = $bookings
+            ->select(
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' and bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as revenue'),
+                DB::raw($selectRawView)
+            );
+
+        if (isset($query['generalJoin']) && $query['generalJoin'] != null) {
+            foreach ($query['generalJoin'] as $key => $value) {
+                $bookings = $bookings->join($key, $value['relasionship_table_id'], $value['condition'], $value['table_id']);
+            }
+        }
+        $bookings      = $bookings
+            ->whereRaw("DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d') >= '2018-07-12'")
+            ->whereRaw("DATE_FORMAT(FROM_UNIXTIME(bookings.checkout), '%Y-%m-%d') <= '2018-08-12'")
+            ->groupBy(DB::raw($revenueGroupBy))
+            ->get();
+        return $bookings;
+    }
+
+    /**
+     * thốnh kê tổng tiền về
+     */
+    public function statisticalTotalRevenue($date_start, $date_end, $view, $query = [])
+    {
+        if (isset($query['generalSelect']) && $query['generalSelect'] != '' && $query['generalSelect'] != null) {
+            $bookings = $this->model->select(DB::raw($query['generalSelect']));
+        } else {
+            $bookings = $this->model;
+        }
+
+        if (isset($query['totalRevenueGroupBy']) && $query['totalRevenueGroupBy'] != '' && $query['totalRevenueGroupBy'] != null) {
+            $totalRevenueGroupBy = $query['totalRevenueGroupBy'];
+        } else {
+            $totalRevenueGroupBy = 'createdAt';
+        }
+
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+        $bookings      = $bookings
+            ->select(
+                DB::raw('sum(case when bookings.payment_status = ' . BookingConstant::PAID . ' then bookings.total_fee else 0 end) as total_revenue'),
+                DB::raw($selectRawView)
+            );
+
+        if (isset($query['generalJoin']) && $query['generalJoin'] != null) {
+            foreach ($query['generalJoin'] as $key => $value) {
+                $bookings = $bookings->join($key, $value['relasionship_table_id'], $value['condition'], $value['table_id']);
+            }
+        }
+        $bookings      = $bookings
+            ->where([
+                ['bookings.created_at', '>=', '2018-07-12'],
+                ['bookings.created_at', '<=', '2018-08-12'],
+            ])
+            ->groupBy(DB::raw($totalRevenueGroupBy))
+            ->get();
+        return $bookings;
+    }
+
+    /**
+     * tính tổng tiền của booking theo trạng thái thanh toán và trạng thái booking(checkout)
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
     public function totalBookingByRevenue($date_start, $date_end, $view)
-    {
-        $selectRawView = $this->switchViewBookingCreatedAt($view);
+    {   
+        $query = [];
+        // $query['generalSelect']       = 'rooms.is_manager as manager';
+        // $query['generalJoin']         = [
+        //     'rooms'        => [
+        //         'relasionship_table_id' => 'rooms.id',
+        //         'condition'             => '=',
+        //         'table_id'              => 'bookings.room_id'
+        //     ]
+        // ];
+        // $query['revenueGroupBy']      = 'createdAt,rooms.is_manager';
+        // $query['totalRevenueGroupBy'] = 'checkout_day,rooms.is_manager';
+        $statisticalRevenue           = $this->statisticalRevenue($date_start, $date_end, $view, $query);
+        $statisticalTotalRevenue      = $this->statisticalTotalRevenue($date_start, $date_end, $view, $query);
+        
+        $a1 = $statisticalRevenue->toArray();
+        $a2 = $statisticalTotalRevenue->toArray();
 
-        $bookings = $this->model
-            ->select(
-                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' and `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as revenue'),
-                DB::raw('sum(case when `payment_status` = ' . BookingConstant::PAID . ' then total_fee else 0 end) as total_revenue'),
-                DB::raw($selectRawView)
-            )
-            ->where([
-                ['bookings.created_at', '>=', $date_start],
-                ['bookings.created_at', '<=', $date_end],
-            ])
-            ->groupBy(DB::raw('createdAt'))
-            ->get();
-
-        return $bookings;
+        dd($a1,$a2);
     }
 
     /**
@@ -975,13 +1077,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     {
         // dd('asdf');
         return $this->model->select('customer_id')->whereIn('bookings.customer_id', $list_id)
-        ->where(
-            [
-            ['checkout', '<=', $end_checkout],
-            ['checkout', '>=', $start_checkout],
-            ['status','=', BookingConstant::BOOKING_COMPLETE],
-            ['payment_status','=',BookingConstant::PAID],
-            ['total_fee', '>=', $total_fee]]
-        )->get();
+            ->where(
+                [
+                    ['checkout', '<=', $end_checkout],
+                    ['checkout', '>=', $start_checkout],
+                    ['status', '=', BookingConstant::BOOKING_COMPLETE],
+                    ['payment_status', '=', BookingConstant::PAID],
+                    ['total_fee', '>=', $total_fee]]
+            )->get();
     }
 }
