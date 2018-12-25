@@ -15,7 +15,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function __construct(
         Room $room
-    ) {
+    )
+    {
         $this->model = $room;
     }
 
@@ -33,7 +34,9 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getAllRoomExceptListId(array $list, $params, $size)
     {
+        $alias = $this->model->transformerAlias();
         $this->useScope($params, ['check_in', 'check_out']);
+        $this->eagerLoadWithTransformer($params, $alias);
         return $this->model
             ->whereNotIn('rooms.id', $list)
             ->where('rooms.status', Room::AVAILABLE)
@@ -57,6 +60,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $refund
+     *
      * @return false|string
      * @throws \Exception
      */
@@ -64,9 +68,9 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data['settings']) || !isset($data['settings'])) {
-            $refund = [['days' => 14, 'amount' => 100 ]];
+            $refund = [['days' => 14, 'amount' => 100]];
             $refund = [
-                'refunds'            => $refund,
+                'refunds'           => $refund,
                 'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
             ];
             return json_encode($refund);
@@ -88,7 +92,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         $refunds = [
-            'refunds'            => $refund,
+            'refunds'           => $refund,
             'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
         ];
 
@@ -99,7 +103,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         $sort           = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
-        $room = $this->model
+        $room           = $this->model
             ->where('longitude', '>=', floatval($params["long_min"]))
             ->where('longitude', '<=', floatval($params["long_max"]))
             ->where('latitude', '>=', floatval($params["lat_min"]))
@@ -147,9 +151,9 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         $rooms->orderBy('is_manager', 'desc')
-            ->orderBy('avg_avg_rating', 'desc')
-            ->orderBy('total_review', 'desc')
-            ->orderBy('total_recommend', 'desc');
+              ->orderBy('avg_avg_rating', 'desc')
+              ->orderBy('total_review', 'desc')
+              ->orderBy('total_recommend', 'desc');
 
         if ($size == -1) {
             return $rooms->get();
@@ -163,6 +167,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $airbnb_calendar = $this->model::whereIn('id', $list_id)->pluck('airbnb_calendar', 'id');
         return $airbnb_calendar;
     }
+
     public function getRoomById($id, $params, $size)
     {
         $this->useScope($params);
@@ -177,19 +182,20 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return float
      */
 
     public function calculation_percent($data)
     {
         // Tính số phần trăm hoàn thành
-        $data = array_only($data, ['weekday_price','room_time_blocks','optional_prices', 'basic','details','comforts', 'images', 'prices','settings']);
-        $except = ['weekday_price','room_time_blocks','optional_prices'];
-        empty($data['comforts']) ? array_push($except, 'comforts') : null ;
-        empty($data['images']) ? array_push($except, 'images') : null ;
+        $data   = array_only($data, ['weekday_price', 'room_time_blocks', 'optional_prices', 'basic', 'details', 'comforts', 'images', 'prices', 'settings']);
+        $except = ['weekday_price', 'room_time_blocks', 'optional_prices'];
+        empty($data['comforts']) ? array_push($except, 'comforts') : null;
+        empty($data['images']) ? array_push($except, 'images') : null;
 
-        $count = array_except($data, $except);
-        $percent         = count($count)/Room::FINISHED *100;
+        $count   = array_except($data, $except);
+        $percent = count($count) / Room::FINISHED * 100;
         return round($percent);
     }
 }

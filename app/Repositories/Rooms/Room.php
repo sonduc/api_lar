@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
+
     // Quản lý loại phòng
     // Phòng tự quản lý
     const MANAGER_ACTIVE   = 1;
     const MANAGER_DEACTIVE = 0;
-    
+
     const ROOM_MANAGER = [
         self::MANAGER_ACTIVE   => 'Tự quản lý',
         self::MANAGER_DEACTIVE => 'Không quản lý',
     ];
-    
+
     // Giờ Checkin , checkout mặc định
-    const CHECKIN   = "14:00";
-    const CHECKOUT  = "12:00";
-    
+    const CHECKIN  = "14:00";
+    const CHECKOUT = "12:00";
+
     // Định nghĩa phòng theo thời gian
     const TYPE_HOUR = 1; // Theo giờ
     const TYPE_DAY  = 2; // Theo ngày
@@ -36,13 +36,13 @@ class Room extends Entity
     const SETUP_SERVICES = 4;
 
     // Kiểu phòng
-    const PRIVATE_HOUSE  = 1;
-    const APARTMENT      = 2;
-    const VILLA          = 3;
-    const PRIVATE_ROOM = 4;
-    const HOTEL        = 5;
+    const PRIVATE_HOUSE = 1;
+    const APARTMENT     = 2;
+    const VILLA         = 3;
+    const PRIVATE_ROOM  = 4;
+    const HOTEL         = 5;
 
-    const ROOM_TYPE    = [
+    const ROOM_TYPE = [
         self::PRIVATE_HOUSE => 'Nhà riêng',
         self::APARTMENT     => 'Căn hộ/ Chung cư',
         self::VILLA         => 'Biệt thự',
@@ -57,7 +57,7 @@ class Room extends Entity
         self::CLEANED        => 'Dọn dẹp phòng',
         self::SETUP_SERVICES => 'Thiết lập dịch vụ',
     ];
-    
+
     const ROOM_RENT_TYPE = [
         self::TYPE_HOUR => 'Theo giờ',
         self::TYPE_DAY  => 'Theo ngày',
@@ -65,13 +65,13 @@ class Room extends Entity
     ];
 
     // AVG Rating
-    const DISAPPOINTED      = 'Không hài lòng';
-    const NOT_GOOD          = 'Không được như mong muốn';
-    const NORMAL            = 'Khá ổn';
-    const GOOD              = 'Tốt';
-    const EXCELLENT         = 'Rất tuyệt vời';
-    const NULL_REVIEW       = 'Chưa có đánh giá';
-    const FINISHED          = 6;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
+    const DISAPPOINTED = 'Không hài lòng';
+    const NOT_GOOD     = 'Không được như mong muốn';
+    const NORMAL       = 'Khá ổn';
+    const GOOD         = 'Tốt';
+    const EXCELLENT    = 'Rất tuyệt vời';
+    const NULL_REVIEW  = 'Chưa có đánh giá';
+    const FINISHED     = 6;  // Đây là mốc tiêu chí phải hoàn thành chủa chủ host
 
 
     /**
@@ -121,7 +121,7 @@ class Room extends Entity
         'total_recommend',
         'airbnb_calendar',
         'settings',
-        'percent'
+        'percent',
     ];
     /**
      * The attributes that should be mutated to dates.
@@ -136,18 +136,28 @@ class Room extends Entity
     protected $casts = ['permissions' => 'array'];
 
     /**
+     * Transformer alias for eager loading
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return array
+     */
+    public function transformerAlias()
+    {
+        return [
+            'details' => 'roomTrans',
+        ];
+    }
+
+    /**
      *
      * @author HarikiRito <nxh0809@gmail.com>
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function roomTrans($lang = null)
+    public function roomTrans()
     {
-        $eq = $this->hasMany(RoomTranslate::class);
-        if ($lang) {
-            $eq = $eq->where('lang', $lang);
-        }
-        return $eq;
+        $locale = getLocale();
+        return $this->hasMany(RoomTranslate::class)->where('room_translates.lang', $locale);
     }
 
     /**

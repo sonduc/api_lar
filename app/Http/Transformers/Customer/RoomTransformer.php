@@ -62,9 +62,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $room->media());
-
-        return $this->collection($data, new RoomMediaTransformer);
+        return $this->collection($room->media, new RoomMediaTransformer);
     }
 
     /**
@@ -81,10 +79,8 @@ class RoomTransformer extends TransformerAbstract
         if (is_null($room)) {
             return $this->null();
         }
-        $lang = getLocale();
-        $data = $this->pagination($params, $room->roomTrans($lang));
 
-        return $this->collection($data, new RoomTranslateTransformer);
+        return $this->collection($room->roomTrans, new RoomTranslateTransformer);
     }
 
     /**
@@ -102,9 +98,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $room->comforts());
-
-        return $this->collection($data, new ComfortTransformer);
+        return $this->collection($room->comforts, new ComfortTransformer);
     }
 
     /**
@@ -176,9 +170,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $room->reviews());
-
-        return $this->collection($data, new RoomReviewTransformer);
+        return $this->collection($room->reviews, new RoomReviewTransformer);
     }
 
     /**
@@ -196,9 +188,7 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $room->prices());
-
-        return $this->collection($data, new RoomOptionalPriceTransformer);
+        return $this->collection($room->prices, new RoomOptionalPriceTransformer);
     }
 
     public function includePlaces(Room $room = null, ParamBag $params = null)
@@ -207,8 +197,6 @@ class RoomTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $room->places());
-
-        return $this->collection($data, new PlaceTransformer);
+        return $this->collection($room->places, new PlaceTransformer);
     }
 }
