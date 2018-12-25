@@ -250,10 +250,9 @@ class BookingController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
-            // event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
-            // return $this->successResponse($data);
+           // return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

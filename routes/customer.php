@@ -62,10 +62,11 @@ $router->post('/payment/{uuid}', 'BookingController@payment');
  */
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
-$router->put('register/email-confirm', 'RegisterController@confirm');
+$router->put('register/email-confirm/{uuid}', 'RegisterController@confirm');
 $router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->get('set-password/{time}', 'ResetPasswordController@getFormResetPassword');
 $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
-$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
+
 //// Social login
 //$router->get('login/{social}', 'SocialAuthController@social');
 

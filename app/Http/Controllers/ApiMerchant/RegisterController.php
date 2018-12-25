@@ -141,16 +141,15 @@ class RegisterController extends ApiController
      * @throws \Throwable
      */
 
-    public function confirm(Request $request)
+    public function confirm(Request $request,$uuid)
     {
         DB::beginTransaction();
         try {
-            $data = array_only($request->all(), 'uuid');
-            $user = $this->user->checkUser($data);
+            $user = $this->user->checkUser($uuid);
 
             $data = $this->user->updateStatus($user);
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse(['data' => 'Tài khoản của bạn đã được kích hoạt'],false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

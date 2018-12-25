@@ -49,7 +49,6 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     public function update($id, $data, $except = [], $only = [])
     {
         $user = parent::update($id, $data);
-
         $roles = array_get($data, 'roles', []);
         $user->roles()->detach();
         $user->roles()->attach($roles);
@@ -223,9 +222,9 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *
      * @return mixed
      */
-    public function checkUser($data)
+    public function checkUser($uuid)
     {
-         $user = $this->model->where('uuid', $data['uuid'])->first();
+         $user = $this->model->where('uuid', $uuid)->first();
          if (empty($user)) throw  new \Exception('Đường dẫn không tồn tại');
 
          if (!empty($user) & $user->status == User::ENABLE) throw new \Exception('Tài khoản đã được kích hoạt');
@@ -249,22 +248,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return parent::update($user->id,  $data);
     }
 
-    /**
-     * Lấy thông tin user thông qua uuid or token ;
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $uuid
-     *
-     * @return mixed
-     */
 
-    public function getUserByUuidOrToken($data = [])
-    {
-        $uuid  = array_key_exists('uuid', $data) ? $data['uuid'] : 'không xác định';
-        $token = array_key_exists('token', $data) ? $data['token'] : 'không xác định';
-        $data  = $this->model->where('uuid', $uuid)->orWhere('token', $token)->first();
-        return $data;
-    }
 
     public function getUserOwner($params)
     {
@@ -316,12 +300,15 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *
      * @return \App\Repositories\Eloquent|mixed
      */
-    public function resetPasswordCustomer($data)
+    public function resetPasswordCustomer($user, $data)
     {
-        $user = $this->getUserByUuidOrToken($data);
+        $data['password']                = $data['password'];
+        $data['token']                   = Hash::make(str_random(60));
+        $data['status']                  = User::ENABLE;
 
-        $data['token']  = Hash::make(str_random(60));
-        $data['status'] = User::ENABLE;
+        // Câp nhât lại trạng thái gửi gửi mail của user.
+        $data['limit_send_mail']         = User::NO_LIMIT_SEND_MAIL;
+        $data['count_send_mail']         = 0;
         return parent::update($user->id, $data);
     }
 
@@ -336,10 +323,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     public function checkValidToken($data)
     {
-        $user = $this->getUserByUuidOrToken($data);
+        $user  = $this->model->where('token', $data['token'])->first();
         if (empty($user)) {
             throw new \Exception('Đường dẫn không tồn tại');
         }
+        return $user;
     }
 
 
@@ -351,15 +339,21 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      *
      * @throws \Exception
      */
-    public function checkTime($code)
+    public function checkTime($user, $code,$data = [])
     {
         $timeNow    = Carbon::now();
         $timeSubmit = base64_decode($code);
         $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
         $minutes    = $timeNow->diffInMinutes($timeSubmit);
-        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy
+        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy đồng thời Câp nhât lại trạng thái gửi gửi mail của user.
         if ($minutes > 1440) {
-            throw new \Exception('Đường dẫn không tồn tại ');
+            $data['limit_send_mail'] = User::NO_LIMIT_SEND_MAIL;
+            $data['count_send_mail'] =  0;
+            parent::update($user->id, $data);
+            if (!empty($user))
+            {
+                throw new \Exception('Đường dẫn không tồn tại ');
+            }
         }
     }
 

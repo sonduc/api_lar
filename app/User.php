@@ -9,6 +9,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Hash;
 use Laravel\Lumen\Auth\Authorizable;
 use Laravel\Passport\HasApiTokens;
 
@@ -20,7 +21,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
     const ENABLE   = 1;
     const DISABLE  = 0;
-    
+
     // Định nghĩa loại tài khoản
     const ADMIN     = 2;
     const MERCHANT  = 1;
@@ -97,6 +98,12 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::IS_OWNER  => 'Người quản lý',
         self::NOT_OWNER => 'Bình thường',
     ];
+
+    const LIMIT_SEND_MAIL        = 1;  // Sẽ bị hạn chế không gửi mail.
+    const NO_LIMIT_SEND_MAIL     = 2;  // Không bị hạn chế khi gửi mail.
+    const MAX_COUNT_SEND_MAIL    = 5 ; // Số lượng tối đa khi gửi mail;
+
+
     /**
      * The attributes that are mass assignable.
      *
@@ -136,7 +143,10 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'settings',
         'ref_code',
         'type_create',
-        'updated_at'
+        'updated_at',
+        'limit_send_mail',
+        'count_send_mail',
+
     ];
     /**
      * The attributes excluded from the model's JSON form.
@@ -151,6 +161,11 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
         self::created(function ($model) {
             $model->uuid = hashid_encode($model->id);
+            $model->save();
+        });
+
+        self::created(function ($model) {
+            $model->token = Hash::make(str_random(60));
             $model->save();
         });
     }

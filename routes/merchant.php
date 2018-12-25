@@ -54,7 +54,7 @@ $router->group([
     /**
      * Room Resource
      */
-    
+
     $router->get('/rooms/type', 'RoomController@getRoomType');
     $router->get('/rooms/get-name', 'RoomController@getRoomName');
     $router->get('/rooms/media-type', 'RoomController@roomMediaType');
@@ -71,10 +71,10 @@ $router->group([
  */
 $router->post('login', 'LoginController@login');
 $router->post('register', 'RegisterController@register');
-$router->put('register/email-confirm', 'RegisterController@confirm');
+$router->put('register/email-confirm/{uuid}', 'RegisterController@confirm');
 $router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
+$router->get('set-password/{time}', 'ResetPasswordController@getFormResetPassword');
 $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
-$router->post('set-password/{time}', 'ResetPasswordController@resetPassword');
 
 resource('/test', 'TestController', $router);
 

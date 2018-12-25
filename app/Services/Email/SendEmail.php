@@ -3,11 +3,10 @@
 namespace App\Services\Email;
 
 use App\Jobs\Traits\DispatchesJobs;
-use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
-use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 
 class SendEmail
