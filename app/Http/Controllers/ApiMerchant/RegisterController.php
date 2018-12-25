@@ -57,22 +57,26 @@ class RegisterController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $user = $this->user->checkEmailOrPhone($request->all());
 //             dd(DB::getQueryLog());
-            // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
+            // Nếu đã tồn tại user này trên hệ thống với kiểu tao theo tự động theo booking
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
-            if (!empty($user)) {
-                $timeNow = Carbon::now();
-                $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
-                if ($minutes < 1440) {
-                    return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+            if (!empty($user) )
+            {
+
+                if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
+                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL ){
+                        return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
+                    }
                 }
-
                 event(new Customer_Register_TypeBooking_Event($user));
-                $data['updated_at'] = Carbon::now();
+                $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
+                $data['count_send_mail'] =  $user['count_send_mail'] +1;
                 $this->user->update($user->id, $data);
-
-
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+
+            }else
+            {
+                throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
 
             $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
@@ -80,11 +84,34 @@ class RegisterController extends ApiController
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email', 'password');
-            $params['type']   = User::MERCHANT;
-            $username         = $params['email'];
-            $password         = $params['password'];
+
+            if ($request->get('ref') !== null) {
+                if (!$this->user->isValidReferenceID($request->get('ref'))) {
+                    $params['ref_code'] = null;
+                } else {
+                    $params['ref_code'] = $request->get('ref');
+                    $user_id = $this->user->getIDbyUUID($request->get('ref'));
+                }
+            }
+
+            // dd($user_id);
+            $username           = $params['email'];
+            $password           = $params['password'];
             // Create new user
+            // dd($params);
             $newClient = $this->getResource()->store($params);
+
+            if ($newClient && isset($params['ref_code'])) {
+                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id);
+                $coupon         = $this->coupon->createReferralCoupon($newClient);
+                // dd($coupon);
+                if ($coupon) {
+                    $user_ref = $this->user->getById($newClient->id);
+                    $coupon   = $this->coupon->getById($coupon->id);
+                    $sendCouponRegister = (new SendCouponRegisterUser($newClient, $coupon))->delay(Carbon::now()->addHours(24));
+                    dispatch($sendCouponRegister);
+                }
+            }
 
             // Issue token
             $guzzle  = new Guzzle;

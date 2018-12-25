@@ -41,20 +41,21 @@ class ResetPasswordController extends  ApiController
     }
     public function resetPassword(Request $request, $time)
     {
-        DB::beginTransaction();
         try {
             // Kiểm tra token có trùng với token trong database user không
             $data= $request->only('token','password');
             $user = $this->user->checkValidToken($data);
             // Kiểm tra sự tồn tại của đường link
-             $this->user->checkTime($time);
+            $this->user->checkTime($user,$time);
+
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->user->resetPasswordCustomer($user, $data);
             logs('user', 'Khôi phục mật khẩu ' . $data->email , $data);
-            DB::commit();
+
             return $this->successResponse(['data' => ['message' => 'Thành công !!! Cám ơn bạn đã sử dụng dịch vụ của WESTAY']], false);
+
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
