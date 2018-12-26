@@ -52,6 +52,9 @@ class ForgetPasswordController extends ApiController
             $user = $this->user->getUserByEmailOrPhone($request->all());
             if (!empty($user) )
             {
+                // Nếu đã trang thái hạn chế gửi mail tồn tại (=1)thì gửi cho user tối đa 5 maijl khi đường đãn còn toonff tại
+                //Nếu vượt quá 5 mail thì chỉ đua ra thông báo // cho user kiểm tra lại hòm mail
+
                 if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
 
                     if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL ){
@@ -64,6 +67,7 @@ class ForgetPasswordController extends ApiController
                     $this->user->update($user->id, $data);
                     return $this->successResponse(['data' => ['message' => 'Đường dẫn đổi mật khẩu đã được gửi đến'.$request->email]], false);
                 }
+                // Nêu chưa tồn tại trạng thái hạn chế gửi mail(=null) thì gửi mail cho user và cập nhập chơ hạn chế gửi mail cho user này
                 event(new Reset_Password_Event($user));
                 $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;

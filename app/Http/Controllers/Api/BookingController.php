@@ -225,7 +225,7 @@ class BookingController extends ApiController
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             event(new Check_Usable_Coupon_Event($data['coupon']));
 
-            
+
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();
@@ -239,6 +239,7 @@ class BookingController extends ApiController
                 'exception' => $validationException->getMessage(),
             ]);
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
             if ($e instanceof InvalidDateException) {
                 return $this->errorResponse([

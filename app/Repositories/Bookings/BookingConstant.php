@@ -12,6 +12,9 @@ final class BookingConstant
 
     // Khoảng thời gian trống  các lần book
     const MINUTE_BETWEEN_BOOK = 60;
+
+    // Khoảng thời gian trống  các lần book theo giờ.
+    const MINUTE_BETWEEN_BOOK_TYPE_HOUR = 30;
     // Trạng thái booking:
     const ACTIVE   = 1;
     const INACTIVE = 0;
