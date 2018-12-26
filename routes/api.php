@@ -188,6 +188,13 @@ $router->group([
     $router->get('/statisticals/booking-sex', 'StatisticalController@bookingBySexStatistical');
     $router->get('/statisticals/booking-price-range', 'StatisticalController@bookingByPriceRangeStatistical');
     $router->get('/statisticals/booking-age-range', 'StatisticalController@bookingByAgeRangeStatistical');
+    $router->get('/statisticals/booking-source', 'StatisticalController@bookingBySourceStatistical');
+    $router->get('/statisticals/booking-type-revenue', 'StatisticalController@bookingByTypeRevenueStatistical');
+    $router->get('/statisticals/booking-cancel', 'StatisticalController@bookingByCancelStatistical');
+    $router->get('/statisticals/room-type', 'StatisticalController@roomByTypeStatistical');
+    $router->get('/statisticals/room-district', 'StatisticalController@roomByDistrictStatistical');
+    $router->get('/statisticals/room-top-booking', 'StatisticalController@roomByTopBookingStatistical');
+    $router->get('/statisticals/room-type-top-booking', 'StatisticalController@roomByTypeTopBookingStatistical');
 });
 
 $router->post('login', 'LoginController@login');
