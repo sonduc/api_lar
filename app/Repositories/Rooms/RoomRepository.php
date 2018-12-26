@@ -194,4 +194,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $percent = count($count) / Room::FINISHED * 100;
         return round($percent);
     }
+
+    public function updateCommission($data)
+    {
+        return $this->model->where('status',Room::AVAILABLE)->update($data);
+
+    }
 }

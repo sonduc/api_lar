@@ -8,21 +8,21 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Room extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
-    
+
     // Quản lý loại phòng
     // Phòng tự quản lý
     const MANAGER_ACTIVE   = 1;
     const MANAGER_DEACTIVE = 0;
-    
+
     const ROOM_MANAGER = [
         self::MANAGER_ACTIVE   => 'Tự quản lý',
         self::MANAGER_DEACTIVE => 'Không quản lý',
     ];
-    
+
     // Giờ Checkin , checkout mặc định
     const CHECKIN   = "14:00";
     const CHECKOUT  = "12:00";
-    
+
     // Định nghĩa phòng theo thời gian
     const TYPE_HOUR = 1; // Theo giờ
     const TYPE_DAY  = 2; // Theo ngày
@@ -57,7 +57,7 @@ class Room extends Entity
         self::CLEANED        => 'Dọn dẹp phòng',
         self::SETUP_SERVICES => 'Thiết lập dịch vụ',
     ];
-    
+
     const ROOM_RENT_TYPE = [
         self::TYPE_HOUR => 'Theo giờ',
         self::TYPE_DAY  => 'Theo ngày',
@@ -121,7 +121,9 @@ class Room extends Entity
         'total_recommend',
         'airbnb_calendar',
         'settings',
-        'percent'
+        'percent',
+        'commission'
+
     ];
     /**
      * The attributes that should be mutated to dates.
