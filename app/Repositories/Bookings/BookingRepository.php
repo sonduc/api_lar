@@ -409,7 +409,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $bookings = $this->model
             ->select(
                 DB::raw('districts. NAME as name_district'),
-                DB::raw('count(districts.name) as total_booking'),
+                DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
                 DB::raw($selectRawView)
@@ -860,7 +860,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ];
             } else {
                 $bookings[] = [
-                    'manager'       => $value['manager'],
+                    'room_type'     => $value['room_type'],
                     'revenue'       => 0,
                     'total_revenue' => $value['total_revenue'],
                     'date'          => $value['date'],
@@ -1441,6 +1441,195 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
         return $convertBooking;
     }
+
+    /**
+     * Thống kê doanh thu của 1 khách hàng
+     */
+    public function totalBookingByOneCustomerRevenue($customer_id,$date_start, $date_end, $view)
+    {
+        $query['generalSelect']       = 'users.name as user_name,bookings.type as type';
+        $query['generalWhereRaw']     = 'users.id = '.$customer_id.'';
+        $query['generalJoin']         = [
+            'users' => [
+                'relasionship_table_id' => 'users.id',
+                'condition'             => '=',
+                'table_id'              => 'bookings.customer_id',
+            ],
+        ];
+        $query['revenueGroupBy']      = 'checkout_day,bookings.type';
+        $query['totalRevenueGroupBy'] = 'createdAt,bookings.type';
+        $statisticalRevenue           = $this->statisticalRevenue($date_start, $date_end, $view, $query);
+        $statisticalTotalRevenue      = $this->statisticalTotalRevenue($date_start, $date_end, $view, $query);
+
+        $arrayRevenue = [];
+        foreach ($statisticalRevenue as $key => $value) {
+            $arrayRevenue[] = [
+                'type'      => $value->type,
+                'user_name' => $value->user_name,
+                'revenue'   => $value->revenue,
+                'date'      => $value->checkout_day,
+            ];
+        }
+        $arrayTotalRevenue = [];
+        foreach ($statisticalTotalRevenue as $key => $value) {
+            $arrayTotalRevenue[] = [
+                'type'      => $value->type,
+                'user_name' => $value->user_name,
+                'total_revenue' => $value->total_revenue,
+                'date'          => $value->createdAt,
+            ];
+        }
+        $bookings = [];
+        foreach ($arrayRevenue as $key => $value) {
+            if (isset($arrayTotalRevenue[$key]['date']) && $value['date'] === $arrayTotalRevenue[$key]['date']) {
+                $bookings[] = [
+                    'type'          => $value['type'],
+                    'user_name'     => $value['user_name'],
+                    'revenue'       => $value['revenue'],
+                    'total_revenue' => $arrayTotalRevenue[$key]['total_revenue'],
+                    'date'          => $value['date'],
+                ];
+            }
+        }
+        if(count($arrayRevenue) > count($arrayTotalRevenue)){
+            $result = array_diff_key($arrayRevenue,$arrayTotalRevenue);
+        } else{            
+            $result = array_diff_key($arrayTotalRevenue,$arrayRevenue);
+        }
+        foreach (array_values($result) as $key => $value) {
+            if (isset($value['revenue'])) {
+                $bookings[] = [
+                    'type'          => $value['type'],
+                    'user_name'     => $value['user_name'],
+                    'total_revenue' => 0,
+                    'date'          => $value['date'],
+                ];
+            } else {
+                $bookings[] = [
+                    'type'          => $value['type'],
+                    'user_name'     => $value['user_name'],
+                    'revenue'       => 0,
+                    'total_revenue' => $value['total_revenue'],
+                    'date'          => $value['date'],
+                ];
+            }
+        }
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value['date']);
+        }
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertTotalBookingOneCustomer = $this->convertTotalBookingOneCustomer($bookings, $val);
+
+            $convertDataBooking[] = [
+                'date' => $val,
+                'data' => $convertTotalBookingOneCustomer,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo doanh thu của 1 khách hàng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertTotalBookingOneCustomer($bookings, $date)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value['date'] === $date) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'type_txt'      => BookingConstant::BOOKING_TYPE[$value['type']],
+                'type'          => $value['type'],
+                'user_name'     => $value['user_name'],
+                'revenue'       => $value['revenue'],
+                'total_revenue' => $value['total_revenue'],
+            ];
+        }
+        return $convertBooking;
+    }
+
+    /**
+     * Thống kê số lượng booking theo ngày, theo giờ của một khách hàng
+     */
+    public function countBookingByTypeOneCustomer($customer_id,$date_start, $date_end, $view, $status)
+    {
+        $selectRawView = $this->switchViewBookingCreatedAt($view);
+
+        $bookings = $this->model
+            ->select(
+                DB::raw('users.name as user_name,bookings.type as type'),
+                DB::raw('count(bookings.id) as total_booking'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw($selectRawView)
+            )
+            ->join('users', 'users.id', '=', 'bookings.customer_id')
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+                ['bookings.customer_id', '=', $customer_id],
+            ]);
+
+        if ($status != null) {
+            $bookings->where('bookings.status', $status);
+        }
+
+        $bookings           = $bookings->groupBy(DB::raw('createdAt,bookings.type'))->get();
+        $data_date          = [];
+        $convertDataBooking = [];
+        foreach ($bookings as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountBookingTypeOneCustomer = $this->convertCountBookingTypeOneCustomer($bookings, $val);
+
+            $convertDataBooking[] = [
+                'createdAt' => $val,
+                'data'      => $convertCountBookingTypeOneCustomer,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    /**
+     * lấy những booking có cùng ngày theo ngày, theo giờ của một khách hàng
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function convertCountBookingTypeOneCustomer($bookings, $createdAt)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value->createdAt === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertBooking[] = [
+                'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
+                'type'          => $value->type,
+                'user_name'     => $value->user_name,
+                'total_booking' => $value->total_booking,
+                'success'       => $value->success,
+                'cancel'        => $value->cancel,
+            ];
+        }
+
+        return $convertBooking;
+    }    
 
     public function getUserFirstBooking($list_id, $start_checkout, $end_checkout, $total_fee)
     {

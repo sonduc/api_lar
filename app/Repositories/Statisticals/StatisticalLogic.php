@@ -28,7 +28,7 @@ class StatisticalLogic extends BaseLogic
      * @param  [type] $view [description]
      * @return [type]       [description]
      */
-    public function checkDataInputStatistical($data)
+    public function checkInputDataBookingStatistical($data)
     {
         $dataInput['status']     = (isset($data['status']) && $data['status'] != null) ? $data['status'] : null;
         $dataInput['view']       = isset($data['view']) ? $data['view'] : 'week';
@@ -44,7 +44,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByStatusStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -56,7 +56,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByCityStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -68,7 +68,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByDistrictStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -80,7 +80,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByTypeStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -92,7 +92,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByRevenueStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->totalBookingByRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
@@ -104,7 +104,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByManagerRevenueStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->totalBookingByManagerRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
@@ -116,7 +116,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByRoomTypeRevenueStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->totalBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
@@ -128,7 +128,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByRoomTypeStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -140,7 +140,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingBySexStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingBySex($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -152,7 +152,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByPriceRangeStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByPriceRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -164,7 +164,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByAgeRangeStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByAgeRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -176,7 +176,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingBySourceStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingBySource($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -188,7 +188,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByTypeRevenueStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->totalBookingByTypeRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
@@ -200,7 +200,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByCancelStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByCancel($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -212,7 +212,7 @@ class StatisticalLogic extends BaseLogic
      */
     public function roomByTypeStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->room->countRoomByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
@@ -224,11 +224,24 @@ class StatisticalLogic extends BaseLogic
      */
     public function roomByDistrictStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->room->countRoomByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 
+    /**
+     * Xử lí dữ liệu đầu vào để thống kê room
+     * @param  [type] $view [description]
+     * @return [type]       [description]
+     */
+    public function checkInputDataRoomStatistical($data)
+    {
+        $data['lang']       = (isset($data['lang']) && $data['lang'] != '' && $data['lang'] != null) ? $data['lang'] : 'vi';
+        $data['take']       = (isset($data['take']) && $data['take'] != '' && $data['take'] != null) ? $data['take'] : '10';
+        $data['sort']       = (isset($data['sort']) && $data['sort'] != '' && $data['sort'] != null) ? $data['sort'] : 'desc';
+
+        return $data;
+    }
     /**
      * Thống kê Top phòng có booking nhiều nhất
      * @param  [type] $data [description]
@@ -236,8 +249,40 @@ class StatisticalLogic extends BaseLogic
      */
     public function roomByTopBookingStatistical($data)
     {
-        $dataInput = $this->checkDataInputStatistical($data);
+        $dataInput = $this->checkInputDataRoomStatistical($data);
 
-        return $this->room->countRoomByTopBooking($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        return $this->room->countRoomByTopBooking($dataInput['lang'],$dataInput['take'],$dataInput['sort']);
+    }
+
+    /**
+     * Thống kê Top phòng có booking nhiều nhất theo loại phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function roomByTypeTopBookingStatistical($data)
+    {
+        $dataInput = $this->checkInputDataRoomStatistical($data);
+
+        return $this->room->countRoomByTypeTopBooking($dataInput['lang'],$dataInput['take'],$dataInput['sort']);
+    }
+
+    /**
+     * Thống kê doanh thu của 1 khách hàng
+     */
+    public function bookingByOneCustomerRevenueStatistical($data)
+    {
+        $dataInput = $this->checkInputDataBookingStatistical($data);
+
+        return $this->booking->totalBookingByOneCustomerRevenue($data['customer_id'],$dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+    }
+
+    /**
+     * Thống kê số lượng booking theo ngày, theo giờ của một khách hàng
+     */
+    public function bookingByTypeOneCustomerStatistical($data)
+    {
+        $dataInput = $this->checkInputDataBookingStatistical($data);
+
+        return $this->booking->countBookingByTypeOneCustomer($data['customer_id'],$dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 }

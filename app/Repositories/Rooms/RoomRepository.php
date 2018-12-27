@@ -233,6 +233,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where([
                 ['rooms.created_at', '>=', $date_start],
                 ['rooms.created_at', '<=', $date_end],
+                ['rooms.status', '=', Room::AVAILABLE],
             ])
 
             ->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
@@ -298,6 +299,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where([
                 ['rooms.created_at', '>=', $date_start],
                 ['rooms.created_at', '<=', $date_end],
+                ['rooms.status', '=', Room::AVAILABLE],
             ])
 
             ->groupBy(DB::raw('createdAt,districts.name'))->get();
@@ -349,24 +351,54 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countRoomByTopBooking($date_start, $date_end, $view, $status)
+    public function countRoomByTopBooking($lang,$take,$sort)
     {
-        $selectRawView = $this->switchViewRoomCreatedAt($view);
+        $rooms = $this->model
+            ->join('bookings', 'rooms.id', '=', 'bookings.room_id')
+            ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
+            ->select(
+                DB::raw('room_translates.name,count(bookings.id) as total_booking')
+            )
+            ->where([
+                ['room_translates.lang', '=', $lang],
+                ['rooms.status', '=', Room::AVAILABLE],
+            ])
+            ->groupBy(DB::raw('total_booking'))
+            ->orderBy('total_booking',$sort)
+            ->take($take)
+            ->get();
+        return $rooms;
+    }
 
+    /**
+     * đếm room có booking nhiều nhất theo loại phòng
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function countRoomByTypeTopBooking($lang,$take,$sort)
+    {
         $rooms = $this->model
             ->join('bookings', 'rooms.id', '=', 'bookings.room_id')
             ->select(
-                DB::raw('rooms.*'),
-                DB::raw('count(bookings.id) as total_booking'),
-                DB::raw($selectRawView)
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(bookings.id) as total_booking')
             )
             ->where([
-                ['rooms.created_at', '>=', $date_start],
-                ['rooms.created_at', '<=', $date_end],
+                ['rooms.status', '=', Room::AVAILABLE],
             ])
-            ->groupBy(DB::raw('createdAt,bookings.id'))->get();
+            ->groupBy(DB::raw('rooms.room_type'))
+            ->orderBy('total_booking',$sort)
+            ->take($take)
+            ->get();
 
-        dd($rooms);
-        return $rooms;
+        $arrayConvert =[];
+        foreach ($rooms as $key => $value) {
+            $arrayConvert[] = [
+                'room_type_txt' => Room::ROOM_TYPE[$value->room_type],
+                'room_type'     => $value->room_type,
+                'total_booking'  => $value->total_booking,
+            ];
+        }
+        return $arrayConvert;
     }
 }

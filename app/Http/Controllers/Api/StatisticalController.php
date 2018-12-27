@@ -17,6 +17,8 @@ class StatisticalController extends ApiController
         'date_start'                =>  'date',
         'date_end'                  =>  'date|after:date_start',
         'status'                    =>  'integer|between:4,5',
+        'take'                      =>  'integer',
+        'customer_id'               =>  'integer|exists:users,id,deleted_at,NULL',
     ];
     protected $validationMessages = [
         'date_start.date_format'    =>  'Ngày bắt đầu thống kê phải có định dạng Y-m-d',
@@ -25,6 +27,10 @@ class StatisticalController extends ApiController
         'date_end.after'            =>  'Thời gian kết thúc thống kê phải sau thời gian bắt đầu thống kê',
         'status.integer'            =>  'Trạng thái không phải là kiểu số',
         'status.between'            =>  'Trạng thái không phù hợp',
+        'take.integer'              =>  'Dữ liệu phải là kiểu số',
+        'customer_id.required'      =>  'Mã khách không được bỏ trống',
+        'customer_id.integer'       =>  'Mã khách hàng phải là kiểu số',
+        'customer_id.exists'        =>  'Mã khách hàng không tồn tại',
     ];
 
     /**
@@ -508,13 +514,72 @@ class StatisticalController extends ApiController
      */
     public function roomByTypeTopBookingStatistical(Request $request)
     {
-        dd('test');
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->roomByTypeTopBookingStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Thống kê doanh thu của 1 khách hàng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function bookingByOneCustomerRevenueStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $validate                   = array_only($this->validationRules, [
+                'date_start',
+                'date_end',
+                'customer_id',
+            ]);
+            $validate['customer_id']    = 'required|integer|exists:users,id,deleted_at,NULL';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->bookingByOneCustomerRevenueStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Thống kê số lượng booking theo ngày, theo giờ của một khách hàng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function bookingByTypeOneCustomerStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->bookingByTypeOneCustomerStatistical($request->all());
             $data = [
                 'data' => $data
             ];
