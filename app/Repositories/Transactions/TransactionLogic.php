@@ -87,6 +87,8 @@ class TransactionLogic extends BaseLogic
                 'bonus'         => 150000,
                 'commission'    => 0
             ];
+
+            $this->referral->updateStatusReferral($value['user_id'], $value['refer_id'], User::USER);
             
             parent::store($dataTransaction);
         }
