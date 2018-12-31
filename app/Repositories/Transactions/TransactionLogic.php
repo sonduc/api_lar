@@ -21,7 +21,7 @@ class TransactionLogic extends BaseLogic
         BookingRepositoryInterface $booking,
         UserRepositoryInterface $user,
         RoomRepositoryInterface $room,
-        ReferralReposityInterface $ref
+        ReferralRepositoryInterface $ref
     ) {
         $this->model    = $transaction;
         $this->booking  = $booking;
