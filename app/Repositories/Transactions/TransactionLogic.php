@@ -4,8 +4,8 @@ namespace App\Repositories\Transactions;
 
 use App\User;
 use App\Repositories\BaseLogic;
-use App\Repositories\BookingRepositoryInterface;
-use App\Repositories\UserRepositoryInterface;
+use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Users\UserRepositoryInterface;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Referrals\ReferralReposityInterface;
 use App\Repositories\TransactionTypes\TransactionType;
