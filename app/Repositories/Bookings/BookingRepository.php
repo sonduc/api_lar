@@ -671,7 +671,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             }
 
         }
-        $result = array_diff_key($arrayRevenue, $arrayTotalRevenue);
+        if(count($arrayRevenue) > count($arrayTotalRevenue)){
+            $result = array_diff_key($arrayRevenue,$arrayTotalRevenue);
+        } else{            
+            $result = array_diff_key($arrayTotalRevenue,$arrayRevenue);
+        }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
@@ -738,7 +742,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ];
             }
         }
-        $result = array_diff_key($arrayRevenue, $arrayTotalRevenue);
+        if(count($arrayRevenue) > count($arrayTotalRevenue)){
+            $result = array_diff_key($arrayRevenue,$arrayTotalRevenue);
+        } else{            
+            $result = array_diff_key($arrayTotalRevenue,$arrayRevenue);
+        }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
@@ -849,7 +857,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ];
             }
         }
-        $result = array_diff_key($arrayRevenue, $arrayTotalRevenue);
+        if(count($arrayRevenue) > count($arrayTotalRevenue)){
+            $result = array_diff_key($arrayRevenue,$arrayTotalRevenue);
+        } else{            
+            $result = array_diff_key($arrayTotalRevenue,$arrayRevenue);
+        }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
@@ -1313,7 +1325,11 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ];
             }
         }
-        $result = array_diff_key($arrayRevenue, $arrayTotalRevenue);
+        if(count($arrayRevenue) > count($arrayTotalRevenue)){
+            $result = array_diff_key($arrayRevenue,$arrayTotalRevenue);
+        } else{            
+            $result = array_diff_key($arrayTotalRevenue,$arrayRevenue);
+        }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
