@@ -19,6 +19,7 @@ class Kernel extends ConsoleKernel
             'App\Console\Commands\BookingReviews',
             'App\Console\Commands\AirbnbCalendar',
             'App\Console\Commands\CreateReferralCoupon',
+            'App\Console\Commands\CreateMerchantBonusTransaction',
         ];
 
     /**
@@ -34,6 +35,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('booking:review')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
         $schedule->command('referral:coupon')->dailyAt('02:00:00');
+        $schedule->command('transaction:bonus')->dailyAt('02:30:00');
         $schedule->command('airbnb:sync')->twiceDaily(3, 14);
     }
 

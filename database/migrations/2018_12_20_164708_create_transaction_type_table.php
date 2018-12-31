@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateReferralTable extends Migration
+class CreateTransactionTypeTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateReferralTable extends Migration
      */
     public function up()
     {
-        Schema::create('referrals', function (Blueprint $table) {
-            $table->integer('user_id'); // Người invite
-            $table->integer('refer_id'); // Người được invite
-            $table->integer('type');
-            $table->integer('status')->default(0);
-            $table->softDeletes();
+        Schema::create('transaction_type', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateReferralTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('referrals');
+        Schema::dropIfExists('transaction_type');
     }
 }

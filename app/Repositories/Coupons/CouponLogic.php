@@ -382,21 +382,21 @@ class CouponLogic extends BaseLogic
         $promotion_id           = null;
 
         $now                    = Carbon::now()->timestamp;
-        $end_checkout           = Carbon::now()->startOfDay()->timestamp;
-        $start_checkout         = Carbon::now()->subDay()->timestamp;
+        $end_checkout           = $now->startOfDay()->timestamp;
+        $start_checkout         = $now->subDay()->timestamp;
         $total_fee              = 1000000;
-        $start_date             = Carbon::now()->toDateString();
-        $end_date               = Carbon::now()->addMonths(3)->toDateString();
+        $start_date             = $now->toDateString();
+        $end_date               = $now->addMonths(3)->toDateString();
 
         if ($user != null) {
             $listUser           = [$user];
         } else {
-            $list_refer_id       = $this->referral->getAllReferralUser(null, null); // lấy danh sách người được mời list refer_id
+            $list_refer_id       = $this->referral->getAllReferralUser(null, null, User::USER); // lấy danh sách người được mời list refer_id
 
             $list_user_first_booking = $this->booking->getUserFirstBooking($list_refer_id, $start_checkout, $end_checkout, $total_fee); // lấy danh sách người dược mời mà có booking thỏa mãn điều kiện
 
             if (count($list_user_first_booking)) {
-                $listUser                = $this->referral->getAllReferralUser(null, $list_user_first_booking);
+                $listUser                = $this->referral->getAllReferralUser(null, $list_user_first_booking, User::USER);
             } else {
                 return null;
             }
@@ -439,7 +439,7 @@ class CouponLogic extends BaseLogic
             $data_coupon      = parent::store($data);
             if ($user == null) {
                 $ref_user = $this->user->getById($value['user_id']);
-                $this->referral->updateStatusReferral($value['user_id'], $value['refer_id']);
+                $this->referral->updateStatusReferral($value['user_id'], $value['refer_id'], User::USER);
 
                 $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $data_coupon))->delay(Carbon::now()->addHours(16));
                 dispatch($sendCouponReferralUser);

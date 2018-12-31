@@ -19,6 +19,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+
     'role'              => [
         'title' => 'Quản lý nhóm quyền',
         'list'  => [
@@ -28,6 +29,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+
     'room'              => [
         'title' => 'Quản lý phòng',
         'list'  => [
@@ -38,6 +40,7 @@ return [
             'export' => 'Export excel',
         ],
     ],
+
     'booking'           => [
         'title' => 'Quản lý booking',
         'list'  => [
@@ -49,12 +52,14 @@ return [
             'processor' => 'Processor',
         ],
     ],
+
     'statistics'        => [
         'title' => 'Thống kê - báo cáo',
         'list'  => [
             'view' => 'View',
         ],
     ],
+
     'comfort'           => [
         'title' => 'Quản lý tiện ích',
         'list'  => [
@@ -65,6 +70,7 @@ return [
             'export' => 'Export',
         ],
     ],
+
     'promotion'         => [
         'title' => 'Quản lý khuyến mại',
         'list'  => [
@@ -74,6 +80,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+    
     'city'              => [
         'title' => 'Quản lý tỉnh thành',
         'list'  => [
@@ -83,6 +90,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+
     'district'          => [
         'title' => 'Quản lý quận huyện',
         'list'  => [
@@ -92,6 +100,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+
     'saler'             => [
         'title' => 'Quản lý saler',
         'list'  => [
@@ -101,6 +110,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
+
     'setting'           => [
         'title' => 'Quản lý cấu hình',
         'list'  => [
@@ -111,6 +121,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'log'               => [
         'title' => 'Quản lý Logging',
         'list'  => [
@@ -121,6 +132,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'blog'              => [
         'title' => 'Quản lý blog',
         'list'  => [
@@ -131,6 +143,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'category'          => [
         'title' => 'Quản lý danh muc blog',
         'list'  => [
@@ -141,6 +154,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'collection'        => [
         'title' => 'Quản lý collection',
         'list'  => [
@@ -151,6 +165,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'coupon'            => [
         'title' => 'Quản lý coupon',
         'list'  => [
@@ -161,6 +176,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'emailcustomer'     => [
         'title' => 'Quản lý Email khách hàng',
         'list'  => [
@@ -171,6 +187,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'guidebookcategory' => [
         'title' => 'Quản lý danh mục hướng dẫn',
         'list'  => [
@@ -181,6 +198,7 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
     'place'             => [
         'title' => 'Quản lý địa điểm',
         'list'  => [
@@ -192,8 +210,19 @@ return [
         ],
     ],
 
-    'statistical'             => [
+    'statistical'       => [
         'title' => 'Quản lý thống kê',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+            'confirm' => 'Confirm',
+        ],
+    ],
+
+    'transaction'       => [
+        'title' => 'Quản lý giao dịch',
         'list'  => [
             'view'    => 'View',
             'create'  => 'Create',

@@ -348,7 +348,7 @@ trait BookingLogicTrait
         // thời gian hủy phòng
         $timeNow = Carbon::now();
         $seconds = $checkin->diffInSeconds($timeNow);
-        if ($seconds >= $booking_settings->refund[0]->days * 24 * 3600) {
+        if ($seconds >= $booking_settings->refunds[0]->days * 24 * 3600) {
             // Nếu thời gian huỷ lớn hơn  hoặc thời gian cho phép thì hòan lại 100% tiền
             $total_refund   = ($data_booking->total_fee * 100) / 100;
             $booking_update = [
@@ -366,7 +366,7 @@ trait BookingLogicTrait
             'status'       => BookingConstant::BOOKING_CANCEL,
             'total_refund' => $total_refund,
         ];
-
+        
         parent::update($id, $booking_update);
         $data['booking_id'] = $id;
         return $this->booking_cancel->store($data);

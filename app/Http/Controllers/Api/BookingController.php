@@ -14,6 +14,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
+use App\Events\CreateBookingTransactionEvent;
 
 class BookingController extends ApiController
 {
@@ -165,14 +166,14 @@ class BookingController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        try{
+        try {
             $this->authorize('booking.view');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             // dd(DB::getQueryLog());
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -224,7 +225,7 @@ class BookingController extends ApiController
             DB::commit();
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             event(new Check_Usable_Coupon_Event($data['coupon']));
-
+            event(new CreateBookingTransactionEvent($data));
             
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
@@ -546,9 +547,14 @@ class BookingController extends ApiController
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
-            logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
 
+            $dataBooking = $this->model->getById($id);
+            
             DB::commit();
+            
+            event(new CreateBookingTransactionEvent($dataBooking));
+            logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
+            
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();

@@ -217,4 +217,20 @@ return [
         \App\Repositories\Comforts\ComfortTranslateRepository::class,
     ],
 
+    /**
+     * Transactions Type
+     */
+    \App\Repositories\TransactionTypes\TransactionType::class => [
+        \App\Repositories\TransactionTypes\TransactionTypeRepositoryInterface::class,
+        \App\Repositories\TransactionTypes\TransactionTypeRepository::class,
+    ],
+
+    /**
+     * Transactions
+     */
+    \App\Repositories\Transactions\Transaction::class => [
+        \App\Repositories\Transactions\TransactionRepositoryInterface::class,
+        \App\Repositories\Transactions\TransactionRepository::class,
+    ],
+
 ];

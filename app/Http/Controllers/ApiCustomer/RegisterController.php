@@ -96,7 +96,7 @@ class RegisterController extends ApiController
             $newClient = $this->getResource()->store($params);
 
             if ($newClient && isset($params['ref_code'])) {
-                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id);
+                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id, User::USER);
                 $coupon         = $this->coupon->createReferralCoupon($newClient);
                 // dd($coupon);
                 if ($coupon) {

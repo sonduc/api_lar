@@ -987,4 +987,22 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ['total_fee', '>=', $total_fee]]
         )->pluck('customer_id');
     }
+
+    /**
+     *
+     * Lấy ra tất cả người ID chủ nhà có booking đầu tiên và đã checkout
+
+     */
+    public function getMerchantFirstBooking($list_id, $start_checkout, $end_checkout, $total_fee)
+    {
+        return $this->model->whereIn('bookings.merchant_id', $list_id)
+        ->where(
+            [
+            ['checkout', '<=', $end_checkout],
+            ['checkout', '>=', $start_checkout],
+            ['status','=', BookingConstant::BOOKING_COMPLETE],
+            ['payment_status','=',BookingConstant::PAID],
+            ['total_fee', '>=', $total_fee]]
+        )->pluck('merchant_id');
+    }
 }
