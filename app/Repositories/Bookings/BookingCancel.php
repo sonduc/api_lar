@@ -55,6 +55,7 @@ class BookingCancel extends Entity
             self::NO_RESPONSE         => trans2('booking/cancel.no_response'),
             self::STAFF_SLOW_RESPONSE => trans2('booking/cancel.staff_slow'),
             self::RUSHING             => trans2('booking/cancel.rushing'),
+            self::BUSY                => trans2('booking/cancel.busy'),
         ];
     }
 

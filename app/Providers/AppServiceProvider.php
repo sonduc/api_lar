@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Container\DIContainer;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Schema;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -34,6 +35,7 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        Schema::defaultStringLength(191);
         $this->app->singleton(AuthManager::class, function ($app) {
             return $app->make('auth');
         });
