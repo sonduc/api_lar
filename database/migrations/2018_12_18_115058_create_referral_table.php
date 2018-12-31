@@ -16,6 +16,7 @@ class CreateReferralTable extends Migration
         Schema::create('referrals', function (Blueprint $table) {
             $table->integer('user_id'); // Người invite
             $table->integer('refer_id'); // Người được invite
+            $table->integer('type');
             $table->integer('status')->default(0);
             $table->softDeletes();
             $table->timestamps();

@@ -81,10 +81,26 @@ class RegisterController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $params           = $request->only('email', 'password');
             $params['type']   = User::MERCHANT;
+
+            if ($request->get('ref') !== null) {
+                if (!$this->user->isValidReferenceID($request->get('ref'))) {
+                    $params['ref_code'] = null;
+                } else {
+                    $params['ref_code'] = $request->get('ref');
+                    $user_id = $this->user->getIDbyUUID($request->get('ref'));
+                }
+            }
+
             $username         = $params['email'];
             $password         = $params['password'];
+            $params['owner']  = User::IS_OWNER;
+
             // Create new user
             $newClient = $this->getResource()->store($params);
+            
+            if ($newClient && isset($params['ref_code'])) {
+                $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id, User::MERCHANT);
+            }
 
             // Issue token
             $guzzle  = new Guzzle;

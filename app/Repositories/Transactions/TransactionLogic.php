@@ -2,10 +2,12 @@
 
 namespace App\Repositories\Transactions;
 
+use App\User;
 use App\Repositories\BaseLogic;
 use App\Repositories\BookingRepositoryInterface;
 use App\Repositories\UserRepositoryInterface;
 use App\Repositories\Rooms\RoomRepositoryInterface;
+use App\Repositories\Referrals\ReferralReposityInterface;
 use App\Repositories\TransactionTypes\TransactionType;
 use App\Repositories\Bookings\BookingConstant;
 
@@ -18,12 +20,14 @@ class TransactionLogic extends BaseLogic
         TransactionRepositoryInterface $transaction,
         BookingRepositoryInterface $booking,
         UserRepositoryInterface $user,
-        RoomRepositoryInterface $room
+        RoomRepositoryInterface $room,
+        ReferralReposityInterface $ref
     ) {
         $this->model    = $transaction;
         $this->booking  = $booking;
         $this->user     = $user;
         $this->room     = $room;
+        $this->ref      = $ref;
     }
 
     public function createBookingTransaction($dataBooking)
@@ -34,8 +38,7 @@ class TransactionLogic extends BaseLogic
         $merchant_id = $dataBooking['merchant_id'];
         $date        = Carbon::parse($dataBooking['created_at'])->toDateString();
         $booking_id  = $dataBooking['id'];
-        // $commission   = $this->room->getRoomCommission($room_id);
-        $commission  = 20;
+        $commission  = $this->room->getRoomCommission($room_id);
         $type        = TransactionType::TRANSACTION_BOOKING;
         $credit      = $dataBooking['total_fee'];
         $bonus       = 0;
@@ -57,5 +60,35 @@ class TransactionLogic extends BaseLogic
         ];
         
         return parent::store($dataTransaction);
+    }
+
+    public function createBonusTransaction()
+    {
+        $end_checkout                = $now->startOfDay()->timestamp;
+        $start_checkout              = $now->subDay()->timestamp;
+        $total_fee                   = 1000000;
+        $date                        = Carbon::now()->toDateString();
+        $referral_merchant_list      = $this->ref->getAllReferralUser(null, null, User::MERCHANT);
+        $list_merchant_first_booking = $this->booking->getMerchantFirstBooking($list_refer_id, $start_checkout, $end_checkout, $total_fee);
+
+        if (count($list_merchant_first_booking)) {
+            $listMerchant = $this->ref->getAllReferralUser(null, $list_merchant_first_booking, User::MERCHANT);
+        } else {
+            return null;
+        }
+
+        foreach ($listMerchant as $key => $value) {
+            $dataTransaction = [
+                'type'          => TransactionType::TRANSACTION_BONUS,
+                'date_create'   => $date,
+                'user_id'       => $value,
+                'credit'        => 0,
+                'debit'         => 0,
+                'bonus'         => 150000,
+                'commission'    => 0
+            ];
+            
+            parent::store($dataTransaction);
+        }
     }
 }

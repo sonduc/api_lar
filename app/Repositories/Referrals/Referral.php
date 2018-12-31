@@ -17,6 +17,7 @@ class Referral extends Entity
     protected $fillable = [
         'user_id', // người invite
         'refer_id', // người được invite
+        'type', // Loại người dùng
         'status'
     ];
 
@@ -32,5 +33,13 @@ class Referral extends Entity
     const STATUS = [
         self::AWARDED   => 'Đã trao thưởng',
         self::PENDING   => 'Chưa trao thưởng',
+    ];
+    
+    const MERCHANT      = 1;
+    const CUSTOMER      = 0;
+
+    const TYPE = [
+        self::MERCHANT   => 'Chủ nhà',
+        self::CUSTOMER   => 'Người dùng',
     ];
 }

@@ -193,15 +193,15 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return round($percent);
     }
 
-    // /**
-    //  * Get Commission rate of the room
-    //  * @author Tuan Anh <tuananhpham1402@gmail.com>
-    //  *
-    //  * @param $data
-    //  * @return float
-    //  */
-    // public function getRoomCommission($id)
-    // {
-    //     return $this->model->where('id', $id)->pluck('commission');
-    // }
+    /**
+     * Get Commission rate of the room
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param $data
+     * @return float
+     */
+    public function getRoomCommission($id)
+    {
+        return $this->model->where('id', $id)->pluck('commission');
+    }
 }
