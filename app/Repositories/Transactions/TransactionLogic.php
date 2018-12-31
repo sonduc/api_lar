@@ -7,7 +7,7 @@ use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
 use App\Repositories\Rooms\RoomRepositoryInterface;
-use App\Repositories\Referrals\ReferralReposityInterface;
+use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\Repositories\TransactionTypes\TransactionType;
 use App\Repositories\Bookings\BookingConstant;
 
