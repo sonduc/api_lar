@@ -32,7 +32,7 @@ trait FilterTrait
     public function scopeDate($query, $q)
     {
         if ($q) {
-            $q_date = Carbon::parse($q)->toDateTimeString();
+            $q_date = Carbon::parse($q)->toDateString();
 
             return $query->where('date_create', $q);
         }

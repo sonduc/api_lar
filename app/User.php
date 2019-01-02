@@ -220,4 +220,14 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 
         return false;
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(\App\Repositories\Transactions\Transaction::class, 'user_id');
+    }
+
+    public function compareCheckings()
+    {
+        return $this->hasMany(\App\Repositories\CompareCheckings\CompareChecking::class, 'user_id');
+    }
 }

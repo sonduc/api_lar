@@ -231,4 +231,11 @@ return [
             'confirm' => 'Confirm',
         ],
     ],
+
+    'checking'       => [
+        'title' => 'Thông tin đối soát',
+        'list'  => [
+            'view'    => 'View',
+        ],
+    ],
 ];

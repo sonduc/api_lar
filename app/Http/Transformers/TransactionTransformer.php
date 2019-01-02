@@ -4,10 +4,14 @@ namespace App\Http\Transformers;
 
 use App\Repositories\Transactions\Transaction;
 use League\Fractal\TransformerAbstract;
+use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\ParamBag;
 use Carbon\Carbon;
 
 class TransactionTransformer extends TransformerAbstract
 {
+    use FilterTrait;
+
     protected $availableIncludes
         = [
             'user',
@@ -21,24 +25,24 @@ class TransactionTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Transaction $transaction)
+    public function transform(Transaction $transaction = null)
     {
         if (is_null($transaction)) {
             return [];
         }
 
-        $data = [
+        return [
             'transaction_id' => $transaction->id,
             'type'           => $transaction->type,
             'date'           => $transaction->date_create ? Carbon::parse($transaction->date_create)->toDateString() : null,
             'credit'         => $transaction->credit,
             'debit'          => $transaction->debit,
             'bonus'          => $transaction->bonus,
+            'user_id'        => $transaction->user_id,
+            'booking_id'     => $transaction->booking_id,
             'created_at'     => $transaction->created_at ? $transaction->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'     => $transaction->updated_at ? $transaction->updated_at->format('Y-m-d H:i:s') : null,
         ];
-
-        return $data;
     }
 
     /**

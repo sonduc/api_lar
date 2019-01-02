@@ -21,7 +21,9 @@ class UserTransformer extends TransformerAbstract
         'city',
         'district',
         'blog',
-        'reviews'
+        'reviews',
+        'transactions',
+        'checkings'
     ];
 
     /**
@@ -253,5 +255,41 @@ class UserTransformer extends TransformerAbstract
         }
         $data = $this->pagination($params, $user->reviews());
         return $this->collection($data, new RoomReviewTransformer);
+    }
+
+    /**
+     *
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param User|null $user
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+
+    public function includeTransactions(User $user = null, ParamBag $params = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        $data = $this->pagination($params, $user->transactions());
+        return $this->collection($data, new TransactionTransformer);
+    }
+
+    /**
+     *
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param User|null $user
+     * @param ParamBag|null $params
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+
+    public function includeCheckings(User $user = null, ParamBag $params = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        $data = $this->pagination($params, $user->compareCheckings());
+        return $this->collection($data, new CompareCheckingTransformer);
     }
 }

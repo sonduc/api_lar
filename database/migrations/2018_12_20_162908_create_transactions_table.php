@@ -16,14 +16,14 @@ class CreateTransactionsTable extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('type')->nullable();
-            $table->integer('credit')->nullable();
-            $table->integer('debit')->nullable();
+            $table->integer('credit')->nullable()->default(0);
+            $table->integer('debit')->nullable()->default(0);
             $table->string('date_create')->nullable();
             $table->integer('room_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->integer('booking_id')->nullable();
-            $table->integer('bonus')->nullable();
-            $table->integer('commission')->nullable();
+            $table->integer('bonus')->nullable()->default(0);
+            $table->integer('comission')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Repositories\Transactions;
+namespace App\Repositories\CompareCheckings;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Transaction extends Entity
+class CompareChecking extends Entity
 {
     use PresentationTrait, FilterTrait, SoftDeletes;
+
+    public $table = 'compare_checking';
 
     /**
      * The attributes that are mass assignable.
@@ -15,15 +17,12 @@ class Transaction extends Entity
      * @var array
      */
     protected $fillable = [
-        'type',
-        'credit',
-        'debit',
-        'date_create',
-        'user_id',
-        'booking_id',
-        'room_id',
-        'bonus',
-        'comission',
+        'date',
+        'total_debit',
+        'total_credit',
+        'total_bonus',
+        'total_compare_checking',
+        'user_id'
     ];
 
     /**
@@ -35,15 +34,5 @@ class Transaction extends Entity
     public function user()
     {
         return $this->belongsTo(\App\User::class, 'user_id');
-    }
-
-    public function booking()
-    {
-        return $this->belongsTo(\App\Repositories\Bookings\Booking::class, 'booking_id');
-    }
-
-    public function room()
-    {
-        return $this->belongsTo(\App\Repositories\Rooms::class, 'room_id');
     }
 }

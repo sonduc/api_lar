@@ -75,4 +75,10 @@ class Booking extends Entity
     {
         return $this->hasOne(\App\Repositories\Rooms\RoomReview::class, 'booking_id');
     }
+
+    
+    public function transactions()
+    {
+        return $this->hasMany(\App\Repositories\Transactions\Transaction::class, 'booking_id');
+    }
 }
