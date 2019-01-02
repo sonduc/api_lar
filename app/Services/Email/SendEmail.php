@@ -48,7 +48,6 @@ class SendEmail
     public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
         $email = 'taikhoan149do@gmail.com';
-        dd($booking);
         try {
             Mail::send($template, ['new_booking' => $booking->data], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
