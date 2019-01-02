@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\BookingEvent;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
@@ -222,6 +223,7 @@ class BookingController extends ApiController
 
             //dd(DB::getQueryLog());
             DB::commit();
+           // event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             event(new Check_Usable_Coupon_Event($data['coupon']));
 
@@ -239,7 +241,6 @@ class BookingController extends ApiController
                 'exception' => $validationException->getMessage(),
             ]);
         } catch (\Exception $e) {
-            dd($e);
             DB::rollBack();
             if ($e instanceof InvalidDateException) {
                 return $this->errorResponse([

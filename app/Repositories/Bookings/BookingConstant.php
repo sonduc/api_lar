@@ -58,6 +58,9 @@ final class BookingConstant
     const BOOKING_TYPE_HOUR = 1; // Theo giờ
     const BOOKING_TYPE_DAY  = 2; // Theo ngày
 
+    // Tính giá kiểu giờ trùng với thời gian checkin, checkout mặc đinh của phòng
+    const PRICE_TYPE_HOUR_SPECICAL = 2; // Theo ngày
+
     const BOOKING_TYPE = [
         self::BOOKING_TYPE_DAY  => 'Theo ngày',
         self::BOOKING_TYPE_HOUR => 'Theo giờ',
