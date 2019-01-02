@@ -10,24 +10,27 @@ use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\Repositories\TransactionTypes\TransactionType;
 use App\Repositories\Bookings\BookingConstant;
+use App\Repositories\CompareCheckings\CompareCheckingRepositoryInterface;
+use Carbon\Carbon;
 
 class TransactionLogic extends BaseLogic
 {
     use TransactionLogicTrait;
-
 
     public function __construct(
         TransactionRepositoryInterface $transaction,
         BookingRepositoryInterface $booking,
         UserRepositoryInterface $user,
         RoomRepositoryInterface $room,
-        ReferralRepositoryInterface $ref
+        ReferralRepositoryInterface $ref,
+        CompareCheckingRepositoryInterface $compare
     ) {
         $this->model    = $transaction;
         $this->booking  = $booking;
         $this->user     = $user;
         $this->room     = $room;
         $this->ref      = $ref;
+        $this->compare  = $compare;
     }
 
     public function createBookingTransaction($dataBooking)
@@ -36,9 +39,9 @@ class TransactionLogic extends BaseLogic
 
         $room_id     = $dataBooking['room_id'];
         $merchant_id = $dataBooking['merchant_id'];
-        $date        = Carbon::parse($dataBooking['created_at'])->toDateString();
+        $date        = Carbon::parse($dataBooking['checkin'])->toDateString();
         $booking_id  = $dataBooking['id'];
-        $commission  = $this->room->getRoomCommission($room_id);
+        $comission   = $this->room->getRoomComission($room_id);
         $type        = TransactionType::TRANSACTION_BOOKING;
         $credit      = $dataBooking['total_fee'];
         $bonus       = 0;
@@ -56,7 +59,7 @@ class TransactionLogic extends BaseLogic
             'credit'        => (int) ceil($credit),
             'debit'         => (int) ceil($debit),
             'bonus'         => $bonus,
-            'commission'    => $commission
+            'comission'     => $comission
         ];
         
         return parent::store($dataTransaction);
@@ -85,12 +88,118 @@ class TransactionLogic extends BaseLogic
                 'credit'        => 0,
                 'debit'         => 0,
                 'bonus'         => 150000,
-                'commission'    => 0
+                'comission'     => 0
             ];
 
             $this->referral->updateStatusReferral($value['user_id'], $value['refer_id'], User::USER);
             
             parent::store($dataTransaction);
+        }
+    }
+
+    /**
+     * Thêm transaction mới
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function store($data)
+    {
+        $data = $this->getTransactionType($data);
+
+        $now = Carbon::now()->toDateString();
+        $data['date_create'] = $now;
+        $dataTransaction = parent::store($data);
+        return $dataTransaction;
+    }
+    
+    /**
+     * Thêm transaction mới
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function getTransactionType($data)
+    {
+        $type_credit = [
+            TransactionType::TRANSACTION_PENALTY,
+            TransactionType::TRANSACTION_SURCHARGE,
+            TransactionType::TRANSACTION_RECEIPT
+        ];
+        
+        $type_debit  = [
+            TransactionType::TRANSACTION_BOOKING,
+            TransactionType::TRANSACTION_DISCOUNT,
+            TransactionType::TRANSACTION_PAYOUT,
+            TransactionType::TRANSACTION_BOOK_AIRBNB,
+            TransactionType::TRANSACTION_BOOK_BOOKING,
+            TransactionType::TRANSACTION_BOOK_AGODA
+        ];
+
+        $type_bonus  = [
+            TransactionType::TRANSACTION_BONUS
+        ];
+        
+        if (isset($data['type'])) {
+            if (in_array($data['type'], $type_credit)) {
+                $data['credit'] = $data['money'];
+            } elseif (in_array($data['type'], $type_debit)) {
+                $data['debit'] = $data['money'];
+            } else {
+                $data['bonus'] = $data['money'];
+            }
+        }
+        
+        return $data;
+    }
+    
+    /**
+     * Tổng hợp transaction để đối soát
+     * @author tuananh1402 <tuananhpham1402@gmail.com>
+     *
+     * @param array $data
+     *
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function combineTransaction()
+    {
+        $date = Carbon::now()->subDay()->toDateString();
+        
+        $listUser = $this->model->getListUserCombine($date);
+
+        $listComissionType = [
+            TransactionType::TRANSACTION_BOOKING,
+            TransactionType::TRANSACTION_SURCHARGE,
+            TransactionType::TRANSACTION_DISCOUNT,
+            TransactionType::TRANSACTION_PAYOUT,
+            TransactionType::TRANSACTION_BOOK_AIRBNB,
+            TransactionType::TRANSACTION_BOOK_BOOKING,
+            TransactionType::TRANSACTION_BOOK_AGODA,
+            TransactionType::TRANSACTION_RECEIPT,
+        ];
+
+        foreach ($listUser as $key => $value) {
+            $user_transactions = $this->model->getUserTrasaction($value);
+            $total_debit  = 0;
+            $total_credit = 0;
+            $total_bonus  = 0;
+            foreach ($user_transactions as $k => $v) {
+                if ($v['comission'] !== null && in_array($v['type'], $listComissionType)) {
+                    $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                    $total_credit += $v['credit'] * (100 - $v['comission']) / 100;
+                } else {
+                    $total_debit  += $v['debit'];
+                }
+                $total_bonus      += $v['bonus'];
+            }
+            $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $value);
         }
     }
 }

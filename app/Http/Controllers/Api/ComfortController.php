@@ -40,13 +40,13 @@ class ComfortController extends ApiController
      */
     public function index(Request $request)
     {
-        try{
+        try {
             $this->authorize('comfort.view');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -65,7 +65,7 @@ class ComfortController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -92,7 +92,7 @@ class ComfortController extends ApiController
             logs('comfort', 'tạo comfort mã ' . $data->id, $data);
 
             return $this->successResponse($data, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -125,7 +125,7 @@ class ComfortController extends ApiController
 
             //dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -160,7 +160,7 @@ class ComfortController extends ApiController
             logs('comfort', 'xóa tiện ích mã ' . $id);
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),

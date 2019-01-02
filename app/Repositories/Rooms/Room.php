@@ -228,4 +228,9 @@ class Room extends Entity
     {
         return $this->hasMany(RoomReview::class, 'room_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(\App\Repositories\Transactions\Transaction::class, 'room_id');
+    }
 }

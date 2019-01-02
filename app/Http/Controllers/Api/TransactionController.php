@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Repositories\Bookings\BookingConstant;
-use App\Repositories\Transactions\TransactionRepositoryInterface;
+use App\Repositories\Transactions\TransactionLogic;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -13,11 +13,22 @@ class TransactionController extends ApiController
 {
     protected $validationRules
         = [
-
+            'user_id'        => 'required|integer|exists:users,id',
+            'type'           => 'required|integer|exists:transaction_type,id',
+            'money'          => 'required|integer'
         ];
     protected $validationMessages
         = [
+            'user_id.required'  => 'Vui lòng chọn chủ nhà',
+            'user_id.integer'   => 'Chủ nhà không hợp lệ',
+            'user_id.exists'    => 'Chủ nhà không tồn tại',
 
+            'type.required'     => 'Vui lòng chọn loại giao dịch',
+            'type.integer'      => 'Loại giao dịch không hợp lệ',
+            'type.exists'       => 'Loại giao dịch không tồn tại',
+
+            'money.required'    => 'Vui lòng chọn số tiền',
+            'money.integer'     => 'Số tiền nhập vào phải là kiểu số'
         ];
 
     /**
@@ -25,7 +36,7 @@ class TransactionController extends ApiController
      *
      * @param TransactionRepository $payment
      */
-    public function __construct(TransactionRepositoryInterface $transaction)
+    public function __construct(TransactionLogic $transaction)
     {
         $this->model   = $transaction;
         $this->setTransformer(new TransactionTransformer);
@@ -84,6 +95,8 @@ class TransactionController extends ApiController
         try {
             $this->authorize('transaction.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
+            // dd('asdf');
+            $data = $this->model->store($request->all());
 
             DB::commit();
             // logs('transaction', 'đã tạo giao dịch ' . $booking->code, $data);

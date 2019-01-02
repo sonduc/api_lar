@@ -28,6 +28,7 @@ class AuthServiceProvider extends ServiceProvider
             \App\Repositories\Transactions\Transaction::class   => \App\Policies\TransactionPolicy::class,
 
             \App\Repositories\GuidebookCategories\GuidebookCategory::class => \App\Policies\GuidebookCategoryPolicy::class,
+            \App\Repositories\CompareCheckings\CompareChecking::class => \App\Policies\CheckingPolicy::class,
         ];
 
     /**

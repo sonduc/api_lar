@@ -22,4 +22,14 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
     {
         $this->model = $transaction;
     }
+
+    public function getListUserCombine($date)
+    {
+        return $this->model->where('date_create', $date)->pluck('user_id');
+    }
+    
+    public function getUserTrasaction($user_id)
+    {
+        return $this->model->where('user_id', $user_id)->get();
+    }
 }

@@ -233,4 +233,12 @@ return [
         \App\Repositories\Transactions\TransactionRepository::class,
     ],
 
+    /**
+     * Compare Checking
+     */
+    App\Repositories\CompareCheckings\CompareChecking::class => [
+        App\Repositories\CompareCheckings\CompareCheckingRepositoryInterface::class,
+        App\Repositories\CompareCheckings\CompareCheckingRepository::class,
+    ],
+
 ];
