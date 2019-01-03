@@ -1,17 +1,145 @@
 -- Users
 
-SELECT id, uuid, name, email, password, sex as gender, phone, birthday, NULL as sub_email, avatar, address, owner, facebook as facebook_id, null as google_id, level, 0 as point, money, null as passport_last_name, null as passport_first_name, null as passport_infomation, id_card1 as passport_front_card, id_card2 as passport_back_card, null as account_number, city_id, district_id, type, 1 as status, sale_id, remember_token, deleted_at, created_at, updated_at from users;
+SELECT 
+    id,
+    uuid,
+    name,
+    email,
+    password,
+    sex AS gender,
+    phone,
+    birthday,
+    NULL AS sub_email,
+    avatar,
+    address,
+    owner,
+    null as parent_id,
+    facebook AS facebook_id,
+    NULL AS google_id,
+    level,
+    0 AS point,
+    money,
+    NULL AS passport_last_name,
+    NULL AS passport_first_name,
+    NULL AS passport_infomation,
+    id_card1 AS passport_front_card,
+    id_card2 AS passport_back_card,
+    NULL AS account_number,
+    city_id,
+    district_id,
+    type,
+    null as type_create,
+    null as provider_id,
+    null as vip,
+    null as is_confirm,
+    null as is_transfer,
+    null as is_cash,
+    null as is_baokim,
+    1 AS status,
+    null as source,
+    sale_id,
+    remember_token,
+    null as limit_send_email,
+    null as count_send_email,
+    null as subcribe,
+    null as ref_code,
+    null as settings,
+    null as time_add_sale,
+    deleted_at,
+    created_at,
+    updated_at
+FROM
+    users;
 
 -- Rooms 
-SELECT id, client_id as merchant_id, number_people as max_guest, null as max_additional_guest, number_bed, bedroom as number_room, city_id, district_id, type as room_type, checkin, checkout, price_by_day as price_day, price_block as price_hour, price_by_hour as price_after_hour, additional_guest as price_charge_guest, cleaning_fee, standard_point, is_manager, hot, 0 as new, is_last_mile as latest_deal, by_time as rent_type, null as rules, longitude, latitude,(select count(*) from booking where booking.room_id = rooms.id and booking.payment_status IN (3, 4) AND booking.STATUS = 4) as total_booking, 0 as avg_cleanliness, 0 as avg_service,0 as avg_quality,0 as avg_valuable, 0 as avg_avg_rating, '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' as settings, 0 as total_review, null as airbnb_calendar, null as total_recommend, 20 as comission, 0 as percent, status, sale_id, deleted_at, created_at, updated_at FROM `rooms`;
+SELECT 
+    id,
+    client_id AS merchant_id,
+    number_people AS max_guest,
+    NULL AS max_additional_guest,
+    number_bed,
+    bedroom AS number_room,
+    city_id,
+    district_id,
+    type AS room_type,
+    checkin,
+    checkout,
+    price_by_day AS price_day,
+    price_block AS price_hour,
+    price_by_hour AS price_after_hour,
+    additional_guest AS price_charge_guest,
+    cleaning_fee,
+    standard_point,
+    is_manager,
+    hot,
+    0 AS new,
+    is_last_mile AS latest_deal,
+    by_time AS rent_type,
+    NULL AS rules,
+    longitude,
+    latitude,
+    (SELECT 
+            COUNT(*)
+        FROM
+            booking
+        WHERE
+            booking.room_id = rooms.id
+                AND booking.payment_status IN (3 , 4)
+                AND booking.STATUS = 4) AS total_booking,
+    0 AS avg_cleanliness,
+    0 AS avg_service,
+    0 AS avg_quality,
+    0 AS avg_valuable,
+    0 AS avg_avg_rating,
+    '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' AS settings,
+    0 AS total_review,
+    NULL AS airbnb_calendar,
+    NULL AS total_recommend,
+    20 AS comission,
+    0 AS percent,
+    status,
+    sale_id,
+    deleted_at,
+    created_at,
+    updated_at
+FROM
+    `rooms`;
 
 -- Room_Translates
 
-SELECT room_translates.locale as lang , room_id,any_value(name) as name,(SELECT rooms.address from rooms where rooms.id = room_translates.room_id) as address, any_value(note) as note, any_value(space) as space, any_value(description) as description, any_value(deleted_at) as deleted_at, any_value(created_at) as created_at, any_value(updated_at) as updated_at FROM `room_translates` GROUP by room_id,locale;
+SELECT 
+    room_translates.locale AS lang,
+    room_id,
+    ANY_VALUE(name) AS name,
+    (SELECT 
+            rooms.address
+        FROM
+            rooms
+        WHERE
+            rooms.id = room_translates.room_id) AS address,
+    ANY_VALUE(note) AS note,
+    ANY_VALUE(space) AS space,
+    ANY_VALUE(description) AS description,
+    ANY_VALUE(deleted_at) AS deleted_at,
+    ANY_VALUE(created_at) AS created_at,
+    ANY_VALUE(updated_at) AS updated_at
+FROM
+    `room_translates`
+GROUP BY room_id , locale;
 
 -- Room_Medias
 
-SELECT id, room_id, source AS image, 1 AS status, 3 AS type, NULL AS deleted_at, created_at, updated_at FROM media_room;
+SELECT 
+    id,
+    room_id,
+    source AS image,
+    1 AS status,
+    3 AS type,
+    NULL AS deleted_at,
+    created_at,
+    updated_at
+FROM
+    media_room;
 
 -- Comforts (Only Vietnamese)
 
@@ -27,8 +155,51 @@ select * from room_comforts where comfort_id in (select id from comforts where l
 
 -- Bookings
 
-SELECT any_value(booking.id) as id , any_value(booking.uuid) as uuid, any_value(booking.code) as code, any_value(booking.name) as name, any_value(booking.phone) as phone, any_value(ask_room_log.sex) as sex, any_value(ask_room_log.birthday) as birthday, any_value(booking.email) as email, any_value(booking.email_receive) as email_received, any_value(booking.name_receive) as name_received, any_value(booking.phone_receive) as phone_received, any_value(booking.room_id) as room_id, any_value(booking.customer_id) as customer_id, any_value(booking.client_id) as merchant_id, any_value(booking.checkin) as checkin, any_value(booking.checkout) as checkout, any_value(booking.price_original) as price_original, any_value(booking.discount) as price_discount, null as coupon, any_value(booking.note) as note, any_value(booking.total_fee) as total_fee, any_value(booking.status) as status, any_value(booking.number_of_guests) as number_of_guests, any_value(booking.service_fee) as service_fee, 0 as additional_fee, 0 as coupon_discount, any_value(booking.type) as type, any_value(ask_room_log.price_range) as price_range, any_value(booking.type_booking) as booking_type, any_value(booking.payment_method) as payment_method, any_value(booking.payment_status) as payment_status, any_value(ask_room_log.contact_channel) as source, any_value(booking.exchange_rate) as exchange_rate,null as age_range,
-0 as total_refund, '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' as settings, any_value(booking.deleted_at) as deleted_at, any_value(booking.created_at) as created_at, any_value(booking.updated_at) as updated_at FROM `booking` left join ask_room_log on booking.created_at = ask_room_log.created_at group by booking.uuid;
+SELECT 
+    ANY_VALUE(booking.id) AS id,
+    ANY_VALUE(booking.uuid) AS uuid,
+    ANY_VALUE(booking.code) AS code,
+    ANY_VALUE(booking.name) AS name,
+    ANY_VALUE(booking.phone) AS phone,
+    ANY_VALUE(ask_room_log.sex) AS sex,
+    ANY_VALUE(ask_room_log.birthday) AS birthday,
+    ANY_VALUE(booking.email) AS email,
+    ANY_VALUE(booking.email_receive) AS email_received,
+    ANY_VALUE(booking.name_receive) AS name_received,
+    ANY_VALUE(booking.phone_receive) AS phone_received,
+    ANY_VALUE(booking.room_id) AS room_id,
+    ANY_VALUE(booking.customer_id) AS customer_id,
+    ANY_VALUE(booking.client_id) AS merchant_id,
+    ANY_VALUE(booking.checkin) AS checkin,
+    ANY_VALUE(booking.checkout) AS checkout,
+    ANY_VALUE(booking.price_original) AS price_original,
+    ANY_VALUE(booking.discount) AS price_discount,
+    NULL AS coupon,
+    ANY_VALUE(booking.note) AS note,
+    ANY_VALUE(booking.total_fee) AS total_fee,
+    ANY_VALUE(booking.status) AS status,
+    ANY_VALUE(booking.number_of_guests) AS number_of_guests,
+    ANY_VALUE(booking.service_fee) AS service_fee,
+    0 AS additional_fee,
+    0 AS coupon_discount,
+    ANY_VALUE(booking.type) AS type,
+    ANY_VALUE(ask_room_log.price_range) AS price_range,
+    ANY_VALUE(booking.type_booking) AS booking_type,
+    ANY_VALUE(booking.payment_method) AS payment_method,
+    ANY_VALUE(booking.payment_status) AS payment_status,
+    ANY_VALUE(ask_room_log.contact_channel) AS source,
+    ANY_VALUE(booking.exchange_rate) AS exchange_rate,
+    NULL AS age_range,
+    0 AS total_refund,
+    '{"refunds":[{"days":7,"amount":100}],"no_booking_cancel":0}' AS settings,
+    ANY_VALUE(booking.deleted_at) AS deleted_at,
+    ANY_VALUE(booking.created_at) AS created_at,
+    ANY_VALUE(booking.updated_at) AS updated_at
+FROM
+    `booking`
+        LEFT JOIN
+    ask_room_log ON booking.created_at = ask_room_log.created_at
+GROUP BY booking.uuid;
 
 -- Cities
 

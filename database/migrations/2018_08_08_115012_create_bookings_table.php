@@ -37,7 +37,7 @@ class CreateBookingsTable extends Migration
             $table->bigInteger('price_discount')->nullable()->default(0);
             $table->string('coupon', 50)->nullable();
             $table->bigInteger('coupon_discount')->nullable()->default(0);
-            $table->string('note')->nullable();
+            $table->text('note')->nullable();
             $table->bigInteger('total_fee')->nullable()->default(0);
             $table->tinyInteger('status')->nullable()->default(1);
             $table->tinyInteger('email_reminder')->default(0);
