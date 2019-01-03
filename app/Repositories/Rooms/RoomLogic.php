@@ -216,9 +216,9 @@ class RoomLogic extends BaseLogic
         return parent::update($id, $data);
     }
 
-    public function updateCommission($data = [])
+    public function updateComission($data = [])
     {
-        $this->model->updateCommission($data);
+        $this->model->updateComission($data);
     }
 
 

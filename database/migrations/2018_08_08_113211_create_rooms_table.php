@@ -50,7 +50,7 @@ class CreateRoomsTable extends Migration
             $table->tinyInteger('status')->default(0);
             $table->integer('sale_id')->nullable();
             $table->integer('percent')->default(0);
-            $table->integer('commission')->default(20);
+            $table->integer('comission')->default(20);
             $table->longText('settings')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();

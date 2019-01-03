@@ -46,7 +46,7 @@ class RoomController extends ApiController
         'hot'                                => 'integer|between:0,1',
         'new'                                => 'integer|between:0,1',
 
-        'commission'                         =>'integer|between:20,100',
+        'comission'                          =>'integer|between:20,100',
         'latest_deal'                        => 'integer|nullable|between:0,1',
         'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
@@ -154,8 +154,8 @@ class RoomController extends ApiController
         'new.integer'                                    => 'Mới nhất phải là kiểu số',
         'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
 
-        'commission.integer'                             => 'Phần trăm hoa hồng phải là kiểu số',
-        'commission.between'                             => 'Phần trăm hoa hồng phải nằm trong [20,100]',
+        'comission.integer'                             => 'Phần trăm hoa hồng phải là kiểu số',
+        'comission.between'                             => 'Phần trăm hoa hồng phải nằm trong [20,100]',
         'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
         'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
         'longitude.required'                             => 'Kinh độ không được để trống',
@@ -249,7 +249,7 @@ class RoomController extends ApiController
     {
         DB::enableQueryLog();
         $this->authorize('room.view');
-           //    dd(DB::getQueryLog());
+        //    dd(DB::getQueryLog());
         $pageSize    = $request->get('limit', 25);
         $this->trash = $this->trashStatus($request);
 
@@ -854,21 +854,21 @@ class RoomController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function updateCommission(Request $request)
+    public function updateComission(Request $request)
     {
         try {
             $this->authorize('room.update');
             $validate = array_only($this->validationRules, [
-                'commission',
+                'comission',
             ]);
 
             $this->validate($request, $validate, $this->validationMessages);
 
-            $data = $this->model->updateCommission($request->only([
-                'commission'
+            $data = $this->model->updateComission($request->only([
+                'comission'
             ]));
 
-            return $this->successResponse(['data' => 'Cập nhật thành công'],false);
+            return $this->successResponse(['data' => 'Cập nhật thành công'], false);
         } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([

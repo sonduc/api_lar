@@ -421,7 +421,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return $arrayConvert;
     }
     
-    public function updateCommission($data)
+    public function updateComission($data)
     {
         return $this->model->where('status', Room::AVAILABLE)->update($data);
     }

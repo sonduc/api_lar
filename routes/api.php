@@ -60,7 +60,7 @@ $router->group([
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
     $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
-    $router->put('/rooms/update-commission', 'RoomController@updateCommission');
+    $router->put('/rooms/update-comission', 'RoomController@updateComission');
     resource('/rooms', 'RoomController', $router);
     /**
      * Room Review Resource
