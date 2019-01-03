@@ -136,7 +136,6 @@ class SendEmail
                 $message->to($email)->subject('Yêu cầu đặt phòng của bạn đã được chủ nhà xác nhận');
             });
         } catch (\Exception $e) {
-            dd($e);
             logs('emails', 'Email xác nhận khách hàng gửi thất bại ' . $email);
             throw $e;
         }

@@ -221,9 +221,8 @@ class BookingController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
-            //dd(DB::getQueryLog());
+
             DB::commit();
-           // event(new BookingEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             event(new Check_Usable_Coupon_Event($data['coupon']));
 

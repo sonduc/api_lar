@@ -3,7 +3,6 @@
 namespace App\Jobs\Traits;
 
 use ArrayAccess;
-
 trait DispatchesJobs
 {
     /**
@@ -12,6 +11,7 @@ trait DispatchesJobs
      * @param  mixed $job
      *
      * @return mixed
+
      */
     protected function dispatch($job)
     {
