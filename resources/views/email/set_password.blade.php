@@ -346,6 +346,7 @@
                                         <p style="font-size: 25px;"><b>Chào {!! !empty($user->data->name) ? $user->data->name : $user->data->email !!}  </b></p>
                                         <p> Bạn có thể đăng ký tài khoản trên hệ thống WESTAY để có thể nhân được nhiều ưu đãi và các chương trình khuyến mãi hơn từ hệ thống <br /></p>
                                         <p> Bằng cách nhấp vào link dưới đây của hệ thống </p>
+
                                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                                             <tbody>
                                             <tr>
@@ -353,7 +354,9 @@
                                                     <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                                         <tbody>
                                                         <tr>
-                                                            <td style="margin: 0 auto"> <a href= "http://wsapi.test/customer-api/set-password/.{!! $user->data->timeSubmit!!} " target="_blank">Set Password</a> </td>
+                                                            <td style="margin: 0 auto">
+                                                                <a href="{!!$_SERVER['HTTP_HOST'].'/'.\Illuminate\Support\Facades\Request::segment(1).'/set-password/' . $user->data->timeSubmit.'?token='.$user->data->token !!}">Set Password</a>
+                                                            </td>
                                                         </tr>
                                                         </tbody>
                                                     </table>

@@ -5,7 +5,6 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\BaoKim\BaoKimPayment;
 use App\BaoKim\BaoKimPaymentPro;
 use App\Events\BookingConfirmEvent;
-use App\Events\BookingEvent;
 use App\Events\ConfirmBookingTime;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\Customer\BookingTransformer;
@@ -13,7 +12,8 @@ use App\Repositories\Bookings\BookingCancel;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
-use App\Repositories\Bookings\PresentationTrait;
+
+;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepository;
@@ -25,6 +25,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
 use App\Events\CreateBookingTransactionEvent;
+use App\Jobs\SendBookingAdmin;
 
 class BookingController extends ApiController
 {
@@ -255,7 +256,11 @@ class BookingController extends ApiController
             event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
-            // return $this->successResponse($data);
+            // send mai cho ahdmin khi tọa booking.
+            $job = (new SendBookingAdmin($data));
+            dispatch($job);
+
+            //return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

@@ -68,11 +68,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         //  Nếu không tích chọn 2 trường hợp: có hủy và không cho hủy thì mặc định là không cho hủy phòng
         if (empty($data['settings']) || !isset($data['settings'])) {
             $refund = [['days' => 14, 'amount' => 100]];
-            $refund = [
+            $refunds = [
                 'refunds'           => $refund,
                 'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_AVAILABLE,
             ];
-            return json_encode($refund);
+            return json_encode($refunds);
         }
 
         if (isset($data['settings']['no_booking_cancel'])) {
@@ -100,7 +100,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
     public function getRoomLatLong($params = [], $size = 25, $trash = self::NO_TRASH)
     {
-        $sort           = array_get($params, 'sort', 'created_at:-1');
+        $sort = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
         $this->useScope($params);
         
@@ -169,7 +169,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         return $airbnb_calendar;
     }
 
-    public function getRoomById($id, $params, $size)
+    public function getRoomByMerchantId($id, $params, $size)
     {
         $this->useScope($params);
         return $this->model
@@ -419,5 +419,10 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ];
         }
         return $arrayConvert;
+    }
+    
+    public function updateCommission($data)
+    {
+        return $this->model->where('status', Room::AVAILABLE)->update($data);
     }
 }

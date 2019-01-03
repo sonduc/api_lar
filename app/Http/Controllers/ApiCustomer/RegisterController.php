@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ApiCustomer;
 use App\Events\Customer_Register_Event;
 use App\Http\Transformers\UserTransformer;
 use App\Repositories\Users\UserRepository;
+use App\User;
 use Carbon\Carbon;
 use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
@@ -55,22 +56,26 @@ class RegisterController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $user = $this->user->checkEmailOrPhone($request->all());
 //             dd(DB::getQueryLog());
-            // Nếu đã tồn tại email này trên hệ thống với kiểu tao theo tự động theo booking
+            // Nếu đã tồn tại user này trên hệ thống với kiểu tao theo tự động theo booking
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
-            if (!empty($user)) {
-                $timeNow = Carbon::now();
-                $minutes    =  $timeNow->diffInMinutes($user['updated_at']);
-                if ($minutes < 1440) {
-                    return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+            if (!empty($user) )
+            {
+
+                if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
+                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL ){
+                        return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
+                    }
                 }
-
                 event(new Customer_Register_TypeBooking_Event($user));
-                $data['updated_at'] = Carbon::now();
+                $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
+                $data['count_send_mail'] =  $user['count_send_mail'] +1;
                 $this->user->update($user->id, $data);
-
-
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
+
+            }else
+            {
+                throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
 
             $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
@@ -162,21 +167,16 @@ class RegisterController extends ApiController
      * @throws \Throwable
      */
 
-    public function confirm(Request $request)
+    public function confirm(Request $request,$uuid)
     {
         DB::beginTransaction();
         try {
-            $user = $this->user->checkUserByStatus($request->all());
-            if (!empty($user)) {
-                throw new \Exception('Tài khoản đã được kích hoạt');
-            }
-            $validate = array_only($this->validationRules, [
-                'status',
-            ]);
-            $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->user->updateStatus($request->all());
+
+            $user = $this->user->checkUser($uuid);
+
+            $data = $this->user->updateStatus($user);
             DB::commit();
-            return $this->successResponse($data);
+            return $this->successResponse(['data' => 'Tài khoản của bạn đã được kích hoạt'],false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

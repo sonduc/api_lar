@@ -12,6 +12,9 @@ final class BookingConstant
 
     // Khoảng thời gian trống  các lần book
     const MINUTE_BETWEEN_BOOK = 60;
+
+    // Khoảng thời gian trống  các lần book theo giờ.
+    const MINUTE_BETWEEN_BOOK_TYPE_HOUR = 30;
     // Trạng thái booking:
     const ACTIVE   = 1;
     const INACTIVE = 0;
@@ -54,6 +57,9 @@ final class BookingConstant
     // Định nghĩa đặt phòng theo
     const BOOKING_TYPE_HOUR = 1; // Theo giờ
     const BOOKING_TYPE_DAY  = 2; // Theo ngày
+
+    // Tính giá kiểu giờ trùng với thời gian checkin, checkout mặc đinh của phòng
+    const PRICE_TYPE_HOUR_SPECICAL = 2; // Theo ngày
 
     const BOOKING_TYPE = [
         self::BOOKING_TYPE_DAY  => 'Theo ngày',

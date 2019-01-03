@@ -36,7 +36,6 @@ class BookingTransformer extends TransformerAbstract
         if (is_null($booking)) {
             return [];
         }
-
         return [
             'id'                 => $booking->id,
             'uuid'               => $booking->uuid,

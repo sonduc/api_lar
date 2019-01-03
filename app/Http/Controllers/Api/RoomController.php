@@ -45,6 +45,8 @@ class RoomController extends ApiController
         'is_manager'                         => 'integer|nullable|between:0,1',
         'hot'                                => 'integer|between:0,1',
         'new'                                => 'integer|between:0,1',
+
+        'commission'                         =>'integer|between:20,100',
         'latest_deal'                        => 'integer|nullable|between:0,1',
         'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
@@ -79,7 +81,7 @@ class RoomController extends ApiController
         'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',
 
         /**
-         * place
+         *
          */
 
     ];
@@ -151,6 +153,9 @@ class RoomController extends ApiController
         'new.between'                                    => 'Mã không hợp lệ',
         'new.integer'                                    => 'Mới nhất phải là kiểu số',
         'latest_deal.integer'                            => 'Giá hạ sàn phải là kiểu số',
+
+        'commission.integer'                             => 'Phần trăm hoa hồng phải là kiểu số',
+        'commission.between'                             => 'Phần trăm hoa hồng phải nằm trong [20,100]',
         'details.*.*.address.required'                   => 'Vui lòng điền địa chỉ',
         'rent_type.integer'                              => 'Kiểu thuê phòng phải là dạng số',
         'longitude.required'                             => 'Kinh độ không được để trống',
@@ -723,6 +728,15 @@ class RoomController extends ApiController
     }
 
 
+    /**
+     * Update các cài ddawtjj về chính sách hủy phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
     public function updateRoomSettings(Request $request)
     {
         DB::beginTransaction();
@@ -761,6 +775,118 @@ class RoomController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     *Update giá của phòng vào những ngaỳ đặc biệt hoặc cuối tuần
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateRoomOptionalPrice(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'weekday_price.*.price_day',
+                'weekday_price.*.price_hour',
+                'weekday_price.*.price_after_hour' ,
+                'weekday_price.*.price_charge_guest',
+                'weekday_price.*.status',
+                'weekday_price.*.weekday',
+
+                'optional_prices.days.*',
+                'optional_prices.price_day',
+                'optional_prices.price_hour',
+                'optional_prices.price_after_hour' ,
+                'optional_prices.price_charge_guest',
+                'optional_prices.status',
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->updateRoomOptionalPrice($request->only([
+                'optional_prices', 'weekday_price','room_id'
+            ]));
+
+            DB::commit();
+            logs('room', 'sửa phòng mã ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateCommission(Request $request)
+    {
+        try {
+            $this->authorize('room.update');
+            $validate = array_only($this->validationRules, [
+                'commission',
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+
+            $data = $this->model->updateCommission($request->only([
+                'commission'
+            ]));
+
+            return $this->successResponse(['data' => 'Cập nhật thành công'],false);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

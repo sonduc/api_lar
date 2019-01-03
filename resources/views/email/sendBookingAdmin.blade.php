@@ -30,9 +30,9 @@
     <tr>
         <td>
             @if (!empty($email))
-                <a target="blank" style="background: #f5a623;color: #fff;text-decoration: none;padding: 5px 30px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 20px;font-size: 20px;font-weight: 300;" href="{{ !empty($urlAdmin ) ? $urlAdmin : '' }}"> Quản lý booking</a>
+                <a target="blank" style="background: #f5a623;color: #fff;text-decoration: none;padding: 5px 30px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 20px;font-size: 20px;font-weight: 300;" href=""> Quản lý booking</a>
             @else
-                <a target="blank" style="background: #f5a623;color: #fff;text-decoration: none;padding: 5px 30px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 20px;font-size: 20px;font-weight: 300;" href="{{ !empty($url ) ? $url : '' }}"> Quản lý booking</a>
+                <a target="blank" style="background: #f5a623;color: #fff;text-decoration: none;padding: 5px 30px;border-radius: 4px; display: inline-block;margin-top: 20px;font-size: 20px;font-size: 20px;font-weight: 300;" href=""> Quản lý booking</a>
             @endif
         </td>
     </tr>

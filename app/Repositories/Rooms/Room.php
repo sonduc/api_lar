@@ -122,6 +122,8 @@ class Room extends Entity
         'airbnb_calendar',
         'settings',
         'percent',
+        'commission'
+
     ];
     /**
      * The attributes that should be mutated to dates.

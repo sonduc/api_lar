@@ -50,7 +50,7 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         VERSION:2.0
         METHOD:PUBLISH
         PRODID:-//Westay//Calendar//EN\n";
-        
+
         foreach ($events as $event) {
             // dump($event->location == null);
             if ($event->location == null) {
@@ -78,12 +78,12 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         }
 
         $icalObject .= "END:VCALENDAR";
-        
+
         // Set the headers
         header('Content-type: text/calendar; charset=utf-8');
         header('Content-Disposition: attachment; filename="cal.ics"');
         $icalObject = str_replace(' ', '', $icalObject);
-        
+
         echo $icalObject;
     }
 
@@ -185,7 +185,7 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
                 $blocks[] = [
                     $time_block_start,$time_block_end
                 ];
-               
+
                 $dt_start   = $ical->iCalDateToDateTime($event->dtstart_array[3], false);
                 // dd($dt_start > $now);
                 if ($dt_start >= $now) {

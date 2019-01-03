@@ -142,21 +142,6 @@ class RoomLogic extends BaseLogic
         return $this->getBlockedScheduleByRoomId($room->id);
     }
 
-    /**
-     * Cập nhật khóa phòng
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $data
-     */
-    public function updateRoomTimeBlock($data)
-    {
-        $data    = collect($data);
-        $room_id = $data->get('room_id');
-        $room    = $this->model->getById($room_id);
-        $this->roomTimeBlock->updateRoomTimeBlock($room, $data->all());
-        return $room;
-    }
-
 
 
     /**
@@ -231,18 +216,10 @@ class RoomLogic extends BaseLogic
         return parent::update($id, $data);
     }
 
-
-    /**
-     *
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $data
-     * @return \App\Repositories\Eloquent
-     * @throws \Exception
-     */
-    public function updateRoomSettings($data)
+    public function updateCommission($data = [])
     {
-        $data['settings']= $this->model->checkValidRefund($data['settings']);
-        return parent::update($data['room_id'], $data);
+        $this->model->updateCommission($data);
     }
+
+
 }

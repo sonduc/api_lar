@@ -133,7 +133,6 @@ $app->register(Illuminate\Redis\RedisServiceProvider::class);
 |
 */
 
-
 $app->router->group([
     'namespace' => 'App\Http\Controllers',
 ], function ($router) {
