@@ -102,6 +102,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     {
         $sort           = array_get($params, 'sort', 'created_at:-1');
         $params['sort'] = $sort;
+        $this->useScope($params);
+        
         $room           = $this->model
             ->where('longitude', '>=', floatval($params["long_min"]))
             ->where('longitude', '<=', floatval($params["long_max"]))
