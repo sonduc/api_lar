@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
 use App\Jobs\SendBookingAdmin;
-use App\Jobs\Traits\DispatchesJobs;
+
 
 class BookingController extends ApiController
 {

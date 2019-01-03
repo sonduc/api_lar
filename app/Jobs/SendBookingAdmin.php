@@ -8,14 +8,12 @@
 
 namespace App\Jobs;
 
-use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 
-class SendBookingAdmin extends Job
+class SendBookingAdmin  implements ShouldQueue
 {
-
-    public $user;
     public $booking;
 
     public function __construct($booking)
