@@ -42,11 +42,18 @@ $router->group([
 /*
  * Rooms Router
  */
+$router->get('/rooms/type', 'RoomController@getRoomType');
 $router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 $router->get('/rooms', 'RoomController@index');
 $router->get('/rooms/{id}', 'RoomController@show');
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
 $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
+
+
+/**
+ * Comfort Resource
+ */
+resource('/comforts', 'ComfortController', $router);
 
 /*
  * Booking Router
