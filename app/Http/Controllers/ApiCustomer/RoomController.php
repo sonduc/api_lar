@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ApiCustomer;
 
 use App\Http\Transformers\Customer\RoomTransformer;
 use App\Repositories\_Customer\RoomLogic;
+use App\Repositories\Rooms\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -143,6 +144,25 @@ class RoomController extends ApiController
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Lấy ra kiểu phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomType()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Room::ROOM_TYPE);
+            return response()->json($data);
         } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
