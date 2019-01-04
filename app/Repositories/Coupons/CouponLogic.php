@@ -167,6 +167,8 @@ class CouponLogic extends BaseLogic
                 $list_district_id = array_merge(($settings->districts ?? []), $list_district_id);
                 $list_merchant_id = array_merge(($settings->merchants ?? []), $list_merchant_id);
                 $list_user_id     = array_merge(($settings->users ?? []), $list_user_id);
+                $date_start       = $settings->date_start;
+                $date_end         = $settings->date_end;
             }
 
             $arrData = $this->transformCouponIndex(
@@ -176,7 +178,9 @@ class CouponLogic extends BaseLogic
                 (!empty($settings->days) ? $settings->days : []),
                 $list_merchant_id,
                 $list_user_id,
-                $data
+                $data,
+                $date_start,
+                $date_end
             );
 
             return \count($data) === 1 ? $arrData[0] : $arrData;
@@ -198,7 +202,7 @@ class CouponLogic extends BaseLogic
      *
      * @return array
      */
-    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $merchants = [], $users = [], $coupons = [])
+    public function transformCouponIndex($rooms = [], $cities = [], $districts = [], $days = [], $merchants = [], $users = [], $coupons = [], $date_start = null, $date_end = null)
     {
         $arrRoom        = $this->room_translate->getRoomByListIdIndex($rooms);
         $arrCity        = $this->city->getCityByListIdIndex($cities);
@@ -298,6 +302,8 @@ class CouponLogic extends BaseLogic
                 'days_of_week'   => $arrDate_filter,
                 'room_type'      => $arrRoomType_filter,
                 'min_price'      => $arrMinPrice_filter,
+                'date_start'     => $date_start,
+                'date_end'       => $date_end,
             ];
             $coupons[$key]->settings = json_encode($arrayTransformSetting);
         }

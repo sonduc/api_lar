@@ -208,7 +208,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getRoomComission($id)
     {
-        return $this->model->where('id', $id)->pluck('comission');
+        return $this->model->where('id', $id)->pluck('comission')->first();
     }
     
     /**

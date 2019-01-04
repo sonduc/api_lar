@@ -41,7 +41,7 @@ class Coupon extends Entity
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Promotions()
+    public function promotion()
     {
         return $this->belongsTo(Promotion::class, 'promotion_id', 'id');
     }

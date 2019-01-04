@@ -13,6 +13,7 @@ use League\Fractal\ParamBag;
 class CouponTransformer extends TransformerAbstract
 {
     protected $availableIncludes = [
+        'promotion'
     ];
 
     public function transform(Coupon $coupon = null)
@@ -20,7 +21,7 @@ class CouponTransformer extends TransformerAbstract
         if (is_null($coupon)) {
             return [];
         }
-
+        
         return [
             'id'                =>  $coupon->id,
             'code'              =>  $coupon->code,
@@ -36,5 +37,23 @@ class CouponTransformer extends TransformerAbstract
             'promotion_id'      =>  $coupon->promotion_id,
 
         ];
+    }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Coupon|null $coupon
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includePromotion(Coupon $coupon = null, ParamBag $params = null)
+    {
+        if (is_null($coupon)) {
+            return $this->null();
+        }
+
+        return $this->item($coupon->promotion, new PromotionTransformer);
     }
 }

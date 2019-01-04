@@ -235,6 +235,7 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
 
     public function updateCalendarRoomBlock($room, $data)
     {
+        // dd('asdf');
         // dd(Carbon::parse($data[0])->addDay());
         $room_name = $this->room_translate->getRoomByListIdIndex([$room['id']]);
         // dd($room_name[0]['name']);
@@ -256,6 +257,6 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             'room_id'    => $room['id'],
             // 'created_at' => $data_booking->created_at,
             // 'updated_at' => $data_booking->updated_at
-        ], ['uid'        => Crypt::encrypt($room_name[0]['name']).'@westay.org',]);
+        ], ['uid'        => substr(Crypt::encrypt($room_name[0]['name']), 0, 200).'@westay.org']);
     }
 }

@@ -154,7 +154,7 @@ trait CouponLogicTrait
 
                 $period_stay = CarbonPeriod::between($checkin, $checkout);
 
-                if (!empty($data['booking_type']) && $data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
+                if (!empty($data['booking_type']) && in_array(BookingConstant::BOOKING_TYPE_DAY, $data['booking_type'])) {
                     foreach ($period_stay as $day) {
                         $list_stay[] = $day;
                     }
