@@ -184,9 +184,9 @@ class TransactionLogic extends BaseLogic
             TransactionType::TRANSACTION_BOOK_AGODA,
             TransactionType::TRANSACTION_RECEIPT,
         ];
-
+        
         foreach ($listUser as $key => $value) {
-            $user_transactions = $this->model->getUserTrasaction($value);
+            $user_transactions = $this->model->getUserTransaction($value);
             $total_debit  = 0;
             $total_credit = 0;
             $total_bonus  = 0;

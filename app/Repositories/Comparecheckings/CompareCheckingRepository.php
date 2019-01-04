@@ -33,6 +33,6 @@ class CompareCheckingRepository extends BaseRepository implements CompareCheckin
             'total_bonus' => $bonus,
             'total_compare_checking' => $total_compare_checking
         ];
-        return parent::store($data);
+        return $this->model->firstOrCreate($data);
     }
 }
