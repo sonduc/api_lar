@@ -87,11 +87,16 @@ class BaoKimPaymentPro{
 	}
 
 	public function generateBankImage($banks, $payment_method_type, $flag = 0){
-		$html = '';
+		$html = [];
 
 		foreach ($banks as $bank) {
 			if ($bank['payment_method_type'] == $payment_method_type) {
-				$html .= '<li class="bank_item"><img class="img-bank" method="'.$flag.'"   id="' . $bank['id'] .  '" src="' .  $bank['logo_url'] . '" title="' .  $bank['name'] . '"/></li>';
+				$html[] = [
+				    'id'=> $bank['id'],
+                    'logo_url' => $bank['logo_url'],
+                    'name' => $bank['name']
+                ];
+
 			}
 		}
 		return $html;

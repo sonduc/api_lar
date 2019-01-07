@@ -203,41 +203,43 @@ final class BookingConstant
         // Danh sách các ngân hàng online
         $baokim = App::make('App\BaoKim\BaoKimPaymentPro');
         $bank_listings = $baokim->get_seller_info();
+//        dd($bank_listings);
         return [
-            self::ATM    => [
+            [
                 'title'          => 'Thanh toán qua thẻ ATM nội địa',
                 'payment_method' => self::ATM,
                 'status'         => true,
                 'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_LOCAL_CARD, self::ATM),
-                'default'        => true
             ],
-            self::VISA   => [
+            [
                 'title'          => 'Thanh toán qua thẻ quốc tế Visa Mastercard',
                 'payment_method' => self::VISA,
                 'status'         => true,
                 'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_CREDIT_CARD, self::VISA),
-                'default'        => false
             ],
-            self::BAOKIM => [
+            [
                 'title'          => 'Thanh toán qua ví điện tử bảo kim',
                 'payment_method' => self::BAOKIM,
-                'status'         => false,
-                'banks'          => null,
-                'default'        => false
+                'status'         => true,
+                'banks'          => [
+                                        [
+                                            'logo_url' => "https://e27.co/img/startups/19028/logo-1478135700.png",
+                                            'name'=> 'Thanh toán qua ví điện tử bảo kim'
+                                        ]
+
+                                    ],
             ],
-            self::COD    => [
+            [
                 'title'          => 'Thanh toán tại nhà',
                 'payment_method' => self::COD,
                 'status'         => false,
-                'banks'          => null,
-                'default'        => false
+                'banks'          => [],
             ],
-            self::CARD   => [
+            [
                 'title'          => 'Thanh toán chuyển khoản',
                 'payment_method' => self::CARD,
                 'status'         => false,
-                'banks'          => null,
-                'default'        => false
+                'banks'          => [],
             ]
         ];
     }

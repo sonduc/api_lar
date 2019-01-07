@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
 use App\Events\CreateBookingTransactionEvent;
 use App\Jobs\SendBookingAdmin;
+use phpDocumentor\Reflection\DocBlockFactory;
 
 class BookingController extends ApiController
 {
@@ -335,7 +336,7 @@ class BookingController extends ApiController
             $avaiable_option = array_keys($validate);
             $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
-            
+
             $dataBooking = $this->model->getById($id);
             // dd(DB::getQueryLog());
             DB::commit();
@@ -478,6 +479,7 @@ class BookingController extends ApiController
     public function bankList($uuid)
     {
         $booking  = $this->bookingRepository->getBookingByUuid($uuid);
+        $booking->settings = json_decode($booking->settings);
         $payment_methods = BookingConstant::getAllPaymentMethod();
         return $this->successResponse(['data' => ['payment_methods' => $payment_methods, 'booking' => $booking]], false);
     }
@@ -495,10 +497,16 @@ class BookingController extends ApiController
     {
         $payment_method    = (int) $request->get('payment_method');
         try {
-            $result  = $this->bookingRepository->getBookingByUuid($uuid)->toArray();
+            $result  = $this->bookingRepository->getBookingByUuid($uuid);
+            if (empty($result))
+            {
+                return $this->errorResponse('Thông tin thanh toán không hợp lệ');
+            }
             // cập nhật trạng hình thức thanh toán.
-            $result['payment_method'] = $payment_method;
-            $booking = $this->bookingRepository->update($result['id'], $result);
+            $data = [];
+            $data['payment_method'] = $payment_method;
+            $booking = $this->bookingRepository->update($result->id, $data);
+
 
             if ($booking) {
                 $data     = [
