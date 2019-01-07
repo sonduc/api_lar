@@ -55,6 +55,16 @@ $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
  */
 resource('/comforts', 'ComfortController', $router);
 
+/**
+ * City Resource
+ */
+resource('/cities', 'CityController', $router);
+
+/**
+ * District Resource
+ */
+resource('/districts', 'DistrictController', $router);
+
 /*
  * Booking Router
  */

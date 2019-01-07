@@ -40,9 +40,11 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $user  = parent::store($data);
         $roles = array_get($data, 'roles', []);
+
         if (count($roles)) {
             $user->roles()->attach($roles);
         }
+
         return $user;
     }
 

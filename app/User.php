@@ -70,6 +70,9 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::DIAMOND  => 'Kim Cương',
     ];
 
+    // Định nghĩa quyền merchant.
+    const ROLE_MERCHANT = 2;
+
     // Định nghĩa VIP
     const VIP_ACTIVE   = 1;
     const VIP_DEACTIVE = 0;

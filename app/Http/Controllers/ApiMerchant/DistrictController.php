@@ -10,31 +10,24 @@ namespace App\Http\Controllers\ApiMerchant;
 
 
 use App\Http\Controllers\Api\ApiController;
-use App\Http\Transformers\CityTransformer;
-use App\Repositories\Cities\CityRepository;
+use App\Http\Transformers\DistrictTransformer;
+use App\Repositories\Districts\DistrictRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
-class CityController extends ApiController
+class DistrictController extends ApiController
 {
-    protected $validationRules
-        = [
-
-        ];
-    protected $validationMessages
-        = [
-
-        ];
 
     /**
-     * CityController constructor.
+     * DistrictController constructor.
      *
-     * @param CityRepository $city
+     * @param DistrictRepository $district
      */
-    public function __construct(CityRepository $city)
+    public function __construct(DistrictRepository $district)
     {
-        $this->model = $city;
-        $this->setTransformer(new CityTransformer);
+        $this->model = $district;
+        $this->setTransformer(new DistrictTransformer);
+
     }
 
     /**
@@ -44,16 +37,15 @@ class CityController extends ApiController
      */
     public function index(Request $request)
     {
-        try {
-            $this->authorize('city.view');
+        try{
             $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        }
 
+        }catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
     }
 
     /**
@@ -64,13 +56,8 @@ class CityController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('city.view');
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -79,6 +66,5 @@ class CityController extends ApiController
             throw $t;
         }
     }
-
 
 }

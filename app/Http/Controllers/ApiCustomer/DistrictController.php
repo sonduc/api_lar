@@ -2,39 +2,28 @@
 /**
  * Created by PhpStorm.
  * User: ducchien
- * Date: 18/12/2018
- * Time: 10:17
+ * Date: 07/01/2019
+ * Time: 10:40
  */
 
-namespace App\Http\Controllers\ApiMerchant;
+namespace App\Http\Controllers\ApiCustomer;
 
-
-use App\Http\Controllers\Api\ApiController;
-use App\Http\Transformers\CityTransformer;
-use App\Repositories\Cities\CityRepository;
+use App\Http\Transformers\DistrictTransformer;
+use App\Repositories\Districts\DistrictRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-
-class CityController extends ApiController
+class DistrictController extends ApiController
 {
-    protected $validationRules
-        = [
-
-        ];
-    protected $validationMessages
-        = [
-
-        ];
-
     /**
-     * CityController constructor.
+     * DistrictController constructor.
      *
-     * @param CityRepository $city
+     * @param DistrictRepository $district
      */
-    public function __construct(CityRepository $city)
+    public function __construct(DistrictRepository $district)
     {
-        $this->model = $city;
-        $this->setTransformer(new CityTransformer);
+        $this->model = $district;
+        $this->setTransformer(new DistrictTransformer);
+
     }
 
     /**
@@ -44,8 +33,7 @@ class CityController extends ApiController
      */
     public function index(Request $request)
     {
-        try {
-            $this->authorize('city.view');
+        try{
             $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
@@ -53,7 +41,6 @@ class CityController extends ApiController
                 'error' => $f->getMessage(),
             ]);
         }
-
     }
 
     /**
@@ -64,7 +51,6 @@ class CityController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('city.view');
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
@@ -79,6 +65,5 @@ class CityController extends ApiController
             throw $t;
         }
     }
-
 
 }

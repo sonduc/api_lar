@@ -71,16 +71,16 @@ class RegisterController extends ApiController
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;
                 $this->user->update($user->id, $data);
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
-            } else {
-                throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
 
             $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
             $this->validationRules['password']              = 'required|min:6|max:255';
             $this->validationRules['password_confirmation'] = 'required|min:6|max:255|same:password';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $params           = $request->only('email', 'password');
-            $params['type']   = User::MERCHANT;
+            $params                                         = $request->only('email', 'password');
+            $params['type']                                 = User::MERCHANT;
+
+
 
             if ($request->get('ref') !== null) {
                 if (!$this->user->isValidReferenceID($request->get('ref'))) {
@@ -98,7 +98,11 @@ class RegisterController extends ApiController
             // Create new user
             // dd($params);
             $newClient = $this->getResource()->store($params);
-            
+
+            // Tạo quyền cho merchant.
+            $newClient->roles()->attach([User::ROLE_MERCHANT]);
+
+
             if ($newClient && isset($params['ref_code'])) {
                 $storeReferral  = $this->referral->storeReferralUser($newClient->id, $user_id, User::MERCHANT);
             }
