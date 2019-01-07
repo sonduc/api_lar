@@ -204,35 +204,35 @@ final class BookingConstant
         $baokim = App::make('App\BaoKim\BaoKimPaymentPro');
         $bank_listings = $baokim->get_seller_info();
         return [
-            self::ATM    => [
+            [
                 'title'          => 'Thanh toán qua thẻ ATM nội địa',
                 'payment_method' => self::ATM,
                 'status'         => true,
                 'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_LOCAL_CARD, self::ATM),
                 'default'        => true
             ],
-            self::VISA   => [
+            [
                 'title'          => 'Thanh toán qua thẻ quốc tế Visa Mastercard',
                 'payment_method' => self::VISA,
                 'status'         => true,
                 'banks'          => $baokim->generateBankImage($bank_listings, PAYMENT_METHOD_TYPE_CREDIT_CARD, self::VISA),
                 'default'        => false
             ],
-            self::BAOKIM => [
+            [
                 'title'          => 'Thanh toán qua ví điện tử bảo kim',
                 'payment_method' => self::BAOKIM,
                 'status'         => false,
                 'banks'          => null,
                 'default'        => false
             ],
-            self::COD    => [
+            [
                 'title'          => 'Thanh toán tại nhà',
                 'payment_method' => self::COD,
                 'status'         => false,
                 'banks'          => null,
                 'default'        => false
             ],
-            self::CARD   => [
+            [
                 'title'          => 'Thanh toán chuyển khoản',
                 'payment_method' => self::CARD,
                 'status'         => false,
