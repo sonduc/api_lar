@@ -2,19 +2,16 @@
 /**
  * Created by PhpStorm.
  * User: ducchien
- * Date: 18/12/2018
- * Time: 10:17
+ * Date: 07/01/2019
+ * Time: 11:26
  */
 
-namespace App\Http\Controllers\ApiMerchant;
+namespace App\Http\Controllers\ApiCustomer;
 
-
-use App\Http\Controllers\Api\ApiController;
 use App\Http\Transformers\CityTransformer;
 use App\Repositories\Cities\CityRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-
 class CityController extends ApiController
 {
     protected $validationRules
@@ -48,10 +45,10 @@ class CityController extends ApiController
             $this->authorize('city.view');
             $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
+        }catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
         }
 
     }
@@ -67,10 +64,6 @@ class CityController extends ApiController
             $this->authorize('city.view');
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -79,6 +72,5 @@ class CityController extends ApiController
             throw $t;
         }
     }
-
 
 }
