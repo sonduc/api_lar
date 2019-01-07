@@ -179,12 +179,17 @@ class TransactionLogic extends BaseLogic
             TransactionType::TRANSACTION_SURCHARGE,
             TransactionType::TRANSACTION_DISCOUNT,
             TransactionType::TRANSACTION_PAYOUT,
+            TransactionType::TRANSACTION_RECEIPT
+        ];
+
+        $listNoComissionType = [
+            TransactionType::TRANSACTION_PENALTY,
+            TransactionType::TRANSACTION_BONUS,
             TransactionType::TRANSACTION_BOOK_AIRBNB,
             TransactionType::TRANSACTION_BOOK_BOOKING,
             TransactionType::TRANSACTION_BOOK_AGODA,
-            TransactionType::TRANSACTION_RECEIPT,
         ];
-        
+
         foreach ($listUser as $key => $value) {
             $user_transactions = $this->model->getUserTransaction($value);
             $total_debit  = 0;
@@ -192,13 +197,28 @@ class TransactionLogic extends BaseLogic
             $total_bonus  = 0;
             foreach ($user_transactions as $k => $v) {
                 if ($v['comission'] !== null && in_array($v['type'], $listComissionType)) {
-                    $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
-                    $total_credit += $v['credit'] * (100 - $v['comission']) / 100;
-                } else {
+                    if ($v['type'] == TransactionType::TRANSACTION_BOOKING) {
+                        $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                    }
+                    if ($v['type'] == TransactionType::TRANSACTION_SURCHARGE) {
+                        $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                    }
+                    if ($v['type'] == TransactionType::TRANSACTION_DISCOUNT) {
+                        $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                    }
+                    if ($v['type'] == TransactionType::TRANSACTION_PAYOUT) {
+                        $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                    }
+                    if ($v['type'] == TransactionType::TRANSACTION_RECEIPT) {
+                        $total_debit -= $v['debit'] * (100 - $v['comission']) / 100;
+                    }
+                } elseif ($v['comission'] == null && in_array($v['type'], $listNoComissionType)) {
                     $total_debit  += $v['debit'];
+                    $total_credit -= $v['credit'];
                 }
                 $total_bonus      += $v['bonus'];
             }
+            
             $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $value);
         }
     }

@@ -8,14 +8,13 @@
 
 namespace App\Http\Controllers\ApiMerchant;
 
-
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Transformers\DistrictTransformer;
 use App\Repositories\Districts\DistrictRepository;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
-class DistrictControlelr extends ApiController
+class DistrictController extends ApiController
 {
 
     /**
@@ -27,7 +26,6 @@ class DistrictControlelr extends ApiController
     {
         $this->model = $district;
         $this->setTransformer(new DistrictTransformer);
-
     }
 
     /**
@@ -37,11 +35,11 @@ class DistrictControlelr extends ApiController
      */
     public function index(Request $request)
     {
-        try{
+        try {
             $this->authorize('district.view');
             $data        = $this->model->getByQuery($request->all());
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -59,7 +57,7 @@ class DistrictControlelr extends ApiController
             $this->authorize('district.view');
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -71,5 +69,4 @@ class DistrictControlelr extends ApiController
             throw $t;
         }
     }
-
 }
