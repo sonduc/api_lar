@@ -53,8 +53,7 @@ class BookingController extends ApiController
         'status'                    => 'nullable|in:1',
         'type'                      =>  'required|in:2',
         'booking_type'              => 'bail|required|integer|between:1,2|booking_type_check',
-        'payment_method'            => 'required|in:4,5',
-        'bank_payment_method_id'    => 'required|integer',
+
         'source'                    => 'required|in:4',
         'exchange_rate'             => 'nullable|integer',
         'money_received'            => 'integer|filled|min:0',
@@ -497,9 +496,9 @@ class BookingController extends ApiController
     public function payment($uuid, Request $request)
     {
         try {
-            $validate            = array_only($this->validationRules, [
-                'payment_method','bank_payment_method_id'
-            ]);
+            $validate['payment_method']         = 'required|in:4,5';
+            $validate['bank_payment_method_id'] = 'required|integer';
+
             $this->validate($request, $validate, $this->validationMessages);
 
             $payment_method    = (int) $request->get('payment_method');
