@@ -226,7 +226,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      */
     public function checkUser($uuid)
     {
-        $user = $this->model->where('uuid', $data['uuid'])->first();
+        $user = $this->model->where('uuid', $uuid)->first();
         if (empty($user)) {
             throw  new \Exception('Đường dẫn không tồn tại');
         }

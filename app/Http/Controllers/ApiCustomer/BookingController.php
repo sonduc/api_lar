@@ -254,7 +254,7 @@ class BookingController extends ApiController
             DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
             // event(new BookingEvent($data));
-            event(new CreateBookingTransactionEvent($data));
+          //  event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             // send mai cho ahdmin khi tọa booking.

@@ -14,7 +14,7 @@ use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\Repositories\Coupons\CouponLogic;
 use App\Jobs\SendCouponRegisterUser;
-use App\User;
+
 
 class RegisterController extends ApiController
 {
@@ -73,9 +73,6 @@ class RegisterController extends ApiController
                 $this->user->update($user->id, $data);
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
 
-            }else
-            {
-                throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
 
             $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
@@ -171,9 +168,7 @@ class RegisterController extends ApiController
     {
         DB::beginTransaction();
         try {
-
             $user = $this->user->checkUser($uuid);
-
             $data = $this->user->updateStatus($user);
             DB::commit();
             return $this->successResponse(['data' => 'Tài khoản của bạn đã được kích hoạt'],false);
