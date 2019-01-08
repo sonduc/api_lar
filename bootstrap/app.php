@@ -30,7 +30,7 @@ $app->withFacades();
 $app->withEloquent();
 
 // Config file
-// $app->configure('app');
+ $app->configure('app');
 $app->configure('cors');
 $app->configure('auth');
 $app->configure('singleton');
@@ -112,6 +112,9 @@ $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
 $app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
+if (env('APP_DEBUG')) {
+    $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
+}
 
 /*
 |--------------------------------------------------------------------------

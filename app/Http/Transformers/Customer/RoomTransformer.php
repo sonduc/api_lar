@@ -24,6 +24,7 @@ class RoomTransformer extends TransformerAbstract
 
         return [
             'id'                    => $room->id,
+            'room_type'             => $room->room_type,
             'room_type_txt'         => $room->roomType(),
             'max_guest'             => $room->max_guest,
             'number_bed'            => $room->number_bed,
@@ -31,6 +32,7 @@ class RoomTransformer extends TransformerAbstract
             'price_day'             => $room->price_day ?? 0,
             'price_hour'            => $room->price_hour ?? 0,
             'standard_point'        => $room->standard_point,
+            'manager'               => $room->is_manager,
             'manager_txt'           => $room->managerStatus(),
             // 'latest_deal_txt'       => $room->latest_deal ? 'Có' : trans2(ErrorCore::NOT_AVAILABLE),
             // 'hot_txt'               => $room->hot ? 'Có' : trans2(ErrorCore::NOT_AVAILABLE),
@@ -38,6 +40,7 @@ class RoomTransformer extends TransformerAbstract
             // 'latest_deal'           => $room->latest_deal,
             // 'hot'                   => $room->hot,
             // 'new'                   => $room->new,
+            'rent_type'             => $room->rent_type,
             'rent_type_txt'         => $room->rentStatus(),
             'longitude'             => $room->longitude,
             'latitude'              => $room->latitude,
