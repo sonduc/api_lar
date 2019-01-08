@@ -23,6 +23,7 @@ try {
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__ . '/../')
 );
+
 // Enable Facades
 $app->withFacades();
 // Enable Eloquent

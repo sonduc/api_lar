@@ -478,10 +478,10 @@ class BookingController extends ApiController
      */
     public function bankList($uuid)
     {
-        $booking  = $this->bookingRepository->getBookingByUuid($uuid);
-        $booking->settings = json_decode($booking->settings);
-        $payment_methods = BookingConstant::getAllPaymentMethod();
-        return $this->successResponse(['data' => ['payment_methods' => $payment_methods, 'booking' => $booking]], false);
+        $booking            = $this->bookingRepository->getBookingByUuid($uuid);
+        $payment_methods    = BookingConstant::getAllPaymentMethod();
+        $booking->bank_list = $payment_methods;
+        return $this->successResponse($booking);
     }
 
 
