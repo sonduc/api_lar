@@ -215,3 +215,12 @@ select booking_id, total_received, total_debt,note, (status - 1) as status, conf
 -- Update Room percent
 
 update rooms set percent = 100 where status = 1
+
+-- Blogs
+select id, title,  teaser as description, image, content, active as status, hot,null as new,category_id, type, user_id,  slug, null as deleted_at, created_at, updated_at from blogs
+
+-- Blogs tag
+select * from blog_tag
+
+-- tags
+select * from tags

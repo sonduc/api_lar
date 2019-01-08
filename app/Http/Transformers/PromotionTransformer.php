@@ -28,6 +28,7 @@ class PromotionTransformer extends TransformerAbstract
          'date_start'            => $promotion->date_start ? $promotion->date_start : null,
          'date_end'              => $promotion->date_end ? $promotion->date_end : null,
          'status'                => $promotion->status,
+         'image'                 => $promotion->image,
          'status_txt'            => $promotion->getPromotionStatus(),
          'created_at'            => $promotion->created_at ? $promotion->created_at->format('Y-m-d H:i:s') : null,
          'updated_at'            => $promotion->updated_at ? $promotion->updated_at->format('Y-m-d H:i:s') : null,

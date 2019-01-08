@@ -11,7 +11,6 @@ class BlogTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-        'details',
         'tags',
         'categories',
         'user',
@@ -30,34 +29,37 @@ class BlogTransformer extends TransformerAbstract
             'hot'         => $blog->hot ?? 0,
             'new'         => $blog->new ?? 0,
             'user_id'     => $blog->user_id,
+            'title'       => $blog->title,
+            'slug'        => $blog->slug,
+            'content'     => $blog->content,
+            'description' => $blog->description,
+            'type'        => $blog->type,
             'category_id' => $blog->category_id,
             'created_at'  => $blog->created_at ? $blog->created_at->format('Y-m-d H:i:s') : null,
-            'updated_at'  => $blog->updated_at ? $blog->updated_at->format('Y-m-d H:i:s') : null,
-
-
+            'updated_at'  => $blog->updated_at ? $blog->updated_at->format('Y-m-d H:i:s') : null
         ];
     }
 
-    /**
-     * Thông tin chi tiết bài viết
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param Blog|null     $blog
-     * @param ParamBag|null $params
-     *
-     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
-     */
-    public function includeDetails(Blog $blog = null, ParamBag $params = null)
-    {
-        if (is_null($blog)) {
-            return $this->null();
-        }
+    // /**
+    //  * Thông tin chi tiết bài viết
+    //  * @author ducchien0612 <ducchien0612@gmail.com>
+    //  *
+    //  * @param Blog|null     $blog
+    //  * @param ParamBag|null $params
+    //  *
+    //  * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+    //  */
+    // public function includeDetails(Blog $blog = null, ParamBag $params = null)
+    // {
+    //     if (is_null($blog)) {
+    //         return $this->null();
+    //     }
 
-        $data = $this->pagination($params, $blog->blogTrans());
+    //     $data = $this->pagination($params, $blog->blogTrans());
 
-        return $this->collection($data, new BlogTranslateTransformer);
-        //return $this->primitive($data);
-    }
+    //     return $this->collection($data, new BlogTranslateTransformer);
+    //     //return $this->primitive($data);
+    // }
 
     /**
      *     Danh sách thẻ tags theo bài viết
@@ -93,7 +95,6 @@ class BlogTransformer extends TransformerAbstract
         }
         $data = $this->pagination($params, $blog->categories());
         return $this->collection($data, new CategoryTransformer);
-
     }
 
     /**
@@ -112,5 +113,4 @@ class BlogTransformer extends TransformerAbstract
         }
         return $this->item($blog->user, new UserTransformer);
     }
-
 }

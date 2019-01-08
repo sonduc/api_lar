@@ -11,6 +11,10 @@
 |
 */
 
+//Upload Image To S3
+$router->post('upload-blog-image', 'UploadImageController@uploadBlogImage');
+$router->post('upload-room-image', 'UploadImageController@uploadRoomImage');
+
 $router->group([
     'middleware' => 'auth',
 ], function ($router) {

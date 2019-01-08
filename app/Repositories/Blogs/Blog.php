@@ -11,6 +11,15 @@ class Blog extends Entity
     // Định nghĩa trạng thái bài viết
     const AVAILABLE    = 1;
     const UNAVAILABLE  = 0;
+
+    const STATIC_PAGE    = 1;
+    const DYNAMIC_PAGE   = 0;
+
+    const BLOG_TYPE    = [
+        self::STATIC_PAGE      => 'Bài viết trang tĩnh',
+        self::DYNAMIC_PAGE     => 'Bài viết thường',
+    ];
+
     const BLOG_STATUS    = [
         self::AVAILABLE      => 'ĐÃ DUYỆT',
         self::UNAVAILABLE    => 'ĐANG CHỜ DUYỆT',
@@ -20,7 +29,7 @@ class Blog extends Entity
         self::UNAVAILABLE    => 'KHÔNG NỔI BẬT',
     ];
 
-    const TBLOG_NEW    = [
+    const BLOG_NEW    = [
         self::AVAILABLE      => 'MỚI',
         self::UNAVAILABLE    => 'CŨ',
     ];
@@ -33,7 +42,8 @@ class Blog extends Entity
      */
     protected $fillable
         = [
-            'image','status','hot','user_id','category_id','new'
+            'image','status','hot','user_id','category_id','new',
+            'title','slug','content','description','type'
         ];
 
     /**

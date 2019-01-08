@@ -17,11 +17,12 @@ class BlogController extends ApiController
             'hot'                       => 'numeric|between:0,1|filled',
             'status'                    => 'numeric|between:0,1|filled',
             'new'                       => 'numeric|between:0,1|filled',
-            //'image'                             =>'image|mimes:jpeg,bmp,png,jpg',
+            // 'image'                     =>'image|mimes:jpeg,bmp,png,jpg',
             'category_id'               => 'required|numeric|exists:categories,id',
-            'details.*.*.title'         => 'required|v_title|unique:blog_translates,title',
-            'details.*.*.lang'          => 'required',
-            'details.*.*.content'       => 'required',
+            'title'                     => 'required|v_title|unique:blogs,title',
+            // 'lang'                      => 'required',
+            'content'                   => 'required',
+            'description'               => 'required',
             'tags.*.*.name'             => 'v_title',
         ];
     protected $validationMessages
@@ -43,9 +44,9 @@ class BlogController extends ApiController
             'category_id.exists'         => 'Danh mục không tồn tại',
             //'image.image'                       =>'Định dạng không phải là hình ảnh',
             //'image.mimes'                       => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
-            'details.*.*.title.required' => 'Tiêu đề không được để trông',
-            'details.*.*.title.unique'   => 'Tên này đã tồn tại',
-            'details.*.*.title.v_title'  => 'Tên tiêu đề không hợp lê',
+            'title.required' => 'Tiêu đề không được để trông',
+            'title.unique'   => 'Tên này đã tồn tại',
+            'title.v_title'  => 'Tên tiêu đề không hợp lê',
             'tags.*.*.name.v_title'      => "Từ khóa không hơp lệ",
         ];
 
@@ -56,7 +57,8 @@ class BlogController extends ApiController
      */
     public function __construct(BlogLogic $blog)
     {
-        $this->model = $blog;;
+        $this->model = $blog;
+        ;
         $this->setTransformer(new BlogTransformer);
     }
 
@@ -68,19 +70,18 @@ class BlogController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-        try{
+        try {
             $this->authorize('blog.view');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             // dd(DB::getQueryLog());
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
         }
-
     }
 
     /**
@@ -95,7 +96,7 @@ class BlogController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -124,11 +125,11 @@ class BlogController extends ApiController
             $this->authorize('blog.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
-           // dd(DB::getQueryLog());
+            // dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'taọ bài viết mã ' . $model->id, $model);
             return $this->successResponse($model, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -166,12 +167,12 @@ class BlogController extends ApiController
             $this->authorize('blog.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
-           //dd(DB::getQueryLog());
+            //dd(DB::getQueryLog());
             DB::commit();
             logs('blogs', 'sửa bài viết mã ' . $model->id, $model);
             //dd(DB::getQueryLog());
             return $this->successResponse($model, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -213,7 +214,7 @@ class BlogController extends ApiController
             DB::commit();
             //dd(DB::getQueryLog());
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -247,7 +248,9 @@ class BlogController extends ApiController
             $this->authorize('blog.update');
             $avaiable_option = ['hot', 'status','new'];
             $option          = $request->get('option');
-            if (!in_array($option, $avaiable_option)) throw new \Exception('Không có quyền sửa đổi mục này');
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
 
             $validate = array_only($this->validationRules, [
                 $option,
@@ -259,12 +262,11 @@ class BlogController extends ApiController
             logs('blogs', 'sửa trạng thái của bài viết có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -299,7 +301,7 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_STATUS);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -322,7 +324,7 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_HOT);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -345,7 +347,7 @@ class BlogController extends ApiController
             $this->authorize('blog.view');
             $data = $this->simpleArrayToObject(Blog::BLOG_NEW);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -354,8 +356,4 @@ class BlogController extends ApiController
             throw $e;
         }
     }
-
-
-
-
 }

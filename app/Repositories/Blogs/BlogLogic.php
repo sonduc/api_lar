@@ -47,6 +47,7 @@ class BlogLogic extends BaseLogic
     {
         $data['user_id'] = Auth::user()->id;
         $data['image'] = rand_name();
+        $data['slug'] = to_slug($data['title']);
         $data_blog       = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
