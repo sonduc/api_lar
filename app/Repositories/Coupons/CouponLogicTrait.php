@@ -37,9 +37,9 @@ trait CouponLogicTrait
             $data_status  = $coupon->status;
             $data_settings  = json_decode($coupon->settings);
             $current_date = Carbon::now();
-            if ($coupon->Promotions !== null) {
-                $start_date   = Carbon::parse($coupon->Promotions->date_start);
-                $end_date     = Carbon::parse($coupon->Promotions->date_end);
+            if ($coupon->promotion !== null) {
+                $start_date   = Carbon::parse($coupon->promotion->date_start);
+                $end_date     = Carbon::parse($coupon->promotion->date_end);
             } else {
                 $start_date     = Carbon::parse($data_settings->date_start);
                 $end_date       = Carbon::parse($data_settings->date_end);

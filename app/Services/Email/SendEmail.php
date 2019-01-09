@@ -47,7 +47,7 @@ class SendEmail
 
     public function sendBookingAdmin($booking, $template = 'email.sendBookingAdmin')
     {
-        $email = 'taikhoan149do@gmail.com';
+        $email = env('MAIL_ADMIN');
         try {
             Mail::send($template, ['new_booking' => $booking->data], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
@@ -223,7 +223,7 @@ class SendEmail
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
                 $message->from(env('MAIL_USERNAME'));
-                $message->to($email)->subject('Khôi phục mật khẩu !!!');
+                $message->to($email)->subject('Westay - Khôi phục mật khẩu');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);
@@ -247,7 +247,7 @@ class SendEmail
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
                 $message->from(env('MAIL_USERNAME'));
-                $message->to($email)->subject('Chỉ cần xác nhận để đăng ký  !!!');
+                $message->to($email)->subject('Đăng ký tài khoản Westay ngay hôm nay để nhận nhiều ưu đãi');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);

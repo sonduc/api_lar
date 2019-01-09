@@ -15,7 +15,6 @@ use App\Repositories\Referrals\ReferralRepositoryInterface;
 use App\Repositories\Coupons\CouponLogic;
 use App\Jobs\SendCouponRegisterUser;
 
-
 class RegisterController extends ApiController
 {
     protected $validationRules = [
@@ -55,15 +54,14 @@ class RegisterController extends ApiController
             $this->validationRules['password_confirmation'] = '';
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $user = $this->user->checkEmailOrPhone($request->all());
+            
 //             dd(DB::getQueryLog());
             // Nếu đã tồn tại user này trên hệ thống với kiểu tao theo tự động theo booking
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
-            if (!empty($user) )
-            {
-
+            if (!empty($user)) {
                 if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
-                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL ){
+                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL) {
                         return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
                     }
                 }
@@ -72,7 +70,6 @@ class RegisterController extends ApiController
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;
                 $this->user->update($user->id, $data);
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
-
             }
 
             $this->validationRules['email']                 = 'required|email|max:255|unique:users,email';
@@ -164,14 +161,14 @@ class RegisterController extends ApiController
      * @throws \Throwable
      */
 
-    public function confirm(Request $request,$uuid)
+    public function confirm(Request $request, $uuid)
     {
         DB::beginTransaction();
         try {
             $user = $this->user->checkUser($uuid);
             $data = $this->user->updateStatus($user);
             DB::commit();
-            return $this->successResponse(['data' => 'Tài khoản của bạn đã được kích hoạt'],false);
+            return $this->successResponse(['data' => 'Tài khoản của bạn đã được kích hoạt'], false);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([

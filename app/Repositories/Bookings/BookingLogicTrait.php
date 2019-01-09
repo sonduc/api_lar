@@ -41,12 +41,11 @@ trait BookingLogicTrait
         $checkin              = Carbon::parse($data['checkin']);
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
-
+        
         // Kiểm tra thời gian booking theo giờ  xem có trùng với thời gian checkin, checkout mặc định của phòng không
         //Nếu trùng trong khoảng chechin , checkout thì tính giá 2 ngày
         // Tính tiền dựa theo kiểu booking
-        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY )
-        {
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
 
@@ -60,35 +59,31 @@ trait BookingLogicTrait
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
             $money += $room->price_day * ($days - $totalDay);
         }
-
-        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR )
-        {
-           if ($this->checkBookTimeByCheckInOrCheckOut($room,$data,$checkin,$checkout) == true)
-           {
-               $days             = BookingConstant::PRICE_TYPE_HOUR_SPECICAL;
-               $data['checkin']  = $checkin->timestamp;
-               $data['checkout'] = $checkout->timestamp;
-               // Xử lý logic tính giá phòng vào ngày đặc biệt
-               list($money, $totalDay) =
+        
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+            if ($this->checkBookTimeByCheckInOrCheckOut($room, $data, $checkin, $checkout) == true) {
+                $days             = BookingConstant::PRICE_TYPE_HOUR_SPECICAL;
+                $data['checkin']  = $checkin->timestamp;
+                $data['checkout'] = $checkout->timestamp;
+                // Xử lý logic tính giá phòng vào ngày đặc biệt
+                list($money, $totalDay) =
                    $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
-               $money += $room->price_day * ($days - $totalDay);
-           }else
-           {
-               $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
-               $data['hours'] = $hours;
+                $money += $room->price_day * ($days - $totalDay);
+            } else {
+                $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
+                $data['hours'] = $hours;
 
-               $data['checkin']  = $checkin->timestamp;
-               $data['checkout'] = $checkout->timestamp;
-               // Xử lý logic tính giá phòng vào ngày đặc biệt
-               $money =
+                $data['checkin']  = $checkin->timestamp;
+                $data['checkout'] = $checkout->timestamp;
+                // Xử lý logic tính giá phòng vào ngày đặc biệt
+                $money =
                    $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
                    ?? 0;
-               if ($money == 0) {
-                   $money =
+                if ($money == 0) {
+                    $money =
                        $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
-               }
-           }
-
+                }
+            }
         }
 
         // Tính tiền dựa theo số khách
@@ -102,11 +97,12 @@ trait BookingLogicTrait
             $coupon              = $this->cp->getCouponByCode($data['coupon']);
             $data['city_id']     = $room->city_id;
             $data['district_id'] = $room->district_id;
+            
             $coupon_discount     = $this->checkSettingDiscount($coupon, $data);
 
             $data['coupon_discount'] = $coupon_discount['price_discount'];
         }
-
+        
         $price = $money
                  + (array_key_exists('service_fee', $data) ? $data['service_fee'] : 0)
                  + (array_key_exists('additional_fee', $data) ? $data['additional_fee'] : 0)
@@ -169,14 +165,12 @@ trait BookingLogicTrait
 
         // Kiểm tra tính hợp lệ của thời gian đặt phòng theo kiểu giờ
 
-        if($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR)
-        {
-            $this->checkValidBookingTypeHour($room->id,$checkin,$checkout);
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+            $this->checkValidBookingTypeHour($room->id, $checkin, $checkout);
         }
 
         // Kiểm tra tính hợp lệ của thời gian đặt phòng theo kiểu ngày
-        if($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY)
-        {
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
             // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
 
             $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
@@ -189,11 +183,8 @@ trait BookingLogicTrait
             }
 
             // Trả về lỗi nếu thời gian booking bị trùng so với thời gian khóa của phòng này
-            $this->checkValidBookingTypeDay($room,$checkin,$checkout);
+            $this->checkValidBookingTypeDay($room, $checkin, $checkout);
         }
-
-
-
     }
 
     /**
@@ -242,7 +233,7 @@ trait BookingLogicTrait
 
 
             // Lọc tất cả các ngày trong khoảng thời gian checkin và checkout mà không có ngày đặc biệt cụ thể
-            $otherDays = array_diff( $listDays,$specialDays);
+            $otherDays = array_diff($listDays, $specialDays);
             // Tính tiền cho các ngày đặc biệt cụ thể
             foreach ($optionalDays as $op) {
                 if ($op->day !== null) {
@@ -453,12 +444,10 @@ trait BookingLogicTrait
         foreach ($data_booking as $item) {
             $CI     = Carbon::createFromTimestamp($item->checkin)->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK_TYPE_HOUR);
             $CO     = Carbon::createFromTimestamp($item->checkout)->addMinutes(+BookingConstant::MINUTE_BETWEEN_BOOK_TYPE_HOUR);
-            if ($checkin->between($CI,$CO) || $checkout->between($CI,$CO))
-            {
+            if ($checkin->between($CI, $CO) || $checkout->between($CI, $CO)) {
                 throw new InvalidDateException('schedule-block-type-hour', trans2(BookingMessage::ERR_SCHEDULE_BLOCK_TYPE_HOUR));
             }
         }
-
     }
 
     /**
@@ -470,16 +459,14 @@ trait BookingLogicTrait
      * @param $checkout
      */
 
-    public function checkValidBookingTypeDay($room,$checkin,$checkout)
+    public function checkValidBookingTypeDay($room, $checkin, $checkout)
     {
         $data_booking           = $this->booking->getFutureBookingByRoomId($room->id);
         $list                   = [];
         $data_booking_type_hour = [];
 
-        foreach ($data_booking as $item)
-        {
-            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR)
-            {
+        foreach ($data_booking as $item) {
+            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
                 $data_booking_type_hour[] = $item;
             }
         }
@@ -489,19 +476,16 @@ trait BookingLogicTrait
         $roomCO = $checkin->copy()->setTimeFromTimeString($room->checkout)->addDay(1);
 
 
-        foreach ($data_booking_type_hour as $value)
-        {
+        foreach ($data_booking_type_hour as $value) {
             $CI     = Carbon::createFromTimestamp($value->checkin);
             $CO     = Carbon::createFromTimestamp($value->checkout);
 
 
 
-            if ($CI->addMinutes(-30)->between($roomCI,$roomCO) || $CO->between($roomCI,$roomCO))
-            {
+            if ($CI->addMinutes(-30)->between($roomCI, $roomCO) || $CO->between($roomCI, $roomCO)) {
                 throw new InvalidDateException('schedule-block', trans2(BookingMessage::ERR_SCHEDULE_BLOCK));
             }
         }
-
     }
 
 
@@ -516,20 +500,15 @@ trait BookingLogicTrait
      * @return bool
      */
 
-    public function checkBookTimeByCheckInOrCheckOut($room,$data,$checkin,$checkout)
+    public function checkBookTimeByCheckInOrCheckOut($room, $data, $checkin, $checkout)
     {
         $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
         $roomCO = $checkin->copy()->setTimeFromTimeString($room->checkout);
 
-        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR)
-        {
-            if ($roomCO->between($checkin,$checkout) || $roomCI->between($checkin,$checkout))
-            {
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+            if ($roomCO->between($checkin, $checkout) || $roomCI->between($checkin, $checkout)) {
                 return true;
-
             }
         }
-
     }
-
 }

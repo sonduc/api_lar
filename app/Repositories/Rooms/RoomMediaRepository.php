@@ -59,10 +59,11 @@ class RoomMediaRepository extends BaseRepository implements RoomMediaRepositoryI
     public function storeRoomMedia($room, $data = [], $list = [])
     {
         foreach ($data['images'] as $img) {
+            $name = rand_name();
             $img['room_id'] = $room->id;
-            $img['image']   = rand_name();
+            $img['image']   = $name.'.jpeg';
             $list[]         = $img;
-            event(new AmazonS3_Upload_Event($img['image'], $img['source']));
+            event(new AmazonS3_Upload_Event($name, $img['source']));
         }
         parent::storeArray($list);
     }

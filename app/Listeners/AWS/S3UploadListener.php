@@ -7,7 +7,7 @@ use App\Services\Amazon\S3\ImageProcessor;
 use App\Services\Amazon\S3\S3Processor;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class S3UploadListener implements  ShouldQueue
+class S3UploadListener implements ShouldQueue
 {
     protected $img;
     /**
@@ -41,16 +41,15 @@ class S3UploadListener implements  ShouldQueue
 
     public function s3Upload()
     {
-
         $this->processor->setQuality(90);
-//        $this->processor->setWidth(1280);
+        // $this->processor->setWidth(1280);
         $this->processor->setFormat('jpg');
 
         $name = $this->processor->getFullName();
         $mime = $this->processor->getMime();
         $img = $this->processor->getEncoded();
 
-//        $this->s3->putObject($name, $img, $mime);
-//        $this->s3->deleteObjects(['abc.webp']);
+        $this->s3->putObject($name, $img, $mime);
+        // $this->s3->deleteObjects(['abc.webp']);
     }
 }

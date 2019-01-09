@@ -13,7 +13,6 @@ use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\_Customer\BookingLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 
-;
 use App\Repositories\Rooms\RoomRepository;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepository;
@@ -251,10 +250,10 @@ class BookingController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            DB::commit();
+            // DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
             // event(new BookingEvent($data));
-          //  event(new CreateBookingTransactionEvent($data));
+            //  event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             // send mai cho ahdmin khi tọa booking.
@@ -503,8 +502,7 @@ class BookingController extends ApiController
 
             $payment_method    = (int) $request->get('payment_method');
             $result  = $this->bookingRepository->getBookingByUuid($uuid);
-            if (empty($result))
-            {
+            if (empty($result)) {
                 return $this->errorResponse('Thông tin thanh toán không hợp lệ');
             }
             // cập nhật trạng hình thức thanh toán.
@@ -537,7 +535,7 @@ class BookingController extends ApiController
                     return redirect($baokim_url);
                 }
             }
-        }catch (\Illuminate\Validation\ValidationException $validationException) {
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
                 'errors' => $validationException->validator->errors(),
