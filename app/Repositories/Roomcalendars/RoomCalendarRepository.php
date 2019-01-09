@@ -257,6 +257,6 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             'room_id'    => $room['id'],
             // 'created_at' => $data_booking->created_at,
             // 'updated_at' => $data_booking->updated_at
-        ], ['uid'        => substr(Crypt::encrypt($room_name[0]['name']), 0, 200).'@westay.org']);
+        ], ['uid'        => substr(Crypt::encrypt($room_name[0]['name']), 0, 100).'@westay.org']);
     }
 }
