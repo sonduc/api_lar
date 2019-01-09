@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-08T07:59:33.317Z",
+	"__export_date": "2019-01-09T07:01:38.531Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -189,7 +189,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNjNWEzMGEwM2Q4YzVkYTI1NTEzYTIyZGFlYjMzNWVjOTUwY2VhNTQyYTJjYjVlYWE1ZjU0ZjEyNTkyNTA3Yzk5ODAwOWQ4MjJlMGUyZjIwIn0.eyJhdWQiOiI0IiwianRpIjoiY2M1YTMwYTAzZDhjNWRhMjU1MTNhMjJkYWViMzM1ZWM5NTBjZWE1NDJhMmNiNWVhYTVmNTRmMTI1OTI1MDdjOTk4MDA5ZDgyMmUwZTJmMjAiLCJpYXQiOjE1NDY5MTUyMTUsIm5iZiI6MTU0NjkxNTIxNSwiZXhwIjoxNTc4NDUxMjEzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.CpE1pli71kQcVIhxQA_XikFV7GXMQ6BdGRFboQez_r7HeFYCywAF8tEoTfWydhJUdIsRZAjgsyvVJfLMk2erZSq2HCK0hxmnX6NB2PIW5DLTKdGkURwY_zoapdG0vpx0SvDO_v4KTAmgKgGMPp0ntOaUAe4rjoL9WHDFlN783f44iOCIuGTLwHUMPOuBJUn5dX5FqLU9WtVmIyqnXAc69c6pNqBicfuhbbl_UokGEnLHbSnUXGW6hBBVKhWoXQPwk-PR4pHnnXyEoKn0ChJ1-XUeXIbXt-KBfhFUOsTBPHCd6Fgu8ByOWoQTE8tEzN_W9jir7YbgFZ8kngWlqYlngSTIqxazJVsB7SxxsZHsyNFTj5X2DJqxGDzXBrZGQBGEECHkRxOmf6TEhbzGqnb3QJ_yYIMTgezeYxBNkqxwqqFStZEfQL3dHA13Z_ULoQkpnUi1JbI5lzmjiWwqWonpEMCniMHaaC1uiVKZfg4X9T_uWmIkZb-BU5MVCQHgQ7nUhABUOjH-uCkA2yRvtwu4pMU-seXBC-6f1qWQMuUQq7uYMFiteoeMSQ9NGfdZJevKkE93acOJ_m2THVZk7AIH6pMHGt4o17Y2W4ysyvzH5D0LYywDLT8uJ_6kj4za-YWe6Mqf3qczAsjbC_8QvGSYpA1KnpFSoVnnIN5_krcDn8Y"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImQxODkzODUwNDU4NTUzYzAzYWM0NzExOGJiMTY1MThlNGEyNmUyZTY0MmYzNzM5M2FjYjk1ZTJlNDUxNTgzMTMxOTczN2M5MjhmMDk2MzQ3In0.eyJhdWQiOiI0IiwianRpIjoiZDE4OTM4NTA0NTg1NTNjMDNhYzQ3MTE4YmIxNjUxOGU0YTI2ZTJlNjQyZjM3MzkzYWNiOTVlMmU0NTE1ODMxMzE5NzM3YzkyOGYwOTYzNDciLCJpYXQiOjE1NDY5MzY2MjksIm5iZiI6MTU0NjkzNjYyOSwiZXhwIjoxNTc4NDcyNjI5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ToKQJhK0PtQqN5eh2FaG4SGeT_mvpYhIcve1GEBmecyMCjnI3gi5DZbIshyWR8QUNBKFiLFIpiDyBnajEqyYiMp2K6zD-ASbMpODK63OMiBhxorEP6Os-ac7tDAGTp2_xhfNUP_Q40UPKSzZuEo9xy_Mb0UWtJePOfw27jBuAiXjDME_DmxaBXYA24mbZC8GiW7JP6EMeBFm3p4iiSPxWxK1iLE3zoZIEgqnxm2mvHet7FXVp7UF1CmL4QqzjdLiq7RuPsu7ybuqw_cRe0ekYsEIKE9H3iOisWqUQK9ihcEprUtLWm9b7xytKz2SYFeLiDhTn0HP9jfe6UOxA8NnKCLQiup9uGBOWPKjZbqGUrGKnBQuR_nPS129Nx2QWX3DjwVrWr8A51xGZUIlXU9easXWkjZM4cWOFQOzEFGxNFE82O8fDSBkpbSXa26pUUfFNgByLgmBEG4J5Hjhs9cFxHb0A9T8SOSjZ7sP0wM9Hvx2-GcXPne4KNeaPufW2FbTpkiPTf9mIyPpx87WzlKw6t6Inn59bDZajuD3ptYka-oGFexZInrL5Ir0Zl6J4RSAdGn0FMRtpMLuEsZ0iiHbn8rYZXYLNIGZsXu5yWIT1NSjsStng1BpxN7oXnPYFPFE8uC6FfnqBnNMT72o-Dx4mG4-vk7owpeVKLim_cdUw4w"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -197,7 +197,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1546915229094,
+			"modified": 1546936662991,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -4890,8 +4890,8 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1545100509927,
-			"name": "index",
+			"modified": 1547017282534,
+			"name": "booking-status",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
 			"settingDisableRenderRequestBody": false,
@@ -4900,7 +4900,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-month?date_start=2018-11-14&&date_end=2018-11-28&&view=day",
+			"url": "{{ api_url  }}statisticals/booking-status?date_start=2018-11-14&&date_end=2018-11-28&&view=day",
 			"_type": "request"
 		},
 		{
@@ -4919,7 +4919,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890267037.0781,
 			"method": "GET",
-			"modified": 1545042663597,
+			"modified": 1546936715381,
 			"name": "booking-city",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -4929,7 +4929,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-city?view=day&&date_start=2018-02-12&&date_end=2018-03-12",
+			"url": "{{ api_url  }}statisticals/booking-city?view=day&date_start=2018-02-12&&date_end=2018-03-12",
 			"_type": "request"
 		},
 		{
