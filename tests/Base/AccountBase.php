@@ -46,15 +46,15 @@ class AccountBase
                 $this->method,
                 $this->url,
                 $this->user()
-            );;
+            );
+            ;
 
             $body = json_decode($response->getBody()->getContents());
 
             return $body->access_token;
         } catch (ClientException $clientException) {
-            dd($clientException->getMessage());
+            // dd($clientException->getMessage());
         }
-
     }
 
     /**

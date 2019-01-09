@@ -159,7 +159,7 @@ trait RoomTimeBlockTrait
                 $rangeSet[] = CarbonPeriod::between($item[0], $item[1]);
             } elseif (\count($item) === 1) {
                 $singleSet[] = Carbon::parse($item[0]);
-                dd($singleSet);
+            // dd($singleSet);
             } else {
                 throw new InvalidDateException('not-valid-block-date', 'INVALID');
             }
