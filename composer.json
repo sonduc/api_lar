@@ -30,7 +30,8 @@
     "kylekatarnls/laravel-carbon-2": "^1.0.0",
     "johngrogg/ics-parser": "^2.1",
     "spatie/calendar-links": "^1.1",
-    "jsvrcek/ics": "^0.6.0"
+    "jsvrcek/ics": "^0.6.0",
+    "barryvdh/laravel-debugbar": "^3.2"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

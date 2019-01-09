@@ -23,6 +23,7 @@ try {
 $app = new Laravel\Lumen\Application(
     realpath(__DIR__ . '/../')
 );
+
 // Enable Facades
 $app->withFacades();
 // Enable Eloquent
@@ -111,6 +112,9 @@ $app->register(HarikiRito\ApiGenerator\ApiGeneratorServiceProvider::class);
 $app->register(Spatie\Activitylog\ActivitylogServiceProvider::class);
 
 $app->register(Illuminate\Redis\RedisServiceProvider::class);
+//if (env('APP_DEBUG')) {
+//    $app->register(Barryvdh\Debugbar\LumenServiceProvider::class);
+//}
 
 /*
 |--------------------------------------------------------------------------

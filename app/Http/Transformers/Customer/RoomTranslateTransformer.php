@@ -18,8 +18,9 @@ class RoomTranslateTransformer extends TransformerAbstract
         }
 
         return [
-            'name'        => $room->name,
-            'address'     => $room->address,
+            'name'            => $room->name,
+            'address'         => $room->address,
+            'description'     => $room->description,
         ];
     }
 
@@ -40,7 +41,7 @@ class RoomTranslateTransformer extends TransformerAbstract
 
         return $this->primitive($room->note);
     }
-    
+
     public function includeSpace(RoomTranslate $room)
     {
         if (is_null($room)) {
