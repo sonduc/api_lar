@@ -532,7 +532,7 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                     //dd($baokim_url);
+                    dd($baokim_url);
                     return redirect($baokim_url);
                 }
             }

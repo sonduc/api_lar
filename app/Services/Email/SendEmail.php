@@ -80,6 +80,7 @@ class SendEmail
         $booking->data->hours = $this->calculateHours($booking->data->checkin, $booking->data->checkout);
         $email                = $booking->data->email;
 
+
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
@@ -152,6 +153,7 @@ class SendEmail
      */
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
+        dd('fsdfsdf');
         // lâý thông tin về phòng và merchant
         $merchant          = $this->user->getById($booking->data->merchant_id);
         $room_name         = $this->room->getRoom($booking->data->room_id);

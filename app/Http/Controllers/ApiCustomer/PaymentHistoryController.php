@@ -42,7 +42,11 @@ class PaymentHistoryController extends ApiController
     {
         DB::beginTransaction();
         try {
-            if ($request['transaction_status'] == 4 || $request['transaction_status'] == 13) {
+//            if ($request['transaction_id'] == null) {
+//                return $this->cancel($request['order_id']);
+//            }
+           //dd($request['transaction_status']);
+            if ($request['transaction_status'] ==4 || $request['transaction_status'] == 13) {
                 // Lấy thông tin booking theo mã code nhận được từ bảo kim trả về
                 $booking = $this->booking->getBookingByCode($request['order_id'])->toArray();
                 $payment_history = [
@@ -50,6 +54,7 @@ class PaymentHistoryController extends ApiController
                      'note'           => $booking['payment_method'] == BookingConstant:: BAOKIM? 'Xác nhận đã thanh toán booking mã: '. $request['order_id'] . 'từ Bảo Kim' : 'Thanh toán booking: ' . $request['order_id'] . 'qua ATM nội địa',
                      'confirm'        => BookingConstant::CONFIRM,
                 ];
+
 
                 // Cập nhật trạng thái đã thanh toán cho booking.
                 $booking['payment_status'] = BookingConstant::PAID;
