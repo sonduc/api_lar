@@ -53,10 +53,10 @@ class CreateUsersTable extends Migration
             $table->integer('sale_id')->default(0);
             $table->timestamp('time_add_sale')->nullable();
             $table->longText('settings')->nullable();
-            $table->tinyInteger('subcribe')->default(1);
+            $table->tinyInteger('subcribe')->nullable()->default(1);
             $table->string('token')->nullable();
             $table->integer('limit_send_mail')->nullable();
-            $table->integer('count_send_mail')->default(0);
+            $table->integer('count_send_mail')->nullable()->default(0);
             $table->rememberToken()->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();

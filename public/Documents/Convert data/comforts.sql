@@ -1,41 +1,46 @@
--- MySQL dump 10.16  Distrib 10.1.35-MariaDB, for Win32 (AMD64)
---
--- Host: 127.0.0.1    Database: api-westay
--- ------------------------------------------------------
--- Server version	10.3.10-MariaDB-1:10.3.10+maria~bionic-log
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
---
--- Table structure for table `comforts`
---
-
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `comforts`
---
-
-INSERT INTO `comforts` (`id`, `icon`, `deleted_at`, `created_at`, `updated_at`) VALUES (8,NULL,NULL,'2017-04-24 04:56:01','2017-06-23 08:32:28'),(9,NULL,NULL,'2017-05-09 05:43:30','2017-11-10 03:14:03'),(10,NULL,NULL,'2017-06-06 18:09:57','2017-11-10 03:14:08'),(11,NULL,NULL,'2017-06-06 18:15:30','2017-06-06 18:15:30'),(12,NULL,NULL,'2017-06-06 18:15:33','2017-06-06 18:15:33'),(13,NULL,NULL,'2017-06-06 18:15:46','2017-06-06 18:15:46'),(14,NULL,NULL,'2017-06-06 18:15:56','2017-06-06 18:15:56'),(15,NULL,NULL,'2017-06-06 18:16:04','2017-06-23 08:31:15'),(16,NULL,NULL,'2017-06-23 08:29:02','2017-06-23 08:29:02'),(17,NULL,NULL,'2017-06-23 08:29:35','2017-06-23 08:29:35'),(18,NULL,NULL,'2017-06-23 08:30:21','2017-06-23 08:30:21'),(19,NULL,NULL,'2017-06-23 08:31:42','2017-06-23 08:31:42'),(20,NULL,NULL,'2017-06-23 08:32:06','2017-06-23 08:32:06'),(21,NULL,NULL,'2017-06-23 08:33:06','2017-06-23 08:33:06'),(22,NULL,NULL,'2017-06-23 08:33:10','2017-06-23 08:33:10'),(23,NULL,NULL,'2017-11-01 08:07:38','2017-11-10 03:13:36'),(24,NULL,NULL,'2017-11-01 08:08:33','2017-11-10 03:13:46'),(25,NULL,NULL,'2017-11-01 08:09:41','2017-11-10 03:13:56'),(26,NULL,NULL,'2017-11-01 08:12:12','2017-11-01 08:12:12'),(27,NULL,NULL,'2017-11-01 08:12:18','2017-11-01 08:12:18'),(28,NULL,NULL,'2017-11-01 08:12:27','2017-11-01 08:12:27'),(29,NULL,NULL,'2017-11-01 08:12:32','2017-11-01 08:12:32'),(30,NULL,NULL,'2017-11-01 08:12:46','2017-11-01 08:12:46'),(31,NULL,NULL,'2017-11-01 08:12:53','2017-11-01 08:12:53'),(32,NULL,NULL,'2017-11-01 08:13:06','2017-11-01 08:13:06'),(34,NULL,NULL,'2017-11-01 08:13:22','2017-11-01 08:13:22'),(35,NULL,NULL,'2017-11-01 08:13:31','2017-11-01 08:13:31'),(36,NULL,NULL,'2017-11-01 08:13:38','2017-11-01 08:13:38'),(37,NULL,NULL,'2017-11-01 08:13:49','2017-11-01 08:13:49'),(38,NULL,NULL,'2017-11-08 09:55:36','2017-11-08 09:55:36'),(39,NULL,NULL,'2017-11-08 09:55:42','2017-11-08 09:55:42'),(40,NULL,NULL,'2017-11-08 09:56:15','2017-11-08 09:56:15'),(41,NULL,NULL,'2017-11-08 09:56:36','2017-11-08 09:56:36'),(42,NULL,NULL,'2017-11-09 03:48:33','2017-11-09 03:48:33'),(43,NULL,NULL,'2017-11-10 03:14:23','2017-11-10 03:14:23'),(44,NULL,NULL,'2017-11-10 03:14:43','2017-11-10 03:14:43'),(45,NULL,NULL,'2017-11-10 03:15:05','2017-11-10 03:15:05'),(46,NULL,NULL,'2017-11-10 03:15:12','2017-11-10 03:15:12'),(47,NULL,NULL,'2017-11-10 03:15:25','2017-11-10 03:15:25'),(48,NULL,NULL,'2017-11-10 03:15:29','2017-11-10 03:15:29'),(49,NULL,NULL,'2017-11-16 02:45:16','2017-11-16 02:45:16'),(50,NULL,NULL,'2017-11-16 02:53:19','2017-11-16 02:53:19');
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2018-12-10 10:46:12
+/*
+-- Query: select id, `created_at`, `updated_at` from comforts where locale = 'vi'
+-- Date: 2019-01-10 13:18
+*/
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (8,'2017-04-24 11:56:01','2017-06-23 15:32:28');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (9,'2017-05-09 12:43:30','2017-11-10 10:14:03');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (10,'2017-06-07 01:09:57','2017-11-10 10:14:08');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (11,'2017-06-07 01:15:30','2017-06-07 01:15:30');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (12,'2017-06-07 01:15:33','2017-06-07 01:15:33');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (13,'2017-06-07 01:15:46','2017-06-07 01:15:46');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (14,'2017-06-07 01:15:56','2017-06-07 01:15:56');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (15,'2017-06-07 01:16:04','2017-06-23 15:31:15');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (16,'2017-06-23 15:29:02','2017-06-23 15:29:02');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (17,'2017-06-23 15:29:35','2017-06-23 15:29:35');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (18,'2017-06-23 15:30:21','2017-06-23 15:30:21');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (19,'2017-06-23 15:31:42','2017-06-23 15:31:42');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (20,'2017-06-23 15:32:06','2017-06-23 15:32:06');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (21,'2017-06-23 15:33:06','2017-06-23 15:33:06');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (22,'2017-06-23 15:33:10','2017-06-23 15:33:10');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (23,'2017-11-01 15:07:38','2017-11-10 10:13:36');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (24,'2017-11-01 15:08:33','2017-11-10 10:13:46');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (25,'2017-11-01 15:09:41','2017-11-10 10:13:56');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (26,'2017-11-01 15:12:12','2017-11-01 15:12:12');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (27,'2017-11-01 15:12:18','2017-11-01 15:12:18');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (28,'2017-11-01 15:12:27','2017-11-01 15:12:27');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (29,'2017-11-01 15:12:32','2017-11-01 15:12:32');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (30,'2017-11-01 15:12:46','2017-11-01 15:12:46');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (31,'2017-11-01 15:12:53','2017-11-01 15:12:53');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (32,'2017-11-01 15:13:06','2017-11-01 15:13:06');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (34,'2017-11-01 15:13:22','2017-11-01 15:13:22');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (35,'2017-11-01 15:13:31','2017-11-01 15:13:31');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (36,'2017-11-01 15:13:38','2017-11-01 15:13:38');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (37,'2017-11-01 15:13:49','2017-11-01 15:13:49');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (38,'2017-11-08 16:55:36','2017-11-08 16:55:36');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (39,'2017-11-08 16:55:42','2017-11-08 16:55:42');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (40,'2017-11-08 16:56:15','2017-11-08 16:56:15');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (41,'2017-11-08 16:56:36','2017-11-08 16:56:36');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (42,'2017-11-09 10:48:33','2017-11-09 10:48:33');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (43,'2017-11-10 10:14:23','2017-11-10 10:14:23');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (44,'2017-11-10 10:14:43','2017-11-10 10:14:43');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (45,'2017-11-10 10:15:05','2017-11-10 10:15:05');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (46,'2017-11-10 10:15:12','2017-11-10 10:15:12');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (47,'2017-11-10 10:15:25','2017-11-10 10:15:25');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (48,'2017-11-10 10:15:29','2017-11-10 10:15:29');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (49,'2017-11-16 09:45:16','2017-11-16 09:45:16');
+INSERT INTO `comforts` (`id`,`created_at`,`updated_at`) VALUES (50,'2017-11-16 09:53:19','2017-11-16 09:53:19');

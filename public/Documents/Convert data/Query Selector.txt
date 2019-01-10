@@ -39,9 +39,9 @@ SELECT
     null as source,
     sale_id,
     remember_token,
-    null as limit_send_email,
-    null as count_send_email,
-    null as subcribe,
+    null as limit_send_mail,
+    0 as count_send_mail,
+    1 as subcribe,
     null as ref_code,
     null as settings,
     null as time_add_sale,
@@ -224,3 +224,7 @@ select * from blog_tag
 
 -- tags
 select * from tags
+
+-- baokim_trade_histories
+
+select created_on, customer_address, customer_email, customer_name, customer_phone, merchant_email, merchant_id, merchant_name, merchant_phone, fee_amount, net_amount, total_amount, order_id, payment_type, transaction_id, transaction_status, checksum, client_id from baokim_trade_histories
