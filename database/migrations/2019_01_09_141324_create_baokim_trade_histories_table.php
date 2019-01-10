@@ -29,7 +29,7 @@ class CreateBaokimTradeHistoriesTable extends Migration
             $table->double("total_amount")->nullable(); //Tổng số tiền người mua thanh toán (có thể bao gồm thêm phí khi thanh toán qua internet banking, phí chuyển tiền…)
             $table->string("order_id", 50)->nullable(); //Mã hóa đơn thanh toán submit lên baokim.vn
             $table->integer("payment_type")->nullable(); //Hình thức thanh toán: 1: thanh toán trực tiếp, 2: thanh toán an toàn
-            $table->string("transaction_id")->unique(); //Mã giao dịch thanh toán trên baokim.vn
+            $table->string("transaction_id")->nullable(); //Mã giao dịch thanh toán trên baokim.vn
             $table->integer("transaction_status"); //Trạng thái giao dịch
             $table->string("checksum", 50)->nullable(); // Chuỗi bảo mật tránh giả mạo thông tin (cách thức tạo ghi ở bên dưới)
             $table->integer('client_id')->nullable(); //

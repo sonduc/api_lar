@@ -13,10 +13,12 @@ use App\Repositories\Entity;
 
 class BaoKimTradeHistory extends Entity
 {
-
-    public $table    = 'baokim_trade_histories';
-    public $fillable = ['created_on', 'customer_address', 'customer_email', 'customer_location', 'customer_name', 'customer_phone', 'merchant_email', 'merchant_id', 'merchant_location', 'merchant_name', 'merchant_phone', 'fee_amount', 'net_amount', 'total_amount', 'order_id', 'payment_type', 'transaction_id', 'transaction_status', 'checksum', 'client_id'];
-
+    public $table = 'baokim_trade_histories';
+    public $fillable = ['created_on', 'customer_address', 'customer_email',
+        'customer_name', 'customer_phone',
+        'merchant_email', 'merchant_id', 'merchant_name',
+        'merchant_phone', 'fee_amount', 'net_amount', 'total_amount', 'order_id',
+        'payment_type', 'transaction_id', 'transaction_status', 'checksum', 'client_id'];
     const STATUSES = [
         1  => 'giao dịch chưa xác minh OTP',
         2  => 'giao dịch đã xác minh OTP',

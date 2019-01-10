@@ -21,6 +21,14 @@ class PaymentHistoryController extends ApiController
 {
     protected $booking;
     protected $baokim;
+
+
+    protected $validationRules    = [
+
+    ];
+    protected $validationMessages = [
+        'transaction_id.unique'                         => 'Phiên giao dịch không hợp lê',
+    ];
     /**
      * PaymentHistoryController constructor.
      *
@@ -45,14 +53,17 @@ class PaymentHistoryController extends ApiController
     {
         DB::beginTransaction();
         try {
-//            if ($request['transaction_id'] == null) {
-//                return $this->cancel($request['order_id']);
-//            }
-            if (isset($request['transaction_status']))
-            {
-                $payment = $this->baokim->storeBaoKimTradeHistory($request->all()) ;
+            if ($request['transaction_id'] == null) {
+                return $this->cancel($request['order_id']);
             }
-            $payment = $this->baokim->storeBaoKimTradeHistory($request->all()) ;
+
+            // Các mã phiên giao dịch không được nhau.
+            $validate['transaction_id']         = 'unique:baokim_trade_histories,transaction_id';
+            $this->validate($request, $validate, $this->validationMessages);
+
+            // Lưu lại lịch sử giao dịch với bảo kim khi tồn tại mã giao dịch thanh toán trên baokim.vn
+            $this->baokim->storeBaoKimTradeHistory($request->all()) ;
+
             if ($request['transaction_status'] ==4 || $request['transaction_status'] == 13) {
                 // Lấy thông tin booking theo mã code nhận được từ bảo kim trả về
                 $booking = $this->booking->getBookingByCode($request['order_id'])->toArray();
@@ -79,6 +90,12 @@ class PaymentHistoryController extends ApiController
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             }
 
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
         } catch (\Exception $exception) {
             DB::rollback();
             return $exception->getMessage();
