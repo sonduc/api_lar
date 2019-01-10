@@ -153,12 +153,12 @@ class SendEmail
      */
     public function sendBookingHost($booking, $template = 'email.sendBookingHost')
     {
-        dd('fsdfsdf');
         // lâý thông tin về phòng và merchant
         $merchant          = $this->user->getById($booking->data->merchant_id);
         $room_name         = $this->room->getRoom($booking->data->room_id);
         $booking->merchant = $merchant;
         $booking->room     = $room_name;
+
 
         $timeSubmit                = Carbon::now()->timestamp;
         $booking->data->timeSubmit = base64_encode($timeSubmit);
@@ -246,9 +246,10 @@ class SendEmail
         $timeSubmit                = Carbon::now()->timestamp;
         $user->data->timeSubmit    = base64_encode($timeSubmit);
         $email                     = $user->data->email;
+
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Chỉ cần xác nhận để đăng ký  !!!');
             });
         } catch (\Exception $e) {

@@ -28,7 +28,8 @@ class BaoKimTradeHistoryRepository extends BaseRepository implements BaoKimTrade
      */
     public function storeBaoKimTradeHistory($baoKimTrade = [])
     {
-       // parent::storeArray($list);
+        dd($baoKimTrade);
+        parent::store($baoKimTrade);
     }
 
 }
