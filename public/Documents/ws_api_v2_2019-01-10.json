@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-10T04:40:22.722Z",
+	"__export_date": "2019-01-10T07:43:40.217Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -3976,48 +3976,11 @@
 			"_type": "request"
 		},
 		{
-			"_id": "req_594baed5137f4a838aba6010ae497cc5",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"Test comeedmand\",\n\t\"description\" : \"bbbbbbbbsffdbbbbbbb\",\n\t\"date_start\" : \"2020-11-16 14:00:00\",\n\t\"date_end\" : \"2020-11-20 14:00:00\",\n\t\"status\" : 0\n}"
-			},
-			"created": 1541065206991,
-			"description": "~~~php\n## Create\n        'name'                      =>  'required|v_title|unique:promotions,name',\n        'description'               =>  'required',\n        // 'image'                     =>  'image|mimes:jpeg,bmp,png,jpg',\n        'date_start'                =>  'required|date|after:now',\n        'date_end'                  =>  'required|date|after:date_start',\n        'status'                    =>  'required|integer|between:0,1',\n~~~",
-			"headers": [
-				{
-					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_b8e8b180eda24dcfb09232b3e9611a3b",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531888344797.5,
-			"method": "POST",
-			"modified": 1542913180470,
-			"name": "create",
-			"parameters": [],
-			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
-			"settingDisableRenderRequestBody": true,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}promotions",
-			"_type": "request"
-		},
-		{
 			"_id": "req_e362d08e7cfc48a79555c209cfeb8c5e",
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"Ngày hội vu la\",\n\t\"description\" : \"yyyyyyyyyyyyyyyyyyyyy\",\n\t\"date_start\" : \"2019-11-18 14:00:00\",\n\t\"date_end\" : \"2019-11-19 14:00:00\",\n\t\"status\" : 0\n}"
+				"text": "{\n\t\"name\" : \"Ngày hội vu la\",\n\t\"description\" : \"yyyyyyyyyyyyyyyyyyyyy\",\n\t\"date_start\" : \"2019-11-18 14:00:00\",\n\t\"date_end\" : \"2019-11-19 14:00:00\",\n\t\"status\" : 0,\n\t\"image\": \"{{ z_img  }}\"\n}"
 			},
 			"created": 1541065206996,
 			"description": "~~~php\n## Update\n        'name'                      =>  'required|v_title',\n        'description'               =>  'required',\n        // 'image'                     =>  'image|mimes:jpeg,bmp,png,jpg',\n        'date_start'                =>  'required|date|after:now',\n        'date_end'                  =>  'required|date|after:date_start',\n        'status'                    =>  'required|integer|between:0,1',\n~~~",
@@ -4036,7 +3999,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1541753397752,
+			"modified": 1547106109500,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
@@ -4147,6 +4110,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}promotions/single-update/3?option=status",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3e9963455b9345d0b887942571c220c7",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"Ngày hội vu la\",\n\t\"description\" : \"yyyyyyyyyyyyyyyyyyyyy\",\n\t\"date_start\" : \"2019-11-18 14:00:00\",\n\t\"date_end\" : \"2019-11-19 14:00:00\",\n\t\"status\" : 0,\n\t\"image\": \"{{ z_img  }}\"\n}"
+			},
+			"created": 1547106131459,
+			"description": "~~~php\n## Update\n        'name'                      =>  'required|v_title',\n        'description'               =>  'required',\n        // 'image'                     =>  'image|mimes:jpeg,bmp,png,jpg',\n        'date_start'                =>  'required|date|after:now',\n        'date_end'                  =>  'required|date|after:date_start',\n        'status'                    =>  'required|integer|between:0,1',\n~~~",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531888344797.5,
+			"method": "POST",
+			"modified": 1547106155629,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}promotions/4",
 			"_type": "request"
 		},
 		{

@@ -3,6 +3,7 @@
 namespace App\Repositories\Promotions;
 
 use App\Repositories\BaseLogic;
+use App\Events\AmazonS3_Upload_Event;
 
 class PromotionLogic extends BaseLogic
 {
@@ -23,7 +24,10 @@ class PromotionLogic extends BaseLogic
     */
     public function store($data)
     {
-        $data['image'] = rand_name();
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+
         $data_promotion = parent::store($data);
         return $data_promotion;
     }
@@ -42,7 +46,11 @@ class PromotionLogic extends BaseLogic
 
     public function update($id, $data, $excepts = [], $only = [])
     {
-        $data['image'] = rand_name();
+        // $data['image'] = rand_name();
+        $collection = $this->model->getById($id);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+
         $data_promotion = parent::update($id, $data);
         return $data_promotion;
     }
