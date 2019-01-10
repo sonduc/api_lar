@@ -489,11 +489,7 @@ trait FilterTrait
     public function scopeStandardPoint($query, $q)
     {
         if (is_numeric($q)) {
-            if ($q == 5) {
-                $query->where('rooms.standard_point', '=', $q);
-            } else {
-                $query->where('rooms.standard_point', '<=', $q);
-            }
+            $query->where('rooms.standard_point', '>=', $q);
         }
         return $query;
     }

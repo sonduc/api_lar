@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-10T08:14:18.640Z",
+	"__export_date": "2019-01-10T09:47:35.613Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -225,7 +225,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjkxZTM5ZDJlYmI5MzVkNWFmODNkYjNhMTdkYTdhNWM0ZDk0ZWJhZTgxYzhkMDc1OTI3YjVmYTRlYmVmMGIyYzhkNjNlNGIyNDgwNjJmYTFjIn0.eyJhdWQiOiI2IiwianRpIjoiOTFlMzlkMmViYjkzNWQ1YWY4M2RiM2ExN2RhN2E1YzRkOTRlYmFlODFjOGQwNzU5MjdiNWZhNGViZWYwYjJjOGQ2M2U0YjI0ODA2MmZhMWMiLCJpYXQiOjE1NDcwMjI1MzIsIm5iZiI6MTU0NzAyMjUzMiwiZXhwIjoxNTc4NTU4NTMyLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.AGqNA2U49bO2eBan-JAdgoT8IADumdNUafKjs_vUqO0U6mlwDekztD9fiT7pSKkHCFW3peJTWwdESIYAwxM7HDSE1ARjW4ImbWolivhuA7RmhTBYh6lbHzuUGeELTp5qD9RkP3JIVNTVpRawuI0XUa7QYtXei8K2eLq9XV801N3YgCOS_ZTPriw-8Y0Bz9NO0pR5tUBKnDmrUHolFybVLPrvaOnlZMW5ZOrlICJ6DJrblX6V5E2bqrm_vf_xj_3Hy30Z6jd3xUxRTmnxYmUr2CzYia-OQX9aFbL4QC6_SKTbC44Bzz4GmLqO8eqH1EPSsrY8VPWqAiC5UGSh_RTxd9_7C3WPSAjo9MHvggBZJ8lWEQx5nGaeu8qx00eLgPRYbw7tQpBHKqkQiYKpdAXDw9HeGk3CB9jjPDAXZaLA17cyBSSxN6Feu9lRw1BhQ9OC31qZkt30jSbH6suxCvSP3pNweemxdcn9f7zOWfCgIoehCncODmhn90tjlmYDRIr8PJYxEAqtIg5090t9dNOHzVyfK2ynCC6ONqNRQQnNZToCp3htMjx0BtmmI1w_81KXzAABozghnHNQ-J1vF9tEIChCO2mZ0rVJjXwJnkCHRhNAkvfu5WNBVqwhWT75vWQ5Wna4DZFRfDMRADJmV4agEpj6uF2peizMmT71xEypi7o"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImFhYmVjOTI3N2M0MTI1ZThkYTU1MjQ4YTE0YjA2ZjA4YmQyZDM4Y2JjNmY3MDQ4YWE1NDc5NGY3MmZlYjdkNTczNzRhODY3N2ZiOWJlMDBmIn0.eyJhdWQiOiI0IiwianRpIjoiYWFiZWM5Mjc3YzQxMjVlOGRhNTUyNDhhMTRiMDZmMDhiZDJkMzhjYmM2ZjcwNDhhYTU0Nzk0ZjcyZmViN2Q1NzM3NGE4Njc3ZmI5YmUwMGYiLCJpYXQiOjE1NDcxMTA3NzQsIm5iZiI6MTU0NzExMDc3NCwiZXhwIjoxNTc4NjQ2Nzc0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.O7TNL8uXYEXOYXn1RjVMSawR3va4y9C8vc7wclBHsyz3rbBFt3aRNmn81Cr06ldthiSxTenqZQD59nvMfPc1MZNUp-MvtUa6hrAa0a_APZ1g1CH50g-aFciDpdbCGigBY6ytE4Q5WW6EBf5F_hTJy-gqPFgx_c5a9J7KOkD-pOvy3ZGTBb-F-RAbfBwqclqlw7amlhZoR8RS9x67y7HScbX_I0cvnUFvsALwCyUw4bY9OoNVoTP_FjIO6dZxpQW4sir63urISGJNs6kZ7Ugb5tPjyZPOvWcOYwrb6i7qNHCAO11vdCXvAu1v8HYZbdPb1OjXd7LWB0X-CsUU2HEdWNKgVRX39oyuQzfZZYUbdXQsqoMKIU3XjskHncUCQzBG4AvYem2TFZIDxoj8C5T1I3tJM0GQ1ayHoImNkNDRf1s48GCv-4Q_gbIfP6k_v4FOIcilHkbhLGrdMOLI2VQCD3CLg3H8T2Gy64ENcCHmgwkT6cu7I-b4xPMhHMunkAFcG39PrCeiyVlrEF2vyXhhivoH00u_vVKYxgJHWFWhNiOtUSnWsktq-FLNQifxyvX4pTtmQoroVMwLNORZ2ZTzcmI3CecnG_Yzer8v0MyJvVUqHH6V6NGBOLtzccMQkOVq7lAgTcAxjBfueZ4cdPQag0RFqVoF5YFZeuHReQ7azrU"
 				},
 				"url": "https://somethingapi.club/",
 				"username": "admin@westay.org",
@@ -233,7 +233,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1547022593849,
+			"modified": 1547110782797,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -1487,7 +1487,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1534475997452,
-			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings` `places`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n\n\n",
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings` `places`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|standard_point|int|Số sao của phòng\n\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -1503,7 +1503,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1547106390102,
+			"modified": 1547113637135,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -5789,7 +5789,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1540893759979,
-			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|clealiness|int|Độ sạch sẽ|\n|service|int|Dịch vụ|\n|valuable|int|Giá trị|\n|quality|int|Chất lượng|\n|avg_rating|float|Đánh giá trung bình|\n|recommend|int|Đề nghị|\n\n\n",
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n\n## SCOPE PARAMS\n\n|scope|type|description|\n|---|---|---|\n|name|string|Tên phòng|\n|city|int|Mã thành phố|\n|district|int|Mã quận/huyện|\n|status|int|Mã trạng thái|\n|merchant|int|Mã merchant|\n|manager|int|Mã quản lý|\n|hot|int|Phòng hot|\n|new|int|Phòng mới|\n|most_popular|self|Phòng nhiều booking nhất|\n|number_bed|int|Số giường|\n|number_guest|int|Số khách|\n|sort_price_day|int (0,1)|Giá từ thấp đến cao|\n|check_in|date:Y-m-d|Ngày checkin|\n|check_out|date:Y-m-d|Ngày checkout|\n|rent_type|int|Theo theo ngày hoặc giờ|\n|room_type|int|Kiểu phòng|\n|latest_deal|int|Phòng giá sốc|\n|comfort_lists|string|Danh sách dịch vụ (1,2,3,4)|\n|price_day_from|int|Giá từ|\n|price_day_to|int|Giá đến|\n|price_hour_from|int|Giá từ|\n|price_hour_to|int|Giá đến|\n|clealiness|int|Độ sạch sẽ|\n|service|int|Dịch vụ|\n|valuable|int|Giá trị|\n|quality|int|Chất lượng|\n|avg_rating|float|Đánh giá trung bình|\n|recommend|int|Đề nghị|\n|standard_point|int|Số sao của phòng\n\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -5800,7 +5800,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745339,
 			"method": "GET",
-			"modified": 1547106413075,
+			"modified": 1547113615026,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -5810,7 +5810,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms",
+			"url": "{{ customer_url  }}rooms?include=details,comforts,prices,media,city,district",
 			"_type": "request"
 		},
 		{
