@@ -50,7 +50,8 @@ class PromotionLogic extends BaseLogic
         $collection = $this->model->getById($id);
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-
+        $data['image'] = $name.'jpeg';
+        
         $data_promotion = parent::update($id, $data);
         return $data_promotion;
     }

@@ -15,7 +15,7 @@ class CreateComfortsTable extends Migration
     {
         Schema::create('comforts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('icon')->nullable();
+            $table->longText('icon')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });
