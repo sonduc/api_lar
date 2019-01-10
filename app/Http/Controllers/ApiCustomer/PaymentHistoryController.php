@@ -63,6 +63,7 @@ class PaymentHistoryController extends ApiController
 
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             }
+
         } catch (\Exception $exception) {
             DB::rollback();
             return $exception->getMessage();

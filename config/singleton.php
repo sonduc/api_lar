@@ -240,5 +240,12 @@ return [
         App\Repositories\CompareCheckings\CompareCheckingRepositoryInterface::class,
         App\Repositories\CompareCheckings\CompareCheckingRepository::class,
     ],
+    /**
+     * Compare Chec
+     */
+    App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistory::class => [
+        App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistoryRepositoryInterface::class,
+        App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistoryRepository::class,
+    ],
 
 ];

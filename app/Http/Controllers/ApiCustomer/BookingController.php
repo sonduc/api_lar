@@ -253,7 +253,6 @@ class BookingController extends ApiController
             $data = $this->model->store($request->all());
             DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
-            // event(new BookingEvent($data));
           //  event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
@@ -261,7 +260,7 @@ class BookingController extends ApiController
             $job = (new SendBookingAdmin($data));
             dispatch($job);
 
-            //return $this->successResponse($data);
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -533,7 +532,7 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    // dd($baokim_url);
+                     //dd($baokim_url);
                     return redirect($baokim_url);
                 }
             }

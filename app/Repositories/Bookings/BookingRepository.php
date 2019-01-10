@@ -1247,7 +1247,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ['total_fee', '>=', $total_fee]]
         )->pluck('merchant_id');
     }
-    
+
     /**
      * đếm booking theo nguồn booking
      * @author sonduc <ndson1998@gmail.com>

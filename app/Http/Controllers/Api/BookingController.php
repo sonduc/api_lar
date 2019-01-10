@@ -227,7 +227,8 @@ class BookingController extends ApiController
             logs('booking', 'tạo booking có code ' . $data->code, $data);
             event(new Check_Usable_Coupon_Event($data['coupon']));
             event(new CreateBookingTransactionEvent($data));
-            
+
+
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();
@@ -550,12 +551,12 @@ class BookingController extends ApiController
             $data = $this->model->cancelBooking($id, $request->only($avaiable_option));
 
             $dataBooking = $this->model->getById($id);
-            
+
             DB::commit();
-            
+
             event(new CreateBookingTransactionEvent($dataBooking));
             logs('booking', 'hủy booking có mã ' . $data->booking_id, $data);
-            
+
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();

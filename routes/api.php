@@ -39,6 +39,14 @@ $router->group([
     /**
      * Profile Resource
      */
+
+    /**
+     * BaoKim-Trade-History
+     */
+
+    $router->get('/baokim-trade', 'BaoKimTradeHistoryController@getBaoKimTradeList');
+    $router->get('/baokim-trade/{id}', 'BaoKimTradeHistoryController@showBaoKimTrade');
+
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
