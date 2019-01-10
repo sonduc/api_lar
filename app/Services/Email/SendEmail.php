@@ -80,6 +80,7 @@ class SendEmail
         $booking->data->hours = $this->calculateHours($booking->data->checkin, $booking->data->checkout);
         $email                = $booking->data->email;
 
+
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
@@ -157,6 +158,7 @@ class SendEmail
         $room_name         = $this->room->getRoom($booking->data->room_id);
         $booking->merchant = $merchant;
         $booking->room     = $room_name;
+
 
         $timeSubmit                = Carbon::now()->timestamp;
         $booking->data->timeSubmit = base64_encode($timeSubmit);
@@ -244,10 +246,11 @@ class SendEmail
         $timeSubmit                = Carbon::now()->timestamp;
         $user->data->timeSubmit    = base64_encode($timeSubmit);
         $email                     = $user->data->email;
+
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
-                $message->to($email)->subject('Đăng ký tài khoản Westay ngay hôm nay để nhận nhiều ưu đãi');
+                $message->from(env('MAIL_TEST'));
+                $message->to($email)->subject('Chỉ cần xác nhận để đăng ký  !!!');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);

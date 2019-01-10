@@ -3,6 +3,7 @@
 namespace App\Http\Transformers\Customer;
 
 use App\Helpers\ErrorCore;
+use App\Http\Transformers\RoomTimeBlockTransformer;
 use App\Http\Transformers\Traits\FilterTrait;
 use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
@@ -13,7 +14,7 @@ class RoomTransformer extends TransformerAbstract
     use FilterTrait;
     protected $availableIncludes = [
         'media', 'details', 'comforts', 'user', 'reviews', 'city','district', 'prices',
-        'places',
+        'places','blocks'
     ];
 
     public function transform(Room $room = null)
@@ -201,5 +202,25 @@ class RoomTransformer extends TransformerAbstract
         }
 
         return $this->collection($room->places, new PlaceTransformer);
+    }
+
+    /**
+     * Include Room Time Block
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Collection|\League\Fractal\Resource\NullResource
+     */
+    public function includeBlocks(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        $data = $this->pagination($params, $room->blocks());
+
+        return $this->collection($data, new RoomTimeBlockTransformer);
     }
 }
