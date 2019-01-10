@@ -521,8 +521,12 @@ class BookingController extends ApiController
 
 
                 // Thanh toán qua Bảo Kim
+
                 if ($request['payment_method'] == BookingConstant::BAOKIM) {
-                    return redirect($this->baokim->createRequestUrl($data));
+                    $data = [
+                        'data' => $this->baokim->createRequestUrl($data)
+                    ];
+                    return $this->successResponse($data, false);
                 }
 
                 // Thanh toán bằng thẻ
@@ -531,8 +535,11 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    //dd($baokim_url);
-                    return redirect($baokim_url);
+
+                    $data = [
+                        'data' => $baokim_url
+                    ];
+                    return $this->successResponse($data, false);
                 }
             }
         } catch (\Illuminate\Validation\ValidationException $validationException) {
