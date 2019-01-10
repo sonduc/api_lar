@@ -220,6 +220,4 @@ class RoomLogic extends BaseLogic
     {
         $this->model->updateComission($data);
     }
-
-
 }

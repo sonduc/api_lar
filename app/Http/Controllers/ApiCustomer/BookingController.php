@@ -250,17 +250,16 @@ class BookingController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            // DB::commit();
+            DB::commit();
             event(new Check_Usable_Coupon_Event($data['coupon']));
-            // event(new BookingEvent($data));
-            //  event(new CreateBookingTransactionEvent($data));
+            // event(new CreateBookingTransactionEvent($data));
             logs('booking', 'tạo booking có code ' . $data->code, $data);
 
             // send mai cho ahdmin khi tọa booking.
             $job = (new SendBookingAdmin($data));
             dispatch($job);
 
-            //return $this->successResponse($data);
+            return $this->successResponse($data);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
             return $this->errorResponse([
@@ -479,6 +478,7 @@ class BookingController extends ApiController
     {
         $booking            = $this->bookingRepository->getBookingByUuid($uuid);
         $payment_methods    = BookingConstant::getAllPaymentMethod();
+
         $booking->bank_list = $payment_methods;
         return $this->successResponse($booking);
     }
@@ -531,7 +531,7 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    // dd($baokim_url);
+                    //dd($baokim_url);
                     return redirect($baokim_url);
                 }
             }

@@ -80,7 +80,7 @@ return [
             'delete' => 'Delete',
         ],
     ],
-    
+
     'city'              => [
         'title' => 'Quản lý tỉnh thành',
         'list'  => [
@@ -234,6 +234,13 @@ return [
 
     'checking'       => [
         'title' => 'Thông tin đối soát',
+        'list'  => [
+            'view'    => 'View',
+        ],
+    ],
+
+    'baoKimTrade'       => [
+        'title' => 'Danh sách giao dịch với bảo kim',
         'list'  => [
             'view'    => 'View',
         ],

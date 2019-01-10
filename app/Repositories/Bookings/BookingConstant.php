@@ -91,7 +91,7 @@ final class BookingConstant
     ];
 
     // Trạng thái thanh toán
-    const FAIL           = 1; // Chưa thanh toán
+    const FAIL           = 1; // Thanh toán thất bại
     const DEBT           = 2; // Khách còn nợ
     const PAID           = 3; // Đã thanh toán
     const PENDING        = 0;

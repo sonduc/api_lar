@@ -15,6 +15,7 @@ use App\Repositories\Payments\PaymentHistoryRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\BookingEvent;
+use App\Events\CreateBookingTransactionEvent;
 
 class PaymentHistoryController extends ApiController
 {
@@ -54,12 +55,14 @@ class PaymentHistoryController extends ApiController
                 // Cập nhật trạng thái đã thanh toán cho booking.
                 $booking['payment_status'] = BookingConstant::PAID;
                 $booking['status']         = BookingConstant::BOOKING_CONFIRM;
+                
                 $booking = $this->booking->update($booking['id'], $booking);
                 // Cập nhât lịch sử giao dich.
                 $data    = $this->model->storePaymentHistory($booking, $payment_history);
                 DB::commit();
                 logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
                 event(new BookingEvent($booking));
+                event(new CreateBookingTransactionEvent($booking));
 
                 return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             }

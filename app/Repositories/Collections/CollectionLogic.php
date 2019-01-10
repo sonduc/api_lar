@@ -8,6 +8,7 @@
 namespace App\Repositories\Collections;
 
 use App\Repositories\BaseLogic;
+use App\Events\AmazonS3_Upload_Event;
 
 class CollectionLogic extends BaseLogic
 {
@@ -38,7 +39,10 @@ class CollectionLogic extends BaseLogic
      */
     public function store($data)
     {
-        $data['image']   = rand_name($data['image']);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+        
         $data_collection = parent::store($data);
         $this->collectionTranslate->storeCollectionTranslate($data_collection, $data);
         $this->storeCollectionRoom($data_collection, $data);
@@ -75,7 +79,11 @@ class CollectionLogic extends BaseLogic
 
     public function update($id, $data, $excepts = [], $only = [])
     {
-        $data['image']   = rand_name($data['image']);
+        $collection = $this->model->getById($id);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+
         $data_collection = parent::update($id, $data);
         $this->collectionTranslate->updateCollectionTranslate($data_collection, $data);
         $this->updateCollectionRoom($data_collection, $data);
