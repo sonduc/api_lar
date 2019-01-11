@@ -128,7 +128,7 @@ class CouponController extends ApiController
             $this->trash      = $this->trashStatus($request);
             $data_transformed = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, []);
             return $this->successResponse($data_transformed) ;
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -157,7 +157,7 @@ class CouponController extends ApiController
             $data_transformed = $this->model->transformListCoupon($request->all(), $pageSize, $this->trash, $data);
 
             return $this->successResponse($data_transformed);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -184,7 +184,7 @@ class CouponController extends ApiController
 
             DB::commit();
             return $this->successResponse($data_transformed);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -218,7 +218,7 @@ class CouponController extends ApiController
 
             DB::commit();
             return $this->successResponse($data_transformed);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -247,7 +247,7 @@ class CouponController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -274,7 +274,7 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $data = $this->simpleArrayToObject(Coupon::COUPON_STATUS);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -297,7 +297,7 @@ class CouponController extends ApiController
             $this->authorize('coupon.view');
             $data = $this->simpleArrayToObject(Coupon::COUPON_ALLDAY);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -337,7 +337,7 @@ class CouponController extends ApiController
             logs('coupon', 'sửa trạng thái của mã giảm giá có mã ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -395,7 +395,7 @@ class CouponController extends ApiController
             ];
 
             return $this->successResponse($data, false);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -439,7 +439,7 @@ class CouponController extends ApiController
             logs('coupon', 'Sửa số lần sử dụng của mã giảm giá có mã ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
