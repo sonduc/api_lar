@@ -9,6 +9,7 @@
 namespace App\Repositories\Places;
 
 use Illuminate\Support\Facades\DB;
+
 trait PlaceLogicTrait
 {
     protected $model;
@@ -30,7 +31,7 @@ trait PlaceLogicTrait
             $data_place->rooms()->sync($data["room_id"]);
         } else {
             $data_room = $this->room->getById($data["room_id"]);
-            $data_room->places()->sync($place->id);
+            $data_room->places()->syncWithoutDetaching($place->id);
             $data_place = $place;
         }
         return $data_place;
@@ -74,10 +75,10 @@ trait PlaceLogicTrait
         $arrPlace = [];
         $arrPlaceId = [];
         foreach ($data['places'] as $key => $value) {
-            if(!isset($value['id'])){
+            if (!isset($value['id'])) {
                 $arrPlace[] = $value;
             }
-            if(isset($value['id'])){
+            if (isset($value['id'])) {
                 $arrPlaceId[] = $value['id'];
             }
         }
@@ -86,12 +87,12 @@ trait PlaceLogicTrait
             $place = $this->model->getValuePlace($value);
             if ($place == null) {
                 $data_place = parent::store($value);
-                array_push($arrPlaceId,$data_place->id);
+                array_push($arrPlaceId, $data_place->id);
             } else {
-                array_push($arrPlaceId,$place->id);
+                array_push($arrPlaceId, $place->id);
             }
         }
-        DB::table('room_places')->where('room_id',$data['room_id'])->delete();
+        DB::table('room_places')->where('room_id', $data['room_id'])->delete();
 
         $data_room = $this->room->getById($data["room_id"]);
         $data_room->places()->sync($arrPlaceId);
@@ -100,5 +101,4 @@ trait PlaceLogicTrait
         ];
         return $dataReturn;
     }
-
 }

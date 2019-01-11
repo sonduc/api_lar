@@ -84,7 +84,7 @@ class PlaceController extends ApiController
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -108,7 +108,7 @@ class PlaceController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -142,7 +142,7 @@ class PlaceController extends ApiController
             DB::commit();
             logs('place', 'tạo địa điểm mã ' . $data->id, $data);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -189,7 +189,7 @@ class PlaceController extends ApiController
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -223,7 +223,7 @@ class PlaceController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -250,7 +250,7 @@ class PlaceController extends ApiController
             $this->authorize('place.view');
             $data = $this->simpleArrayToObject(Place::PLACE_STATUS);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -290,7 +290,7 @@ class PlaceController extends ApiController
             logs('places', 'sửa trạng thái của địa điểm có mã ' . $data->id, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -334,7 +334,7 @@ class PlaceController extends ApiController
             $data = $this->model->editRoomPlace($request->all());
             DB::commit();
             return $this->successResponse($data, false);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),

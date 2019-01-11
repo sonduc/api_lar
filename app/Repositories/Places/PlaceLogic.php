@@ -5,7 +5,6 @@ namespace App\Repositories\Places;
 use App\Repositories\BaseLogic;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 
-
 class PlaceLogic extends BaseLogic
 {
     use PlaceLogicTrait;
@@ -13,10 +12,9 @@ class PlaceLogic extends BaseLogic
 
     public function __construct(
         PlaceRepositoryInterface $place,
-        RoomRepositoryInterface $room) {
+        RoomRepositoryInterface $room
+    ) {
         $this->model          = $place;
         $this->room           = $room;
     }
-
-
 }
