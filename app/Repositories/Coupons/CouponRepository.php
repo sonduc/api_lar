@@ -27,4 +27,13 @@ class CouponRepository extends BaseRepository implements CouponRepositoryInterfa
     {
         return $this->model->where('code', $code)->with('promotion')->first();
     }
+
+    /**
+     *
+     */
+
+    public function getAllExpiredCoupon()
+    {
+        return $this->model->where([['promotion_id', null],['status',1],['usable','>',0]])->get();
+    }
 }

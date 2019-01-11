@@ -52,10 +52,20 @@ trait CouponLogicTrait
                 return $discount;
             }
             
-            throw new \Exception(trans2(CouponMessage::ERR_OUTDATED_COUPON));
+            // throw new \Exception(trans2(CouponMessage::ERR_OUTDATED_COUPON));
+            return $dataDiscount = [
+                'code'           => ResponseCode::OK,
+                'message'        => trans2(CouponMessage::ERR_OUTDATED_COUPON),
+                'price_discount' => 0
+            ];
         }
 
-        throw new \Exception(trans2(CouponMessage::ERR_INVALID_COUPON));
+        // throw new \Exception(trans2(CouponMessage::ERR_INVALID_COUPON));
+        return $dataDiscount = [
+            'code'           => ResponseCode::OK,
+            'message'        => trans2(CouponMessage::ERR_INVALID_COUPON),
+            'price_discount' => 0
+        ];
     }
 
     /**

@@ -99,7 +99,6 @@ trait BookingLogicTrait
             $data['district_id'] = $room->district_id;
             
             $coupon_discount     = $this->checkSettingDiscount($coupon, $data);
-
             $data['coupon_discount'] = $coupon_discount['price_discount'];
         }
         

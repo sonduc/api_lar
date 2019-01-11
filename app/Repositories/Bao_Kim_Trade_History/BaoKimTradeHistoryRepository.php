@@ -30,5 +30,4 @@ class BaoKimTradeHistoryRepository extends BaseRepository implements BaoKimTrade
     {
         parent::store($baoKimTrade);
     }
-
 }

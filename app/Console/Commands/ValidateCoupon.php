@@ -70,5 +70,21 @@ class ValidateCoupon extends Command
                 $promotion->save();
             }
         }
+
+        $coupons = $this->coupon->getAllExpiredCoupon();
+
+        foreach ($coupons as $key => $coupon) {
+            $coupon_setting = json_decode($coupon->settings);
+            $date_start     = Carbon::parse($coupon_setting->date_start);
+            $date_end       = Carbon::parse($coupon_setting->date_end);
+
+            if ($date_end >= $current_day) {
+                $coupon->status = 0;
+                $coupon->save();
+            } elseif ($date_start >= $tomorrow && $date_start <= $the_day_after_tomorow) {
+                $coupon->status = 1;
+                $coupon->save();
+            }
+        }
     }
 }

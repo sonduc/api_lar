@@ -8,8 +8,6 @@
 
 namespace App\Repositories\Bao_Kim_Trade_History;
 
-
 interface BaoKimTradeHistoryRepositoryInterface
 {
-
 }

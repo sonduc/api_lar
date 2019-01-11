@@ -13,6 +13,7 @@ use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortRepository;
 use App\Repositories\Rooms\Room;
 use Illuminate\Http\Request;
+
 class ComfortController extends ApiController
 {
     /**
@@ -34,10 +35,12 @@ class ComfortController extends ApiController
      */
     public function index(Request $request)
     {
-        try{
-            $data        = $this->model->getByQuery($request->all());
+        try {
+            $pageSize    = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
-        }catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             throw $e;
