@@ -52,14 +52,14 @@ class RoomLogic extends BaseLogic
             return $item->room_id;
         })->all();
 
-        if ($count == 'standard_point')
+        if ($count === 'standard_point')
         {
             $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
-        }elseif ($count =='comfort_lists')
+        }elseif ($count ==='comfort_lists')
         {
             $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
         }
-        elseif($count = 'index')
+        elseif($count === null)
         {
             $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
         }

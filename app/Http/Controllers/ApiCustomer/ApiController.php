@@ -45,7 +45,6 @@ class ApiController extends Controller
      */
     protected function simpleArrayToObject($arr = []): array
     {
-        dd($arr);
         $arr2d = [];
         foreach ($arr as $key => $item) {
             $arr2d[] = [
@@ -73,7 +72,6 @@ class ApiController extends Controller
 
     protected function simpleArrayToObjecForUsedForComfortList($arr = []): array
     {
-
         $arr2d = [];
         foreach ($arr as $key => $item) {
             $arr2d[] = [
@@ -95,7 +93,7 @@ class ApiController extends Controller
                 'value' => $item->count,
             ];
         }
-
         return $arr2d;
+
     }
 }

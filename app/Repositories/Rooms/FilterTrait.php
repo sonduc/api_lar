@@ -494,7 +494,7 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeAdress($query, $q)
+    public function scopeAddress($query, $q)
     {
         if (!empty($q)) {
 
