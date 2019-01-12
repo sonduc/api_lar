@@ -372,7 +372,7 @@ trait FilterTrait
             }
 
             if (!self::isJoined($query, 'room_comforts')) {
-                $query->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*');
+                $query->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('rooms.*');
             }
 
 

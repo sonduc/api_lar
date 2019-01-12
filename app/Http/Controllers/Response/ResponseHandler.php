@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Response;
 
 use App\Helpers\ResponseCode;
 use App\Http\Transformers\OptimusPrime;
+use Carbon\Carbon;
 
 trait ResponseHandler
 {
@@ -38,7 +39,6 @@ trait ResponseHandler
 
     protected function successResponse($data, $transform = true, $include = null)
     {
-
         if (is_null($data)) {
             $data = [];
         }
@@ -52,14 +52,17 @@ trait ResponseHandler
                 'code'   => ResponseCode::OK,
                 'status' => 'success',
             ], $this->transform($data, $include));
-            return response()->json($response, $response['code']);
         } else {
             $response = array_merge([
                 'code'   => ResponseCode::OK,
                 'status' => 'success',
             ], $data);
-            return response()->json($response, 200);
         }
+
+        return response()
+            ->json($response, ResponseCode::OK, [
+//                'Cache-Control' => 'max-age=9000',
+            ]);
     }
 
     private function transform($data, $include)
@@ -90,6 +93,7 @@ trait ResponseHandler
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $data
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function forbidden($data)
