@@ -25,8 +25,8 @@ class ComfortTranslateTransformer extends TransformerAbstract
         }
 
         return [
-            'id'          => $comfort->id,
-            'comfort_id'  => $comfort->comfort_id,
+//            'id'          => $comfort->id,
+//            'comfort_id'  => $comfort->comfort_id,
             'name'        => $comfort->name,
             'description' => $comfort->description,
             'lang'        => $comfort->lang,

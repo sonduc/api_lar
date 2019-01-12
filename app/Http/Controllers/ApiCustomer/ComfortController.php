@@ -1,18 +1,12 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: ducchien
- * Date: 03/01/2019
- * Time: 11:35
- */
 
 namespace App\Http\Controllers\ApiCustomer;
 
 use App\Http\Controllers\ApiController;
 use App\Http\Transformers\ComfortTransformer;
 use App\Repositories\Comforts\ComfortRepository;
-use App\Repositories\Rooms\Room;
 use Illuminate\Http\Request;
+
 class ComfortController extends ApiController
 {
     /**
@@ -34,10 +28,11 @@ class ComfortController extends ApiController
      */
     public function index(Request $request)
     {
-        try{
-            $data        = $this->model->getByQuery($request->all());
+        try {
+            $pageSize = $request->get('limit', 25);
+            $data     = $this->model->getByQuery($request->all(), $pageSize);
             return $this->successResponse($data);
-        }catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             throw $e;
