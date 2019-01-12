@@ -42,7 +42,7 @@ class RoomLogic extends BaseLogic
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getRooms($params, $pageSize = 10,$count= null)
+    public function getRooms($params, $pageSize = null,$count= null)
     {
         $collect_params = collect($params);
         $check_in       = $collect_params->get('check_in');
