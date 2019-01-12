@@ -42,7 +42,31 @@ class RoomLogic extends BaseLogic
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getRooms($params, $pageSize = 10)
+    public function getRooms($params, $pageSize = 10,$count= null)
+    {
+        $collect_params = collect($params);
+        $check_in       = $collect_params->get('check_in');
+        $check_out      = $collect_params->get('check_out');
+        $booking        = $this->booking->getAllBookingInPeriod($check_in, $check_out);
+        $list_room_id   = $booking->map(function ($item) {
+            return $item->room_id;
+        })->all();
+
+        if ($count == 'standard_point')
+        {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
+        }elseif ($count =='comfort_lists')
+        {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
+        }
+        elseif($count = 'index')
+        {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
+        }
+        return $rooms;
+    }
+
+    public function getRoomsByStandardPoint($params, $pageSize = 10)
     {
         $collect_params = collect($params);
         $check_in       = $collect_params->get('check_in');

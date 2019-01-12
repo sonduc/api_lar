@@ -45,11 +45,54 @@ class ApiController extends Controller
      */
     protected function simpleArrayToObject($arr = []): array
     {
+        dd($arr);
         $arr2d = [];
         foreach ($arr as $key => $item) {
             $arr2d[] = [
                 'id'    => $key,
                 'value' => $item,
+            ];
+        }
+
+        return $arr2d;
+    }
+
+    protected function simpleArrayToObjecForUseCountRoom($arr = []): array
+    {
+
+        $arr2d = [];
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $item->comfort_id,
+                'value' => $item->count,
+            ];
+        }
+
+        return $arr2d;
+    }
+
+    protected function simpleArrayToObjecForUsedForComfortList($arr = []): array
+    {
+
+        $arr2d = [];
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $item->comfort_id,
+                'value' => $item->count,
+            ];
+        }
+
+        return $arr2d;
+    }
+
+    protected function simpleArrayToObjecForUsedForStandardPoint($arr = []): array
+    {
+
+        $arr2d = [];
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $item->standard_point,
+                'value' => $item->count,
             ];
         }
 

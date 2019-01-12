@@ -43,7 +43,8 @@ class RoomController extends ApiController
         try {
             DB::enableQueryLog();
             $page_size  = $request->get('limit', 10);
-            $data       = $this->model->getRooms($request->all(), $page_size);
+            $count      = 'index';
+            $data       = $this->model->getRooms($request->all(), $page_size,$count);
             // dd(DB::getQueryLog());
             return $this->successResponse($data);
         } catch (\Exception $e) {
@@ -167,6 +168,52 @@ class RoomController extends ApiController
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
+        }
+    }
+
+    /**
+     * Đếm số phòng dựa theo số sao tiêu chuẩn của phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getCountRoomByStandardPoint(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+            $page_size      = $request->get('limit', 10);
+            $count          = 'standard_point';
+            $data           = $this->model->getRooms($request->all(), $page_size,$count);
+            // dd(DB::getQueryLog());
+            $data = $this->simpleArrayToObjecForUsedForStandardPoint($data);
+            return response()->json($data);
+           return $this->successResponse($test,false);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Lấy ra số phòng dựa theo danh sánh tiện nghi của phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getCountRoomByComfortLists(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+            $page_size      = $request->get('limit', 10);
+            $count          = 'comfort_lists';
+            $data           = $this->model->getRooms($request->all(), $page_size,$count);
+            $data = $this->simpleArrayToObjecForUsedForComfortList($data);
+            return response()->json($data);
+            // dd(DB::getQueryLog());
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 }

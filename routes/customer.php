@@ -48,6 +48,8 @@ $router->get('/rooms', 'RoomController@index');
 $router->get('/rooms/{id}', 'RoomController@show');
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
 $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
+$router->get('/rooms/count-room-by-standard-point', 'RoomController@getCountRoomByStandardPoint');
+$router->get('/rooms/count-room-by-comfort-lists', 'RoomController@getCountRoomByComfortLists');
 
 
 /**

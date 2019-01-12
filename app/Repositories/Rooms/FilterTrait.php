@@ -493,4 +493,19 @@ trait FilterTrait
         }
         return $query;
     }
+
+    public function scopeAdress($query, $q)
+    {
+        if (!empty($q)) {
+
+            if (!self::isJoined($query, 'room_translates')) {
+                $query->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')->select('rooms.*');
+            }
+
+
+            $query = $query->where('address', 'like', "%${q}%")
+                ->where('lang','vi');
+        }
+        return $query;
+    }
 }

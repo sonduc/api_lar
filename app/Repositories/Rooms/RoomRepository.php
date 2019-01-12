@@ -4,7 +4,7 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {
@@ -31,19 +31,48 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getAllRoomExceptListId(array $list, $params, $size)
+    public function getAllRoomExceptListId(array $list, $params, $size,$count = null)
     {
         $alias = $this->model->transformerAlias();
         $this->useScope($params, ['check_in', 'check_out']);
         $this->eagerLoadWithTransformer($params, $alias);
-        return $this->model
-            ->whereNotIn('rooms.id', $list)
-            ->where('rooms.status', Room::AVAILABLE)
-            ->orderBy('is_manager', 'desc')
-            ->orderBy('avg_avg_rating', 'desc')
-            ->orderBy('total_review', 'desc')
-            ->orderBy('total_recommend', 'desc')
-            ->paginate($size);
+        if ($count =='standard_point')
+        {
+            return $this->model
+                ->select(DB::Raw('rooms.standard_point, COUNT(*) as count'))
+                ->whereNotIn('rooms.id', $list)
+                ->where('rooms.status', Room::AVAILABLE)
+                ->orderBy('is_manager', 'desc')
+                ->orderBy('avg_avg_rating', 'desc')
+                ->orderBy('total_review', 'desc')
+                ->orderBy('total_recommend', 'desc')
+                ->groupBy('rooms.standard_point')
+                ->get();
+        }elseif ($count ='comfort_list')
+        {
+           return  $this->model
+                ->whereNotIn('rooms.id', $list)
+                ->where('rooms.status', Room::AVAILABLE)
+                ->orderBy('is_manager', 'desc')
+                ->orderBy('avg_avg_rating', 'desc')
+                ->orderBy('total_review', 'desc')
+                ->orderBy('total_recommend', 'desc')
+                ->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*')
+                ->select(DB::Raw('room_comforts.comfort_id, COUNT(*) as count'))
+                ->groupBy('room_comforts.comfort_id')->get();
+
+        }elseif ($count = 'index')
+        {
+            return $this->model
+                ->whereNotIn('rooms.id', $list)
+                ->where('rooms.status', Room::AVAILABLE)
+                ->orderBy('is_manager', 'desc')
+                ->orderBy('avg_avg_rating', 'desc')
+                ->orderBy('total_review', 'desc')
+                ->orderBy('total_recommend', 'desc')
+                ->paginate($size);
+        }
+
     }
 
     public function getRoom($id)
