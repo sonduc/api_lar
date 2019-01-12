@@ -235,4 +235,15 @@ class Room extends Entity
     {
         return $this->hasMany(\App\Repositories\Transactions\Transaction::class, 'room_id');
     }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function roomTransAdmin()
+    {
+        return $this->hasMany(RoomTranslate::class);
+    }
 }
