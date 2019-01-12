@@ -4,7 +4,7 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
-use DB;
+use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 {
@@ -31,19 +31,39 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getAllRoomExceptListId(array $list, $params, $size)
+    public function getAllRoomExceptListId(array $list, $params, $size,$count = null)
     {
         $alias = $this->model->transformerAlias();
         $this->useScope($params, ['check_in', 'check_out']);
         $this->eagerLoadWithTransformer($params, $alias);
-        return $this->model
-            ->whereNotIn('rooms.id', $list)
-            ->where('rooms.status', Room::AVAILABLE)
-            ->orderBy('is_manager', 'desc')
-            ->orderBy('avg_avg_rating', 'desc')
-            ->orderBy('total_review', 'desc')
-            ->orderBy('total_recommend', 'desc')
-            ->paginate($size);
+
+        $query  = $this->model
+                ->whereNotIn('rooms.id', $list)
+                ->where('rooms.status', Room::AVAILABLE)
+                ->orderBy('is_manager', 'desc')
+                ->orderBy('avg_avg_rating', 'desc')
+                ->orderBy('total_review', 'desc')
+                ->orderBy('total_recommend', 'desc');
+        if (is_null($count))
+        {
+            return $query->paginate($size);
+        }elseif ($count ==='comfort_lists')
+        {
+           return $query
+                ->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*')
+                ->select(DB::Raw('room_comforts.comfort_id, COUNT(*) as count'))
+                ->groupBy('room_comforts.comfort_id')
+                -> orderBy('comfort_id')
+                ->get();
+
+        }elseif ($count === 'standard_point')
+        {
+                 return $query
+                ->select(DB::Raw('rooms.standard_point, COUNT(*) as count'))
+                ->groupBy('rooms.standard_point')->orderBy('standard_point')->get();
+
+        }
+
     }
 
     public function getRoom($id)

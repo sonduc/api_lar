@@ -169,4 +169,48 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * Đếm số phòng dựa theo số sao tiêu chuẩn của phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getCountRoomByStandardPoint(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+            $count          = 'standard_point';
+            $data           = $this->model->getRooms($request->all(), null,$count);
+            // dd(DB::getQueryLog());
+            $data = $this->simpleArrayToObjecForUsedForStandardPoint($data);
+           return $this->successResponseUsedForCountRoom(['data' => $data]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
+
+
+    /**
+     * Lấy ra số phòng dựa theo danh sánh tiện nghi của phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getCountRoomByComfortLists(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+            $count          = 'comfort_lists';
+            $data           = $this->model->getRooms($request->all(), null,$count);
+            $data = $this->simpleArrayToObjecForUsedForComfortList($data);
+           // dd(DB::getQueryLog());
+            return $this->successResponseUsedForCountRoom(['data' => $data]);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
