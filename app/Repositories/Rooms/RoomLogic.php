@@ -71,7 +71,7 @@ class RoomLogic extends BaseLogic
         $this->storeRoomComforts($data_room, $data);
         $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         $this->roomMedia->storeRoomMedia($data_room, $data);
-        $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
+        // $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
 
         return $data_room;
     }
@@ -111,7 +111,7 @@ class RoomLogic extends BaseLogic
         $this->roomTranslate->updateRoomTranslate($data_room, $data);
         $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         $this->roomMedia->updateRoomMedia($data_room, $data);
-        $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
+        // $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
 
         return $data_room;
