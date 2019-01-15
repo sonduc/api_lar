@@ -477,6 +477,27 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $list = [$count,$result];
 
+    }
+
+    /**
+     * Đếm số lượng phòng theo thành phố
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getNumberRoomByCity($limit= null)
+    {
+        return $this->model
+                ->select(
+                    DB::raw('rooms.id as room_id','rooms.city_id'),
+                    DB::raw('cities.name as name_city'),
+                    DB::raw('count(rooms.city_id) as total_rooms')
+                )
+                ->join('cities','cities.id','=','rooms.city_id')
+                ->groupBy(DB::raw('rooms.city_id'))
+                ->orderBy('total_rooms', 'desc')
+                ->get()->toArray();
 
     }
 }

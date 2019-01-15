@@ -106,4 +106,10 @@ class RoomLogic extends BaseLogic
     {
         return $this->model->getRoomRecommend($size, $id);
     }
+
+    public function getNumberRoomByCity($limit = null)
+    {
+        return $this->model->getNumberRoomByCity($limit);
+
+    }
 }

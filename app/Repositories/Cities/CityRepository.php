@@ -82,7 +82,12 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
 
     public function getCityUserForSearchSuggestions($data)
     {
-        $key   = $data['key'];
+
+        if (!isset($data['key']))
+        {
+           $key = null;
+        }
+
         $query =  $this->model;
 
         $result = $query->select('cities.name','cities.id','cities.hot','cities.status','cities.priority')
