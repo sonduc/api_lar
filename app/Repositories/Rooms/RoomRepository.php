@@ -4,6 +4,7 @@ namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
+use App\Repositories\Cities\City;
 use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
@@ -440,9 +441,42 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
         return $arrayConvert;
     }
-    
+
+
+
+    /**
+     * Cập nhật commission cho toàn bộ phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     * @
+     */
     public function updateComission($data)
     {
         return $this->model->where('status', Room::AVAILABLE)->update($data);
+    }
+
+    /**
+     * Lấy ra danh sách các tên phòng theo từ khóa khi không đử 6 gợi ý từ thành phố , quận huyện
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomNameUserForSearch($data,$request,$count)
+    {
+         $result_room_name = $this->model
+             ->select('room_translates.name','rooms.hot','rooms.status','room_translates.address')
+             ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
+             ->where('room_translates.name', 'like', "%$request->key%")
+             ->where('rooms.status',Room::AVAILABLE)
+             ->orderBy('rooms.hot','DESC')
+             ->limit(City::SERACH_SUGGESTIONS-$count)->get()->toArray();
+
+        $result =  array_merge($data,$result_room_name);
+
+        $count = collect($result)->count();
+
+        return $list = [$count,$result];
+
+
     }
 }

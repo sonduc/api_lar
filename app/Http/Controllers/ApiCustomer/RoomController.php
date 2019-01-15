@@ -213,4 +213,26 @@ class RoomController extends ApiController
             throw $e;
         }
     }
+
+
+
+    /**
+     * Đưa ra danh dách gợi ý về tên phòng khi người dùng tìm kiếm về tên phòng.
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomName(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+
+            // dd(DB::getQueryLog());
+            //return $this->successResponseUsedForCountRoom(['data' => $data]);
+
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }
