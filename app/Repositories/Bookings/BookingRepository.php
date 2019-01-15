@@ -334,7 +334,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
         $bookings = $this->model
             ->select(
-                DB::raw('cities. NAME as name_city'),
+                DB::raw('cities. NAME as name_city, cities.id as city_id'),
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
@@ -358,14 +358,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         foreach ($bookings as $key => $value) {
             array_push($data_date, $value->createdAt);
         }
-
+        // dd($bookings);
         $date_unique = array_unique($data_date);
         foreach ($date_unique as $k => $val) {
             $convertCityBooking = $this->convertCityBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCityBooking,
+                $val      => $convertCityBooking,
             ];
         }
 
@@ -382,6 +381,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
+            // dd($value);
             if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
@@ -392,9 +392,25 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt,
+                'city_id'       => $value->city_id
             ];
         }
         return $convertBooking;
+    }
+
+    /**
+     * lấy tất cả thành phố có booking trong khoảng thời gian
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+
+    public function getCityHasBooking()
+    {
+        return $this->model
+                            ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                            ->join('cities', 'rooms.city_id', '=', 'cities.id')
+                            ->select('cities.id', 'cities.name')->distinct()->get();
     }
 
     /**

@@ -57,8 +57,43 @@ class StatisticalLogic extends BaseLogic
     public function bookingByCityStatistical($data)
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
+        $result_city = $this->booking->getCityHasBooking();
+        // dd($result_city);
+        $data_booking_by_city = $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $series_arr = [];
+        $some_date  = [];
+        $city_arr   = [];
+        // dd($list_city);
+        // dd($data_booking_by_city);
+        foreach ($data_booking_by_city as $key_list_city => $value_list_city) {
+            $date_arr[] = key($value_list_city);
+            $some_date['_' . key($value_list_city)]  = 0;
 
-        return $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+            foreach ($result_city as $key_city => $value_city) {
+                $series_arr[$key_city]['name'] = $value_city->name;
+                // dd($series_arr);
+                foreach ($value_list_city as $data_value) {
+                    foreach ($data_value as $k => $v) {
+                        if ($value_city->id == $v['city_id']) {
+                            $series_arr[$key_city]['data']['_' . $v['createdAt']]    = $v['total_booking'];
+                            $series_arr[$key_city]['success']['_' . $v['createdAt']] = (int)$v['success'];
+                            $series_arr[$key_city]['cancel']['_' . $v['createdAt']]  = (int)$v['cancel'];
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($series_arr as $key => $serie) {
+            $serie_data                  = !empty($serie['data']) ? $serie['data'] : [];
+            $success                     = !empty($serie['success']) ? $serie['success'] : [];
+            $cancel                      = !empty($serie['cancel']) ? $serie['cancel'] : [];
+            $results_serie_city          = array_values(array_merge($some_date, $serie_data));
+            $series_arr[$key]['data']    = $results_serie_city;
+            $series_arr[$key]['success'] = array_values(array_merge($some_date, $success));
+            $series_arr[$key]['cancel']  = array_values(array_merge($some_date, $cancel));
+        }
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -251,7 +286,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataRoomStatistical($data);
 
-        return $this->room->countRoomByTopBooking($dataInput['lang'],$dataInput['take'],$dataInput['sort']);
+        return $this->room->countRoomByTopBooking($dataInput['lang'], $dataInput['take'], $dataInput['sort']);
     }
 
     /**
@@ -263,7 +298,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataRoomStatistical($data);
 
-        return $this->room->countRoomByTypeTopBooking($dataInput['lang'],$dataInput['take'],$dataInput['sort']);
+        return $this->room->countRoomByTypeTopBooking($dataInput['lang'], $dataInput['take'], $dataInput['sort']);
     }
 
     /**
@@ -273,7 +308,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->totalBookingByOneCustomerRevenue($data['customer_id'],$dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        return $this->booking->totalBookingByOneCustomerRevenue($data['customer_id'], $dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
     }
 
     /**
@@ -283,6 +318,6 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingByTypeOneCustomer($data['customer_id'],$dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        return $this->booking->countBookingByTypeOneCustomer($data['customer_id'], $dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 }

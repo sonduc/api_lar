@@ -83,10 +83,9 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByCityStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            $test['data']['createdAt'] = $data[0];
+            $test['data']['data'] = $data[1];
+            return $this->successResponse($test, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
