@@ -183,8 +183,6 @@ class RoomController extends ApiController
             DB::enableQueryLog();
             $count          = 'standard_point';
             $data           = $this->model->getRooms($request->all(), null,$count);
-            // dd(DB::getQueryLog());
-            $data = $this->simpleArrayToObjectForUsedForStandardPoint($data);
            return $this->successResponseUsedForCountRoom(['data' => $data]);
         } catch (\Exception $e) {
             throw $e;
@@ -205,8 +203,7 @@ class RoomController extends ApiController
             DB::enableQueryLog();
             $count          = 'comfort_lists';
             $data           = $this->model->getRooms($request->all(), null,$count);
-            $data = $this->simpleArrayToObjectForUsedForComfortList($data);
-           // dd(DB::getQueryLog());
+            //dd(DB::getQueryLog());
             return $this->successResponseUsedForCountRoom(['data' => $data]);
 
         } catch (\Exception $e) {
