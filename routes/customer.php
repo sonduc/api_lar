@@ -61,7 +61,9 @@ resource('/comforts', 'ComfortController', $router);
 /**
  * City Resource
  */
+$router->get('/search-suggestions', 'CityController@searchSuggestions');
 resource('/cities', 'CityController', $router);
+
 
 /**
  * District Resource

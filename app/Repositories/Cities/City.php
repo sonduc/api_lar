@@ -47,6 +47,8 @@ class City extends Entity
             self::MORE_PRIORITY => 'Ưu tiên khá',
             self::MOST_PRIORITY => 'Ưu tiên cao nhất',
         ];
+
+    const SERACH_SUGGESTIONS = 6;
     protected $fillable
         = [
             'region_id', 'name', 'short_name', 'code', 'longitude', 'latitude', 'priority', 'hot', 'status',

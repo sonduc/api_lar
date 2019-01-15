@@ -133,4 +133,22 @@ trait ResponseHandler
             return response()->json($response, $response['code']);
         }
     }
+
+//    protected function successResponseSearchSuggestion($data)
+//    {
+//
+//        if (is_null($data)) {
+//            $data = [];
+//        }
+//
+//        if ($data) {
+//            $response = array_merge([
+//                'code'   => ResponseCode::OK,
+//                'status' => 'success',
+//            ], $data);
+//            return response()->json($response, $response['code']);
+//        }
+//    }
+
+
 }
