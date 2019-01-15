@@ -9,6 +9,8 @@
 namespace App\Repositories\Categories;
 
 use App\Repositories\BaseLogic;
+use App\Events\AmazonS3_Upload_Event;
+
 
 class CategoryLogic extends BaseLogic
 {
@@ -37,7 +39,11 @@ class CategoryLogic extends BaseLogic
      */
     public function store($data = null)
     {
-        $data['image'] = rand_name($data['image']);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+
+        // $data['image'] = rand_name($data['image']);
         $data_category = parent::store($data);
         $this->categoryTranslate->storeCategoryTranslate($data_category, $data);
         return $data_category;
@@ -53,7 +59,12 @@ class CategoryLogic extends BaseLogic
      */
     public function update($id, $data = null, $except = [], $only = [])
     {
-        $data['image'] = rand_name($data['image']);
+        // $data['image'] = rand_name($data['image']);
+        $collection = $this->model->getById($id);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+
         $data_category = parent::update($id, $data);
         $this->categoryTranslate->updateCategoryTranslate($data_category, $data);
         return $data_category;

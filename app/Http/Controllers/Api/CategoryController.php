@@ -18,27 +18,22 @@ class CategoryController extends ApiController
         'hot'                               => 'integer|between:0,1|filled',
         'status'                            => 'integer|between:0,1|filled',
         'new'                               => 'integer|between:0,1|filled',
-        'image'                             => 'required|image|mimes:jpeg,bmp,png,jpg',
         'details.*.*.name'                  => 'required|v_title|unique:categories_translate,name',
         'details.*.*.lang'                  => 'required',
     ];
     protected $validationMessages = [
-        //type=status
         'status.integer'                    => 'Mã trạng thái phải là kiểu số',
         'status.between'                    => 'Mã trạng thái không phù hợp',
         'status.filled'                     => 'Vui lòng nhập mã trạng thái ',
-        //type=hot
+        
         'hot.integer'                       => 'Mã nổi bật phải là kiểu số',
         'hot.between'                       => 'Mã nổi bật không phù hợp',
         'hot.filled'                        => 'Vui lòng nhập mã trạng thái',
-        //type=new
+
         'new.integer'                       => 'Danh mục mới nhất phải là kiểu số',
         'new.between'                       => 'Mã danh mục mới nhất không phù hợp',
         'new.filled'                        => 'Vui lòng nhập mã trạng thái',
 
-        'image.required'                    => 'Hình ảnh không đưọc bỏ trống',
-        'image.image'                       => 'Định dạng không phải là hình ảnh',
-        'image.mimes'                       => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
         'details.*.*.name.required'         => 'Tên không được để trống',
         'details.*.*.name.unique'           => 'Tên này đã tồn tại',
         'details.*.*.name.v_title'          => 'Tên danh mục không hợp lệ',
@@ -68,7 +63,7 @@ class CategoryController extends ApiController
             $this->trash = $this->trashStatus($request);
             $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -87,7 +82,7 @@ class CategoryController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -111,7 +106,7 @@ class CategoryController extends ApiController
             DB::commit();
             // dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -140,7 +135,7 @@ class CategoryController extends ApiController
             DB::commit();
             // dd(DB::getQueryLog());
             return $this->successResponse($data, true, 'details');
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -173,7 +168,7 @@ class CategoryController extends ApiController
             //dd(DB::getQueryLog());
             DB::commit();
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -219,7 +214,7 @@ class CategoryController extends ApiController
             logs('categories', 'sửa trạng thái của danh mục có code ' . $data->code, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
