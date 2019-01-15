@@ -56,11 +56,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByStatusStatistical($request->all());
-            $data = [
-                'data' => $data->toArray()
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -83,9 +83,9 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByCityStatistical($request->all());
-            $test['data']['createdAt'] = $data[0];
-            $test['data']['data'] = $data[1];
-            return $this->successResponse($test, false);
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -109,10 +109,10 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByDistrictStatistical($request->all());
 
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -136,10 +136,10 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByTypeStatistical($request->all());
 
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -276,11 +276,12 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingBySexStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -303,11 +304,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByPriceRangeStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

@@ -46,7 +46,22 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_status = $this->booking->countBookingByStatus($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+
+        $series_arr = [];
+        $some_date  = [];
+        foreach ($data_booking_by_status as $key_list_city => $value_list_city) {
+            // dd($value_list_city);
+            $date_arr[] = $value_list_city['createdAt'];
+            $some_date['_' . $value_list_city['createdAt']]  = 0;
+
+            $series_arr['data'][0]['data'][] = (int) $value_list_city['success'];
+            $series_arr['data'][0]['name']      = "Thành công";
+            $series_arr['data'][1]['data'][]  = (int) $value_list_city['cancel'];
+            $series_arr['data'][1]['name']      = "Hủy";
+        }
+
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -58,20 +73,17 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
         $result_city = $this->booking->getCityHasBooking();
-        // dd($result_city);
+
         $data_booking_by_city = $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
         $series_arr = [];
         $some_date  = [];
-        $city_arr   = [];
-        // dd($list_city);
-        // dd($data_booking_by_city);
         foreach ($data_booking_by_city as $key_list_city => $value_list_city) {
             $date_arr[] = key($value_list_city);
             $some_date['_' . key($value_list_city)]  = 0;
 
             foreach ($result_city as $key_city => $value_city) {
                 $series_arr[$key_city]['name'] = $value_city->name;
-                // dd($series_arr);
+
                 foreach ($value_list_city as $data_value) {
                     foreach ($data_value as $k => $v) {
                         if ($value_city->id == $v['city_id']) {
@@ -103,9 +115,46 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByDistrictStatistical($data)
     {
-        $dataInput = $this->checkInputDataBookingStatistical($data);
+        $dataInput          = $this->checkInputDataBookingStatistical($data);
+        $result_district    = $this->booking->getDistrictHasBooking();
 
-        return $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_district = $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+
+        $data_booking_by_district = $this->booking->countBookingByDistrict($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $series_arr = [];
+        $some_date  = [];
+        $district_arr   = [];
+        // dd($list_district);
+        // dd($data_booking_by_district);
+        foreach ($data_booking_by_district as $key_list_district => $value_list_district) {
+            $date_arr[] = key($value_list_district);
+            $some_date['_' . key($value_list_district)]  = 0;
+
+            foreach ($result_district as $key_district => $value_district) {
+                $series_arr[$key_district]['name'] = $value_district->name;
+                // dd($series_arr);
+                foreach ($value_list_district as $data_value) {
+                    foreach ($data_value as $k => $v) {
+                        if ($value_district->id == $v['district_id']) {
+                            $series_arr[$key_district]['data']['_' . $v['createdAt']]    = $v['total_booking'];
+                            $series_arr[$key_district]['success']['_' . $v['createdAt']] = (int)$v['success'];
+                            $series_arr[$key_district]['cancel']['_' . $v['createdAt']]  = (int)$v['cancel'];
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach ($series_arr as $key => $serie) {
+            $serie_data                  = !empty($serie['data']) ? $serie['data'] : [];
+            $success                     = !empty($serie['success']) ? $serie['success'] : [];
+            $cancel                      = !empty($serie['cancel']) ? $serie['cancel'] : [];
+            $results_serie_district          = array_values(array_merge($some_date, $serie_data));
+            $series_arr[$key]['data']    = $results_serie_district;
+            $series_arr[$key]['success'] = array_values(array_merge($some_date, $success));
+            $series_arr[$key]['cancel']  = array_values(array_merge($some_date, $cancel));
+        }
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -117,7 +166,33 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_type = $this->booking->countBookingByType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        // dd($data_booking_by_type);
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+
+        foreach ($data_booking_by_type as $key_list_type => $value_list_type) {
+            // dd($value_list_type);
+            $date_arr[] = key($value_list_type);
+            $some_date['_' . key($value_list_type)]  = 0;
+            // dd($value_list_type);
+            foreach ($value_list_type as $data_value) {
+                // dd($data_value);
+                foreach ($data_value as $k => $v) {
+                    // dd($v);
+                    // if ($value_district->id == $v['district_id']) {
+                    $series_arr[$k]['name']      = $v['type_txt'];
+                    $series_arr[$k]['data'][]    = $v['total_booking'];
+                    $series_arr[$k]['success'][] = (int)$v['success'];
+                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+
+                    // }
+                }
+            }
+        }
+
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -177,7 +252,25 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingBySex($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_gender = $this->booking->countBookingBySex($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+
+        foreach ($data_booking_by_gender as $key_list_gender => $value_list_gender) {
+            $date_arr[] = key($value_list_gender);
+            $some_date['_' . key($value_list_gender)]  = 0;
+            foreach ($value_list_gender as $data_value) {
+                foreach ($data_value as $k => $v) {
+                    $series_arr[$k]['name']      = $v['sex_txt'];
+                    $series_arr[$k]['data'][]    = $v['total_booking'];
+                    $series_arr[$k]['success'][] = (int)$v['success'];
+                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+                }
+            }
+        }
+
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -189,7 +282,25 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingByPriceRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_price_range =  $this->booking->countBookingByPriceRange($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+
+        foreach ($data_booking_by_price_range as $key_list_price_range => $value_list_price_range) {
+            $date_arr[] = $value_list_price_range['createdAt'];
+            $some_date['_' . $value_list_price_range['createdAt']]  = 0;
+            foreach ($value_list_price_range['data'] as $key => $data_value) {
+                // var_dump($key);
+                $series_arr[$key]['name']      = $data_value['price_range_txt'];
+                $series_arr[$key]['data'][]    = $data_value['total_booking'];
+                $series_arr[$key]['success'][] = (int)$data_value['success'];
+                $series_arr[$key]['cancel'][]  = (int)$data_value['cancel'];
+            }
+        }
+        
+        return [$date_arr, $series_arr];
     }
 
     /**

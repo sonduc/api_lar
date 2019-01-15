@@ -424,7 +424,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
         $bookings = $this->model
             ->select(
-                DB::raw('districts. NAME as name_district'),
+                DB::raw('districts. NAME as name_district, districts.id as district_id'),
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
@@ -455,12 +455,25 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertDistrictBooking,
+                $val => $convertDistrictBooking,
             ];
         }
 
         return $convertDataBooking;
+    }
+
+    /**
+     * lấy tất cả Quận huyện có booking trong khoảng thời gian
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+
+    public function getDistrictHasBooking()
+    {
+        return $this->model
+                            ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                            ->join('districts', 'rooms.district_id', '=', 'districts.id')
+                            ->select('districts.id', 'districts.name')->distinct()->get();
     }
 
     /**
@@ -483,6 +496,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt,
+                'district_id'   => $value->district_id
             ];
         }
         return $convertBooking;
@@ -526,8 +541,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBookingType = $this->convertBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertBookingType,
+                $val      => $convertBookingType,
             ];
         }
 
@@ -1051,8 +1065,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingSex = $this->convertCountBookingSex($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingSex,
+                $val      => $convertCountBookingSex,
             ];
         }
 
