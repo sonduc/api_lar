@@ -19,7 +19,7 @@ class BlogController extends ApiController
             'new'                       => 'numeric|between:0,1|filled',
             // 'image'                     =>'image|mimes:jpeg,bmp,png,jpg',
             'category_id'               => 'required|numeric|exists:categories,id',
-            'title'                     => 'required|v_title|unique:blogs,title',
+            'title'                     => 'required|v_title',
             // 'lang'                      => 'required',
             'content'                   => 'required',
             'description'               => 'required',
@@ -45,7 +45,7 @@ class BlogController extends ApiController
             //'image.image'                       =>'Định dạng không phải là hình ảnh',
             //'image.mimes'                       => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
             'title.required' => 'Tiêu đề không được để trông',
-            'title.unique'   => 'Tên này đã tồn tại',
+            // 'title.unique'   => 'Tên này đã tồn tại',
             'title.v_title'  => 'Tên tiêu đề không hợp lê',
             'tags.*.*.name.v_title'      => "Từ khóa không hơp lệ",
         ];

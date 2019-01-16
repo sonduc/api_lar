@@ -46,14 +46,15 @@ class BlogLogic extends BaseLogic
     public function store($data = null)
     {
         $data['user_id'] = Auth::user()->id;
-        $data['image'] = rand_name();
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
         $data['slug'] = to_slug($data['title']);
         $data_blog       = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);
         $data_blog->tags()->detach();
         $data_blog->tags()->attach($list_tag_id);
-        event(new AmazonS3_Upload_Event($data['image'], $data['source']));
 
         return $data_blog;
     }
@@ -69,7 +70,10 @@ class BlogLogic extends BaseLogic
     public function update($id, $data = null, $except = [], $only = [])
     {
         $data['user_id'] = Auth::user()->id;
-        $data['image']   = rand_name($data['image']);
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name.'.jpeg';
+
         $data_blog       = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);
         $list_tag_id = $this->tag->storeTag($data);

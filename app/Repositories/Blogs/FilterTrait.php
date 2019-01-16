@@ -10,7 +10,7 @@ trait FilterTrait
     public function scopeQ($query, $q)
     {
         if ($q) {
-            return $query->where('name', 'like', "%${q}%");
+            return $query->where('title', 'like', "%${q}%");
         }
         return $query;
     }
