@@ -1136,8 +1136,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingPriceRange = $this->convertCountBookingPriceRange($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingPriceRange,
+                $val => $convertCountBookingPriceRange,
             ];
         }
 
@@ -1208,8 +1207,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingAgeRange = $this->convertCountBookingAgeRange($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingAgeRange,
+                $val => $convertCountBookingAgeRange,
             ];
         }
 
@@ -1315,8 +1313,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingSource,
+                $val      => $convertCountBookingSource,
             ];
         }
 
@@ -1421,8 +1418,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingType = $this->convertTotalBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingType,
+                $val => $convertTotalBookingType
             ];
         }
 
@@ -1447,8 +1443,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBooking[] = [
                 'type_txt'      => BookingConstant::BOOKING_TYPE[$value['type']],
                 'type'          => $value['type'],
-                'revenue'       => $value['revenue'],
-                'total_revenue' => $value['total_revenue'],
+                'revenue'       => (int) $value['revenue'],
+                'total_revenue' => (int) $value['total_revenue'],
             ];
         }
         return $convertBooking;

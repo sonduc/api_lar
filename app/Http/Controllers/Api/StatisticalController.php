@@ -331,11 +331,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByAgeRangeStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -358,11 +358,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingBySourceStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -385,11 +385,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByTypeRevenueStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
