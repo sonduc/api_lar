@@ -51,17 +51,22 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }elseif ($count ==='comfort_lists')
         {
            return $query
-                ->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*')
-                ->select(DB::Raw('room_comforts.comfort_id, COUNT(*) as count'))
+                ->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')
+                ->join('comfort_translates', 'room_comforts.comfort_id', '=', 'comfort_translates.comfort_id')
+                ->select(
+                    DB::Raw('comfort_translates.name as name_comfort'),
+                    DB::Raw('comfort_translates.comfort_id'),
+                    DB::Raw('comfort_translates.comfort_id, COUNT(*) as total_rooms')
+                )
                 ->groupBy('room_comforts.comfort_id')
-                -> orderBy('comfort_id')
-                ->get();
+                -> orderBy('total_rooms','desc')
+                ->get()->toArray();
 
         }elseif ($count === 'standard_point')
         {
                  return $query
                 ->select(DB::Raw('rooms.standard_point, COUNT(*) as count'))
-                ->groupBy('rooms.standard_point')->orderBy('standard_point')->get();
+                ->groupBy('rooms.standard_point')->orderBy('standard_point')->get()->toArray();
 
         }
 
@@ -477,6 +482,27 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $list = [$count,$result];
 
+    }
+
+    /**
+     * Đếm số lượng phòng theo thành phố
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getNumberRoomByCity($limit= null)
+    {
+        return $this->model
+                ->select(
+                    DB::raw('rooms.id as room_id','rooms.city_id'),
+                    DB::raw('cities.name as name_city'),
+                    DB::raw('count(rooms.city_id) as total_rooms')
+                )
+                ->join('cities','cities.id','=','rooms.city_id')
+                ->groupBy(DB::raw('rooms.city_id'))
+                ->orderBy('total_rooms', 'desc')
+                ->get()->toArray();
 
     }
 }

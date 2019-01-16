@@ -183,8 +183,6 @@ class RoomController extends ApiController
             DB::enableQueryLog();
             $count          = 'standard_point';
             $data           = $this->model->getRooms($request->all(), null,$count);
-            // dd(DB::getQueryLog());
-            $data = $this->simpleArrayToObjecForUsedForStandardPoint($data);
            return $this->successResponseUsedForCountRoom(['data' => $data]);
         } catch (\Exception $e) {
             throw $e;
@@ -205,8 +203,7 @@ class RoomController extends ApiController
             DB::enableQueryLog();
             $count          = 'comfort_lists';
             $data           = $this->model->getRooms($request->all(), null,$count);
-            $data = $this->simpleArrayToObjecForUsedForComfortList($data);
-           // dd(DB::getQueryLog());
+            //dd(DB::getQueryLog());
             return $this->successResponseUsedForCountRoom(['data' => $data]);
 
         } catch (\Exception $e) {
@@ -214,25 +211,28 @@ class RoomController extends ApiController
         }
     }
 
-
-
     /**
-     * Đưa ra danh dách gợi ý về tên phòng khi người dùng tìm kiếm về tên phòng.
+     *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
+     * @param Request $request
+     *
      * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
+     * @throws \Exception
      */
-    public function getRoomName(Request $request)
+    public function getNumberRoomByCity(Request $request)
     {
         try {
             DB::enableQueryLog();
+            $limit      = $request->get('limit');
+            $data       = $this->model->getNumberRoomByCity($limit);
 
             // dd(DB::getQueryLog());
-            //return $this->successResponseUsedForCountRoom(['data' => $data]);
-
+            return $this->successResponseUsedForCountRoom(['data' => $data]);
         } catch (\Exception $e) {
             throw $e;
         }
     }
+
+
 }

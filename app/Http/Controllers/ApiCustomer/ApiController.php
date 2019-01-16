@@ -56,44 +56,24 @@ class ApiController extends Controller
         return $arr2d;
     }
 
-    protected function simpleArrayToObjecForUseCountRoom($arr = []): array
-    {
 
-        $arr2d = [];
-        foreach ($arr as $key => $item) {
-            $arr2d[] = [
-                'id'    => $item->comfort_id,
-                'value' => $item->count,
-            ];
-        }
 
-        return $arr2d;
-    }
-
-    protected function simpleArrayToObjecForUsedForComfortList($arr = []): array
-    {
-        $arr2d = [];
-        foreach ($arr as $key => $item) {
-            $arr2d[] = [
-                'id'    => $item->comfort_id,
-                'value' => $item->count,
-            ];
-        }
-
-        return $arr2d;
-    }
-
-    protected function simpleArrayToObjecForUsedForStandardPoint($arr = []): array
-    {
-
-        $arr2d = [];
-        foreach ($arr as $key => $item) {
-            $arr2d[] = [
-                'id'    => $item->standard_point,
-                'value' => $item->count,
-            ];
-        }
-        return $arr2d;
-
-    }
+//    protected function simpleArrayToObjectForUsedForGetNumberRoom($arr = []): array
+//    {
+//        $arr2d = [];
+////        $test = array_map(function ($item){
+////            return $arr[]  =$item;
+////
+////        },$arr);
+////        dd($test);
+//        foreach ($arr as $key => $item) {
+//            $arr2d[] = [
+//                'id'    => $item['room_id'],
+//                'value' => $item['total_rooms'],
+//            ];
+//        }
+//        dd($arr2d);
+//        return $arr2d;
+//
+//    }
 }
