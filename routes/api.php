@@ -221,6 +221,18 @@ $router->group([
 
     //Compare checking
     resource('/compare-checking', 'CompareCheckingController', $router);
+
+    /**
+     *  Resource
+     */
+    $router->put('/settings/update-contact/{id}', 'SettingController@updateContact');
+    $router->get('/settings/status', 'SettingController@settingStatus');
+    resource('/settings', 'SettingController', $router);
+
+    /**
+     *  Resource
+     */
+    resource('/seo', 'SeoController', $router);
 });
 
 $router->post('login', 'LoginController@login');
