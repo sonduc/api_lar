@@ -36,7 +36,6 @@ class SettingTransformers extends TransformerAbstract
             'bank_account'      => $setting->bank_account,
             'image_logo'        => $setting->image_logo,
             'description'       => $setting->description,
-            'status'            => $setting->status,
             'contact_hotline'   => json_decode($setting->contact_hotline),
             'contact_email'     => json_decode($setting->contact_email),
             'created_at'        => $setting->created_at ? $setting->created_at->format('Y-m-d H:i:s') : null,

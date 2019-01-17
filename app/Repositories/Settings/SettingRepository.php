@@ -10,8 +10,6 @@ namespace App\Repositories\Settings;
 
 
 use App\Repositories\BaseRepository;
-use App\Repositories\Seo\SeoRepositoryInterface;
-use mysql_xdevapi\Exception;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
 {
@@ -44,6 +42,8 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     {
         if (!empty($data))
         {
+            $data['homepage_image'] = rand_name();
+            $data['image_logo"'] = rand_name();
             if (isset($data['contact_email']))
             {
                 $data['contact_email'] = json_encode($data['contact_email']);
@@ -61,6 +61,7 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
         {
            throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
         }
+
         return parent::store($data);
     }
 

@@ -9,7 +9,37 @@
 namespace App\Repositories\Seo;
 
 
-class Seo
+use App\Repositories\Entity;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Seo extends Entity
 {
+    use SoftDeletes;
+    // Định nghĩa trạng thái seettings
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
+
+
+    const SEO_STATUS    = [
+        self::AVAILABLE      => 'HIỂN THỊ',
+        self::UNAVAILABLE    => 'ẨN',
+    ];
+
+    protected $table = 'seo';
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable
+        = [
+            'meta_title','meta_description','meta_keywords'
+        ];
+
+    /**
+     * The attributes that are cast permission from json string to array
+     * @var array
+     */
+    protected $casts = ['permissions' => 'array'];
 
 }

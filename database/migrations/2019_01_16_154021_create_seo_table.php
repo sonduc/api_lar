@@ -16,8 +16,8 @@ class CreateSeoTable extends Migration
         Schema::create('seo', function (Blueprint $table) {
             $table->increments('id');
             $table->string('meta_title');
-            $table->string('meta_desciption');
-            $table->string('meta_keyword');
+            $table->string('meta_description');
+            $table->string('meta_keywords');
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

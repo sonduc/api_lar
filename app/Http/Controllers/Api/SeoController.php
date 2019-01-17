@@ -19,10 +19,18 @@ class SeoController extends ApiController
 {
     protected $validationRules
         = [
-
+            'meta_title'                                 => 'required',
+            'meta_description'                           => 'required',
+            'meta_keywords.*'                            => 'bail|distinct',
+            'meta_keywords'                              => 'array|required',
         ];
     protected $validationMessages
         = [
+            'meta_title.required'                        => "Trường này không để trống",
+            'meta_description.required'                  => "Trường này không để trống",
+            'meta_keywords.array'                        => "Dữ liệu phải là dạng mảng",
+            'meta_keywords.required'                     => "Trường này không được để trống",
+            'meta_keywords.*.distinct'                   => "Các keyword không thể trùng nhau"
 
         ];
 
@@ -34,7 +42,6 @@ class SeoController extends ApiController
     public function __construct(SeoRepositoryInterface $seo)
     {
         $this->model = $seo;
-        ;
         $this->setTransformer(new SeoTransformers);
     }
 
@@ -86,7 +93,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Tạo mới Blog.
+     * Tạo mới SEO
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -126,7 +133,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Cập nhập blog
+     * Cập nhập SEO
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -172,7 +179,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Xóa Blog
+     * Xóa SEO
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
@@ -186,7 +193,7 @@ class SeoController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('setting_main.delete');
-            $this->model->destroyBlog($id);
+            $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());
             return $this->deleteResponse();

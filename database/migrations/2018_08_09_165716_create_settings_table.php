@@ -20,6 +20,7 @@ class CreateSettingsTable extends Migration
             $table->string('homepage_image')->nullable();
             $table->string('image_logo')->nullable();
             $table->text('description')->nullable();
+            $table->string('bank_account', 20)->nullable();
             $table->longText('contact_hotline')->nullable();
             $table->longText('contact_email')->nullable();
             $table->softDeletes()->nullable();

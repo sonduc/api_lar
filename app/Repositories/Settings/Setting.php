@@ -33,7 +33,7 @@ class Setting extends Entity
      */
     protected $fillable
         = [
-            'name','address','homepage_image','bank_accout','image_logo','description',
+            'name','address','homepage_image','bank_account','image_logo','description',
             'contact_hotline','contact_email'
         ];
 
