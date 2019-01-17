@@ -535,6 +535,10 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
+                    if (isset($baokim_url) || empty($baokim_url))
+                    {
+                        throw new \Exception('Có lỗi xảy ra , quý khách vui lòng thực hiện lại giao dịch');
+                    }
 
                     $data = [
                         'data' => $baokim_url
@@ -548,6 +552,12 @@ class BookingController extends ApiController
                 'errors' => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage(),
             ]);
+        }catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
         }
     }
 }

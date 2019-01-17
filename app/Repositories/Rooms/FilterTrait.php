@@ -21,6 +21,11 @@ trait FilterTrait
                 ->where([
                     ['room_translates.name', 'like', "%${q}%"],
                     ['room_translates.lang', 'vi'],
+                ])
+
+                ->OrWhere([
+                    ['room_translates.address', 'like', "%${q}%"],
+                    ['room_translates.lang', 'vi']
                 ]);
         }
         return $query;
