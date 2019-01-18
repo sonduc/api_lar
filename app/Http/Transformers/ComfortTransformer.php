@@ -77,5 +77,4 @@ class ComfortTransformer extends TransformerAbstract
 
         return $this->collection($data, new RoomTransformer);
     }
-
 }

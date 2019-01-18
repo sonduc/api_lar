@@ -34,9 +34,8 @@ class ComfortTransformer extends TransformerAbstract
 
         $locale = getLocale();
 
-        $data = $this->pagination($params, $comfort->comfortTrans($locale));
+        $data = $this->pagination($params, $comfort->comfortTransAdmin());
 
         return $this->collection($data, new ComfortTranslateTransformer);
     }
-
 }

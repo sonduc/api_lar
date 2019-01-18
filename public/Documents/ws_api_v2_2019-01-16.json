@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-16T02:29:15.810Z",
+	"__export_date": "2019-01-18T01:45:35.480Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -2457,10 +2457,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": [\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ2\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd2\"\n      }\n    ]\n}"
+				"text": "{\n\t\"icon\": \"4\",\n\t\"details\": [\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"en\",\n\t\t\t\"name\": \"test16 asdasddđ2\"\n\t\t},\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"vi\",\n\t\t\t\"name\": \"test16 asdasddd2\"\n\t\t}\n\t]\n}"
 			},
 			"created": 1535335033794,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "\n`icon`: `String`\n`email`: `String`\n`description`: `text`\n`lang`: `en|vi`\n`name`: `string`\n",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -2476,7 +2476,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1545114304918,
+			"modified": 1547775844227,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2494,10 +2494,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n    \"details\": [\n      {\n        \"description\": \"ASSS>\",\n        \"lang\": \"en\",\n        \"name\": \"TEMD\"\n      },\n      {\n        \"description\": \"aTTT\",\n        \"lang\": \"vi\",\n        \"name\": \"MAS\"\n      }\n    ]\n}"
+				"text": "{\n\t\"icon\": \"4\",\n\t\"details\": [\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"en\",\n\t\t\t\"name\": \"test16 asdasddđ2\"\n\t\t},\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"vi\",\n\t\t\t\"name\": \"test16 asdasddd2\"\n\t\t}\n\t]\n}"
 			},
 			"created": 1535335033806,
-			"description": "",
+			"description": "\n`icon`: `String`\n`email`: `String`\n`description`: `text`\n`lang`: `en|vi`\n`name`: `string`\n",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2513,7 +2513,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1540779039074,
+			"modified": 1547775848079,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -5095,7 +5095,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890104334.5332,
 			"method": "GET",
-			"modified": 1547095098942,
+			"modified": 1547712113086,
 			"name": "booking-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5105,7 +5105,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-revenue?view=day&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-revenue?view=day&&date_start=2018-12-01&&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{

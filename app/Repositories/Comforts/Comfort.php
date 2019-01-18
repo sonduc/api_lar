@@ -49,4 +49,17 @@ class Comfort extends Entity
     {
         return $this->belongsToMany(\App\Repositories\Rooms\Room::class, 'room_comforts');
     }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param string $lang
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comfortTransAdmin()
+    {
+        return $this->hasMany(ComfortTranslate::class, 'comfort_id');
+    }
 }
