@@ -195,10 +195,15 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByManagerRevenueStatistical($request->all());
             
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            // $data = [
+            //     'data' => $data
+            // ];
+            // return $this->successResponse($data, false);
+
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

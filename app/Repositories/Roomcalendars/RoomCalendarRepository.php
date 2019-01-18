@@ -148,7 +148,7 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
             'summary'    => $data_booking->name .' '. $data_booking->code,
             'status'     => 'CONFIRMED',
             'location'   => $room_name,
-            'uid'        => Crypt::encrypt($data_booking->email).'@westay.org',
+            'uid'        => substr(Crypt::encrypt($data_booking->email), 0, 100).'@westay.org',
             'room_id'    => $data_booking->room_id,
             'created_at' => $data_booking->created_at,
             'updated_at' => $data_booking->updated_at

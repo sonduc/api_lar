@@ -234,7 +234,54 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->totalBookingByManagerRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        $data_booking_by_manager_revenue = $this->booking->totalBookingByManagerRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+        // dd($data_booking_by_manager_revenue);
+        foreach ($data_booking_by_manager_revenue as $key_list_type => $value_list_type) {
+            // dd($value_list_type);
+            $date_arr[] = key($value_list_type);
+            foreach ($value_list_type as $data_value) {
+                // dd($data_value);
+                if (count($data_value) == 2) {
+                    foreach ($data_value as $k => $v) {
+                        // dd($v);
+                        // if ($value_district->id == $v['district_id']) {
+                        $series_arr[$k]['name']      = $v['manager_txt'];
+                        $series_arr[$k]['data'][]    = (int)$v['revenue'];
+                        $series_arr[$k]['total_revenue'][] = (int)$v['total_revenue'];
+
+                        // }
+                    }
+                } elseif (count($data_value) == 1) {
+                    // dd($data_value);
+                    if ($data_value[0]['manager'] == 1) {
+                        $type_missing = 0;
+                        $type_missing_txt = "Tự quản lý";
+                    } else {
+                        $type_missing = 1;
+                        $type_missing_txt = "Không quản lý";
+                    }
+                    $missing = [
+                        "manager_txt" => $type_missing_txt,
+                        "manager" => $type_missing,
+                        "revenue" => 0,
+                        "total_revenue" => 0
+                    ];
+                    array_push($data_value, $missing);
+                    foreach ($data_value as $k => $v) {
+                        // var_dump($k);
+                        $series_arr[$k]['name'] = $v['manager_txt'];
+                        $series_arr[$k]['data'][] = (int)$v['revenue'];
+                        $series_arr[$k]['total_revenue'][] = (int)$v['total_revenue'];
+                    }
+                }
+            }
+        }
+        // dd($series_arr);
+
+        return [$date_arr, $series_arr];
     }
 
     /**

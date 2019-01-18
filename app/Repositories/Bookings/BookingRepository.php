@@ -806,8 +806,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingManager,
+                $val => $convertTotalBookingManager
             ];
         }
 
