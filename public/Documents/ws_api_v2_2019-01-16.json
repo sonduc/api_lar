@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-18T01:45:35.480Z",
+	"__export_date": "2019-01-18T02:07:29.882Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -785,6 +785,28 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"created": 1547613011533,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547613011533,
+			"modified": 1547613011533,
+			"name": "Settings",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_5a012b74fab64d51ae35f7c8243a4e8a",
+			"created": 1547623731911,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547623731911,
+			"modified": 1547623731911,
+			"name": "SEO",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_f1b9c088a15149cdbef53c2ad8de501c",
 			"created": 1540893745389,
 			"description": "",
@@ -1019,6 +1041,17 @@
 			"metaSortKey": -1543069357285.9688,
 			"modified": 1545617707259,
 			"name": "account",
+			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_c32261915a804363870c980b8effdca8",
+			"created": 1547777091188,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547777091188,
+			"modified": 1547777091188,
+			"name": "Promotion",
 			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
 			"_type": "request_group"
 		},
@@ -5124,7 +5157,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890092712.9229,
 			"method": "GET",
-			"modified": 1547095112381,
+			"modified": 1547776550675,
 			"name": "booking-manager-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5134,7 +5167,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-manager-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-manager-revenue?view=day&date_start=2018-12-01&&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5153,7 +5186,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890086902.1177,
 			"method": "GET",
-			"modified": 1547095114846,
+			"modified": 1547776109659,
 			"name": "booking-room-type-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5163,7 +5196,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -5763,6 +5796,351 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}baokim-trade/18",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ad1720f4481c40dabc065c2e31855db8",
+			"authentication": {},
+			"body": {},
+			"created": 1547613101841,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098034.3438,
+			"method": "GET",
+			"modified": 1547714528475,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e9385267b3b545bdacd7421dd8ff6249",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"bank_account\"    : \"0168484542\",\n\t\"description\" : \"mo ta ngan\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 1\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : 1\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": 1\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": 1\n\t\t}\n\t]\t\n}"
+			},
+			"created": 1547613129564,
+			"description": "## Validation\n```\n\n            'name'                                  => 'required',\n            'description'                           => 'required',\n            'address'                               => 'required|min:5',\n            'bank_account'                          => 'required|min:3|regex:/^\\+?[0-9-]*$/',\n            //'homepage_image'                      =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                           =>'required/image|mimes:jpeg,bmp,png,jpg',\n            'contact_email.*.email'                 =>'required|email|max:100|distinct',\n            'contact_email.*.status'                =>'integer|between:0,1',\n            'contact_hotline.*.phone'               =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'              =>'integer|between:0,1',          \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097984.3438,
+			"method": "POST",
+			"modified": 1547714547151,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c95df4323e5d4ea99d0e09f6fdd77179",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"homepage_image\" : \"test1.jpg\",\n\t\"bank_account\"    : \"test1.jpg\",\n\t\"image_logo\":   \"logo.png\",\n\t\"description\" : \"mo ta ngan\",\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 0\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"0975955997\",\n\t\t\t\"status\" : 1\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": 1\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan152do@gmail.com\",\n\t\t\t\"status\": 1\n\t\t}\n\t]\n}"
+			},
+			"created": 1547613159735,
+			"description": "## Validation\n```\n\n            'name'                                  => 'required',\n            'description'                           => 'required',\n            'address'                               => 'required|min:5',\n            'bank_account'                          => 'required|min:3|regex:/^\\+?[0-9-]*$/',\n            //'homepage_image'                      =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                           =>'required/image|mimes:jpeg,bmp,png,jpg',\n            'contact_email.*.email'                 =>'required|email|max:100|distinct',\n            'contact_email.*.status'                =>'integer|between:0,1',\n            'contact_hotline.*.phone'               =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'              =>'integer|between:0,1',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097934.3438,
+			"method": "PUT",
+			"modified": 1547714567788,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/8",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e121b13d73b7437e96d78fa22f22f07b",
+			"authentication": {},
+			"body": {},
+			"created": 1547613173494,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097909.3438,
+			"method": "DELETE",
+			"modified": 1547710081459,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ac004c96a6f0410cafeeec24d224c9c6",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 0\n\t\t}\n\t\t\n\t]\n}"
+			},
+			"created": 1547625535385,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097928.0938,
+			"method": "PUT",
+			"modified": 1547699950264,
+			"name": "update-contact",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/update-contact/8?option=contact_email",
+			"_type": "request"
+		},
+		{
+			"_id": "req_46aca597958b49218d3c5be7795eeb0f",
+			"authentication": {},
+			"body": {},
+			"created": 1547676482725,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae767e4b336b4f1b8d93ccf1b6e4ec27",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098084.3438,
+			"method": "GET",
+			"modified": 1547676570523,
+			"name": "status",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/status",
+			"_type": "request"
+		},
+		{
+			"_id": "req_997a4c7dc36f46748ae0c822b210cc1f",
+			"authentication": {},
+			"body": {},
+			"created": 1547623784372,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098009.3438,
+			"method": "GET",
+			"modified": 1547714394466,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_5a012b74fab64d51ae35f7c8243a4e8a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}seo",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8c24bc921cb2448dac9eaa6d7cf9edac",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"meta_title\"  : \"title\",\n\t\"meta_description\"  : \"description 1\",\n\t\"meta_keywords\"  : [\"key1\",\"key2\",\"key3\"],\n\t\"status\": 0\n}"
+			},
+			"created": 1547623789323,
+			"description": "## Validation\n```\n\n            'meta_title'                                 => 'required',\n            'meta_description'                           => 'required',\n            'meta_keywords.*'                            => 'bail|distinct',\n            'meta_keywords'                              => 'array|required',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098059.3438,
+			"method": "POST",
+			"modified": 1547714482573,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_5a012b74fab64d51ae35f7c8243a4e8a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}seo",
+			"_type": "request"
+		},
+		{
+			"_id": "req_731e25e5fd704280be6eee4e7ba56ecd",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"meta_title\"  : \"j11111\",\n\t\"meta_description\"  : \"fssdscfrfr\",\n\t\"meta_keywords\"  : [\n\t\t\"key1\",\"key2\",\"key3\"\n\t]\t\n}"
+			},
+			"created": 1547623795072,
+			"description": "## Validation\n```\n\n\t\t\t'meta_title'                                 => 'required',\n            'meta_description'                           => 'required',\n            'meta_keywords.*'                            => 'bail|distinct',\n            'meta_keywords'                              => 'array|required',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098109.3438,
+			"method": "PUT",
+			"modified": 1547714450905,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_5a012b74fab64d51ae35f7c8243a4e8a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}seo/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_af1955888fc14a97b112d7e8a6c22543",
+			"authentication": {},
+			"body": {},
+			"created": 1547623803459,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098084.3438,
+			"method": "DELETE",
+			"modified": 1547623846959,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_5a012b74fab64d51ae35f7c8243a4e8a",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}seo",
 			"_type": "request"
 		},
 		{
@@ -8756,6 +9134,66 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_7557ce2eeaf7498680169f3820fe0dba",
+			"authentication": {},
+			"body": {},
+			"created": 1547777150921,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1547777150921,
+			"method": "GET",
+			"modified": 1547777217725,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_c32261915a804363870c980b8effdca8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url  }}promotions",
+			"_type": "request"
+		},
+		{
+			"_id": "req_35d2dc700f0b4873aa581c776424baa2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"promotion_id\" :1,\n  \"coupon\" : \"GIAM5\",\n  \"merchant_id\": 12593,\n  \"rooms\": [\n    2125,\n    2126,\n    2420,\n    3335\n  ]\n}"
+			},
+			"created": 1547777175580,
+			"description": "         'email'                 => 'required|email|max:255|unique:users,email',\n        'password'              => 'required|min:6|max:255',\n        'password_confirmation' => 'required|min:6|max:255|same:password',\n        'type'                  => 'numeric|between:0,1'|filled,\n        'status'                => 'numeric|between:0,1|filled',\n      ",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1547777158360,
+			"method": "POST",
+			"modified": 1547777201234,
+			"name": "join-promotion",
+			"parameters": [],
+			"parentId": "fld_c32261915a804363870c980b8effdca8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}promotions/join-promotion",
+			"_type": "request"
+		},
+		{
 			"_id": "req_f02aaebc8c0845d690796b5ca1d24dd3",
 			"authentication": {},
 			"body": {},
@@ -9440,6 +9878,40 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}collections/new-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0bbf9ac768e049d2bfa1f101b4f4b524",
+			"authentication": {},
+			"body": {},
+			"created": 1547613232669,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3d44616088ad4a588ed1701fab856d36",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539834482865.5,
+			"method": "GET",
+			"modified": 1547613254999,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}collections",
 			"_type": "request"
 		},
 		{

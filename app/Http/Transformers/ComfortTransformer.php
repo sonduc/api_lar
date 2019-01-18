@@ -53,7 +53,7 @@ class ComfortTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        $data = $this->pagination($params, $comfort->comfortTrans());
+        $data = $this->pagination($params, $comfort->comfortTransAdmin());
 
         return $this->collection($data, new ComfortTranslateTransformer);
     }
