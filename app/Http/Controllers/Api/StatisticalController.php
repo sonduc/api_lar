@@ -163,11 +163,10 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRevenueStatistical($request->all());
 
-            $data = [
-                'data' => $data
-            ];
-            // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
         } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
@@ -387,8 +386,6 @@ class StatisticalController extends ApiController
             $data = $this->model->bookingByTypeRevenueStatistical($request->all());
             $data_response['data']['createdAt'] = $data[0];
             $data_response['data']['data'] = $data[1];
-
-            // dd(DB::getQueryLog());
             return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
@@ -412,11 +409,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByCancelStatistical($request->all());
-            $data = [
-                'data' => $data
-            ];
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
             // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {

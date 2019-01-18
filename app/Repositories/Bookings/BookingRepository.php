@@ -693,10 +693,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $bookings = [];
         foreach ($arrayRevenue as $key => $value) {
             if (isset($arrayTotalRevenue[$key]['date']) && $value['date'] === $arrayTotalRevenue[$key]['date']) {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => $value['revenue'],
                     'total_revenue' => $arrayTotalRevenue[$key]['total_revenue'],
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             }
         }
@@ -707,19 +707,20 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => $value['revenue'],
                     'total_revenue' => 0,
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             } else {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => 0,
                     'total_revenue' => $value['total_revenue'],
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             }
         }
+
         return $bookings;
     }
 
@@ -1390,6 +1391,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         } else {
             $result = array_diff_key($arrayTotalRevenue, $arrayRevenue);
         }
+        // dd($result);
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
@@ -1421,7 +1423,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 $val => $convertTotalBookingType
             ];
         }
-
+        // dd($convertDataBooking);
         return $convertDataBooking;
     }
 
@@ -1485,8 +1487,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBookingCancel = $this->convertBookingCancel($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertBookingCancel,
+                $val => $convertBookingCancel
             ];
         }
 
