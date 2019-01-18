@@ -222,6 +222,10 @@ $router->group([
     //Compare checking
     resource('/compare-checking', 'CompareCheckingController', $router);
 
+
+
+
+
     /**
      *  Resource
      */
@@ -233,6 +237,21 @@ $router->group([
      *  Resource
      */
     resource('/seo', 'SeoController', $router);
+
+    /**
+     *  Resource
+     */
+    resource('/topic', 'TopicController', $router);
+
+    /**
+     *  Resource
+     */
+    resource('/subtopic', 'SubTopicController', $router);
+
+    /**
+     *  Resource
+     */
+    resource('/ticket', 'TicketController', $router);
 });
 
 $router->post('login', 'LoginController@login');

@@ -266,4 +266,37 @@ return [
         App\Repositories\Seo\SeoRepository::class,
     ],
 
+    /**
+     * SubTopic
+     */
+    App\Repositories\SubTopic\SubTopic::class => [
+        App\Repositories\SubTopic\SubTopicRepositoryInterface::class,
+        App\Repositories\SubTopic\SubTopicRepository::class,
+    ],
+
+    /**
+     * Ticket
+     */
+    App\Repositories\Ticket\Ticket::class => [
+        App\Repositories\Ticket\TicketRepositoryInterface::class,
+        App\Repositories\Ticket\TicketRepository::class,
+    ],
+
+    /**
+     * Topic
+     */
+    App\Repositories\Topic\Topic::class => [
+        App\Repositories\Topic\TopicRepositoryInterface::class,
+        App\Repositories\Topic\TopicRepository::class,
+    ],
+
+    /**
+     * Comment Ticket
+     */
+    App\Repositories\CommentTicket\CommentTicket::class => [
+        App\Repositories\CommentTicket\CommentTicketRepositoryInterface::class,
+        App\Repositories\CommentTicket\CommentTicketRepository  ::class,
+    ],
+
+
 ];

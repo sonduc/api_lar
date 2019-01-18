@@ -2,22 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: DUCCHIEN-PC
- * Date: 1/17/2019
- * Time: 5:50 AM
+ * Date: 1/18/2019
+ * Time: 4:50 PM
  */
 
 namespace App\Policies;
 
-
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class SettingMainPolicy
+class TicketPoicy
 {
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the setting.
+     * Determine whether the user can view the ticket.
      *
      * @param  \App\User $user
      *
@@ -25,11 +24,11 @@ class SettingMainPolicy
      */
     public function view(User $user)
     {
-        return $user->hasAccess(['settingMain.view']);
+        return $user->hasAccess(['ticket.view']);
     }
 
     /**
-     * Determine whether the user can create setting.
+     * Determine whether the user can create ticket..
      *
      * @param  \App\User $user
      *
@@ -37,11 +36,11 @@ class SettingMainPolicy
      */
     public function create(User $user)
     {
-        return $user->hasAccess(['settingMain.create']);
+        return $user->hasAccess(['ticket.create']);
     }
 
     /**
-     * Determine whether the user can update the setting.
+     * Determine whether the user can update the ticket..
      *
      * @param  \App\User $user
      *
@@ -49,11 +48,11 @@ class SettingMainPolicy
      */
     public function update(User $user)
     {
-        return $user->hasAccess(['settingMain.update']);
+        return $user->hasAccess(['ticket.update']);
     }
 
     /**
-     * Determine whether the user can delete the setting.
+     * Determine whether the user can delete the ticket..
      *
      * @param  \App\User $user
      *
@@ -61,7 +60,7 @@ class SettingMainPolicy
      */
     public function delete(User $user)
     {
-        return $user->hasAccess(['settingMain.delete']);
+        return $user->hasAccess(['ticket.delete']);
     }
 
 }

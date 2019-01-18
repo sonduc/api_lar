@@ -14,14 +14,13 @@ use App\Repositories\BaseRepository;
 class SeoRepository extends BaseRepository implements SeoRepositoryInterface
 {
     /**
-     * @var Blog
+     * @var Seo
      */
     protected $model;
 
     /**
-     * BlogRepository constructor.
-     *
-     * @param Blog $blog
+     * SeoRepository constructor.
+     * @param Seo $seo
      */
     public function __construct(
         Seo $seo

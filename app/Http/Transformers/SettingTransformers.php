@@ -11,7 +11,6 @@ namespace App\Http\Transformers;
 
 use App\Repositories\Settings\Setting;
 use App\Http\Transformers\Traits\FilterTrait;
-use League\Fractal\ParamBag;
 use League\Fractal\TransformerAbstract;
 
 class SettingTransformers extends TransformerAbstract

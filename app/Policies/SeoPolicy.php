@@ -17,7 +17,7 @@ class SeoPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the blog.
+     * Determine whether the user can view the seo.
      *
      * @param  \App\User $user
      *
@@ -29,7 +29,7 @@ class SeoPolicy
     }
 
     /**
-     * Determine whether the user can create blog.
+     * Determine whether the user can create seo..
      *
      * @param  \App\User $user
      *
@@ -41,7 +41,7 @@ class SeoPolicy
     }
 
     /**
-     * Determine whether the user can update the blog.
+     * Determine whether the user can update the seo..
      *
      * @param  \App\User $user
      *
@@ -53,7 +53,7 @@ class SeoPolicy
     }
 
     /**
-     * Determine whether the user can delete the blog.
+     * Determine whether the user can delete the seo..
      *
      * @param  \App\User $user
      *
