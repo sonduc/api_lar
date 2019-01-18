@@ -334,7 +334,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
         $bookings = $this->model
             ->select(
-                DB::raw('cities. NAME as name_city'),
+                DB::raw('cities. NAME as name_city, cities.id as city_id'),
                 DB::raw('count(cities.name) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
@@ -358,14 +358,13 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         foreach ($bookings as $key => $value) {
             array_push($data_date, $value->createdAt);
         }
-
+        // dd($bookings);
         $date_unique = array_unique($data_date);
         foreach ($date_unique as $k => $val) {
             $convertCityBooking = $this->convertCityBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCityBooking,
+                $val      => $convertCityBooking,
             ];
         }
 
@@ -382,6 +381,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $dataBooking    = [];
         $convertBooking = [];
         foreach ($bookings as $key => $value) {
+            // dd($value);
             if ($value->createdAt === $createdAt) {
                 $dataBooking[] = $value;
             }
@@ -392,9 +392,25 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt,
+                'city_id'       => $value->city_id
             ];
         }
         return $convertBooking;
+    }
+
+    /**
+     * lấy tất cả thành phố có booking trong khoảng thời gian
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+
+    public function getCityHasBooking()
+    {
+        return $this->model
+                            ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                            ->join('cities', 'rooms.city_id', '=', 'cities.id')
+                            ->select('cities.id', 'cities.name')->distinct()->get();
     }
 
     /**
@@ -408,7 +424,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
         $bookings = $this->model
             ->select(
-                DB::raw('districts. NAME as name_district'),
+                DB::raw('districts. NAME as name_district, districts.id as district_id'),
                 DB::raw('count(bookings.id) as total_booking'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
@@ -439,12 +455,25 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertDistrictBooking = $this->convertDistrictBooking($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertDistrictBooking,
+                $val => $convertDistrictBooking,
             ];
         }
 
         return $convertDataBooking;
+    }
+
+    /**
+     * lấy tất cả Quận huyện có booking trong khoảng thời gian
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+
+    public function getDistrictHasBooking()
+    {
+        return $this->model
+                            ->join('rooms', 'bookings.room_id', '=', 'rooms.id')
+                            ->join('districts', 'rooms.district_id', '=', 'districts.id')
+                            ->select('districts.id', 'districts.name')->distinct()->get();
     }
 
     /**
@@ -467,6 +496,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt,
+                'district_id'   => $value->district_id
             ];
         }
         return $convertBooking;
@@ -510,8 +541,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBookingType = $this->convertBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertBookingType,
+                $val      => $convertBookingType,
             ];
         }
 
@@ -663,10 +693,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $bookings = [];
         foreach ($arrayRevenue as $key => $value) {
             if (isset($arrayTotalRevenue[$key]['date']) && $value['date'] === $arrayTotalRevenue[$key]['date']) {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => $value['revenue'],
                     'total_revenue' => $arrayTotalRevenue[$key]['total_revenue'],
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             }
         }
@@ -677,19 +707,20 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => $value['revenue'],
                     'total_revenue' => 0,
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             } else {
-                $bookings[] = [
+                $bookings[][$value['date']] = [
                     'revenue'       => 0,
                     'total_revenue' => $value['total_revenue'],
-                    'date'          => $value['date'],
+                    'createdAt'     => $value['date']
                 ];
             }
         }
+
         return $bookings;
     }
 
@@ -775,8 +806,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingManager = $this->convertTotalBookingManager($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingManager,
+                $val => $convertTotalBookingManager
             ];
         }
 
@@ -1035,8 +1065,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingSex = $this->convertCountBookingSex($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingSex,
+                $val      => $convertCountBookingSex,
             ];
         }
 
@@ -1107,8 +1136,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingPriceRange = $this->convertCountBookingPriceRange($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingPriceRange,
+                $val => $convertCountBookingPriceRange,
             ];
         }
 
@@ -1179,8 +1207,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingAgeRange = $this->convertCountBookingAgeRange($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingAgeRange,
+                $val => $convertCountBookingAgeRange,
             ];
         }
 
@@ -1286,8 +1313,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingSource = $this->convertCountBookingSource($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingSource,
+                $val      => $convertCountBookingSource,
             ];
         }
 
@@ -1364,6 +1390,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         } else {
             $result = array_diff_key($arrayTotalRevenue, $arrayRevenue);
         }
+        // dd($result);
         foreach (array_values($result) as $key => $value) {
             if (isset($value['revenue'])) {
                 $bookings[] = [
@@ -1392,11 +1419,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingType = $this->convertTotalBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingType,
+                $val => $convertTotalBookingType
             ];
         }
-
+        // dd($convertDataBooking);
         return $convertDataBooking;
     }
 
@@ -1418,8 +1444,8 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBooking[] = [
                 'type_txt'      => BookingConstant::BOOKING_TYPE[$value['type']],
                 'type'          => $value['type'],
-                'revenue'       => $value['revenue'],
-                'total_revenue' => $value['total_revenue'],
+                'revenue'       => (int) $value['revenue'],
+                'total_revenue' => (int) $value['total_revenue'],
             ];
         }
         return $convertBooking;
@@ -1460,8 +1486,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertBookingCancel = $this->convertBookingCancel($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertBookingCancel,
+                $val => $convertBookingCancel
             ];
         }
 
