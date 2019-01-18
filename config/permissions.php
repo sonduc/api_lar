@@ -245,4 +245,24 @@ return [
             'view'    => 'View',
         ],
     ],
+
+    'settingMain'              => [
+        'title' => 'Quản lý setting hệ thống',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+        ],
+    ],
+
+    'seo'              => [
+        'title' => 'Quản lý seo',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+        ],
+    ],
 ];

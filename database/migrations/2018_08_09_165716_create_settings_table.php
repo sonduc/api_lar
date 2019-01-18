@@ -17,9 +17,13 @@ class CreateSettingsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('address')->nullable();
-            $table->longText('ticket_settings')->nullable();
-            $table->longText('rates')->nullable();
-            $table->longText('merchant_settings')->nullable();
+            $table->string('homepage_image')->nullable();
+            $table->string('image_logo')->nullable();
+            $table->text('description')->nullable();
+            $table->string('bank_account', 20)->nullable();
+            $table->longText('contact_hotline')->nullable();
+            $table->longText('contact_email')->nullable();
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

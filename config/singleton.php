@@ -240,12 +240,30 @@ return [
         App\Repositories\CompareCheckings\CompareCheckingRepositoryInterface::class,
         App\Repositories\CompareCheckings\CompareCheckingRepository::class,
     ],
+
+
     /**
-     * Compare Chec
+     * Bao Kim Trade
      */
     App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistory::class => [
         App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistoryRepositoryInterface::class,
         App\Repositories\Bao_Kim_Trade_History\BaoKimTradeHistoryRepository::class,
+    ],
+
+    /**
+     * Settings
+     */
+    App\Repositories\Settings\Setting::class => [
+        App\Repositories\Settings\SettingRepositoryInterface::class,
+        App\Repositories\Settings\SettingRepository::class,
+    ],
+
+    /**
+     * Seo
+     */
+    App\Repositories\Seo\Seo::class => [
+        App\Repositories\Seo\SeoRepositoryInterface::class,
+        App\Repositories\Seo\SeoRepository::class,
     ],
 
 ];

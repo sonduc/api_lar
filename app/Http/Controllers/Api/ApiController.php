@@ -27,6 +27,7 @@ class ApiController extends Controller
      *
      * @return int
      */
+
     public function trashStatus($request): int
     {
         if ($request->has('trashed')) {
