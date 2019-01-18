@@ -64,6 +64,12 @@ $router->group([
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
     $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
     resource('/rooms', 'RoomController', $router);
+
+    /**
+     * Promotion Resource
+     */
+    $router->post('/promotions/join-promotion', 'PromotionController@joinPromotion');
+    resource('promotions', 'PromotionController', $router);
 });
 
 /**

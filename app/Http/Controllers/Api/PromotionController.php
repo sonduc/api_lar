@@ -35,6 +35,9 @@ class PromotionController extends ApiController
         'status.required'           =>  'Trạng thái không được bỏ trống',
         'status.integer'            =>  'Trạng thái không phải là kiểu số',
         'status.between'            =>  'Trạng thái không phù hợp',
+
+        'image.image'               =>'Định dạng không phải là hình ảnh',
+        'image.mimes'               => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
     ];
 
     /**
