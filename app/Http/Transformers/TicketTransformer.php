@@ -26,6 +26,17 @@ class TicketTransformer extends TransformerAbstract
         }
 
         return [
+            'id'                => $ticket->id,
+            'subtopic_id'       => $ticket->subtopic_id ?? "Không xác định",
+            'topic_id'          => $ticket->topic_id,
+            'user_create_id'    => $ticket->user_create_id,
+            'title'             => $ticket->title,
+            'content'           => $ticket->content,
+            'resolve'           => $ticket->resolve ?? 0,
+            'resolve_txtx'      => $ticket->managerStatus(),
+            'created_at'        => $ticket->created_at ? $ticket->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'        => $ticket->updated_at ? $ticket->updated_at->format('Y-m-d H:i:s') : null
+
 
         ];
     }

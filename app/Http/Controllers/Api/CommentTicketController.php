@@ -2,31 +2,26 @@
 /**
  * Created by PhpStorm.
  * User: DUCCHIEN-PC
- * Date: 1/18/2019
- * Time: 2:02 PM
+ * Date: 1/19/2019
+ * Time: 11:23 AM
  */
 
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Transformers\TopicTransformer;
-use App\Repositories\Topic\TopicRepositoryInterface;
+use App\Repositories\CommentTicket\CommentTicketRepositoryInterafae;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
-
-class TopicController extends ApiController
+class CommentTicketController
 {
+    protected $commentTicket;
     protected $validationRules
         = [
-            'name'          => 'required|v_title|unique:topics,name',
+
         ];
     protected $validationMessages
         = [
-            'name.required' => "Trường này không được để trống",
-            'name.unique'   => "Tên này đã tồn tại",
-            'name.v_title'  => "Tên này không hợp lệ"
 
         ];
 
@@ -34,9 +29,9 @@ class TopicController extends ApiController
      * TopicController constructor.
      * @param TopicRepositoryInterface $topic
      */
-    public function __construct(TopicRepositoryInterface $topic)
+    public function __construct(CommentTicketRepositoryInterafae $commentTicket)
     {
-        $this->model = $topic;
+        $this->model = $commentTicket;
         $this->setTransformer(new TopicTransformer);
     }
 

@@ -251,7 +251,13 @@ $router->group([
     /**
      *  Resource
      */
+    $router->get('/ticket/status', 'TicketController@ticketStatus');
+    $router->put('/ticket/update-resolve/{id}', 'TicketController@updateResolve');
     resource('/ticket', 'TicketController', $router);
+    /**
+     *  comment-ticket
+     */
+    resource('/comment-tickets', 'CommentTicketController', $router);
 });
 
 $router->post('login', 'LoginController@login');

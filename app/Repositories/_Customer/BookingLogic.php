@@ -142,9 +142,9 @@ class BookingLogic extends BaseLogic
      *
      * @return mixed
      */
-    public function getBooking($id, $pageSize)
+    public function getBooking($id, $params)
     {
-        $booking = $this->booking->getBookingByCustomerId($id, $pageSize);
+        $booking = $this->booking->getBookingByCustomerId($id, $params);
         return $booking;
     }
 

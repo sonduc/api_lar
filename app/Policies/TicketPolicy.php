@@ -11,7 +11,7 @@ namespace App\Policies;
 use App\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class TicketPoicy
+class TicketPolicy
 {
     use HandlesAuthorization;
 

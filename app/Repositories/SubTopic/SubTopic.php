@@ -23,7 +23,7 @@ class SubTopic extends Entity
      */
     protected $fillable
         = [
-           'name'
+           'name','topic_id'
         ];
 
     /**

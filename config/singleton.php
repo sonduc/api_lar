@@ -294,8 +294,8 @@ return [
      * Comment Ticket
      */
     App\Repositories\CommentTicket\CommentTicket::class => [
-        App\Repositories\CommentTicket\CommentTicketRepositoryInterface::class,
-        App\Repositories\CommentTicket\CommentTicketRepository  ::class,
+        App\Repositories\CommentTicket\CommentTicketRepositoryInterafae::class,
+        App\Repositories\CommentTicket\CommentTicketRepository::class,
     ],
 
 

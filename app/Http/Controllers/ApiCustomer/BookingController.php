@@ -173,8 +173,7 @@ class BookingController extends ApiController
             throw new \Exception('Vui lòng đăng nhập để thực hiện chức năng này');
         }
         $id   =  Auth::user()->id;
-        $pageSize    = $request->get('size');
-        $data = $this->model->getBooking($id, $pageSize);
+        $data = $this->model->getBooking($id, $request->all());
 
         return $this->successResponse($data);
     }

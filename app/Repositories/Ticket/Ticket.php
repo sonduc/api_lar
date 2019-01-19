@@ -14,7 +14,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Ticket extends Entity
 {
-    use SoftDeletes;
+    use PresentationTrait,SoftDeletes;
+    const AVAILABLE    = 1;
+    const UNAVAILABLE  = 0;
+
+
+    const RESOLVE_STATUS    = [
+        self::AVAILABLE      => 'CHƯA GIẢI QUYẾT',
+        self::UNAVAILABLE    => 'ĐÃ GIẢI QUYẾT',
+    ];
     protected $table = 'tickets';
     /**
      * The attributes that are mass assignable.

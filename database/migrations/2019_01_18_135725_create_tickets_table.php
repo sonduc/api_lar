@@ -19,9 +19,9 @@ class CreateTicketsTable extends Migration
             $table->string('content');
             $table->integer('topic_id')->nullable();
             $table->integer('subtopic_id')->nullable();
-            $table->integer('supporter_id');
+            $table->integer('supporter_id')->nullable();
             $table->integer('user_create_id');
-            $table->string('resolve');
+            $table->string('resolve')->default(0);
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

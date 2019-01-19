@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Api;
 
 
 use App\Http\Transformers\TicketTransformer;
+use App\Repositories\Ticket\Ticket;
+use App\Repositories\Ticket\TicketLogic;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -24,14 +26,10 @@ class TicketController extends ApiController
 
         ];
 
-    /**
-     * BlogController constructor.
-     *
-     * @param BlogRepository $blog
-     */
-    public function __construct(SettingRepositoryInterface $setting)
+
+    public function __construct(TicketLogic $ticket)
     {
-        $this->model = $setting;
+        $this->model            = $ticket;
         $this->setTransformer(new TicketTransformer());
     }
 
@@ -57,7 +55,32 @@ class TicketController extends ApiController
     }
 
     /**
-     * Tạo mới Settings.
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, $id)
+    {
+        try {
+            $this->authorize('ticket.view');
+            $trashed = $request->has('trashed') ? true : false;
+            $data    = $this->model->getById($id, $trashed);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Tạo mới ticket
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -71,7 +94,6 @@ class TicketController extends ApiController
         try {
             $this->authorize('ticket.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();
@@ -147,7 +169,7 @@ class TicketController extends ApiController
     }
 
     /**
-     * Xóa Settings
+     * Xóa Ticket
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
@@ -175,6 +197,69 @@ class TicketController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function ticketStatus()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Ticket::RESOLVE_STATUS);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateResolve(Request $request,$id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('ticket.update');
+            $data = $this->model->updateResolve($id, $request->only('resolve'));
+            DB::commit();
+            logs('ticket-resolve', 'cập nhâp resolve cho ticket' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

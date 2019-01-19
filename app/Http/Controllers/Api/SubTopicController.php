@@ -19,7 +19,7 @@ class SubTopicController extends ApiController
 {
     protected $validationRules
         = [
-            'name'                  => 'required|v_title|unique:topics,name',
+            'name'                  => 'required|v_title|unique:sub_topics,name',
             'topic_id'              => 'required|integer|exists:topics,id',
         ];
     protected $validationMessages
@@ -60,6 +60,31 @@ class SubTopicController extends ApiController
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
+        }
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Request $request, $id)
+    {
+        try {
+            //$this->authorize('ticket.view');
+            $trashed = $request->has('trashed') ? true : false;
+            $data    = $this->model->getById($id, $trashed);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
         }
     }
 
@@ -121,7 +146,7 @@ class SubTopicController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.update');
+            //$this->authorize('ticket.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id,$request->all());
             //dd(DB::getQueryLog());
@@ -166,7 +191,7 @@ class SubTopicController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.delete');
+            //$this->authorize('ticket.delete');
             $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());

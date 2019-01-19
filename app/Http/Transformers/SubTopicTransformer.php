@@ -25,7 +25,9 @@ class SubTopicTransformer extends TransformerAbstract
         }
 
         return [
-
+            'id'                => $subTopic->id,
+            'name'              => $subTopic->name,
+            'topic_id'          => $subTopic->topic_id,
         ];
     }
 
