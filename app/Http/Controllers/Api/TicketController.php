@@ -30,7 +30,7 @@ class TicketController extends ApiController
     public function __construct(TicketLogic $ticket)
     {
         $this->model            = $ticket;
-        $this->setTransformer(new TicketTransformer());
+        $this->setTransformer(new TicketTransformer);
     }
 
     /**

@@ -14,9 +14,18 @@ use App\Repositories\Entity;
 class CommentTicket extends Entity
 {
     use SoftDeletes;
+    protected $table = 'comment_tickets';
+
     protected $fillable
         = [
             'comments','ticket_id','user_id'
         ];
+
+    /**
+     * The attributes that are cast permission from json string to array
+     * @var array
+     */
+    protected $casts = ['permissions' => 'array'];
+
 
 }

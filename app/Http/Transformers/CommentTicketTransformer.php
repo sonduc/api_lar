@@ -25,6 +25,12 @@ class CommentTicketTransformer extends TransformerAbstract
         }
 
         return [
+            'id'                => $commentTicket->id,
+            'subtopic_id'       => $commentTicket->ticket_id ?? "Không xác định",
+            'topic_id'          => $commentTicket->user_id,
+            'user_create_id'    => $commentTicket->comments,
+            'created_at'        => $commentTicket->created_at ? $commentTicket->created_at->format('Y-m-d H:i:s') : null,
+            'updated_at'        => $commentTicket->updated_at ? $commentTicket->updated_at->format('Y-m-d H:i:s') : null
 
         ];
     }

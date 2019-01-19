@@ -9,13 +9,15 @@
 namespace App\Http\Controllers\Api;
 
 
+use App\Http\Transformers\CommentTicketTransformer;
 use App\Repositories\CommentTicket\CommentTicketRepositoryInterafae;
+use Carbon\Carbon;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
-class CommentTicketController
+class CommentTicketController extends ApiController
 {
-    protected $commentTicket;
     protected $validationRules
         = [
 
@@ -25,14 +27,13 @@ class CommentTicketController
 
         ];
 
-    /**
-     * TopicController constructor.
-     * @param TopicRepositoryInterface $topic
-     */
+    protected $commentTicket;
+
+
     public function __construct(CommentTicketRepositoryInterafae $commentTicket)
     {
         $this->model = $commentTicket;
-        $this->setTransformer(new TopicTransformer);
+        $this->setTransformer(new CommentTicketTransformer());
     }
 
     /**
@@ -95,7 +96,9 @@ class CommentTicketController
         DB::enableQueryLog();
         try {
 //            $this->authorize('ticket.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+           // $this->validate($request, $this->validationRules, $this->validationMessages);
+            $dt = new Carbon('2012-01-31 15:32:15');
+            echo $dt->ceilMinute()->format('H:i:s');
             dd($request->all());
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());

@@ -254,6 +254,7 @@ $router->group([
     $router->get('/ticket/status', 'TicketController@ticketStatus');
     $router->put('/ticket/update-resolve/{id}', 'TicketController@updateResolve');
     resource('/ticket', 'TicketController', $router);
+
     /**
      *  comment-ticket
      */
