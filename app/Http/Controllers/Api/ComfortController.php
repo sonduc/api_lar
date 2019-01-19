@@ -12,12 +12,12 @@ class ComfortController extends ApiController
 {
     protected $validationRules
         = [
-            // 'details.*.name' => 'required|unique:comfort_translates,name',
+            'details.*.name' => 'required|unique:comfort_translates,name',
         ];
     protected $validationMessages
         = [
-            // 'details.*.name.required' => 'Tên không được để trông',
-            // 'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
+            'details.*.name.required' => 'Tên không được để trông',
+            'details.*.name.unique'   => 'Tiện ích này đã tồn tại',
 
         ];
 
@@ -118,7 +118,7 @@ class ComfortController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('comfort.update');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->validate($request, [], []);
             $data = $this->model->update($id, $request->all());
             DB::commit();
             logs('comfort', 'sửa comfort mã ' . $data->id, $data);
