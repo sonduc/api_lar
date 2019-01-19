@@ -844,7 +844,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function totalBookingByRoomType($date_start, $date_end, $view)
+    public function totalBookingByRoomTypeRevenue($date_start, $date_end, $view)
     {
         $query['generalSelect'] = 'rooms.room_type as room_type';
         $query['generalJoin']   = [
@@ -919,8 +919,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertTotalBookingSource = $this->convertTotalBookingSource($bookings, $val);
 
             $convertDataBooking[] = [
-                'date' => $val,
-                'data' => $convertTotalBookingSource,
+                $val => $convertTotalBookingSource
             ];
         }
 
@@ -993,8 +992,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             $convertCountBookingType = $this->convertCountBookingType($bookings, $val);
 
             $convertDataBooking[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountBookingType,
+                $val      => $convertCountBookingType,
             ];
         }
 

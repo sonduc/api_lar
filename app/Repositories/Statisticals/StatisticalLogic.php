@@ -293,7 +293,23 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->totalBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+        $data_booking_by_room_type_revenue = $this->booking->totalBookingByRoomTypeRevenue($dataInput['date_start'], $dataInput['date_end'], $dataInput['view']);
+
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+        foreach ($data_booking_by_room_type_revenue as $key_list_type => $value_list_type) {
+            $date_arr[] = key($value_list_type);
+            foreach ($value_list_type as $data_value) {
+                foreach ($data_value as $k => $v) {
+                    $series_arr[$k]['name']      = $v['room_type_txt'];
+                    $series_arr[$k]['data'][]    = (int)$v['revenue'];
+                    $series_arr[$k]['total_revenue'][] = (int)$v['total_revenue'];
+                }
+            }
+        }
+
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -305,7 +321,25 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
-        return $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        $data_booking_by_room_type = $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+
+        foreach ($data_booking_by_room_type as $key_list_type => $value_list_type) {
+            // dd($value_list_type);
+            $date_arr[] = key($value_list_type);
+            $some_date['_' . key($value_list_type)]  = 0;
+            // dd($value_list_type);
+            foreach ($value_list_type as $data_value) {
+                // dd($data_value);
+                foreach ($data_value as $k => $v) {
+                    $series_arr[$k]['name']      = $v['room_type_txt'];
+                    $series_arr[$k]['data'][]    = $v['total_booking'];
+                    $series_arr[$k]['success'][] = (int)$v['success'];
+                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+                }
+            }
+        }
+
+        return [$date_arr, $series_arr];
     }
 
     /**
@@ -559,20 +593,12 @@ class StatisticalLogic extends BaseLogic
     public function roomByTopBookingStatistical($data)
     {
         $dataInput = $this->checkInputDataRoomStatistical($data);
-
-        return $this->room->countRoomByTopBooking($dataInput['lang'], $dataInput['take'], $dataInput['sort']);
-    }
-
-    /**
-     * Thống kê Top phòng có booking nhiều nhất theo loại phòng
-     * @param  [type] $data [description]
-     * @return [type]       [description]
-     */
-    public function roomByTypeTopBookingStatistical($data)
-    {
-        $dataInput = $this->checkInputDataRoomStatistical($data);
-
-        return $this->room->countRoomByTypeTopBooking($dataInput['lang'], $dataInput['take'], $dataInput['sort']);
+        // dd($dataInput);
+        $today     = Carbon::now()->startOfDay()->toDateString();
+        $yesterday = Carbon::now()->subweek()->startOfDay()->toDateString();
+        $dataInput['date_start'] = isset($dataInput['date_start']) ? $dataInput['date_start'] : $yesterday ;
+        $dataInput['date_end'] = isset($dataInput['date_end']) ? $dataInput['date_end'] : $today;
+        return $this->room->countRoomByTopBooking($dataInput['lang'], $dataInput['take'], $dataInput['sort'], $dataInput['date_start'], $dataInput['date_end']);
     }
 
     /**
@@ -593,5 +619,16 @@ class StatisticalLogic extends BaseLogic
         $dataInput = $this->checkInputDataBookingStatistical($data);
 
         return $this->booking->countBookingByTypeOneCustomer($data['customer_id'], $dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+    }
+    /**
+     * Thống kê số lượng phòng theo tỉnh thành
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function roomByCityStatistical($data)
+    {
+        $dataInput = $this->checkInputDataBookingStatistical($data);
+
+        return $this->room->countRoomByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
 }

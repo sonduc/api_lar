@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-18T02:07:29.882Z",
+	"__export_date": "2019-01-19T01:23:49.195Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -591,8 +591,8 @@
 			"created": 1534828957823,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1532570298421,
-			"modified": 1540883061566,
+			"metaSortKey": -1547623731961,
+			"modified": 1547807813162,
 			"name": "Districts",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
@@ -2436,7 +2436,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1546490322581,
+			"modified": 1547777412896,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2446,7 +2446,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}comforts?include=details",
+			"url": "{{ api_url  }}comforts?include=details&limit=-1",
 			"_type": "request"
 		},
 		{
@@ -5186,7 +5186,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890086902.1177,
 			"method": "GET",
-			"modified": 1547776109659,
+			"modified": 1547783204821,
 			"name": "booking-room-type-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5196,7 +5196,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=week&date_start=2018-12-01&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5215,7 +5215,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890083996.715,
 			"method": "GET",
-			"modified": 1547095117110,
+			"modified": 1547783216838,
 			"name": "count-booking-room-type",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5225,7 +5225,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/count-booking-room-type?view=week&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/count-booking-room-type?view=week&date_start=2018-07-12&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -5418,7 +5418,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081168.044,
 			"method": "GET",
-			"modified": 1545906004822,
+			"modified": 1547783613478,
 			"name": "room-type",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5428,7 +5428,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/room-type?date_start=2018-08-01&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/room-type",
 			"_type": "request"
 		},
 		{
@@ -5476,7 +5476,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081110.4954,
 			"method": "GET",
-			"modified": 1545895702636,
+			"modified": 1547807218821,
 			"name": "room-top-booking",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5486,36 +5486,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/room-top-booking?lang=&take=10&sort=desc",
-			"_type": "request"
-		},
-		{
-			"_id": "req_c3d2bc0257324721b551c92461bcc54a",
-			"authentication": {},
-			"body": {},
-			"created": 1545818809377,
-			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1531890081100.9038,
-			"method": "GET",
-			"modified": 1545896087614,
-			"name": "room-type-top-booking",
-			"parameters": [],
-			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/room-type-top-booking?take=10&sort=desc",
+			"url": "{{ api_url  }}statisticals/room-top-booking?lang=&take=10&date_start=2018-11-01&date_end=2018-12-01",
 			"_type": "request"
 		},
 		{
@@ -5574,6 +5545,35 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}statisticals/booking-type-one-customer?customer_id=4400&view=week&date_start=2018-07-12&",
+			"_type": "request"
+		},
+		{
+			"_id": "req_723bf994f7324260ac8ecd1a5afb3d2a",
+			"authentication": {},
+			"body": {},
+			"created": 1547794742085,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890081120.087,
+			"method": "GET",
+			"modified": 1547796938588,
+			"name": "room-city",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/room-city",
 			"_type": "request"
 		},
 		{
@@ -6231,8 +6231,8 @@
 			],
 			"isPrivate": false,
 			"metaSortKey": -1540893745389,
-			"method": "POST",
-			"modified": 1544085619598,
+			"method": "GET",
+			"modified": 1547807648784,
 			"name": "room-lat-long",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6242,7 +6242,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/room-lat-long",
+			"url": "{{ customer_url }}rooms/room-lat-long?include=details&name=studio&price_day_from=0&price_day_to=10000000&checkin=&checkout=&type_room=&rent_type=1&lat_min=20.945819962062505&lat_max=21.07882449144878&long_min=105.76691961408301&long_max=105.93308782697363",
 			"_type": "request"
 		},
 		{
@@ -6329,7 +6329,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745439,
 			"method": "GET",
-			"modified": 1546497708757,
+			"modified": 1547792493881,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6339,7 +6339,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/schedule/3581",
+			"url": "{{ customer_url }}rooms/schedule/795",
 			"_type": "request"
 		},
 		{

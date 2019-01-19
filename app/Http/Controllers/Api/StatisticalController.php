@@ -195,11 +195,6 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByManagerRevenueStatistical($request->all());
             
-            // $data = [
-            //     'data' => $data
-            // ];
-            // return $this->successResponse($data, false);
-
             $data_response['data']['createdAt'] = $data[0];
             $data_response['data']['data'] = $data[1];
 
@@ -226,11 +221,11 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRoomTypeRevenueStatistical($request->all());
+           
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
 
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -254,10 +249,10 @@ class StatisticalController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByRoomTypeStatistical($request->all());
 
-            $data = [
-                'data' => $data
-            ];
-            return $this->successResponse($data, false);
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
         } catch (\Exception $e) {
@@ -454,7 +449,7 @@ class StatisticalController extends ApiController
             throw $t;
         }
     }
-
+    
     /**
      * Thống kê số lượng room theo loại phòng
      * @param  Request $request [description]
@@ -494,36 +489,10 @@ class StatisticalController extends ApiController
         try {
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
+            // dd($request->all());
             $data = $this->model->roomByTopBookingStatistical($request->all());
             $data = [
-                'data' => $data
-            ];
-            // dd(DB::getQueryLog());
-            return $this->successResponse($data, false);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
-
-    /**
-     * Thống kê Top phòng có booking nhiều nhất theo loại phòng
-     * @param  Request $request [description]
-     * @return [type]           [description]
-     */
-    public function roomByTypeTopBookingStatistical(Request $request)
-    {
-        DB::beginTransaction();
-        DB::enableQueryLog();
-        try {
-            $this->authorize('statistical.view');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->roomByTypeTopBookingStatistical($request->all());
-            $data = [
-                'data' => $data
+                'data' => [$data]
             ];
             // dd(DB::getQueryLog());
             return $this->successResponse($data, false);
@@ -582,6 +551,33 @@ class StatisticalController extends ApiController
             $this->authorize('statistical.view');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->bookingByTypeOneCustomerStatistical($request->all());
+            $data = [
+                'data' => $data
+            ];
+            // dd(DB::getQueryLog());
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+    /**
+     * Thống kê số lượng room theo loại phòng
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function roomByCityStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->roomByCityStatistical($request->all());
             $data = [
                 'data' => $data
             ];

@@ -213,8 +213,8 @@ $router->group([
     $router->get('/statisticals/booking-cancel', 'StatisticalController@bookingByCancelStatistical');
     $router->get('/statisticals/room-type', 'StatisticalController@roomByTypeStatistical');
     $router->get('/statisticals/room-district', 'StatisticalController@roomByDistrictStatistical');
+    $router->get('/statisticals/room-city', 'StatisticalController@roomByCityStatistical');
     $router->get('/statisticals/room-top-booking', 'StatisticalController@roomByTopBookingStatistical');
-    $router->get('/statisticals/room-type-top-booking', 'StatisticalController@roomByTypeTopBookingStatistical');
 
     $router->get('/statisticals/booking-one-customer-revenue', 'StatisticalController@bookingByOneCustomerRevenueStatistical');
     $router->get('/statisticals/booking-type-one-customer', 'StatisticalController@bookingByTypeOneCustomerStatistical');
