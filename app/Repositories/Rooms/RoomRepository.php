@@ -31,7 +31,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getAllRoomExceptListId(array $list, $params, $size,$count = null)
+    public function getAllRoomExceptListId(array $list, $params, $size, $count = null)
     {
         $alias = $this->model->transformerAlias();
         $this->useScope($params, ['check_in', 'check_out']);
@@ -44,26 +44,20 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 ->orderBy('avg_avg_rating', 'desc')
                 ->orderBy('total_review', 'desc')
                 ->orderBy('total_recommend', 'desc');
-        if (is_null($count))
-        {
+        if (is_null($count)) {
             return $query->paginate($size);
-        }elseif ($count ==='comfort_lists')
-        {
-           return $query
+        } elseif ($count ==='comfort_lists') {
+            return $query
                 ->join('room_comforts', 'rooms.id', '=', 'room_comforts.room_id')->select('room.*')
                 ->select(DB::Raw('room_comforts.comfort_id, COUNT(*) as count'))
                 ->groupBy('room_comforts.comfort_id')
                 -> orderBy('comfort_id')
                 ->get();
-
-        }elseif ($count === 'standard_point')
-        {
-                 return $query
+        } elseif ($count === 'standard_point') {
+            return $query
                 ->select(DB::Raw('rooms.standard_point, COUNT(*) as count'))
                 ->groupBy('rooms.standard_point')->orderBy('standard_point')->get();
-
         }
-
     }
 
     public function getRoom($id)
@@ -266,16 +260,17 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $rooms = $this->model
             ->select(
                 DB::raw('rooms.room_type as room_type'),
-                DB::raw('count(rooms.room_type) as total_room'),
-                DB::raw('cast(rooms.created_at as DATE) as createdAt')
+                DB::raw('count(rooms.room_type) as total_room')
+                // DB::raw('cast(rooms.created_at as DATE) as createdAt')
             )
             ->where([
-                ['rooms.created_at', '>=', $date_start],
-                ['rooms.created_at', '<=', $date_end],
+                // ['rooms.created_at', '>=', $date_start],
+                // ['rooms.created_at', '<=', $date_end],
                 ['rooms.status', '=', Room::AVAILABLE],
             ])
 
-            ->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
+            // ->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
+            ->groupBy(DB::raw('rooms.room_type'))->get();
 
         $data_date       = [];
         $convertDataRoom = [];
@@ -287,10 +282,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         foreach ($date_unique as $k => $val) {
             $convertCountRoomType = $this->convertCountRoomType($rooms, $val);
 
-            $convertDataRoom[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountRoomType,
-            ];
+            $convertDataRoom[] = $convertCountRoomType;
         }
 
         return $convertDataRoom;
@@ -312,16 +304,16 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
         foreach ($dataBooking as $key => $value) {
             $convertRoom[] = [
-                'room_type_txt' => Room::ROOM_TYPE[$value['room_type']],
-                'room_type'     => $value->room_type,
-                'total_room'    => $value->total_room,
+                'name'       => Room::ROOM_TYPE[$value['room_type']],
+                'room_type'  => $value->room_type,
+                'y'          => $value->total_room,
             ];
         }
         return $convertRoom;
     }
 
     /**
-     * đếm room theo tỉnh thành
+     * đếm room theo quận huyện
      * @param  [type] $date_start [description]
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
@@ -332,16 +324,17 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->join('districts', 'districts.id', '=', 'rooms.district_id')
             ->select(
                 DB::raw('districts.name as name_district'),
-                DB::raw('count(rooms.id) as total_room'),
-                DB::raw('cast(rooms.created_at as DATE) as createdAt')
+                DB::raw('count(rooms.id) as total_room')
+                // DB::raw('cast(rooms.created_at as DATE) as createdAt')
             )
             ->where([
-                ['rooms.created_at', '>=', $date_start],
-                ['rooms.created_at', '<=', $date_end],
+                // ['rooms.created_at', '>=', $date_start],
+                // ['rooms.created_at', '<=', $date_end],
                 ['rooms.status', '=', Room::AVAILABLE],
             ])
 
-            ->groupBy(DB::raw('createdAt,districts.name'))->get();
+            // ->groupBy(DB::raw('createdAt,districts.name'))->get();
+            ->groupBy(DB::raw('districts.name'))->get();
 
         $data_date       = [];
         $convertDataRoom = [];
@@ -353,17 +346,14 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         foreach ($date_unique as $k => $val) {
             $convertCountRoomDistrict = $this->convertCountRoomDistrict($rooms, $val);
 
-            $convertDataRoom[] = [
-                'createdAt' => $val,
-                'data'      => $convertCountRoomDistrict,
-            ];
+            $convertDataRoom[] = $convertCountRoomDistrict;
         }
 
         return $convertDataRoom;
     }
 
     /**
-     * lấy những room có cùng ngày theo tỉnh thành
+     * lấy những room có cùng ngày theo thành phố
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
@@ -390,7 +380,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @author sonduc <ndson1998@gmail.com>
      * @return [type] [description]
      */
-    public function countRoomByTopBooking($lang, $take, $sort)
+    public function countRoomByTopBooking($lang, $take, $sort, $date_start, $date_end)
     {
         $rooms = $this->model
             ->join('bookings', 'rooms.id', '=', 'bookings.room_id')
@@ -401,48 +391,88 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where([
                 ['room_translates.lang', '=', $lang],
                 ['rooms.status', '=', Room::AVAILABLE],
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end]
             ])
             ->groupBy(DB::raw('total_booking'))
             ->orderBy('total_booking', $sort)
             ->take($take)
             ->get();
-        return $rooms;
-    }
-
-    /**
-     * đếm room có booking nhiều nhất theo loại phòng
-     * @author sonduc <ndson1998@gmail.com>
-     * @return [type] [description]
-     */
-    public function countRoomByTypeTopBooking($lang, $take, $sort)
-    {
-        $rooms = $this->model
-            ->join('bookings', 'rooms.id', '=', 'bookings.room_id')
-            ->select(
-                DB::raw('rooms.room_type as room_type'),
-                DB::raw('count(bookings.id) as total_booking')
-            )
-            ->where([
-                ['rooms.status', '=', Room::AVAILABLE],
-            ])
-            ->groupBy(DB::raw('rooms.room_type'))
-            ->orderBy('total_booking', $sort)
-            ->take($take)
-            ->get();
-
-        $arrayConvert =[];
-        foreach ($rooms as $key => $value) {
-            $arrayConvert[] = [
-                'room_type_txt' => Room::ROOM_TYPE[$value->room_type],
-                'room_type'     => $value->room_type,
-                'total_booking'  => $value->total_booking,
+        $room_top_bookings = [];
+        foreach ($rooms as $k => $v) {
+            $room_top_bookings[] = [
+                'name' => $v->name,
+                'data' => [$v->total_booking]
             ];
         }
-        return $arrayConvert;
+        return $room_top_bookings;
     }
     
     public function updateComission($data)
     {
         return $this->model->where('status', Room::AVAILABLE)->update($data);
+    }
+
+    /**
+     * đếm room theo quận huyện
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function countRoomByCity($date_start, $date_end, $view, $status)
+    {
+        $rooms = $this->model
+            ->join('cities', 'cities.id', '=', 'rooms.city_id')
+            ->select(
+                DB::raw('cities.name as name_city'),
+                DB::raw('count(rooms.id) as total_room')
+                // DB::raw('cast(rooms.created_at as DATE) as createdAt')
+            )
+            ->where([
+                // ['rooms.created_at', '>=', $date_start],
+                // ['rooms.created_at', '<=', $date_end],
+                ['rooms.status', '=', Room::AVAILABLE],
+            ])
+
+            // ->groupBy(DB::raw('createdAt,cities.name'))->get();
+            ->groupBy(DB::raw('cities.name'))->get();
+
+        $data_date       = [];
+        $convertDataRoom = [];
+        foreach ($rooms as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            $convertCountRoomCity = $this->convertCountRoomCity($rooms, $val);
+
+            $convertDataRoom[] = $convertCountRoomCity;
+        }
+
+        return $convertDataRoom;
+    }
+
+    /**
+     * lấy những room có cùng ngày theo thành phố
+     * @author sonduc <ndson1998@gmail.com>
+     * @return [type] [description]
+     */
+    public function convertCountRoomCity($rooms, $createdAt)
+    {
+        $dataRoom    = [];
+        $convertRoom = [];
+        foreach ($rooms as $key => $value) {
+            if ($value->createdAt === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        foreach ($dataBooking as $key => $value) {
+            $convertRoom[] = [
+                'name' => $value->name_city,
+                'data' => [$value->total_room],
+            ];
+        }
+        return $convertRoom;
     }
 }
