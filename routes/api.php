@@ -229,10 +229,6 @@ $router->group([
     $router->get('/settings/status', 'SettingController@settingStatus');
     resource('/settings', 'SettingController', $router);
 
-    /**
-     *  Resource
-     */
-    resource('/seo', 'SeoController', $router);
 });
 
 $router->post('login', 'LoginController@login');

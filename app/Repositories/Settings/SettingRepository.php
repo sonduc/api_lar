@@ -40,10 +40,18 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      */
     public function store($data = [])
     {
+//        $result= parent::getAll()->toArray();
+//
+//        if (!empty($result))
+//        {
+//            throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
+//        }
+
+
         if (!empty($data))
         {
             $data['homepage_image'] = rand_name();
-            $data['image_logo"'] = rand_name();
+            $data['image_logo']    = rand_name();
             if (isset($data['contact_email']))
             {
                 $data['contact_email'] = json_encode($data['contact_email']);
@@ -54,13 +62,18 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
                 $data['contact_hotline'] = json_encode($data['contact_hotline']);
             }
 
-        }
-        $result= parent::getAll()->toArray();
+            if (isset($data['bank_account']))
+            {
+                $data['bank_account'] = json_encode($data['bank_account']);
+            }
 
-        if (!empty($result))
-        {
-           throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
+            if (isset($data['meta_keywords']))
+            {
+                $data['meta_keywords'] = json_encode($data['meta_keywords']);
+            }
+
         }
+
 
         return parent::store($data);
     }
@@ -78,6 +91,8 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 
        if (!empty($data))
        {
+           $data['homepage_image'] = rand_name();
+           $data['image_logo']    = rand_name();
            if (isset($data['contact_email']))
            {
                $data['contact_email'] = json_encode($data['contact_email']);
@@ -86,6 +101,16 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
            if (isset($data['contact_hotline']))
            {
                $data['contact_hotline'] = json_encode($data['contact_hotline']);
+           }
+
+           if (isset($data['bank_account']))
+           {
+               $data['bank_account'] = json_encode($data['bank_account']);
+           }
+
+           if (isset($data['meta_keywords']))
+           {
+               $data['meta_keywords'] = json_encode($data['meta_keywords']);
            }
 
        }
