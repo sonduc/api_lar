@@ -18,6 +18,7 @@ class CreateCommentTicketsTable extends Migration
             $table->string('comments');
             $table->integer('ticket_id');
             $table->integer('user_id');
+            $table->softDeletes()->nullable();
             $table->timestamps();
         });
     }

@@ -9,6 +9,7 @@
 namespace App\Repositories\Ticket;
 
 
+use App\Repositories\CommentTicket\CommentTicket;
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -20,8 +21,8 @@ class Ticket extends Entity
 
 
     const RESOLVE_STATUS    = [
-        self::AVAILABLE      => 'CHƯA GIẢI QUYẾT',
-        self::UNAVAILABLE    => 'ĐÃ GIẢI QUYẾT',
+        self::AVAILABLE      => 'ĐÃ GIẢI QUYẾT',
+        self::UNAVAILABLE    => 'CHƯA GIẢI QUYẾT',
     ];
     protected $table = 'tickets';
     /**
@@ -39,5 +40,23 @@ class Ticket extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
+
+
+    public function userCreate()
+    {
+        return $this->belongsTo(\App\User::class, 'user_create_id');
+    }
+
+    public function supporter()
+    {
+        return $this->belongsTo(\App\User::class, 'supporter_id');
+    }
+
+    public function commentTickets()
+    {
+        return $this->hasMany(CommentTicket::class, 'ticket_id');
+    }
+
+
 
 }

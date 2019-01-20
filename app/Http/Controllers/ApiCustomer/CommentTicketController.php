@@ -2,21 +2,18 @@
 /**
  * Created by PhpStorm.
  * User: DUCCHIEN-PC
- * Date: 1/19/2019
- * Time: 11:23 AM
+ * Date: 1/20/2019
+ * Time: 11:50 AM
  */
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\ApiCustomer;
 
 
 use App\Http\Transformers\CommentTicketTransformer;
-use App\Repositories\CommentTicket\CommentTicketLogic;
-use App\Repositories\CommentTicket\CommentTicketRepositoryInterafae;
-use Carbon\Carbon;
+use App\Repositories\_Customer\CommentTicketLogic;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
 class CommentTicketController extends ApiController
 {
     protected $validationRules
@@ -39,55 +36,9 @@ class CommentTicketController extends ApiController
     public function __construct(CommentTicketLogic $commentTicket)
     {
         $this->model = $commentTicket;
-        $this->setTransformer(new CommentTicketTransformer);
+        $this->setTransformer(new CommentTicketTransformer());
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index(Request $request)
-    {
-        DB::enableQueryLog();
-        try {
-            $this->authorize('ticket.view');
-            $pageSize    = $request->get('limit', 25);
-            $this->trash = $this->trashStatus($request);
-            $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-            // dd(DB::getQueryLog());
-            return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        }
-    }
-
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Request $request, $id)
-    {
-        try {
-            $this->authorize('ticket.view');
-            $trashed = $request->has('trashed') ? true : false;
-            $data    = $this->model->getById($id, $trashed);
-            return $this->successResponse($data);
-        } catch (AuthorizationException $f) {
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
 
     /**
      * Tạo comment-ticket
@@ -146,7 +97,6 @@ class CommentTicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.update');
             $validate = array_only($this->validationRules, [
                 'comments'
             ]);
@@ -217,5 +167,6 @@ class CommentTicketController extends ApiController
             throw $t;
         }
     }
+
 
 }

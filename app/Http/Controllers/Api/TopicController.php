@@ -99,9 +99,8 @@ class TopicController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-//            $this->authorize('ticket.create');
+            $this->authorize('ticket.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            dd($request->all());
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();

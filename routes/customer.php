@@ -37,6 +37,17 @@ $router->group([
      * Wish-list: Danh sách ưu thích
      */
     resource('/wish-list', 'WishListController', $router);
+
+    /**
+     *  Resource
+     */
+    $router->get('/ticket/status', 'TicketController@ticketStatus');
+    resource('/ticket', 'TicketController', $router);
+
+    /**
+     *  comment-ticket
+     */
+    resource('/comment-tickets', 'CommentTicketController', $router);
 });
 
 /*

@@ -16,8 +16,11 @@ use Illuminate\Support\Facades\Auth;
 
 class TicketLogic extends BaseLogic
 {
+    use TicketLogicTrait;
     protected $model;
     protected $commentTicket;
+
+
     public function __construct(
         TicketRepositoryInterface $ticket,
         CommentTicketRepositoryInterafae $commentTicket
@@ -27,25 +30,19 @@ class TicketLogic extends BaseLogic
     }
 
 
-    public function store($data = null)
-    {
-        $data['user_create_id'] = Auth::user()->id;
-        $data['rosolve']        = Ticket::UNAVAILABLE;
-        $data_ticket            = parent::store($data);
-        $this->commentTicket->storeCommentTicket($data_ticket,$data);
-        return $data_ticket;
-
-    }
-
-    public function update($id, $data = null, $except = [], $only = [])
-    {
-
-    }
-
-    public function updateResolve($id, $data = null, $except = [], $only = [])
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param null $data
+     * @param array $except
+     * @param array $only
+     * @return \App\Repositories\Eloquent
+     */
+    public function minorUpdate($id, $data = null, $except = [], $only = [])
     {
         return parent::update($id,$data);
-
     }
 
 

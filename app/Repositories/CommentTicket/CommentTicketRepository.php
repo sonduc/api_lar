@@ -26,38 +26,16 @@ class CommentTicketRepository extends BaseRepository implements CommentTicketRep
     }
 
     /**
-     * Lưu các comment thuộc môt ticket nào đó
+     * Lấy comment ticket theo id
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
-     * @param $data_ticket
-     * @param array $data
+     * @param $id
+     * @return \App\Repositories\Eloquent
      */
-    public function storeCommentTicket($data_ticket= [], $data = [])
+    public function getCommentTicketById($id)
     {
-        if (isset($data_ticket) && !empty($data_ticket))
-        {
-            $data['ticket_id']       = $data_ticket->id;
-        }
-        $data['user_id']         = Auth::user()->id;
-        parent::store($data);
+        return parent::getById($id);
     }
 
-    /**
-     * Update các comment thuộc môt ticket nào đó
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $data_ticket
-     * @param array $data
-     */
-    public function updateCommentTicket($data_ticket= [], $data = [])
-    {
-        if (isset($data_ticket) && !empty($data_ticket))
-        {
-            $data['ticket_id']       = $data_ticket->id;
-        }
-
-        $data['user_id']         = Auth::user()->id;
-        parent::update($data);
-    }
 
 }

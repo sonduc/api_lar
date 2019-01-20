@@ -30,4 +30,35 @@ class TicketRepository extends BaseRepository implements TicketRepositoryInterfa
         $this->model         = $ticket;
     }
 
+    /**
+     * Lấy ticket theo id
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return \App\Repositories\Eloquent
+     */
+    public function getTicketById($data = [])
+    {
+         return parent::getById($data['ticket_id']);
+    }
+
+
+    /**
+     * Lấy tất cả các ticket của người tạo nó
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $params
+     * @param $size
+     * @return mixed
+     * @throws \ReflectionException
+     */
+    public function getTicketByUserId($id, $params, $size)
+    {
+        $this->useScope($params);
+        return $this->model
+            ->where('tickets.user_create_id', $id)
+            ->paginate($size);
+    }
+
 }

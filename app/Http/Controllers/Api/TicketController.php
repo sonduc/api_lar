@@ -19,10 +19,31 @@ class TicketController extends ApiController
 {
     protected $validationRules
         = [
+            'title'                         => 'required|v_title',
+            'content'                       => 'required',
+            'topic_id'                      => 'integer|exists:topics,id',
+            'subtopic_id'                   => 'integer|exists:topics,id',
+            'supporter_id'                  => 'integer|exists:users,id',
 
         ];
     protected $validationMessages
         = [
+            "title.required"                => "Trường này không được để trống",
+            "title.v_title"                 => "Tiêu đề chứa những ký tự không hợp lê",
+            "content.v_title"               => "Trường này không được để trống",
+            'topic_id.integer'              => "Mã topic phải là kiểu số",
+            'topic_id.exists'               => "Mã topic không tồn tại",
+
+            'subtopic_id.integer'           => "Mã topic phải là kiểu số",
+            'subtopic_id.exists'            => "Mã topic không tồn tại",
+
+            'supporter_id.integer'          => "Mã topic phải là kiểu số",
+            'supporter_id.exists'           => "Mã topic không tồn tại",
+
+            'resolve.integer'               => "Trường này phải là kiểu số",
+            'resolve.between'               => "Mã Resolve không hợ lệ"
+
+
 
         ];
 
@@ -137,7 +158,7 @@ class TicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('settingMain.update');
+            $this->authorize('ticket.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id,$request->all());
             //dd(DB::getQueryLog());
@@ -161,7 +182,9 @@ class TicketController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
-            throw $e;
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
@@ -238,7 +261,12 @@ class TicketController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('ticket.update');
-            $data = $this->model->updateResolve($id, $request->only('resolve'));
+            $validate = array_only($this->validationRules, [
+                'resolve'
+            ]);
+            $validate['resolve']         = 'integer|between:0,1';
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->minorUpdate($id, $request->only('resolve'));
             DB::commit();
             logs('ticket-resolve', 'cập nhâp resolve cho ticket' . $data->id, $data);
             return $this->successResponse($data);
@@ -266,5 +294,57 @@ class TicketController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateSupporter(Request $request,$id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('ticket.update');
+
+            $validate = array_only($this->validationRules, [
+                'supporter_id'
+            ]);
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->minorUpdate($id, $request->only('supporter_id'));
+            DB::commit();
+            logs('Supporter', 'cập nhâp Suporter cho ticket' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+
+
 
 }

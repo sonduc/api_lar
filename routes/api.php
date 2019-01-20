@@ -253,6 +253,7 @@ $router->group([
      */
     $router->get('/ticket/status', 'TicketController@ticketStatus');
     $router->put('/ticket/update-resolve/{id}', 'TicketController@updateResolve');
+    $router->put('/ticket/update-supporter/{id}', 'TicketController@updateSupporter');
     resource('/ticket', 'TicketController', $router);
 
     /**
