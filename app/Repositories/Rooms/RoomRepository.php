@@ -308,6 +308,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 $dataBooking[] = $value;
             }
         }
+        // dd($dataBooking);
         foreach ($dataBooking as $key => $value) {
             $convertRoom[] = [
                 'name'       => Room::ROOM_TYPE[$value['room_type']],
@@ -530,5 +531,46 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 ->groupBy(DB::raw('rooms.city_id'))
                 ->orderBy('total_rooms', 'desc')
                 ->get()->toArray();
+    }
+
+    /**
+     * đếm số phòng theo loại phòng, thời gian
+     * @param  [type] $date_start [description]
+     * @param  [type] $date_end   [description]
+     * @return [type]             [description]
+     */
+    public function countRoomByTypeCompare($date_start, $date_end, $view, $status)
+    {
+        $selectRawView = $this->switchViewRoomCreatedAt($view);
+
+        $rooms = $this->model
+            ->select(
+                DB::raw('rooms.room_type as room_type'),
+                DB::raw('count(rooms.id) as total_room'),
+                DB::raw($selectRawView)
+            )
+            ->where([
+                ['rooms.created_at', '>=', $date_start],
+                ['rooms.created_at', '<=', $date_end],
+                ['rooms.status', '=', Room::AVAILABLE],
+            ])
+            ->groupBy(DB::raw('createdAt, room_type'))->get();
+
+        $data_date       = [];
+        $convertDataRoom = [];
+        foreach ($rooms as $key => $value) {
+            array_push($data_date, $value->createdAt);
+        }
+        $date_unique = array_unique($data_date);
+        foreach ($date_unique as $k => $val) {
+            // dd($rooms);
+            $convertCountRoomType = $this->convertCountRoomType($rooms, $val);
+
+            $convertDataRoom[] = [
+                $val => $convertCountRoomType
+            ];
+        }
+
+        return $convertDataRoom;
     }
 }

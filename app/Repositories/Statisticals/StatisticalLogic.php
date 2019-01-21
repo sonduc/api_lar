@@ -631,4 +631,33 @@ class StatisticalLogic extends BaseLogic
 
         return $this->room->countRoomByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
     }
+
+    /**
+     * Thống kê số lượng phòng theo ngày , tuần và loại phòng
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function roomByTypeComparison($data)
+    {
+        $dataInput = $this->checkInputDataBookingStatistical($data);
+
+        $data_room_compare = $this->room->countRoomByTypeCompare($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+
+        foreach ($data_room_compare as $key_list_room_compare => $value_list_room_compare) {
+            $date_arr[] = key($value_list_room_compare);
+            $some_date['_' . key($value_list_room_compare)]  = 0;
+            foreach ($value_list_room_compare as $data_value) {
+                foreach ($data_value as $k => $v) {
+                    $series_arr[$k]['name']      = $v['name'];
+                    $series_arr[$k]['data'][]    = $v['y'];
+                }
+            }
+        }
+        
+        return [$date_arr, $series_arr];
+    }
 }
