@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-20T21:03:13.753Z",
+	"__export_date": "2019-01-21T11:16:16.910Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,15 +201,15 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjE4ZWNmZWI1ODhkMGZlMzljOWQ1MjU4OTM0M2Q0MzkzN2I4MzBlYjQxOGQ0YzgwYTRjMDZiN2VhYTEyNjdkZWVhMTJhZDU2ZGRkYTY1MDJlIn0.eyJhdWQiOiI2IiwianRpIjoiMThlY2ZlYjU4OGQwZmUzOWM5ZDUyNTg5MzQzZDQzOTM3YjgzMGViNDE4ZDRjODBhNGMwNmI3ZWFhMTI2N2RlZWExMmFkNTZkZGRhNjUwMmUiLCJpYXQiOjE1NDgwMTc4MDgsIm5iZiI6MTU0ODAxNzgwOCwiZXhwIjoxNTc5NTUzODA4LCJzdWIiOiI1Iiwic2NvcGVzIjpbXX0.AYPz1gFEhJR-6m1jNjOTR2s1uJg0QXrRpThTVuOTJZpU3v1LICZATB_G6eQ3tcTkqSYSZrX0N1Zk57w74fYYGwvwbzvF0a0JSC0Yp8ivt35DwNF5BqsnJN0o8iaZZ_V5eTuBwAMO8IQ0bOTykC6Q-e9DAE5mYPc6ccrxDr0O94znbQ4nNclNLkJBszmy3Ab4AKodw5i3wYUf_zW147dTQ2Vj2OrEVc517ivnrhMOF7zjiI5QzgaPzTX5JtpBZXbFTTAPVfMMM6O75jhwP2lV8N8jLlovr2unruJWK_Wz9Zg4wZDYcT3dh9_JGlQmlAvWLxTXf1ZaBIdTZmBfRTINJ4pVfHDRwLUHrHE_LSmK7plh6yusIdRQ-sj2deAE_LJJIotmCs-MG-TOPG7Hmu-Z82AddhiZd1dRQiTC28xXPGorn-iMGHjwgLWJBJAO4gV5DE4Ocw40XCAI8XBCNMkwO_AB0k2oeDpKugmZ6IMe1zWY--tDJGVQdgD5bryfE6p3CgJ-Ag4-q6Pbo4_JYHbM5szlA2DSzcKiekyvQTVho1jDI9ZJ4S9tADiwvcBwxBUYJibHLDI5P1DvdQVb9Ef0xFKQNhuYoO_I9DjuWgZHyZS8Jt3tbh7QTTH23b6b2sGzZY6FrlnExcwddezG3DiFBZVilv2ZFO90YnRJn9RnJkM"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNmY2EwOWJmZjYxMmI0ZDMwMzg1MmU2ZDBlYzE5YTVhNjk5YzdlMTA0NTRmMTkxMjllNGQzODU2NDRmZDliZmEzOTRkN2NjNDUzYjc2MmY3In0.eyJhdWQiOiI0IiwianRpIjoiY2ZjYTA5YmZmNjEyYjRkMzAzODUyZTZkMGVjMTlhNWE2OTljN2UxMDQ1NGYxOTEyOWU0ZDM4NTY0NGZkOWJmYTM5NGQ3Y2M0NTNiNzYyZjciLCJpYXQiOjE1NDgwMzk1MTksIm5iZiI6MTU0ODAzOTUxOSwiZXhwIjoxNTc5NTc1NTE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.abxOEKCR8RwECP97f3UkHGupDB1nnRDWpkHcxvAWPXuaxO21IZ06gLtXALGRS0oXIpIaesPKDHoLL2Sm4_veyf8-ORNy2RnfOycAoqsHJFDPbNj9k0S35d7WFhW4pLB_9PvvDBeCyf0qd5xxaj2pJcccBgx93jmVwYE4elDzRGG46AIPZLXrrnx4LMgnE1ltjWUmHjR_Ud9SihFC0v76Klv3visABefdB9zwwuwqvPy1t5D0iGyLpdREV5EhC1cccfkJRl1dpQp_A5q2SOTpAyNsglRjeH26xNPkaLgTWCFffnfwVaYo-U4XhhOMSAWK9CuwOLTiTzEvNhh3WBXAqjzZo_U1UckDpjUfdl6gctfps5Ar-OR5vz8foZeq6i5oQtm-CHeYMogvjEBMK8Ktxp7MDG9QWvW1QEdZQOjs_TxqnNkTQVhL9xKtkpxuGfFO_2BCC4zU6vlvKbDWBQ5cbOLPpgDuSQZM7opP85rzX_YC1KmW13eD0cOb_8WuRH3ZJj6ayzKnbYroBcVDWGcEe6RWcn77hA5o3BC7nTo1XBaDY2esUPCjb2C_q3Rj3hA3c88syIrpBN-2BRPrPPRXkDWz4Unofo1144bB1Q4r5hpO7rTSxJiUxKk4MFh8aAfs1uxRqnJ7fA1AbCZJ04wZQBUvUK7bds_X1SiWzs8J7gw"
 				},
-				"url": "http://westay.test/",
+				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
 				"z_img": "data:image/png;base64,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"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548017839661,
+			"modified": 1548039530513,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -796,6 +796,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_7dc723483a984130aec071fd866edbf8",
+			"created": 1547791960566,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547791960566,
+			"modified": 1547791960566,
+			"name": "Support",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_f1b9c088a15149cdbef53c2ad8de501c",
 			"created": 1540893745389,
 			"description": "",
@@ -902,6 +913,17 @@
 			"metaSortKey": -1546836005087,
 			"modified": 1546836005087,
 			"name": "Cities",
+			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_850dd171bc7646d48e9c5d40dd057976",
+			"created": 1547958506076,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1546836005137,
+			"modified": 1547958527399,
+			"name": "Support",
 			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
 			"_type": "request_group"
 		},
@@ -1041,6 +1063,17 @@
 			"metaSortKey": -1547777091188,
 			"modified": 1547777091188,
 			"name": "Promotion",
+			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_2297398f65fb4a39931696b057040f4a",
+			"created": 1547958999395,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1543069357335.9688,
+			"modified": 1547959017765,
+			"name": "Support",
 			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
 			"_type": "request_group"
 		},
@@ -1847,7 +1880,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\":3143,\n\t\"room_time_blocks\": [\n\t\t[\"2018-11-09\", \"2018-11-15\"],\n\t\t[\"2019-01-01\", \"2019-01-31\"]\n\t],\n\t\"unlock_days\": [\n\t\t[\"2018-12-12\", \"2019-01-14\"],\n\t\t[\"2018-11-12\", \"2018-11-15\"],\n\t\t[\"2018-12-03\"],\n\t]\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"room_time_blocks\": [\n\t\t[\n\t\t\t\"2018-11-09\",\n\t\t\t\"2018-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2019-01-01\",\n\t\t\t\"2019-01-31\"\n\t\t]\n\t],\n\t\"unlock_days\": [\n\t\t[\n\t\t\t\"2018-12-12\",\n\t\t\t\"2019-01-14\"\n\t\t],\n\t\t[\n\t\t\t\"2018-11-12\",\n\t\t\t\"2018-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2018-12-03\"\n\t\t]\n\t]\n}"
 			},
 			"created": 1541469276367,
 			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
@@ -1866,7 +1899,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885864476.875,
 			"method": "PUT",
-			"modified": 1542782024465,
+			"modified": 1548052279597,
 			"name": "update-block",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1957,7 +1990,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\":3143,\n\t\"settings\": {\n\t\t\"no_booking_cancel\" : 0,\n    \"refunds\": [\n      {\n        \"days\": 1,\n        \"amount\": 100\n      }\n    ]\n\t}\n\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"settings\": {\n\t\t\"no_booking_cancel\": 0,\n\t\t\"refunds\": [\n\t\t\t{\n\t\t\t\t\"days\": 1,\n\t\t\t\t\"amount\": 100\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1544217244683,
 			"description": "## Validation\n```\n\n           /**\n         * setting\n         */\n        'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',\n        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',\n        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',\n```",
@@ -1976,7 +2009,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885740464.5938,
 			"method": "PUT",
-			"modified": 1545816698055,
+			"modified": 1548052281776,
 			"name": "update-settings",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2031,7 +2064,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"commission\": 100\n\n}"
+				"text": "{\n\t\"commission\": 100\n}"
 			},
 			"created": 1545817511226,
 			"description": "## Validation\n```\n\n        'commission'         => 'integer|between',\n       \n```",
@@ -2050,7 +2083,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885709461.5234,
 			"method": "PUT",
-			"modified": 1545893641107,
+			"modified": 1548052274176,
 			"name": "update-commision",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2061,6 +2094,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}rooms/update-commission",
+			"_type": "request"
+		},
+		{
+			"_id": "req_5f6c8259331147dbbcbecfd23423ac4c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"room_id\": 3143,\n\t\"booking_settings\": {\n\t\t\"booking_hour\": 0,\n\t\t\"booking_day\": 0\n\t}\n}"
+			},
+			"created": 1548051781215,
+			"description": "## Validation\n```\n\n           /**\n         * setting\n         */\n        'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',\n        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',\n        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531885724963.0586,
+			"method": "PUT",
+			"modified": 1548052277204,
+			"name": "update-booking-settings",
+			"parameters": [],
+			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}rooms/update-booking-settings",
 			"_type": "request"
 		},
 		{
@@ -2881,7 +2951,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"price_discount\":\"ádasd1\"\n}"
+				"text": "{\n\t\"price_discount\":\"123123\"\n}"
 			},
 			"created": 1538985869823,
 			"description": "## Fields\nChỉ chấp nhận các trường:\n`additional_fee` `price_discount`\n\n## Validation\n```php\n'additional_fee'   => 'filled|integer|min:0'\n'price_discount'   => 'filled|integer|min:0'\n```\n",
@@ -2900,7 +2970,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632255.8125,
 			"method": "PUT",
-			"modified": 1539742372212,
+			"modified": 1548062141953,
 			"name": "money-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2910,7 +2980,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings/money-update/5",
+			"url": "{{ api_url  }}bookings/money-update/55",
 			"_type": "request"
 		},
 		{
@@ -5479,6 +5549,35 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_c3d2bc0257324721b551c92461bcc54a",
+			"authentication": {},
+			"body": {},
+			"created": 1545818809377,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890081100.9038,
+			"method": "GET",
+			"modified": 1545896087614,
+			"name": "room-type-top-booking",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/room-type-top-booking?take=10&sort=desc",
+			"_type": "request"
+		},
+		{
 			"_id": "req_bad046fc680248c5b326656b1afa6c3e",
 			"authentication": {},
 			"body": {},
@@ -5566,6 +5665,35 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_e243c673987c480ab21781570111c5bb",
+			"authentication": {},
+			"body": {},
+			"created": 1548063512875,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890081148.861,
+			"method": "GET",
+			"modified": 1548063658051,
+			"name": "room-type-compare",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/room-type-compare?view=week",
+			"_type": "request"
+		},
+		{
 			"_id": "req_8d1aedd30a7b4e3fb4c8f252d6f4402b",
 			"authentication": {},
 			"body": {
@@ -5589,7 +5717,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832157861,
 			"method": "GET",
-			"modified": 1545376713771,
+			"modified": 1548046155146,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_2afd258f7d664697bf3a328a95e2d877",
@@ -5599,7 +5727,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}transactions?date=2018-12-21",
+			"url": "{{ api_url  }}transactions?include=user",
 			"_type": "request"
 		},
 		{
@@ -5821,7 +5949,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"mo ta ngan\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"Vp-09678528419\",\n\t\t\t\"bank_branch\": \"Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"Vp-0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"meta_keywords\"  : \n\t[\n\t\t\t\"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh,\"\n\t]\t\n\t\n\t\n}"
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"09678528419\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
 			},
 			"created": 1547613129564,
 			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
@@ -5840,7 +5968,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097984.3438,
 			"method": "POST",
-			"modified": 1548018063796,
+			"modified": 1548039751907,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
@@ -5858,7 +5986,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"mo ta ngan\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"Vp-09678528419\",\n\t\t\t\"bank_branch\": \"Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"Vp-0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"meta_keywords\"  : \n\t[\n\t\t\t\"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh,\"\n\t]\t\n\t\n\t\n}"
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"mo ta ngan\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"09678528419\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \n\t[\n\t\t\t\"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh,\"\n\t]\t\n\t\n\t\n}"
 			},
 			"created": 1547613159735,
 			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
@@ -5877,7 +6005,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097934.3438,
 			"method": "PUT",
-			"modified": 1548018078938,
+			"modified": 1548039392904,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
@@ -5994,6 +6122,50 @@
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}settings/status",
 			"_type": "request"
+		},
+		{
+			"_id": "fld_71904dd032de44edb9e7930ac91daee5",
+			"created": 1547787445110,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787242,
+			"modified": 1547791979243,
+			"name": "Topic-Ticket",
+			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_f488ad2332744b08a68eb35b04fec675",
+			"created": 1547787490933,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787192,
+			"modified": 1547791977354,
+			"name": "SubTopic-Ticket",
+			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"created": 1547787787142,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787179.5,
+			"modified": 1548039264126,
+			"name": "Create-Ticket",
+			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_6484577c0c104b4898942db9e5578c2f",
+			"created": 1547792071398,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787167,
+			"modified": 1547804652352,
+			"name": "Comment-Ticket",
+			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
+			"_type": "request_group"
 		},
 		{
 			"_id": "req_5273cdbc22434831baf9178ca3c5bdf4",
@@ -6181,7 +6353,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745439,
 			"method": "GET",
-			"modified": 1547792493881,
+			"modified": 1548051179436,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6591,7 +6763,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"09622212582\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"tuan_anh_1_2_3_4@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\":490,\n\t\"checkin\": \"2023-06-28 02:00:00\",\n\t\"checkout\": \"2023-06-29 06:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
+				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"09622212582\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"tuan_anh_1_2_3_4@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\":795,\n\t\"checkin\": \"2023-06-28 02:00:00\",\n\t\"checkout\": \"2023-06-29 06:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
 			},
 			"created": 1542181954384,
 			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
@@ -6610,7 +6782,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1547439994781,
+			"modified": 1548069066818,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -7489,6 +7661,28 @@
 			"_type": "request"
 		},
 		{
+			"_id": "fld_4116d41a7a244c918123268ac457eb24",
+			"created": 1547958506201,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787179.5,
+			"modified": 1547958506201,
+			"name": "Create-Ticket",
+			"parentId": "fld_850dd171bc7646d48e9c5d40dd057976",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_a347b33f352b471da7912bf797e03438",
+			"created": 1547958506285,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787167,
+			"modified": 1547958506285,
+			"name": "Comment-Ticket",
+			"parentId": "fld_850dd171bc7646d48e9c5d40dd057976",
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_a4c62c7991cc47619c885801c6680b68",
 			"created": 1544684623711,
 			"description": "",
@@ -7772,7 +7966,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884252317.2188,
 			"method": "GET",
-			"modified": 1546845312466,
+			"modified": 1548046755398,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -7782,7 +7976,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms/schedule/838",
+			"url": "{{ merchant_url }}rooms/schedule/795",
 			"_type": "request"
 		},
 		{
@@ -9046,6 +9240,28 @@
 			"_type": "request"
 		},
 		{
+			"_id": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"created": 1547958999406,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787179.5,
+			"modified": 1547958999406,
+			"name": "Create-Ticket",
+			"parentId": "fld_2297398f65fb4a39931696b057040f4a",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_335c08fff8cd410396347acdfa1a7e5e",
+			"created": 1547958999506,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547787787167,
+			"modified": 1547958999506,
+			"name": "Comment-Ticket",
+			"parentId": "fld_2297398f65fb4a39931696b057040f4a",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_f02aaebc8c0845d690796b5ca1d24dd3",
 			"authentication": {},
 			"body": {},
@@ -9999,6 +10215,802 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_7ccdd112bbaf44b387c981a17062180f",
+			"authentication": {},
+			"body": {},
+			"created": 1547787671384,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097890.5938,
+			"method": "DELETE",
+			"modified": 1547808213990,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}topic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_360c5edb1edd4efd9538f84fedc949cb",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"Thuê nhà 3\"\n}"
+			},
+			"created": 1547787673451,
+			"description": "## Validation\n```\n'name'          => 'required|v_title|unique:topics,name',\n\n\t\t\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098065.5938,
+			"method": "PUT",
+			"modified": 1548000331757,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}topic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7a97c7d4158e44c8813d6e099e1febab",
+			"authentication": {},
+			"body": {},
+			"created": 1547787675335,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098040.5938,
+			"method": "GET",
+			"modified": 1547791745227,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}topic",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7e03a7645fdb43419e132495059ff63c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"Phụ phí\"\n}"
+			},
+			"created": 1547787678544,
+			"description": "## Validation\n```\n\n'name'          => 'required|v_title|unique:topics,name',\n\n        \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098090.5938,
+			"method": "POST",
+			"modified": 1548037951464,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}topic",
+			"_type": "request"
+		},
+		{
+			"_id": "req_98c2363f7347410f99d8f87b2a37d7bb",
+			"authentication": {},
+			"body": {},
+			"created": 1547830396054,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098039.8125,
+			"method": "GET",
+			"modified": 1547830403609,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}topic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b232f52c91204454969625901254c9ed",
+			"authentication": {},
+			"body": {},
+			"created": 1547787508352,
+			"description": "\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098096.8438,
+			"method": "GET",
+			"modified": 1547957102607,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}subtopic",
+			"_type": "request"
+		},
+		{
+			"_id": "req_159c22aa082f4f7db48f6fc77aa4bad1",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\" : 4 ,\n\t\"name\" : \"Thêm khách\"\n}"
+			},
+			"created": 1547787514449,
+			"description": "## Validation\n```\n\n             'name'                  => 'required|v_title|unique:sub_topics,name',\n            'topic_id'              => 'required|integer|exists:topics,id',\n\n           \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098071.8438,
+			"method": "POST",
+			"modified": 1548038067961,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}subtopic",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1efe94eb165948b0ab356474b7f6d12b",
+			"authentication": {},
+			"body": {},
+			"created": 1547787523205,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098046.8438,
+			"method": "DELETE",
+			"modified": 1547830627359,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}subtopic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_75350bc5b98d4a2b9754bb11d6259dd0",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\" : 1,\n\t\"name\" : \"Tìm nhà\"\n}"
+			},
+			"created": 1547787528401,
+			"description": "## Validation\n```\n            'name'                  => 'required|v_title|unique:sub_topics,name',\n            'topic_id'              => 'required|integer|exists:topics,id',\n\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098059.3438,
+			"method": "PUT",
+			"modified": 1547957241625,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}subtopic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_21932ff26dcb4fa78705117f0c5536d9",
+			"authentication": {},
+			"body": {},
+			"created": 1547830413901,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098093.7188,
+			"method": "GET",
+			"modified": 1547830420334,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}subtopic/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e7a2edf32bba4f56bf9c54c8fca35506",
+			"authentication": {},
+			"body": {},
+			"created": 1547787792406,
+			"description": "## INCLUDE\n```\n'userCreate',\n'supporter',\n'commentTickets'\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098037.4688,
+			"method": "GET",
+			"modified": 1548005262756,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket?include=supporter,userCreate,commentTickets",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ec485c6ea3eb4966a509808a4c819df8",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 2,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\"\t\n}"
+			},
+			"created": 1547787794010,
+			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098087.4688,
+			"method": "PUT",
+			"modified": 1548007347026,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1bd45f5905154f26b02a1701438fedc2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+			},
+			"created": 1547787796863,
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n         \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098137.4688,
+			"method": "POST",
+			"modified": 1547956992094,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket?include=supporter,userCreate",
+			"_type": "request"
+		},
+		{
+			"_id": "req_83b6f650e94a44a4b52c288638c75750",
+			"authentication": {},
+			"body": {},
+			"created": 1547787799413,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098112.4688,
+			"method": "DELETE",
+			"modified": 1547787901783,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket",
+			"_type": "request"
+		},
+		{
+			"_id": "req_dc8a8fd2180a4f1689f92b410eafdf44",
+			"authentication": {},
+			"body": {},
+			"created": 1547861175535,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097987.4688,
+			"method": "GET",
+			"modified": 1547954048555,
+			"name": "resolve-status",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/status",
+			"_type": "request"
+		},
+		{
+			"_id": "req_059c128af7a345589a97143558eaf488",
+			"authentication": {},
+			"body": {},
+			"created": 1547861769473,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098035.9062,
+			"method": "GET",
+			"modified": 1548038792037,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_bb3acada2c2c47f3a0d935ca6fe1b09d",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"resolve\" :1\n}"
+			},
+			"created": 1547862204983,
+			"description": "## Validation\n```\n\n'resolve'                  => 'integer|between:0,1',\n\n\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098085.9062,
+			"method": "PUT",
+			"modified": 1548038843377,
+			"name": "update-resolve",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/update-resolve/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_324b809b6f2f4a4aaef84b4d317bdf49",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\"supporter_id\": 1\n}"
+			},
+			"created": 1547950028147,
+			"description": "## Validation\n```\n'supporter_id'                  => 'integer|exists:users,id',\n\n\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098085.125,
+			"method": "PUT",
+			"modified": 1548038888910,
+			"name": "update-supporter",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/update-supporter/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_b964369041a8406d8f9075ec334581be",
+			"authentication": {},
+			"body": {},
+			"created": 1548060235885,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097939.0312,
+			"method": "GET",
+			"modified": 1548060258779,
+			"name": "supporter",
+			"parameters": [],
+			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}ticket/supporter",
+			"_type": "request"
+		},
+		{
+			"_id": "req_6e9cb5de4bc1486e88e7a7a1cbec8957",
+			"authentication": {},
+			"body": {},
+			"created": 1547795534164,
+			"description": "## INCLUDE\n```\n'user',\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098039.0312,
+			"method": "GET",
+			"modified": 1547957185539,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}comment-tickets",
+			"_type": "request"
+		},
+		{
+			"_id": "req_fa2414b111a94b7e8ed463217218c004",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"comments\": \"comment 111dd \"\t\n}"
+			},
+			"created": 1547795535996,
+			"description": "## Validation\n```\n\n            'comments'                   => 'required',\n            'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098089.0312,
+			"method": "PUT",
+			"modified": 1548038806171,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}comment-tickets/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_eca9c8be771943ba981c7aa8f175f2fd",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticket_id\": 1,\n\t\"comments\": \"comment 1111 \"\t\n}"
+			},
+			"created": 1547795546614,
+			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098139.0312,
+			"method": "POST",
+			"modified": 1548038817616,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}comment-tickets",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e416a6ca1af5434d8b1708411d31d930",
+			"authentication": {},
+			"body": {},
+			"created": 1547795555339,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098064.0312,
+			"method": "DELETE",
+			"modified": 1547954373374,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}comment-tickets/3",
+			"_type": "request"
+		},
+		{
+			"_id": "req_465d44190b7f4f9db716e4b375665cb5",
+			"authentication": {},
+			"body": {},
+			"created": 1547861172118,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098038.25,
+			"method": "GET",
+			"modified": 1547955841237,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}comment-tickets/4?include=user",
+			"_type": "request"
+		},
+		{
 			"_id": "req_345a8e1a905d45b9aa044e53685261cd",
 			"authentication": {},
 			"body": {},
@@ -10275,6 +11287,309 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_f7e241698094405e935130c44cb469e8",
+			"authentication": {},
+			"body": {},
+			"created": 1547958506210,
+			"description": "## INCLUDE\n```\n'userCreate',\n'supporter',\n'commentTickets'\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098037.4688,
+			"method": "GET",
+			"modified": 1548005285150,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket?include=supporter,userCreate",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0b6c597453094d10a4e8d5cc6963d7f2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\"\t\n}"
+			},
+			"created": 1547958506219,
+			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n           \n\n\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098087.4688,
+			"method": "PUT",
+			"modified": 1548007210972,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_aa0e0f36667e46b6a9badf81b9f47aea",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+			},
+			"created": 1547958506228,
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n         \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098137.4688,
+			"method": "POST",
+			"modified": 1547958583518,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket?include=supporter,userCreate",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8e7559613b9644a8a1c2a922978a993d",
+			"authentication": {},
+			"body": {},
+			"created": 1547958506237,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098112.4688,
+			"method": "DELETE",
+			"modified": 1548001044976,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7709eebce1044eb5a320a4f5e9afb586",
+			"authentication": {},
+			"body": {},
+			"created": 1547958506246,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097987.4688,
+			"method": "GET",
+			"modified": 1547958632964,
+			"name": "resolve-status",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket/status",
+			"_type": "request"
+		},
+		{
+			"_id": "req_593ac36bfa684751af6008811b1cf5f4",
+			"authentication": {},
+			"body": {},
+			"created": 1547958506255,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098035.9062,
+			"method": "GET",
+			"modified": 1548000637756,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}ticket/12",
+			"_type": "request"
+		},
+		{
+			"_id": "req_f2ae8aa6b9b641089bbe4a03ae7c168b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"comments\": \"comment 111dd \"\t\n}"
+			},
+			"created": 1547958506305,
+			"description": "## Validation\n```\n\n            'comments'                   => 'required',\n            'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098089.0312,
+			"method": "PUT",
+			"modified": 1548005211702,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_a347b33f352b471da7912bf797e03438",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}comment-tickets/25",
+			"_type": "request"
+		},
+		{
+			"_id": "req_696c95e415ef48059b2067471c6aa7e6",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"comments\": \"comment 1111 \"\t\n}"
+			},
+			"created": 1547958506315,
+			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098139.0312,
+			"method": "POST",
+			"modified": 1548005001918,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_a347b33f352b471da7912bf797e03438",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}comment-tickets",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a81f124dcb7e4f2eb6b845dff0dc65e6",
+			"authentication": {},
+			"body": {},
+			"created": 1547958506323,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098064.0312,
+			"method": "DELETE",
+			"modified": 1547958652477,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_a347b33f352b471da7912bf797e03438",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}comment-tickets/3",
+			"_type": "request"
+		},
+		{
 			"_id": "req_9880b4715f704ad7a5654c417abaad3c",
 			"authentication": {},
 			"body": {},
@@ -10437,6 +11752,309 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ merchant_url }}places/status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_76eb7517aeae4683822f7c121d027e43",
+			"authentication": {},
+			"body": {},
+			"created": 1547958999414,
+			"description": "## INCLUDE\n```\n'userCreate',\n'supporter',\n'commentTickets'\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098037.4688,
+			"method": "GET",
+			"modified": 1548038215946,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket",
+			"_type": "request"
+		},
+		{
+			"_id": "req_28dc136b0e234f24aa5a2965cc5c8ea9",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\"\t\n}"
+			},
+			"created": 1547958999423,
+			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n           \n\t\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098087.4688,
+			"method": "PUT",
+			"modified": 1548007232535,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a525eb13e04242139bfe09d2b1d3476f",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"Tôi muốn thuê phòng theo tháng\",\n\t\"content\": \"Tôi muốn thuê phòng theo tháng, không biết giá như thế nào\"\t\n}"
+			},
+			"created": 1547958999435,
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id'        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098137.4688,
+			"method": "POST",
+			"modified": 1548038201755,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket?include=supporter,userCreate",
+			"_type": "request"
+		},
+		{
+			"_id": "req_15738c616d564b12a65ba51beff38b6a",
+			"authentication": {},
+			"body": {},
+			"created": 1547958999448,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098112.4688,
+			"method": "DELETE",
+			"modified": 1548001098383,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c448f18d4e1145efb04012ed504a161d",
+			"authentication": {},
+			"body": {},
+			"created": 1547958999465,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097987.4688,
+			"method": "GET",
+			"modified": 1547959079418,
+			"name": "resolve-status",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket/status",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9fe32a55662048b181d9dd1de7ee8b04",
+			"authentication": {},
+			"body": {},
+			"created": 1547958999475,
+			"description": "\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098035.9062,
+			"method": "GET",
+			"modified": 1548001082494,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}ticket/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_8de4ce344c0d4afeaaaefebd74a87989",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticket_id\" :5,\n\t\"comments\": \"comment  \"\t\n}"
+			},
+			"created": 1547958999524,
+			"description": "## Validation\n```\n\n            'comments'                   => 'required',\n            'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098089.0312,
+			"method": "PUT",
+			"modified": 1548004918844,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_335c08fff8cd410396347acdfa1a7e5e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}comment-tickets/25",
+			"_type": "request"
+		},
+		{
+			"_id": "req_12b786dedb7d41ef9ae7d5dcb2be0ad3",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"ticket_id\": 2,\n\t\"comments\": \"comment 1111 \"\t\n}"
+			},
+			"created": 1547958999533,
+			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098139.0312,
+			"method": "POST",
+			"modified": 1548038307225,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_335c08fff8cd410396347acdfa1a7e5e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}comment-tickets",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c96d4437074f4d839a174c488d877b13",
+			"authentication": {},
+			"body": {},
+			"created": 1547958999542,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098064.0312,
+			"method": "DELETE",
+			"modified": 1548002105175,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_335c08fff8cd410396347acdfa1a7e5e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}comment-tickets/12",
 			"_type": "request"
 		}
 	]
