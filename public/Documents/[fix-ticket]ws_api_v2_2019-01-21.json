@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-21T09:44:21.647Z",
+	"__export_date": "2019-01-21T09:47:30.020Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -10954,7 +10954,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098087.4688,
 			"method": "PUT",
-			"modified": 1548007210972,
+			"modified": 1548064000336,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
@@ -10972,10 +10972,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
 			},
 			"created": 1547958506228,
-			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n         \n        \n```",
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id'\n\n         \n        \n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -10991,7 +10991,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098137.4688,
 			"method": "POST",
-			"modified": 1547958583518,
+			"modified": 1548063994612,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
@@ -11422,7 +11422,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098087.4688,
 			"method": "PUT",
-			"modified": 1548039303728,
+			"modified": 1548064018730,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
@@ -11440,7 +11440,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
 			},
 			"created": 1547958999435,
 			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n          \n\n         \n        \n```",
@@ -11459,7 +11459,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098137.4688,
 			"method": "POST",
-			"modified": 1548039289754,
+			"modified": 1548064014223,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
