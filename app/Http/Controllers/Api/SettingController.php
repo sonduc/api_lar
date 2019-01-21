@@ -42,7 +42,7 @@ class SettingController extends ApiController
             'meta_title'                                => 'required',
             'meta_description'                          => 'required',
 
-            'meta_keywords'                             => 'array|required|distinct',
+            'meta_keywords'                             => 'required|distinct',
             'meta_keywords.*'                           => 'distinct',
         ];
     protected $validationMessages
