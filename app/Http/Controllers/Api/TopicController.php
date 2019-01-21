@@ -49,6 +49,7 @@ class TopicController extends ApiController
     {
         DB::enableQueryLog();
         try {
+            $this->authorize('ticket.view');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
@@ -69,7 +70,7 @@ class TopicController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            //$this->authorize('ticket.view');
+            $this->authorize('ticket.view');
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
@@ -144,7 +145,7 @@ class TopicController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-//            $this->authorize('ticket.update');
+            $this->authorize('ticket.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id,$request->all());
             //dd(DB::getQueryLog());
@@ -189,7 +190,7 @@ class TopicController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            //$this->authorize('ticket.delete');
+            $this->authorize('ticket.delete');
             $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());
