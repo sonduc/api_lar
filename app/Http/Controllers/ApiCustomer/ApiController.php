@@ -57,23 +57,4 @@ class ApiController extends Controller
     }
 
 
-
-//    protected function simpleArrayToObjectForUsedForGetNumberRoom($arr = []): array
-//    {
-//        $arr2d = [];
-////        $test = array_map(function ($item){
-////            return $arr[]  =$item;
-////
-////        },$arr);
-////        dd($test);
-//        foreach ($arr as $key => $item) {
-//            $arr2d[] = [
-//                'id'    => $item['room_id'],
-//                'value' => $item['total_rooms'],
-//            ];
-//        }
-//        dd($arr2d);
-//        return $arr2d;
-//
-//    }
 }

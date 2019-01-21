@@ -38,7 +38,7 @@ class TicketController extends ApiController
             'subtopic_id.exists'            => "Mã topic không tồn tại",
 
             'supporter_id.integer'          => "Mã topic phải là kiểu số",
-            'supporter_id.exists'           => "Mã topic không tồn tại",
+            'supporter_id.exists'           => "Mã supporter không tồn tại",
 
             'resolve.integer'               => "Trường này phải là kiểu số",
             'resolve.between'               => "Mã Resolve không hợ lệ"
@@ -63,6 +63,7 @@ class TicketController extends ApiController
     {
         DB::enableQueryLog();
         try {
+            // Supporter có thể xem tất cả các danh sách ticket trong hệ thống
             $this->authorize('ticket.create');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
@@ -158,7 +159,8 @@ class TicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.update');
+            // chỉ có admin mới có quyền tất cả update các trường trong ticket
+            $this->authorize('user.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->update($id,$request->all());
             //dd(DB::getQueryLog());
@@ -205,7 +207,8 @@ class TicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.delete');
+            // chỉ có admin mới có quyền xóa ticket
+            $this->authorize('user.delete');
             $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());
@@ -309,12 +312,14 @@ class TicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.update');
+            // Chỉ có admin mới có quyền thêm  supporter
+            $this->authorize('user.update');
 
             $validate = array_only($this->validationRules, [
                 'supporter_id'
             ]);
             $this->validate($request, $validate, $this->validationMessages);
+            $this->model->checkValidSupporter($request->only('supporter_id'));
             $data = $this->model->minorUpdate($id, $request->only('supporter_id'));
             DB::commit();
             logs('Supporter', 'cập nhâp Suporter cho ticket' . $data->id, $data);
@@ -340,6 +345,26 @@ class TicketController extends ApiController
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getSupporter()
+    {
+        try {
+            $this->authorize('user.view');
+            $result = $this->model->getSupporter()->toArray();
+            return $this->successResponseUsedForCountRoom(['data' => $result]);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
             throw $t;
         }
     }

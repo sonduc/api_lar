@@ -258,13 +258,6 @@ return [
         App\Repositories\Settings\SettingRepository::class,
     ],
 
-    /**
-     * Seo
-     */
-    App\Repositories\Seo\Seo::class => [
-        App\Repositories\Seo\SeoRepositoryInterface::class,
-        App\Repositories\Seo\SeoRepository::class,
-    ],
 
     /**
      * SubTopic

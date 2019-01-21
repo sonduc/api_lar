@@ -223,21 +223,6 @@ $router->group([
     resource('/compare-checking', 'CompareCheckingController', $router);
 
 
-
-
-
-    /**
-     *  Resource
-     */
-    $router->put('/settings/update-contact/{id}', 'SettingController@updateContact');
-    $router->get('/settings/status', 'SettingController@settingStatus');
-    resource('/settings', 'SettingController', $router);
-
-    /**
-     *  Resource
-     */
-    resource('/seo', 'SeoController', $router);
-
     /**
      *  Resource
      */
@@ -252,6 +237,7 @@ $router->group([
      *  Resource
      */
     $router->get('/ticket/status', 'TicketController@ticketStatus');
+    $router->get('/ticket/supporter', 'TicketController@getSupporter');
     $router->put('/ticket/update-resolve/{id}', 'TicketController@updateResolve');
     $router->put('/ticket/update-supporter/{id}', 'TicketController@updateSupporter');
     resource('/ticket', 'TicketController', $router);

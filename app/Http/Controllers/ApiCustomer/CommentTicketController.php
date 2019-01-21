@@ -53,7 +53,6 @@ class CommentTicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
             DB::commit();
@@ -146,7 +145,6 @@ class CommentTicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('ticket.delete');
             $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());

@@ -12,6 +12,10 @@ class Role extends Entity
      *
      * @var array
      */
+
+    const SUPER_ADMIN           = 1;
+    const SUPPORTER             = 2;
+    const MERCHANT              = 3;
     protected $fillable = ['name', 'slug', 'permissions'];
 
     /**

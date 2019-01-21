@@ -8,6 +8,8 @@
 
 namespace App\Repositories\CommentTicket;
 
+use App\Repositories\Roles\Role;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Repositories\Ticket\Ticket;
 
@@ -33,7 +35,7 @@ trait CommentTicketLogicTrait
             throw new \Exception('Thẻ Ticket này đã đóng nên bạn không thẻ bình luận thêm được');
 
         }
-        if ($data['user_id'] == $ticket->supporter_id || $data['user_id'] == $ticket->user_create_id)
+        if ($data['user_id'] == $ticket->supporter_id || $data['user_id'] == $ticket->user_create_id || $data['user_id'] == Role::SUPER_ADMIN)
         {
             return parent::store($data);
         }else
