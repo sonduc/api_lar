@@ -120,8 +120,9 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @return mixed
      */
 
-    public function getBookingByCustomerId($id, $size)
+    public function getBookingByCustomerId($id,$params, $size)
     {
+        $this->useScope($params);
         return $this->model
             ->where('bookings.customer_id', $id)
             ->paginate($size);
