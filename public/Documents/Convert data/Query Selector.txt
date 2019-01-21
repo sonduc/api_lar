@@ -143,7 +143,7 @@ FROM
 
 -- Comforts (Only Vietnamese)
 
-select id, `created_at`, `updated_at` from comforts where locale = 'vi';
+select id, `created_at`, `updated_at`, null as icon, null as icon_name from comforts where locale = 'vi';
 
 -- Comforts -> Comfort_Translates (Only Vietnamese)
 

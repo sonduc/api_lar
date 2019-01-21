@@ -32,6 +32,7 @@ class ComfortTransformer extends TransformerAbstract
         return [
             'id'         => $comfort->id,
             'icon'       => $comfort->icon,
+            'icon_name'  => $comfort->icon_name
 //            'created_at' => $comfort->created_at ? $comfort->created_at->format('Y-m-d H:i:s') : null,
 //            'updated_at' => $comfort->created_at ? $comfort->updated_at->format('Y-m-d H:i:s') : null,
         ];

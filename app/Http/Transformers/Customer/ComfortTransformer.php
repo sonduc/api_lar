@@ -21,8 +21,9 @@ class ComfortTransformer extends TransformerAbstract
         }
 
         return [
-            'id'    => $comfort->id,
-            'icon'  => $comfort->icon,
+            'id'         => $comfort->id,
+            'icon'       => $comfort->icon,
+            'icon_name'  => $comfort->icon_name
         ];
     }
 
