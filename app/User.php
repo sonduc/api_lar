@@ -19,13 +19,13 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
 {
     use Authenticatable, Authorizable, HasApiTokens, FilterTrait, PresentationTrait, SoftDeletes;
 
-    const ENABLE   = 1;
-    const DISABLE  = 0;
+    const ENABLE        = 1;
+    const DISABLE       = 0;
 
     // Định nghĩa loại tài khoản
-    const ADMIN     = 2;
-    const MERCHANT  = 1;
-    const USER      = 0;
+    const ADMIN         = 2;
+    const MERCHANT      = 1;
+    const USER          = 0;
 
     const TYPE_ACCOUNT = [
         self::ADMIN    => 'Quản trị hệ  thống',
@@ -70,8 +70,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         self::DIAMOND  => 'Kim Cương',
     ];
 
-    // Định nghĩa quyền merchant.
-    const ROLE_MERCHANT = 2;
 
     // Định nghĩa VIP
     const VIP_ACTIVE   = 1;

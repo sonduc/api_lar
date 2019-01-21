@@ -255,4 +255,14 @@ return [
             'delete'  => 'Delete',
         ],
     ],
+
+    'ticket'              => [
+        'title' => 'Quản lý ticket',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+        ],
+    ]
 ];

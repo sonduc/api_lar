@@ -98,7 +98,7 @@ class BookingLogic extends BaseLogic
         $data['settings']    = $room->settings;
         $data_booking        = parent::store($data);
         $this->status->storeBookingStatus($data_booking, $data);
-       // $this->payment->storePaymentHistory($data_booking, $data);
+        // $this->payment->storePaymentHistory($data_booking, $data);
         $this->room_calendar->storeRoomCalendar($data_booking, $data);
         return $data_booking;
     }
@@ -142,9 +142,9 @@ class BookingLogic extends BaseLogic
      *
      * @return mixed
      */
-    public function getBooking($id,$params,$pageSize)
+    public function getBooking($id, $params, $pageSize)
     {
-        $booking = $this->booking->getBookingByCustomerId($id,$params, $pageSize);
+        $booking = $this->booking->getBookingByCustomerId($id, $params, $pageSize);
         return $booking;
     }
 

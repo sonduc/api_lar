@@ -11,6 +11,7 @@ namespace App\Http\Controllers\ApiMerchant;
 use App\Events\Customer_Register_Event;
 use App\Http\Controllers\ApiController;
 use App\Http\Transformers\UserTransformer;
+use App\Repositories\Roles\Role;
 use App\Repositories\Users\UserRepository;
 use App\User;
 use Carbon\Carbon;
@@ -100,7 +101,7 @@ class RegisterController extends ApiController
             $newClient = $this->getResource()->store($params);
 
             // Tạo quyền cho merchant.
-            $newClient->roles()->attach([User::ROLE_MERCHANT]);
+            $newClient->roles()->attach([Role::MERCHANT]);
 
 
             if ($newClient && isset($params['ref_code'])) {

@@ -70,6 +70,17 @@ $router->group([
      */
     $router->post('/promotions/join-promotion', 'PromotionController@joinPromotion');
     resource('promotions', 'PromotionController', $router);
+
+    /**
+     *  Resource
+     */
+    $router->get('/ticket/status', 'TicketController@ticketStatus');
+    resource('/ticket', 'TicketController', $router);
+
+    /**
+     *  comment-ticket
+     */
+    resource('/comment-tickets', 'CommentTicketController', $router);
 });
 
 /**

@@ -19,13 +19,10 @@ class CreateSettingsTable extends Migration
             $table->string('address')->nullable();
             $table->string('homepage_image')->nullable();
             $table->string('image_logo')->nullable();
-            $table->longText('description')->nullable();
-            $table->longText('bank_account')->nullable();
+            $table->text('description')->nullable();
+            $table->string('bank_account', 20)->nullable();
             $table->longText('contact_hotline')->nullable();
             $table->longText('contact_email')->nullable();
-            $table->string('meta_title')->nullable();
-            $table->text('meta_description')->nullable();
-            $table->text('meta_keywords')->nullable();
             $table->softDeletes()->nullable();
             $table->timestamps();
         });

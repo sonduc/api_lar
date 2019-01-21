@@ -19,15 +19,8 @@ class UserSeeder extends Seeder
             ]);
         }
 
-        if (!\App\Repositories\Roles\Role::find(1)) {
-            factory(App\Repositories\Roles\Role::class)->create([
-                'name'        => 'Super admin',
-                'slug'        => 'superadmin',
-                'permissions' => [
-                    'admin.super-admin' => true,
-                ],
-            ]);
-        }
+
+
         if (!DB::table('role_users')->where('user_id', 1)->where('role_id', 1)->first()) {
             DB::table('role_users')->insert(['user_id' => 1, 'role_id' => 1]);
         }

@@ -56,4 +56,24 @@ class ApiController extends Controller
 
         return $arr2d;
     }
+
+    /**
+     * Tạo mảng các object từ array
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param array $arr
+     *
+     * @return array
+     */
+    protected function simpleArrayToObjectForUser($arr = []): array
+    {
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $item['id'],
+                'value' => $item['name'],
+            ];
+        }
+
+        return $arr2d;
+    }
 }

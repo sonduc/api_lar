@@ -13,14 +13,13 @@ use App\Repositories\BaseRepository;
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
 {
     /**
-     * @var Blog
+     * @var Setting
      */
     protected $model;
 
     /**
-     * BlogRepository constructor.
-     *
-     * @param Blog $blog
+     * SettingRepository constructor.
+     * @param Setting $setting
      */
     public function __construct(
         Setting $setting

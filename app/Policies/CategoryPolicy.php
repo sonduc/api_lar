@@ -22,7 +22,7 @@ class CategoryPolicy
     }
 
     /**
-     * Determine whether the user can create blog.
+     * Determine whether the user can create category.
      *
      * @param  \App\User $user
      *
@@ -34,7 +34,7 @@ class CategoryPolicy
     }
 
     /**
-     * Determine whether the user can update the blog.
+     * Determine whether the user can update the category
      *
      * @param  \App\User $user
      *
@@ -46,7 +46,7 @@ class CategoryPolicy
     }
 
     /**
-     * Determine whether the user can delete the blog.
+     * Determine whether the user can delete the category.
      *
      * @param  \App\User $user
      *

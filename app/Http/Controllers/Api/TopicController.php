@@ -2,47 +2,42 @@
 /**
  * Created by PhpStorm.
  * User: DUCCHIEN-PC
- * Date: 1/16/2019
- * Time: 3:46 PM
+ * Date: 1/18/2019
+ * Time: 2:02 PM
  */
 
 namespace App\Http\Controllers\Api;
 
 
-use App\Http\Transformers\SeoTransformers;
-use App\Repositories\Seo\SeoRepositoryInterface;
+use App\Http\Transformers\TopicTransformer;
+use App\Repositories\Topic\TopicRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SeoController extends ApiController
+
+class TopicController extends ApiController
 {
     protected $validationRules
         = [
-            'meta_title'                                 => 'required',
-            'meta_description'                           => 'required',
-            'meta_keywords.*'                            => 'bail|distinct',
-            'meta_keywords'                              => 'array|required',
+            'name'          => 'required|v_title|unique:topics,name',
         ];
     protected $validationMessages
         = [
-            'meta_title.required'                        => "Trường này không để trống",
-            'meta_description.required'                  => "Trường này không để trống",
-            'meta_keywords.array'                        => "Dữ liệu phải là dạng mảng",
-            'meta_keywords.required'                     => "Trường này không được để trống",
-            'meta_keywords.*.distinct'                   => "Các keyword không thể trùng nhau"
+            'name.required' => "Trường này không được để trống",
+            'name.unique'   => "Tên này đã tồn tại",
+            'name.v_title'  => "Tên này không hợp lệ"
 
         ];
 
     /**
-     * BlogController constructor.
-     *
-     * @param BlogRepository $blog
+     * TopicController constructor.
+     * @param TopicRepositoryInterface $topic
      */
-    public function __construct(SeoRepositoryInterface $seo)
+    public function __construct(TopicRepositoryInterface $topic)
     {
-        $this->model = $seo;
-        $this->setTransformer(new SeoTransformers);
+        $this->model = $topic;
+        $this->setTransformer(new TopicTransformer);
     }
 
     /**
@@ -54,7 +49,7 @@ class SeoController extends ApiController
     {
         DB::enableQueryLog();
         try {
-            $this->authorize('seo.view');
+            $this->authorize('ticket.view');
             $pageSize    = $request->get('limit', 25);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
@@ -75,7 +70,7 @@ class SeoController extends ApiController
     public function show(Request $request, $id)
     {
         try {
-            $this->authorize('seo.view');
+            $this->authorize('ticket.view');
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
@@ -93,7 +88,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Tạo mới SEO
+     *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -105,13 +100,13 @@ class SeoController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('seo.create');
+            $this->authorize('ticket.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();
-            logs('seo', 'taọ seo' . $model->id, $model);
-            return $this->successResponse($model, true, 'details');
+            logs('topic', 'taọ topic' . $model->id, $model);
+            return $this->successResponse($model);
         } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
@@ -125,6 +120,9 @@ class SeoController extends ApiController
             ]);
         } catch (\Exception $e) {
             DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();
@@ -133,7 +131,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Cập nhập SEO
+     *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -147,14 +145,14 @@ class SeoController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('seo.update');
+            $this->authorize('ticket.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->update($id, $request->all());
+            $model = $this->model->update($id,$request->all());
             //dd(DB::getQueryLog());
             DB::commit();
-            logs('setting_main', 'Cập nhật setting cho hệ thống mã' . $model->id, $model);
+            logs('topic', 'Cập nhật topic' . $model->id, $model);
             //dd(DB::getQueryLog());
-            return $this->successResponse($model, true, 'details');
+            return $this->successResponse($model);
         } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
@@ -179,7 +177,7 @@ class SeoController extends ApiController
     }
 
     /**
-     * Xóa SEO
+     *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
@@ -192,7 +190,7 @@ class SeoController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('setting_main.delete');
+            $this->authorize('ticket.delete');
             $this->model->delete($id);
             DB::commit();
             //dd(DB::getQueryLog());

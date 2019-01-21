@@ -99,7 +99,7 @@ class BlogTransformer extends TransformerAbstract
 
     /**
      *
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612gmail.com>
      *
      * @param Blog|null $blog
      *

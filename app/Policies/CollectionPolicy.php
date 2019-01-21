@@ -16,7 +16,7 @@ class CollectionPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can view the blog.
+     * Determine whether the user can view the collection.
      *
      * @param  \App\User $user
      *
@@ -28,7 +28,7 @@ class CollectionPolicy
     }
 
     /**
-     * Determine whether the user can create blog.
+     * Determine whether the user can create collection.
      *
      * @param  \App\User $user
      *
@@ -40,7 +40,7 @@ class CollectionPolicy
     }
 
     /**
-     * Determine whether the user can update the blog.
+     * Determine whether the user can update the collection
      *
      * @param  \App\User $user
      *
@@ -52,7 +52,7 @@ class CollectionPolicy
     }
 
     /**
-     * Determine whether the user can delete the blog.
+     * Determine whether the user can delete the collection.
      *
      * @param  \App\User $user
      *

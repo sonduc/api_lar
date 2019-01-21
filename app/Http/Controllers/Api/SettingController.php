@@ -18,95 +18,51 @@ class SettingController extends ApiController
 {
     protected $validationRules
         = [
-            'name'                                      => 'required|v_title',
-            'description'                               => 'required',
-            'address'                                   => 'required|min:5',
-
-            'bank_account'                              => 'array|required',
-            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',
-            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',
-            'bank_account.*.bank_branch'                => 'required|min:3|v_title',
-
-
-            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',
-            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',
-
-            'contact_email'                             => 'array|required',
-            'contact_email.*.email'                     =>'required|email|max:100|distinct',
-            'contact_email.*.status'                    =>'integer|between:0,1',
-
-            'contact_hotline'                           => 'array|required',
-            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\+?[0-9-]*$/',
-            'contact_hotline.*.status'                  =>'integer|between:0,1',
-
-            'meta_title'                                => 'required',
-            'meta_description'                          => 'required',
-
-            'meta_keywords'                             => 'required|distinct',
-            'meta_keywords.*'                           => 'distinct',
+            'name'                                  => 'required',
+            'description'                           => 'required',
+            'address'                               => 'required|min:5',
+            'bank_account'                          => 'required|min:3|regex:/^\+?[0-9-]*$/',
+            //'homepage_image'                      =>'required/image|mimes:jpeg,bmp,png,jpg',
+            //'image_logo'                           =>'required/image|mimes:jpeg,bmp,png,jpg',
+            'contact_email.*.email'                 =>'required|email|max:100|distinct',
+            'contact_email.*.status'                =>'integer|between:0,1',
+            'contact_hotline.*.phone'               =>'required|max:20|distinct|regex:/^\+?[0-9-]*$/',
+            'contact_hotline.*.status'              =>'integer|between:0,1',
         ];
     protected $validationMessages
         = [
-            'name.required'                             => 'Trường này không được để trống',
-            'name.v_title'                              => 'Tên không hợp lệ',
-            'description.required'                      => 'Trường này không được để trống',
-            'address.required'                          => 'Trường này không được để trống',
+            'name.required'                         => 'Trường này không được để trống',
+            'description.required'                  => 'Trường này không được để trống',
+            'address.required'                      => 'Trường này không được để trống',
+            'bank_account.required'                 => 'Trường này không được để trống',
+            'bank_account.min'                      => 'Số tài khoản ngân hàng phải nhiều hơn 3 chữ số',
+            'bank_account.regex'                    => 'Số tài khoản ngân hàng không hợp lệ',
 
-            'bank_account.array'                        => "Dữ liệu phải là dạng mảng",
-            'bank_account.required'                     => "Trường này không được để trống",
+            //'homepage_image.image'                =>'Định dạng không phải là hình ảnh',
+            //'homepage_image.required'             =>'Định dạng không phải là hình ảnh',
+            //'homepage_image.mimes'                => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
+            //'image_logo.image'                    =>'Định dạng không phải là hình ảnh',
+            //'image_logo.required'                 =>'Định dạng không phải là hình ảnh',
+            //'image_logo.mimes'                    => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
+            'contact_email.*.email.required'        => 'Trường này không được để trống',
+            'contact_email.*.email.email'           => 'Không đúng định dạng email',
+            'contact_email.*.email.max'             => 'Độ dài email không hợp lệ',
+            'contact_email.*.email.distinct'        => 'Email không được trùng nhau',
+            'contact_email.*.status.between'        => 'Mã trạng thái không hợp lệ',
 
-            'bank_account.*.account_name.required'      => 'Trường này không được để trống',
-            'bank_account.*.account_name.min'           => 'Tên tài khoản phải ít nhất 3 ký tự',
-            'bank_account.*.account_name.v_title'       => 'Tên tài khoản không howpk lệ',
-            'bank_account.*.account_name.distinct'      => 'Tên tài khoản không được trùng nhau',
-
-            'bank_account.*.account_number.required'    => 'Số tài khoản không được để trống',
-            'bank_account.*.account_number.min'         => 'Số tài khoản phải ít nhất 3 ký tự',
-            'bank_account.*.account_number.v_title'     => 'Số tài khoản không hợ lê',
-            'bank_account.*.account_number.distinct'    => 'Số tài khoản không được trùng nhau',
-
-            'bank_account.*.bank_branch.required'       => 'Trường này không được để trống',
-            'bank_account.*.bank_branch.min'            => 'Chi nhánh ngân hàng phải ít nhất 3 ký tự',
-            'bank_account.*.bank_branch.v_title'        => 'Tên chi nhánh ngân hàng không hợp lệ',
-
-
-            //'homepage_image.image'                    =>'Định dạng không phải là hình ảnh',
-            //'homepage_image.required'                 =>'Định dạng không phải là hình ảnh',
-            //'homepage_image.mimes'                    => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
-            //'image_logo.image'                        =>'Định dạng không phải là hình ảnh',
-            //'image_logo.required'                     =>'Định dạng không phải là hình ảnh',
-            //'image_logo.mimes'                        => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
-
-            'contact_email.array'                       => "Dữ liệu phải là dạng mảng",
-            'contact_email.required'                    => "Trường này không được để trống",
-
-            'contact_email.*.email.required'            => 'Trường này không được để trống',
-            'contact_email.*.email.email'               => 'Không đúng định dạng email',
-            'contact_email.*.email.max'                 => 'Độ dài email không hợp lệ',
-            'contact_email.*.email.distinct'            => 'Email không được trùng nhau',
-
-            'contact_hotline.array'                     => "Dữ liệu phải là dạng mảng",
-            'contact_hotline.required'                  => "Trường này không được để trống",
-
-            'contact_hotline.*.phone.required'          => 'Trường này không được để trống',
-            'contact_hotline.*.phone.max'               => 'Mã trạng thái phải là kiểu số',
-            'contact_hotline.*.phone.regex'             => 'Số điện thoại không hợp lệ',
-            'contact_hotline.*.phone.distinct'          => 'Số điện thoại không được trùng nhau',
-
-
-            'meta_title.required'                       => "Trường này không để trống",
-            'meta_description.required'                 => "Trường này không để trống",
-            'meta_keywords.array'                       => "Dữ liệu phải là dạng mảng",
-            'meta_keywords.required'                    => "Trường này không được để trống",
-
-            'meta_keywords.*.distinct'                  => "Các keyword không thể trùng nhau"
+            'contact_hotline.*.phone.required'      => 'Trường này không được để trống',
+            'contact_hotline.*.phone.max'           => 'Mã trạng thái phải là kiểu số',
+            'contact_hotline.*.phone.regex'         => 'Số điện thoại không hợp lệ',
+            'contact_hotline.*.phone.distinct'      => 'Số điện thoại không được trùng nhau',
+            'contact_hotline.*.status.between'      => 'Mã trạng thái không hợp lệ',
 
 
         ];
 
     /**
-     * SettingController constructor.
-     * @param SettingRepositoryInterface $setting
+     * BlogController constructor.
+     *
+     * @param BlogRepository $blog
      */
     public function __construct(SettingRepositoryInterface $setting)
     {
@@ -149,7 +105,6 @@ class SettingController extends ApiController
         try {
             $this->authorize('settingMain.create');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
 
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());

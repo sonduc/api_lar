@@ -108,6 +108,14 @@ $router->group([
     resource('/transactions', 'TransactionController', $router);
 
     /**
+     * Settings
+     */
+    $router->put('/settings/update-contact/{id}', 'SettingController@updateContact');
+    $router->get('/settings/status', 'SettingController@settingStatus');
+    resource('/settings', 'SettingController', $router);
+
+
+    /**
      * Booking Resource
      */
     $router->get('/bookings/booking-status-list', 'BookingController@bookingStatusList');
@@ -223,13 +231,30 @@ $router->group([
     //Compare checking
     resource('/compare-checking', 'CompareCheckingController', $router);
 
+
     /**
      *  Resource
      */
-    $router->put('/settings/update-contact/{id}', 'SettingController@updateContact');
-    $router->get('/settings/status', 'SettingController@settingStatus');
-    resource('/settings', 'SettingController', $router);
+    resource('/topic', 'TopicController', $router);
 
+    /**
+     *  Resource
+     */
+    resource('/subtopic', 'SubTopicController', $router);
+
+    /**
+     *  Resource
+     */
+    $router->get('/ticket/status', 'TicketController@ticketStatus');
+    $router->get('/ticket/supporter', 'TicketController@getSupporter');
+    $router->put('/ticket/update-resolve/{id}', 'TicketController@updateResolve');
+    $router->put('/ticket/update-supporter/{id}', 'TicketController@updateSupporter');
+    resource('/ticket', 'TicketController', $router);
+
+    /**
+     *  comment-ticket
+     */
+    resource('/comment-tickets', 'CommentTicketController', $router);
 });
 
 $router->post('login', 'LoginController@login');
