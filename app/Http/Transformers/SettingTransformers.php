@@ -8,7 +8,6 @@
 
 namespace App\Http\Transformers;
 
-
 use App\Repositories\Settings\Setting;
 use App\Http\Transformers\Traits\FilterTrait;
 use League\Fractal\ParamBag;
@@ -16,7 +15,6 @@ use League\Fractal\TransformerAbstract;
 
 class SettingTransformers extends TransformerAbstract
 {
-
     use FilterTrait;
     protected $availableIncludes = [
 
@@ -36,11 +34,13 @@ class SettingTransformers extends TransformerAbstract
             'bank_account'      => json_decode($setting->bank_account),
             'image_logo'        => $setting->image_logo,
             'description'       => $setting->description,
+            'meta_title'        => $setting->meta_title,
+            'meta_description'  => $setting->meta_description,
+            'meta_keywords'     => $setting->meta_keywords,
             'contact_hotline'   => json_decode($setting->contact_hotline),
             'contact_email'     => json_decode($setting->contact_email),
             'created_at'        => $setting->created_at ? $setting->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'        => $setting->updated_at ? $setting->updated_at->format('Y-m-d H:i:s') : null
         ];
     }
-
 }
