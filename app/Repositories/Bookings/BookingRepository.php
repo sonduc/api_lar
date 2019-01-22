@@ -128,6 +128,37 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->paginate($size);
     }
 
+    /**
+     * Lấy tất cả các booking theo id chủ host có phân trang
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $size
+     *
+     * @return mixed
+     */
+
+    public function getBookingByMerchantId($id,$params, $size)
+    {
+        $this->useScope($params);
+        return $this->model
+            ->where('bookings.merchant_id', $id)
+            ->orderBy('bookings.id','DESC')
+            ->paginate($size);
+    }
+
+    /**
+     * Lấy tất cả các booking theo ID của bookign
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     */
+    public function getBookingById($id)
+    {
+        return parent::getById($id);
+
+    }
+
     public function updatStatusBooking($booking)
     {
         $data    = $booking->data;
