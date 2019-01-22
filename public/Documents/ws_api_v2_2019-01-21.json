@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-21T11:16:16.910Z",
+	"__export_date": "2019-01-22T03:16:01.915Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -5949,7 +5949,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"09678528419\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"{{ z_img  }}\",\n\t\n\t\"image_logo\":   \"{{ z_img  }}\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
 			},
 			"created": 1547613129564,
 			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
@@ -5968,7 +5968,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097984.3438,
 			"method": "POST",
-			"modified": 1548039751907,
+			"modified": 1548126892039,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
@@ -5986,7 +5986,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"mo ta ngan\",\n\t\n\t\"homepage_image\" : \"2019_01_15_87138534819d2d94b325.jpg\",\n\t\n\t\"image_logo\":   \"logo.png\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"09678528419\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"0967852841911\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \n\t[\n\t\t\t\"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh,\"\n\t]\t\n\t\n\t\n}"
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"{{ z_img  }}\",\n\t\n\t\"image_logo\":   \"{{ z_img  }}\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
 			},
 			"created": 1547613159735,
 			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
@@ -6005,7 +6005,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097934.3438,
 			"method": "PUT",
-			"modified": 1548039392904,
+			"modified": 1548126916298,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
@@ -6057,7 +6057,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 0\n\t\t}\n\t\t\n\t]\n}"
+				"text": "{\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 0\n\t\t}\t\n\t]\n}"
 			},
 			"created": 1547625535385,
 			"description": "## Validation\n```\n\t       'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n        \n```",
@@ -6076,7 +6076,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097928.0938,
 			"method": "PUT",
-			"modified": 1548018142849,
+			"modified": 1548126921104,
 			"name": "update-contact",
 			"parameters": [],
 			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
