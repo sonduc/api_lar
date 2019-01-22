@@ -9,6 +9,7 @@
 namespace App\Repositories\Settings;
 
 use App\Repositories\BaseRepository;
+use App\Events\AmazonS3_Upload_Event;
 
 class SettingRepository extends BaseRepository implements SettingRepositoryInterface
 {
@@ -43,11 +44,19 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
 //        {
 //            throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
 //        }
+        $data['homepage_image'] = isset($data['homepage_image']) ? $data['homepage_image'] : '';
+        $data['image_logo']     = isset($data['image_logo']) ? $data['image_logo'] : '';
 
+        $name_home = rand_name($data['homepage_image']);
+        event(new AmazonS3_Upload_Event($name_home, $data['homepage_image']));
+        $data['homepage_image']   = $name_home.'.jpeg';
 
+        $name_logo = rand_name($data['image_logo']);
+        event(new AmazonS3_Upload_Event($name_logo, $data['image_logo']));
+        $data['image_logo']   = $name_logo.'.jpeg';
         if (!empty($data)) {
-            $data['homepage_image']  = rand_name();
-            $data['image_logo']      = rand_name();
+            $data['homepage_image']  = $data['homepage_image'];
+            $data['image_logo']      = $data['image_logo'];
             $data['contact_email']   = isset($data['contact_email']) ? json_encode($data['contact_email']) : '';
             $data['contact_hotline'] = isset($data['contact_hotline']) ? json_encode($data['contact_hotline']) : '';
             $data['bank_account']    = isset($data['bank_account']) ? json_encode($data['bank_account']): '';
@@ -67,8 +76,14 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
     public function updateSettings($id, $data = [], $excepts = [], $only = [])
     {
         if (!empty($data)) {
-            $data['homepage_image'] = rand_name();
-            $data['image_logo']    = rand_name();
+            $name_home = rand_name($data['homepage_image']);
+            event(new AmazonS3_Upload_Event($name_home, $data['homepage_image']));
+            $data['homepage_image']   = $name_home.'.jpeg';
+
+            $name_logo = rand_name($data['image_logo']);
+            event(new AmazonS3_Upload_Event($name_logo, $data['image_logo']));
+            $data['image_logo']   = $name_logo.'.jpeg';
+
             if (isset($data['contact_email'])) {
                 $data['contact_email'] = json_encode($data['contact_email']);
             }

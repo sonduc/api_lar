@@ -33,7 +33,7 @@ class SettingTransformers extends TransformerAbstract
             'name'              => $setting->name,
             'address'           => $setting->address,
             'homepage_image'    => $setting->homepage_image,
-            'bank_account'      => $setting->bank_account,
+            'bank_account'      => json_decode($setting->bank_account),
             'image_logo'        => $setting->image_logo,
             'description'       => $setting->description,
             'contact_hotline'   => json_decode($setting->contact_hotline),

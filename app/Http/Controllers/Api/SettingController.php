@@ -14,6 +14,7 @@ use App\Repositories\Settings\SettingRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class SettingController extends ApiController
 {
     protected $validationRules
@@ -21,9 +22,9 @@ class SettingController extends ApiController
             'name'                                  => 'required',
             'description'                           => 'required',
             'address'                               => 'required|min:5',
-            'bank_account'                          => 'required|min:3|regex:/^\+?[0-9-]*$/',
-            //'homepage_image'                      =>'required/image|mimes:jpeg,bmp,png,jpg',
-            //'image_logo'                           =>'required/image|mimes:jpeg,bmp,png,jpg',
+            'bank_account.*.account_number'         => 'required|min:3|regex:/^\+?[0-9-]*$/',
+            'homepage_image'                        =>'required',
+            'image_logo'                            =>'required',
             'contact_email.*.email'                 =>'required|email|max:100|distinct',
             'contact_email.*.status'                =>'integer|between:0,1',
             'contact_hotline.*.phone'               =>'required|max:20|distinct|regex:/^\+?[0-9-]*$/',
@@ -34,15 +35,15 @@ class SettingController extends ApiController
             'name.required'                         => 'Trường này không được để trống',
             'description.required'                  => 'Trường này không được để trống',
             'address.required'                      => 'Trường này không được để trống',
-            'bank_account.required'                 => 'Trường này không được để trống',
-            'bank_account.min'                      => 'Số tài khoản ngân hàng phải nhiều hơn 3 chữ số',
-            'bank_account.regex'                    => 'Số tài khoản ngân hàng không hợp lệ',
+            'bank_account.*.account_number.required'  => 'Trường này không được để trống',
+            'bank_account.*.account_number.min'       => 'Số tài khoản ngân hàng phải nhiều hơn 3 chữ số',
+            'bank_account.*.account_number.regex'     => 'Số tài khoản ngân hàng không hợp lệ',
 
-            //'homepage_image.image'                =>'Định dạng không phải là hình ảnh',
-            //'homepage_image.required'             =>'Định dạng không phải là hình ảnh',
+            //'homepage_image.image'                => 'Định dạng không phải là hình ảnh',
+            'homepage_image.required'               => 'Ảnh trang chủ là bắt buộc',
             //'homepage_image.mimes'                => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
-            //'image_logo.image'                    =>'Định dạng không phải là hình ảnh',
-            //'image_logo.required'                 =>'Định dạng không phải là hình ảnh',
+            //'image_logo.image'                    => 'Định dạng không phải là hình ảnh',
+            'image_logo.required'                   => 'Ảnh logo là bắt buộc',
             //'image_logo.mimes'                    => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
             'contact_email.*.email.required'        => 'Trường này không được để trống',
             'contact_email.*.email.email'           => 'Không đúng định dạng email',
@@ -55,7 +56,6 @@ class SettingController extends ApiController
             'contact_hotline.*.phone.regex'         => 'Số điện thoại không hợp lệ',
             'contact_hotline.*.phone.distinct'      => 'Số điện thoại không được trùng nhau',
             'contact_hotline.*.status.between'      => 'Mã trạng thái không hợp lệ',
-
 
         ];
 
@@ -151,7 +151,7 @@ class SettingController extends ApiController
         try {
             $this->authorize('settingMain.update');
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->updateSettings($id,$request->all());
+            $model = $this->model->updateSettings($id, $request->all());
             //dd(DB::getQueryLog());
             DB::commit();
             logs('setting-main', 'Cập nhật setting cho hệ thống mã' . $model->id, $model);
@@ -224,7 +224,7 @@ class SettingController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function updateContact(Request $request,$id)
+    public function updateContact(Request $request, $id)
     {
         DB::beginTransaction();
         DB::enableQueryLog();
@@ -292,5 +292,4 @@ class SettingController extends ApiController
             throw $t;
         }
     }
-
 }
