@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-22T07:55:31.479Z",
+	"__export_date": "2019-01-22T08:13:22.572Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -138,8 +138,8 @@
 			"created": 1540883034718,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1538759423197.1406,
-			"modified": 1547612585970,
+			"metaSortKey": -1539750441906.875,
+			"modified": 1540883461026,
 			"name": "Admin",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "request_group"
@@ -165,35 +165,6 @@
 			"name": "Merchant",
 			"parentId": "wrk_327599f26ab6415f860de9d912114313",
 			"_type": "request_group"
-		},
-		{
-			"_id": "req_057fc94e4b4c4dd690d07c65932d8d99",
-			"authentication": {},
-			"body": {},
-			"created": 1547526829596,
-			"description": "",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538900997298.5312,
-			"method": "GET",
-			"modified": 1547526855666,
-			"name": "search-suggestion",
-			"parameters": [],
-			"parentId": "wrk_327599f26ab6415f860de9d912114313",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}search-suggestions",
-			"_type": "request"
 		},
 		{
 			"_id": "env_b05342e85b5c42aab807ad440cf04698",
@@ -230,15 +201,15 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImE3ZmEzMzQ2N2M0YzAxYTJhYzczMDRkNDZhODBkN2MwNTgwMjg4ODgxYTY5OGYxMGMxNzA1YWY0OTUyMTkwNDJlMTI1MmI0Nzg4NDkwNWZmIn0.eyJhdWQiOiI0IiwianRpIjoiYTdmYTMzNDY3YzRjMDFhMmFjNzMwNGQ0NmE4MGQ3YzA1ODAyODg4ODFhNjk4ZjEwYzE3MDVhZjQ5NTIxOTA0MmUxMjUyYjQ3ODg0OTA1ZmYiLCJpYXQiOjE1NDgxMzE1MzgsIm5iZiI6MTU0ODEzMTUzOCwiZXhwIjoxNTc5NjY3NTM2LCJzdWIiOiIyMSIsInNjb3BlcyI6W119.KVSsUqmwLTGHRiKYz95yUVQmO217zQUDbQogJhVVvt_QlMeBSEscUiIqt-W2V6FmwB6-CL8ztP8ZSpY8j6RKZmVYc4SVKrSM5v4Ncd7uEvn0ymDSMFXXSmeQ41S7lXFB6EJ6bYqQBRIGWsD4EBRlpg6BWR5gvvLmlZa9goyjqubepSaOO5TocHuyJSq5W4YBAnI4WajM-HgPpNCtXdyRx56jYgYyPGhimK08XUqhGbXMjgRv3naKVJTd9o3UfOQM5pSvbSSJZd7rj8oxRe5Ylqeio02yZJb5RCveXn13sE44f4eTB0_TMhfqA3KoXIsVKgCyLZ66c6Io5u9RGqdxkt037ORQX7Mb4QOlt17_8pygOYCvbz3teBsQYjb_zRrhFStNhc68F2rVsLe6mMo9KVW3Gqv3asijn_aa4FmsgGeblc2s-C_-fD-yhU8pxtsG2QmtLpbnRw4BeHTWPK0KUDw9PXH_CoKrK3yIzURwSbSA5-bLKVNC9BsRi-M47mSVlFu-HOzbSvwpZJV195efPOOyh1_uskvqLK94ltU43M5Rr_Lvip2fr7XynxDctngGARb63x_wYYHSKTiJ7NI_4RGwAICFShgBIcXCeBdv6aDgZ8iJjCNSrhZNPdbOwQyojCc7PQV6XgipOLFS50AMfdCIQtwg2AX34euDI5gfjzY"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImNmY2EwOWJmZjYxMmI0ZDMwMzg1MmU2ZDBlYzE5YTVhNjk5YzdlMTA0NTRmMTkxMjllNGQzODU2NDRmZDliZmEzOTRkN2NjNDUzYjc2MmY3In0.eyJhdWQiOiI0IiwianRpIjoiY2ZjYTA5YmZmNjEyYjRkMzAzODUyZTZkMGVjMTlhNWE2OTljN2UxMDQ1NGYxOTEyOWU0ZDM4NTY0NGZkOWJmYTM5NGQ3Y2M0NTNiNzYyZjciLCJpYXQiOjE1NDgwMzk1MTksIm5iZiI6MTU0ODAzOTUxOSwiZXhwIjoxNTc5NTc1NTE4LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.abxOEKCR8RwECP97f3UkHGupDB1nnRDWpkHcxvAWPXuaxO21IZ06gLtXALGRS0oXIpIaesPKDHoLL2Sm4_veyf8-ORNy2RnfOycAoqsHJFDPbNj9k0S35d7WFhW4pLB_9PvvDBeCyf0qd5xxaj2pJcccBgx93jmVwYE4elDzRGG46AIPZLXrrnx4LMgnE1ltjWUmHjR_Ud9SihFC0v76Klv3visABefdB9zwwuwqvPy1t5D0iGyLpdREV5EhC1cccfkJRl1dpQp_A5q2SOTpAyNsglRjeH26xNPkaLgTWCFffnfwVaYo-U4XhhOMSAWK9CuwOLTiTzEvNhh3WBXAqjzZo_U1UckDpjUfdl6gctfps5Ar-OR5vz8foZeq6i5oQtm-CHeYMogvjEBMK8Ktxp7MDG9QWvW1QEdZQOjs_TxqnNkTQVhL9xKtkpxuGfFO_2BCC4zU6vlvKbDWBQ5cbOLPpgDuSQZM7opP85rzX_YC1KmW13eD0cOb_8WuRH3ZJj6ayzKnbYroBcVDWGcEe6RWcn77hA5o3BC7nTo1XBaDY2esUPCjb2C_q3Rj3hA3c88syIrpBN-2BRPrPPRXkDWz4Unofo1144bB1Q4r5hpO7rTSxJiUxKk4MFh8aAfs1uxRqnJ7fA1AbCZJ04wZQBUvUK7bds_X1SiWzs8J7gw"
 				},
-				"url": "http://westay.test/",
+				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
 				"z_img": "data:image/png;base64,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"
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548131553228,
+			"modified": 1548039530513,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -486,7 +457,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1548124384396,
+			"modified": 1548017995509,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -504,7 +475,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"ducchien0611\",\n\t\"phone\": \"09675284155\",\n\t\"email\": \"taikhoan150ddo@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\",\n\t\"type\": 0\n}"
+				"text": "{\n\t\"name\": \"ducchien0613\",\n\t\"phone\": \"09675284111\",\n\t\"email\": \"taikhoan150do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\",\n\t\"type\": 0\n}"
 			},
 			"created": 1532574844537,
 			"description": "",
@@ -518,7 +489,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312616,
 			"method": "POST",
-			"modified": 1548000575014,
+			"modified": 1546501291986,
 			"name": "register",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -620,8 +591,8 @@
 			"created": 1534828957823,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1532570298421,
-			"modified": 1540883061566,
+			"metaSortKey": -1547623731961,
+			"modified": 1547807813162,
 			"name": "Districts",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
@@ -814,6 +785,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"created": 1547613011533,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547613011533,
+			"modified": 1547613011533,
+			"name": "Settings",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_7dc723483a984130aec071fd866edbf8",
 			"created": 1547791960566,
 			"description": "",
@@ -829,8 +811,8 @@
 			"created": 1540893745389,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1540893745389,
-			"modified": 1540893745389,
+			"metaSortKey": -1541325615531.75,
+			"modified": 1547605725380,
 			"name": "Room",
 			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
 			"_type": "request_group"
@@ -946,6 +928,35 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "req_057fc94e4b4c4dd690d07c65932d8d99",
+			"authentication": {},
+			"body": {},
+			"created": 1547526829596,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1541181658817.5,
+			"method": "GET",
+			"modified": 1547605716348,
+			"name": "search-suggestion",
+			"parameters": [],
+			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}search-suggestions",
+			"_type": "request"
+		},
+		{
 			"_id": "fld_eb2d232902cd4531a4dceeab8a585130",
 			"created": 1544684623626,
 			"description": "",
@@ -1041,6 +1052,17 @@
 			"metaSortKey": -1543069357285.9688,
 			"modified": 1545617707259,
 			"name": "account",
+			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_c32261915a804363870c980b8effdca8",
+			"created": 1547777091188,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1547777091188,
+			"modified": 1547777091188,
+			"name": "Promotion",
 			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
 			"_type": "request_group"
 		},
@@ -1155,7 +1177,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531818325520,
 			"method": "POST",
-			"modified": 1547675670504,
+			"modified": 1546842757935,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_ecee3f25ddd947fb87245f72ae93c05d",
@@ -1340,7 +1362,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Khang\",\n\t\"email\": \"taikhoan155do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\",\n\t\"roles\": [3]\n}"
+				"text": "{\n\t\"name\": \"Khang\",\n\t\"email\": \"taikhoan166do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\",\n\t\"roles\": [2]\n}"
 			},
 			"created": 1531894114142,
 			"description": "",
@@ -1359,7 +1381,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1548052640451,
+			"modified": 1546834835595,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -1565,7 +1587,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1547718158517,
+			"modified": 1547188895258,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1575,7 +1597,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?include=details&name=ha noi",
+			"url": "{{ api_url  }}rooms?comfort_lquists=8,9,10",
 			"_type": "request"
 		},
 		{
@@ -1594,7 +1616,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1547718123957,
+			"modified": 1547267715710,
 			"name": "show",
 			"parameters": [
 				{
@@ -1638,7 +1660,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1547612935436,
+			"modified": 1547432502553,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1783,7 +1805,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884128304.9375,
 			"method": "PUT",
-			"modified": 1547698774743,
+			"modified": 1545816595263,
 			"name": "prop-update",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1869,7 +1891,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\":3143,\n\t\"room_time_blocks\": [\n\t\t[\"2018-11-09\", \"2018-11-15\"],\n\t\t[\"2019-01-01\", \"2019-01-31\"]\n\t],\n\t\"unlock_days\": [\n\t\t[\"2018-12-12\", \"2019-01-14\"],\n\t\t[\"2018-11-12\", \"2018-11-15\"],\n\t\t[\"2018-12-03\"],\n\t]\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"room_time_blocks\": [\n\t\t[\n\t\t\t\"2018-11-09\",\n\t\t\t\"2018-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2019-01-01\",\n\t\t\t\"2019-01-31\"\n\t\t]\n\t],\n\t\"unlock_days\": [\n\t\t[\n\t\t\t\"2018-12-12\",\n\t\t\t\"2019-01-14\"\n\t\t],\n\t\t[\n\t\t\t\"2018-11-12\",\n\t\t\t\"2018-11-15\"\n\t\t],\n\t\t[\n\t\t\t\"2018-12-03\"\n\t\t]\n\t]\n}"
 			},
 			"created": 1541469276367,
 			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
@@ -1888,7 +1910,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885864476.875,
 			"method": "PUT",
-			"modified": 1542782024465,
+			"modified": 1548052279597,
 			"name": "update-block",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1979,7 +2001,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"room_id\":3143,\n\t\"settings\": {\n\t\t\"no_booking_cancel\" : 0,\n    \"refunds\": [\n      {\n        \"days\": 1,\n        \"amount\": 100\n      }\n    ]\n\t}\n\n}"
+				"text": "{\n\t\"room_id\": 3143,\n\t\"settings\": {\n\t\t\"no_booking_cancel\": 0,\n\t\t\"refunds\": [\n\t\t\t{\n\t\t\t\t\"days\": 1,\n\t\t\t\t\"amount\": 100\n\t\t\t}\n\t\t]\n\t}\n}"
 			},
 			"created": 1544217244683,
 			"description": "## Validation\n```\n\n           /**\n         * setting\n         */\n        'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',\n        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',\n        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',\n```",
@@ -1998,7 +2020,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885740464.5938,
 			"method": "PUT",
-			"modified": 1545816698055,
+			"modified": 1548052281776,
 			"name": "update-settings",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2053,7 +2075,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"commission\": 100\n\n}"
+				"text": "{\n\t\"commission\": 100\n}"
 			},
 			"created": 1545817511226,
 			"description": "## Validation\n```\n\n        'commission'         => 'integer|between',\n       \n```",
@@ -2072,7 +2094,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531885709461.5234,
 			"method": "PUT",
-			"modified": 1545893641107,
+			"modified": 1548052274176,
 			"name": "update-commision",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -2083,6 +2105,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}rooms/update-commission",
+			"_type": "request"
+		},
+		{
+			"_id": "req_5f6c8259331147dbbcbecfd23423ac4c",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"room_id\": 3143,\n\t\"booking_settings\": {\n\t\t\"booking_hour\": 0,\n\t\t\"booking_day\": 0\n\t}\n}"
+			},
+			"created": 1548051781215,
+			"description": "## Validation\n```\n\n           /**\n         * setting\n         */\n        'settings.no_booking_cancel'         => 'nullable|integer|in:0,1',\n        'settings.refunds.*.days'            => 'required|integer|max:14|min:1',\n        'settings.refunds.*.amount'          => 'required|integer|min:0|max:100',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531885724963.0586,
+			"method": "PUT",
+			"modified": 1548052277204,
+			"name": "update-booking-settings",
+			"parameters": [],
+			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}rooms/update-booking-settings",
 			"_type": "request"
 		},
 		{
@@ -2447,7 +2506,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1546490322581,
+			"modified": 1548127863134,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2501,10 +2560,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n\t\"email\": \"hariki1810@gmail.com\",\n    \"details\": [\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"en\",\n        \"name\": \"test16 asdasddđ2\"\n      },\n      {\n        \"description\": \"tertert\",\n        \"lang\": \"vi\",\n        \"name\": \"test16 asdasddd2\"\n      }\n    ]\n}"
+				"text": "{\n\t\"icon\": \"4\",\n\t\"details\": [\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"en\",\n\t\t\t\"name\": \"test16 asdasddđ2\"\n\t\t},\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"vi\",\n\t\t\t\"name\": \"test16 asdasddd2\"\n\t\t}\n\t]\n}"
 			},
 			"created": 1535335033794,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "\n`icon`: `String`\n`email`: `String`\n`description`: `text`\n`lang`: `en|vi`\n`name`: `string`\n",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -2520,7 +2579,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1545114304918,
+			"modified": 1547775844227,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2538,10 +2597,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"icon\": \"4\",\n    \"details\": [\n      {\n        \"description\": \"ASSS>\",\n        \"lang\": \"en\",\n        \"name\": \"TEMD\"\n      },\n      {\n        \"description\": \"aTTT\",\n        \"lang\": \"vi\",\n        \"name\": \"MAS\"\n      }\n    ]\n}"
+				"text": "{\n\t\"icon\": \"4\",\n\t\"details\": [\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"en\",\n\t\t\t\"name\": \"test16 asdasddđ2\"\n\t\t},\n\t\t{\n\t\t\t\"description\": \"tertert\",\n\t\t\t\"lang\": \"vi\",\n\t\t\t\"name\": \"test16 asdasddd2\"\n\t\t}\n\t]\n}"
 			},
 			"created": 1535335033806,
-			"description": "",
+			"description": "\n`icon`: `String`\n`email`: `String`\n`description`: `text`\n`lang`: `en|vi`\n`name`: `string`\n",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2557,7 +2616,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1540779039074,
+			"modified": 1547775848079,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_e5b30d5d4c9b4786990b59e2540a0167",
@@ -2750,7 +2809,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"01993777832\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"ta_sa_b_ssdsc_d222o@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 50,\n\t\"checkin\": \"2019-01-25 15:31:00\",\n\t\"checkout\": \"2019-01-26 20:01:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\":2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"01993777832\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"ta_sa_b_ssdsc_d222o@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 703,\n\t\"checkin\": \"2019-01-25 15:31:00\",\n\t\"checkout\": \"2019-01-26 20:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\":2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -2769,7 +2828,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1548125609178,
+			"modified": 1547027148441,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2885,7 +2944,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883880280.375,
 			"method": "PUT",
-			"modified": 1548126818248,
+			"modified": 1541123903932,
 			"name": "status-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2903,7 +2962,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"price_discount\":\"10000\"\n}"
+				"text": "{\n\t\"price_discount\":\"123123\"\n}"
 			},
 			"created": 1538985869823,
 			"description": "## Fields\nChỉ chấp nhận các trường:\n`additional_fee` `price_discount`\n\n## Validation\n```php\n'additional_fee'   => 'filled|integer|min:0'\n'price_discount'   => 'filled|integer|min:0'\n```\n",
@@ -2922,7 +2981,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632255.8125,
 			"method": "PUT",
-			"modified": 1548140952954,
+			"modified": 1548062141953,
 			"name": "money-update",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -2932,7 +2991,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings/money-update/5",
+			"url": "{{ api_url  }}bookings/money-update/55",
 			"_type": "request"
 		},
 		{
@@ -2996,7 +3055,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531883632205.8125,
 			"method": "POST",
-			"modified": 1542964199974,
+			"modified": 1548128760437,
 			"name": "booking-cancel",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -3006,7 +3065,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}bookings/cancel-booking/3503",
+			"url": "{{ api_url  }}bookings/cancel-booking/6402",
 			"_type": "request"
 		},
 		{
@@ -3120,7 +3179,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1537755377277,
-			"description": "## INCLUDE\n```\n'users',\n'details',\n'categories',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\n\n```\n\n",
+			"description": "## INCLUDE\n```\n'users',\n'details',\n'categories',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -3131,7 +3190,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1543225573801,
+			"modified": 1547605680222,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -3141,7 +3200,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs?owner=1",
+			"url": "{{ api_url  }}blogs?q=mua",
 			"_type": "request"
 		},
 		{
@@ -3406,7 +3465,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"hot\": 1,\n\t\"status\": 1,\n\t\"new\": 1,\n\t\"image\": \"anh1.jpg\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"ca3\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"ca4\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
+				"text": "{\n  \"hot\": 1,\n\t\"status\": 1,\n\t\"new\": 1,\n\t\"image\": \"{{ z_img  }}\",\n    \"details\": {\n\t\t\t\"data\":[\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"en\",\n\t\t\t\t\t\"name\": \"ca3 4\"\n\t\t\t\t},\n\t\t\t\t{\n\t\t\t\t\t\"lang\": \"vi\",\n\t\t\t\t\t\"name\": \"ca4 2\"\n\t\t\t\t}\n\t\t\t]\t\n\t\t}   \n}"
 			},
 			"created": 1537871510820,
 			"description": "\n        'hot'                               => 'required|integer|between:0,1',\n        'status'                            => 'required|integer|between:0,1',\n\t\t'new'                               => 'required|integer|between:0,1',\n        //'image'                         =>'image|mimes:jpeg,bmp,png,jpg',\n        'details.*.*.name'                  => 'required|unique:categories_translate,name',\n        'details.*.*.lang'                  =>'required',",
@@ -3425,7 +3484,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1543564394794,
+			"modified": 1547537656304,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_1f698df4e4f84c9aa0d9d23208b2f7f4",
@@ -5023,7 +5082,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1547095109832,
+			"modified": 1547533467240,
 			"name": "booking-status",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5033,7 +5092,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-status?date_start=2018-11-14&&date_end=2018-11-28&&view=day",
+			"url": "{{ api_url  }}statisticals/booking-status?date_start=2018-11-14&date_end=2018-11-28&view=day&status=",
 			"_type": "request"
 		},
 		{
@@ -5081,7 +5140,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890174064.1953,
 			"method": "GET",
-			"modified": 1547095105481,
+			"modified": 1547527589993,
 			"name": "booking-district",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5091,7 +5150,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-district?view=week&&date_start=2018-07-12&&date_end=2018-08-12?status=0",
+			"url": "{{ api_url  }}statisticals/booking-district?view=week&date_start=2018-07-12&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -5110,7 +5169,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890127577.754,
 			"method": "GET",
-			"modified": 1547095102898,
+			"modified": 1547535275908,
 			"name": "booking-type",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5120,7 +5179,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-type?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-type?view=day&date_start=2018-12-01&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5139,7 +5198,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890104334.5332,
 			"method": "GET",
-			"modified": 1547095098942,
+			"modified": 1547712113086,
 			"name": "booking-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5149,7 +5208,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-revenue?view=day&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-revenue?view=day&&date_start=2018-12-01&&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5168,7 +5227,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890092712.9229,
 			"method": "GET",
-			"modified": 1547095112381,
+			"modified": 1547776550675,
 			"name": "booking-manager-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5178,7 +5237,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-manager-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-manager-revenue?view=day&date_start=2018-12-01&&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5197,7 +5256,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890086902.1177,
 			"method": "GET",
-			"modified": 1547095114846,
+			"modified": 1547783204821,
 			"name": "booking-room-type-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5207,7 +5266,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=year&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-room-type-revenue?view=week&date_start=2018-12-01&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5226,7 +5285,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890083996.715,
 			"method": "GET",
-			"modified": 1547095117110,
+			"modified": 1547783216838,
 			"name": "count-booking-room-type",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5236,7 +5295,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/count-booking-room-type?view=week&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/count-booking-room-type?view=week&date_start=2018-07-12&date_end=2018-08-12",
 			"_type": "request"
 		},
 		{
@@ -5284,7 +5343,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890082519.0137,
 			"method": "GET",
-			"modified": 1545201006793,
+			"modified": 1548131107759,
 			"name": "booking-price-range",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5294,7 +5353,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-price-range?view=week&date_start=2018-07-12&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-price-range?view=day",
 			"_type": "request"
 		},
 		{
@@ -5342,7 +5401,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081448.2378,
 			"method": "GET",
-			"modified": 1545720499041,
+			"modified": 1547547340067,
 			"name": "booking-source",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5352,7 +5411,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-source?view=week&date_start=2018-07-12",
+			"url": "{{ api_url  }}statisticals/booking-source?view=week&date_start=2018-12-01&date_end=2018-12-10",
 			"_type": "request"
 		},
 		{
@@ -5371,7 +5430,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081398.2378,
 			"method": "GET",
-			"modified": 1547095129118,
+			"modified": 1547548564427,
 			"name": "booking-type-revenue",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5381,7 +5440,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/booking-type-revenue?view=week&&date_start=2018-07-12&&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/booking-type-revenue?view=day&date_start=2018-12-01&date_end=2018-12-10 ",
 			"_type": "request"
 		},
 		{
@@ -5429,7 +5488,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081168.044,
 			"method": "GET",
-			"modified": 1545906004822,
+			"modified": 1547783613478,
 			"name": "room-type",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5439,7 +5498,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/room-type?date_start=2018-08-01&date_end=2018-08-12",
+			"url": "{{ api_url  }}statisticals/room-type",
 			"_type": "request"
 		},
 		{
@@ -5487,7 +5546,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890081110.4954,
 			"method": "GET",
-			"modified": 1545895702636,
+			"modified": 1547807218821,
 			"name": "room-top-booking",
 			"parameters": [],
 			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
@@ -5497,7 +5556,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}statisticals/room-top-booking?lang=&take=10&sort=desc",
+			"url": "{{ api_url  }}statisticals/room-top-booking?lang=&take=10&date_start=2018-11-01&date_end=2018-12-01",
 			"_type": "request"
 		},
 		{
@@ -5588,6 +5647,75 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_723bf994f7324260ac8ecd1a5afb3d2a",
+			"authentication": {},
+			"body": {},
+			"created": 1547794742085,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890081120.087,
+			"method": "GET",
+			"modified": 1547796938588,
+			"name": "room-city",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/room-city",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e243c673987c480ab21781570111c5bb",
+			"authentication": {},
+			"body": {},
+			"created": 1548063512875,
+			"description": "## PARAMETER\n``` params\ndate_start: Y-m-d (định dạng ngày tháng),\ndate_end:  Y-m-d (định dạng ngày tháng),\n```",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890081148.861,
+			"method": "GET",
+			"modified": 1548063658051,
+			"name": "room-type-compare",
+			"parameters": [],
+			"parentId": "fld_bdbc38a126c44eeda71e9a457c900ca2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}statisticals/room-type-compare?view=week",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_49a050558cf34eaa837eb058e222317e",
+			"created": 1548138659102,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1548138659102,
+			"modified": 1548138659102,
+			"name": "Transaction Type",
+			"parentId": "fld_2afd258f7d664697bf3a328a95e2d877",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_8d1aedd30a7b4e3fb4c8f252d6f4402b",
 			"authentication": {},
 			"body": {
@@ -5595,7 +5723,7 @@
 				"text": ""
 			},
 			"created": 1545375338499,
-			"description": "## INCLUDE\n```\n'user',\n'room',\n'booking'\n\n\n```\n\n## SCOPE PARAMS\n\n```params\nroom: int\nuser: int\ndate: string\ntype: int\n\n```\n\n",
+			"description": "## INCLUDE\n```\n'user',\n'room',\n'booking'\n\n\n```\n\n## SCOPE PARAMS\n\n```params\nroom: int\nmerchant: int\ndate: string\ntype: int\ndate_start: date,\ndate_end: date\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
@@ -5611,7 +5739,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832157861,
 			"method": "GET",
-			"modified": 1545376713771,
+			"modified": 1548141312961,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_2afd258f7d664697bf3a328a95e2d877",
@@ -5621,7 +5749,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}transactions?date=2018-12-21",
+			"url": "{{ api_url  }}transactions?include=user,room.details,booking&merchant=&type=",
 			"_type": "request"
 		},
 		{
@@ -5666,10 +5794,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n  \"type\"          : 4,\n  \"user_id\"       : 3,\n  \"money\"         : 150000\n}"
+				"text": "{\n  \"type\"          : 4,\n  \"user_id\"       : 3,\n  \"money\"         : 150000,\n\t\"booking_code\"  : \"SOMEBOOKINGCODxE\"\n}"
 			},
 			"created": 1546397659078,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "\t\t`type` : required | int \n    `user_Id`: required | int\n    `money`: required | int",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -5685,7 +5813,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539831917754.375,
 			"method": "POST",
-			"modified": 1546399271677,
+			"modified": 1548144175837,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_2afd258f7d664697bf3a328a95e2d877",
@@ -5810,6 +5938,214 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_ad1720f4481c40dabc065c2e31855db8",
+			"authentication": {},
+			"body": {},
+			"created": 1547613101841,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098034.3438,
+			"method": "GET",
+			"modified": 1547714528475,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e9385267b3b545bdacd7421dd8ff6249",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"{{ z_img  }}\",\n\t\n\t\"image_logo\":   \"{{ z_img  }}\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
+			},
+			"created": 1547613129564,
+			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097984.3438,
+			"method": "POST",
+			"modified": 1548126892039,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c95df4323e5d4ea99d0e09f6fdd77179",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"WESTAY\",\n\t\"address\": \"102 thai thinh dong da ha noi \",\n\t\"description\" : \"<p><strong>C&Ocirc;NG TY CỔ PHẦN WESTAY</strong><br /> <strong>Số điện thoại li&ecirc;n hệ:</strong> 0941 983 046<br /> <strong>Lĩnh vực kinh doanh:</strong>&nbsp;S&agrave;n giao dịch TMĐT<br /> <strong>Địa chỉ t&ecirc;n miền:</strong>&nbsp;http://westay.org/vi<br /> <strong>Loại h&igrave;nh website: </strong>S&agrave;n giao dịch TMĐT</p> <p>&nbsp;</p> <p><a href=\\\"http://online.gov.vn/HomePage/WebsiteDisplay.aspx?DocId=41005\\\"><img alt=\\\"\\\" src=\\\"http://online.gov.vn/seals/dlxOBO9dxLmirYHstOPHmA==.jpgx\\\" /></a></p>\",\n\t\n\t\"homepage_image\" : \"{{ z_img  }}\",\n\t\n\t\"image_logo\":   \"{{ z_img  }}\",\n\t\n\t\n\t\"bank_account\" : [\n\t\t{\n\t\t\t\"account_name\": \"Nguyễn Đức Chiến\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"VPBANK chi nhánh Cầu giấy- Hà Nội\",\n\t\t\t\"status\" : false\n\t\t\t\n\t\t},\n\t\t{\n\t\t\t\"account_name\": \"Ronaldo\",\n\t\t\t\"account_number\" : \"123123123\",\n\t\t\t\"bank_branch\": \"Cầu giấy-Hà Nội\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : true\n\t\t},\n\t\t{\n\t\t\t\"phone\": \"09675284199\",\n\t\t\t\"status\" : true\n\t\t}\n\t],\n\t\"contact_email\" : [\n\t\t{\n\t\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\t\"status\": true\n\t\t},\n\t\t{\n\t\t\t\"email\": \"taikhoan150do@gmail.com\",\n\t\t\t\"status\": true\n\t\t}\n\t]\t,\n\t\n\t\n\t\"meta_title\"  : \"Westay\",\n\t\"meta_description\"  :\"Đây là 1 đoạn description của thẻ meta description\",\n\t\n\t\"meta_keywords\"  : \"Westay - Stay happy together, homestay, homes, westay, cho thue homestay gia re,  homestay gia re, homestay ha noi, homestay ho chi minh\"\n\t\n\t\n}"
+			},
+			"created": 1547613159735,
+			"description": "## Validation\n```\n\t\t\t'name'                                      => 'required|v_title',\n            'description'                               => 'required',\n            'address'                                   => 'required|min:5',\n\n            'bank_account'                              => 'array|required',\n            'bank_account.*.account_name'               => 'required|min:3|v_title|distinct',\n            'bank_account.*.account_number'             => 'required|min:3|v_title|distinct',\n            'bank_account.*.bank_branch'                => 'required|min:3|v_title',\n\n\n            //'homepage_image'                          =>'required/image|mimes:jpeg,bmp,png,jpg',\n            //'image_logo'                              =>'required/image|mimes:jpeg,bmp,png,jpg',\n\n            'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n\n            'meta_title'                                => 'required',\n            'meta_description'                          => 'required',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097934.3438,
+			"method": "PUT",
+			"modified": 1548126916298,
+			"name": "update",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/8",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e121b13d73b7437e96d78fa22f22f07b",
+			"authentication": {},
+			"body": {},
+			"created": 1547613173494,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097909.3438,
+			"method": "DELETE",
+			"modified": 1547710081459,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_ac004c96a6f0410cafeeec24d224c9c6",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"contact_hotline\" : [\n\t\t{\n\t\t\t\"phone\": \"0967528419\",\n\t\t\t\"status\" : 0\n\t\t}\t\n\t]\n}"
+			},
+			"created": 1547625535385,
+			"description": "## Validation\n```\n\t       'contact_email'                             => 'array|required',\n            'contact_email.*.email'                     =>'required|email|max:100|distinct',\n            'contact_email.*.status'                    =>'integer|between:0,1',\n\n            'contact_hotline'                           => 'array|required',\n            'contact_hotline.*.phone'                   =>'required|max:20|distinct|regex:/^\\+?[0-9-]*$/',\n            'contact_hotline.*.status'                  =>'integer|between:0,1',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097928.0938,
+			"method": "PUT",
+			"modified": 1548126921104,
+			"name": "update-contact",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/update-contact/8?option=contact_hotline",
+			"_type": "request"
+		},
+		{
+			"_id": "req_46aca597958b49218d3c5be7795eeb0f",
+			"authentication": {},
+			"body": {},
+			"created": 1547676482725,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_ae767e4b336b4f1b8d93ccf1b6e4ec27",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098084.3438,
+			"method": "GET",
+			"modified": 1547676570523,
+			"name": "status",
+			"parameters": [],
+			"parentId": "fld_155543ec4cfa44fa9d88ad720a0f3525",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}settings/status",
+			"_type": "request"
+		},
+		{
 			"_id": "fld_71904dd032de44edb9e7930ac91daee5",
 			"created": 1547787445110,
 			"description": "",
@@ -5837,7 +6173,7 @@
 			"description": "",
 			"environment": {},
 			"metaSortKey": -1547787787179.5,
-			"modified": 1547804655054,
+			"modified": 1548039264126,
 			"name": "Create-Ticket",
 			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
 			"_type": "request_group"
@@ -5941,8 +6277,8 @@
 			],
 			"isPrivate": false,
 			"metaSortKey": -1540893745389,
-			"method": "POST",
-			"modified": 1544085619598,
+			"method": "GET",
+			"modified": 1547807648784,
 			"name": "room-lat-long",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -5952,7 +6288,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/room-lat-long",
+			"url": "{{ customer_url }}rooms/room-lat-long?include=details&name=studio&price_day_from=0&price_day_to=10000000&checkin=&checkout=&type_room=&rent_type=1&lat_min=20.945819962062505&lat_max=21.07882449144878&long_min=105.76691961408301&long_max=105.93308782697363",
 			"_type": "request"
 		},
 		{
@@ -6039,7 +6375,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745439,
 			"method": "GET",
-			"modified": 1546497708757,
+			"modified": 1548051179436,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6049,7 +6385,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/schedule/3581",
+			"url": "{{ customer_url }}rooms/schedule/795",
 			"_type": "request"
 		},
 		{
@@ -6125,7 +6461,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"username\": \"taikhoan150do@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"username\": \"neverback88@gmail.com\",\n\t\"password\": \"123456\"\n}"
 			},
 			"created": 1541469641988,
 			"description": "             'username' => 'required|email|max:255',\n              'password' => 'required|min:5|max:255',",
@@ -6139,7 +6475,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1548063689694,
+			"modified": 1548017804648,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -6157,7 +6493,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"taikhoan151do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\"\n}"
+				"text": "{\n\t\"email\": \"taikhoan1501do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\"\n}"
 			},
 			"created": 1541470127670,
 			"description": "         'email'                 => 'required|email|max:255|unique:users,email',\n        'password'              => 'required|min:6|max:255',\n        'password_confirmation' => 'required|min:6|max:255|same:password',\n        'type'                  => 'numeric|between:0,1'|filled,\n        'status'                => 'numeric|between:0,1|filled',\n      ",
@@ -6176,7 +6512,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1548063491383,
+			"modified": 1548017322817,
 			"name": "register",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -6449,7 +6785,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"09622212582\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"tuan_anh_1_2_3_4@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\":490,\n\t\"checkin\": \"2025-06-28 02:00:00\",\n\t\"checkout\": \"2025-06-29 06:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
+				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"09622212582\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"tuan_anh_1_2_3_4@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\":3143,\n\t\"checkin\": \"2020-06-28 02:00:00\",\n\t\"checkout\": \"2020-06-29 06:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
 			},
 			"created": 1542181954384,
 			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
@@ -6468,7 +6804,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1548121145286,
+			"modified": 1548128670823,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -6534,7 +6870,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997373.5312,
 			"method": "GET",
-			"modified": 1547867878173,
+			"modified": 1548017893197,
 			"name": "index",
 			"parameters": [
 				{
@@ -6551,7 +6887,49 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}bookings?",
+			"url": "{{ customer_url  }}bookings?status=2",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e765d15d04b840e1b797227277ec8a94",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"uuid\": \"L1OOA41M\",\n\t\"status\":2\n}"
+			},
+			"created": 1542335430692,
+			"description": "\n## Validation\n```php\n\t\t'status'           => 'required|integer|in:2,5'\n```\n",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				},
+				{
+					"id": "pair_dc20899b014443539bd476b9c306b0b5",
+					"name": "",
+					"value": ""
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997423.5312,
+			"method": "PUT",
+			"modified": 1542878081485,
+			"name": "confirm-booking",
+			"parameters": [],
+			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}bookings/status-update/MTU0MjU3NjQ5MA==",
 			"_type": "request"
 		},
 		{
@@ -7610,7 +7988,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884252317.2188,
 			"method": "GET",
-			"modified": 1546845312466,
+			"modified": 1548046755398,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -7620,7 +7998,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms/schedule/838",
+			"url": "{{ merchant_url }}rooms/schedule/795",
 			"_type": "request"
 		},
 		{
@@ -8614,7 +8992,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"username\": \"trung94nd@gmail.com\",\n\t\"password\": \"123456\"\n}"
+				"text": "{\n\t\"username\": \"daolvcntt@gmail.com\",\n\t\"password\": \"merchant123\"\n}"
 			},
 			"created": 1545617667773,
 			"description": "             'username' => 'required|email|max:255',\n              'password' => 'required|min:5|max:255',",
@@ -8628,7 +9006,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1548131514984,
+			"modified": 1546841944653,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
@@ -8821,6 +9199,66 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ merchant_url }}set-password/MTU0MzQ2NTg3NQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
+			"_type": "request"
+		},
+		{
+			"_id": "req_7557ce2eeaf7498680169f3820fe0dba",
+			"authentication": {},
+			"body": {},
+			"created": 1547777150921,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1547777150921,
+			"method": "GET",
+			"modified": 1547777217725,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_c32261915a804363870c980b8effdca8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url  }}promotions",
+			"_type": "request"
+		},
+		{
+			"_id": "req_35d2dc700f0b4873aa581c776424baa2",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n  \"promotion_id\" :1,\n  \"coupon\" : \"GIAM5\",\n  \"merchant_id\": 12593,\n  \"rooms\": [\n    2125,\n    2126,\n    2420,\n    3335\n  ]\n}"
+			},
+			"created": 1547777175580,
+			"description": "         'email'                 => 'required|email|max:255|unique:users,email',\n        'password'              => 'required|min:6|max:255',\n        'password_confirmation' => 'required|min:6|max:255|same:password',\n        'type'                  => 'numeric|between:0,1'|filled,\n        'status'                => 'numeric|between:0,1|filled',\n      ",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1547777158360,
+			"method": "POST",
+			"modified": 1547777201234,
+			"name": "join-promotion",
+			"parameters": [],
+			"parentId": "fld_c32261915a804363870c980b8effdca8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}promotions/join-promotion",
 			"_type": "request"
 		},
 		{
@@ -9641,7 +10079,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539835257867,
 			"method": "GET",
-			"modified": 1547613278893,
+			"modified": 1539849277169,
 			"name": "hot-list",
 			"parameters": [],
 			"parentId": "fld_ca9a18cee23c4f2cb6743f6a38700684",
@@ -9979,6 +10417,43 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_fba49fb49e694b5d9c5f7f1fd69b580a",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1548138662170,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3d44616088ad4a588ed1701fab856d36",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832128000.0156,
+			"method": "GET",
+			"modified": 1548138684291,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_49a050558cf34eaa837eb058e222317e",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}transactions/get-transaction-type",
+			"_type": "request"
+		},
+		{
 			"_id": "req_7ccdd112bbaf44b387c981a17062180f",
 			"authentication": {},
 			"body": {},
@@ -10083,7 +10558,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\" : \"Thuê nhà \"\n}"
+				"text": "{\n\t\"name\" : \"Phụ phí\"\n}"
 			},
 			"created": 1547787678544,
 			"description": "## Validation\n```\n\n'name'          => 'required|v_title|unique:topics,name',\n\n        \n        \n```",
@@ -10102,7 +10577,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098090.5938,
 			"method": "POST",
-			"modified": 1548000379028,
+			"modified": 1548037951464,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
@@ -10178,7 +10653,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\" : 1,\n\t\"name\" : \"cxzcxzc\"\n}"
+				"text": "{\n\t\"topic_id\" : 4 ,\n\t\"name\" : \"Thêm khách\"\n}"
 			},
 			"created": 1547787514449,
 			"description": "## Validation\n```\n\n             'name'                  => 'required|v_title|unique:sub_topics,name',\n            'topic_id'              => 'required|integer|exists:topics,id',\n\n           \n        \n```",
@@ -10197,7 +10672,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098071.8438,
 			"method": "POST",
-			"modified": 1548053528513,
+			"modified": 1548038067961,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_f488ad2332744b08a68eb35b04fec675",
@@ -10344,7 +10819,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 2,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\",\n\t\"resolve\":1\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 2,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\"\t\n}"
 			},
 			"created": 1547787794010,
 			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n\t\n        \n```",
@@ -10363,7 +10838,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098087.4688,
 			"method": "PUT",
-			"modified": 1548063130415,
+			"modified": 1548007347026,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
@@ -10373,7 +10848,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}ticket/4",
+			"url": "{{ api_url  }}ticket/1",
 			"_type": "request"
 		},
 		{
@@ -10492,7 +10967,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098035.9062,
 			"method": "GET",
-			"modified": 1548039175892,
+			"modified": 1548038792037,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
@@ -10502,7 +10977,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}ticket/13?include=supporter,userCreate,commentTickets",
+			"url": "{{ api_url  }}ticket/1",
 			"_type": "request"
 		},
 		{
@@ -10529,7 +11004,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098085.9062,
 			"method": "PUT",
-			"modified": 1548053628666,
+			"modified": 1548038843377,
 			"name": "update-resolve",
 			"parameters": [],
 			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
@@ -10547,7 +11022,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\t\"supporter_id\": 2\n}"
+				"text": "{\n\t\t\"supporter_id\": 1\n}"
 			},
 			"created": 1547950028147,
 			"description": "## Validation\n```\n'supporter_id'                  => 'integer|exists:users,id',\n\n\t\n        \n```",
@@ -10566,7 +11041,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098085.125,
 			"method": "PUT",
-			"modified": 1548059338021,
+			"modified": 1548038888910,
 			"name": "update-supporter",
 			"parameters": [],
 			"parentId": "fld_6ac85b90d2804ccb885f4f91214fa723",
@@ -10661,7 +11136,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098089.0312,
 			"method": "PUT",
-			"modified": 1548063231756,
+			"modified": 1548038806171,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
@@ -10671,7 +11146,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}comment-tickets/",
+			"url": "{{ api_url  }}comment-tickets/1",
 			"_type": "request"
 		},
 		{
@@ -10679,7 +11154,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticket_id\": 5,\n\t\"comments\": \"comment 1111 \"\t\n}"
+				"text": "{\n\t\"ticket_id\": 1,\n\t\"comments\": \"comment 1111 \"\t\n}"
 			},
 			"created": 1547795546614,
 			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
@@ -10698,7 +11173,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098139.0312,
 			"method": "POST",
-			"modified": 1548063240663,
+			"modified": 1548038817616,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_6484577c0c104b4898942db9e5578c2f",
@@ -11103,7 +11578,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098087.4688,
 			"method": "PUT",
-			"modified": 1548064000336,
+			"modified": 1548007210972,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
@@ -11121,10 +11596,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"supporter_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
 			},
 			"created": 1547958506228,
-			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id'\n\n         \n        \n```",
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n            'supporter_id'                  => 'integer|exists:users,id',\n\n         \n        \n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -11140,7 +11615,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098137.4688,
 			"method": "POST",
-			"modified": 1548063994612,
+			"modified": 1547958583518,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_4116d41a7a244c918123268ac457eb24",
@@ -11269,7 +11744,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098089.0312,
 			"method": "PUT",
-			"modified": 1548063760036,
+			"modified": 1548005211702,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_a347b33f352b471da7912bf797e03438",
@@ -11279,7 +11754,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}comment-tickets/2",
+			"url": "{{ customer_url }}comment-tickets/25",
 			"_type": "request"
 		},
 		{
@@ -11287,7 +11762,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticket_id\": 9,\n\t\"comments\": \"comment 1111 \"\t\n}"
+				"text": "{\n\t\"comments\": \"comment 1111 \"\t\n}"
 			},
 			"created": 1547958506315,
 			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
@@ -11306,7 +11781,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098139.0312,
 			"method": "POST",
-			"modified": 1548063425900,
+			"modified": 1548005001918,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_a347b33f352b471da7912bf797e03438",
@@ -11534,7 +12009,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098037.4688,
 			"method": "GET",
-			"modified": 1548005297430,
+			"modified": 1548038215946,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
@@ -11544,7 +12019,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}ticket?include=supporter,userCreate",
+			"url": "{{ merchant_url }}ticket",
 			"_type": "request"
 		},
 		{
@@ -11555,7 +12030,7 @@
 				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"ahihihi\"\t\n}"
 			},
 			"created": 1547958999423,
-			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n          \n        \n```",
+			"description": "## Validation\n```\n           'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n           \n\t\n        \n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -11571,7 +12046,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098087.4688,
 			"method": "PUT",
-			"modified": 1548064018730,
+			"modified": 1548007232535,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
@@ -11589,10 +12064,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"fsdfsdf\",\n\t\"content\": \"sfsdf\"\t\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"Tôi muốn thuê phòng theo tháng\",\n\t\"content\": \"Tôi muốn thuê phòng theo tháng, không biết giá như thế nào\"\t\n}"
 			},
 			"created": 1547958999435,
-			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id',\n          \n\n         \n        \n```",
+			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id'        \n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -11608,7 +12083,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098137.4688,
 			"method": "POST",
-			"modified": 1548064014223,
+			"modified": 1548038201755,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
@@ -11755,7 +12230,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"ticket_id\": 5,\n\t\"comments\": \"comment 1111 \"\t\n}"
+				"text": "{\n\t\"ticket_id\": 2,\n\t\"comments\": \"comment 1111 \"\t\n}"
 			},
 			"created": 1547958999533,
 			"description": "## Validation\n```\n\n             'comments'                   => 'required',\n             'ticket_id'                  => 'required|integer|exists:tickets,id',\n\n         \n        \n```",
@@ -11774,7 +12249,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098139.0312,
 			"method": "POST",
-			"modified": 1548002558563,
+			"modified": 1548038307225,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_335c08fff8cd410396347acdfa1a7e5e",
