@@ -362,75 +362,7 @@ class BookingController extends ApiController
         }
     }
 
-    /**
-     * Cập nhâp trạng thái booking của 1 phong từ chủ host
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
 
-    public function confirmBooking(Request $request, $code)
-    {
-        DB::beginTransaction();
-        try {
-            $minutes = $this->model->checkTimeConfirm($code);
-            $data    =[
-                'status' => BookingConstant::BOOKING_CANCEL,
-                'uuid'   => $request->uuid
-            ];
-            if ($minutes > 10) {
-                event(new ConfirmBookingTime($data));
-                throw new \Exception('Booking này đã bị hủy do thời gian bạn xác nhận đã vượt qua thời gian cho phép(5 phút)');
-            }
-
-            $validate = array_only($this->validationRules, [
-                'status',
-            ]);
-            $validate['status'] = 'required|integer|in:2,5';
-            $this->validate($request, $validate, $this->validationMessages);
-            $bookingStatus      = $this->model->checkBookingStatus($request->uuid);
-            if ($bookingStatus == BookingConstant::BOOKING_CONFIRM  || $bookingStatus == BookingConstant::BOOKING_CANCEL) {
-                throw new \Exception('Bạn đã từng xác nhận hoặc từ chối booking này  !!!!');
-            }
-
-            /**
-             * Cập nhâp trạng thái đơn đã được xác nhận
-             */
-            $data               = $this->model->updateStatusBooking($request->all());
-            DB::commit();
-            /**
-             * Gửi email thông báo cho customer là đơn đã được xác nhận.
-             */
-            if ($data->status == BookingConstant::BOOKING_CONFIRM) {
-                $merchant                   = $this->user->getById($data->merchant_id);
-                $room_name                  = $this->room->getRoom($data->room_id);
-                event(new BookingConfirmEvent($data, $merchant, $room_name));
-            }
-            logs('booking', 'sửa trạng thái của booking có code ' . $data->code, $data);
-            return $this->successResponse($data);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-            DB::rollBack();
-            return $this->notFoundResponse();
-        } catch (\Exception $e) {
-            DB::rollBack();
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            DB::rollBack();
-            throw $t;
-        }
-    }
 
     /**
      * Kiểu booking

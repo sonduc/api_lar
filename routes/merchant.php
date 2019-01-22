@@ -16,6 +16,16 @@ $router->group([
 ], function ($router) {
 
     /**
+     *
+     */
+    $router->put('/bookings/status-update/{id}', 'BookingController@updateBookingStatus');
+    $router->put('/bookings/money-update/{id}', 'BookingController@updateBookingMoney');
+    $router->get('/bookings/booking-status-list', 'BookingController@bookingStatusList');
+    $router->get('/bookings', 'BookingController@index');
+    $router->get('/bookings/{id}', 'BookingController@show');
+
+
+    /**
      * Profile
      */
     $router->get('/profile', 'ProfileController@index');

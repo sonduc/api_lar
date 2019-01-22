@@ -52,7 +52,7 @@ class LoginController extends ApiController
                     'errors' => ['Thông tin đăng nhập không chính xác.'],
                 ]);
             } else {
-                if ($hasher->check($password, $login->password) == true & $login->type == User::MERCHANT) {
+                if ($hasher->check($password, $login->password) == true && $login->type == User::MERCHANT) {
                     // Issue token
                     $guzzle  = new Guzzle;
                     $url     = env('APP_URL') . '/oauth/token';

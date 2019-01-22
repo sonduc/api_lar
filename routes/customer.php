@@ -22,7 +22,6 @@ $router->group([
     $router->get('/bookings', 'BookingController@index');
     $router->get('/bookings/{id}', 'BookingController@show');
     $router->post('/bookings/cancel-booking/{id}', 'BookingController@cancelBooking');
-    $router->put('/bookings/status-update/{code}', 'BookingController@confirmBooking');
 
     /**
      * Profile Resource

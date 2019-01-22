@@ -6,9 +6,7 @@ use App\Events\Customer_Register_TypeBooking_Event;
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingCancelRepository;
 use App\Repositories\Bookings\BookingCancelRepositoryInterface;
-use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Bookings\BookingLogicTrait;
-use App\Repositories\Bookings\BookingMessage;
 use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Bookings\BookingStatusRepository;
@@ -29,9 +27,9 @@ use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
 use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
 use App\User;
-use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 
 class BookingLogic extends BaseLogic
 {
@@ -147,55 +145,6 @@ class BookingLogic extends BaseLogic
         $booking = $this->booking->getBookingByCustomerId($id, $params, $pageSize);
         return $booking;
     }
-
-
-    /**
-     * cập nhâp trạng thái đơn xác nhận và đơn hủy
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $data
-     *
-     * @return \App\Repositories\Eloquent
-     */
-    public function updateStatusBooking($data)
-    {
-        $uuid    = $data['uuid'];
-        $booking = $this->model->getBookingByUuid($uuid);
-        $booking = parent::update($booking->id, $data);
-        return $booking;
-    }
-
-
-    /**
-     * Check booking status by uuid
-     * @author HarikiRito <nxh0809@gmail.com>
-     *
-     * @param $uuid
-     *
-     * @return mixed
-     */
-    public function checkBookingStatus($uuid)
-    {
-        return $this->model->getBookingByUuid($uuid)->status;
-    }
-
-
-    /**
-     * Kiểm tra thời gian xác nhận booking
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param $code
-     *
-     * @return int
-     */
-    public function checkTimeConfirm($code)
-    {
-        $timeNow    = Carbon::now();
-        $timeSubmit = base64_decode($code);
-        $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
-        return $timeNow->diffInMinutes($timeSubmit);
-    }
-
 
     /**
      * Kiểm tra xem có đủ điều kiện để  chỉnh sửa thông tin booking không

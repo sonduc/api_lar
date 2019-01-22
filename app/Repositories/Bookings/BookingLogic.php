@@ -86,7 +86,6 @@ class BookingLogic extends BaseLogic
     {
         $room = $this->room->getById($data['room_id']);
         $data = $this->priceCalculator($room, $data);
-
         // dd($data);
         $data = $this->dateToTimestamp($data);
         $data = $this->addPriceRange($data);
