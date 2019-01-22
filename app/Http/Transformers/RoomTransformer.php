@@ -32,7 +32,7 @@ class RoomTransformer extends TransformerAbstract
      *
      * @return array
      */
-    public function transform(Room $room)
+    public function transform(Room $room = null)
     {
         if (is_null($room)) {
             return [];

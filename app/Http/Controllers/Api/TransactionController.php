@@ -8,6 +8,7 @@ use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use App\Http\Transformers\TransactionTransformer;
+use App\Repositories\TransactionTypes\TransactionType;
 
 class TransactionController extends ApiController
 {
@@ -116,6 +117,30 @@ class TransactionController extends ApiController
         } catch (\Throwable $t) {
             DB::rollBack();
             throw $t;
+        }
+    }
+
+    
+    /**
+     * Danh sách các loại giao dịch
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function transactionTypeList()
+    {
+        try {
+            $this->authorize('transaction.view');
+            $data = $this->simpleArrayToObject(TransactionType::TYPE);
+            return response()->json($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Exception $e) {
+            throw $e;
         }
     }
 }

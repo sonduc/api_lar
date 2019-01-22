@@ -217,6 +217,8 @@ class TransactionLogic extends BaseLogic
                     $total_credit -= $v['credit'];
                 }
                 $total_bonus      += $v['bonus'];
+                $v['status'] = 1;
+                $v->save();
             }
             
             $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $value);

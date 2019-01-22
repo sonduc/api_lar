@@ -34,12 +34,16 @@ class TransactionTransformer extends TransformerAbstract
         return [
             'transaction_id' => $transaction->id,
             'type'           => $transaction->type,
+            'type_txt'       => $transaction->getTransactionType(),
             'date'           => $transaction->date_create ? Carbon::parse($transaction->date_create)->toDateString() : null,
             'credit'         => $transaction->credit,
             'debit'          => $transaction->debit,
             'bonus'          => $transaction->bonus,
             'user_id'        => $transaction->user_id,
             'booking_id'     => $transaction->booking_id,
+            'comission'      => $transaction->comission,
+            'status'         => $transaction->status,
+            'status_txt'     => $transaction->getTransactionStatus(),
             'created_at'     => $transaction->created_at ? $transaction->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'     => $transaction->updated_at ? $transaction->updated_at->format('Y-m-d H:i:s') : null,
         ];
@@ -70,7 +74,7 @@ class TransactionTransformer extends TransformerAbstract
      *
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
      */
-    public function includeRoom(Transaction $transaction)
+    public function includeRoom(Transaction $transaction = null)
     {
         if (is_null($transaction)) {
             return $this->null();
@@ -87,7 +91,7 @@ class TransactionTransformer extends TransformerAbstract
      *
      * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource|\League\Fractal\Resource\Primitive
      */
-    public function includeBooking(Transaction $transaction)
+    public function includeBooking(Transaction $transaction = null)
     {
         if (is_null($transaction)) {
             return $this->null();

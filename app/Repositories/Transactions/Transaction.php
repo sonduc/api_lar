@@ -26,6 +26,15 @@ class Transaction extends Entity
         'comission',
     ];
 
+    const PENDING        = 0;
+    const COMBINED       = 1;
+
+    const STATUS = [
+        self::PENDING    => 'Đang chờ',
+        self::COMBINED   => 'Đã tạo đối soát'
+    ];
+
+
     /**
      * The attributes that are cast permission from json string to array
      * @var array
@@ -44,6 +53,6 @@ class Transaction extends Entity
 
     public function room()
     {
-        return $this->belongsTo(\App\Repositories\Rooms::class, 'room_id');
+        return $this->belongsTo(\App\Repositories\Rooms\Room::class, 'room_id');
     }
 }

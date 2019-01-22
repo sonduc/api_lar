@@ -332,8 +332,8 @@ trait BookingLogicTrait
     public function updateBookingMoney($id, $data)
     {
         $booking          = parent::getById($id);
-        $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
-        $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
+        // $data['checkin']  = Carbon::createFromTimestamp($booking->checkin)->toDateTimeString();
+        // $data['checkout'] = Carbon::createFromTimestamp($booking->checkout)->toDateTimeString();
         $data             = array_merge($booking->toArray(), $data);
 
         return $this->update($id, $data);

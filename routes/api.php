@@ -106,6 +106,7 @@ $router->group([
      * Transaction Resource
      */
     resource('/transactions', 'TransactionController', $router);
+    $router->get('/transactions/get-transaction-type', 'TransactionController@transactionTypeList');
 
     /**
      * Settings
