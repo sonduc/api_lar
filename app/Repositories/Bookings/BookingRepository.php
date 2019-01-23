@@ -120,7 +120,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @return mixed
      */
 
-    public function getBookingByCustomerId($id,$params, $size)
+    public function getBookingByCustomerId($id, $params, $size)
     {
         $this->useScope($params);
         return $this->model
@@ -138,12 +138,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @return mixed
      */
 
-    public function getBookingByMerchantId($id,$params, $size)
+    public function getBookingByMerchantId($id, $params, $size)
     {
         $this->useScope($params);
         return $this->model
             ->where('bookings.merchant_id', $id)
-            ->orderBy('bookings.id','DESC')
+            ->orderBy('bookings.id', 'DESC')
             ->paginate($size);
     }
 
@@ -156,7 +156,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     public function getBookingById($id)
     {
         return parent::getById($id);
-
     }
 
     public function updatStatusBooking($booking)
@@ -1052,6 +1051,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt
             ];
         }
         return $convertBooking;
@@ -1326,12 +1326,15 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
             ]);
+
+
         if ($status != null) {
             $bookings->where('bookings.status', $status);
         }
-
+            
         $bookings = $bookings->groupBy(DB::raw('createdAt,source'))->get();
-
+            
+        // dd($bookings);
         $data_date          = [];
         $convertDataBooking = [];
         foreach ($bookings as $key => $value) {
@@ -1371,6 +1374,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'createdAt'     => $value->createdAt
             ];
         }
         return $convertBooking;

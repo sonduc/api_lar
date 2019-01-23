@@ -4,6 +4,8 @@ namespace App\Repositories\Statisticals;
 
 use App\Repositories\BaseLogic;
 use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Bookings\BookingConstant;
+use App\Repositories\Rooms\Room;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use Carbon\Carbon;
 
@@ -73,7 +75,7 @@ class StatisticalLogic extends BaseLogic
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
         $result_city = $this->booking->getCityHasBooking();
-
+        // dd($result_city);
         $data_booking_by_city = $this->booking->countBookingByCity($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
         $series_arr = [];
         $some_date  = [];
@@ -82,6 +84,7 @@ class StatisticalLogic extends BaseLogic
             $some_date['_' . key($value_list_city)]  = 0;
 
             foreach ($result_city as $key_city => $value_city) {
+                // dd($value_city);
                 $series_arr[$key_city]['name'] = $value_city->name;
 
                 foreach ($value_list_city as $data_value) {
@@ -319,25 +322,42 @@ class StatisticalLogic extends BaseLogic
      */
     public function bookingByRoomTypeStatistical($data)
     {
-        $dataInput = $this->checkInputDataBookingStatistical($data);
+        $dataInput          = $this->checkInputDataBookingStatistical($data);
+        $result_room_type   = $this->simpleArrayToObject(Room::ROOM_TYPE);
 
         $data_booking_by_room_type = $this->booking->countBookingByRoomType($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
 
-        foreach ($data_booking_by_room_type as $key_list_type => $value_list_type) {
-            // dd($value_list_type);
-            $date_arr[] = key($value_list_type);
-            $some_date['_' . key($value_list_type)]  = 0;
-            // dd($value_list_type);
-            foreach ($value_list_type as $data_value) {
-                // dd($data_value);
-                foreach ($data_value as $k => $v) {
-                    $series_arr[$k]['name']      = $v['room_type_txt'];
-                    $series_arr[$k]['data'][]    = $v['total_booking'];
-                    $series_arr[$k]['success'][] = (int)$v['success'];
-                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+        foreach ($data_booking_by_room_type as $key_list_room_type => $value_list_room_type) {
+            $date_arr[] = key($value_list_room_type);
+            $some_date['_' . key($value_list_room_type)]  = 0;
+            
+            foreach ($result_room_type as $key_room_type => $value_room_type) {
+                // dd($value_room_type['id']);
+                $series_arr[$key_room_type]['name'] = $value_room_type['value'];
+
+                foreach ($value_list_room_type as $data_value) {
+                    foreach ($data_value as $k => $v) {
+                        // dd($v);
+                        if ($value_room_type['id'] == $v['room_type']) {
+                            $series_arr[$key_room_type]['data']['_' . $v['createdAt']]    = $v['total_booking'];
+                            $series_arr[$key_room_type]['success']['_' . $v['createdAt']] = (int)$v['success'];
+                            $series_arr[$key_room_type]['cancel']['_' . $v['createdAt']]  = (int)$v['cancel'];
+                        }
+                    }
                 }
             }
         }
+
+        foreach ($series_arr as $key => $serie) {
+            $serie_data                  = !empty($serie['data']) ? $serie['data'] : [];
+            $success                     = !empty($serie['success']) ? $serie['success'] : [];
+            $cancel                      = !empty($serie['cancel']) ? $serie['cancel'] : [];
+            $results_serie_room_type          = array_values(array_merge($some_date, $serie_data));
+            $series_arr[$key]['data']    = $results_serie_room_type;
+            $series_arr[$key]['success'] = array_values(array_merge($some_date, $success));
+            $series_arr[$key]['cancel']  = array_values(array_merge($some_date, $cancel));
+        }
+
 
         return [$date_arr, $series_arr];
     }
@@ -443,9 +463,10 @@ class StatisticalLogic extends BaseLogic
     public function bookingBySourceStatistical($data)
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
+        $result_source = $this->simpleArrayToObject(BookingConstant::BOOKING_SOURCE);
 
         $data_booking_by_source = $this->booking->countBookingBySource($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
-                
+        
         $date_arr   = [];
         $series_arr = [];
         $some_date  = [];
@@ -453,15 +474,34 @@ class StatisticalLogic extends BaseLogic
         foreach ($data_booking_by_source as $key_list_source => $value_list_source) {
             $date_arr[] = key($value_list_source);
             $some_date['_' . key($value_list_source)]  = 0;
-            foreach ($value_list_source as $data_value) {
-                foreach ($data_value as $k => $v) {
-                    $series_arr[$k]['name']      = $v['source_txt'];
-                    $series_arr[$k]['data'][]    = $v['total_booking'];
-                    $series_arr[$k]['success'][] = (int)$v['success'];
-                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+            
+            foreach ($result_source as $key_source => $value_source) {
+                // dd($value_source['id']);
+                $series_arr[$key_source]['name'] = $value_source['value'];
+
+                foreach ($value_list_source as $data_value) {
+                    foreach ($data_value as $k => $v) {
+                        // dd($v);
+                        if ($value_source['id'] == $v['source']) {
+                            $series_arr[$key_source]['data']['_' . $v['createdAt']]    = $v['total_booking'];
+                            $series_arr[$key_source]['success']['_' . $v['createdAt']] = (int)$v['success'];
+                            $series_arr[$key_source]['cancel']['_' . $v['createdAt']]  = (int)$v['cancel'];
+                        }
+                    }
                 }
             }
         }
+
+        foreach ($series_arr as $key => $serie) {
+            $serie_data                  = !empty($serie['data']) ? $serie['data'] : [];
+            $success                     = !empty($serie['success']) ? $serie['success'] : [];
+            $cancel                      = !empty($serie['cancel']) ? $serie['cancel'] : [];
+            $results_serie_source          = array_values(array_merge($some_date, $serie_data));
+            $series_arr[$key]['data']    = $results_serie_source;
+            $series_arr[$key]['success'] = array_values(array_merge($some_date, $success));
+            $series_arr[$key]['cancel']  = array_values(array_merge($some_date, $cancel));
+        }
+
         
         return [$date_arr, $series_arr];
     }
@@ -660,5 +700,18 @@ class StatisticalLogic extends BaseLogic
         }
         
         return [$date_arr, $series_arr];
+    }
+
+    protected function simpleArrayToObject($arr = []): array
+    {
+        $arr2d = [];
+        foreach ($arr as $key => $item) {
+            $arr2d[] = [
+                'id'    => $key,
+                'value' => $item,
+            ];
+        }
+
+        return $arr2d;
     }
 }
