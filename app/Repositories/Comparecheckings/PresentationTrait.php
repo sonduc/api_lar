@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories\CompareCheckings;
 
+use App\Helpers\ErrorCore;
+
 trait PresentationTrait
 {
     /**
@@ -26,5 +28,12 @@ trait PresentationTrait
     private function hasPermission(string $permission) : bool
     {
         return $this->permissions[$permission] ?? false;
+    }
+    
+    public function getCompareCheckingStatus()
+    {
+        return array_key_exists($this->status, CompareChecking::STATUS)
+            ? CompareChecking::STATUS[$this->status]
+            : trans2(ErrorCore::UNDEFINED);
     }
 }

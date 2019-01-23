@@ -14,4 +14,18 @@ class CompareCheckingLogic extends BaseLogic
     ) {
         $this->model  = $compare;
     }
+
+    /**
+     *
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     *
+     * @param $id
+     * @param array $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function minorCompareCheckingUpdate($id, $data = [])
+    {
+        return parent::update($id, $data);
+    }
 }

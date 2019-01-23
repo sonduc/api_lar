@@ -37,6 +37,7 @@ trait PresentationTrait
             ? TransactionType::TYPE[$this->type]
             : trans2(ErrorCore::UNDEFINED);
     }
+    
     public function getTransactionStatus()
     {
         return array_key_exists($this->status, Transaction::STATUS)

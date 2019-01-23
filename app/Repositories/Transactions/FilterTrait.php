@@ -29,12 +29,21 @@ trait FilterTrait
         return $query;
     }
     
-    public function scopeDate($query, $q)
+    public function scopeCheckingStart($query, $q)
     {
         if ($q) {
             $q_date = Carbon::parse($q)->toDateString();
 
-            return $query->where('date_create', $q_date);
+            return $query->where('date_create', '>=', $q_date);
+        }
+        return $query;
+    }
+    public function scopeCheckingEnd($query, $q)
+    {
+        if ($q) {
+            $q_date = Carbon::parse($q)->toDateString();
+
+            return $query->where('date_create', '<=', $q_date);
         }
         return $query;
     }

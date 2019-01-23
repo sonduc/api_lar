@@ -16,7 +16,9 @@ class TransactionController extends ApiController
         = [
             'user_id'        => 'required|integer|exists:users,id',
             'type'           => 'required|integer|exists:transaction_type,id',
-            'money'          => 'required|integer'
+            'money'          => 'required|integer',
+            'comission'      => 'required|integer|min:0|max:100',
+            'date'           => 'required'
         ];
     protected $validationMessages
         = [
@@ -29,7 +31,12 @@ class TransactionController extends ApiController
             'type.exists'       => 'Loại giao dịch không tồn tại',
 
             'money.required'    => 'Vui lòng chọn số tiền',
-            'money.integer'     => 'Số tiền nhập vào phải là kiểu số'
+            'money.integer'     => 'Số tiền nhập vào phải là kiểu số',
+            'comission.required'=> 'Comission là bắt buộc',
+            'comission.integer' => 'Comission phải là kiểu số',
+            'comission.max'     => 'Comission phải nhỏ hơn 100%',
+            'comission.min'     => 'Comission phải lớn hơn 0%',
+            'date.required'     => 'Ngày đối soát không được bỏ trống'
         ];
 
     /**
@@ -52,7 +59,7 @@ class TransactionController extends ApiController
     {
         try {
             $this->authorize('transaction.view');
-            $pageSize    = $request->get('limit', 25);
+            $pageSize    = $request->get('limit', 50);
             $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             // dd($data);
@@ -95,8 +102,31 @@ class TransactionController extends ApiController
         DB::enableQueryLog();
         try {
             $this->authorize('transaction.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
             // dd('asdf');
+
+            $validate         = array_only($this->validationRules, [
+                'user_id',
+                'type',
+                'money'
+            ]);
+
+            $listComissionType = [
+                TransactionType::TRANSACTION_BOOKING,
+                TransactionType::TRANSACTION_SURCHARGE,
+                TransactionType::TRANSACTION_DISCOUNT,
+                TransactionType::TRANSACTION_PAYOUT,
+                TransactionType::TRANSACTION_RECEIPT
+            ];
+
+            if (in_array($request->get('type'), $listComissionType)) {
+                $validate = array_only($this->validationRules, [
+                    'user_id',
+                    'type',
+                    'money',
+                    'comission'
+                ]);
+            }
+            $this->validate($request, $validate, $this->validationMessages);
             $data = $this->model->store($request->all());
 
             DB::commit();
@@ -141,6 +171,46 @@ class TransactionController extends ApiController
             ]);
         } catch (\Exception $e) {
             throw $e;
+        }
+    }
+
+    /**
+     * Tạo đối soát chủ động
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function combineTransaction(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('transaction.create');
+
+            $validate = array_only($this->validationRules, [
+                    'user_id',
+                    'date'
+                ]);
+            $this->validate($request, $validate, $this->validationMessages);
+            $this->model->combineTransaction($request->all());
+
+            DB::commit();
+            // logs('checking', 'đã tạo đối soát cho chủ nhà ' . $, $data);
+            // return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
         }
     }
 }

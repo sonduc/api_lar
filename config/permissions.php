@@ -236,6 +236,7 @@ return [
         'title' => 'Thông tin đối soát',
         'list'  => [
             'view'    => 'View',
+            'update'  => 'Update'
         ],
     ],
 

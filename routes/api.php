@@ -106,7 +106,8 @@ $router->group([
      * Transaction Resource
      */
     resource('/transactions', 'TransactionController', $router);
-    $router->get('/transactions/get-transaction-type', 'TransactionController@transactionTypeList');
+    $router->get('/transaction-types', 'TransactionController@transactionTypeList');
+    $router->post('/transactions/combine-manual', 'TransactionController@combineTransaction');
 
     /**
      * Settings
@@ -231,7 +232,7 @@ $router->group([
 
     //Compare checking
     resource('/compare-checking', 'CompareCheckingController', $router);
-
+    $router->put('/compare-checking/prop-update/{id}', 'CompareCheckingController@minorCompareCheckingUpdate');
 
     /**
      *  Resource

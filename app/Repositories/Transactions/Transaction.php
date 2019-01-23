@@ -18,12 +18,13 @@ class Transaction extends Entity
         'type',
         'credit',
         'debit',
-        'date_create',
+        'date_create', // Ngày sẽ đối soát: nếu là booking transaction thì ngày đối soát = ngày checking
         'user_id',
         'booking_id',
         'room_id',
         'bonus',
         'comission',
+        'status'
     ];
 
     const PENDING        = 0;
