@@ -641,7 +641,7 @@ class StatisticalLogic extends BaseLogic
     public function roomByTypeComparison($data)
     {
         $dataInput = $this->checkInputDataBookingStatistical($data);
-
+        
         $data_room_compare = $this->room->countRoomByTypeCompare($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
 
         $date_arr   = [];

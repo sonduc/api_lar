@@ -16,7 +16,7 @@ class StatisticalController extends ApiController
     protected $validationRules = [
         'date_start'                =>  'date',
         'date_end'                  =>  'date|after:date_start',
-        'status'                    =>  'integer|between:4,5',
+        'status'                    =>  'integer',
         'take'                      =>  'integer',
         'customer_id'               =>  'integer|exists:users,id,deleted_at,NULL',
     ];
@@ -26,7 +26,7 @@ class StatisticalController extends ApiController
         'date_end.date_format'      =>  'Ngày kết thúc thống kê phải có định dạng Y-m-d',
         'date_end.after'            =>  'Thời gian kết thúc thống kê phải sau thời gian bắt đầu thống kê',
         'status.integer'            =>  'Trạng thái không phải là kiểu số',
-        'status.between'            =>  'Trạng thái không phù hợp',
+        // 'status.between'            =>  'Trạng thái không phù hợp',
         'take.integer'              =>  'Dữ liệu phải là kiểu số',
         'customer_id.required'      =>  'Mã khách không được bỏ trống',
         'customer_id.integer'       =>  'Mã khách hàng phải là kiểu số',

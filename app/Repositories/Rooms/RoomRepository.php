@@ -261,22 +261,20 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function countRoomByType($date_start, $date_end, $view, $status)
+    public function countRoomByType($date_start, $date_end, $view, $status = Room::AVAILABLE)
     {
-        $rooms = $this->model
+        $query = $this->model
             ->select(
                 DB::raw('rooms.room_type as room_type'),
                 DB::raw('count(rooms.room_type) as total_room')
                 // DB::raw('cast(rooms.created_at as DATE) as createdAt')
-            )
-            ->where([
-                // ['rooms.created_at', '>=', $date_start],
-                // ['rooms.created_at', '<=', $date_end],
-                ['rooms.status', '=', Room::AVAILABLE],
-            ])
+            );
+        if ($status !== null) {
+            $query = $query->where('status', $status);
+        }
 
-            // ->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
-            ->groupBy(DB::raw('rooms.room_type'))->get();
+        // ->groupBy(DB::raw('createdAt,rooms.room_type'))->get();
+        $rooms = $query->groupBy(DB::raw('rooms.room_type'))->get();
 
         $data_date       = [];
         $convertDataRoom = [];
@@ -431,23 +429,23 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function countRoomByCity($date_start, $date_end, $view, $status)
+    public function countRoomByCity($date_start, $date_end, $view, $status = Room::AVAILABLE)
     {
-        $rooms = $this->model
+        $query = $this->model
             ->join('cities', 'cities.id', '=', 'rooms.city_id')
             ->select(
                 DB::raw('cities.name as name_city'),
                 DB::raw('count(rooms.id) as total_room')
                 // DB::raw('cast(rooms.created_at as DATE) as createdAt')
-            )
-            ->where([
-                // ['rooms.created_at', '>=', $date_start],
-                // ['rooms.created_at', '<=', $date_end],
-                ['rooms.status', '=', Room::AVAILABLE],
-            ])
+            );
+            
+        if ($status !== null) {
+            $query = $query->where('status', $status);
+        }
 
-            // ->groupBy(DB::raw('createdAt,cities.name'))->get();
-            ->groupBy(DB::raw('cities.name'))->get();
+
+        // ->groupBy(DB::raw('createdAt,cities.name'))->get();
+        $rooms = $query->groupBy(DB::raw('cities.name'))->get();
 
         $data_date       = [];
         $convertDataRoom = [];
@@ -539,11 +537,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @param  [type] $date_end   [description]
      * @return [type]             [description]
      */
-    public function countRoomByTypeCompare($date_start, $date_end, $view, $status)
+    public function countRoomByTypeCompare($date_start, $date_end, $view, $status = Room::AVAILABLE)
     {
         $selectRawView = $this->switchViewRoomCreatedAt($view);
 
-        $rooms = $this->model
+        $query = $this->model
             ->select(
                 DB::raw('rooms.room_type as room_type'),
                 DB::raw('count(rooms.id) as total_room'),
@@ -552,9 +550,12 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where([
                 ['rooms.created_at', '>=', $date_start],
                 ['rooms.created_at', '<=', $date_end],
-                ['rooms.status', '=', Room::AVAILABLE],
-            ])
-            ->groupBy(DB::raw('createdAt, room_type'))->get();
+            ]);
+        if ($status !== null) {
+            $query = $query->where('status', $status);
+        }
+
+        $rooms = $query->groupBy(DB::raw('createdAt, room_type'))->get();
 
         $data_date       = [];
         $convertDataRoom = [];
