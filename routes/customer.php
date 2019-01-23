@@ -80,6 +80,11 @@ resource('/cities', 'CityController', $router);
  */
 resource('/districts', 'DistrictController', $router);
 
+/**
+ * SEARCH
+ */
+$router->get('/search-suggestions', 'SearchController@searchSuggestions');
+
 /*
  * Booking Router
  */

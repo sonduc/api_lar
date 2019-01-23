@@ -33,10 +33,8 @@ trait RoomLogicTrait
         $list                   = [];
         $data_booking_type_day  = [];
 
-        foreach ($data_booking as $item)
-        {
-            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_DAY)
-            {
+        foreach ($data_booking as $item) {
+            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
                 $data_booking_type_day[] = $item;
             }
         }
@@ -130,6 +128,64 @@ trait RoomLogicTrait
         $this->roomTimeBlock->updateRoomTimeBlock($room, $data->all());
         return $room;
     }
+
+    public function getBlockedScheduleDayByRoomId($id)
+    {
+        $data_booking           = $this->booking->getFutureBookingByRoomId($id);
+        $data_block             = $this->roomTimeBlock->getFutureRoomTimeBlockByRoomId($id);
+        $list                   = [];
+        $data_booking_type_day  = [];
+        $data_booking_type_hour = [];
+
+        foreach ($data_booking as $item) {
+            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
+                $data_booking_type_day[] = $item;
+            }
+            if ($item['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+                $data_booking_type_hour[] = $item;
+            }
+        }
+
+        // Danh sách các ngày bị block do đã có booking
+        foreach ($data_booking_type_day as $item) {
+            $CI     = Carbon::createFromTimestamp($item->checkin);
+            $CO     = Carbon::createFromTimestamp($item->checkout);
+            $period = CarbonPeriod::between($CI, $CO);
+
+            foreach ($period as $day) {
+                $list[] = $day;
+            }
+        }
+
+        foreach ($data_booking_type_hour as $item) {
+            $CI_h = Carbon::createFromTimestamp($item->checkin)->startOfDay();
+            $CO_h = Carbon::createFromTimestamp($item->checkout)->endOfDay();
+            // $CO_h = $CI_h->addHours;
+            $period_h = CarbonPeriod::between($CI_h, $CO_h);
+
+            foreach ($period_h as $day) {
+                $list[] = $day;
+            }
+        }
+
+        // Danh sách các ngày block chủ động
+        foreach ($data_block as $item) {
+            $period = CarbonPeriod::between($item->date_start, $item->date_end);
+            foreach ($period as $day) {
+                $list[] = $day;
+            }
+        }
+
+        $list = array_map(function (Carbon $item) {
+            if ($item >= Carbon::now()) {
+                return $item->toDateString();
+            }
+        }, $list);
+
+        $list = array_unique($list);
+        $list = array_filter($list);
+        array_splice($list, 0, 0);
+        // dd($list);
+        return $list;
+    }
 }
-
-

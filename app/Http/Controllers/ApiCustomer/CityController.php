@@ -9,7 +9,6 @@
 namespace App\Http\Controllers\ApiCustomer;
 
 use App\Http\Transformers\CityTransformer;
-use App\Repositories\Cities\City;
 use App\Repositories\Cities\CityRepository;
 use Illuminate\Http\Request;
 
