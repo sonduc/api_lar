@@ -148,10 +148,13 @@ trait BookingLogicTrait
             throw new InvalidDateException('time-too-short', trans2(BookingMessage::ERR_SHORTER_THAN_TIMEBLOCK));
         }
 
-
-
         // Trả về lỗi nếu thời gian đặt bị trùng với các ngày  bị khóa chủ động va khóa dựa theo những booking đặtk phòng này theo ngày.
-        $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+            $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+        }
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
+            $blocked_schedule = $this->getBlockedScheduleDayByRoomId($room->id);
+        }
         $period           = CarbonPeriod::between($checkin, $checkout);
         $days             = [];
         foreach ($period as $item) {
@@ -171,7 +174,6 @@ trait BookingLogicTrait
         // Kiểm tra tính hợp lệ của thời gian đặt phòng theo kiểu ngày
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
             // Trả về lỗi nếu thời gian giữa checkin và thời gian checkin mặc định của phòng
-
             $roomCI = $checkin->copy()->setTimeFromTimeString($room->checkin);
 
             $minCI = $roomCI->copy()->addMinutes(-BookingConstant::MINUTE_BETWEEN_BOOK);
