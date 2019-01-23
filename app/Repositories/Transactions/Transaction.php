@@ -18,13 +18,23 @@ class Transaction extends Entity
         'type',
         'credit',
         'debit',
-        'date_create',
+        'date_create', // Ngày sẽ đối soát: nếu là booking transaction thì ngày đối soát = ngày checking
         'user_id',
         'booking_id',
         'room_id',
         'bonus',
         'comission',
+        'status'
     ];
+
+    const PENDING        = 0;
+    const COMBINED       = 1;
+
+    const STATUS = [
+        self::PENDING    => 'Đang chờ',
+        self::COMBINED   => 'Đã tạo đối soát'
+    ];
+
 
     /**
      * The attributes that are cast permission from json string to array
@@ -44,6 +54,6 @@ class Transaction extends Entity
 
     public function room()
     {
-        return $this->belongsTo(\App\Repositories\Rooms::class, 'room_id');
+        return $this->belongsTo(\App\Repositories\Rooms\Room::class, 'room_id');
     }
 }

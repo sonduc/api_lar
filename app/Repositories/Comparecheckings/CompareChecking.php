@@ -22,8 +22,18 @@ class CompareChecking extends Entity
         'total_credit',
         'total_bonus',
         'total_compare_checking',
-        'user_id'
+        'user_id',
+        'status'
     ];
+    
+    const PENDING = 0;
+    const DONE    = 1;
+
+    const STATUS = [
+        self::PENDING => 'Đang chờ đối soát',
+        self::DONE    => 'Đã đối soát'
+    ];
+
 
     /**
      * The attributes that are cast permission from json string to array

@@ -48,7 +48,7 @@ class PromotionLogic extends BaseLogic
 	    		throw new \Exception('Phải đăng ký chương trình khuyến mãi trước 1 tuần');
 	    	}
     		if(!empty($data['rooms']) || $data['rooms'] != NULL){
-		    	dd($settings->rooms);
+		    	// dd($settings->rooms);
 		    	$arrRoom = array_merge($settings->rooms,$data['rooms']);
 		    	array_unique($arrRoom);
 		    	$settings->rooms = $arrRoom;

@@ -21,15 +21,15 @@ class TransactionType extends Entity
     const TRANSACTION_RECEIPT       = 10;
 
     const TYPE = [
-        self::TRANSACTION_BOOKING       => 'Booking',
+        self::TRANSACTION_BOOKING       => 'Đặt phòng Westay',
         self::TRANSACTION_PENALTY       => 'Phạt host',
         self::TRANSACTION_SURCHARGE     => 'Phụ thu',
         self::TRANSACTION_DISCOUNT      => 'Giảm giá',
         self::TRANSACTION_PAYOUT        => 'Phiếu chi',
         self::TRANSACTION_BONUS         => 'Thưởng host',
-        self::TRANSACTION_BOOK_AIRBNB   => 'Book Airbnb',
-        self::TRANSACTION_BOOK_BOOKING  => 'Book Booking',
-        self::TRANSACTION_BOOK_AGODA    => 'Book Agoda',
+        self::TRANSACTION_BOOK_AIRBNB   => 'Đặt phòng từ Airbnb',
+        self::TRANSACTION_BOOK_BOOKING  => 'Đặt phòng từ Booking',
+        self::TRANSACTION_BOOK_AGODA    => 'Đặt phòng từ Agoda',
         self::TRANSACTION_RECEIPT       => 'Phiếu thu'
     ];
 

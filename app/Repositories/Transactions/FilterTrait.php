@@ -13,7 +13,7 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeUser($query, $q)
+    public function scopeMerchant($query, $q)
     {
         if ($q) {
             return $query->where('user_id', $q);
@@ -21,7 +21,7 @@ trait FilterTrait
         return $query;
     }
 
-    public function scopeRoom($query, $q)
+    public function scopeProperty($query, $q)
     {
         if ($q) {
             return $query->where('room_id', $q);
@@ -29,12 +29,40 @@ trait FilterTrait
         return $query;
     }
     
-    public function scopeDate($query, $q)
+    public function scopeCheckingStart($query, $q)
     {
         if ($q) {
             $q_date = Carbon::parse($q)->toDateString();
 
-            return $query->where('date_create', $q);
+            return $query->where('date_create', '>=', $q_date);
+        }
+        return $query;
+    }
+    public function scopeCheckingEnd($query, $q)
+    {
+        if ($q) {
+            $q_date = Carbon::parse($q)->toDateString();
+
+            return $query->where('date_create', '<=', $q_date);
+        }
+        return $query;
+    }
+
+    public function scopeDateStart($query, $q)
+    {
+        if ($q) {
+            $q_date = Carbon::parse($q)->startOfDay()->toDateTimeString();
+
+            return $query->where('created_at', '>=', $q_date);
+        }
+        return $query;
+    }
+    public function scopeDateEnd($query, $q)
+    {
+        if ($q) {
+            $q_date = Carbon::parse($q)->endOfDay()->toDateTimeString();
+
+            return $query->where('created_at', '<=', $q_date);
         }
         return $query;
     }

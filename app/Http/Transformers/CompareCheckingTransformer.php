@@ -36,6 +36,8 @@ class CompareCheckingTransformer extends TransformerAbstract
             'total_credit'           => $compare->total_credit,
             'total_bonus'            => $compare->total_bonus,
             'total_compare_checking' => $compare->total_compare_checking,
+            'status'                 => $compare->status,
+            'status_txt'             => $compare->getCompareCheckingStatus(),
             'created_at'             => $compare->created_at ? $compare->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'             => $compare->updated_at ? $compare->updated_at->format('Y-m-d H:i:s') : null,
         ];

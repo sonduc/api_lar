@@ -30,6 +30,11 @@ class TransactionRepository extends BaseRepository implements TransactionReposit
     
     public function getUserTransaction($user_id)
     {
-        return $this->model->where('user_id', $user_id)->get();
+        return $this->model->where('user_id', $user_id)->where('status', Transaction::PENDING)->get();
+    }
+
+    public function getUserTransactionToCombine($date, $user_id)
+    {
+        return $this->model->where('date_create', $date)->where('user_id', $user_id)->where('status', Transaction::PENDING)->get();
     }
 }

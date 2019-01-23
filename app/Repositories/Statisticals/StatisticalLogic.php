@@ -392,6 +392,7 @@ class StatisticalLogic extends BaseLogic
             $some_date['_' . key($value_list_price_range)]  = 0;
             foreach ($value_list_price_range as $data_value) {
                 foreach ($data_value as $k => $v) {
+                    // dd($v);
                     $series_arr[$k]['name']      = $v['price_range_txt'];
                     $series_arr[$k]['data'][]    = $v['total_booking'];
                     $series_arr[$k]['success'][] = (int)$v['success'];
@@ -423,7 +424,7 @@ class StatisticalLogic extends BaseLogic
             $some_date['_' . key($value_list_age_range)]  = 0;
             foreach ($value_list_age_range as $data_value) {
                 foreach ($data_value as $k => $v) {
-                    $series_arr[$k]['name']      = $v['price_range_txt'];
+                    $series_arr[$k]['name']      = $v['age_range_txt'];
                     $series_arr[$k]['data'][]    = $v['total_booking'];
                     $series_arr[$k]['success'][] = (int)$v['success'];
                     $series_arr[$k]['cancel'][]  = (int)$v['cancel'];

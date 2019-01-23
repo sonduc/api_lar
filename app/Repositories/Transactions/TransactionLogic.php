@@ -112,6 +112,7 @@ class TransactionLogic extends BaseLogic
 
         $now = Carbon::now()->toDateString();
         $data['date_create'] = $now;
+
         $dataTransaction = parent::store($data);
         return $dataTransaction;
     }
@@ -168,58 +169,102 @@ class TransactionLogic extends BaseLogic
      * @return \App\Repositories\Eloquent
      */
 
-    public function combineTransaction()
+    public function combineTransaction($data = null)
     {
-        $date = Carbon::now()->subDay()->toDateString();
-        
-        $listUser = $this->model->getListUserCombine($date);
-
         $listComissionType = [
-            TransactionType::TRANSACTION_BOOKING,
-            TransactionType::TRANSACTION_SURCHARGE,
-            TransactionType::TRANSACTION_DISCOUNT,
-            TransactionType::TRANSACTION_PAYOUT,
-            TransactionType::TRANSACTION_RECEIPT
-        ];
+                TransactionType::TRANSACTION_BOOKING,
+                TransactionType::TRANSACTION_SURCHARGE,
+                TransactionType::TRANSACTION_DISCOUNT,
+                TransactionType::TRANSACTION_PAYOUT,
+                TransactionType::TRANSACTION_RECEIPT
+            ];
 
         $listNoComissionType = [
-            TransactionType::TRANSACTION_PENALTY,
-            TransactionType::TRANSACTION_BONUS,
-            TransactionType::TRANSACTION_BOOK_AIRBNB,
-            TransactionType::TRANSACTION_BOOK_BOOKING,
-            TransactionType::TRANSACTION_BOOK_AGODA,
-        ];
+                TransactionType::TRANSACTION_PENALTY,
+                TransactionType::TRANSACTION_BONUS,
+                TransactionType::TRANSACTION_BOOK_AIRBNB,
+                TransactionType::TRANSACTION_BOOK_BOOKING,
+                TransactionType::TRANSACTION_BOOK_AGODA,
+            ];
 
-        foreach ($listUser as $key => $value) {
-            $user_transactions = $this->model->getUserTransaction($value);
+        if ($data == null) {
+            $date = Carbon::now()->subDay()->toDateString();
+            
+            $listUser = $this->model->getListUserCombine($date);
+
+            foreach ($listUser as $key => $value) {
+                $user_transactions = $this->model->getUserTransaction($value);
+                $total_debit  = 0;
+                $total_credit = 0;
+                $total_bonus  = 0;
+                foreach ($user_transactions as $k => $v) {
+                    if ($v['comission'] !== null && in_array($v['type'], $listComissionType)) {
+                        if ($v['type'] == TransactionType::TRANSACTION_BOOKING) {
+                            $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_SURCHARGE) {
+                            $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_DISCOUNT) {
+                            $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_PAYOUT) {
+                            $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_RECEIPT) {
+                            $total_debit  -= $v['debit'] * (100 - $v['comission']) / 100;
+                        }
+                    } elseif ($v['comission'] == null && in_array($v['type'], $listNoComissionType)) {
+                        $total_debit  += $v['debit'];
+                        $total_credit -= $v['credit'];
+                    }
+                    $total_bonus += $v['bonus'];
+                    $v['status']  = Transaction::COMBINED;
+                    $v->save();
+                }
+                
+                $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $value);
+            }
+        } elseif (isset($data['date']) && isset($data['user_id'])) {
+            $date           = Carbon::parse($data['date'])->toDateString();
+            // dd($date, $data['user_id']);
+            $transactions   = $this->model->getUserTransactionToCombine($date, $data['user_id']);
+            
             $total_debit  = 0;
             $total_credit = 0;
             $total_bonus  = 0;
-            foreach ($user_transactions as $k => $v) {
-                if ($v['comission'] !== null && in_array($v['type'], $listComissionType)) {
-                    if ($v['type'] == TransactionType::TRANSACTION_BOOKING) {
-                        $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+            // dd(count($transactions));
+            // if($transactions !== null)
+            // dd($transactions);
+            if (count($transactions) > 0) {
+                foreach ($transactions as $k => $v) {
+                    if ($v['comission'] !== null && in_array($v['type'], $listComissionType)) {
+                        if ($v['type'] == TransactionType::TRANSACTION_BOOKING) {
+                            $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_SURCHARGE) {
+                            $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_DISCOUNT) {
+                            $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_PAYOUT) {
+                            $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
+                        }
+                        if ($v['type'] == TransactionType::TRANSACTION_RECEIPT) {
+                            $total_debit  -= $v['debit'] * (100 - $v['comission']) / 100;
+                        }
+                    } elseif ($v['comission'] == null && in_array($v['type'], $listNoComissionType)) {
+                        $total_debit  += $v['debit'];
+                        $total_credit -= $v['credit'];
                     }
-                    if ($v['type'] == TransactionType::TRANSACTION_SURCHARGE) {
-                        $total_debit  += $v['debit']  * (100 - $v['comission']) / 100;
-                    }
-                    if ($v['type'] == TransactionType::TRANSACTION_DISCOUNT) {
-                        $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
-                    }
-                    if ($v['type'] == TransactionType::TRANSACTION_PAYOUT) {
-                        $total_credit -= $v['credit'] * (100 - $v['comission']) / 100;
-                    }
-                    if ($v['type'] == TransactionType::TRANSACTION_RECEIPT) {
-                        $total_debit -= $v['debit'] * (100 - $v['comission']) / 100;
-                    }
-                } elseif ($v['comission'] == null && in_array($v['type'], $listNoComissionType)) {
-                    $total_debit  += $v['debit'];
-                    $total_credit -= $v['credit'];
+                    $total_bonus += $v['bonus'];
+                    $v['status']  = Transaction::COMBINED;
+                    // dd($v);
+                    $v->save();
                 }
-                $total_bonus      += $v['bonus'];
+                $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $data['user_id']);
             }
-            
-            $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $value);
         }
     }
 }
