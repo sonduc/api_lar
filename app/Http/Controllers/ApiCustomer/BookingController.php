@@ -4,8 +4,6 @@ namespace App\Http\Controllers\ApiCustomer;
 
 use App\BaoKim\BaoKimPayment;
 use App\BaoKim\BaoKimPaymentPro;
-use App\Events\BookingConfirmEvent;
-use App\Events\ConfirmBookingTime;
 use App\Http\Transformers\BookingCancelTransformer;
 use App\Http\Transformers\Customer\BookingTransformer;
 use App\Repositories\Bookings\BookingCancel;
@@ -25,7 +23,6 @@ use Illuminate\Support\Facades\DB;
 use App\Events\Check_Usable_Coupon_Event;
 use App\Events\CreateBookingTransactionEvent;
 use App\Jobs\SendBookingAdmin;
-use phpDocumentor\Reflection\DocBlockFactory;
 
 class BookingController extends ApiController
 {

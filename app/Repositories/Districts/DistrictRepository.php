@@ -68,30 +68,4 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
 
     }
 
-    /**
-     * Lấy ra danh sách các quận huyện theo từ khóa khi không đủ 6 gợi ý tìm kiếm từ thành phố
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-
-    public function getDistrictUsedForSerach($data,$request)
-    {
-            $result_district =  $this->model
-                ->select('districts.city_id','districts.name','districts.hot','districts.status')
-                ->where('districts.name', 'like', "%$request->key%")
-                ->where('districts.status',District::AVAILABLE)
-                ->orderBy('districts.hot', 'desc')
-                ->orderBy('districts.priority', 'desc')
-                ->limit(City::SERACH_SUGGESTIONS - $data->count())->get();
-            $result =  array_merge($data->toArray(),$result_district->toArray());
-             $count = collect($result)->count();
-
-           return $list = [$count,$result];
-
-
-    }
-
-
 }

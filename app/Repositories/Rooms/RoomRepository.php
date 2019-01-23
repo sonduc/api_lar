@@ -487,30 +487,6 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     }
 
     /**
-     * Lấy ra danh sách các tên phòng theo từ khóa khi không đử 6 gợi ý từ thành phố , quận huyện
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function getRoomNameUserForSearch($data, $request, $count)
-    {
-        $result_room_name = $this->model
-             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address')
-             ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
-             ->where('room_translates.name', 'like', "%$request->key%")
-             ->where('rooms.status', Room::AVAILABLE)
-             ->orderBy('rooms.hot', 'DESC')
-             ->limit(City::SERACH_SUGGESTIONS-$count)->get()->toArray();
-
-        $result =  array_merge($data, $result_room_name);
-
-        $count = collect($result)->count();
-
-        return $list = [$count,$result];
-    }
-
-    /**
      * Đếm số lượng phòng theo thành phố
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
