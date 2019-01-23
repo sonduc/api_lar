@@ -72,7 +72,6 @@ resource('/comforts', 'ComfortController', $router);
 /**
  * City Resource
  */
-$router->get('/search-suggestions', 'CityController@searchSuggestions');
 resource('/cities', 'CityController', $router);
 
 
@@ -80,6 +79,11 @@ resource('/cities', 'CityController', $router);
  * District Resource
  */
 resource('/districts', 'DistrictController', $router);
+
+/**
+ * SEARCH
+ */
+$router->get('/search-suggestions', 'SearchController@searchSuggestions');
 
 /*
  * Booking Router

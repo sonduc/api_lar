@@ -466,7 +466,7 @@ class BookingController extends ApiController
                     $data['payer_email']            = isset($booking['email']) ? $booking['email'] : null;
                     $result                         = $this->baokimpro->pay_by_card($data);
                     $baokim_url                     = $result['redirect_url'] ? $result['redirect_url'] : $result['guide_url'];
-                    if (isset($baokim_url) || empty($baokim_url)) {
+                    if (!isset($baokim_url) || empty($baokim_url)) {
                         throw new \Exception('Có lỗi xảy ra , quý khách vui lòng thực hiện lại giao dịch');
                     }
 

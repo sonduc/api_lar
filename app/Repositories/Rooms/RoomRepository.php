@@ -5,6 +5,7 @@ namespace App\Repositories\Rooms;
 use App\Repositories\BaseRepository;
 use App\Repositories\Bookings\BookingConstant;
 use App\Repositories\Cities\City;
+use App\Repositories\Search\SearchConstant;
 use Illuminate\Support\Facades\DB;
 
 class RoomRepository extends BaseRepository implements RoomRepositoryInterface
@@ -498,12 +499,26 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function getRoomNameUserForSearch($data, $request, $count)
     {
         $result_room_name = $this->model
-             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address')
+             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address','rooms.id','rooms.room_type')
              ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
              ->where('room_translates.name', 'like', "%$request->key%")
+             ->orWhere(\DB::raw("REPLACE(room_translates.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
              ->where('rooms.status', Room::AVAILABLE)
              ->orderBy('rooms.hot', 'DESC')
-             ->limit(City::SERACH_SUGGESTIONS-$count)->get()->toArray();
+             ->limit(SearchConstant::SEARCH_SUGGESTIONS-$count)->get()->toArray();
+
+        $result_room_name = array_map(function ($item){
+            return [
+                'id'                => $item['id'],
+                'name'              => $item['name'],
+                'hot'               => $item['hot'],
+                'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
+                'room_type_text'    => Room::ROOM_TYPE[$item['room_type']],
+                'type'              => SearchConstant::ROOM_NAME,
+                'descripttion'      => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
+            ];
+
+        },$result_room_name);
 
         $result =  array_merge($data, $result_room_name);
 
