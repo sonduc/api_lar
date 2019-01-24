@@ -1,6 +1,6 @@
 /*
--- Query: SELECT * FROM db_westay.blog_tag
--- Date: 2019-01-08 09:31
+-- Query: select * from blog_tag
+-- Date: 2019-01-24 11:27
 */
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (3,4);
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (4,5);
@@ -104,3 +104,6 @@ INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (70,2);
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (71,2);
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (72,2);
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (73,2);
+INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (74,8);
+INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (75,8);
+INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (76,8);
