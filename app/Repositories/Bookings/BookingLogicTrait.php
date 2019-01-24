@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
 use App\User;
+use phpDocumentor\Reflection\DocBlock\Description;
 
 trait BookingLogicTrait
 {
@@ -149,12 +150,8 @@ trait BookingLogicTrait
         }
 
         // Trả về lỗi nếu thời gian đặt bị trùng với các ngày  bị khóa chủ động va khóa dựa theo những booking đặtk phòng này theo ngày.
-        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
-            $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
-        }
-        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
-            $blocked_schedule = $this->getBlockedScheduleDayByRoomId($room->id);
-        }
+        $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+
         $period           = CarbonPeriod::between($checkin, $checkout);
         $days             = [];
         foreach ($period as $item) {

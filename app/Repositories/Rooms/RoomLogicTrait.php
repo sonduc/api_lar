@@ -43,12 +43,14 @@ trait RoomLogicTrait
         foreach ($data_booking_type_day as $item) {
             $CI     = Carbon::createFromTimestamp($item->checkin);
             $CO     = Carbon::createFromTimestamp($item->checkout);
-            $period = CarbonPeriod::between($CI, $CO);
+            $period = CarbonPeriod::between($CI->copy()->addDays(1), $CO);
 
             foreach ($period as $day) {
                 $list[] = $day;
             }
+
         }
+
         // Danh sách các ngày block chủ động
         foreach ($data_block as $item) {
             $period = CarbonPeriod::between($item->date_start, $item->date_end);
@@ -104,7 +106,7 @@ trait RoomLogicTrait
             $CO                 = Carbon::createFromTimestamp($item->checkout);
             $list[]             = [
                 'start' => $CO->format('Y-m-d H:i:s'),
-                'end'   => $CI->StartOfDay()->format('Y-m-d H:i:s')
+                'end'   => $CO->StartOfDay()->format('Y-m-d H:i:s')
             ];
 
         }

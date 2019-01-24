@@ -56,6 +56,7 @@ $router->get('/rooms/type', 'RoomController@getRoomType');
 $router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+$router->get('/rooms/schedule-by-hour/{id}', 'RoomController@getRoomScheduleByHour');
 $router->get('/rooms/room_recommend/{id}', 'RoomController@getRoomRecommend');
 $router->get('/rooms/count-room-by-standard-point', 'RoomController@getCountRoomByStandardPoint');
 $router->get('/rooms/count-room-by-comfort-lists', 'RoomController@getCountRoomByComfortLists');

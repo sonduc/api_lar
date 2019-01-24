@@ -108,7 +108,7 @@ class RoomController extends ApiController
 
 
     /**
-     * Lấy các ngày đã khóa theo mã phòng
+     * Lấy các khoảng giờ đã khóa theo mã phòng
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id

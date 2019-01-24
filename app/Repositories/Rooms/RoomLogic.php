@@ -143,8 +143,8 @@ class RoomLogic extends BaseLogic
     }
 
     /**
-     * Lấy ra những ngày không hợp lệ
-     * @author HarikiRito <nxh0809@gmail.com>
+     * Lấy ra những khoảng giờ gị khóa
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      *
