@@ -106,6 +106,39 @@ class RoomController extends ApiController
         }
     }
 
+
+    /**
+     * Lấy các ngày đã khóa theo mã phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomScheduleByHour($id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $data = [
+                'data' => [
+                    'blocks' => $this->model->getFutureRoomScheduleByHour($id),
+                ],
+            ];
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
     public function getRoomLatLong(Request $request)
     {
         try {

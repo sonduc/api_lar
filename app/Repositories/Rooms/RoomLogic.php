@@ -142,6 +142,20 @@ class RoomLogic extends BaseLogic
         return $this->getBlockedScheduleByRoomId($room->id);
     }
 
+    /**
+     * Lấy ra những ngày không hợp lệ
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $id
+     *
+     * @return array
+     */
+    public function getFutureRoomScheduleByHour($id)
+    {
+        $room = parent::getById($id);
+        return $this->getBlockedScheduleByHour($room->id);
+    }
+
 
 
     /**

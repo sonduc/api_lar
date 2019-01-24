@@ -70,8 +70,67 @@ trait RoomLogicTrait
     }
 
     /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return array
+     */
+    public function getBlockedScheduleByHour($id)
+    {
+
+        $data_booking               = $this->booking->getFutureBookingByRoomId($id);
+        $list                       = [];
+        $data_booking_type_day      = [];
+        $data_booking_type_hour     = [];
+
+        foreach ($data_booking as $item) {
+            ($item['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) ? $data_booking_type_day[] = $item : null;
+            ($item['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) ? $data_booking_type_hour[] = $item : null;
+        }
+
+        // Lấy ra khoảng  giờ bị khóa theo thời gian checkin, checkout của các booking theo ngày
+        foreach ($data_booking_type_day as $item) {
+
+            // Lấy ra danh sach các giờ bị khóa thời thời gian checkin của booking theo ngày
+            $CI                 = Carbon::createFromTimestamp($item->checkin);
+
+            $list[]             = [
+                'start' => $CI->format('Y-m-d H:i:s'),
+                'end'   => $CI->EndOfDay()->format('Y-m-d H:i:s')
+            ];
+
+            // Lấy ra danh sach các giờ bị khóa thời thời gian checkin của booking theo ngày
+            $CO                 = Carbon::createFromTimestamp($item->checkout);
+            $list[]             = [
+                'start' => $CO->format('Y-m-d H:i:s'),
+                'end'   => $CI->StartOfDay()->format('Y-m-d H:i:s')
+            ];
+
+        }
+
+
+        // Lấy ra khoảng giờ bị khóa theo thời gian checkin, checkout của các booking theo giờ
+        foreach ($data_booking_type_hour as $item) {
+
+            // Lấy ra danh sach các giờ bị khóa thời thời gian checkin của booking theo ngày
+            $CI                 = Carbon::createFromTimestamp($item->checkin)->roundMinute(10);
+            $CO                 = Carbon::createFromTimestamp($item->checkout)->roundMinute(10);
+
+            $list[]             = [
+                'start' => $CI->format('Y-m-d H:i:s'),
+                'end'   => $CO->format('Y-m-d H:i:s')
+            ];
+
+
+        }
+
+        return $list;
+    }
+
+    /**
      * Lưu comforts cho phòng
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author HarikiRito <nxh0809@0mail.com>
      *
      * @param $data_room
      * @param $data

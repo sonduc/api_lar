@@ -95,7 +95,7 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
             'hot'               => $item['hot'],
             'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
             'type'              => SearchConstant::DISTRICT,
-            'descripttion'      => SearchConstant::SEARCH_TYPE[SearchConstant::DISTRICT],
+            'description'      => SearchConstant::SEARCH_TYPE[SearchConstant::DISTRICT],
         ];
 
     },$result_district);

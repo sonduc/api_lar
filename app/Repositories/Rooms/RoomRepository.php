@@ -513,7 +513,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
                 'room_type_text'    => Room::ROOM_TYPE[$item['room_type']],
                 'type'              => SearchConstant::ROOM_NAME,
-                'descripttion'      => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
+                'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
             ];
 
         },$result_room_name);
