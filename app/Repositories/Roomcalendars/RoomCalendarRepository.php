@@ -160,7 +160,8 @@ class RoomCalendarRepository extends BaseRepository implements RoomCalendarRepos
         $room = $this->room->getListCalendar($list_id);
         // dd($room);
         foreach ($room as $key => $ical_url) {
-            // $ical_url = 'https://www.airbnb.com/calendar/ical/30510881.ics?s=6154494651e5aeabdccf0d4152d14ef6';
+            // dd($ical_url);
+            // $ical_url = 'https://www.airbnb.com/calendar/ical/25523766.ics?s=e27df69e82dd1d530a25fa7dc9c3d5c5';
             try {
                 $ical = new ICal($ical_url, array(
                     'defaultSpan'                 => 2,     // Default value

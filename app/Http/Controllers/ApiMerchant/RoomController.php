@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers\ApiMerchant;
 
-
 use App\Http\Controllers\Api\ApiController;
 use App\Http\Transformers\Merchant\RoomTransformer;
 use App\Repositories\Bookings\BookingRepository;
@@ -25,7 +24,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Intervention\Image\Exception\ImageException;
-
 
 class RoomController extends ApiController
 {
@@ -269,7 +267,7 @@ class RoomController extends ApiController
             //    dd(DB::getQueryLog());
             $id   =  Auth::user()->id;
             $pageSize    = $request->get('size');
-            $data = $this->model->getRoom($id, $request->all(),$pageSize);
+            $data = $this->model->getRoom($id, $request->all(), $pageSize);
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             DB::rollBack();
@@ -284,7 +282,6 @@ class RoomController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
-
     }
 
     /**
@@ -332,8 +329,8 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-             $this->authorize('room.create');
-             $this->validate($request, $this->validationRules, $this->validationMessages);
+            $this->authorize('room.create');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
 
             $data = $this->model->store($request->all());
             // dd(DB::getQueryLog());
@@ -377,7 +374,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update',$id);
+            $this->authorize('room.update', $id);
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->update($id, $request->all());
 //            dd(DB::getQueryLog());
@@ -389,7 +386,6 @@ class RoomController extends ApiController
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -428,7 +424,7 @@ class RoomController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->authorize('room.delete',$id);
+            $this->authorize('room.delete', $id);
             $this->model->delete($id);
 
             DB::commit();
@@ -549,7 +545,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update',$request->room_id);
+            $this->authorize('room.update', $request->room_id);
             $validate = array_only($this->validationRules, [
                 'room_time_blocks.*.0',
                 'room_time_blocks.*.1',
@@ -598,7 +594,7 @@ class RoomController extends ApiController
     public function getRoomName()
     {
         $this->authorize('room.view');
-        $test = DB::table('rooms')->where('rooms.merchant_id','=',Auth::user()->id)
+        $test = DB::table('rooms')->where('rooms.merchant_id', '=', Auth::user()->id)
             ->join('room_translates', 'rooms.id', 'room_translates.room_id')
             ->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))
             ->get()->toArray();
@@ -655,7 +651,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update',$request->room_id);
+            $this->authorize('room.update', $request->room_id);
             $validate = array_only($this->validationRules, [
                 'settings.no_booking_cancel',
                 'settings.refunds.*.days',
@@ -712,7 +708,7 @@ class RoomController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->authorize('room.update',$request->room_id);
+            $this->authorize('room.update', $request->room_id);
             $validate = array_only($this->validationRules, [
                 'weekday_price.*.price_day',
                 'weekday_price.*.price_hour',
@@ -762,4 +758,42 @@ class RoomController extends ApiController
         }
     }
 
+    public function updateAirbnbCalendar(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update', $request->room_id);
+
+            $data = $this->model->updateAirbnbCalendar($request->only([
+                'room_id', 'airbnb_calendar',
+            ]));
+
+            DB::commit();
+            logs('room', 'Cập nhật lịch Airbnb ' . $data->id, $data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
 }

@@ -188,4 +188,19 @@ trait RoomLogicTrait
         // dd($list);
         return $list;
     }
+
+    
+    /**
+     *
+     * @author Tuan Anh <tuananhpham1402@gmail.com>
+     * Cập nhật đường dẫn tới lịch của Airbnb để đồng bộ
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function updateAirbnbCalendar($data)
+    {
+        $data['airbnb_calendar']= isset($data['airbnb_calendar']) ? $data['airbnb_calendar'] : '';
+        return parent::update($data['room_id'], $data);
+    }
 }
