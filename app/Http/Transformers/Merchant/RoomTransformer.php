@@ -97,6 +97,7 @@ class RoomTransformer extends TransformerAbstract
             'total_recommend'      => $room->total_recommend,
 
             'settings'             => json_decode($room->settings),
+            'airbnb_calendar'      => $room->airbnb_calendar,
             'percent'              =>  $room->percent,
             //'percent'              => $room->percent ?? 0,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
@@ -283,5 +284,4 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->reviews());
         return $this->collection($data, new RoomReviewTransformer);
     }
-
 }

@@ -80,6 +80,7 @@ class RoomTransformer extends TransformerAbstract
             'total_review'         => $room->total_review,
             'total_recommend'      => $room->total_recommend,
             'status_txt'           => $room->roomStatus(),
+            'airbnb_calendar'      => $room->airbnb_calendar,
             'settings'             => json_decode($room->settings),
             'percent'              => $room->percent,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
