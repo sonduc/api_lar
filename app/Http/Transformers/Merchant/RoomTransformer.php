@@ -139,7 +139,7 @@ class RoomTransformer extends TransformerAbstract
         }
 
         $columns = ['*'];
-        $data = $room->roomTrans();
+        $data = $room->roomTransMerchant();
 
         $data = $this->pagination($params, $data, $columns);
 
