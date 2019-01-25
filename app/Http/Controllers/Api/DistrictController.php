@@ -61,7 +61,6 @@ class DistrictController extends ApiController
         try{
             $this->authorize('district.view');
             $pageSize    = $request->get('limit', 25);
-            $this->trash = $this->trashStatus($request);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {

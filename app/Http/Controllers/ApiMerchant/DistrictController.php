@@ -38,9 +38,10 @@ class DistrictController extends ApiController
     public function index(Request $request)
     {
         try{
-            $data        = $this->model->getByQuery($request->all());
+            $this->authorize('district.view');
+            $pageSize    = $request->get('limit', 25);
+            $data        = $this->model->getByQuery($request->all(), $pageSize);
             return $this->successResponse($data);
-
         }catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
@@ -56,6 +57,7 @@ class DistrictController extends ApiController
     public function show(Request $request, $id)
     {
         try {
+            $this->authorize('district.view');
             $data    = $this->model->getById($id);
             return $this->successResponse($data);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
