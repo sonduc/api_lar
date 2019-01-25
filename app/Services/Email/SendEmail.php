@@ -36,7 +36,7 @@ class SendEmail
         try {
             Mail::send($template, ['data' => $info], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Xác thực tài khoản');
+                $message->to($email)->subject('Westay - Xác thực tài khoản');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email xác nhận gửi thất bại ' . $email);
@@ -51,7 +51,7 @@ class SendEmail
         try {
             Mail::send($template, ['new_booking' => $booking->data], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Thông tin booking mới');
+                $message->to($email)->subject('Hệ thống nhận được một booking mới');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email cho admin gửi thất bại ' . $email);
@@ -84,7 +84,7 @@ class SendEmail
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang chờ xử lý');
+                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đang được xử lý');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email khách hàng gửi thất bại ' . $email);
@@ -103,7 +103,7 @@ class SendEmail
         try {
             Mail::send($template, ['data' => $data], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Thông báo ngày thuê phòng');
+                $message->to($email)->subject('Chỉ còn 48 giờ nữa, bạn đã chuẩn bị những gì cho chuyến đi?');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);
@@ -134,7 +134,7 @@ class SendEmail
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Yêu cầu đặt phòng của bạn đã được chủ nhà xác nhận');
+                $message->to($email)->subject('Westay - Yêu cầu đặt phòng của bạn đã được xác nhận');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email xác nhận khách hàng gửi thất bại ' . $email);
@@ -173,7 +173,7 @@ class SendEmail
         try {
             Mail::send($template, ['new_booking' => $booking], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Thông tin booking mới');
+                $message->to($email)->subject('Westay - Bạn vừa nhận được một đặt phòng mới');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);
@@ -198,9 +198,9 @@ class SendEmail
         $data       = $dataBooking->name;
         $dataTime   = $dataBooking->data;
         try {
-            Mail::send($template, ['data' => $data,'dataTime' => $dataTime], function ($message) use ($email) {
+            Mail::send($template, ['data' => $data,'dataTime' => $dataTime], function ($message) use ($email, $data) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Đánh giá căn hộ');
+                $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại' . $data->room->roomTrans[0]->name);
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);
@@ -250,7 +250,7 @@ class SendEmail
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Chỉ cần xác nhận để đăng ký  !!!');
+                $message->to($email)->subject('Westay - Kích hoạt tài khoản của bạn tại Westay!');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại ' . $email);
