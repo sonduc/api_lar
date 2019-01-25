@@ -115,7 +115,7 @@ class RegisterController extends ApiController
                 if ($coupon) {
                     $user_ref = $this->user->getById($newClient->id);
                     $coupon   = $this->coupon->getById($coupon->id);
-                    $sendCouponRegister = (new SendCouponRegisterUser($newClient, $coupon))->delay(Carbon::now()->addHours(24));
+                    $sendCouponRegister = (new SendCouponRegisterUser($newClient, $coupon))->delay(Carbon::now()->addMinutes(15));
                     dispatch($sendCouponRegister);
                 }
             }

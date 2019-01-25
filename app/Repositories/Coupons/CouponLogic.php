@@ -387,7 +387,7 @@ class CouponLogic extends BaseLogic
         $status                 = 1;
         $promotion_id           = null;
 
-        $now                    = Carbon::now()->timestamp;
+        $now                    = Carbon::now();
         $end_checkout           = $now->startOfDay()->timestamp;
         $start_checkout         = $now->subDay()->timestamp;
         $total_fee              = 1000000;
@@ -410,8 +410,8 @@ class CouponLogic extends BaseLogic
             $column_refer_id    = array_column($listUser, 'refer_id');
         }
         foreach ($listUser as $key => $value) {
-            $secret                 = env('APP_KEY') . $now;
-            $hashed                 = hash_hmac('sha256', $secret, $now);
+            $secret                 = env('APP_KEY') . $now->timestamp;
+            $hashed                 = hash_hmac('sha256', $secret, $now->timestamp);
             $code                   = substr(strtoupper($hashed), 0, 8);
             $settings   = [
                 "date_start"        => $start_date,
@@ -447,7 +447,7 @@ class CouponLogic extends BaseLogic
                 $ref_user = $this->user->getById($value['user_id']);
                 $this->referral->updateStatusReferral($value['user_id'], $value['refer_id'], User::USER);
 
-                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $data_coupon))->delay(Carbon::now()->addHours(16));
+                $sendCouponReferralUser = (new SendCouponReferralUser($ref_user, $data_coupon))->delay(Carbon::now()->addMinutes(15));
                 dispatch($sendCouponReferralUser);
             }
         }
