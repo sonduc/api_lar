@@ -768,8 +768,7 @@ class RoomController extends ApiController
             $data = $this->model->updateAirbnbCalendar($request->only([
                 'room_id', 'airbnb_calendar',
             ]));
-
-            DB::commit();
+            // DB::commit();
             logs('room', 'Cập nhật lịch Airbnb ' . $data->id, $data);
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {

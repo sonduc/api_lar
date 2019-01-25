@@ -513,7 +513,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
                 'room_type_text'    => Room::ROOM_TYPE[$item['room_type']],
                 'type'              => SearchConstant::ROOM_NAME,
-                'descripttion'      => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
+                'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
             ];
 
         },$result_room_name);
@@ -532,11 +532,11 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function getNumberRoomByCity($limit= null)
+    public function countNumberOfRoomByCity($limit= null)
     {
         return $this->model
                 ->select(
-                    DB::raw('rooms.id as room_id', 'rooms.city_id'),
+                    DB::raw('rooms.city_id'),
                     DB::raw('cities.name as name_city'),
                     DB::raw('count(rooms.city_id) as total_rooms')
                 )

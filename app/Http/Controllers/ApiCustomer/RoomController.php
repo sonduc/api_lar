@@ -106,6 +106,39 @@ class RoomController extends ApiController
         }
     }
 
+
+    /**
+     * Lấy các khoảng giờ đã khóa theo mã phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomScheduleByHour($id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $data = [
+                'data' => [
+                    'blocks' => $this->model->getFutureRoomScheduleByHour($id),
+                ],
+            ];
+            return $this->successResponse($data, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
     public function getRoomLatLong(Request $request)
     {
         try {
@@ -182,8 +215,8 @@ class RoomController extends ApiController
         try {
             DB::enableQueryLog();
             $count          = 'standard_point';
-            $data           = $this->model->getRooms($request->all(), null,$count);
-           return $this->successResponseUsedForCountRoom(['data' => $data]);
+            $data           = $this->model->getRooms($request->all(), null, $count);
+            return $this->successResponseUsedForCountRoom(['data' => $data]);
         } catch (\Exception $e) {
             throw $e;
         }
@@ -202,10 +235,9 @@ class RoomController extends ApiController
         try {
             DB::enableQueryLog();
             $count          = 'comfort_lists';
-            $data           = $this->model->getRooms($request->all(), null,$count);
+            $data           = $this->model->getRooms($request->all(), null, $count);
             //dd(DB::getQueryLog());
             return $this->successResponseUsedForCountRoom(['data' => $data]);
-
         } catch (\Exception $e) {
             throw $e;
         }
@@ -220,12 +252,12 @@ class RoomController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Exception
      */
-    public function getNumberRoomByCity(Request $request)
+    public function countNumberOfRoomByCity(Request $request)
     {
         try {
             DB::enableQueryLog();
             $limit      = $request->get('limit');
-            $data       = $this->model->getNumberRoomByCity($limit);
+            $data       = $this->model->countNumberOfRoomByCity($limit);
 
             // dd(DB::getQueryLog());
             return $this->successResponseUsedForCountRoom(['data' => $data]);
@@ -233,6 +265,4 @@ class RoomController extends ApiController
             throw $e;
         }
     }
-
-
 }

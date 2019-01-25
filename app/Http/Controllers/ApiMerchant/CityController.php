@@ -46,7 +46,8 @@ class CityController extends ApiController
     {
         try {
             $this->authorize('city.view');
-            $data        = $this->model->getByQuery($request->all());
+            $pageSize    = $request->get('limit', 25);
+            $data        = $this->model->getByQuery($request->all(), $pageSize);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
             return $this->forbidden([

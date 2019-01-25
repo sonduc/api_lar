@@ -70,6 +70,7 @@ $router->group([
     $router->get('/rooms/room-status', 'RoomController@roomStatus');
     $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+    $router->get('/rooms/schedule-by-hour/{id}', 'RoomController@getRoomScheduleByHour');
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
     $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');

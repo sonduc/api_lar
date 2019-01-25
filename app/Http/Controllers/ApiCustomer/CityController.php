@@ -22,8 +22,6 @@ class CityController extends ApiController
         = [
 
         ];
-    protected $district;
-    protected $room;
 
     /**
      * CityController constructor.
@@ -72,7 +70,4 @@ class CityController extends ApiController
             throw $t;
         }
     }
-
-
-
 }
