@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-26T04:50:21.485Z",
+	"__export_date": "2019-01-26T05:21:59.318Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -7397,7 +7397,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t  \"uuid\": \"DY1pal0B\",\n\t\t\"name\": \"SupperAdmin\",\n\t\t\"email\": \"admin@westay.org\",\n\t\t\"gender\": 0,\n\t\t\"birthday\": \"1994-12-06\",\n\t\t\"address\": null,\n\t\t\"phone\" : \"0967528419\",\n\t\t\"account_number\": null,\n\t\t\"avatar\": \"{{ z_img  }}\",\n\t  \"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t \n\t  \"settings\":{\n\t\t\t \"sea_view\" : 0,\n       \"mountain_view\" : 0,\n       \"city_view \" : 0,\n       \"clean\": 0,\n       \"free_wifi\": 0,\n       \"television\": 0,\n       \"free_gym\" : 0,\n       \"swimming_pool\": 0,\n       \"free_parking\" : 0,\n       \"near_hopping_center\": 0,\n       \"trip_purpose\":0\n\t\t}\n  \n}"
+				"text": "{\n\t\"uuid\": \"DY1pal0B\",\n\t\"name\": \"SupperAdmin\",\n\t\"email\": \"admin@westay.org\",\n\t\"gender\": 0,\n\t\"birthday\": \"1994-12-06\",\n\t\"address\": null,\n\t\"phone\": \"0967528419\",\n\t\"account_number\": null,\n\t\"avatar\": \"{{ z_img  }}\",\n\t\"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t\"city\": \"\",\n\t\"district\": \"\",\n\t\"settings\": {\n\t\t\"sea_view\": 0,\n\t\t\"mountain_view\": 0,\n\t\t\"city_view \": 0,\n\t\t\"clean\": 0,\n\t\t\"free_wifi\": 0,\n\t\t\"television\": 0,\n\t\t\"free_gym\": 0,\n\t\t\"swimming_pool\": 0,\n\t\t\"free_parking\": 0,\n\t\t\"near_hopping_center\": 0,\n\t\t\"trip_purpose\": 0\n\t}\n}"
 			},
 			"created": 1543198860126,
 			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
@@ -7416,7 +7416,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890321.5,
 			"method": "PUT",
-			"modified": 1548475816623,
+			"modified": 1548478952033,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_28dcbf0d7c1842d4b32a753a892c48cf",
@@ -7434,7 +7434,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1543214198880,
-			"description": "",
+			"description": "## INCLUDE\n`city`, `district`",
 			"headers": [
 				{
 					"id": "pair_9a8c6ca2fd414d4c93d90f46285111d0",
@@ -7445,7 +7445,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890396.5,
 			"method": "GET",
-			"modified": 1545119484345,
+			"modified": 1548478852812,
 			"name": "info",
 			"parameters": [],
 			"parentId": "fld_28dcbf0d7c1842d4b32a753a892c48cf",
@@ -8948,7 +8948,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t  \"uuid\": \"DY1pal0B\",\n\t\t\"name\": \"SupperAdmin\",\n\t\t\"email\": \"ducchien0612@gmail.com\",\n\t\t\"gender\": 0,\n\t\t\"birthday\": \"1994-12-06\",\n\t\t\"address\": null,\n\t\t\"phone\" : \"0967528419\",\n\t\t\"account_number\": null,\n\t\t\"avatar\": null,\n\t  \"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\"\n\t\n  \n}"
+				"text": "{\n\t\"uuid\": \"DY1pal0B\",\n\t\"name\": \"SupperAdmin\",\n\t\"email\": \"info@westay.org\",\n\t\"gender\": 0,\n\t\"birthday\": \"1994-12-06\",\n\t\"address\": null,\n\t\"phone\": \"0967528419\",\n\t\"account_number\": null,\n\t\"avatar\": null,\n\t\"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t\"city_id\": 10,\n\t\"district_id\": 790\n}"
 			},
 			"created": 1545100997543,
 			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
@@ -8967,7 +8967,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890321.5,
 			"method": "PUT",
-			"modified": 1545121477642,
+			"modified": 1548479498789,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_15c2f8a214fa4dc6851fa89ba5d73364",
@@ -8977,7 +8977,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}profile",
+			"url": "{{ merchant_url }}profile?include=city,district",
 			"_type": "request"
 		},
 		{
@@ -8985,7 +8985,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1545100997549,
-			"description": "",
+			"description": "## INCLUDE\n`city`, `district`",
 			"headers": [
 				{
 					"id": "pair_9a8c6ca2fd414d4c93d90f46285111d0",
@@ -8996,7 +8996,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890396.5,
 			"method": "GET",
-			"modified": 1546844093032,
+			"modified": 1548478837541,
 			"name": "info",
 			"parameters": [],
 			"parentId": "fld_15c2f8a214fa4dc6851fa89ba5d73364",
@@ -9006,7 +9006,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}profile?include=roles",
+			"url": "{{ merchant_url }}profile?include=city,district",
 			"_type": "request"
 		},
 		{

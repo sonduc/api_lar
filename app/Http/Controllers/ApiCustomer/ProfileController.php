@@ -27,11 +27,12 @@ class ProfileController extends ApiController
             'phone'                     => 'bail|nullable|min:9',
             'birthday'                  => 'bail|nullable|date_format:"Y-m-d"',
             'gender'                    => 'bail|required|between:0,3',
-
+            'city_id'                   => 'integer|exists:cities,id',
+            'district_id'               => 'integer|exists:districts,id',
             /**
              * settings
              */
-            'status'                  => 'bail|nullable|integer|in:1',
+            'status'                    => 'bail|nullable|integer|in:1',
             'settings.*'                => 'bail|nullable|integer|in:0',
 
 
@@ -43,9 +44,9 @@ class ProfileController extends ApiController
             'email.required'            => 'Email không được để trông',
             'email.email'               => 'Email không đúng định dạng',
             'email.unique'              => 'Email đã tồn tại trên hệ thống',
-            'password.required'     => 'Mật khẩu không được để trống',
-            'password.min'          => 'Mật khẩu phải có ít nhât  ký tự',
-            'password.confirmed'    => 'Mật khẩu không trùng khớp',
+            'password.required'         => 'Mật khẩu không được để trống',
+            'password.min'              => 'Mật khẩu phải có ít nhât  ký tự',
+            'password.confirmed'        => 'Mật khẩu không trùng khớp',
             'old_password.required'     => 'Mật khẩu không được để trống',
             'phone.min'                 => 'Số điện thoại phải tối thiểu 9 chữ số',
             'gender.required'           => 'Trường này không được để trống',
@@ -57,6 +58,8 @@ class ProfileController extends ApiController
             'settings.*.integer'        => 'Trường này phải là kiểu số',
             'settings.*.in'             => 'Trường này không hợp lệ',
             'settings.*.between'        => 'Trường này không hợp lệ',
+            'city_id.exists'            => 'Thành phố không tồn tại',
+            'district_id.exists'        => 'Quận / Huyện không tồn tại',
         ];
 
     /**
@@ -84,11 +87,11 @@ class ProfileController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->validationRules = array_only($this->validationRules, ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe']);
+            $this->validationRules = array_only($this->validationRules, ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id']);
             $this->validationRules['email'] .= ',' . $request->user()->id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $model = $this->model->updateInfoCustomer($request->user()->id, $request->all(),[], ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe']);
+            $model = $this->model->updateInfoCustomer($request->user()->id, $request->all(), [], ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id']);
             DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -118,7 +121,7 @@ class ProfileController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function settings( Request $request)
+    public function settings(Request $request)
     {
         DB::beginTransaction();
         try {
@@ -126,7 +129,7 @@ class ProfileController extends ApiController
             $this->validationRules['subcribe']   = 'bail|filled|integer|between:0,1';
             $this->validationRules['settings.*'] = 'bail|nullable|integer|between:0,1';
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->updateSettingCustomer($request->user()->id, $request->all(),[], ['settings','subcribe']);
+            $model = $this->model->updateSettingCustomer($request->user()->id, $request->all(), [], ['settings','subcribe']);
             DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -157,7 +160,7 @@ class ProfileController extends ApiController
         DB::beginTransaction();
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $this->model->checkValidPassword($request->user(),$request->all());
+            $this->model->checkValidPassword($request->user(), $request->all());
             $this->model->updateInfoCustomer($request->user()->id, $request->all(), [], ['password']);
             DB::commit();
             return $this->successResponse(['data' => ['message' => 'Đổi mật khẩu thành công']], false);
@@ -192,7 +195,7 @@ class ProfileController extends ApiController
         try {
             $this->validationRules = array_only($this->validationRules, ['avatar']);
             $this->validate($request, $this->validationRules, $this->validationMessages);
-            $model = $this->model->updateAvatar($request->user()->id, $request->all(),[], ['avatar']);
+            $model = $this->model->updateAvatar($request->user()->id, $request->all(), [], ['avatar']);
             DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
@@ -206,11 +209,10 @@ class ProfileController extends ApiController
             return $this->notSupportedMediaResponse([
                 'error' => $imageException->getMessage(),
             ]);
-        }catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
         }
     }
-
 }

@@ -40,7 +40,7 @@ class UserTransformer extends TransformerAbstract
                  'status'         => $user->status,
                  'status_txt'     => $user->getStatus(),
                  'subcribe'       => $user->subcribe,
-                 'settings'       =>  json_decode($user->settings),
+                 'settings'       => json_decode($user->settings),
 
              ];
 //            'joined_in' => $user->created_at ? $user->created_at->format('Y-m-d H:i:s') : trans2(ErrorCore::UNDEFINED),
