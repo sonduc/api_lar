@@ -27,6 +27,7 @@ class CityTransformer extends TransformerAbstract
             'region_id'    => $city->region_id,
             'region_txt'   => $city->getRegion(),
             'name'         => $city->name,
+            'image'        => $city->image,
             'short_name'   => $city->short_name,
             'code'         => $city->code,
             'longitude'    => $city->longitude,
@@ -91,5 +92,4 @@ class CityTransformer extends TransformerAbstract
 
         return $this->collection($data, new UserTransformer);
     }
-
 }

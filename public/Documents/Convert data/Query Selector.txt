@@ -203,7 +203,7 @@ GROUP BY booking.uuid;
 
 -- Cities
 
-SELECT id,region_id,name,short_name,code,longitude,latitude,priority,0 as hot,allow as status, deleted_at, created_at,updated_at FROM `cities`;
+SELECT id,region_id,name,short_name,null as image,code,longitude,latitude,priority,0 as hot,allow as status, deleted_at, created_at,updated_at FROM `cities`;
 
 -- Districts
 

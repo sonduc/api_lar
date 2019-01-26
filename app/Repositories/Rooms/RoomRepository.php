@@ -497,7 +497,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function getRoomNameUserForSearch($data, $request, $count)
     {
         $result_room_name = $this->model
-             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address','rooms.id','rooms.room_type')
+             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address', 'rooms.id', 'rooms.room_type')
              ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
              ->where('room_translates.name', 'like', "%$request->key%")
              ->orWhere(\DB::raw("REPLACE(room_translates.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
@@ -505,7 +505,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
              ->orderBy('rooms.hot', 'DESC')
              ->limit(SearchConstant::SEARCH_SUGGESTIONS-$count)->get()->toArray();
 
-        $result_room_name = array_map(function ($item){
+        $result_room_name = array_map(function ($item) {
             return [
                 'id'                => $item['id'],
                 'name'              => $item['name'],
@@ -515,8 +515,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 'type'              => SearchConstant::ROOM_NAME,
                 'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
             ];
-
-        },$result_room_name);
+        }, $result_room_name);
 
         $result =  array_merge($data, $result_room_name);
 
@@ -532,18 +531,24 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function countNumberOfRoomByCity($limit= null)
+    public function countNumberOfRoomByCity($limit = 10)
     {
-        return $this->model
+        $rooms = $this->model
                 ->select(
                     DB::raw('rooms.city_id'),
                     DB::raw('cities.name as name_city'),
+                    DB::raw('cities.image'),
                     DB::raw('count(rooms.city_id) as total_rooms')
                 )
                 ->join('cities', 'cities.id', '=', 'rooms.city_id')
                 ->groupBy(DB::raw('rooms.city_id'))
-                ->orderBy('total_rooms', 'desc')
-                ->get()->toArray();
+                ->orderBy('total_rooms', 'desc');
+
+        if ($limit == -1) {
+            return $rooms->get();
+        }
+
+        return $rooms->paginate($limit);
     }
 
     /**
