@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Transformers\Customer;
+namespace App\Http\Transformers\Merchant;
 
 use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Cities\City;

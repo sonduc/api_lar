@@ -12,7 +12,9 @@ class UserTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-        'roles'
+        'roles',
+        'city',
+        'district'
     ];
 
     /**
@@ -70,5 +72,38 @@ class UserTransformer extends TransformerAbstract
         $data = $this->pagination($params, $user->roles());
 
         return $this->collection($data, new RoleTransformer);
+    }
+
+    /**
+    *
+    * @author HarikiRito <nxh0809@gmail.com>
+    *
+    * @param User|null $user
+    *
+    * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+    */
+    public function includeCity(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+
+        return $this->item($user->city, new CityTransformer);
+    }
+
+    /**
+     *
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param User|null $user
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
+    public function includeDistrict(User $user = null)
+    {
+        if (is_null($user)) {
+            return $this->null();
+        }
+        return $this->item($user->district, new DistrictTransformer());
     }
 }
