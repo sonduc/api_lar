@@ -30,6 +30,7 @@ $router->group([
      */
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/update-avatar', 'ProfileController@updateAvatar');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 
     /**
@@ -75,6 +76,9 @@ $router->group([
     $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
     $router->put('/rooms/update-airbnb-calendar', 'RoomController@updateAirbnbCalendar');
     $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
+
+    $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+    $router->get('/rooms/schedule-by-hour/{id}', 'RoomController@getRoomScheduleByHour');
 
     resource('/rooms', 'RoomController', $router);
 

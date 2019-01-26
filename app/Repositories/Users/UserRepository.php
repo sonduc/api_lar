@@ -4,11 +4,13 @@ namespace App\Repositories\Users;
 
 use App\Repositories\BaseRepository;
 use App\Repositories\Roles\Role;
+use App\Services\Amazon\S3\ImageProcessor;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Hash;
 use App\Repositories\Bookings\BookingConstant;
+use App\Events\AmazonS3_Upload_Event;
 
 class UserRepository extends BaseRepository implements UserRepositoryInterface
 {
@@ -18,15 +20,17 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
      * @var Model
      */
     protected $model;
+    protected $imgProc;
 
     /**
      * UserRepository constructor.
      *
      * @param User $user
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ImageProcessor $processor)
     {
         $this->model = $user;
+        $this->imgProc = $processor;
     }
 
     /**
@@ -74,12 +78,51 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
     {
         $data = array_only($data, $only);
 
-        if (isset($data['subcribe']) && empty($data['subcribe'])) {
+        if (!isset($data['subcribe']) && empty($data['subcribe']))
+        {
             $data['subcribe'] = 1;
         }
 
-        if (isset($data['settings'])) {
+
+        if (isset($data['settings']))
+        {
             $data['settings'] = json_encode($data['settings']);
+        }
+
+        if (isset($data['avatar']) && !empty($data['avatar']))
+        {
+            $name                 = rand_name();
+            $this->imgProc->setImage($name, $data['avatar']);
+            event(new AmazonS3_Upload_Event($name, $data['avatar']));
+            $data['avatar']       = $name.'.jpeg';
+        }
+
+        $user = parent::update($id, $data);
+        return $user;
+    }
+
+
+    /**
+     * Cập nhật ảnh avatar
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param int   $id
+     * @param       $data
+     * @param array $except
+     * @param array $only
+     *
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateAvatar($id, $data, $except = [], $only = [])
+    {
+        $data = array_only($data, $only);
+
+        if (isset($data['avatar']) && !empty($data['avatar']))
+        {
+            $name                 = rand_name();
+            $this->imgProc->setImage($name, $data['avatar']);
+            event(new AmazonS3_Upload_Event($name, $data['avatar']));
+            $data['avatar']       = $name.'.jpeg';
         }
 
         $user = parent::update($id, $data);

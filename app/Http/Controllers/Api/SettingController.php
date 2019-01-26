@@ -39,12 +39,9 @@ class SettingController extends ApiController
             'bank_account.*.account_number.min'       => 'Số tài khoản ngân hàng phải nhiều hơn 3 chữ số',
             'bank_account.*.account_number.regex'     => 'Số tài khoản ngân hàng không hợp lệ',
 
-            //'homepage_image.image'                => 'Định dạng không phải là hình ảnh',
+
             'homepage_image.required'               => 'Ảnh trang chủ là bắt buộc',
-            //'homepage_image.mimes'                => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
-            //'image_logo.image'                    => 'Định dạng không phải là hình ảnh',
             'image_logo.required'                   => 'Ảnh logo là bắt buộc',
-            //'image_logo.mimes'                    => 'Hình ảnh phải thuộc kiểu jpg,bmp,jpeg,png',
             'contact_email.*.email.required'        => 'Trường này không được để trống',
             'contact_email.*.email.email'           => 'Không đúng định dạng email',
             'contact_email.*.email.max'             => 'Độ dài email không hợp lệ',

@@ -37,7 +37,8 @@ class ComfortController extends ApiController
     {
         try{
             $this->authorize('comfort.view');
-            $data        = $this->model->getByQuery($request->all());
+            $pageSize    = $request->get('limit', 25);
+            $data        = $this->model->getByQuery($request->all(), $pageSize);
             return $this->successResponse($data);
         }catch (AuthorizationException $f) {
             return $this->forbidden([
