@@ -147,6 +147,7 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
         'updated_at',
         'limit_send_mail',
         'count_send_mail',
+        'account_branch'
 
     ];
     /**

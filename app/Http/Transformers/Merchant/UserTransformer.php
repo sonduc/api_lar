@@ -46,6 +46,9 @@ class UserTransformer extends TransformerAbstract
             'status_txt'     => $user->getStatus(),
             'type'           => $user->type,
             'type_txt'       => $user->getAccountType(),
+            'account_branch'        => $user->account_branch,
+            'passport_front_card'   => $user->passport_front_card,
+            'passport_back_card'    => $user->passport_back_card,
         ];
     }
 
