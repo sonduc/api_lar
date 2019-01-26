@@ -15,6 +15,7 @@ use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Intervention\Image\Exception\ImageException;
 
 class ProfileController extends ApiController
 {
@@ -98,7 +99,11 @@ class ProfileController extends ApiController
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return $this->notFoundResponse();
-        } catch (\Exception $e) {
+        } catch (ImageException $imageException) {
+            return $this->notSupportedMediaResponse([
+                'error' => $imageException->getMessage(),
+            ]);
+        }catch (\Exception $e) {
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
@@ -139,5 +144,42 @@ class ProfileController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
+    }
+
+    /**
+     * Cập nhật ảnh avatar
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function updateAvatar(Request $request)
+    {
+        DB::beginTransaction();
+        try {
+            $this->validationRules = array_only($this->validationRules, ['avatar']);
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+
+            $model = $this->model->updateAvatar($request->user()->id, $request->all(), [], ['avatar']);
+            DB::commit();
+            return $this->successResponse($model);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors' => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (ImageException $imageException) {
+            return $this->notSupportedMediaResponse([
+                'error' => $imageException->getMessage(),
+            ]);
+        }catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+
     }
 }

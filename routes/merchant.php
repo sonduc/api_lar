@@ -30,6 +30,7 @@ $router->group([
      */
     $router->get('/profile', 'ProfileController@index');
     $router->put('/profile', 'ProfileController@update');
+    $router->put('/profile/update-avatar', 'ProfileController@updateAvatar');
     $router->put('/profile/change-password', 'ProfileController@changePassword');
 
     /**
