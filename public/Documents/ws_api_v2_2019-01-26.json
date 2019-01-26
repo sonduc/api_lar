@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-26T02:50:19.391Z",
+	"__export_date": "2019-01-26T04:50:21.485Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,15 +201,15 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImUyNzliMDAzMDg5NDM0M2EyOGU4ZjVhZTc3MDk0M2JiOTk0YjAzYTdjOTE5MWQ1YWQyOGI0MWQxOGQwOTVkMGIxZWM1MmIyYTU1MjYxYWJiIn0.eyJhdWQiOiI0IiwianRpIjoiZTI3OWIwMDMwODk0MzQzYTI4ZThmNWFlNzcwOTQzYmI5OTRiMDNhN2M5MTkxZDVhZDI4YjQxZDE4ZDA5NWQwYjFlYzUyYjJhNTUyNjFhYmIiLCJpYXQiOjE1NDg0NjkwMjQsIm5iZiI6MTU0ODQ2OTAyNCwiZXhwIjoxNTgwMDA1MDI0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.QonCdoTZM7X5VIIegB2htC5ZzdQB_j_vs30tEeZyNzYeHxzaAkA9QW5aoBzgwiNPd8mEwPljuwOxinbtqP1qJs0Ueu4-xUjgjBawlwZ4yktchOgB8Xvp23W-fJKG--LBPOX14E0JyRYSh-wIQFA03gW8wg0omU3i5-OdIg3Ov_I1O14RFgPE7f4FHWebXDmd_XGBbmbF8maCpFha87D4eDzkhrZZKBnM62zmVOYKUMchngEKKR-1hjXj1fONpvUzn_a2z2ecFB8CrKW1DouvJ6YKDncN27G5ln3LGLVPnd5RnJgIUAOe-kljArHfHPRF2luDeMHxYTrWzUOdfiR_oX6CZxKNW2sCuOY0uSoqCOEqLRDXGkSC4gNmrPVguiKdNAyX_EfCPr6kCVT6sRy08uSGSHPD078myUOgarWsizagNskW71AI40pTB_NyPdBxrk1HpWU_yLYsHrehDrD-Prkfw8lW7TLnWSBzrkctIA_C5_p3pSMcERdyhYNYENGCdq4aeXqKv3F-HSzzpDErmO21Xgm3XtaMGnMM2XJOnglmo6ymROhcEMTXvTli22PjHJhzcf3RW8lajgD3W-o9YPI0CL97-UQzAvgZzHer_nIs-J5TcocIS3FTL_Ud--8cbfurFOPpXFH7QErthBaEy_IQMvgTDtslD2hsbOsrUQ0"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk1ZmJjZTU4OWJjOGZmNDZlYzI5MWJhNjA3ZWViNWYxMWM2NzMzYWI2MTk2YTIzZGM3ZmZjNzMwYjk1OWU2NzdhMmZhY2FiNDlkZGIzZDQwIn0.eyJhdWQiOiI0IiwianRpIjoiOTVmYmNlNTg5YmM4ZmY0NmVjMjkxYmE2MDdlZWI1ZjExYzY3MzNhYjYxOTZhMjNkYzdmZmM3MzBiOTU5ZTY3N2EyZmFjYWI0OWRkYjNkNDAiLCJpYXQiOjE1NDg0NzgwOTIsIm5iZiI6MTU0ODQ3ODA5MiwiZXhwIjoxNTgwMDE0MDkyLCJzdWIiOiI3NTIiLCJzY29wZXMiOltdfQ.ic-kWfNoLgkcWa7Vc4oDe8Ghe-OPLYEJVNYLXmW16O3zPv6tduzDbzPIudWp_H6XQYFM_CXPdMhvHa6xWfeFVk0HSQulbJ2Emmn0ofxznp2wvE_SirMJIDyhWSITA7TCUCwpSITo6vYaGTWf71FwlN8fkNj_MuXtUSAUyb_rDMPi1oHP-xdGjSsG-HB6yCW-AOS6C6TtI7JTxH2u-LtRa_EBOPl2IXgYINuwRyd05V3KN3zrma66nUugBk73ax0E91RKLkSM9qaAllZ1rxdJKyngyXVg2c9gYbq4MUpyB94vFHj1NTlK-jL6YzhUM-MdO9Ol_PjnqgVqhbCD_Gx9hVgMZ77ZabFbPSgLzbv3aGqlQZERgFSRtI1cTRDKf1WQdstpy3kKC1vCwNDn-MZJy0VFSW4RnHzpVq0wS40n9BrCgg3d4vhpudcR2pljBX13vq7J8GgHChW9CTuJYIqnnhomlsXUo42szMRoKfzN2NZAanlkppAoxNxhMA1Ym0StrXagdRYgspGGx61CvRN-qMYgg40K1pgbTfSoCv8PpRSg09zg_CXbwbrCWCbxfNC0DEbFHt9Tv5KO_y_E6hIrkkI-d-oco9M1DdGzVGj0XRkXxWCiRRH8bVVYwyBkm6Z-sX_b0x8LObCNVzLuZ7IAdwxLGIru7mhu4kiTYzPEd0g"
 				},
-				"url": "http://westay.test/",
+				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
 				"z_img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAQAAAAEACAYAAABccqhmAAAiRklEQVR42u2dB5wV1dnGz96yjd2ld6OoMRoLiSYGS77ExGjKF0tssURAxYIliT2JMUAssYEVQWwIItgo9oZKvigiJiYaUEQRpUhZ2i4sy91bvuedgsv17t57986Zc87M++f3/s6WYea9s/d57syZc95TJhiGCS1lqhNgGEYdbAAME2LYABgmxLABMEyIYQNgmBDDBsAwIYYNgGFCDBsAw4QYNgCGCTFsAAwTYtgAGCbEsAEwTIhhA2CYEMMGwDAhhg2AYUIMGwDDhBg2AIYJMWwADBNi2AAYJsSwATBMiGEDCBgD37m4E5p+iB6I7q3abohKRLkTFU5LJBDbnJaiGbEesQ5R36pd+d53b92i+jUy3sEGYCCOyPdB7If4OmJXxACn7Snk/V0ziLWITxFLnfZjxPuIBWwO5sEGoDkQew2agxAHI74tbNHvhoiqzi2LFGKJsM3g34i5iLdgCptVJ8a0DRuAZkDwdLl+OOL7iEPpR4iY6rw6SBLxHuINxD8Qs2EI61QnxXwJG4BiIPgImgMRP3OCvtbt090r6CphPuIFJ+bDENKqkwozbAAKgOhJ4D9GnIQ4VtgddWGEOhZnIh5DvAozSKlOKGywAfgERE/n+geIkxHHIXqpzkkzqHPxScSjiDkwg4zqhMIAG4BkIPw+aIYihiF2V52PIXyCuB8xEUbwhepkggwbgAScT/sjEecifomIq87JUFoQzyAmIF7kqwLvYQPwEAifBtechrhE2M/pGe9YgBiDmAIj2KY6maDABuABED6NshuOuBDRR3U+AWcV4i7EOBjBetXJmA4bQAlA+J3RXIz4PaKz6nxCxibEbYhbYQSbVCdjKmwAHcAZnXcR4jJhj7Fn1EFXAbcg7uRRh8XDBlAEzvP7cxAjBT/G0401wv67TODxBIXDBlAgED8Nz71V2GPxGX2huQgXwwRmq07EBNgA8gDh07P70YijBZ8vU6DHhU8hLoURfKI6GZ3hN3QbQPg0AYce541AVKvOh+kQTYhRiDEwgqTqZHSEDSAHEP8BaO5D7K86F8YT3kUMgwn8S3UiusEG0AoInyrkXCPsT35Tp+AyuaErABpIdDWMIKE6GV1gA3CA+PdGM0XYRTeY4ELFSk6DCSxUnYgOsAEIS/zno7lZ8L1+WKC+gcthAnerTkQ1oTYAZwjvRMRRqnNhlPA0YmiYhxSH1gAgfurgo/nnu6rOhVEKFTY9HibwrupEVBBKA4D4h6AZh6hSnQujBVsRw2ECD6lOxG9CZQDOs/3bEeerzoXREuoT+F2YxgyExgAg/jo0TyCOUJ0LozUvI06ACTSoTsQPQmEAEP/X0DwreBw/Uxg0n+B/YQLLVCcim8AbgNPZR729/VXnwhjFCsRRQe8cDLQBQPxUhZfEX6c6F8ZI6DaATODvqhORRWANAOL/KZrpggf3MKVBg4aOgwm8qDoRGQTSACB+WmxjmrBXwGWYUqEipCfDBGaqTsRrAmcAED8tvDFJcCluxluoRPlgmMA01Yl4SaAMwPnkp2WmWPyMDMgEfg0TmKE6Ea8IjAE49/yzBF/2M3Kh24FjYQIvqE7ECwJhAE5v//OCO/wYf6COQRon8LrqRErFeANwnvO/LvhRH+MvjYjDTK8yZLQBOCP85goe5MOoYSXiIJNHDBprAM7Y/n8IHt7LqIWGDX/f1LkDRhqAM6vvOcETexg9oAlEvzBxFqGpBjBW8JReRi/uhgFcoDqJYjHOAJxiHhNV58EwORhqWlERowzA6fF/Q3AlH0ZPqLLQoSbNIDTGAJwCnu8IruHH6A3VGPyuKYVGTTIAWuuNq/cyJvA0DOBo1UkUghEG4NTtH6s6D4YpggtMWHdAewNwVuyZL3iYL2MWNFz4QN1XINLaAJy1+uYJXq6LMRNahmyQzmsR6m4AN6K5QnUeDFMCN8EArlSdRFtoawDOEt306c+r9DImQ6MDB+k6aUhLA3CG+r6N2F91LgzjATQu4Hs6DhXW1QDosv9G1XkwjIdcCQO4SXUS2WhnABD/7mjeE9zrzwQLeiowECbwiepEWqOjAVDl1WNU58EwEpgFAzhWdRKt0coAIP7DhT21Uqu8GMYjMogjYAKzVSfioo3QIP6osDtLuMAHE2SogMj+MIGU6kQInQxguLCXZ2aYoHM+DGCc6iQILQwA4q9BQ50jvVTnwjA+sAaxO0xgs+pEdDGAP6K5XnUeDOMjf4IB/E11EsoNAOLvjGYJopvqXBjGR6hewG4wgU0qk9DBAEaiGaE6D4ZRwCgYwEiVCSg1AKfKD336d1aZB8Mogj79d1NZPUi1AVyF5lqVOTCMYv4MA7hO1cGVGQDET4t4LkX0UZUDw2jAKsQAmMA2FQdXaQBnorlf1fEZRiPOggE8oOLASgwA4qfj0oiofVQcnzGPn9ftL+ZsXiia0ko+KGWzALEfTCDj94FVGcBP0QRifXVGPkO6HWbFwubl4sqVk8WWYJrAz2AAL/p9UFUGMB3Nr1QcmzELV/wuHzavEFfABDanm1Wn5jUzYADH+X1Q3w0A4qdOv88Rcb+PzZhFtvhdFjWvhAlMEo3BMoEWxM4wgVV+HlSFAfwBjfIhkIzetCV+l8XbvhCXrSAT2Ko6VS/5IwzgBj8P6KsBOJ1/ixG7+3lcxizyid/l422rLBNoSDepTtkraELcHn52BvptAD9E87qfx2TMolDxu3yybbW4bOVDYlMqMCZwGAxgjl8H89sAaA70eX4ekzGHYsXv8um2NeJSmMDG1BbVL8ELxsMAhvt1MN8MwKn4s1LwnH8mBx0Vv8vSBExgxUNig/kmQLUC+vlVMchPAzgCzUt+HY8xh1LF7/JZYq1lAutTyutslMqRMICX/TiQnwZwL5phfh2PMQOvxO+yLFEvLoEJrEs1qn5ppXAfDOBsPw7kiwFA/BE0qxE9/DgeYwZei99leWKdZQL1qQbVL7Gj1CN6wwTSsg/klwEMQvOWH8dizECW+F1WtKyHCUwUa5PGmsDBMADpmvHLAKjiz0g/jsXoj2zxu6xs2SAuXTFRrE4qrbrVUXypFuSXAcxFc5Afx2L0xi/xu6yCCdDtwKrkRtUvvVjehgEMkn0Q6QYA8XcX9v1/VPaxGL3xW/wuq1s2WibwRXKD6lNQDPQYsA9MoF7mQfwwgJPQPCr7OIzeqBK/y5qWTeKSlROt2wKDOAUGME3mAfwwgDvQXCT7OIy+qBa/C3UIUscgdRAawl0wAKna8cMA/onmANnHYfREF/G71MMEaLDQspZ1qlMphHdhAFK1I9UAnCW/6JorJvM4jJ7oJn6XdclGywQ+b5F6e+0FSUQ3mIC0UU2yDeAnwl7umwkZuorfZX1yszWBiIYPaw4tJ/6KrJ3LNoCr0fxV5jEY/dBd/C4bLBOYZE0k0pi/wACukbVz2QbwJBrf65wx6jBF/C40hficZfdYfQOaMh0GcLysncs2gI/Q7CHzGIw+mCZ+4smNb4mx9VoXqF4MA/iGrJ1LMwCIv5Ow1z7jAUAhwETxP7Fxrri73vdK3MVCA4I6wwSkFDqQaQDfQzNP1v4ZfWDxS2cQDOBtGTuWaQBnoblP2ilhtMBE8T8O8Y8zR/zEMBiAlGX0ZBoAlf7+g7RTwijHSPFveFOMW2dcYaobYAB/lLFjmQZAY5h/Le2UMEoxUfxTP39VjF//sojWVKhOpVgehQGcLGPHMg2AihlIn87I+I+J4n8E4h/78Szr61i3atNMYB4MQMp0epkGQFOAuQJwwDBS/J/NFmM/eWqHn8W6wgRqjTGBNTCA3jJ2LMUAnEeAjbL2z6jBRPFPgfjvzhK/S6xrFUygUnWKhUArBdXKeBQoywBo8M9Hss8K4x9BE79LFCYQM8MEvgEDWOz1TmUZwMFo3pR+ShhfMFH8D3/2ihj3ydP5N4QCyvt2FmWxiOqU83EIDGCu1zuVZQC/RFPA2Wd0J+jij/eoEZEqI1aqPwoG8IzXO5VlAEPRPCj7jDByMVH8k5e+LMYvKUAnJP6eEH+lEeInzoABTPR6p7IM4FI0t8g+I4w8TBT/JIj/nmCKn7gMBjDa653KMoDr0PxJ+ilRTHXEfozUlN6mOhVPMVP8L0H8z+bf0EzxE9fDAK7yeqeyDICc6hLpp0QhnSD+m/qdLjL4d8XKhwNjAiaK/yGIf0KwxU+MgQFc6vVOZRnAnWgulH5KFFETqbTEv1dlf+v7Bc3LxJUBMAETxT9x6Yvi3iXP5d/QbPETUioEyzKAe9CcI/2UKKDWEv9gsWdlvx1+broJGCn+TyH+T0MhfmICDOBcr3cqywAmohki+4z4TV2kStzcf7DYo6Jvzt+bagImiv9BiP++8IifeAgGMNTrncoygEfQnCL7jPhJXaRa3ALxf72iT7vbmWYCZor/BYj/+fwbBkf8xFQYwKle75QNoAA6RyH+fkPE7hWFzccwxQRMFP8DEP/94RM/YZQBTBQBuQXoEu0kRuOef9cCxe+iuwmYKH4SPhlAXoInfsKcW4D95v/+nrKyMuM7Abta4h8iBlR0bFazriZgpPiXQPxLQyt+kclkJrx/4G1mdALCAO6EARj9GLBbtEaM7j9E7FLes6T96GYCJor/viXPiQeXFlDDL6DiJ2AAd8EAzHgMCAMYDQMwdiBQ92itJf6dy3t4sj9dTMBE8dMz/okhFz8BAxgDAzBjINC+b140JlIeu1j+afGeHhD/mP5DxU7l3T3dr2oTMFP8z0L8BRTwJPH3qhWRiuCuQZtOJG/97yF3ev6hKsUA9plzwa3RTuW/l39avKVnrM4Sf/94Nyn7V2UCJoqfhvY+xOLfTqopcduCH4z1/ENVigHs/drwsbHayvPlnxbv6BXrDPEPEf0kid/FbxMwUvyfQPyfsfhbk2xsvnvhj8Zd4PV+5RjAK+fdF+tSdZb80+INvS3xDxV94119OZ5fJmCa+GliFYl/0mcFrCgfIvETyY1b71/4k/HDvN6vFAP45ovnTIp373S6/NNSOn1iXSzx94l38fW4sk3ARPHfA/FPZvHnpGX9lskfHDlhsNf7lWMAz589Nd6zRspCBl7SN9bVuuzv7bP4XWSZgJnifwbifyX/xiEUP9GydvO0D35+r+eja6UYwF5Pn/VweZ+603QuCk73+mP6DRG94p2V5uG1CRgn/kzGKuH1MIu/bTJCJFY1TPnwqPt/4/WupUh0z1lnPlDep/aMsqielVZ3gvhH47Kfev11wCsTMFH8VLxzyuez828cVvGDTCotEqsbH1x09ANner1vSQZwxrh4j5rzdPxjfS3e3RJ/j1it6lR2oFQTCLb4yyD+mlCKn0hvS4qW+i3jFx3zwHCv9y3HAGaecXusa/Vvo53K5Z+dItg53sMa4dddM/G7dNQETBQ/LdhB6/XlJeTiJ1JbEiK5semORcc8+Duv9y3LAG6O1lVeFqvTZ8UVGtNPE3u6xWpUp9IuxZoAiz/4JBuaRaqh+ZZFxz54udf7lmUAIyNV8RHx7p3kn50C2LW8l7il32DRVXPxu9gmMBkmkGh3OxPFT4t0TmXxF0XLui0i3ZwchVuAkV7vW5YBXFQWi9xR3kePTrYDqnYV1/U9VVREzJkoks8EjBT/x7PE1GWv5d+Yxb8DiVUNIpPO/HbR0Q/c6fW+5RjAjKH0vPKR8p264G+px7PA71TtJq7te0ogTMBE8d8F8U9j8RcNnbvE8o10Xk7FLcBUr/cvxwCmDz0SzYvlfetEWTwq/SQVShBMwETx3/nxTPHostfzb8zi/wqZlpRIfNEgRKTspzCAAiZIFIcsAzgAzT9jPTqJaLVeTwJMNoETuxzC4g8ZqaaESNZvIQP4DgzgX17vX5YB7Izms2hdpYh1qZJ+korFRBNYk9xkzVg0BRL/HR/PEI8tm5N/44gj/nIWfzbJjVvpCQB9ucui4yZ+7vX+ZRkAXfdvLauMxct76fnMff+yr4nrB5wuKqJ6XaEEAUv8iyH+5Sz+UkmsaRSZ5mQLvqyCAaS83r+0HjqYwBLsfVedOgJdUpu3ieT6JnFg1z3FjQOHsQl4CIn/doj/cRZ/yWzvAMyITyH+3WQcQ6YB0BjPH8f71Gr1B3bF78Im4B30hr1t8XTxxPK/59+YxZ+XdCIpWlY10pevwgAOl3EMmQZwP5ozY12rRLRWjxGBqUaIf0PTV37OJlA6LH7vSTU24/26lb58AAYgpcCOTAP4M5prItVxEe+hfgReEiczZZ/MnLAJdBwS/62LnxRPLv+//Buz+AumpX6zSDfR7b+4GgZwrYxjyDSAE9A8Tn/w8v6dlfYDpLbgk39dU97t2ASKxxL/RxD/Cha/l1j3/ys24T4gQ9+eCAN4QsZxZBrAnmg+pK/jvdXO46b51C1rNluDKvLBJlA49CYd89ETYvqKf+TfmMVfFNYU4NWN7rd7wQAWyTiOTAOgaiD0CqqjnStFrLPa8QBsAt7C4pdLctNWkdpkPf+nS9daGEBaxnGkXpfDBOaj+W5ZeVToMDGITcAbSPyjIf4ZLH5pWBOAEtb79B2I/0BZx5FtANaTAPra6gfQoEQYm0Bp2OJ/HOJ/I//GlvjpMbA+80FMwCoBRvf/NtKeABCyDYAWMriLvo51qxbRmgqZhysYNoGOQeK/ZdHjYuZKFr9MssaqXAgDGCvrWLIN4Nto3rUOVBkTOg0LZhMoDlv8j0H8b+bfmMVfEs7wX/fbA2AA78o6lmwDoHfAeoTVAaDLbYALm0BhpB3xz2LxSyfr8p860bvKmAPgIv3hPEyA1nam+gAi1hW3AbV63Aa4sAm0D4n/5kWPiqdWzs2/MYu/ZLJGq74M8R8p83h+GMBf0IyyDlaB24De+twGuLAJ5IbF7z+J1bj837b98n8UDGCkzOP5YQCHodleC0q3KkEubAI7QuK/CeJ/msXvG9ur/3zJ4TCAAiqodhw/DICqbqxDWB/9uhYJIdgEbCzxfzhNPP3FW/k3ZvF7RqviH8RmRHcYQKKEXebFlwH6MIGZaI6xvtFgbkB7hN0ESPw3QvzPFCp+Guat4RWdaWSN/SeegviPkX1cvwzgXDTj3e91rBXYmrCaQDqTFjd8+Kh4lsXvO9tr/33JcBjA+I7ur1D8MoBd0HzqHk+3MQG5CJsJ2OKfBvHPy78xi99zsp7902XAbjCApbKP69t1OEzgv2j2cb+P963T/g0UFhMg8f8N4n+Oxa+ENN5fLTt2/i2A+Pf149h+GsD2x4FEpFO50GXpsPYIuglY4v9gqnhu1dv5N2bxS8Fa+mvLDn19I2AAf/Xj2H4awF5oPmj9M91GBrZFUE2AxH89xP88i18ZWSP/XL4JA/jQj+P72hUPE/gPmoHu9zo/EswmaCZgi/8RiH9+/o1Z/NLIevRHvAfxf8uv4/ttAH9Cc932H9AjwX64Cojo+Ugwm6CYAIn/Ooj/BRa/UjLpjEis3OHRH3EVDOB6v3Lw2wCotvlixPbrfh2qBRWD6SaQcj75WfzqaVX1x4Wq/uwBA1jiVw6+f/TCBF5B82WN8zK6Cqgzoi/AxVQTSFmf/FPEi6veyb9x1Bnhx+KXgnXvv7KBRgC1/vFsiP8nfuahwgB+jWZa65+Z1BfgYpoJkPivXThFvLSaxa8DOe79iZNhAI/6mYcKAyAVrED0aJ2F1Rdg0FUAYYoJ2OJ/GOL/Z/6NWfzSsT/9N9nDfb6kHtFf9tj/bJT0vsEERqO5pPXPIjUVIt6tWkU6JaG7CbD49aNlfZNIb96W/eMxEP+lfueiygD2EPaYgB3eafE+dUbOKtPVBEj810D8L7P4tSGdSImWVQ3ZP6Y3Dj37X+x3Psqev8EEZqA5dodkNC0YUgi6mYAt/skQ/7/ybwzx09wMHes0BI2sgh8uMyH+X6nIR6UBfB/NV9aT0n2mYHvoYgIk/r9C/K+w+LUix4w/l/+BARSwyIL3KB2BAxOgeaeDdvhhLGItImLK4KBsVJtAKpMSoxZMFrPXFFBIlsXvG9agH7r0T35lgZ95EP9BqvJSbQAnonks++dUOJQKiJqKKhNg8esLFfqkgp85OAkG8LiqvFQbAD33ex+xd/bv4n1qjV5Oym8TSKYhflz2v8ri1450IilaVjXm+tVCxH6y1v0rBOXX2W1dBdCbk0xA19JhheCXCRQt/t44rzEWvx9QqS8SfxvvAaWf/oRydcEAKAfqrfp29u+iXapErK5SdYolIdsESPwjF04Sr635d/6NoxGIv4bF7yPJhmaR2rg116/oD0ar/mSK3KWnKDcAAiZwNJpZuX5n+q0AIcsELPEvgPjXsvh1pJ1Lf+IYiP8p1TlqYQAETIAK0H+lN7QsHhHx3uY+FXDx2gRI/CMWPCReX/uf/Adn8fsO9fq3rG7A3zvn7f1bEP/BqnMktFEVDIBOyBu5cjJ1mHA2XpkAi19/2hjuS9Al/6EwgAJWXJGPNgZAwAQeRnNart/FenYS0SozBwi1plQTsMU/EeJ/L//BWPxKSG1NiOTaLW39egrE/xvVObroZgA7oaFaaF+tFkrVg/oEo/e6oyZA4v8LxD+Hxa8tmWRKJOi+P52zb49cYS8YwHLVebpoZQAETGAEmpE5kw3Ao0GXYkxg37oBYtS+Q8Tti2eIv7P4tSXPIz9iJMQ/qph9ykY7JcEA6Lkfvcv3yPV7U8qJF0IxJhAti1hj/PNvyOJXRY7y3q2hmX4DYQDNRexSOtoZAOGsKPxqW/nFulaJaK3Z4wNcijGBvLD4lZFqbBbJDVvb+jXdD/wY4n9ddZ7ZaGkABEzgXjTD2vp9vGeNiFTFVafpCZ6YAE2i6sXiV0F6a4toWbu5vU3ug/jPVp1nLnQ2gC7CHivdt63MaXyAiQVEclGSCVjipw5Ss0qqBQGrwMfqxuzinq35ArE3DGCj6lxzoa0BEDABWh55Rpt5WuPa6wLzxu+QCbD4lWHV9qMe/1SbfTPkCr+C+GcVsVtf0doACJjAPWjOafMF0JMBmtxi+EhBl6JMgMWvDHukX2O+v9MEiP9c1bm2h/aqgQHQEECaLLRnmy+iImb1CYTKBFj8yrDEj3v+HKW9WrNI2JN9mlTn2x5GKAYm8B00byLaHApYVumYQADGCBDtmgCLXxn0rD8J8aeb2xU/PQs8BOIvoBqrWoxRC0zgMjQ3t7cNPRWgmoKBNgEWvzIs8ddvsXr983A5xH+L6nwLwSilwASeQHN8e9tEqmEC3QNqAix+ZVjip4E+TXnF/yTEf4LqfAvFKJXAAKhm+DzEN9vbLnBXArjnTG3aag1+YvH7TxGf/LTWxSAYQGMBu9UC4xQCE9gLzduIdhcQiFTGYALB6Rhk1EDmm6zPe89PkOi/B/F/qDrnYjBSHTCB49BQLbV2Pw6D9nSA8ZcCe/sJGghwIsQ/XXXOxWKsMmACl6O5Ke8LpHECNETWsIVHGbUUOSjrCoj/5kI21A1jDYCACYxDc17eDSF+a+5AQIYNM3KxhvfS2P5UQdW6x0P8w1Xn3FFMNwBSNBVW/EX+V1om4j06BWYCESMHa2IPLd+VKahY7/OIo2AAHkzlVIPRBkDABGqEPXX4wEK2D9JUYsZb8kzpzeYdYU/xNabHPxfGGwABE+iG5jXEwEK2p6IisW7VgXlMyJSG9ZiPini2XcwjG1rN6kcQ/zrVuZdKYBQAE+iNZo5oZ87ADi+cOgd7duL58yGHavi1rN1SzAzMjxA/gPhXq87dCwJjAIRTVJSWHB9Q0H+IlIlY9+pAVBtmiseq3ruuqa0CnrlYKmzxL1Odu1cEygAImMAANLMRuxX6f2jdgViXKh4vEBKswT0bt7ZVt78tliAOh/iXqs7fSwL5jocJ9EfzssgzZHiHExGPWHMITF+GjGkfWq6LxvS3sWJPW9AQ3yMg/hWq8/eaQBoAARPoieYlkWPR0fagBUmjtRXcQRgwqKMv1bitrYU624MWXjwS4l+r+jXIINDvcphAVzTPIA4p5v9RByH1DfDVQDCwP/WbOlJvkWpQ/BLi36D6Ncgi0AZAwASq0ExCFD1Fk64Eop25b8BU3FmU9MnfAWjq+WCIv+hLBpMIxTsbJkCvk+YNXFb0f45FrA7CaDU/KTCJVFPC6ugTyaLu9V2omAeN7y/48YCphMIAXGAENGb7DkTR1/Y0szDWtZrnE2gOjeNPbmgqZAZfLug//RbCH6f6dfhFqAyAgAkcjmYqomdH/r/1yLBzJc8u1AyavZfc1Fzso73WUCffKRD/bNWvxU9CZwAETGBnYd/jFTR/4CuUCWs+gfW0gI1AKSR8q3e/sdmuwt8x5iNOgPg/V/16/CaUBkDABCrQ3Ino+JJNZWUiWldhl+rijkJfsTr4IPpUw7ZCZ+61BS1BdxHE3+FLB5MJ/bsWRnA6mrsQdR3eCcQfrangKwIf2P6JT5f6hQ/hzUUD4kIIf7Lq16SS0BsAAROgYcMPIw4udV800zBaVykice4s9JJ0Swqf9s3FzNhrj7mI30D8S1S/LtWwATg4xUWuRlwlOvCUIBtaqISuCqgACY8q7Bg0eo8KdNCnfSZ/Uc5CoJ1ch7jG5CIeXsLvzCxgBIOEfV+4nyc7dG8PcGVQxlcFBUEj9lL4pPfgMr81NIf/bAh/nurXpxNsADmACVDdsCuFfTXgWfkgGktAA4po8RLuK9gRurenRTdoAE8Hn+G3RbOwP/VvhPjzFvYPG2wA7eCsQTAB8T9e79u6RSAzqAqvGVii3+qI3ptL/GyoNsQ5ptXq9xM2gDw4w4hPRdyA2EnGMcrKo5YRRCrj1tdB7TOge/pMIiXSzS2W8OlrSSxH/AHxSBiG85ZCMN9pEnCWKafbAppPUC3tQJEya1WjCG4X6JaB+g1MNQRL8Lifp0v6NAV9ynt3T58LWoqbxvHfqPuy3Lpg5jtLIc4owmuFfVUgv1evzO47oKnJ1pUCdSTGItqZAomdJt7Q4zrrUz6RtO/l/fn8pUuJRxB/DuNovlLQ611kEE7/wAjESSLPEmWeU2bXLNge0Yi1aKgVkYi8v2qGRuClRSbpBO7hrU94J3wSe2toqt9jiFF8n98x2ABKBEZAjwtHIo4VfhtBLsgcqFMRtxLbWxqmTIGrBuvCwb16cFt3KC1dsmec73GpTsNtrZZWyHFbPe6oSfgzESMh/PdVJ2MybAAeASOgcuSXIGhocZXqfAIKFeegobtjIPxFqpMJAmwAHgMj6IXmAsT5iB6q8wkI9Qiao38XhL9GdTJBgg1AEs5sQ1rGnGYbHib4XBcL3WzQQi80KnM6hN+sOqEgwm9KH4AZfB3NMMRgRF/V+WjOF8Ku4Xg/RL9YdTJBhw3AR2AE1En4Q2E/OThedLAqUQChajzThd2jP4cn6vgHG4AiYAY04/BHwjaCnyN2Vp2Tz9Dzelpem4T/KkQvZSww0z5sAJoAQ9gHzc+coLkHFapz8hiquENj81+ggOAXqE6IYQPQEmctA6pXSAuaHCrsQiXdVedVJLR0NhXeeEPYC2zMD3qNfRNhAzAAZ0ISjTP4lrDrFAx02l2E+r8h9dZ/Juz59u857X8Qi3gijv6ofvMwJQBjoDqG9IRhAGJXp6WgWYt0xUDjEEodlESf2vQcnj7RaZbdUic+ddqPIfQG1eeC6RhsAAHHmcVIRtBN2MVNaImjilYtQffniVYtPXNfj6jnWXXBhg2AYUIMGwDDhBg2AIYJMWwADBNi2AAYJsSwATBMiGEDYJgQwwbAMCGGDYBhQgwbAMOEmP8HYi2D0+M/jDYAAAAASUVORK5CYII="
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548469051730,
+			"modified": 1548478106069,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -1023,17 +1023,6 @@
 			"metaSortKey": -1543069357235.9688,
 			"modified": 1545104982052,
 			"name": "Comforts",
-			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
-			"_type": "request_group"
-		},
-		{
-			"_id": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"created": 1545617667770,
-			"description": "",
-			"environment": {},
-			"metaSortKey": -1543069357285.9688,
-			"modified": 1545617707259,
-			"name": "account",
 			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
 			"_type": "request_group"
 		},
@@ -7408,7 +7397,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t  \"uuid\": \"DY1pal0B\",\n\t\t\"name\": \"SupperAdmin\",\n\t\t\"email\": \"admin@westay.org\",\n\t\t\"gender\": 0,\n\t\t\"birthday\": \"1994-12-06\",\n\t\t\"address\": null,\n\t\t\"phone\" : \"0967528419\",\n\t\t\"account_number\": null,\n\t\t\"avatar\": null,\n\t  \"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t \"subcribe\": 1,\n\t  \"settings\":{\n\t\t\t \"sea_view\" : 0,\n       \"mountain_view\" : 0,\n       \"city_view \" : 0,\n       \"clean\": 0,\n       \"free_wifi\": 0,\n       \"television\": 0,\n       \"free_gym\" : 0,\n       \"swimming_pool\": 0,\n       \"free_parking\" : 0,\n       \"near_hopping_center\": 0,\n       \"trip_purpose\":0\n\t\t}\n  \n}"
+				"text": "{\n\t  \"uuid\": \"DY1pal0B\",\n\t\t\"name\": \"SupperAdmin\",\n\t\t\"email\": \"admin@westay.org\",\n\t\t\"gender\": 0,\n\t\t\"birthday\": \"1994-12-06\",\n\t\t\"address\": null,\n\t\t\"phone\" : \"0967528419\",\n\t\t\"account_number\": null,\n\t\t\"avatar\": \"{{ z_img  }}\",\n\t  \"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t \n\t  \"settings\":{\n\t\t\t \"sea_view\" : 0,\n       \"mountain_view\" : 0,\n       \"city_view \" : 0,\n       \"clean\": 0,\n       \"free_wifi\": 0,\n       \"television\": 0,\n       \"free_gym\" : 0,\n       \"swimming_pool\": 0,\n       \"free_parking\" : 0,\n       \"near_hopping_center\": 0,\n       \"trip_purpose\":0\n\t\t}\n  \n}"
 			},
 			"created": 1543198860126,
 			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
@@ -7427,7 +7416,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890321.5,
 			"method": "PUT",
-			"modified": 1545121350633,
+			"modified": 1548475816623,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_28dcbf0d7c1842d4b32a753a892c48cf",
@@ -7541,6 +7530,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ customer_url }}profile/settings",
+			"_type": "request"
+		},
+		{
+			"_id": "req_05d1defc67824a95bc22f0be0ba98559",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t \t\"avatar\": \"{{ z_img  }}\"\n}"
+			},
+			"created": 1548471780163,
+			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1541645068263.875,
+			"method": "PUT",
+			"modified": 1548477148193,
+			"name": "update -avatar",
+			"parameters": [],
+			"parentId": "fld_28dcbf0d7c1842d4b32a753a892c48cf",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}profile/update-avatar",
 			"_type": "request"
 		},
 		{
@@ -8198,7 +8224,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884360827.9648,
 			"method": "GET",
-			"modified": 1548469505970,
+			"modified": 1548478025207,
 			"name": "get-schedule",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -8208,7 +8234,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms/schedule/3640",
+			"url": "{{ merchant_url }}rooms/schedule/795",
 			"_type": "request"
 		},
 		{
@@ -8485,7 +8511,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884345326.4297,
 			"method": "GET",
-			"modified": 1548469379766,
+			"modified": 1548478125516,
 			"name": "get-schedule-by-hour",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -8495,7 +8521,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms/schedule-by-hour/3600",
+			"url": "{{ merchant_url }}rooms/schedule-by-hour/795",
 			"_type": "request"
 		},
 		{
@@ -9021,6 +9047,43 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_bfe76668af7b4b629534047a2966d6f6",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t \t\"avatar\": \"{{ z_img  }}\"\n}"
+			},
+			"created": 1548471727273,
+			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1541782890315.25,
+			"method": "PUT",
+			"modified": 1548477483717,
+			"name": "update -avatar",
+			"parameters": [],
+			"parentId": "fld_15c2f8a214fa4dc6851fa89ba5d73364",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}profile/update-avatar",
+			"_type": "request"
+		},
+		{
 			"_id": "req_60867c8daaad4d8c933999d66ab684b2",
 			"authentication": {},
 			"body": {
@@ -9238,6 +9301,43 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_d56a21b08c8f4578b02587ab4e4bf856",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": ""
+			},
+			"created": 1545617667790,
+			"description": "    'password'                  => 'required|min:6|confirmed',",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1538900997398.5312,
+			"method": "GET",
+			"modified": 1548478063738,
+			"name": "get-form-reset-passwod",
+			"parameters": [],
+			"parentId": "fld_9a4c8cfbc055441eabb0d5d0c0a91a55",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}set-password/MTU0MzQ2NTg3NQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
+			"_type": "request"
+		},
+		{
 			"_id": "req_b95bee73780f40e1960107a8d0bd4e9e",
 			"authentication": {},
 			"body": {},
@@ -9253,7 +9353,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1546491454945,
+			"modified": 1548473020234,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_27b886dbce294e5ea6c97814568fb2e0",
@@ -9263,7 +9363,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}comforts?include=rooms",
+			"url": "{{ merchant_url }}comforts?include=rooms&limit=-1",
 			"_type": "request"
 		},
 		{
@@ -9300,220 +9400,6 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ merchant_url }}comforts/47?include=rooms",
-			"_type": "request"
-		},
-		{
-			"_id": "req_d4c94d895d114e668e877e545915e368",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"username\": \"info@westay.org\",\n\t\"password\": \"merchant\"\n}"
-			},
-			"created": 1545617667773,
-			"description": "             'username' => 'required|email|max:255',\n              'password' => 'required|min:5|max:255',",
-			"headers": [
-				{
-					"id": "pair_c92746da97454ca6a06824de8c160b94",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538327115081.2656,
-			"method": "POST",
-			"modified": 1548406213450,
-			"name": "login",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}login",
-			"_type": "request"
-		},
-		{
-			"_id": "req_3c0ea04c0c144965b085498fa997fde2",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"taikhoan171do@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\"\n}"
-			},
-			"created": 1545617667778,
-			"description": "         'email'                 => 'required|email|max:255|unique:users,email',\n        'password'              => 'required|min:6|max:255',\n        'password_confirmation' => 'required|min:6|max:255|same:password',\n        'type'                  => 'numeric|between:0,1'|filled,\n        'status'                => 'numeric|between:0,1|filled',\n      ",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538900997348.5312,
-			"method": "POST",
-			"modified": 1546840966102,
-			"name": "register",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}register",
-			"_type": "request"
-		},
-		{
-			"_id": "req_9b9a993cedb840a79ca1a0095976ae80",
-			"authentication": {},
-			"body": {},
-			"created": 1545617667782,
-			"description": "    ",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "",
-					"value": ""
-				},
-				{
-					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
-					"name": "",
-					"value": ""
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538614056214.8984,
-			"method": "PUT",
-			"modified": 1546839658271,
-			"name": "confirm",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}register/email-confirm/0BxN6xpV",
-			"_type": "request"
-		},
-		{
-			"_id": "req_706d074f077d4fd4832b6c93f8ada912",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"password\": \"123456789\",\n\t\"password_confirmation\": \"123456789\"\n}"
-			},
-			"created": 1545617667786,
-			"description": "    'password'                  => 'required|min:6|confirmed',",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538470585648.082,
-			"method": "POST",
-			"modified": 1545618498545,
-			"name": "reset-passwod",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}reset-password/.MTU0MzQ2NTg3NQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
-			"_type": "request"
-		},
-		{
-			"_id": "req_260125ed408f42a0b0642174a285a88b",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"taikhoan150do@gmail.com\"\n}"
-			},
-			"created": 1545617667788,
-			"description": "      'email' => 'required|email|max:255',",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538398850364.6738,
-			"method": "POST",
-			"modified": 1545618499077,
-			"name": "forget-password",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}forget-password",
-			"_type": "request"
-		},
-		{
-			"_id": "req_d56a21b08c8f4578b02587ab4e4bf856",
-			"authentication": {},
-			"body": {
-				"mimeType": "application/json",
-				"text": ""
-			},
-			"created": 1545617667790,
-			"description": "    'password'                  => 'required|min:6|confirmed',",
-			"headers": [
-				{
-					"id": "pair_8609246a0e354df5b5e461990d3d1899",
-					"name": "{{ token.key  }}",
-					"value": "{{ token.value  }}"
-				},
-				{
-					"id": "pair_e42a1b66ba8b41f68a6dd59729aa2bd9",
-					"name": "Content-Type",
-					"value": "application/json"
-				}
-			],
-			"isPrivate": false,
-			"metaSortKey": -1538434718006.378,
-			"method": "GET",
-			"modified": 1546837422803,
-			"name": "get-form-reset-passwod",
-			"parameters": [],
-			"parentId": "fld_8ca454732e7243168be5cc386ee7a47c",
-			"settingDisableRenderRequestBody": false,
-			"settingEncodeUrl": true,
-			"settingMaxTimelineDataSize": 1000,
-			"settingRebuildPath": true,
-			"settingSendCookies": true,
-			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}set-password/MTU0MzQ2NTg3NQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
 			"_type": "request"
 		},
 		{
