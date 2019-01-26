@@ -795,4 +795,81 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+
+    public function getRoomSchedule($id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.view', $id);
+            $data = [
+                'data' => [
+                    'blocks' => $this->model->getFutureRoomSchedule($id),
+                ],
+            ];
+            return $this->successResponse($data, false);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+
+    /**
+     * Lấy các khoảng giờ đã khóa theo mã phòng
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function getRoomScheduleByHour($id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.view', $id);
+            $data = [
+                'data' => [
+                    'blocks' => $this->model->getFutureRoomScheduleByHour($id),
+                ],
+            ];
+            return $this->successResponse($data, false);
+        }catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
 }

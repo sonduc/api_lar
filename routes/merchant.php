@@ -76,6 +76,9 @@ $router->group([
     $router->put('/rooms/update-airbnb-calendar', 'RoomController@updateAirbnbCalendar');
     $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
 
+    $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
+    $router->get('/rooms/schedule-by-hour/{id}', 'RoomController@getRoomScheduleByHour');
+
     resource('/rooms', 'RoomController', $router);
 
     /**

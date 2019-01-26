@@ -226,4 +226,33 @@ class RoomLogic extends BaseLogic
         return $booking;
     }
 
+    /**Lấy ra những ngày đã bị block của một phòng
+     * Lấy ra những ngày
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return array
+     */
+
+    public function getFutureRoomSchedule($id)
+    {
+        $room = parent::getById($id);
+        return $this->getBlockedScheduleByRoomId($room->id);
+    }
+
+    /**
+     * Lấy ra những khoảng giờ không hợp lệ
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     *
+     * @return array
+     */
+    public function getFutureRoomScheduleByHour($id)
+    {
+        $room = parent::getById($id);
+        return $this->getBlockedScheduleByHour($room->id);
+    }
+
 }
