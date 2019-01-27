@@ -29,6 +29,7 @@ use App\Repositories\Roomcalendars\RoomCalendarRepositoryInterface;
 use App\User;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 
 class BookingLogic extends BaseLogic
@@ -122,6 +123,7 @@ class BookingLogic extends BaseLogic
 
             $data['limit_send_mail']    = User::LIMIT_SEND_MAIL;
             $data['type_create']        = User::BOOKING;
+            $data['token']              = Hash::make(str_random(60));
             $user                       = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
             return $user->id;

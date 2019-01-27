@@ -19,6 +19,7 @@ use GuzzleHttp\Client as Guzzle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Events\Customer_Register_TypeBooking_Event;
+use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends ApiController
 {
@@ -62,15 +63,11 @@ class RegisterController extends ApiController
             // mà ở trạng thái chưa kích hoạt
             // thì gửi cho nó cái mail để thiết lập mật khẩu.
             if (!empty($user)) {
-                if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
-                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL) {
-                        return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
-                    }
-                }
-                event(new Customer_Register_TypeBooking_Event($user));
                 $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;
-                $this->user->update($user->id, $data);
+                $data['token']           = Hash::make(str_random(60));
+                $user=$this->user->update($user->id, $data);
+                event(new Customer_Register_TypeBooking_Event($user));
                 return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu']], false);
             }
 
