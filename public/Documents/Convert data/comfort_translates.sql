@@ -1,6 +1,6 @@
 /*
 -- Query: select id as `comfort_id`, `name`, `description`, `created_at`, `updated_at`,'vi' as `lang` from comforts where locale = 'vi'
--- Date: 2019-01-10 13:19
+-- Date: 2019-01-27 12:31
 */
 INSERT INTO `comfort_translates` (`comfort_id`,`name`,`description`,`created_at`,`updated_at`,`lang`) VALUES (8,'Máy giặt',NULL,'2017-04-24 11:56:01','2017-06-23 15:32:28','vi');
 INSERT INTO `comfort_translates` (`comfort_id`,`name`,`description`,`created_at`,`updated_at`,`lang`) VALUES (9,'Wifi',NULL,'2017-05-09 12:43:30','2017-11-10 10:14:03','vi');
