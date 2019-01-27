@@ -224,7 +224,7 @@ class SendEmail
         $email                     = $user->data->email;
         try {
             Mail::send($template, ['user' => $user], function ($message) use ($email) {
-                $message->from(env('MAIL_USERNAME'));
+                $message->from(env('MAIL_ADMIN'));
                 $message->to($email)->subject('Westay - Khôi phục mật khẩu');
             });
         } catch (\Exception $e) {

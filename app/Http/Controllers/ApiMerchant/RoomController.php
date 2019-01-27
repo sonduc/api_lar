@@ -597,6 +597,7 @@ class RoomController extends ApiController
         $test = DB::table('rooms')->where('rooms.merchant_id', '=', Auth::user()->id)
             ->join('room_translates', 'rooms.id', 'room_translates.room_id')
             ->select(DB::raw('distinct(room_translates.room_id) as id, room_translates.name'))
+            ->where('room_translates.lang', getLocale())
             ->get()->toArray();
         $data = [
             'data' => $test,
@@ -817,7 +818,7 @@ class RoomController extends ApiController
                 ],
             ];
             return $this->successResponse($data, false);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -856,7 +857,7 @@ class RoomController extends ApiController
                 ],
             ];
             return $this->successResponse($data, false);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),

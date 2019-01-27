@@ -8,11 +8,11 @@
 
 namespace App\Http\Controllers\ApiMerchant;
 
-
 use App\Http\Controllers\ApiController;
 use App\Events\Reset_Password_Event;
 use Illuminate\Http\Request;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\User;
 use Illuminate\Support\Facades\Hash;
 
 class ForgetPasswordController extends ApiController
@@ -50,14 +50,12 @@ class ForgetPasswordController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $user = $this->user->getUserByEmailOrPhone($request->all());
-            if (!empty($user) )
-            {
+            if (!empty($user)) {
                 // Nếu đã trang thái hạn chế gửi mail tồn tại (=1)thì gửi cho user tối đa 5 maijl khi đường đãn còn toonff tại
                 //Nếu vượt quá 5 mail thì chỉ đua ra thông báo // cho user kiểm tra lại hòm mail
 
                 if ($user['limit_send_mail'] == User::LIMIT_SEND_MAIL) {
-
-                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL ){
+                    if ($user['count_send_mail'] == User::MAX_COUNT_SEND_MAIL) {
                         return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
                     }
 
@@ -73,12 +71,9 @@ class ForgetPasswordController extends ApiController
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;
                 $this->user->update($user->id, $data);
                 return $this->successResponse(['data' => ['message' => 'Đường dẫn đổi mật khẩu đã được gửi đến'.$request->email]], false);
-
-            }else
-            {
+            } else {
                 throw new \Exception('Tài khoản không tồn tại trên hệ thống');
             }
-
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
@@ -97,6 +92,4 @@ class ForgetPasswordController extends ApiController
             throw $t;
         }
     }
-
-
 }

@@ -30,6 +30,7 @@ class ProfileController extends ApiController
             'gender'                    => 'bail|required|between:0,3',
             'city_id'                   => 'integer|exists:cities,id',
             'district_id'               => 'integer|exists:districts,id',
+            'account_branch'            => 'required',
 
             /**
              * settings
@@ -51,8 +52,8 @@ class ProfileController extends ApiController
             'password.confirmed'        => 'Mật khẩu không trùng khớp',
             'old_password.required'     => 'Mật khẩu không được để trống',
             'phone.min'                 => 'Số điện thoại phải tối thiểu 9 chữ số',
-            'gender.required'           => 'Trường này không được để trống',
-            'gender.between'            => 'Trường này không hợp lệ',
+            'gender.required'           => 'Giới tính không được để trống',
+            'gender.between'            => 'Giới tính không hợp lệ',
             'subcribe.integer'          => 'Trường này phải là kiểu số',
             'subcribe.in'               => 'Trường này không hợp lệ',
             'subcribe.between'          => 'Trường này không hợp lệ',
@@ -62,6 +63,8 @@ class ProfileController extends ApiController
             'settings.*.between'        => 'Trường này không hợp lệ',
             'city_id.exists'            => 'Thành phố không tồn tại',
             'district_id.exists'        => 'Quận / Huyện không tồn tại',
+            'account_branch.required'   => 'Chi nhánh ngân hàng không được bỏ trống',
+            'account_number.required'   => 'Số tài khoản ngân hàng không được bỏ trống',
         ];
 
     /**
@@ -89,11 +92,11 @@ class ProfileController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $this->validationRules = array_only($this->validationRules, ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id']);
+            $this->validationRules = array_only($this->validationRules, ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id','account_branch']);
             $this->validationRules['email'] .= ',' . $request->user()->id;
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $model = $this->model->updateInfoCustomer($request->user()->id, $request->all(), [], ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id']);
+            $model = $this->model->updateInfoCustomer($request->user()->id, $request->all(), [], ['name', 'phone','email','gender','account_number','birthday','address','avatar','avatar_url','settings','subcribe','city_id','district_id','account_branch']);
             DB::commit();
             return $this->successResponse($model);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
