@@ -9,7 +9,10 @@ trait FilterTrait
     public function scopeQ($query, $q)
     {
         if ($q) {
-            return $query->where('users.name', 'like', "%${q}%")->orWhere('users.email', 'like', "%{$q}%");
+            $query = $query->where('users.name', 'like', "%${q}%")->orWhere('users.email', 'like', "%{$q}%");
+        }
+        if (is_numeric($q)) {
+            $query = $query->orWhere('users.phone', 'like', "%{$q}%");
         }
         return $query;
     }

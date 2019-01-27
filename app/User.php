@@ -113,7 +113,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
     protected $fillable = [
         'name',
         'email',
-        'phone',
         'avatar',
         'password',
         'gender',
