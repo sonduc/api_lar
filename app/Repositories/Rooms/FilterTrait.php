@@ -133,9 +133,8 @@ trait FilterTrait
     public function scopeRentType($query, $q)
     {
         if (is_numeric($q)) {
-            return $query->where('rooms.rent_type', $q);
+            return $query->whereIn('rooms.rent_type', [$q, Room::TYPE_ALL]);
         }
-
         return $query;
     }
 
