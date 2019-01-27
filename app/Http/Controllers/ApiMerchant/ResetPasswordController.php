@@ -9,6 +9,7 @@
 namespace App\Http\Controllers\ApiMerchant;
 
 use App\Http\Controllers\ApiController;
+use App\Repositories\Roles\Role;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -48,11 +49,13 @@ class ResetPasswordController extends  ApiController
             // Kiểm tra sự tồn tại của đường link
             $this->user->checkTime($user,$time);
 
-
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->user->resetPasswordCustomer($user, $data);
-            logs('user', 'Khôi phục mật khẩu ' . $data->email , $data);
+            $user = $this->user->resetPasswordCustomer($user, $data);
+
+            //Tạo quyền lại cho merchant khi thiết lập lại mật khẩu
+            $user->roles()->attach([Role::MERCHANT]);
+            logs('user', 'Khôi phục mật khẩu ' . $user->email , $user);
 
             return $this->successResponse(['data' => ['message' => 'Thành công !!! Cám ơn bạn đã sử dụng dịch vụ của WESTAY']], false);
 

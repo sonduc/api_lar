@@ -165,10 +165,6 @@ class User extends Entity implements AuthenticatableContract, AuthorizableContra
             $model->save();
         });
 
-        self::created(function ($model) {
-            $model->token = Hash::make(str_random(60));
-            $model->save();
-        });
     }
 
     public function setPasswordAttribute($value)
