@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-26T05:21:59.318Z",
+	"__export_date": "2019-01-27T15:41:28.048Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,7 +201,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijk1ZmJjZTU4OWJjOGZmNDZlYzI5MWJhNjA3ZWViNWYxMWM2NzMzYWI2MTk2YTIzZGM3ZmZjNzMwYjk1OWU2NzdhMmZhY2FiNDlkZGIzZDQwIn0.eyJhdWQiOiI0IiwianRpIjoiOTVmYmNlNTg5YmM4ZmY0NmVjMjkxYmE2MDdlZWI1ZjExYzY3MzNhYjYxOTZhMjNkYzdmZmM3MzBiOTU5ZTY3N2EyZmFjYWI0OWRkYjNkNDAiLCJpYXQiOjE1NDg0NzgwOTIsIm5iZiI6MTU0ODQ3ODA5MiwiZXhwIjoxNTgwMDE0MDkyLCJzdWIiOiI3NTIiLCJzY29wZXMiOltdfQ.ic-kWfNoLgkcWa7Vc4oDe8Ghe-OPLYEJVNYLXmW16O3zPv6tduzDbzPIudWp_H6XQYFM_CXPdMhvHa6xWfeFVk0HSQulbJ2Emmn0ofxznp2wvE_SirMJIDyhWSITA7TCUCwpSITo6vYaGTWf71FwlN8fkNj_MuXtUSAUyb_rDMPi1oHP-xdGjSsG-HB6yCW-AOS6C6TtI7JTxH2u-LtRa_EBOPl2IXgYINuwRyd05V3KN3zrma66nUugBk73ax0E91RKLkSM9qaAllZ1rxdJKyngyXVg2c9gYbq4MUpyB94vFHj1NTlK-jL6YzhUM-MdO9Ol_PjnqgVqhbCD_Gx9hVgMZ77ZabFbPSgLzbv3aGqlQZERgFSRtI1cTRDKf1WQdstpy3kKC1vCwNDn-MZJy0VFSW4RnHzpVq0wS40n9BrCgg3d4vhpudcR2pljBX13vq7J8GgHChW9CTuJYIqnnhomlsXUo42szMRoKfzN2NZAanlkppAoxNxhMA1Ym0StrXagdRYgspGGx61CvRN-qMYgg40K1pgbTfSoCv8PpRSg09zg_CXbwbrCWCbxfNC0DEbFHt9Tv5KO_y_E6hIrkkI-d-oco9M1DdGzVGj0XRkXxWCiRRH8bVVYwyBkm6Z-sX_b0x8LObCNVzLuZ7IAdwxLGIru7mhu4kiTYzPEd0g"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjhiY2U2OGJlZjNiMmQwZTI1Yzc2Y2ZlNWQzMTc2YTUzYWQ1M2Y5ZjMzZWRhOGIyYjAyN2MwZTQyMzNiOGNlOGEzYjVjMWFkMTc1OGVkMzIyIn0.eyJhdWQiOiI0IiwianRpIjoiOGJjZTY4YmVmM2IyZDBlMjVjNzZjZmU1ZDMxNzZhNTNhZDUzZjlmMzNlZGE4YjJiMDI3YzBlNDIzM2I4Y2U4YTNiNWMxYWQxNzU4ZWQzMjIiLCJpYXQiOjE1NDg1NzgxMzksIm5iZiI6MTU0ODU3ODEzOSwiZXhwIjoxNTgwMTE0MTM5LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.UAlCV5OxXBvu0uIA7IyeNm494OuRabzOP0ZoaE7382D8l_stl7Tt_LMF-Xmo1VZzMRVBCiP46U6bsVc4O6-k4fmE23bzUwahr-fXEZlwWIpA02LJPrxteW4QBrcVPdOeJTlWrVKpK8UAoUzUfaZo-MOwWf1jeQcL4SeGaF66MWf2QPiuDuqbEye1lpndOjrs-ao60ruUm-TL8L9jcAiGI9RL98C1daPAJyVOxU-ERmGhX7_LF0vuT53qJSrUfg71E8Sw1HNgTJ5SBuwIGbf6uy5hOACVHFYOlmxQSTtHze5hAaVGdRG05dbqnxMjcbVz-h_KDmRL8RyEwytthwmk_0d41lS6WtyXeBgYGkrq28GuhJIa88o1bRXC-tVeQiSyGbFW5kbZhHtAMqEQuH0pYnUoiI0vci0uZFJcZxRJBvlPZrlF28pP1WxHNsyiCRoiENKh824A5g6ncUNG1rA0HNdQdalHgIV84gFW3QdKMqzaESutsQutkrMTmBB67uNeARlbeIBji0PKBOLjb81xYTm1JoL_3BHIRK6HKv3FeGLmNuqJjnVtsaUU0aBXLS_rzWxvMlzQbLVGA4U2MH7y71ActXHQkczR9zNuWcuYKeXnoFYDG4IfGaDY0s3W-qkIHMIx72m9-l2eIH9P1avu2cuhdrFmbK2YrxDYfl1IGnM"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -209,7 +209,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548478106069,
+			"modified": 1548578148479,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -225,7 +225,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImRiMzdlMDJhMzc0NTNhNzJlOGQwYjBhZjIxYmIxNmQ5NzQ0MmI1NTQ1NTc0NzE0NThlODQ3YjQxYWI0YWQ4NDA5ODFhNmE2NDYyMjdlMGRiIn0.eyJhdWQiOiI2IiwianRpIjoiZGIzN2UwMmEzNzQ1M2E3MmU4ZDBiMGFmMjFiYjE2ZDk3NDQyYjU1NDU1NzQ3MTQ1OGU4NDdiNDFhYjRhZDg0MDk4MWE2YTY0NjIyN2UwZGIiLCJpYXQiOjE1NDgzMTk4MDAsIm5iZiI6MTU0ODMxOTgwMCwiZXhwIjoxNTc5ODU1ODAwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.YmfDL3erpK8WHWajSMYLfDN1bCI0nE9A_pSNcfqS6WvSa_6Kq1Ydffl9L8YUPFuoYHGg9XTfjRujM7DsYNGEvk-DCt0egN9xYeUfuUUAkC7Ug8wL-fh6rlW_ZBJo_gK4z3Z8a5n-ZNl94wPIX8zV0A7a5LMYBv1N2B8NkLNmaBygsuwVgItMSAFyqcIDkILL8N-DVDKQ-VP6k0jUHmGwLylF71dkOMMfF-HJVwlWaXp9lKSqKwbFURWpDtkauUaiQQN2en7qk4GrFhoJWS7qZ3UM8R-h5hjnjGegf4u0M6rSi0gAD4pc_TxU2AH9AnFAdf-PSqhBitvdcQbZS1MoUuP_7qcUVpjWjgisDwewkBsZ8fM63WKzSwAWXVMY_PogZwcK-iEErGFMbKKO1-9nD9hpGQoWmb2TvqexQHX9mxNrgZnWIIaresoPju672Wuj8FxnO3cEr8vBXElvcALgkjtwRrybY0fGoghX2F0WcWD6TAwxgCTl2aATTk4tNjxrg8JDiGZQUDwNLjQ-uGVPCT0RaVlQ1oyPysY5tPav6eZk0_7zpTlE4KftcHRKv_PwVUCV1WLzfB8BegwVae7bFkPzbiqMx3Ojt9ql9oIUYJTkzi6UueJYEkGzNIYscEjaAlswdWP8GZCNnTQxe7lqidDgu3_yKapR4VJRiG9E8_w"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg2ZGZlZmI5N2JkOWY2NjI2OGIzYWQxZDI2MjRiMDhmOTY1YTNiNTE3NTM5ZTgzNDYzMDA4OWQ0MmFhMjI2NzE2MTg3NDBiM2FmYzVmOWY3In0.eyJhdWQiOiI2IiwianRpIjoiODZkZmVmYjk3YmQ5ZjY2MjY4YjNhZDFkMjYyNGIwOGY5NjVhM2I1MTc1MzllODM0NjMwMDg5ZDQyYWEyMjY3MTYxODc0MGIzYWZjNWY5ZjciLCJpYXQiOjE1NDg1NzY5MTQsIm5iZiI6MTU0ODU3NjkxNCwiZXhwIjoxNTgwMTEyOTE0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.cWvJRPvYmXLAaqx60kXXbLUqKNG_8PHYizOEtDierIG093gKZueXLKSqe7PfRMMjW-4_OAbWFgd2x5s4YzEgEAYYr4jg7K96XOaApf15fMOQl4H6GFoG9C0p7BSmxZvv-rhSX-eaQNSWr69q4ujfEGZrNZ9idJ87xJpcylycHJ7T7MDAkKC0PGxHMlW4_iC7IJkRy278Zd1ySjwPIp5U0rAb5sR4KMz4ldWExDBYGBVheZ7qf8Ae6yo59-fPuKBGMjUkj7d8rmk-GiIXCIelIZNH-g80vw9T_nVF8mKhGOrh4YfpPRyFdgZfJjO9QTNSM8ioH4CPGdTm6KX8egaT6xh2U-LsDG9ZfD_9Uw-qKOYSYQKY9cuBsV4n-9IupBDUYfNnTBylpJ2IvJjMsqaWR7r_ZJkkhD9vasvQ_VB6kW77yFVjBP0qK-9u3lapE5CJYRP6klpIWglf7BH8M9Lx7iVRHnMil6__2bAEKJdHqty2Qm1CrbPKXqrzhzptOLM9KbMNxNhqSReNSu7HBBe3FTROHDPJCKDmIEFMdeBAdsJmIhr7wKk0vsQS2kXq6LHhDRSvFhivZneaSUBzDIBICt8oWpC5XjTKa-kZ7V7iaIjhh56O9My9ijqr7u31T1lkrMdXBOlkoiGickKbFaw7sS-eWVnCt-PDnOkt7hJYyeU"
 				},
 				"url": "https://somethingapi.club/",
 				"username": "admin@westay.org",
@@ -233,7 +233,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1548414967920,
+			"modified": 1548576925326,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -457,7 +457,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1532570312566,
 			"method": "POST",
-			"modified": 1548017995509,
+			"modified": 1548578127404,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_d9283886b61d43c8b22e7e9e6c6f4d53",
@@ -1279,7 +1279,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1546589381516,
+			"modified": 1548578173364,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_c8a7f8e71fd744ff8b47740134c65165",
@@ -1289,7 +1289,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}users",
+			"url": "{{ api_url  }}users?q=0792",
 			"_type": "request"
 		},
 		{
@@ -6318,7 +6318,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745339,
 			"method": "GET",
-			"modified": 1548321812652,
+			"modified": 1548566021462,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6328,7 +6328,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms?limit=1",
+			"url": "{{ customer_url  }}rooms?check_in=2019-02-04%2012%3A00%3A00&check_out=2019-02-06%2012%3A00%3A00&include=details%2Cmedia%2Ccity%2Cdistrict%2Ccomforts&most_popular&name=&number_guest=1&rent_type=1&sort_price_day=1",
 			"_type": "request"
 		},
 		{
@@ -7972,7 +7972,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1546842841116,
+			"modified": 1548562308258,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -7982,7 +7982,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms",
+			"url": "{{ merchant_url }}rooms?limit=10&include=details&page=2",
 			"_type": "request"
 		},
 		{
@@ -8948,7 +8948,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"uuid\": \"DY1pal0B\",\n\t\"name\": \"SupperAdmin\",\n\t\"email\": \"info@westay.org\",\n\t\"gender\": 0,\n\t\"birthday\": \"1994-12-06\",\n\t\"address\": null,\n\t\"phone\": \"0967528419\",\n\t\"account_number\": null,\n\t\"avatar\": null,\n\t\"avatar_url\": \"http:\\/\\/wsapi.test\\/images\\/default_avatar.png\",\n\t\"city_id\": 10,\n\t\"district_id\": 790\n}"
+				"text": "{\n\t\"uuid\": \"DY1pal0B\",\n\t\"name\": \"SupperAdmin\",\n\t\"email\": \"info@westay.org\",\n\t\"gender\": 0,\n\t\"birthday\": \"1994-12-06\",\n\t\"address\": null,\n\t\"phone\": \"0967528419\",\n\t\"account_number\": null,\n\t\"city_id\": 10,\n\t\"district_id\": 792,\n\t\"account_number\": 123123123,\n\t\"account_branch\": null\n}"
 			},
 			"created": 1545100997543,
 			"description": "            'name'                      => 'v_title',\n            'email'                     => 'bail|required|email|unique:users,email',\n            'password'                  => 'min:6|confirmed',\n            'phone'                     => 'bail|nullable|min:9',\n            'birthday'                  => 'bail|nullable|date_format:\"Y-m-d\"',\n            'gender'                    => 'bail|required|between:0,3',\n\n            /**\n             * settings\n             */\n            'subcribe'                  => 'bail|nullable|integer|in:1',\n            'settings.*'                => 'bail|nullable|integer|in:0',",
@@ -8967,7 +8967,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890321.5,
 			"method": "PUT",
-			"modified": 1548479498789,
+			"modified": 1548552400810,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_15c2f8a214fa4dc6851fa89ba5d73364",
@@ -8996,7 +8996,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541782890396.5,
 			"method": "GET",
-			"modified": 1548478837541,
+			"modified": 1548561076802,
 			"name": "info",
 			"parameters": [],
 			"parentId": "fld_15c2f8a214fa4dc6851fa89ba5d73364",
@@ -9006,7 +9006,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}profile?include=city,district",
+			"url": "{{ merchant_url }}profile?include=roles",
 			"_type": "request"
 		},
 		{
@@ -9231,7 +9231,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"ducchien0612@gmail.com\"\n}"
+				"text": "{\n\t\"email\": \"info@westay.org\"\n}"
 			},
 			"created": 1545101021153,
 			"description": "      'email' => 'required|email|max:255',",
@@ -9250,7 +9250,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538398850364.6738,
 			"method": "POST",
-			"modified": 1545183697874,
+			"modified": 1548553706366,
 			"name": "forget-password",
 			"parameters": [],
 			"parentId": "fld_9a4c8cfbc055441eabb0d5d0c0a91a55",
@@ -9287,7 +9287,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538362982722.9697,
 			"method": "POST",
-			"modified": 1545184063334,
+			"modified": 1548553886464,
 			"name": "set-passwod",
 			"parameters": [],
 			"parentId": "fld_9a4c8cfbc055441eabb0d5d0c0a91a55",
@@ -9297,7 +9297,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}set-password/.MTU0Mzg4ODY5NQ==",
+			"url": "{{ merchant_url }}set-password/MTU0ODU1MzgxOQ==?token=",
 			"_type": "request"
 		},
 		{
@@ -9324,7 +9324,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997398.5312,
 			"method": "GET",
-			"modified": 1548478063738,
+			"modified": 1548554142103,
 			"name": "get-form-reset-passwod",
 			"parameters": [],
 			"parentId": "fld_9a4c8cfbc055441eabb0d5d0c0a91a55",
@@ -9334,7 +9334,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}set-password/MTU0MzQ2NTg3NQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
+			"url": "{{ merchant_url }}set-password/MTU0ODU1MzgxOQ==?token=$2y$10$IH/TmHxFVzgfxZTiVfYee.gHRthRTSHkW2.NWZ6WN4TMnBYlRFTYi",
 			"_type": "request"
 		},
 		{
@@ -9353,7 +9353,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1548473020234,
+			"modified": 1548561586183,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_27b886dbce294e5ea6c97814568fb2e0",
@@ -9363,7 +9363,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}comforts?include=rooms&limit=-1",
+			"url": "{{ merchant_url }}comforts",
 			"_type": "request"
 		},
 		{
@@ -9489,7 +9489,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1548131679069,
-			"description": "## Include\n\n```\n'customer','booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\n```",
+			"description": "## Include\n\n```\n'customer','booking_status', 'payments', 'room', 'city', 'district', 'cancel'\n```\n\n## SCOPE PARAMETER\n```params\nq: String (Tên booking, Mã booking, SĐT, Email)\ncustomers: Int\ncity: Int\ndistrict: Int\ndate_start: Y-m-d\ndate_end: Y-m-d\nrooms: int\n```",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -9500,7 +9500,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1543069357385.9688,
 			"method": "GET",
-			"modified": 1548298956699,
+			"modified": 1548551876067,
 			"name": "index",
 			"parameters": [
 				{
@@ -9517,7 +9517,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}bookings?room=795",
+			"url": "{{ merchant_url }}bookings?rooms=795",
 			"_type": "request"
 		},
 		{
