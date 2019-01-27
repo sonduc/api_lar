@@ -41,15 +41,15 @@ class RoleController extends ApiController
      */
     public function index(Request $request)
     {
-       try{
-           $this->authorize('role.view');
-           $pageSize = $request->get('limit', 25);
-           return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
-       }catch (AuthorizationException $f) {
-           return $this->forbidden([
+        try {
+            $this->authorize('role.view');
+            $pageSize = $request->get('limit', 25);
+            return $this->successResponse($this->model->getByQuery($request->all(), $pageSize));
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
                'error' => $f->getMessage(),
            ]);
-       }
+        }
     }
 
     /**
@@ -62,7 +62,7 @@ class RoleController extends ApiController
         try {
             $this->authorize('role.view');
             return $this->successResponse($this->model->getById($id));
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -83,7 +83,7 @@ class RoleController extends ApiController
             $data = $this->model->store($request->all());
 
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -108,7 +108,7 @@ class RoleController extends ApiController
             $model = $this->model->update($id, $request->all());
 
             return $this->successResponse($model);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -134,7 +134,7 @@ class RoleController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -145,6 +145,17 @@ class RoleController extends ApiController
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
+        }
+    }
+
+    public function updateMerchantRole()
+    {
+        $list_merchant = DB::table('users')->where('type', 1)->pluck('id');
+        foreach ($list_merchant as $k => $uid) {
+            DB::table('role_users')->insert([
+                'user_id' => $uid,
+                'role_id' => 3
+                ]);
         }
     }
 }
