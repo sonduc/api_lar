@@ -33,13 +33,13 @@ class RoomController extends ApiController
     protected $roomOptionalPrice;
 
     protected $validationRules = [
-        'details.*.*.name'                   => 'required|min:10|max:255|v_title',
+        'details.*.*.name'                   => 'required|min:10|max:255',
         'comforts.*'                         => 'nullable|integer|exists:comforts,id,deleted_at,NULL|distinct',
 
-        'basic.max_guest'                    => 'required|integer|between:1,100',
-        'basic.max_additional_guest'         => 'integer|nullable|between:1,100',
-        'basic.number_bed'                   => 'required|integer|between:1,100',
-        'basic.number_room'                  => 'required|integer|between:1,100',
+        'basic.max_guest'                    => 'required|integer|between:0,1000',
+        'basic.max_additional_guest'         => 'integer|nullable|between:0,1000',
+        'basic.number_bed'                   => 'required|integer|between:0,100',
+        'basic.number_room'                  => 'required|integer|between:0,100',
         'basic.room_type'                    => 'required|integer|between:1,5',
 
         'details.city_id'                    => 'integer|nullable|exists:cities,id,deleted_at,NULL|required_with:details',
@@ -57,8 +57,8 @@ class RoomController extends ApiController
 
         // 'longitude'                                      => 'required',
         // 'latitude'                                       => 'required',
-        'details.*.*.address'                => 'required|v_title',
-        'note'                               => 'nullable|v_title',
+        'details.*.*.address'                => 'required',
+        'note'                               => 'nullable',
         'sale_id'                            => 'integer|nullable|exists:users,id,deleted_at,NULL',
         'lang_id'                            => 'integer|exists:languages,id',
 
@@ -127,8 +127,8 @@ class RoomController extends ApiController
         'details.*.*.name.required'                      => 'Tên không được để trông',
         'details.*.*.name.min'                           => 'Tối thiểu 10 ký tự',
         'details.*.*.name.max'                           => 'Tối đa 255 ký tự',
-        'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
-        'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
+        // 'details.*.*.name.v_title'                       => 'Không được có ký tự đặc biệt',
+        // 'details.*.*.address.v_title'                    => 'Không được có ký tự đặc biệt',
 
 
 

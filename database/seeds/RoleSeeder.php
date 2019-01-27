@@ -7,11 +7,11 @@
  */
 
 use Illuminate\Database\Seeder;
+
 class RoleSeeder extends Seeder
 {
     public function run()
     {
-
         if (!\App\Repositories\Roles\Role::find(1)) {
             factory(App\Repositories\Roles\Role::class)->create([
                 'name'        => 'Super admin',
@@ -48,7 +48,7 @@ class RoleSeeder extends Seeder
                     "room.delete"               => true,
                     "room.export"               => true,
                     "booking.view"              => true,
-                    "booking.create"            =>true,
+                    "booking.create"            => true,
                     "booking.update"            => true,
                     "booking.cancel"            => true,
                     "statistics.view"           => true,
@@ -58,19 +58,23 @@ class RoleSeeder extends Seeder
                     "coupon.update"             => true,
                     "coupon.delete"             => true,
                     "guidebookcategory.view"    => true,
+                    "guidebookcategory.create"  => true,
+                    "guidebookcategory.update"  => true,
+                    "guidebookcategory.delete"  => true,
                     "place.view"                => true,
                     "place.update"              => true,
                     "place.create"              => true,
                     "city.view"                 => true,
-                    "comfort.view"              =>true,
-                    "district.view"             => true
+                    "comfort.view"              => true,
+                    "district.view"             => true,
+                    "checking.view"             => true,
+                    "ticket.view"               => true,
+                    "ticket.create"             => true,
+                    "ticket.update"             => true,
+                    "ticket.delete"             => true,
+                    "role.view"                 => true,
                 ],
             ]);
         }
-
-
-
-
     }
-
 }
