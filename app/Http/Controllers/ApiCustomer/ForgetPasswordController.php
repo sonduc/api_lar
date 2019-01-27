@@ -61,17 +61,24 @@ class ForgetPasswordController extends ApiController
                         return $this->successResponse(['data' => ['message' => 'Bạn hãy vui lòng check mail để thiết lập mật khẩu...']], false);
                     }
 
-                    event(new Reset_Password_Event($user));
                     $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
                     $data['count_send_mail'] =  $user['count_send_mail'] +1;
-                    $this->user->update($user->id, $data);
+                    $data['token']           = Hash::make(str_random(60));
+                    $user                    = $this->user->update($user->id, $data);
+
+
+                    event(new Reset_Password_Event($user));
+
                     return $this->successResponse(['data' => ['message' => 'Đường dẫn đổi mật khẩu đã được gửi đến'.$request->email]], false);
                 }
                 // Nêu chưa tồn tại trạng thái hạn chế gửi mail(=null) thì gửi mail cho user và cập nhập chơ hạn chế gửi mail cho user này
-                event(new Reset_Password_Event($user));
                 $data['limit_send_mail'] = User::LIMIT_SEND_MAIL;
                 $data['count_send_mail'] =  $user['count_send_mail'] +1;
-                $this->user->update($user->id, $data);
+                $data['token']           = Hash::make(str_random(60));
+                $user                    = $this->user->update($user->id, $data);
+
+
+                event(new Reset_Password_Event($user));
                 return $this->successResponse(['data' => ['message' => 'Đường dẫn đổi mật khẩu đã được gửi đến'.$request->email]], false);
 
             }else
