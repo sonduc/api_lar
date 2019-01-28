@@ -265,5 +265,17 @@ return [
             'update'  => 'Update',
             'delete'  => 'Delete',
         ],
-    ]
+    ],
+
+    'hostReview'              => [
+        'title' => 'Quản lý đánh giá của host về khách hàng ',
+        'list'  => [
+            'view'    => 'View',
+            'create'  => 'Create',
+            'update'  => 'Update',
+            'delete'  => 'Delete',
+    ],
+]
+
+
 ];

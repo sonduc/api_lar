@@ -290,4 +290,13 @@ return [
         App\Repositories\CommentTicket\CommentTicketRepository::class,
     ],
 
+
+    /**
+     *  Host Review Customer
+     */
+    App\Repositories\HostReviews\HostReview::class => [
+        App\Repositories\HostReviews\HostReviewRepositoryInterface::class,
+        App\Repositories\HostReviews\HostReviewRepository::class,
+    ],
+
 ];

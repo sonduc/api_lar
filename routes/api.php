@@ -76,6 +76,7 @@ $router->group([
     $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
     $router->put('/rooms/update-comission', 'RoomController@updateComission');
     resource('/rooms', 'RoomController', $router);
+
     /**
      * Room Review Resource
      */
@@ -87,6 +88,12 @@ $router->group([
     $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
     $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
     resource('/reviews', 'RoomReviewController', $router);
+
+
+    /**
+     * Host-Review-Customer
+     */
+     resource('/host-reviews', 'HostReviewController', $router);
 
     /**
      * City Resource
