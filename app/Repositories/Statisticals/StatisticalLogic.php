@@ -746,7 +746,7 @@ class StatisticalLogic extends BaseLogic
         $data_return=[];
 
         $data_return[0]['data'] = $series_arr[0]['data'];
-        $data_return[0]['name'] = "Tổng";
+        $data_return[0]['name'] = "Khách mới";
         $data_return[1]['data'] = $series_arr[0]['success'];
         $data_return[1]['name'] = "Khách cũ";
 

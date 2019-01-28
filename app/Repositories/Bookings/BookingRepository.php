@@ -1777,6 +1777,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw($selectRawView),
                 DB::raw('count(distinct phone) as total_customer')
             )
+            ->whereNotIn('phone',$customers)
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
