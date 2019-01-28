@@ -381,10 +381,13 @@ class StatisticalLogic extends BaseLogic
             $some_date['_' . key($value_list_gender)]  = 0;
             foreach ($value_list_gender as $data_value) {
                 foreach ($data_value as $k => $v) {
-                    $series_arr[$k]['name']      = $v['sex_txt'];
-                    $series_arr[$k]['data'][]    = $v['total_booking'];
-                    $series_arr[$k]['success'][] = (int)$v['success'];
-                    $series_arr[$k]['cancel'][]  = (int)$v['cancel'];
+                    $series_arr[$k]['name']       = $v['sex_txt'];
+                    $series_arr[$k]['data'][]     = $v['total_booking'];
+                    $series_arr[$k]['success'][]  = (int)$v['success'];
+                    $series_arr[$k]['cancel'][]   = (int)$v['cancel'];
+                    $series_arr[$k]['pending'][]  = (int)$v['pending'];
+                    $series_arr[$k]['is_using'][] = (int)$v['is_using'];
+                    $series_arr[$k]['confirm'][]  = (int)$v['confirm'];
                 }
             }
         }

@@ -1071,9 +1071,12 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
 
         $bookings = $this->model
             ->select(
-                DB::raw('count(id) as total_booking,sex'),
+                DB::raw('count(sex) as total_booking,sex'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_COMPLETE . ' then 1 else 0 end) as success'),
                 DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CANCEL . ' then 1 else 0 end) as cancel'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_NEW . ' then 1 else 0 end) as pending'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_USING . ' then 1 else 0 end) as is_using'),
+                DB::raw('sum(case when `status` = ' . BookingConstant::BOOKING_CONFIRM . ' then 1 else 0 end) as confirm'),
                 DB::raw($selectRawView)
             )
             ->whereRaw('bookings.sex IS NOT NULL')
@@ -1126,6 +1129,9 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 'total_booking' => $value->total_booking,
                 'success'       => $value->success,
                 'cancel'        => $value->cancel,
+                'pending'       => $value->pending,
+                'confirm'       => $value->confirm,
+                'is_using'      => $value->is_using,
             ];
         }
         return $convertBooking;
@@ -1776,7 +1782,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 ['bookings.created_at', '<=', $date_end],
             ]);
         $total_customers    = $total_customers->groupBy(DB::raw('createdAt'))->get()->toArray();
-
+        // dd($total_customers, $old_customers);
         $data_date          = [];
         $convertDataBooking = [];
   
