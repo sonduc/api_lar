@@ -444,7 +444,6 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             $query = $query->where('status', $status);
         }
 
-
         // ->groupBy(DB::raw('createdAt,cities.name'))->get();
         $rooms = $query->groupBy(DB::raw('cities.name'))->get();
 
@@ -531,16 +530,20 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function countNumberOfRoomByCity($limit = 10)
+    public function countNumberOfRoomByCity($params = [], $limit = 10)
     {
+        $this->useScope($params);
         $rooms = $this->model
                 ->select(
                     DB::raw('rooms.city_id'),
                     DB::raw('cities.name as name_city'),
                     DB::raw('cities.image'),
                     DB::raw('count(rooms.city_id) as total_rooms')
-                )
-                ->join('cities', 'cities.id', '=', 'rooms.city_id')
+                );
+        if (isset($params['hot'])) {
+            $rooms->where('cities.hot', $params['hot']);
+        }
+        $rooms = $rooms->join('cities', 'cities.id', '=', 'rooms.city_id')
                 ->groupBy(DB::raw('rooms.city_id'))
                 ->orderBy('total_rooms', 'desc');
 

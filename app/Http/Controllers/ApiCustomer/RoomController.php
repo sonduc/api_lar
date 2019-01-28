@@ -257,7 +257,7 @@ class RoomController extends ApiController
         try {
             DB::enableQueryLog();
             $limit      = $request->get('limit', 10);
-            $data       = $this->model->countNumberOfRoomByCity($limit);
+            $data       = $this->model->countNumberOfRoomByCity($request->all(), $limit);
 
             // dd(DB::getQueryLog());
             return $this->successResponseUsedForCountRoom(['data' => $data]);
