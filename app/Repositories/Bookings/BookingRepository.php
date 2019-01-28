@@ -390,6 +390,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             array_push($data_date, $value->createdAt);
         }
         // dd($bookings);
+
         $date_unique = array_unique($data_date);
         foreach ($date_unique as $k => $val) {
             $convertCityBooking = $this->convertCityBooking($bookings, $val);
@@ -568,6 +569,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         }
 
         $date_unique = array_unique($data_date);
+        // dd($bookings);
         foreach ($date_unique as $k => $val) {
             $convertBookingType = $this->convertBookingType($bookings, $val);
 
@@ -593,6 +595,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 $dataBooking[] = $value;
             }
         }
+        // dd($dataBooking);
         foreach ($dataBooking as $key => $value) {
             $convertBooking[] = [
                 'type_txt'      => BookingConstant::BOOKING_TYPE[$value->type],
@@ -1737,6 +1740,85 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ];
         }
 
+        return $convertBooking;
+    }
+
+    public function getAllCustomerBooked($date)
+    {
+        return $this->model->where('created_at', '<=', $date)->where('status', BookingConstant::BOOKING_COMPLETE)->distinct('phone')->pluck('phone');
+    }
+
+    public function countOldCustomer($date_start, $date_end, $view, $status)
+    {
+        $selectRawView  = $this->switchViewBookingCreatedAt($view);
+        $customers      = $this->getAllCustomerBooked($date_start);
+
+        $old_customers  = $this->model
+            ->select(
+                DB::raw($selectRawView),
+                DB::raw('sum(case when bookings.status = ' . BookingConstant::BOOKING_COMPLETE .' then 1 else 0 end) as old_customer')
+            )
+            ->whereIn('phone', $customers)
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+
+        $old_customers   = $old_customers->groupBy(DB::raw('createdAt'))->get()->toArray();
+
+        $total_customers = $this->model
+            ->select(
+                DB::raw($selectRawView),
+                DB::raw('count(distinct phone) as total_customer')
+            )
+            ->where([
+                ['bookings.created_at', '>=', $date_start],
+                ['bookings.created_at', '<=', $date_end],
+            ]);
+        $total_customers    = $total_customers->groupBy(DB::raw('createdAt'))->get()->toArray();
+
+        $data_date          = [];
+        $convertDataBooking = [];
+  
+        foreach ($old_customers as $k => $val) {
+            $result[] = array_merge($old_customers[$k], $total_customers[$k]);
+        }
+
+        foreach ($result as $key => $value) {
+            // dd($value);
+            array_push($data_date, $value['createdAt']);
+        }
+        $date_unique = array_unique($data_date);
+        // dd($result);
+        foreach ($date_unique as $k => $val) {
+            $converOldCustomer = $this->convertOldCustomer($result, $val);
+
+            $convertDataBooking[] = [
+                $val      => $converOldCustomer,
+            ];
+        }
+
+        return $convertDataBooking;
+    }
+
+    public function convertOldCustomer($bookings, $createdAt)
+    {
+        $dataBooking    = [];
+        $convertBooking = [];
+        foreach ($bookings as $key => $value) {
+            if ($value['createdAt'] === $createdAt) {
+                $dataBooking[] = $value;
+            }
+        }
+        // dd($dataBooking);
+        foreach ($dataBooking as $key => $value) {
+            // dd($value);
+            $convertBooking[] = [
+                'createdAt'      => $value['createdAt'],
+                'total_customer' => $value['total_customer'],
+                'old_customer'   => $value['old_customer']
+            ];
+        }
         return $convertBooking;
     }
 }

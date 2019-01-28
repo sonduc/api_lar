@@ -618,4 +618,30 @@ class StatisticalController extends ApiController
             throw $t;
         }
     }
+    /**
+     * Thống kê khách hàng cũ
+     * @param  Request $request [description]
+     * @return [type]           [description]
+     */
+    public function oldCustomerStatistical(Request $request)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('statistical.view');
+            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $data = $this->model->oldCustomerStatistical($request->all());
+
+            $data_response['data']['createdAt'] = $data[0];
+            $data_response['data']['data'] = $data[1];
+
+            return $this->successResponse($data_response, false);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }

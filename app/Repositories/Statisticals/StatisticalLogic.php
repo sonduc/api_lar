@@ -714,4 +714,39 @@ class StatisticalLogic extends BaseLogic
 
         return $arr2d;
     }
+
+    /**
+     * Thống kê tỉ lệ khách cũ
+     * @param  [type] $data [description]
+     * @return [type]       [description]
+     */
+    public function oldCustomerStatistical($data)
+    {
+        $dataInput = $this->checkInputDataBookingStatistical($data);
+        
+        $data_old_customer = $this->booking->countOldCustomer($dataInput['date_start'], $dataInput['date_end'], $dataInput['view'], $dataInput['status']);
+        // dd($data_old_customer);
+        $date_arr   = [];
+        $series_arr = [];
+        $some_date  = [];
+
+        foreach ($data_old_customer as $key_list_customer => $value_list_customer) {
+            $date_arr[] = key($value_list_customer);
+            $some_date['_' . key($value_list_customer)]  = 0;
+            foreach ($value_list_customer as $data_value) {
+                foreach ($data_value as $k => $v) {
+                    $series_arr[$k]['data'][]    = (int)$v['total_customer'];
+                    $series_arr[$k]['success'][] = (int)$v['old_customer'];
+                }
+            }
+        }
+        $data_return=[];
+
+        $data_return[0]['data'] = $series_arr[0]['data'];
+        $data_return[0]['name'] = "Tổng";
+        $data_return[1]['data'] = $series_arr[0]['success'];
+        $data_return[1]['name'] = "Khách cũ";
+
+        return [$date_arr, $data_return];
+    }
 }

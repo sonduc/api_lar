@@ -1,6 +1,6 @@
 /*
 -- Query: select booking_id, total_received, total_debt,note, (status - 1) as status, confirm, created_at, updated_at  from payment_histories where status <> 4
--- Date: 2019-01-27 12:35
+-- Date: 2019-01-28 09:06
 */
 INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (1,0,850000,'',0,0,'2017-05-04 00:33:49','2017-05-04 00:33:49');
 INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (1,0,3600000,'Liên hệ với khách hàng để xác nhận thanh toán đơn HMYQ6AY6KV',0,0,'2017-05-09 14:26:31','2017-05-09 14:26:31');
@@ -12622,3 +12622,25 @@ INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`not
 INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6506,0,750000,'Chưa thanh toán',0,1,'2019-01-27 10:51:02','2019-01-27 10:51:02');
 INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6506,750000,0,'Khách thanh toán 750,000đ booking mã: HMDL7EA96X',2,1,'2019-01-27 10:51:04','2019-01-27 10:51:04');
 INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6504,700000,0,'Khách thanh toán 700,000đ booking mã: HMD6DBDK8X',2,1,'2019-01-27 11:34:09','2019-01-27 11:34:09');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6507,0,2800000,'Chưa thanh toán',0,1,'2019-01-27 16:19:47','2019-01-27 16:19:47');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6507,2800000,0,'Xác nhận thanh toán booking mã: HMN6VV3J6K',2,0,'2019-01-27 16:19:47','2019-01-27 16:19:47');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6507,2800000,0,'Khách thanh toán 2,800,000đ booking mã: HMN6VV3J6K',2,1,'2019-01-27 16:19:50','2019-01-27 16:19:50');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6508,0,1400000,'Chưa thanh toán',0,1,'2019-01-27 19:12:36','2019-01-27 19:12:36');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6508,1400000,0,'Xác nhận thanh toán booking mã: HMR8GM4V82',2,0,'2019-01-27 19:12:36','2019-01-27 19:12:36');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6508,1400000,0,'Khách thanh toán 1,400,000đ booking mã: HMR8GM4V82',2,1,'2019-01-27 19:12:38','2019-01-27 19:12:38');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6509,0,700000,'Chưa thanh toán',0,1,'2019-01-27 19:15:16','2019-01-27 19:15:16');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6509,700000,0,'Xác nhận thanh toán booking mã: HM96QORY8J',2,0,'2019-01-27 19:15:16','2019-01-27 19:15:16');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6509,700000,0,'Khách thanh toán 700,000đ booking mã: HM96QORY8J',2,1,'2019-01-27 19:15:18','2019-01-27 19:15:18');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6510,0,1300000,'Chưa thanh toán',0,1,'2019-01-27 19:22:34','2019-01-27 19:22:34');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6510,1300000,0,'Xác nhận thanh toán booking mã: HMX8EAX16M',2,0,'2019-01-27 19:22:34','2019-01-27 19:22:34');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6510,1300000,0,'Khách thanh toán 1,300,000đ booking mã: HMX8EAX16M',2,1,'2019-01-27 19:22:36','2019-01-27 19:22:36');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6511,0,4125000,'Chưa thanh toán',0,1,'2019-01-27 19:29:33','2019-01-27 19:29:33');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6511,4125000,0,'Xác nhận thanh toán booking mã: HMQ8YEGGLD',2,0,'2019-01-27 19:29:33','2019-01-27 19:29:33');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6511,4125000,0,'Khách thanh toán 4,125,000đ booking mã: HMQ8YEGGLD',2,1,'2019-01-27 19:29:35','2019-01-27 19:29:35');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6512,0,700000,'Chưa thanh toán',0,1,'2019-01-27 19:42:07','2019-01-27 19:42:07');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6512,700000,0,'Khách thanh toán 700,000đ booking mã: HMN6ZP94L4',2,1,'2019-01-27 19:42:09','2019-01-27 19:42:09');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6513,0,600000,'Chưa thanh toán',0,1,'2019-01-27 19:44:50','2019-01-27 19:44:50');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6513,600000,0,'Khách thanh toán 600,000đ booking mã: HMAL93MZLO',2,1,'2019-01-27 20:10:37','2019-01-27 20:10:37');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6514,0,9200000,'Chưa thanh toán',0,1,'2019-01-27 21:52:06','2019-01-27 21:52:06');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6515,0,9200000,'Chưa thanh toán',0,1,'2019-01-27 23:07:40','2019-01-27 23:07:40');
+INSERT INTO `payment_histories` (`booking_id`,`total_received`,`total_debt`,`note`,`status`,`confirm`,`created_at`,`updated_at`) VALUES (6516,0,350000,'Chưa thanh toán',0,1,'2019-01-28 00:51:08','2019-01-28 00:51:08');
