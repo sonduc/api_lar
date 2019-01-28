@@ -93,6 +93,7 @@ $router->group([
     /**
      * Host-Review-Customer
      */
+    $router->put('/host-reviews/update-status/{id}', 'HostReviewController@updateStatus');
      resource('/host-reviews', 'HostReviewController', $router);
 
     /**

@@ -19,7 +19,7 @@ class CreateHostReviewCustomerTable extends Migration
             $table->integer('booking_id')->nullable();
             $table->integer('customer_id')->nullable();
             $table->integer('merchant_id')->nullable();
-            $table->tinyInteger('status')->nullable()->default(1);
+            $table->tinyInteger('status')->nullable()->default(0);
             $table->float('avg_rating')->nullable();
             $table->tinyInteger('cleanliness')->nullable();
             $table->tinyInteger('friendly')->nullable();

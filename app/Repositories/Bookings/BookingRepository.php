@@ -158,6 +158,19 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         return parent::getById($id);
     }
 
+    /**
+     * Cập nhật trạng thái hoàn thành Review cho booking này
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     */
+    public function updateHostReview($id,$data)
+    {
+        $data['host_reviews'] = BookingConstant::COMPLETE;
+        parent::update($id,$data->toArray());
+    }
+
     public function updatStatusBooking($booking)
     {
         $data    = $booking->data;

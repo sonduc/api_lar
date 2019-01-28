@@ -15,15 +15,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class HostReview extends Entity
 {
     use SoftDeletes;
-    // Định nghĩa trạng thái seettings
-//    const AVAILABLE    = 1;
-//    const UNAVAILABLE  = 0;
-//
-//
-//    const SETTING_STATUS    = [
-//        self::AVAILABLE      => 'HIỂN THỊ',
-//        self::UNAVAILABLE    => 'ẨN',
-//    ];
+
 
     protected $table = 'host_review_customer';
     /**

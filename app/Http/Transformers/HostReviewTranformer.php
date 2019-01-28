@@ -11,8 +11,9 @@ namespace App\Http\Transformers;
 
 use App\Repositories\HostReviews\HostReview;
 use App\Http\Transformers\Traits\FilterTrait;
+use League\Fractal\TransformerAbstract;
 
-class HostReviewTranformer
+class HostReviewTranformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [

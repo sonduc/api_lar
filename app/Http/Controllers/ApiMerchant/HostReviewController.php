@@ -18,14 +18,33 @@ use phpDocumentor\Reflection\DocBlock\Description;
 
 class HostReviewController extends ApiController
 {
-    protected $validationRules
-        = [
+    protected $validationRules    = [
+        'booking_id'                                => 'required|integer|exists:bookings,id,deleted_at,NULL',
+        'cleanliness'                               => 'nullable|integer|between:1,5',
+        'friendly'                                  => 'nullable|integer|between:1,5',
+        'avg_rating'                                => 'nullable|numeric|between:1,5',
+        'recommend'                                 => 'nullable|integer|between:0,1',
+        'house_rules_observe'                       => 'nullable|integer|between:0,1',
 
-        ];
-    protected $validationMessages
-        = [
+    ];
+    protected $validationMessages = [
+        'booking_id.required'                       => 'Vui lòng chọn mã booking',
+        'booking_id.integer'                        => 'Mã booking phải là kiểu số',
+        'booking_id.exists'                         => 'Booking không tồn tại',
 
-        ];
+        'cleanliness.integer'                       => 'Mã đánh giá sạch sẽ phải là kiểu số',
+        'cleanliness.between'                       => 'Mã đánh giá sạch sẽ không phù hợp',
+
+        'avg_rating.numeric'                        => 'Mã  đánh giá tổng hợp phải là kiểu số',
+        'avg_rating.between'                        => 'Mã  đánh giá tổng hợp không phù hợp',
+
+        'recommend.integer'                         => 'Mã giới thiệu phải là kiểu số',
+        'recommend.between'                         => 'Mã giới thiệu không phù hợp',
+
+        'recomhouse_rules_observemend.integer'      => 'Trường này phải là kiểu số',
+        'house_rules_observe.between'               => 'Trường này không hợp lê'
+
+    ];
 
     /**
      * HostReviewController constructor.

@@ -198,6 +198,16 @@ final class BookingConstant
         13 => 'giao dịch bị tạm giữ (thanh toán an toàn)',
     ];
 
+    // Định nghĩa trạng thái đã hoàn thành review
+    const COMPLETE          = 1;
+    const NOT_COMPLETED     = 0;
+
+
+    const REVIEW_STATUS    = [
+        self::COMPLETE          => 'HOÀNH THÀNH',
+        self::NOT_COMPLETED     => 'CHƯA HOÀN THÀNH',
+    ];
+
     public static function getAllPaymentMethod()
     {
         // Danh sách các ngân hàng online

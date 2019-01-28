@@ -24,6 +24,7 @@ class CreateTransactionsTable extends Migration
             $table->integer('booking_id')->nullable();
             $table->integer('bonus')->nullable()->default(0);
             $table->integer('comission')->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
