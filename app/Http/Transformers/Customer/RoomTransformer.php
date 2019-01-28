@@ -46,6 +46,10 @@ class RoomTransformer extends TransformerAbstract
             'longitude'             => $room->longitude,
             'latitude'              => $room->latitude,
             'avg_rating'            => $room->avg_avg_rating,
+            'avg_cleanliness'       => $room->avg_cleanliness,
+            'avg_quality'           => $room->avg_quality,
+            'avg_service'           => $room->avg_service,
+            'avg_valuable'          => $room->avg_valuable,
             'avg_rating_txt'        => $room->getTextAvgRating($room->avg_avg_rating),
             'total_review'          => $room->total_review,
         ];

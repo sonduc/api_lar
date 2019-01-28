@@ -93,6 +93,10 @@ class RoomTransformer extends TransformerAbstract
             'service'              => $room->avg_service,
             'valuable'             => $room->avg_valuable,
             'avg_rating'           => $room->avg_avg_rating,
+            'avg_cleanliness'      => $room->avg_cleanliness,
+            'avg_quality'          => $room->avg_quality,
+            'avg_service'          => $room->avg_service,
+            'avg_valuable'         => $room->avg_valuable,
             'total_review'         => $room->total_review,
             'total_recommend'      => $room->total_recommend,
 
