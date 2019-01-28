@@ -807,4 +807,6 @@ class BookingController extends ApiController
             throw $e;
         }
     }
+
+
 }

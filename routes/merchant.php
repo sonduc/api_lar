@@ -101,6 +101,12 @@ $router->group([
 });
 
 /**
+ * Host-Review-Customer
+ */
+$router->get('/host-reviews','HostReviewController@getFormReview');
+$router->post('/host-reviews','HostReviewController@store');
+
+/**
  * Router login, register , reset pass, forget pass
  */
 $router->post('login', 'LoginController@login');

@@ -280,3 +280,6 @@ $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
 // $router->post('update-calendar/{id}', 'RoomCalendarController@updateCalendar');
 
 $router->get('update-merchant-role-db', 'RoleController@updateMerchantRole');
+
+
+
