@@ -741,7 +741,7 @@ class RoomController extends ApiController
     {
         try {
             $this->authorize('room.view');
-            $pageSize    = $request->get('limit', 5);
+            $pageSize    = $request->get('limit', 10);
             $data = $this->model->getRoomRecommend($pageSize, $id);
 
             return $this->successResponse($data);

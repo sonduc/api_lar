@@ -154,28 +154,34 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
     }
 
-    public function getRoomRecommend($size, $id)
+    public function getRoomRecommend($size = 10, $id)
     {
+        // Thành phố, quận huyện, đặt phòng nhanh, giá tương tự, số khách, hot, total_booking, total_reviews
         $room = $this->model->find($id);
-
-        $rooms = $this->model
-            ->where('city_id', $room->city_id)
-            ->where('district_id', $room->district_id)
-            ->where('max_guest', '>=', $room->max_guest)
-            ->where('status', Room::AVAILABLE);
-
-        if ($room->standard_point != null) {
-            $rooms->where('standard_point', '>=', $room->standard_point);
-        }
-
+        $rooms = $this->model->where(
+                [
+                    ['city_id', $room->city_id],
+                    ['district_id', $room->district_id],
+                    ['max_guest','>=', $room->max_guest],
+                    ['status', $room->status]
+                ]
+            );
+            
+        // if ($room->standard_point != null) {
+        //     $rooms->where('standard_point', '>=', $room->standard_point);
+        // }
+                
         if ($room->rent_type != null) {
-            $rooms->whereIn('rent_type', [$room->rent_type, Room::TYPE_ALL]);
+            $rooms = $rooms->whereIn('rent_type', [$room->rent_type, Room::TYPE_ALL])->whereNotIn('id', [$id]);
+            $condition_price = $room->rent_type == Room::TYPE_HOUR ? 'price_hour' : 'price_day';
+            $rooms = $rooms->whereBetween($condition_price, [$room->$condition_price - Room::PRICE_RANGE_RECOMMEND  ,$room->$condition_price + Room::PRICE_RANGE_RECOMMEND]);
         }
 
         $rooms->orderBy('is_manager', 'desc')
+              ->orderBy('total_booking', 'desc')
               ->orderBy('avg_avg_rating', 'desc')
-              ->orderBy('total_review', 'desc')
-              ->orderBy('total_recommend', 'desc');
+              ->orderBy('total_recommend', 'desc')
+              ->orderBy('total_review', 'desc');
 
         if ($size == -1) {
             return $rooms->get();

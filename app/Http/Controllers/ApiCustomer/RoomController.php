@@ -171,7 +171,7 @@ class RoomController extends ApiController
     public function getRoomRecommend(Request $request, $id)
     {
         try {
-            $pageSize    = $request->get('limit', 5);
+            $pageSize    = $request->get('limit', 10);
             $data = $this->model->getRoomRecommend($pageSize, $id);
 
             return $this->successResponse($data);
