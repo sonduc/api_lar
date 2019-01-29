@@ -21,6 +21,7 @@ class Kernel extends ConsoleKernel
             'App\Console\Commands\CreateReferralCoupon',
             'App\Console\Commands\CreateMerchantBonusTransaction',
             'App\Console\Commands\TransactionCombine',
+            'App\Console\Commands\HostReviews',
         ];
 
     /**
@@ -39,6 +40,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('transaction:bonus')->dailyAt('02:30:00');
         $schedule->command('airbnb:sync')->twiceDaily(3, 14);
         $schedule->command('transaction:combine')->dailyAt('01:00:00');
+
+        $schedule->command('hosts:review')->dailyAt('16:00:00');
     }
 
     // protected function commands()

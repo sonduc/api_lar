@@ -57,9 +57,8 @@ class SettingController extends ApiController
         ];
 
     /**
-     * BlogController constructor.
-     *
-     * @param BlogRepository $blog
+     * SettingController constructor.
+     * @param SettingRepositoryInterface $setting
      */
     public function __construct(SettingRepositoryInterface $setting)
     {

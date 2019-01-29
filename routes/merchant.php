@@ -101,6 +101,12 @@ $router->group([
 });
 
 /**
+ * Host-Review-Customer
+ */
+$router->get('/host-reviews','HostReviewController@getFormReview');
+$router->post('/host-reviews','HostReviewController@store');
+
+/**
  * Router login, register , reset pass, forget pass
  */
 $router->post('login', 'LoginController@login');
@@ -110,5 +116,9 @@ $router->post('reset-password/{time}', 'ResetPasswordController@resetPassword');
 $router->get('set-password/{time}', 'ResetPasswordController@getFormResetPassword');
 $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
 
-resource('/test', 'TestController', $router);
+//resource('/test', 'TestController', $router);
+
+$router->get('test', 'HostReviewController@test');
+
+
 

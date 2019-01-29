@@ -603,4 +603,20 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
 
         return $convertDataRoom;
     }
+
+    /**
+     * Lấy ra dữ liệu phòng phục vụ cho host reviews
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     */
+    public function getRoomForReview($id)
+    {
+       return $this->model->select('rooms.id','room_translates.name','room_medias.image')
+                    ->join('room_translates','rooms.id','=','room_translates.room_id')
+                    ->join('room_medias','rooms.id','=','room_medias.room_id')
+                    ->where('rooms.id','=',$id)
+                    ->where('room_translates.lang','=','vi')
+                    ->first();
+    }
 }

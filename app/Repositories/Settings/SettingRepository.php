@@ -38,12 +38,12 @@ class SettingRepository extends BaseRepository implements SettingRepositoryInter
      */
     public function store($data = [])
     {
-//        $result= parent::getAll()->toArray();
-//
-//        if (!empty($result))
-//        {
-//            throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
-//        }
+        $result= parent::getAll()->toArray();
+
+        if (!empty($result))
+        {
+            throw new \Exception('Bạn phải xóa cài đặt trước đó thì mới có kiểu tao mới');
+        }
         $data['homepage_image'] = isset($data['homepage_image']) ? $data['homepage_image'] : '';
         $data['image_logo']     = isset($data['image_logo']) ? $data['image_logo'] : '';
 

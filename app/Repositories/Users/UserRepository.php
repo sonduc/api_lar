@@ -464,4 +464,18 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
                     ->join('role_users', 'users.id', '=', 'role_users.user_id')
                     ->where('role_users.role_id', '=', Role::SUPPORTER)->get();
     }
+
+    /**
+     * Lấy dữ liệu user theo id của nó
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return \App\Repositories\Eloquent
+     */
+
+    public function getUserById($id)
+    {
+        return parent::getById($id);
+
+    }
 }
