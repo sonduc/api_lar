@@ -41,7 +41,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('airbnb:sync')->twiceDaily(3, 14);
         $schedule->command('transaction:combine')->dailyAt('01:00:00');
 
-        $schedule->command('host:review')->dailyAt('16:00:00');
+        $schedule->command('hosts:review')->dailyAt('16:00:00');
     }
 
     // protected function commands()
