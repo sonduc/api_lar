@@ -3,6 +3,7 @@
 namespace App\Services\Email;
 
 use App\Jobs\Traits\DispatchesJobs;
+use App\Repositories\Bookings\Booking;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
 use Carbon\Carbon;
@@ -282,6 +283,32 @@ class SendEmail
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);
             throw $e;
+        }
+    }
+
+    /**
+     * Email mời host reviews khách hàng sau checkout
+     *
+     */
+    public function mailHostReview($dataBooking, $template = 'email.host_reviews')
+    {
+        foreach ($dataBooking as $booking)
+        {
+            $room   = $this->room->getRoomForReview($booking['room_id']);
+            $merchant = $this->user->getUserById($booking['merchant_id']);
+            $email  = $booking['email'];;
+            try {
+                Mail::send($template, ['data_booking' => $booking,'data_room' => $room, 'data_merchant' => $merchant], function ($message) use ($email, $room)
+                {
+                    $message->from(env('MAIL_TEST'));
+                    $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại' . $room->name);
+                });
+            } catch (\Exception $e) {
+                logs('emails', 'Email gửi thất bại '.$email);
+                throw $e;
+            }
+
+
         }
     }
 }

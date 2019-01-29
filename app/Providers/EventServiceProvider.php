@@ -63,5 +63,10 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\CreateBookingTransactionEvent::class => [
             \App\Listeners\Transactions\CreateBookingTransactionListener::class,
         ],
+
+        // Sự kiện host review customer
+        \App\Events\Host_Reviews_Event::class => [
+            \App\Listeners\SendMail\HostReviewListener::class,
+        ],
     ];
 }
