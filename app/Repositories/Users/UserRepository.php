@@ -91,7 +91,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $name                 = rand_name();
             $this->imgProc->setImage($name, $data['avatar']);
             event(new AmazonS3_Upload_Event($name, $data['avatar']));
-            $data['avatar']       = $name.'.jpeg';
+            $data['avatar']       = $name;
         }
 
         $user = parent::update($id, $data);
@@ -118,7 +118,7 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
             $name                 = rand_name();
             $this->imgProc->setImage($name, $data['avatar']);
             event(new AmazonS3_Upload_Event($name, $data['avatar']));
-            $data['avatar']       = $name.'.jpeg';
+            $data['avatar']       = $name;
         }
 
         $user = parent::update($id, $data);

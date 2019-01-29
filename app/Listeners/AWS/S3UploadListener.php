@@ -41,7 +41,7 @@ class S3UploadListener implements ShouldQueue
 
     public function s3Upload()
     {
-        $this->processor->setQuality(90);
+        $this->processor->setQuality(70);
         // $this->processor->setWidth(1280);
         $this->processor->setFormat('jpg');
 

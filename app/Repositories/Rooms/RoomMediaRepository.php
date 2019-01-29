@@ -61,7 +61,7 @@ class RoomMediaRepository extends BaseRepository implements RoomMediaRepositoryI
         foreach ($data['images'] as $img) {
             $name = rand_name();
             $img['room_id'] = $room->id;
-            $img['image']   = $name.'.jpeg';
+            $img['image']   = $name;
             $list[]         = $img;
             event(new AmazonS3_Upload_Event($name, $img['source']));
         }

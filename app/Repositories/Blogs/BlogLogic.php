@@ -48,7 +48,7 @@ class BlogLogic extends BaseLogic
         $data['user_id'] = Auth::user()->id;
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
         $data['slug'] = to_slug($data['title']);
         $data_blog       = parent::store($data);
         $this->blogTranslate->storeBlogTranslate($data_blog, $data);
@@ -72,7 +72,7 @@ class BlogLogic extends BaseLogic
         $data['user_id'] = Auth::user()->id;
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
 
         $data_blog       = parent::update($id, $data);
         $this->blogTranslate->updateBlogTranslate($data_blog, $data);

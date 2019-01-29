@@ -98,7 +98,7 @@ class S3Processor
         $this->processor->putObject([
             'Bucket'      => $this->bucket,
             'ContentType' => $mime,
-            'Key'         => $name,
+            'Key'         => 'originals/'.$name,
             'Body'        => $body,
             'ACL'         => $this->ACL,
         ]);

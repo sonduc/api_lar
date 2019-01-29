@@ -41,7 +41,7 @@ class CollectionLogic extends BaseLogic
     {
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
         
         $data_collection = parent::store($data);
         $this->collectionTranslate->storeCollectionTranslate($data_collection, $data);
@@ -82,7 +82,7 @@ class CollectionLogic extends BaseLogic
         $collection = $this->model->getById($id);
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
 
         $data_collection = parent::update($id, $data);
         $this->collectionTranslate->updateCollectionTranslate($data_collection, $data);

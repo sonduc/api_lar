@@ -41,7 +41,7 @@ class CategoryLogic extends BaseLogic
     {
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
 
         // $data['image'] = rand_name($data['image']);
         $data_category = parent::store($data);
@@ -63,7 +63,7 @@ class CategoryLogic extends BaseLogic
         $collection = $this->model->getById($id);
         $name = rand_name($data['image']);
         event(new AmazonS3_Upload_Event($name, $data['image']));
-        $data['image']   = $name.'.jpeg';
+        $data['image']   = $name;
 
         $data_category = parent::update($id, $data);
         $this->categoryTranslate->updateCategoryTranslate($data_category, $data);
