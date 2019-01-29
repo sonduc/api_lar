@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-29T03:37:36.128Z",
+	"__export_date": "2019-01-29T09:39:17.518Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,7 +201,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5N2JmNTA3ZmRiN2ZiNWYzNzgyMTljMDM1YTcxNjljODQzMWY0Y2I4YWEzYWE1NWJmMWFiOTczZTQ2M2Q0OGU1Nzc2MWJkY2Y3YjU0ODk2In0.eyJhdWQiOiI0IiwianRpIjoiNzk3YmY1MDdmZGI3ZmI1ZjM3ODIxOWMwMzVhNzE2OWM4NDMxZjRjYjhhYTNhYTU1YmYxYWI5NzNlNDYzZDQ4ZTU3NzYxYmRjZjdiNTQ4OTYiLCJpYXQiOjE1NDg3MzI4MjcsIm5iZiI6MTU0ODczMjgyNywiZXhwIjoxNTgwMjY4ODI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.dI9WoEj510qCvtJBvTodW0buC6bYTgNARz8W7hT8TDf4U_BIfJ_6_tEeKcoamO8am-JsAWqC8149t8TCaRvXAzwXSkzb9_n9zX7GUbi59QANbkrjr3_7c8nlPumwYnMPyY5BOpCH8WK1Px5BTw0eNdtGFgYCKzpfyAlpA62mGkf25NwhalLPE8C826oYeFhmDQkwA6tzPeQdp3F4Z5SoPtv_a55OOL5i7fJaZ-qv761opPxQ3DAL-HS7IdbBqa104CC6dpodvZom8LlrA7uACXmfBLX8Sv2mdaDuzgXXdTlicUq7182DpCJDqsID1g8k0QMDuGd6hkwjuv1ifaT5T-SbLYXiUs_o4ktx3TQXudJzh7TfAral0-gz1f9LyFb5A8rUb438oznC0DxtsVCNgpECeDa7Za9UT7MM-OnwU-Hr5eU7O9oVV8kv7RM-D5LMZBaIh-0F2QnG1fHCDsPxb5CAA8sVWwtnFrzXjQ2aRB_MKRGqtwxlbUDo1zwY5n9cMTdIUNu10pZN2mnrsYKREqWFzGt4GlRh7wt1u4yOmZNq-ScrHVp6NwYVzLIG5oY5FjVprxqlTfiaw4vO1Ifa3ufzowqmJT0gnaX0e6baiTXCdwXxNHUMvSWB_7_DKlobYL0GL7ptImFLbSpOsOWUe5blxzq3ddYklo9mqVn50zo"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5N2JmNTA3ZmRiN2ZiNWYzNzgyMTljMDM1YTcxNjljODQzMWY0Y2I4YWEzYWE1NWJmMWFiOTczZTQ2M2Q0OGU1Nzc2MWJkY2Y3YjU0ODk2In0.eyJhdWQiOiI0IiwianRpIjoiNzk3YmY1MDdmZGI3ZmI1ZjM3ODIxOWMwMzVhNzE2OWM4NDMxZjRjYjhhYTNhYTU1YmYxYWI5NzNlNDYzZDQ4ZTU3NzYxYmRjZjdiNTQ4OTYiLCJpYXQiOjE1NDg3MzI4MjcsIm5iZiI6MTU0ODczMjgyNywiZXhwIjoxNTgwMjY4ODI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.dI9WoEj510qCvtJBvTodW0buC6bYTgNARz8W7hT8TDf4U_BIfJ_6_tEeKcoamO8am-JsAWqC8149t8TCaRvXAzwXSkzb9_n9zX7GUbi59QANbkrjr3_7c8nlPumwYnMPyY5BOpCH8WK1Px5BTw0eNdtGFgYCKzpfyAlpA62mGkf25NwhalLPE8C826oYeFhmDQkwA6tzPeQdp3F4Z5SoPtv_a55OOL5i7fJaZ-qv761opPxQ3DAL-HS7IdbBqa104CC6dpodvZom8LlrA7uACXmfBLX8Sv2mdaDuzgXXdTlicUq27182DpCJDqsID1g8k0QMDuGd6hkwjuv1ifaT5T-SbLYXiUs_o4ktx3TQXudJzh7TfAral0-gz1f9LyFb5A8rUb438oznC0DxtsVCNgpECeDa7Za9UT7MM-OnwU-Hr5eU7O9oVV8kv7RM-D5LMZBaIh-0F2QnG1fHCDsPxb5CAA8sVWwtnFrzXjQ2aRB_MKRGqtwxlbUDo1zwY5n9cMTdIUNu10pZN2mnrsYKREqWFzGt4GlRh7wt1u4yOmZNq-ScrHVp6NwYVzLIG5oY5FjVprxqlTfiaw4vO1Ifa3ufzowqmJT0gnaX0e6baiTXCdwXxNHUMvSWB_7_DKlobYL0GL7ptImFLbSpOsOWUe5blxzq3ddYklo9mqVn50zo"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -209,7 +209,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548732836765,
+			"modified": 1548746846894,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -225,7 +225,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijg2ZGZlZmI5N2JkOWY2NjI2OGIzYWQxZDI2MjRiMDhmOTY1YTNiNTE3NTM5ZTgzNDYzMDA4OWQ0MmFhMjI2NzE2MTg3NDBiM2FmYzVmOWY3In0.eyJhdWQiOiI2IiwianRpIjoiODZkZmVmYjk3YmQ5ZjY2MjY4YjNhZDFkMjYyNGIwOGY5NjVhM2I1MTc1MzllODM0NjMwMDg5ZDQyYWEyMjY3MTYxODc0MGIzYWZjNWY5ZjciLCJpYXQiOjE1NDg1NzY5MTQsIm5iZiI6MTU0ODU3NjkxNCwiZXhwIjoxNTgwMTEyOTE0LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.cWvJRPvYmXLAaqx60kXXbLUqKNG_8PHYizOEtDierIG093gKZueXLKSqe7PfRMMjW-4_OAbWFgd2x5s4YzEgEAYYr4jg7K96XOaApf15fMOQl4H6GFoG9C0p7BSmxZvv-rhSX-eaQNSWr69q4ujfEGZrNZ9idJ87xJpcylycHJ7T7MDAkKC0PGxHMlW4_iC7IJkRy278Zd1ySjwPIp5U0rAb5sR4KMz4ldWExDBYGBVheZ7qf8Ae6yo59-fPuKBGMjUkj7d8rmk-GiIXCIelIZNH-g80vw9T_nVF8mKhGOrh4YfpPRyFdgZfJjO9QTNSM8ioH4CPGdTm6KX8egaT6xh2U-LsDG9ZfD_9Uw-qKOYSYQKY9cuBsV4n-9IupBDUYfNnTBylpJ2IvJjMsqaWR7r_ZJkkhD9vasvQ_VB6kW77yFVjBP0qK-9u3lapE5CJYRP6klpIWglf7BH8M9Lx7iVRHnMil6__2bAEKJdHqty2Qm1CrbPKXqrzhzptOLM9KbMNxNhqSReNSu7HBBe3FTROHDPJCKDmIEFMdeBAdsJmIhr7wKk0vsQS2kXq6LHhDRSvFhivZneaSUBzDIBICt8oWpC5XjTKa-kZ7V7iaIjhh56O9My9ijqr7u31T1lkrMdXBOlkoiGickKbFaw7sS-eWVnCt-PDnOkt7hJYyeU"
+					"value": "Bearer "
 				},
 				"url": "https://somethingapi.club/",
 				"username": "admin@westay.org",
@@ -233,7 +233,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1548576925326,
+			"modified": 1548747139678,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -1947,7 +1947,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360572.875,
 			"method": "GET",
-			"modified": 1548469964237,
+			"modified": 1548752888496,
 			"name": "room_recommend",
 			"parameters": [
 				{
@@ -1964,7 +1964,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms/room_recommend/3510?limit=5",
+			"url": "{{ api_url  }}rooms/room_recommend/3510?include",
 			"_type": "request"
 		},
 		{
@@ -6328,7 +6328,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1543990936722,
-			"description": "",
+			"description": "## INCLUDE\n`user` `details` `comforts` `prices` `blocks` `media` `city` `district` `bookings`\n",
 			"headers": [
 				{
 					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
@@ -6339,7 +6339,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745389,
 			"method": "GET",
-			"modified": 1548406861970,
+			"modified": 1548754739754,
 			"name": "room_recommend ",
 			"parameters": [
 				{
@@ -6356,7 +6356,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/room_recommend/795",
+			"url": "{{ customer_url }}rooms/room_recommend/700?include=media",
 			"_type": "request"
 		},
 		{
@@ -6605,7 +6605,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745539,
 			"method": "GET",
-			"modified": 1548672649941,
+			"modified": 1548737589814,
 			"name": "count-room-by-city",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6615,7 +6615,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms/number-room-by-city?litmit =2",
+			"url": "{{ customer_url  }}rooms/number-room-by-city?hot=1",
 			"_type": "request"
 		},
 		{
@@ -6947,7 +6947,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"098855574747\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"tuan_1111234@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\": 795,\n\t\"checkin\": \"2019-04-15 10:30:00\",\n\t\"checkout\": \"2019-04-17 12:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\": 4,\n\t\"payment_status\": 0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
+				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"1234284949434\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"asd2123_0_1_213asd@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\": 795,\n\t\"checkin\": \"2020-06-15 06:00:00\",\n\t\"checkout\": \"2020-06-17 10:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\": 4,\n\t\"payment_status\": 0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
 			},
 			"created": 1542181954384,
 			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
@@ -6966,7 +6966,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1548405345637,
+			"modified": 1548748860260,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
