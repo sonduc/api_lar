@@ -150,7 +150,14 @@ trait BookingLogicTrait
         }
 
         // Trả về lỗi nếu thời gian đặt bị trùng với các ngày  bị khóa chủ động va khóa dựa theo những booking đặtk phòng này theo ngày.
-        $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+        if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
+            $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
+            // dd($blocked_schedule);
+        } else {
+            $blocked_schedule = $this->getBlockedScheduleDayByRoomId($room->id);
+        }
+
+//        dd($blocked_schedule);
 
         $period           = CarbonPeriod::between($checkin, $checkout);
         $days             = [];
