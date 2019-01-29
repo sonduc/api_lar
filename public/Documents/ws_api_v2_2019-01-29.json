@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-29T09:39:17.518Z",
+	"__export_date": "2019-01-29T09:43:06.389Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -807,6 +807,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_5d21aff3702247bc8dfea8b488b50aae",
+			"created": 1548662842967,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1548662842967,
+			"modified": 1548662842967,
+			"name": "Host-Reviews",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
 			"_id": "fld_f1b9c088a15149cdbef53c2ad8de501c",
 			"created": 1540893745389,
 			"description": "",
@@ -1056,6 +1067,17 @@
 			"metaSortKey": -1548131732812,
 			"modified": 1548131732812,
 			"name": "Booking",
+			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_b0899bd15d2c415bb8d52398b239505d",
+			"created": 1548696993589,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1548696993589,
+			"modified": 1548696993589,
+			"name": "Host-Reviews",
 			"parentId": "fld_7d6c0523bcc141b2aee26f022d477bbb",
 			"_type": "request_group"
 		},
@@ -4099,6 +4121,43 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_594baed5137f4a838aba6010ae497cc5",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"name\" : \"Test comeedmand\",\n\t\"description\" : \"bbbbbbbbsffdbbbbbbb\",\n\t\"date_start\" : \"2020-11-16 14:00:00\",\n\t\"date_end\" : \"2020-11-20 14:00:00\",\n\t\"status\" : 0\n}"
+			},
+			"created": 1541065206991,
+			"description": "~~~php\n## Create\n        'name'                      =>  'required|v_title|unique:promotions,name',\n        'description'               =>  'required',\n        // 'image'                     =>  'image|mimes:jpeg,bmp,png,jpg',\n        'date_start'                =>  'required|date|after:now',\n        'date_end'                  =>  'required|date|after:date_start',\n        'status'                    =>  'required|integer|between:0,1',\n~~~",
+			"headers": [
+				{
+					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_b8e8b180eda24dcfb09232b3e9611a3b",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531888344797.5,
+			"method": "POST",
+			"modified": 1542913180470,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_a902cea5190b4381b64d1ad138c0b6e2",
+			"settingDisableRenderRequestBody": true,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}promotions",
+			"_type": "request"
+		},
+		{
 			"_id": "req_e362d08e7cfc48a79555c209cfeb8c5e",
 			"authentication": {},
 			"body": {
@@ -6293,6 +6352,106 @@
 			"name": "Comment-Ticket",
 			"parentId": "fld_7dc723483a984130aec071fd866edbf8",
 			"_type": "request_group"
+		},
+		{
+			"_id": "req_712b9bd50e2447f29f05696be8c02bdc",
+			"authentication": {},
+			"body": {},
+			"created": 1548662848938,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098010.9062,
+			"method": "GET",
+			"modified": 1548667145074,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_5d21aff3702247bc8dfea8b488b50aae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}host-reviews",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9c5c0a71e6334cc3a1051133587771a0",
+			"authentication": {},
+			"body": {},
+			"created": 1548662868136,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097973.4062,
+			"method": "DELETE",
+			"modified": 1548707158613,
+			"name": "delete",
+			"parameters": [],
+			"parentId": "fld_5d21aff3702247bc8dfea8b488b50aae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}host-reviews/9",
+			"_type": "request"
+		},
+		{
+			"_id": "req_05ae74fc776445abac22cb2353ae1b28",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"status\" : 0\n}"
+			},
+			"created": 1548707168960,
+			"description": "\t\t\t'status'                                   => 'nullable|integer|between:0,1',",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_31fd3858af0943ebbd3c60afd975bcd3",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097999.1875,
+			"method": "PUT",
+			"modified": 1548707492823,
+			"name": "update-status",
+			"parameters": [],
+			"parentId": "fld_5d21aff3702247bc8dfea8b488b50aae",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}host-reviews/update-status/4",
+			"_type": "request"
 		},
 		{
 			"_id": "req_5273cdbc22434831baf9178ca3c5bdf4",
@@ -9395,6 +9554,29 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_7557ce2eeaf7498680169f3820fe0dba",
+			"authentication": {},
+			"body": {},
+			"created": 1547777150921,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1547777150921,
+			"method": "GET",
+			"modified": 1547777217725,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_c32261915a804363870c980b8effdca8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url  }}promotions",
+			"_type": "request"
+		},
+		{
 			"_id": "req_35d2dc700f0b4873aa581c776424baa2",
 			"authentication": {},
 			"body": {
@@ -9660,6 +9842,80 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ merchant_url }}bookings/booking-status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_d9102b9bba304084a84326a807b4ec13",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\t\"booking_id\":102,\n\t\n\t\t\t\"avg_rating\":5,\n\t\t\t\"cleanliness\":1,\n\t\t\t\"friendly\": 1,\n\t\t\t\"house_rules_observe\": 1,\n\t\t\t\"recommend\": 1,\n\t\t\t\"comment\": \"jgjhjh\"\n}\n\t\t"
+			},
+			"created": 1548667260450,
+			"description": "## Validation\n```php\n       'booking_id'                                => 'required|integer|exists:bookings,id,deleted_at,NULL',\n        'cleanliness'                               => 'nullable|integer|between:1,5',\n        'friendly'                                  => 'nullable|integer|between:1,5',\n        'avg_rating'                                => 'nullable|numeric|between:1,5',\n        'recommend'                                 => 'nullable|integer|between:0,1',\n        'house_rules_observe'                       => 'nullable|integer|between:0,1',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097985.125,
+			"method": "POST",
+			"modified": 1548707875364,
+			"name": "create",
+			"parameters": [],
+			"parentId": "fld_b0899bd15d2c415bb8d52398b239505d",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}host-reviews",
+			"_type": "request"
+		},
+		{
+			"_id": "req_372a9bef6380479cb9ae3cbb5d1b2aed",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\t\t\"booking_id\":102,\n\t\n\t\t\t\"avg_rating\":5,\n\t\t\t\"cleanliness\":1,\n\t\t\t\"friendly\": 1,\n\t\t\t\"house_rules_observe\": 1,\n\t\t\t\"recommend\": 1,\n\t\t\t\"comment\": \"jgjhjh\"\n}\n\t\t"
+			},
+			"created": 1548742910572,
+			"description": "## Validation\n```php\n       'booking_id'                                => 'required|integer|exists:bookings,id,deleted_at,NULL',\n        'cleanliness'                               => 'nullable|integer|between:1,5',\n        'friendly'                                  => 'nullable|integer|between:1,5',\n        'avg_rating'                                => 'nullable|numeric|between:1,5',\n        'recommend'                                 => 'nullable|integer|between:0,1',\n        'house_rules_observe'                       => 'nullable|integer|between:0,1',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097984.539,
+			"method": "GET",
+			"modified": 1548743072577,
+			"name": "host-reviews",
+			"parameters": [],
+			"parentId": "fld_b0899bd15d2c415bb8d52398b239505d",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}host-reviews?booking_id=6355",
 			"_type": "request"
 		},
 		{
