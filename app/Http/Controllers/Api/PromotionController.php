@@ -58,19 +58,19 @@ class PromotionController extends ApiController
     public function index(Request $request)
     {
         DB::enableQueryLog();
-       try{
-           $this->authorize('promotion.view');
-           $pageSize = $request->get('limit', 25);
-           $this->trash = $this->trashStatus($request);
-           $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-           // dd(DB::getQueryLog());
-           // dd($data);
-           return $this->successResponse($data);
-       }catch (AuthorizationException $f) {
-           return $this->forbidden([
+        try {
+            $this->authorize('promotion.view');
+            $pageSize = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            // dd(DB::getQueryLog());
+            // dd($data);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
                'error' => $f->getMessage(),
            ]);
-       }
+        }
     }
 
     /**
@@ -85,7 +85,7 @@ class PromotionController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -111,7 +111,7 @@ class PromotionController extends ApiController
 
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -141,7 +141,7 @@ class PromotionController extends ApiController
             $model = $this->model->update($id, $request->all());
             DB::commit();
             return $this->successResponse($model);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -167,7 +167,7 @@ class PromotionController extends ApiController
             $this->model->delete($id);
 
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -211,7 +211,7 @@ class PromotionController extends ApiController
             logs('blogs', 'sửa trạng thái của chương trình khuyến mãi có tên ' . $data->name, $data);
             DB::commit();
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -250,7 +250,7 @@ class PromotionController extends ApiController
             $this->authorize('promotion.view');
             $data = $this->simpleArrayToObject(Promotion::PROMOTION_STATUS);
             return response()->json($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
