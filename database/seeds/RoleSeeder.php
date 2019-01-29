@@ -73,6 +73,8 @@ class RoleSeeder extends Seeder
                     "ticket.update"             => true,
                     "ticket.delete"             => true,
                     "role.view"                 => true,
+                    "promotion.view"            => true,
+                    "promotion.update"          => true,
                 ],
             ]);
         }

@@ -53,15 +53,21 @@ class PromotionController extends ApiController
      */
     public function index(Request $request)
     {
-        $this->authorize('promotion.view');
-        $pageSize = $request->get('limit', 25);
-        $this->trash = $this->trashStatus($request);
-        $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
-        return $this->successResponse($data);
+        try {
+            $this->authorize('promotion.view');
+            $pageSize = $request->get('limit', 25);
+            $this->trash = $this->trashStatus($request);
+            $data = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            return $this->forbidden([
+               'error' => $f->getMessage(),
+           ]);
+        }
     }
 
     /**
-     * 
+     *
      * @param  Request $request [description]
      * @return [type]           [description]
      */
@@ -88,7 +94,6 @@ class PromotionController extends ApiController
             throw $e;
         } catch (\Throwable $t) {
             throw $t;
-        } 
+        }
     }
-
 }
