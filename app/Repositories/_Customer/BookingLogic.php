@@ -30,6 +30,7 @@ use App\User;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use phpDocumentor\Reflection\DocBlock\Description;
 
 
 class BookingLogic extends BaseLogic
@@ -115,7 +116,7 @@ class BookingLogic extends BaseLogic
     private function checkUserExist($data = [])
     {
         $user = $this->user->getUserByEmailOrPhone($data);
-        if (!$user) {
+        if (!$user || empty($user)) {
             $data['password']           = $data['phone'];
             $data['type']               = User::USER;
             $data['owner']              = User::NOT_OWNER;
@@ -126,6 +127,7 @@ class BookingLogic extends BaseLogic
             $data['token']              = Hash::make(str_random(60));
             $user                       = $this->user->store($data);
             event(new Customer_Register_TypeBooking_Event($user));
+
             return $user->id;
         }
 
