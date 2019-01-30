@@ -356,7 +356,7 @@
 
                                                             <tr>
                                                                 <td style="margin: 0 auto">
-                                                                    <a href="{!!$_SERVER['HTTP_HOST'].'/'.\Illuminate\Support\Facades\Request::segment(1).'/set-password/' . $user->data->timeSubmit.'?token='.$user->data->token !!}">Set Password</a>
+                                                                    <a href="{!! $url.'/set-password/' . $user->data->timeSubmit.'?token='.$user->data->token !!}">Set Password</a>
                                                                 </td>
                                                             </tr>
                                                             </tbody>

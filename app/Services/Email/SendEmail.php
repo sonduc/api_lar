@@ -6,6 +6,7 @@ use App\Jobs\Traits\DispatchesJobs;
 use App\Repositories\Bookings\Booking;
 use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -223,8 +224,10 @@ class SendEmail
         $timeSubmit                = Carbon::now()->timestamp;
         $user->data->timeSubmit    = base64_encode($timeSubmit);
         $email                     = $user->data->email;
+
+        $url                       = $this->getUrl($user->data->type);
         try {
-            Mail::send($template, ['user' => $user], function ($message) use ($email) {
+            Mail::send($template, ['user' => $user,'url' => $url], function ($message) use ($email) {
                 $message->from(env('MAIL_ADMIN'));
                 $message->to($email)->subject('Westay - Khôi phục mật khẩu');
             });
@@ -247,13 +250,15 @@ class SendEmail
         $timeSubmit                = Carbon::now()->timestamp;
         $user->data->timeSubmit    = base64_encode($timeSubmit);
         $email                     = $user->data->email;
+        $url                       = $this->getUrl($user->data->type);
 
         try {
-            Mail::send($template, ['user' => $user], function ($message) use ($email) {
+            Mail::send($template, ['user' => $user,'url' => $url], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
                 $message->to($email)->subject('Westay - Kích hoạt tài khoản của bạn tại Westay!');
             });
         } catch (\Exception $e) {
+            dd($e);
             logs('emails', 'Email gửi thất bại ' . $email);
             throw $e;
         }
@@ -310,5 +315,30 @@ class SendEmail
 
 
         }
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $user
+     * @return mixed
+     */
+    public function getUrl($type)
+    {
+        switch ($type) {
+            case User::USER:
+                $url = env('API_URL_CUSTOMER');
+                break;
+            case User::MERCHANT:
+                $url = env('API_URL_MERCHANT');
+                break;
+            case User::ADMIN:
+                $url = env('API_URL');
+                break;
+        }
+
+        return $url;
+
     }
 }

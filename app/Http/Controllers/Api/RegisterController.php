@@ -66,7 +66,6 @@ class RegisterController extends ApiController
             // Issue token
             $guzzle  = new Guzzle;
             $url     = env('APP_URL') . '/oauth/token';
-            dd($url);
             $options = [
                 'json'   => [
                     'grant_type'    => 'password',
