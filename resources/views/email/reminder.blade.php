@@ -394,8 +394,7 @@ float:right !important;
                                           <table cellpadding="0" cellspacing="0" border="0" align="center" width="48"
                                             height="48" style="border:0px none;height:auto">
                                             <tr>
-                                              <td valign="top" style="padding:0px"><img src="https://images.chamaileon.io/5af430d4a0870300120192f8/LOGO.png"
-                                                  width="48" height="48" alt="" border="0" style="display:block" class="img48x48" /></td>
+                                              <td valign="top" style="padding:0px"><a href="http://westay.org"><img src="http://westay.org/images/Logo-westay.png" alt="" border="0" style="display:block" class="img48x48" /></a></td>
                                             </tr>
                                           </table>
                                         </td>
@@ -638,7 +637,7 @@ float:right !important;
                                                                               class="mso-font-fix-verdana"><strong>Thông
                                                                                 tin đặt phòng của bạn</strong></span></h3>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">&nbsp;</p>
-                                                                          <a style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->name}} </a>
+                                                                          <a href="{{'https://westayreact.xyz/room/'.$data->room->id}}" style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->name}} </a>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->address}}</p>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">{{ $data->merchant->phone  }}</p>
                                                                           <br />

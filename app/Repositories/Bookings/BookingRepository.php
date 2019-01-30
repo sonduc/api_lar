@@ -186,7 +186,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     {
         $dateNow            = Carbon::now();
         $dateNow_timestamp  = Carbon::now()->timestamp;
-        $tomorrow           = $dateNow->addDay();
+        $tomorrow           = $dateNow->addDays(2);
         $tomorrow_timestamp = $tomorrow->timestamp;
 
         $data               = $this->model
