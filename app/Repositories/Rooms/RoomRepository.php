@@ -612,11 +612,42 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getRoomForReview($id)
     {
-       return $this->model->select('rooms.id','room_translates.name','room_medias.image')
-                    ->join('room_translates','rooms.id','=','room_translates.room_id')
-                    ->join('room_medias','rooms.id','=','room_medias.room_id')
-                    ->where('rooms.id','=',$id)
-                    ->where('room_translates.lang','=','vi')
+        return $this->model->select('rooms.id', 'room_translates.name', 'room_medias.image')
+                    ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
+                    ->join('room_medias', 'rooms.id', '=', 'room_medias.room_id')
+                    ->where('rooms.id', '=', $id)
+                    ->where('room_translates.lang', '=', 'vi')
                     ->first();
+    }
+
+    /**
+     * Đếm số lượng phòng theo quận huyện
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function countNumberOfRoomByDistrict($params = [], $limit = 10)
+    {
+        $this->useScope($params);
+        $rooms = $this->model
+                ->select(
+                    DB::raw('rooms.district_id'),
+                    DB::raw('districts.name as name_district'),
+                    DB::raw('districts.image'),
+                    DB::raw('count(rooms.district_id) as total_rooms')
+                );
+        if (isset($params['hot'])) {
+            $rooms->where('districts.hot', $params['hot']);
+        }
+        $rooms = $rooms->join('districts', 'districts.id', '=', 'rooms.district_id')
+                ->groupBy(DB::raw('rooms.district_id'))
+                ->orderBy('total_rooms', 'desc');
+
+        if ($limit == -1) {
+            return $rooms->get();
+        }
+        // dd($rooms->get(10));
+        return $rooms->take($limit)->get();
     }
 }

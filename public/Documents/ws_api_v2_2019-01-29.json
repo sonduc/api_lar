@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-01-29T09:43:06.389Z",
+	"__export_date": "2019-01-30T02:55:12.591Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,7 +201,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6Ijc5N2JmNTA3ZmRiN2ZiNWYzNzgyMTljMDM1YTcxNjljODQzMWY0Y2I4YWEzYWE1NWJmMWFiOTczZTQ2M2Q0OGU1Nzc2MWJkY2Y3YjU0ODk2In0.eyJhdWQiOiI0IiwianRpIjoiNzk3YmY1MDdmZGI3ZmI1ZjM3ODIxOWMwMzVhNzE2OWM4NDMxZjRjYjhhYTNhYTU1YmYxYWI5NzNlNDYzZDQ4ZTU3NzYxYmRjZjdiNTQ4OTYiLCJpYXQiOjE1NDg3MzI4MjcsIm5iZiI6MTU0ODczMjgyNywiZXhwIjoxNTgwMjY4ODI3LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.dI9WoEj510qCvtJBvTodW0buC6bYTgNARz8W7hT8TDf4U_BIfJ_6_tEeKcoamO8am-JsAWqC8149t8TCaRvXAzwXSkzb9_n9zX7GUbi59QANbkrjr3_7c8nlPumwYnMPyY5BOpCH8WK1Px5BTw0eNdtGFgYCKzpfyAlpA62mGkf25NwhalLPE8C826oYeFhmDQkwA6tzPeQdp3F4Z5SoPtv_a55OOL5i7fJaZ-qv761opPxQ3DAL-HS7IdbBqa104CC6dpodvZom8LlrA7uACXmfBLX8Sv2mdaDuzgXXdTlicUq27182DpCJDqsID1g8k0QMDuGd6hkwjuv1ifaT5T-SbLYXiUs_o4ktx3TQXudJzh7TfAral0-gz1f9LyFb5A8rUb438oznC0DxtsVCNgpECeDa7Za9UT7MM-OnwU-Hr5eU7O9oVV8kv7RM-D5LMZBaIh-0F2QnG1fHCDsPxb5CAA8sVWwtnFrzXjQ2aRB_MKRGqtwxlbUDo1zwY5n9cMTdIUNu10pZN2mnrsYKREqWFzGt4GlRh7wt1u4yOmZNq-ScrHVp6NwYVzLIG5oY5FjVprxqlTfiaw4vO1Ifa3ufzowqmJT0gnaX0e6baiTXCdwXxNHUMvSWB_7_DKlobYL0GL7ptImFLbSpOsOWUe5blxzq3ddYklo9mqVn50zo"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjU0NjQxMjA5MjUyMWE0NjYxYWNjOGYwZWE3MDQyNDg3ZjdkNzI1NjdlYmQ0ODhkMDIzZjJjM2Y0NmQwMThkMTNkNzc5NzgwMGYxM2VhOWIyIn0.eyJhdWQiOiI0IiwianRpIjoiNTQ2NDEyMDkyNTIxYTQ2NjFhY2M4ZjBlYTcwNDI0ODdmN2Q3MjU2N2ViZDQ4OGQwMjNmMmMzZjQ2ZDAxOGQxM2Q3Nzk3ODAwZjEzZWE5YjIiLCJpYXQiOjE1NDg4MTQ4NzEsIm5iZiI6MTU0ODgxNDg3MSwiZXhwIjoxNTgwMzUwODcwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.u0uSdXnN1wWQz2ntcgy0BUQPqLRMoK4Ndmthe9VknfZkeZXATK1TqXnKr25ZpL1biPAutcJ4SeawYe6_-T8B39MVLAdRGPhQx1wGC4lzj7oH2K9npjHD_fjumN9tSaKAvu9P2tWRSh8jB_pfWTElD6me6tryJChdoD5VfrU-bbVE_4jHjZg1KOEwspNJctNVlTbxNgG_S5bpiIIJr9tmcqGSodaJN45ap-VPbPxRHHiB4Kile2wp52ssMCPRXqC6Pgz0y1uE3rD4to4qroTSrCghQ0xZCf5IkyLEqxybU5KOpj_Kt5-V-niO-IARUjp2bSDdqBoybQZK2bYb-KT7LUx1M3O4ADdSBdtzxbWj7o-nP9aKserGEKc7dI4j9BxVwm0TXBK9POUzyuZsATR53-v5-u2X3ZlhV-MD7fLG0u2Ek1j0g_ygG6RilOZBLBw97m217NaMo37440NUQcy17zxJ3GjE2-XgwcFx_JvUmd8HUlKyYm6LBUkw5kt2b0q_VW5G0lgYUB3CsM06RjfoXQn5X_-MeWz35U49p28Pq16w2rN39m1NcIzltl5p9FTi0aCCGRjaI_NzhIXFpkczvHvnJrI9tO2n6H4M3NdDAyBpLWHEIPSnUOucbN518JWqDnB7eKO8YTyb9jT2vFLCLJzXyKWujsMHPGaL5jcMYsQ"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -209,7 +209,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548746846894,
+			"modified": 1548814880781,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -580,8 +580,8 @@
 			"created": 1534748579648,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1532570298471,
-			"modified": 1540883060489,
+			"metaSortKey": -1547618371747,
+			"modified": 1548814334311,
 			"name": "Cities",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
@@ -734,8 +734,8 @@
 			"created": 1543467796433,
 			"description": "",
 			"environment": {},
-			"metaSortKey": -1532570298927.25,
-			"modified": 1543467804560,
+			"metaSortKey": -1532570298925.6875,
+			"modified": 1548815681069,
 			"name": "Place",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
@@ -2275,10 +2275,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"Owl City\",\n\t\"short_name\":\"OCT\",\n\t\"code\": 128000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1\n}"
+				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"Owl City\",\n\t\"short_name\":\"OCT\",\n\t\"code\": 128000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1,\n\t\"image\" : \"{{ z_img  }}\"\n}"
 			},
 			"created": 1534748579693,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric|exists:users,id',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "",
 			"headers": [
 				{
 					"id": "pair_24d8ba2c4faf4b2aacaddc20e8d4d054",
@@ -2294,7 +2294,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1544752956427,
+			"modified": 1548816855980,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_70607e4bb71a4a7f8c904f310f998268",
@@ -2312,10 +2312,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"New City\",\n\t\"short_name\":\"NCT\",\n\t\"code\": 124000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1\n}"
+				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"Hà nỘi\",\n\t\"short_name\":\"HNI\",\n\t\"code\": 100000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1,\n\t\"image\": \"{{ z_img  }}\"\n}"
 			},
 			"created": 1534748579709,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric|exists:users,id',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "# Option\n| SCOPE | type | Description | Value\n| --- | --- | --- | --- |\n|hot|int|Thành phố nổi bật| 0 - 1\n|status|int|Trạng thái thành phố| 0 - 1\n|priority|int|Thành phố ưu tiên| 0 - 3\n\n## Validation\n```php\n\t'name' => \"String\",\n\t'short_name' => \"String\",\n\t'code' => 'numeric',\n\t'priority' => 'numeric -  0 - 3',\n\t'hot' => 'numeric -  0/1',\n\t'status' => 'numeric -  0/1',\n\t'image' => 'string'\n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2331,7 +2331,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1544752957682,
+			"modified": 1548816842062,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_70607e4bb71a4a7f8c904f310f998268",
@@ -2341,7 +2341,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}cities/71",
+			"url": "{{ api_url  }}cities/2",
 			"_type": "request"
 		},
 		{
@@ -2376,6 +2376,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}cities/71",
+			"_type": "request"
+		},
+		{
+			"_id": "req_5c706acd543c462dbfff18616e80256b",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"hot\": 1\n}"
+			},
+			"created": 1548814650570,
+			"description": "# Option\n| SCOPE | type | Description | Value\n| --- | --- | --- | --- |\n|hot|int|Thành phố nổi bật| 0 - 1\n|status|int|Trạng thái thành phố| 0 - 1\n|priority|int|Thành phố ưu tiên| 0 - 3\n\n## Validation\n```php\n'hot'              => 'numeric',\n'priority'         => 'numeric',\n'status'\t\t\t\t\t => 'numeric'\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531885368427.75,
+			"method": "PUT",
+			"modified": 1548815021830,
+			"name": "prop-update",
+			"parameters": [],
+			"parentId": "fld_70607e4bb71a4a7f8c904f310f998268",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}cities/prop-update/2?option=hot",
 			"_type": "request"
 		},
 		{
@@ -2423,7 +2460,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1535105885536,
+			"modified": 1548816883444,
 			"name": "show",
 			"parameters": [
 				{
@@ -2440,7 +2477,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}districts/25",
+			"url": "{{ api_url  }}districts/22",
 			"_type": "request"
 		},
 		{
@@ -2485,10 +2522,10 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"New City\",\n\t\"short_name\":\"NCT\",\n\t\"code\": 124000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1\n}"
+				"text": "{\n\t\"region_id\":1,\n\t\"name\":\"New City\",\n\t\"short_name\":\"NCT\",\n\t\"code\": 124000,\n\t\"longitude\": 102.2,\n\t\"latitude\": 10.4,\n\t\"priority\": 3,\n\t\"hot\": 1,\n\t\"status\": 1,\n\t\"image\": \"{{ z_img  }}\"\n}"
 			},
 			"created": 1534828957870,
-			"description": "\t\t'name'                      => 'required|min:10|max:255|v_title',\n        'merchant_id'               => 'required|numeric|exists:users,id',\n        'max_guest'                 => 'required|numeric|min:1',\n        'max_additional_guest'      => 'numeric|nullable',\n        'number_bed'                => 'required|numeric|min:1',\n        'number_room'               => 'required|numeric|min:1',\n        'city_id'                   => 'numeric|nullable|exists:cities,id',\n        'district_id'               => 'numeric|nullable|exists:districts,id',\n        'room_type_id'              => 'required|numeric',\n        'checkin'                   => 'required|date_format:\"H:i\"',\n        'checkout'                  => 'required|date_format:\"H:i\"',\n        'price_day'                 => 'required|numeric',\n        'price_hour'                => 'numeric|nullable',\n        'price_after_hour'          => 'numeric|required_with:price_hour',\n        'price_charge_guest'        => 'numeric|nullable',\n        'cleaning_fee'              => 'numeric|nullable',\n        'standard_point'            => 'numeric|nullable',\n        'is_manager'                => 'numeric|nullable',\n        'hot'                       => 'numeric',\n        'new'                       => 'numeric',\n        'latest_deal'               => 'numeric|nullable',\n        'rent_type'                 => 'numeric',\n        'rules'                     => 'required',\n        'longitude'                 => 'required',\n        'latitude'                  => 'required',\n        'address'                   => 'required',\n        'note'                      => 'nullable|v_title',\n        'sale_id'                   => 'numeric|nullable|exists:users,id',\n        'lang_id'                   => 'exists:languages,id',\n        'status'                    => 'numeric',\n        'description'               => 'v_title',",
+			"description": "# Option\n| SCOPE | type | Description | Value\n| --- | --- | --- | --- |\n|hot|int|Quận nổi bật| 0 - 1\n|status|int|Trạng thái quận| 0 - 1\n|priority|int|Quận ưu tiên| 0 - 3\n\n## Validation\n```php\n\t'name' => \"String\",\n\t'short_name' => \"String\",\n\t'code' => 'numeric',\n\t'priority' => 'numeric -  0 - 3',\n\t'hot' => 'numeric -  0/1',\n\t'status' => 'numeric -  0/1',\n\t'image' => 'string'\n```",
 			"headers": [
 				{
 					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
@@ -2504,7 +2541,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531884376329.5,
 			"method": "PUT",
-			"modified": 1535105911897,
+			"modified": 1548816873403,
 			"name": "update",
 			"parameters": [],
 			"parentId": "fld_654184950aa84763806b0e78bc732ece",
@@ -2549,6 +2586,43 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ api_url  }}cities/71",
+			"_type": "request"
+		},
+		{
+			"_id": "req_4b40b4828f7e400f93b54f770f4142a9",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/json",
+				"text": "{\n\t\"hot\": 1\n}"
+			},
+			"created": 1548814645501,
+			"description": "# Option\n| SCOPE | type | Description | Value\n| --- | --- | --- | --- |\n|hot|int|Quận nổi bật| 0 - 1\n|status|int|Trạng thái quận| 0 - 1\n|priority|int|Quận ưu tiên| 0 - 3\n\n## Validation\n```php\n'hot'       => 'numeric',\n'priority'  => 'numeric',\n'status'\t  => 'numeric',\n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531883880280.375,
+			"method": "PUT",
+			"modified": 1548815079403,
+			"name": "prop-update",
+			"parameters": [],
+			"parentId": "fld_654184950aa84763806b0e78bc732ece",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}districts/prop-update/792?option=hot",
 			"_type": "request"
 		},
 		{
@@ -6759,12 +6833,12 @@
 			"authentication": {},
 			"body": {},
 			"created": 1548406525230,
-			"description": "",
+			"description": "default limit = 10",
 			"headers": [],
 			"isPrivate": false,
 			"metaSortKey": -1540893745539,
 			"method": "GET",
-			"modified": 1548737589814,
+			"modified": 1548816643254,
 			"name": "count-room-by-city",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6775,6 +6849,29 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ customer_url  }}rooms/number-room-by-city?hot=1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_10f0354fcae349cc82d3df17db2c4213",
+			"authentication": {},
+			"body": {},
+			"created": 1548816611612,
+			"description": "default limit = 10",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1540893745514,
+			"method": "GET",
+			"modified": 1548816631201,
+			"name": "count-room-by-district",
+			"parameters": [],
+			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url  }}rooms/number-room-by-district?hot=1",
 			"_type": "request"
 		},
 		{
@@ -8078,7 +8175,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1541181658817.5,
 			"method": "GET",
-			"modified": 1548239533056,
+			"modified": 1548756811288,
 			"name": "search-suggestion",
 			"parameters": [],
 			"parentId": "fld_15e76df3f66c4bcd973b112a201f650d",
@@ -8088,7 +8185,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}search-suggestions?key=thanh xuân",
+			"url": "{{ customer_url  }}search-suggestions",
 			"_type": "request"
 		},
 		{

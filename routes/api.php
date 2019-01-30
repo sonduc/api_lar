@@ -94,17 +94,19 @@ $router->group([
      * Host-Review-Customer
      */
     $router->put('/host-reviews/update-status/{id}', 'HostReviewController@updateStatus');
-     resource('/host-reviews', 'HostReviewController', $router);
+    resource('/host-reviews', 'HostReviewController', $router);
 
     /**
      * City Resource
      */
     resource('/cities', 'CityController', $router);
+    $router->put('/cities/prop-update/{id}', 'CityController@minorCityUpdate');
 
     /**
      * District Resource
      */
     resource('/districts', 'DistrictController', $router);
+    $router->put('/districts/prop-update/{id}', 'DistrictController@minorDistrictUpdate');
 
     /**
      * Comfort Resource
@@ -281,6 +283,3 @@ $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
 // $router->post('update-calendar/{id}', 'RoomCalendarController@updateCalendar');
 
 $router->get('update-merchant-role-db', 'RoleController@updateMerchantRole');
-
-
-

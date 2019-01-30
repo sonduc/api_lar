@@ -48,7 +48,6 @@ class DistrictController extends ApiController
     {
         $this->model = $district;
         $this->setTransformer(new DistrictTransformer);
-
     }
 
     /**
@@ -58,12 +57,12 @@ class DistrictController extends ApiController
      */
     public function index(Request $request)
     {
-        try{
+        try {
             $this->authorize('district.view');
             $pageSize    = $request->get('limit', 25);
             $data        = $this->model->getByQuery($request->all(), $pageSize, $this->trash);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -82,7 +81,7 @@ class DistrictController extends ApiController
             $trashed = $request->has('trashed') ? true : false;
             $data    = $this->model->getById($id, $trashed);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
@@ -106,7 +105,7 @@ class DistrictController extends ApiController
             DB::commit();
             logs('district', 'thêm tỉnh mã ' . $data->id, $data);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -137,11 +136,11 @@ class DistrictController extends ApiController
 
             $this->validate($request, $this->validationRules, $this->validationMessages);
 
-            $data = $this->model->update($id, $request->all());
+            $data = $this->model->updateDistrict($id, $request->all());
             DB::commit();
             logs('district', 'sửa tỉnh mã ' . $data->id, $data);
             return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -173,7 +172,7 @@ class DistrictController extends ApiController
             DB::commit();
             logs('district', 'xóa tỉnh mã ' . $id, $data);
             return $this->deleteResponse();
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
@@ -183,6 +182,66 @@ class DistrictController extends ApiController
             return $this->notFoundResponse();
         } catch (\Exception $e) {
             DB::rollBack();
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
+
+    /**
+     * Cập nhật riêng lẻ các thuộc tính của district
+     * @author Tuan Anh <tuannahpham1402@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function minorDistrictUpdate(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('district.update');
+            $avaiable_option = [
+                'hot',
+                'status',
+                'priority'
+            ];
+            $option = $request->get('option');
+
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
+
+            $validate = array_only($this->validationRules, [
+                $option,
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->minorDistrictUpdate($id, $request->only($option));
+            DB::commit();
+
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
             throw $e;
         } catch (\Throwable $t) {
             DB::rollBack();

@@ -33,6 +33,7 @@ class DistrictTransformer extends TransformerAbstract
         return [
             'id'           => $district->id,
             'name'         => $district->name,
+            'image'        => $district->image,
             'short_name'   => $district->short_name,
             'code'         => $district->code,
             'priority'     => $district->priority,
@@ -82,5 +83,4 @@ class DistrictTransformer extends TransformerAbstract
         $data = $this->pagination($params, $district->users());
         return $this->collection($data, new UserTransformer);
     }
-
 }

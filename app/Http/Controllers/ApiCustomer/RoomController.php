@@ -265,4 +265,27 @@ class RoomController extends ApiController
             throw $e;
         }
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
+     */
+    public function countNumberOfRoomByDistrict(Request $request)
+    {
+        try {
+            DB::enableQueryLog();
+            $limit      = $request->get('limit', 10);
+            $data       = $this->model->countNumberOfRoomByDistrict($request->all(), $limit);
+
+            // dd(DB::getQueryLog());
+            return $this->successResponseUsedForCountRoom(['data' => $data]);
+        } catch (\Exception $e) {
+            throw $e;
+        }
+    }
 }

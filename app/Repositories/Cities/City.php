@@ -51,7 +51,7 @@ class City extends Entity
     const SEARCH_SUGGESTIONS = 6;
     protected $fillable
         = [
-            'region_id', 'name', 'short_name', 'code', 'longitude', 'latitude', 'priority', 'hot', 'status',
+            'region_id', 'name', 'short_name', 'code', 'longitude', 'latitude', 'priority', 'hot', 'status','image'
         ];
 
     /**
@@ -74,5 +74,4 @@ class City extends Entity
     {
         return $this->hasMany(\App\User::class, 'city_id');
     }
-
 }

@@ -37,7 +37,7 @@ class District extends Entity
         ];
     protected $fillable
         = [
-            'city_id', 'name', 'short_name', 'code', 'priority', 'hot', 'status',
+            'city_id', 'name', 'short_name', 'code', 'priority', 'hot', 'status','image'
         ];
 
     /**

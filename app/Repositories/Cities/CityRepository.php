@@ -7,6 +7,7 @@ use App\Repositories\Districts\District;
 use App\Repositories\Districts\DistrictRepositoryInterface;
 use App\Repositories\Search\SearchConstant;
 use Illuminate\Support\Collection;
+use App\Events\AmazonS3_Upload_Event;
 
 class CityRepository extends BaseRepository implements CityRepositoryInterface
 {
@@ -83,23 +84,21 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
 
     public function getCityUserForSearchSuggestions($data)
     {
-        if (!isset($data['key']))
-        {
-           $key = null;
-        }else
-        {
+        if (!isset($data['key'])) {
+            $key = null;
+        } else {
             $key = $data['key'];
         }
 
         $query =  $this->model;
 
-        $result = $query->select('cities.name','cities.id','cities.hot')
+        $result = $query->select('cities.name', 'cities.id', 'cities.hot')
                         ->where('cities.name', 'like', "%$key%")
                         ->orWhere(\DB::raw("REPLACE(cities.name, ' ', '')"), 'LIKE', '%' . $key. '%')
-                        ->where('cities.status',City::AVAILABLE)
+                        ->where('cities.status', City::AVAILABLE)
                         ->orderBy('cities.priority', 'desc')->limit(City::SEARCH_SUGGESTIONS)->get()->toArray();
 
-        $result = array_map(function ($item){
+        $result = array_map(function ($item) {
             return [
                 'id'                => $item['id'],
                 'name'              => $item['name'],
@@ -109,8 +108,7 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
                 'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::CITY],
 
             ];
-
-        },$result);
+        }, $result);
 
 
         return $result;
@@ -124,21 +122,35 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
      * @throws \Throwable
      */
 
-    public function getDistrictOfCityPriority($data,$request)
+    public function getDistrictOfCityPriority($data, $request)
     {
         $district_priorty=  $this->model
-            ->select('districts.name','districts.id','districts.hot','districts.status','districts.priority')
+            ->select('districts.name', 'districts.id', 'districts.hot', 'districts.status', 'districts.priority')
             ->join('districts', 'cities.id', '=', 'districts.city_id')
             ->where('cities.name', 'like', "%$request->key%")
-            ->where('cities.status',City::AVAILABLE)
+            ->where('cities.status', City::AVAILABLE)
             ->orderBy('cities.priority', 'desc')->limit(SearchConstant::SEARCH_SUGGESTIONS)
-            ->orderBy('districts.hot','desc')
-            ->orderBy('districts.priority','desc')
+            ->orderBy('districts.hot', 'desc')
+            ->orderBy('districts.priority', 'desc')
             ->get()->toArray();
 
-        $result =  array_merge($data,$district_priorty);
+        $result =  array_merge($data, $district_priorty);
         return $result;
     }
 
+    public function minorCityUpdate($id, $data = [])
+    {
+        return parent::update($id, $data);
+    }
 
+    public function updateCity($id, $data)
+    {
+        $city = $this->model->where('id', $id)->first();
+        $name = rand_name($data['image']);
+        event(new AmazonS3_Upload_Event($name, $data['image']));
+        $data['image']   = $name;
+        // dd($data);
+        $data_city = parent::update($id, $data);
+        return $data_city;
+    }
 }

@@ -229,3 +229,7 @@ select * from tags
 -- baokim_trade_histories
 
 select created_on, customer_address, customer_email, customer_name, customer_phone, merchant_email, merchant_id, merchant_name, merchant_phone, fee_amount, net_amount, total_amount, order_id, payment_type, transaction_id, transaction_status, checksum, client_id from baokim_trade_histories
+
+
+-----------------------change status room with less than 5 image-----------------
+update rooms set rooms.status = 0 where id in (select room_id from (select room_id, COUNT(*) as img from room_medias join rooms on room_medias.room_id = rooms.id where rooms.status in (1,2) GROUP BY room_medias.room_id having img <5) as temp)

@@ -42,7 +42,7 @@ class RoomLogic extends BaseLogic
      * @return mixed
      * @throws \ReflectionException
      */
-    public function getRooms($params, $pageSize = null,$count= null)
+    public function getRooms($params, $pageSize = null, $count= null)
     {
         $collect_params = collect($params);
         $check_in       = $collect_params->get('check_in');
@@ -52,16 +52,12 @@ class RoomLogic extends BaseLogic
             return $item->room_id;
         })->all();
 
-        if ($count === 'standard_point')
-        {
-            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
-        }elseif ($count ==='comfort_lists')
-        {
-            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
-        }
-        elseif($count === null)
-        {
-            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize,$count);
+        if ($count === 'standard_point') {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize, $count);
+        } elseif ($count ==='comfort_lists') {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize, $count);
+        } elseif ($count === null) {
+            $rooms = $this->model->getAllRoomExceptListId($list_room_id, $params, $pageSize, $count);
         }
         return $rooms;
     }
@@ -124,6 +120,10 @@ class RoomLogic extends BaseLogic
     public function countNumberOfRoomByCity($limit = null)
     {
         return $this->model->countNumberOfRoomByCity($limit);
+    }
 
+    public function countNumberOfRoomByDistrict($limit = null)
+    {
+        return $this->model->countNumberOfRoomByDistrict($limit);
     }
 }
