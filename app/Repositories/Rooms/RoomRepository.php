@@ -543,6 +543,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 ->select(
                     DB::raw('rooms.city_id'),
                     DB::raw('cities.name as name_city'),
+                    DB::raw('round(avg(rooms.price_day)) as average_price'),
                     DB::raw('cities.image'),
                     DB::raw('count(rooms.city_id) as total_rooms')
                 );
