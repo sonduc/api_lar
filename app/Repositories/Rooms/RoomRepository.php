@@ -556,7 +556,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         if ($limit == -1) {
             return $rooms->get();
         }
-        dd($rooms->toSql());
+        // dd($rooms->toSql());
         // dd($rooms->get(10));
         return $rooms->take($limit)->get();
     }
