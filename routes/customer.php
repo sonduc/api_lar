@@ -127,3 +127,7 @@ resource('/promotions', 'PromotionController', $router);
 
 $router->get('/success', 'PaymentHistoryController@success');
 $router->get('/cancel/{code}', 'PaymentHistoryController@cancel');
+
+/* Settings*/
+
+resource('/settings', 'SettingController', $router);

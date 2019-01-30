@@ -98,7 +98,7 @@ class SendEmail
      * Email thông báo cho khách trước 48h
      *
      */
-    public function mailNotificationBooking($data, $template = 'email.notification')
+    public function mailNotificationBooking($data, $template = 'email.reminder')
     {
         $email = $data->name->email;
         $data  = $data->name;
@@ -297,14 +297,13 @@ class SendEmail
      */
     public function mailHostReview($dataBooking, $template = 'email.host_reviews')
     {
-        foreach ($dataBooking as $booking)
-        {
+        foreach ($dataBooking as $booking) {
             $room   = $this->room->getRoomForReview($booking['room_id']);
             $merchant = $this->user->getUserById($booking['merchant_id']);
-            $email  = $booking['email'];;
+            $email  = $booking['email'];
+            ;
             try {
-                Mail::send($template, ['data_booking' => $booking,'data_room' => $room, 'data_merchant' => $merchant], function ($message) use ($email, $room)
-                {
+                Mail::send($template, ['data_booking' => $booking,'data_room' => $room, 'data_merchant' => $merchant], function ($message) use ($email, $room) {
                     $message->from(env('MAIL_TEST'));
                     $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại' . $room->name);
                 });
@@ -312,8 +311,6 @@ class SendEmail
                 logs('emails', 'Email gửi thất bại '.$email);
                 throw $e;
             }
-
-
         }
     }
 
@@ -339,6 +336,5 @@ class SendEmail
         }
 
         return $url;
-
     }
 }

@@ -165,10 +165,10 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @param $id
      * @param $data
      */
-    public function updateHostReview($id,$data)
+    public function updateHostReview($id, $data)
     {
         $data['host_reviews'] = BookingConstant::COMPLETE;
-        parent::update($id,$data->toArray());
+        parent::update($id, $data->toArray());
     }
 
     public function updatStatusBooking($booking)
@@ -188,6 +188,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $dateNow_timestamp  = Carbon::now()->timestamp;
         $tomorrow           = $dateNow->addDay();
         $tomorrow_timestamp = $tomorrow->timestamp;
+
         $data               = $this->model
             ->where('checkin', '>=', $dateNow_timestamp)
             ->where('checkout', '>=', $dateNow_timestamp)
@@ -1790,7 +1791,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
                 DB::raw($selectRawView),
                 DB::raw('count(distinct phone) as total_customer')
             )
-            ->whereNotIn('phone',$customers)
+            ->whereNotIn('phone', $customers)
             ->where([
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end],
