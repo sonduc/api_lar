@@ -538,7 +538,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function countNumberOfRoomByCity($params = [], $limit = 10)
     {
-        $this->useScope($params);
+        // $this->useScope($params);
         $rooms = $this->model
                 ->select(
                     DB::raw('rooms.city_id'),
@@ -556,6 +556,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         if ($limit == -1) {
             return $rooms->get();
         }
+        dd($rooms->toSql());
         // dd($rooms->get(10));
         return $rooms->take($limit)->get();
     }
@@ -629,7 +630,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function countNumberOfRoomByDistrict($params = [], $limit = 10)
     {
-        $this->useScope($params);
+        // $this->useScope($params);
         $rooms = $this->model
                 ->select(
                     DB::raw('rooms.district_id'),
