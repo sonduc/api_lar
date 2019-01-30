@@ -26,11 +26,12 @@ class CompareCheckingRepository extends BaseRepository implements CompareCheckin
         // dd('asdf');
         $total_compare_checking = $debit + $credit + $bonus;
         $data = [
-            'date' => $date,
-            'user_id' => $user,
-            'total_debit' => $debit,
-            'total_credit' => $credit,
-            'total_bonus' => $bonus,
+            'date'                   => $date,
+            'user_id'                => $user,
+            'total_debit'            => $debit,
+            'total_credit'           => $credit,
+            'total_bonus'            => $bonus,
+            'status'                 => 0,
             'total_compare_checking' => $total_compare_checking
         ];
         return $this->model->firstOrCreate($data);

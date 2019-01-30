@@ -59,6 +59,7 @@ class TransactionLogic extends BaseLogic
             'credit'        => (int) ceil($credit),
             'debit'         => (int) ceil($debit),
             'bonus'         => $bonus,
+            'status'        => 0,
             'comission'     => $comission
         ];
         
