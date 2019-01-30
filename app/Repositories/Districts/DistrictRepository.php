@@ -81,9 +81,9 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
     {
         $result_district =  $this->model
                 ->select('districts.id', 'districts.city_id', 'districts.name', 'districts.hot', 'districts.status')
-                ->where(\DB::raw("REPLACE('districts.name', ' ', '')"), 'LIKE', '%' . $request->key. '%')
+                ->where('districts.name', 'like', '%' . $request->key. '%')
+                 ->orWhere(\DB::raw("REPLACE(districts.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
                 ->where('districts.status', District::AVAILABLE)
-                ->orWhere(\DB::raw("REPLACE(districts.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
                 ->orderBy('districts.hot', 'desc')
                 ->orderBy('districts.priority', 'desc')
                 ->limit(SearchConstant::SEARCH_SUGGESTIONS - count($data))->get()->toArray();
