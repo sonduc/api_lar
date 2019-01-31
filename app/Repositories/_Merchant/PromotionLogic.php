@@ -13,8 +13,9 @@ class PromotionLogic extends BaseLogic
 {
     public function __construct(
         PromotionRepositoryInterface $promotion,
-    	CouponRepositoryInterface $coupon,
-    	RoomRepositoryInterface $room) {
+        CouponRepositoryInterface $coupon,
+        RoomRepositoryInterface $room
+    ) {
         $this->model          = $promotion;
         $this->coupon 		  = $coupon;
         $this->room 		  = $room;
@@ -22,43 +23,47 @@ class PromotionLogic extends BaseLogic
 
     public function joinPromotion($data)
     {
-    	$current  = Carbon::now();
-    	$coupon = $this->coupon->getCouponByCode(strtoupper($data['coupon']));
-    	$settings = json_decode($coupon->settings);
-    	if(isset($data['promotion_id'])){
-    		$promotion = $this->getById($data['promotion_id']);
-	    	if($coupon->promotion_id != $data['promotion_id']){
-	    		throw new \Exception('Mã khuyến mãi không nằm trong chương trình khuyến mại');
-	    	}
-	    	$diffInWeeks = $current->diffInWeeks($promotion->date_start);
-	    	if($diffInWeeks < 1 ){
-	    		throw new \Exception('Phải đăng ký chương trình khuyến mãi trước 1 tuần');
-	    	}
+        $current  = Carbon::now();
+        $coupon = $this->coupon->getCouponByCode(strtoupper($data['coupon']));
+        $settings = json_decode($coupon->settings);
+        if (isset($data['promotion_id'])) {
+            $promotion = $this->getById($data['promotion_id']);
+            if ($promotion->status !== 1) {
+                if ($coupon->promotion_id != $data['promotion_id']) {
+                    throw new \Exception('Mã khuyến mãi không nằm trong chương trình khuyến mại');
+                }
+                $diffInWeeks = $current->diffInWeeks($promotion->date_start);
+                if ($diffInWeeks < 1) {
+                    throw new \Exception('Phải đăng ký chương trình khuyến mãi trước 1 tuần');
+                }
+                
+                if (!empty($data['rooms']) || $data['rooms'] != null) {
+                    $arrRoom = array_values(array_unique(array_merge($settings->rooms, $data['rooms'])));
 
-	    	if(!empty($data['rooms']) || $data['rooms'] != NULL){
-		    	$arrRoom = array_merge($settings->rooms,$data['rooms']);
-		    	array_unique($arrRoom);
-		    	$settings->rooms = $arrRoom;
-	    	} else{
-	    		array_push($settings->merchants,$data['promotion_id']);
-	    	}
-    	} else{
-    		$diffInWeeks = $current->diffInWeeks($settings->date_start);
-    		if($diffInWeeks < 1 ){
-	    		throw new \Exception('Phải đăng ký chương trình khuyến mãi trước 1 tuần');
-	    	}
-    		if(!empty($data['rooms']) || $data['rooms'] != NULL){
-		    	// dd($settings->rooms);
-		    	$arrRoom = array_merge($settings->rooms,$data['rooms']);
-		    	array_unique($arrRoom);
-		    	$settings->rooms = $arrRoom;
-	    	} else {
+                    $settings->rooms = $arrRoom;
+                } else {
+                    array_push($settings->merchants, $data['promotion_id']);
+                }
+            } else {
+                throw new \Exception('Chương trình khuyến mãi đã bắt đầu, bạn không thể đăng ký tham gia nữa');
+            }
+        } else {
+            $diffInWeeks = $current->diffInWeeks($settings->date_start);
+            if ($diffInWeeks < 1) {
+                throw new \Exception('Phải đăng ký chương trình khuyến mãi trước 1 tuần');
+            }
+            if (!empty($data['rooms']) || $data['rooms'] != null) {
+                // dd($settings->rooms);
+                $arrRoom = array_values(array_unique(array_merge($settings->rooms, $data['rooms'])));
+
+                $settings->rooms = $arrRoom;
+            } else {
                 throw new \Exception('Không có phòng để tham gia chương trình khuyến mãi');
             }
-    	}
-    	$coupon->settings = json_encode($settings);
-	    $this->coupon->update($coupon->id,$coupon->toArray());
-	    $dataReturn = [
+        }
+        $coupon->settings = json_encode($settings);
+        $this->coupon->update($coupon->id, $coupon->toArray());
+        $dataReturn = [
             'message'        => "Cập nhật thành công",
         ];
         return $dataReturn;
