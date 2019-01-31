@@ -21,6 +21,7 @@ use App\Repositories\Rooms\RoomTimeBlockRepositoryInterface;
 use App\Repositories\Rooms\RoomTranslateRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Events\GenerateWestayRoomCalendarEvent;
 use Illuminate\Support\Facades\Auth;
 
 class RoomLogic extends BaseLogic
@@ -82,23 +83,19 @@ class RoomLogic extends BaseLogic
      * @return \App\Repositories\Eloquent
      */
 
-    public function store($data, $room = [],$list = [])
+    public function store($data, $room = [], $list = [])
     {
-
-        if (isset($data['basic']) & !empty($data['basic']))
-        {
+        if (isset($data['basic']) & !empty($data['basic'])) {
             $list = $data['basic'];
             $list['percent'] = $this->model->calculation_percent($data);
         }
 
 
-        if (isset($data['prices']) & !empty($data['prices']))
-        {
-            $list = array_merge($list,$data['prices']);
+        if (isset($data['prices']) & !empty($data['prices'])) {
+            $list = array_merge($list, $data['prices']);
         }
 
-        if (isset($data['details']) & !empty($data['details']))
-        {
+        if (isset($data['details']) & !empty($data['details'])) {
             $list['city_id']     = $data['details']['city_id'];
             $list['district_id'] = $data['details']['district_id'];
             $list['longitude']   = $data['details']['longitude'];
@@ -112,32 +109,28 @@ class RoomLogic extends BaseLogic
 
         $data_room = parent::store($list);
 
-       if (isset($data['details']) & !empty($data['details']))
-       {
-           $this->roomTranslate->storeRoomTranslate($data_room, $data);
-       }
+        if (isset($data['details']) & !empty($data['details'])) {
+            $this->roomTranslate->storeRoomTranslate($data_room, $data);
+        }
 
-        if (isset($data['comforts']) & !empty($data['comforts']))
-        {
+        if (isset($data['comforts']) & !empty($data['comforts'])) {
             $this->storeRoomComforts($data_room, $data);
-
         }
 
 
-        if (isset($data['images']) & !empty($data['images']))
-        {
+        if (isset($data['images']) & !empty($data['images'])) {
             $this->roomMedia->storeRoomMedia($data_room, $data);
         }
 
-        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks']))
-        {
+        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks'])) {
             $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
         }
 
-        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices']))
-        {
+        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices'])) {
             $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         }
+        
+        event(new GenerateWestayRoomCalendarEvent($data_room));
 
         return $data_room;
     }
@@ -157,20 +150,17 @@ class RoomLogic extends BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
-        if (isset($data['basic']) & !empty($data['basic']))
-        {
+        if (isset($data['basic']) & !empty($data['basic'])) {
             $list = $data['basic'];
             $list['percent'] = $this->model->calculation_percent($data);
         }
 
 
-        if (isset($data['prices']) & !empty($data['prices']))
-        {
-            $list = array_merge($list,$data['prices']);
+        if (isset($data['prices']) & !empty($data['prices'])) {
+            $list = array_merge($list, $data['prices']);
         }
 
-        if (isset($data['details']) & !empty($data['details']))
-        {
+        if (isset($data['details']) & !empty($data['details'])) {
             $list['city_id']     = $data['details']['city_id'];
             $list['district_id'] = $data['details']['district_id'];
             $list['longitude']   = $data['details']['longitude'];
@@ -184,28 +174,22 @@ class RoomLogic extends BaseLogic
         // dd($data['settings']);
         $data_room = parent::update($id, $list);
 
-        if (isset($data['details']) & !empty($data['details']))
-        {
+        if (isset($data['details']) & !empty($data['details'])) {
             $this->roomTranslate->updateRoomTranslate($data_room, $data);
         }
 
-        if (isset($data['comforts']) & !empty($data['comforts']))
-        {
+        if (isset($data['comforts']) & !empty($data['comforts'])) {
             $this->storeRoomComforts($data_room, $data);
-
         }
 
-        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices']))
-        {
+        if (isset($data['weekday_price']) & !empty($data['weekday_price']) || isset($data['optional_prices']) & !empty($data['optional_prices'])) {
             $this->roomOptionalPrice->updateRoomOptionalPrice($data_room, $data);
         }
-        if (isset($data['images']) & !empty($data['images']))
-        {
+        if (isset($data['images']) & !empty($data['images'])) {
             $this->roomMedia->updateRoomMedia($data_room, $data);
         }
 
-        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks']))
-        {
+        if (isset($data['room_time_blocks']) & !empty($data['room_time_blocks'])) {
             $this->roomTimeBlock->updateRoomTimeBlock($data_room, $data);
         }
 
@@ -220,9 +204,9 @@ class RoomLogic extends BaseLogic
      * @param $pageSize
      * @return mixed
      */
-    public function getRoom($id,$params, $pageSize)
+    public function getRoom($id, $params, $pageSize)
     {
-        $booking = $this->model->getRoomByMerchantId($id,$params, $pageSize);
+        $booking = $this->model->getRoomByMerchantId($id, $params, $pageSize);
         return $booking;
     }
 
@@ -254,5 +238,4 @@ class RoomLogic extends BaseLogic
         $room = parent::getById($id);
         return $this->getBlockedScheduleByHour($room->id);
     }
-
 }

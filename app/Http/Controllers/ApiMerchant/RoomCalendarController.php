@@ -27,7 +27,7 @@ class RoomCalendarController extends ApiController
     public function getRoomCalendar($id)
     {
         try {
-            $this->authorize('room.view', $id);
+            // $this->authorize('room.view', $id);
             $data = $this->model->icalGenerator($id);
 
             return $data;

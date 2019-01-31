@@ -102,7 +102,8 @@ class RoomTransformer extends TransformerAbstract
 
             'settings'             => json_decode($room->settings),
             'airbnb_calendar'      => $room->airbnb_calendar,
-            'percent'              =>  $room->percent,
+            'westay_calendar'      => $room->westay_calendar,
+            'percent'              => $room->percent,
             //'percent'              => $room->percent ?? 0,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,

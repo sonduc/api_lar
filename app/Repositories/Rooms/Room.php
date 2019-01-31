@@ -124,7 +124,8 @@ class Room extends Entity
         'airbnb_calendar',
         'settings',
         'percent',
-        'comission'
+        'comission',
+        'westay_calendar'
 
     ];
     /**

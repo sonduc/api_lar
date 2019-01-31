@@ -68,5 +68,10 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\Host_Reviews_Event::class => [
             \App\Listeners\SendMail\HostReviewListener::class,
         ],
+
+        // tạo link Westay calendar để đồng bộ
+        \App\Events\GenerateWestayRoomCalendarEvent::class => [
+            \App\Listeners\GenerateWestayRoomCalendarListener::class,
+        ],
     ];
 }

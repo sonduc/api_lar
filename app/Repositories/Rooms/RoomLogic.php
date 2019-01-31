@@ -7,6 +7,7 @@ use App\Repositories\Bookings\BookingRepository;
 use App\Repositories\Bookings\BookingRepositoryInterface;
 use App\Repositories\Users\UserRepository;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\Events\GenerateWestayRoomCalendarEvent;
 
 class RoomLogic extends BaseLogic
 {
@@ -64,13 +65,13 @@ class RoomLogic extends BaseLogic
      */
     public function store($data, $room = [])
     {
-        $data['settings']= $this->model->checkValidRefund($data);
-        $data_room = parent::store($data);
-
+        $data['settings'] = $this->model->checkValidRefund($data);
+        $data_room        = parent::store($data);
         $this->roomTranslate->storeRoomTranslate($data_room, $data);
         $this->storeRoomComforts($data_room, $data);
         $this->roomOptionalPrice->storeRoomOptionalPrice($data_room, $data);
         $this->roomMedia->storeRoomMedia($data_room, $data);
+        event(new GenerateWestayRoomCalendarEvent($data_room));
         // $this->roomTimeBlock->storeRoomTimeBlock($data_room, $data);
 
         return $data_room;
@@ -233,5 +234,16 @@ class RoomLogic extends BaseLogic
     public function updateComission($data = [])
     {
         $this->model->updateComission($data);
+    }
+
+    public function generateWestayRoomCalendar($room)
+    {
+        $room            = $this->model->getById($room->id);
+        $created_at      = $room->created_at;
+        $hash_string     = $room->room_type . $room->merchant_id;
+        $hashed_string   = hash_hmac('sha256', $hash_string, $created_at);
+        $dummy_text      = substr(strtoupper($hashed_string), 0, 50);
+        $room->westay_calendar = env('API_URL_MERCHANT').'get-calendar/'.$room->id.'?'.$dummy_text;
+        $room->save();
     }
 }
