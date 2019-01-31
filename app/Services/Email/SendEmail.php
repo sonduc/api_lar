@@ -258,7 +258,7 @@ class SendEmail
                 $message->to($email)->subject('Westay - Kích hoạt tài khoản của bạn tại Westay!');
             });
         } catch (\Exception $e) {
-            dd($e);
+            // dd($e);
             logs('emails', 'Email gửi thất bại ' . $email);
             throw $e;
         }
