@@ -13,37 +13,13 @@ use App\Events\AverageRoomRating;
 class RoomReviewController extends ApiController
 {
     protected $validationRules    = [
-        'booking_id'     => 'required|integer|exists:bookings,id,deleted_at,NULL',
-        'cleanliness'    => 'nullable|integer|between:1,5',
-        'service'        => 'nullable|integer|between:1,5',
-        'quality'        => 'nullable|integer|between:1,5',
-        'valuable'       => 'nullable|integer|between:1,5',
-        'avg_rating'     => 'nullable|numeric|between:1,5',
-        'recommend'      => 'nullable|integer|between:0,1',
-        'like'           => 'nullable|integer|between:0,1',
-        'status_reviews' => 'nullable|integer|between:0,1',
+        'status' => 'nullable|integer|between:0,1',
     ];
     protected $validationMessages = [
-        'booking_id.required'     => 'Vui lòng chọn mã booking',
-        'booking_id.integer'     => 'Mã booking phải là kiểu số',
-        'booking_id.exists'      => 'Booking không tồn tại',
 
-        'cleanliness.integer'    => 'Mã đánh giá sạch sẽ phải là kiểu số',
-        'cleanliness.between'    => 'Mã đánh giá sạch sẽ không phù hợp',
-        'service.integer'        => 'Mã đánh giá dịch vụ phải là kiểu số',
-        'service.between'        => 'Mã đánh giá dịch vụ không phù hợp',
-        'quality.integer'        => 'Mã đánh giá chất lượng phòng phải là kiểu số ',
-        'quality.between'        => 'Mã đánh giá chất lượng không phù hợp',
-        'valuable.integer'       => 'Mã đánh giá độ xứng đáng phải là kiểu số',
-        'valuable.between'       => 'Mã  đánh giá đọ xứng đáng không phù h',
-        'avg_rating.numeric'     => 'Mã  đánh giá tổng hợp phải là kiểu số',
-        'avg_rating.between'     => 'Mã  đánh giá tổng hợp không phù hợp',
-        'status_reviews.integer' => 'Mã trạng thái đánh gía phải là kiểu số',
-        'status_reviews.between' => 'Mã nổi trạng thái đánh gía không phù hợp',
-        'recommend.integer'      => 'Mã giới thiệu phải là kiểu số',
-        'recommend.between'      => 'Mã giới thiệu không phù hợp',
-        'like.integer'           => 'Mã thích phải là kiểu số',
-        'like.between'           => 'Mã thích phải là kiểu số',
+        'status.integer' => 'Mã trạng thái đánh gía phải là kiểu số',
+        'status.between' => 'Mã nổi trạng thái đánh gía không phù hợp',
+
     ];
 
     /**
@@ -109,47 +85,10 @@ class RoomReviewController extends ApiController
         }
     }
 
-    /**
-     *
-     * @author ducchien0612 <ducchien0612@gmail.com>
-     *
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     * @throws \Throwable
-     */
-    public function store(Request $request)
-    {
-        DB::beginTransaction();
-        try {
-            $this->authorize('room.create');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
-            $data = $this->model->store($request->all());
-            event(new AverageRoomRating($data->room_id, $data));
-            // dd($data->room_id);
-            DB::commit();
-            return $this->successResponse($data);
-        }catch (AuthorizationException $f) {
-            DB::rollBack();
-            return $this->forbidden([
-                'error' => $f->getMessage(),
-            ]);
-        } catch (\Illuminate\Validation\ValidationException $validationException) {
-            return $this->errorResponse([
-                'errors'    => $validationException->validator->errors(),
-                'exception' => $validationException->getMessage(),
-            ]);
-        } catch (\Exception $e) {
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
-            throw $e;
-        } catch (\Throwable $t) {
-            throw $t;
-        }
-    }
+
 
     /**
-     * Cập nhaật Room_Review
+     * Update status của room-review
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
@@ -157,36 +96,39 @@ class RoomReviewController extends ApiController
      * @return \Illuminate\Http\JsonResponse
      * @throws \Throwable
      */
-    public function update(Request $request, $id)
+
+    public function updateStatus(Request $request, $id)
     {
         DB::beginTransaction();
+        DB::enableQueryLog();
         try {
             $this->authorize('room.update');
-            $this->validationRules['booking_id'] = '';
-
             $this->validate($request, $this->validationRules, $this->validationMessages);
-
-            $model = $this->model->update($id, $request->all());
+            $model = $this->model->updateStatus($id, $request->only('status'));
+            //dd(DB::getQueryLog());
             DB::commit();
+            logs('room-review', 'Cập nhật room-review cho hệ thống mã' . $model->id, $model);
+            //dd(DB::getQueryLog());
             return $this->successResponse($model);
-        }catch (AuthorizationException $f) {
+        } catch (AuthorizationException $f) {
             DB::rollBack();
             return $this->forbidden([
                 'error' => $f->getMessage(),
             ]);
         } catch (\Illuminate\Validation\ValidationException $validationException) {
+            DB::rollBack();
             return $this->errorResponse([
                 'errors'    => $validationException->validator->errors(),
                 'exception' => $validationException->getMessage(),
             ]);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
             return $this->notFoundResponse();
         } catch (\Exception $e) {
-            return $this->errorResponse([
-                'error' => $e->getMessage(),
-            ]);
+            DB::rollBack();
             throw $e;
         } catch (\Throwable $t) {
+            DB::rollBack();
             throw $t;
         }
     }

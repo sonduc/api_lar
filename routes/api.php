@@ -87,6 +87,8 @@ $router->group([
     $router->get('/reviews/reviews-cleanliness-list', 'RoomReviewController@reviewCleanlinessList');
     $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
     $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
+
+    $router->put('/reviews/update-status/{id}', 'RoomReviewController@updateStatus');
     resource('/reviews', 'RoomReviewController', $router);
 
 
