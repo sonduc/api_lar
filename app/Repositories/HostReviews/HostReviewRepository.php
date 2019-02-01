@@ -50,13 +50,11 @@ class HostReviewRepository extends BaseRepository implements HostReviewRepositor
         $data['customer_id']    = $data_booking->customer_id;
         $data['room_id']        = $data_booking->room_id;
         $data['merchant_id']    = $data_booking->merchant_id;
-        $data['booking_id']     = $data_booking->booking_id;
-        $data['checkin']        = $data_booking->booking_id;
-        $data['checkout']       = $data_booking->booking_id;
+        $data['booking_id']     = $data_booking->id;
+        $data['checkin']        = $data_booking->checkin;
+        $data['checkout']       = $data_booking->checkout;
         $data_host_reviews      = parent::store($data);
 
-        // Cập nhật trạng thái hoàn thành review cho booking
-        $this->booking->updateHostReview($data_booking->id,$data_booking);
         return $data_host_reviews;
     }
 
@@ -80,12 +78,14 @@ class HostReviewRepository extends BaseRepository implements HostReviewRepositor
             throw new \Exception('Bạn không có quyền review về khách hàng này');
         }
 
-        if ($data_booking->host_reviews == BookingConstant::COMPLETE)
-        {
+        $data    = $this->model->where('booking_id',$data_booking->id  )->first();
+        //dd($data);
+        if (!empty($data)) {
             throw new \Exception('Bạn không thể reviews thêm về khách hàng này được nữa');
         }
 
 
     }
+
 
 }

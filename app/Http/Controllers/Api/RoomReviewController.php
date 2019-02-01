@@ -59,7 +59,7 @@ class RoomReviewController extends ApiController
 
     /**
      * Display a listing of the resource.
-     * @author HarikiRito <nxh0809@gmail.com>
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
      *
@@ -81,13 +81,13 @@ class RoomReviewController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param Request $request
-     * @param         $id
-     *
-     * @return mixed
-     * @throws Throwable
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
      */
     public function show(Request $request, $id)
     {

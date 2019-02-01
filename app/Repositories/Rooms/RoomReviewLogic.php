@@ -37,16 +37,14 @@ class RoomReviewLogic extends BaseLogic
      * @return \App\Repositories\Eloquent
      * @throws \Exception
      */
-    public function store($data, $list = [])
+    public function store($data)
     {
-        $check_review = $this->model->getBookingByID($data['booking_id']);
-        if (!empty($check_review)) {
-            throw  new \Exception('Bạn đã từng đánh giá phòng này nên chỉ có quyền sửa đổi');
-        }
-        $list_booking = $this->booking->getBookingByCheckout($data['booking_id']);
+         $data_booking=$this->booking->checkBooking($data['booking_id']);
+         $this->model->checkReview($data['booking_id']);
+
         if (!empty($data)) {
-            $data['user_id'] = $list_booking->customer_id;
-            $data['room_id'] = $list_booking->room_id;
+            $data['user_id'] = $data_booking->customer_id;
+            $data['room_id'] = $data_booking->room_id;
         }
         return parent::store($data);
     }
@@ -64,5 +62,11 @@ class RoomReviewLogic extends BaseLogic
     public function update($id, $data, $excepts = [], $only = [])
     {
         return parent::update($id, $data);
+    }
+
+    public function getReview($id, $params, $pageSize)
+    {
+        $booking = $this->model->getReviewByCustomerId($id, $params, $pageSize);
+        return $booking;
     }
 }
