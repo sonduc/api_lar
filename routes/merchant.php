@@ -79,6 +79,8 @@ $router->group([
 
     $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');
     $router->get('/rooms/schedule-by-hour/{id}', 'RoomController@getRoomScheduleByHour');
+    
+    $router->put('/rooms/prop-update/{id}', 'RoomController@minorRoomUpdate');
 
     resource('/rooms', 'RoomController', $router);
 
@@ -103,8 +105,8 @@ $router->group([
 /**
  * Host-Review-Customer
  */
-$router->get('/host-reviews','HostReviewController@getFormReview');
-$router->post('/host-reviews','HostReviewController@store');
+$router->get('/host-reviews', 'HostReviewController@getFormReview');
+$router->post('/host-reviews', 'HostReviewController@store');
 
 /**
  * Router login, register , reset pass, forget pass
@@ -119,6 +121,3 @@ $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
 //resource('/test', 'TestController', $router);
 
 $router->get('test', 'HostReviewController@test');
-
-
-

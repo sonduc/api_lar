@@ -42,6 +42,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $query  = $this->model
                 ->whereNotIn('rooms.id', $list)
                 ->where('rooms.status', Room::AVAILABLE)
+                ->where('rooms.merchant_status', Room::AVAILABLE)
                 ->orderBy('is_manager', 'desc')
                 ->orderBy('avg_avg_rating', 'desc')
                 ->orderBy('total_review', 'desc')
@@ -343,6 +344,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 // ['rooms.created_at', '>=', $date_start],
                 // ['rooms.created_at', '<=', $date_end],
                 ['rooms.status', '=', Room::AVAILABLE],
+                ['rooms.merchant_status', '=', Room::AVAILABLE],
             ])
 
             // ->groupBy(DB::raw('createdAt,districts.name'))->get();
@@ -403,6 +405,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
             ->where([
                 ['room_translates.lang', '=', $lang],
                 ['rooms.status', '=', Room::AVAILABLE],
+                ['rooms.merchant_status', '=', Room::AVAILABLE],
                 ['bookings.created_at', '>=', $date_start],
                 ['bookings.created_at', '<=', $date_end]
             ])
@@ -507,6 +510,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
              ->where('room_translates.name', 'like', "%$request->key%")
              ->orWhere(\DB::raw("REPLACE(room_translates.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
              ->where('rooms.status', Room::AVAILABLE)
+             ->where('rooms.merchant_status', Room::AVAILABLE)
              ->orderBy('rooms.hot', 'DESC')
              ->limit(SearchConstant::SEARCH_SUGGESTIONS-$count)->get()->toArray();
 

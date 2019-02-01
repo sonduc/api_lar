@@ -125,8 +125,9 @@ class Room extends Entity
         'settings',
         'percent',
         'comission',
-        'westay_calendar'
-
+        'westay_calendar',
+        'merchant_status',
+        
     ];
     /**
      * The attributes that should be mutated to dates.

@@ -873,4 +873,62 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    /**
+     * Cập nhật riêng lẻ các thuộc tính của phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Request $request
+     * @param         $id
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function minorRoomUpdate(Request $request, $id)
+    {
+        DB::beginTransaction();
+        DB::enableQueryLog();
+        try {
+            $this->authorize('room.update', $id);
+            $avaiable_option = [
+                'merchant_status'
+            ];
+            $option = $request->get('option');
+
+            if (!in_array($option, $avaiable_option)) {
+                throw new \Exception('Không có quyền sửa đổi mục này');
+            }
+
+            $validate = array_only($this->validationRules, [
+                $option,
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
+            $data = $this->model->minorRoomUpdate($id, $request->only($option));
+            DB::commit();
+
+            return $this->successResponse($data);
+        } catch (AuthorizationException $f) {
+            DB::rollBack();
+            return $this->forbidden([
+                'error' => $f->getMessage(),
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $validationException) {
+            return $this->errorResponse([
+                'errors'    => $validationException->validator->errors(),
+                'exception' => $validationException->getMessage(),
+            ]);
+        } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
+            DB::rollBack();
+            return $this->notFoundResponse();
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            DB::rollBack();
+            throw $t;
+        }
+    }
 }

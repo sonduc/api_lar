@@ -87,7 +87,9 @@ class RoomTransformer extends TransformerAbstract
             'latitude'             => $room->latitude,
             'total_booking'        => $room->total_booking,
             'status'               => $room->status,
+            'merchant_status'      => $room->merchant_status,
             'status_txt'           => $room->roomStatus(),
+            'merchant_status_txt'  => $room->roomStatus(),
             'cleanliness'          => $room->avg_cleanliness,
             'quality'              => $room->avg_quality,
             'service'              => $room->avg_service,
@@ -104,7 +106,6 @@ class RoomTransformer extends TransformerAbstract
             'airbnb_calendar'      => $room->airbnb_calendar,
             'westay_calendar'      => $room->westay_calendar,
             'percent'              => $room->percent,
-            //'percent'              => $room->percent ?? 0,
             'created_at'           => $room->created_at ? $room->created_at->format('Y-m-d H:i:s') : null,
             'updated_at'           => $room->updated_at ? $room->updated_at->format('Y-m-d H:i:s') : null,
         ];

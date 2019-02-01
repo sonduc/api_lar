@@ -106,7 +106,7 @@ class RoomLogic extends BaseLogic
         $list['status']          = Room::NOT_APPROVED;
 
         $list['settings']        = $this->model->checkValidRefund($data);
-
+        $list['merchant_status'] = Room::AVAILABLE;
         $data_room = parent::store($list);
 
         if (isset($data['details']) & !empty($data['details'])) {
@@ -237,5 +237,19 @@ class RoomLogic extends BaseLogic
     {
         $room = parent::getById($id);
         return $this->getBlockedScheduleByHour($room->id);
+    }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param array $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+    public function minorRoomUpdate($id, $data = [])
+    {
+        return parent::update($id, $data);
     }
 }
