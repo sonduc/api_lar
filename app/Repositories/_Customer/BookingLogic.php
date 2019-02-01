@@ -32,7 +32,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use phpDocumentor\Reflection\DocBlock\Description;
 
-
 class BookingLogic extends BaseLogic
 {
     use RoomLogicTrait, BookingLogicTrait, CouponLogicTrait;

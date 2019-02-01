@@ -253,10 +253,7 @@
                                 </tr>
                                 <tr>
                                     <td align='left' style='padding: 0 56px 28px 56px;' valign='top'>
-                                        <div style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 18px; color: #333;'>Vui
-                                            lòng click vào nút "Xác thực tài khoản" phía dưới để kích hoạt tài khoản
-                                            <strong>{!! $data->email !!}</strong>
-                                            . Mọi thông đặt phòng của bạn sẽ được cập nhật qua địa chỉ E-Mail này!</div>
+                                        <div style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 18px; color: #333;'>Để nhận được nhiều ưu đãi cũng như thông tin hữu ích, bạn có thể đăng ký tài khoản tại Westay chỉ với 1 cú nhấp chuột bằng cách nhấn vào nút dưới đây!
                                     </td>
                                 </tr>
                                 <tr>
@@ -269,9 +266,7 @@
                                 fillcolor="#E15718">
                                   <w:anchorlock/>
                                 <![endif]-->
-                                            <form action="{!! \Illuminate\Support\Facades\Request::url().'/email-confirm/' . $data->uuid !!}"
-                                                method="POST">
-                                                <input type="hidden" name="_method" value="PUT">
+                                            <form>
                                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0"
                                                     class="btn btn-primary">
                                                     <tbody>
@@ -283,7 +278,7 @@
 
                                                                         <tr>
                                                                             <td style="margin: 0 auto">
-                                                                                <input style="
+                                                                                <a href="{!! $url.'/set-password/'. $user->data->timeSubmit.'?token='.$user->data->token !!}" style="
                                                                                 background-color:#F5A623;
                                                                                 color:#ffffff;
                                                                                 display:inline-block;
@@ -307,8 +302,7 @@
                                                                                 user-select: none;
                                                                                 text-decoration:none;
                                                                                 width:184px; 
-                                                                                -webkit-text-size-adjust:none;"
-                                                                                    type="submit" value="Xác thực tài khoản" />
+                                                                                -webkit-text-size-adjust:none;">Tạo tài khoản</a>
                                                                             </td>
                                                                         </tr>
                                                                     </tbody>

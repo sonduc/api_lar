@@ -382,7 +382,7 @@ float:right !important;
                     class="email-root-wrapper">
                     <tr>
                       <td valign="top" style="padding:0px">
-                        <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#e94b3c" style="border:0px none;background-color:#e94b3c">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" bgcolor="#ffffff" style="border:0px none;background-color:#ffffff">
                           <tr>
                             <td valign="top" style="padding:20px">
                               <table cellpadding="0" cellspacing="0" width="100%">
@@ -601,7 +601,7 @@ float:right !important;
                                                         <tr>
                                                           <td style="padding:0px">
                                                             <table cellpadding="0" cellspacing="0" border="0" width="100%"
-                                                              style="border-top:2px solid #e94b3c">
+                                                              style="border-top:2px solid #ffffff">
                                                               <tr>
                                                                 <td valign="top">
                                                                   <table cellpadding="0" cellspacing="0" width="100%">
@@ -770,7 +770,7 @@ float:right !important;
                                                         <tr>
                                                           <td style="padding:0px">
                                                             <table cellpadding="0" cellspacing="0" border="0" width="100%"
-                                                              style="border-top:2px solid #e94b3c">
+                                                              style="border-top:2px solid #ffffff">
                                                               <tr>
                                                                 <td valign="top">
                                                                   <table cellpadding="0" cellspacing="0" width="100%">

@@ -245,7 +245,7 @@ class SendEmail
      * @param string $template
      * @throws \Exception
      */
-    public function setPassword($user, $template = 'email.set_password')
+    public function setPassword($user, $template = 'email.setPassword')
     {
         $timeSubmit                = Carbon::now()->timestamp;
         $user->data->timeSubmit    = base64_encode($timeSubmit);
@@ -255,7 +255,7 @@ class SendEmail
         try {
             Mail::send($template, ['user' => $user,'url' => $url], function ($message) use ($email) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Westay - Kích hoạt tài khoản của bạn tại Westay!');
+                $message->to($email)->subject('Westay - Tạo tài khoản ngay để nhận thêm nhiều ưu đãi!');
             });
         } catch (\Exception $e) {
             // dd($e);
