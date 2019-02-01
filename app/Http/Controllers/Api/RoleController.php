@@ -158,4 +158,27 @@ class RoleController extends ApiController
                 ]);
         }
     }
+
+    public function updateImage()
+    {
+        $list_image = DB::table('room_medias')->get();
+        foreach ($list_image as $room) {
+            // dd($room);
+            if ($room->id < 90000) {
+                $current_img = $room->image;
+                // dd($room->image);
+                if (strpos($current_img, ".png")) {
+                    $test = str_replace(".png", "", $current_img);
+                } elseif (strpos($current_img, ".jpeg")) {
+                    $test = str_replace(".jpeg", "", $current_img);
+                } else {
+                    $test = $current_img;
+                }
+                // dump($test);
+                DB::table('room_medias')->where('id', $room->id)->update([
+                        'image' => $test
+                    ]);
+            }
+        }
+    }
 }
