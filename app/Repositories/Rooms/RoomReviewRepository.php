@@ -28,11 +28,17 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
      * @param $id
      * @return mixed
      */
-    public function getBookingByID($id)
+    public function checkReview($id)
     {
         $data    = $this->model->where([
             ['booking_id',$id],
         ])->first();
+
+        if (!empty($data)) {
+            throw  new \Exception('Phòng này bạn đã đánh giá rồi !!!');
+        }
         return $data;
     }
+
+
 }

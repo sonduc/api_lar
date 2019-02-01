@@ -53,7 +53,7 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
      * @throws \Exception
      */
 
-    public function getBookingByCheckout($id)
+    public function checkBooking($id)
     {
         $dateNow = Carbon::now();
         $data    = $this->model->where([
