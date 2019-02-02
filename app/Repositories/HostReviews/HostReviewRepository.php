@@ -58,6 +58,16 @@ class HostReviewRepository extends BaseRepository implements HostReviewRepositor
         return $data_host_reviews;
     }
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @param array $excepts
+     * @param array $only
+     * @return \App\Repositories\Eloquent
+     */
     public function updateStatus($id, $data, $excepts = [], $only = [])
     {
         return parent::update($id, $data, $excepts, $only);

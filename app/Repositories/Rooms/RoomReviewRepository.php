@@ -9,6 +9,7 @@
 namespace App\Repositories\Rooms;
 
 use App\Repositories\BaseRepository;
+use Illuminate\Support\Facades\Auth;
 
 class RoomReviewRepository extends BaseRepository implements RoomReviewRepositoryInterface
 {
@@ -22,17 +23,24 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
     }
 
     /**
-     * Kiểm tra xem booking đã từng đánh giá review hay chưa
+     * Kiểm tra xem người này có đươch quyền review phòng hay không
      * @author ducchien0612 <ducchien0612@gmail.com>
      *
      * @param $id
      * @return mixed
      */
-    public function checkReview($id)
+    public function checkReview($data_booking)
     {
         $data    = $this->model->where([
-            ['booking_id',$id],
+            ['booking_id',$data_booking->id],
         ])->first();
+
+        $customer_id = Auth::user()->id;
+
+        if ($customer_id != $data_booking->customer_id)
+        {
+            throw new \Exception('Bạn không có quyền review về phòng này');
+        }
 
         if (!empty($data)) {
             throw  new \Exception('Phòng này bạn đã đánh giá rồi !!!');

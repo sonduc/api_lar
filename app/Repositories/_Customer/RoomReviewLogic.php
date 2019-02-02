@@ -48,13 +48,12 @@ class RoomReviewLogic extends BaseLogic
     public function store($data)
     {
         $data_booking=$this->booking->checkBooking($data['booking_id']);
-
-
-        $this->model->checkReview($data['booking_id']);
+        $this->model->checkReview($data_booking);
 
         if (!empty($data)) {
-            $data['user_id'] = $data_booking->customer_id;
-            $data['room_id'] = $data_booking->room_id;
+            $data['user_id']        = $data_booking->customer_id;
+            $data['room_id']        = $data_booking->room_id;
+            $data['booking_id_id']  = $data_booking->id;
         }
         return parent::store($data);
     }
