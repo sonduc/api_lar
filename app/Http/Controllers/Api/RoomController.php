@@ -38,6 +38,8 @@ class RoomController extends ApiController
         'checkout'                           => 'required|date_format:"H:i"',
         'price_day'                          => 'required|integer',
         'price_hour'                         => 'integer|nullable',
+        'price_day_discount'                 => 'integer|min:0',
+        'price_hour_discount'                => 'integer|min:0',
         'price_after_hour'                   => 'integer|required_with:price_hour',
         'price_charge_guest'                 => 'integer|nullable',
         'cleaning_fee'                       => 'integer|nullable',
@@ -48,6 +50,7 @@ class RoomController extends ApiController
 
         'comission'                          =>'integer|between:20,100',
         'latest_deal'                        => 'integer|nullable|between:0,1',
+        'is_discount'                        => 'integer|nullable|between:0,1',
         'rent_type'                          => 'integer',
         // 'longitude'                                      => 'required',
         // 'latitude'                                       => 'required',
@@ -71,7 +74,7 @@ class RoomController extends ApiController
         'room_time_blocks.*.0'               => 'date|after:now',
         'room_time_blocks.*.1'               => 'date|after:room_time_blocks.*.0',
         'room_time_blocks'                   => 'array',
-        'room_time_bloks.*'                  => 'array',
+        'room_time_blocks.*'                 => 'array',
 
         /**
          * setting
@@ -120,7 +123,9 @@ class RoomController extends ApiController
         'checkout.date_format'                           => 'Kiểu checkout không đúng định dạng H:i',
         'price_day.required'                             => 'Giá ngày không được để trống',
         'price_day.integer'                              => 'Giá phải là kiểu số',
+        'price_day_discount.integer'                     => 'Giá theo ngày phải là kiểu số',
         'price_hour.integer'                             => 'Giá theo giờ phải là kiểu số',
+        'price_hour_discount.integer'                    => 'Giá theo giờ phải là kiểu số',
         'price_after_hour.required_with'                 => 'Giá theo giờ không được để trống',
         'price_after_hour.integer'                       => 'Giá theo giờ phải là kiểu số',
         'price_charge_guest.integer'                     => 'Giá khách thêm phải là kiểu số',
@@ -478,6 +483,7 @@ class RoomController extends ApiController
                 'status',
                 'standard_point',
                 'is_manager',
+                'is_discount'
             ];
             $option = $request->get('option');
 
@@ -490,7 +496,8 @@ class RoomController extends ApiController
             ]);
 
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->minorRoomUpdate($id, $request->only($option));
+            $params = $option !== 'is_discount' ? $request->only($option) : $request->all();
+            $data = $this->model->minorRoomUpdate($id, $params);
             DB::commit();
 
             return $this->successResponse($data);

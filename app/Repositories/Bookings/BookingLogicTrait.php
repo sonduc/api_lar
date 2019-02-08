@@ -11,6 +11,7 @@ namespace App\Repositories\Bookings;
 use App\Repositories\Coupons\CouponRepository;
 use App\Repositories\Rooms\RoomOptionalPrice;
 use App\Repositories\Rooms\RoomOptionalPriceRepository;
+use App\Repositories\Rooms\Room;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use Carbon\Exceptions\InvalidDateException;
@@ -49,16 +50,19 @@ trait BookingLogicTrait
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_DAY) {
             $CI = $checkin->copy()->setTimeFromTimeString($room->checkin);
             $CO = $checkout->copy()->setTimeFromTimeString($room->checkout);
-
             $days             = $CO->diffInDays($CI) + 1;
             $data['days']     = $days;
             $data['checkin']  = $CI->timestamp;
             $data['checkout'] = $CO->timestamp;
-
-            // Xử lý logic tính giá phòng vào ngày đặc biệt
-            list($money, $totalDay) =
+            if ($room->is_discount == Room::DISCOUNTING) {
+                $money = 0;
+                $money += $room->price_day_discount * $days;
+            } else {
+                // Xử lý logic tính giá phòng vào ngày đặc biệt
+                list($money, $totalDay) =
                 $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
-            $money += $room->price_day * ($days - $totalDay);
+                $money += $room->price_day * ($days - $totalDay);
+            }
         }
         
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
@@ -66,23 +70,33 @@ trait BookingLogicTrait
                 $days             = BookingConstant::PRICE_TYPE_HOUR_SPECICAL;
                 $data['checkin']  = $checkin->timestamp;
                 $data['checkout'] = $checkout->timestamp;
-                // Xử lý logic tính giá phòng vào ngày đặc biệt
-                list($money, $totalDay) =
-                   $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
-                $money += $room->price_day * ($days - $totalDay);
+                if ($room->is_discount == Room::DISCOUNTING) {
+                    $money = 0;
+                    $money += $room->price_day_discount * $days;
+                } else {
+                    // Xử lý logic tính giá phòng vào ngày đặc biệt
+                    list($money, $totalDay) =
+                    $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_DAY);
+                    $money += $room->price_day * ($days - $totalDay);
+                }
             } else {
                 $hours         = $checkout->copy()->ceilHours()->diffInHours($checkin);
                 $data['hours'] = $hours;
 
                 $data['checkin']  = $checkin->timestamp;
                 $data['checkout'] = $checkout->timestamp;
-                // Xử lý logic tính giá phòng vào ngày đặc biệt
-                $money =
-                   $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
-                   ?? 0;
-                if ($money == 0) {
+                if ($room->is_discount == Room::DISCOUNTING) {
+                    if ($money == 0) {
+                        $money = $room->price_hour_discount + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+                    }
+                } else {
+                    // Xử lý logic tính giá phòng vào ngày đặc biệt
                     $money =
-                       $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+                    $this->optionalPriceCalculator($room_optional_prices, $room, $data, BookingConstant::BOOKING_TYPE_HOUR)
+                    ?? 0;
+                    if ($money == 0) {
+                        $money = $room->price_hour + ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
+                    }
                 }
             }
         }
@@ -152,7 +166,7 @@ trait BookingLogicTrait
         // Trả về lỗi nếu thời gian đặt bị trùng với các ngày  bị khóa chủ động va khóa dựa theo những booking đặtk phòng này theo ngày.
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             $blocked_schedule = $this->getBlockedScheduleByRoomId($room->id);
-            // dd($blocked_schedule);
+        // dd($blocked_schedule);
         } else {
             $blocked_schedule = $this->getBlockedScheduleDayByRoomId($room->id);
         }

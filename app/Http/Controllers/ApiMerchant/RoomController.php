@@ -49,6 +49,8 @@ class RoomController extends ApiController
         'prices.checkout'                    => 'required_with:prices|date_format:"H:i"',
         'prices.price_day'                   => 'required_if:prices.rent_type,2,3|integer|nullable',
         'prices.price_hour'                  => 'required_if:prices.rent_type,1,3|integer|nullable',
+        'price_day_discount'                 => 'integer|min:0',
+        'price_hour_discount'                => 'integer|min:0',
         'prices.price_after_hour'            => 'required_with:prices.price_hour|integer',
         'prices.price_charge_guest'          => 'required_with:prices|integer|nullable',
         'prices.cleaning_fee'                => 'required_with:prices|integer|nullable',
@@ -226,6 +228,9 @@ class RoomController extends ApiController
         'long_max.required'                              => 'Trường này không được để trống',
         'long_max.numeric'                               => 'Trường này phải là đinh dạng số',
         'long_max.between'                               => 'Trường này không nằm trong khoảng -180.00,180.00',
+
+        'price_day_discount.integer'                     => 'Giá theo ngày phải là kiểu số',
+        'price_hour_discount.integer'                    => 'Giá theo giờ phải là kiểu số',
 
     ];
 
@@ -891,7 +896,8 @@ class RoomController extends ApiController
         try {
             $this->authorize('room.update', $id);
             $avaiable_option = [
-                'merchant_status'
+                'merchant_status',
+                'is_discount'
             ];
             $option = $request->get('option');
 
@@ -904,7 +910,8 @@ class RoomController extends ApiController
             ]);
 
             $this->validate($request, $validate, $this->validationMessages);
-            $data = $this->model->minorRoomUpdate($id, $request->only($option));
+            $params = $option !== 'is_discount' ? $request->only($option) : $request->all();
+            $data = $this->model->minorRoomUpdate($id, $params);
             DB::commit();
 
             return $this->successResponse($data);
