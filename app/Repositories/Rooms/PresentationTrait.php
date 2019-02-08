@@ -123,4 +123,9 @@ trait PresentationTrait
     {
         return $this->permissions[$permission] ?? false;
     }
+
+    public function discountStatus()
+    {
+        return isset(self::DISCOUNT_STATUS[$this->is_discount]) ? self::DISCOUNT_STATUS[$this->is_discount] : 'Không xác định';
+    }
 }

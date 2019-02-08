@@ -52,6 +52,11 @@ class RoomTransformer extends TransformerAbstract
             'avg_valuable'          => $room->avg_valuable,
             'avg_rating_txt'        => $room->getTextAvgRating($room->avg_avg_rating),
             'total_review'          => $room->total_review,
+            
+            'is_discount'          => $room->is_discount,
+            'is_discount_txt'      => $room->discountStatus(),
+            'price_day_discount'   => $room->price_day_discount,
+            'price_hour_discount'  => $room->price_hour_discount,
         ];
     }
 

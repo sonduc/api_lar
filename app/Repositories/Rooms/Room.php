@@ -42,6 +42,9 @@ class Room extends Entity
     const PRIVATE_ROOM  = 4;
     const HOTEL         = 5;
 
+    const NOT_DISCOUNT  = 0;
+    const DISCOUNTING   = 1;
+
     const ROOM_TYPE = [
         self::PRIVATE_HOUSE => 'Nhà riêng',
         self::APARTMENT     => 'Căn hộ/ Chung cư',
@@ -62,6 +65,11 @@ class Room extends Entity
         self::TYPE_HOUR => 'Theo giờ',
         self::TYPE_DAY  => 'Theo ngày',
         self::TYPE_ALL  => 'Cả ngày và giờ',
+    ];
+
+    const DISCOUNT_STATUS = [
+        self::DISCOUNTING   => 'Đang giảm giá',
+        self::NOT_DISCOUNT  => 'Không giảm giá',
     ];
 
     // AVG Rating
@@ -127,7 +135,9 @@ class Room extends Entity
         'comission',
         'westay_calendar',
         'merchant_status',
-        
+        'is_discount',
+        'price_day_discount',
+        'price_hour_discount',
     ];
     /**
      * The attributes that should be mutated to dates.
