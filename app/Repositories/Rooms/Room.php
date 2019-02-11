@@ -242,7 +242,7 @@ class Room extends Entity
 
     public function reviews()
     {
-        return $this->hasMany(RoomReview::class, 'room_id');
+        return $this->hasMany(RoomReview::class, 'room_id', 'id');
     }
 
     public function transactions()

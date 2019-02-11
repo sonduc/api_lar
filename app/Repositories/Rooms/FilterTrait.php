@@ -510,4 +510,22 @@ trait FilterTrait
         }
         return $query;
     }
+
+    /**
+     * Scope Room Status
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $query
+     * @param $q
+     *
+     * @return mixed
+     */
+    public function scopeDiscount($query, $q)
+    {
+        if (!empty($q) && is_numeric($q)) {
+            $query->where('rooms.is_discount', $q);
+        }
+
+        return $query;
+    }
 }

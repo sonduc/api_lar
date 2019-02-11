@@ -932,4 +932,62 @@ class RoomController extends ApiController
             throw $t;
         }
     }
+
+    public function updateRoomReviews()
+    {
+        $rooms = Room::pluck('id');
+        // dd($rooms);
+        \DB::enableQueryLog();
+        foreach ($rooms as $key => $room_id) {
+            $room = Room::where('id', $room_id)->with('reviews')->first();
+            $denominator    = sizeof($room['reviews']);
+            if ($denominator != 0) {
+                $current_cleanliness    = $room->avg_cleanliness * $denominator;
+                $current_service        = $room->avg_service * $denominator;
+                $current_quality        = $room->avg_quality * $denominator;
+                $current_avg_rating     = $room->avg_avg_rating * $denominator;
+                $current_valuable       = $room->avg_valuable * $denominator;
+                $current_recommend      = $room->total_recommend;
+                $reviews = $room->reviews;
+                foreach ($reviews as $key => $value) {
+                    $current_cleanliness    += $value->cleanliness;
+                    $current_service        += $value->service;
+                    $current_quality        += $value->quality;
+                    $current_avg_rating     += $value->avg_rating;
+                    $current_valuable       += $value->valuable;
+                    $current_recommend      += $value->recommend;
+                }
+                \DB::beginTransaction();
+                try {
+                    $room->update([
+                        'avg_cleanliness'   => round(($current_cleanliness / $denominator), 2),
+                        'avg_service'       => round(($current_service / $denominator), 2),
+                        'avg_quality'       => round(($current_quality / $denominator), 2),
+                        'avg_avg_rating'    => round(($current_avg_rating / $denominator), 2),
+                        'avg_valuable'      => round(($current_valuable / $denominator), 2),
+                        'total_review'      => $denominator + 1,
+                        'total_recommend'   => $current_recommend
+                    ]);
+                    \DB::commit();
+                } catch (\Throwable $t) {
+                    \DB::rollback();
+                    throw $t;
+                }
+            }
+        }
+    }
+
+    public function generateWestayRoomCalendar()
+    {
+        $rooms = Room::pluck('id');
+        foreach ($rooms as $key => $room_id) {
+            $room            = $this->model->getById($room_id);
+            $created_at      = $room->created_at;
+            $hash_string     = $room->room_type . $room->merchant_id;
+            $hashed_string   = hash_hmac('sha256', $hash_string, $created_at);
+            $dummy_text      = substr(strtoupper($hashed_string), 0, 50);
+            $room->westay_calendar = env('API_URL_MERCHANT').'get-calendar/'.$room->id.'?'.$dummy_text;
+            $room->save();
+        }
+    }
 }

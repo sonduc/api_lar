@@ -96,10 +96,13 @@ SELECT
     0 AS total_review,
     NULL AS airbnb_calendar,
     NULL AS total_recommend,
+    0 as is_discount,
+    null as price_day_discount,
+    null as price_hour_discount,
     20 AS comission,
     100 AS percent,
     status,
-    1 as merchatn_status,
+    1 as merchant_status,
     sale_id,
     deleted_at,
     created_at,
@@ -226,7 +229,7 @@ select id, title,  teaser as description, image, content, active as status, hot,
 select * from blog_tag
 
 -- tags
-select * from tags
+select id, tag as name, slug, created_at, updated_at from tags
 
 -- baokim_trade_histories
 

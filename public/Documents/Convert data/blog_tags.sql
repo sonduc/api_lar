@@ -1,6 +1,6 @@
 /*
 -- Query: select * from blog_tag
--- Date: 2019-01-24 11:27
+-- Date: 2019-02-11 09:03
 */
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (3,4);
 INSERT INTO `blog_tags` (`blog_id`,`tag_id`) VALUES (4,5);
