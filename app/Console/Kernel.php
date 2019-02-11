@@ -15,7 +15,8 @@ class Kernel extends ConsoleKernel
     protected $commands
         = [
             'App\Console\Commands\ValidateCoupon',
-            'App\Console\Commands\BookingUpdateStatus',
+            'App\Console\Commands\BookingReminder',
+            'App\Console\Commands\UpdateBookingStatus',
             'App\Console\Commands\BookingReviews',
             'App\Console\Commands\AirbnbCalendar',
             'App\Console\Commands\CreateReferralCoupon',
@@ -33,7 +34,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('booking:status')->everyThirtyMinutes();
+        $schedule->command('booking:reminder')->everyThirtyMinutes();
+        $schedule->command('booking:status')->everyMinute();
         $schedule->command('booking:review')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
         $schedule->command('referral:coupon')->dailyAt('02:00:00');

@@ -162,7 +162,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         $rooms = $this->model->where(
                 [
                     ['city_id', $room->city_id],
-                    ['district_id', $room->district_id],
+                    // ['district_id', $room->district_id],
                     ['max_guest','>=', $room->max_guest],
                     ['status', $room->status]
                 ]

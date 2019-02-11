@@ -44,28 +44,29 @@ class BookingReviews extends Command
     {
         Carbon::setLocale(getLocale());
         $bookings                   = $this->booking->getAllBookingCheckoutOneDay();
-        $current_day                = Carbon::now();
+        // dd($bookings);
+        $current_day                = Carbon::now()->timestamp;
         foreach ($bookings as $key => $booking) {
             $checkin                = $booking->checkin;
             $checkout               = $booking->checkout;
-            $checkin_timestamp      = Carbon::parse($checkin);
-            $checkout_timestamp     = Carbon::parse($checkout);
-            // dd($checkout_timestamp->diffInHours($current_day));
-            if ($checkout_timestamp->diffInHours($current_day) <= 36 && $booking->status == 4 && $booking->email_reviews == 0) {
+            $checkout_timestamp     = Carbon::parse($checkout)->addHours(28)->timestamp;
+            $checkin_date           = Carbon::parse($checkin);
+            $checkout_date          = Carbon::parse($checkout);
+            if ($checkout_timestamp > $current_day && $booking->status == BookingConstant::BOOKING_COMPLETE && $booking->email_reviews == 0) {
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_DAY) {
-                    $dataTime['read_timeCheckin']  = $checkin_timestamp->isoFormat('LL');
-                    $dataTime['read_timeCheckout'] = $checkout_timestamp->isoFormat('LL');
-                    $dataTime['count_bookingTime'] = $checkin_timestamp->diffInDays($checkout_timestamp)+1;
+                    $dataTime['read_timeCheckin']  = $checkin_date->isoFormat('LL');
+                    $dataTime['read_timeCheckout'] = $checkout_date->isoFormat('LL');
+                    $dataTime['count_bookingTime'] = $checkin_date->diffInDays($checkout_date)+1;
+                    event(new Booking_Reviews_Event($booking, $dataTime));
                     $booking->email_reviews = 1;
                     $booking->save();
-                    event(new Booking_Reviews_Event($booking, $dataTime));
                 }
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_HOUR) {
-                    $dataTime['read_timeBooking']  = $checkin_timestamp->isoFormat('LL');
-                    $dataTime['count_bookingTime'] = $checkin_timestamp->diffInHours($checkout_timestamp);
+                    $dataTime['read_timeBooking']  = $checkin_date->isoFormat('LL');
+                    $dataTime['count_bookingTime'] = $checkin_date->diffInHours($checkout_date);
+                    event(new Booking_Reviews_Event($booking, $dataTime));
                     $booking->email_reviews = 1;
                     $booking->save();
-                    event(new Booking_Reviews_Event($booking, $dataTime));
                 }
             }
         }

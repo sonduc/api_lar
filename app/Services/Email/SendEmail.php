@@ -202,7 +202,7 @@ class SendEmail
         try {
             Mail::send($template, ['data' => $data,'dataTime' => $dataTime], function ($message) use ($email, $data) {
                 $message->from(env('MAIL_TEST'));
-                $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại' . $data->room->roomTrans[0]->name);
+                $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại');
             });
         } catch (\Exception $e) {
             logs('emails', 'Email gửi thất bại '.$email);

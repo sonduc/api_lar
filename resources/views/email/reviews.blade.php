@@ -75,7 +75,7 @@
                 <tr style="text-align: center">
                     <td colspan="2">
                         <img style="max-width: 300px;margin-top: 15px;" src="https://ci5.googleusercontent.com/proxy/SmbK0VKJXJzFgTUHx8AW96VhBe70QQTx_FxkBYMcs8bRqsnCi65h22Up9kP8w9aEZqajPlu3y4wkMkLokGnEBvbCFUVtA4KkQftQoWJ5Kd6aPLtg7cV-h0Gz7M8RNGfr4JXmNu14OkfjeDjgPJsD=s0-d-e1-ft#https://pix4.agoda.net/hotelimages/1160921/-1/c30a5ad54107ac1375c5c4e66c79b3d5.png?s=800x600" alt="">
-                        {{-- <img src="{{ $data->room->media[0]->image }}" alt=""> --}}
+                        <!-- <img src="{{ $data->room->media[0]->image }}" alt=""> -->
                     </td>
                 </tr>
                 <tr style="text-align: center">
