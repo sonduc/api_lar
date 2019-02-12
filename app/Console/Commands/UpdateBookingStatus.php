@@ -52,6 +52,7 @@ class UpdateBookingStatus extends Command
             
             if ($checkout < $dateNow_timestamp && $booking->status == BookingConstant::BOOKING_USING) {
                 $booking->status = BookingConstant::BOOKING_COMPLETE;
+                // $booking->review_url = 
                 $booking->save();
             }
             if ($checkin < $dateNow_timestamp && $booking->status == BookingConstant::BOOKING_CONFIRM) {

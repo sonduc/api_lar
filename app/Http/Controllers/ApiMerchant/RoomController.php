@@ -181,7 +181,7 @@ class RoomController extends ApiController
         'sale_id.exists'                                 => 'Saler không tồn tại',
         'lang_id.integer'                                => 'Mã ngôn ngữ phải là kiểu số',
         'lang_id.exists'                                 => 'Ngôn ngữ không hợp lệ',
-        'note.v_title'                                   => 'Chỉ cho phép chữ và số',
+        // 'note.v_title'                                   => 'Chỉ cho phép chữ và số',
 
         'room_time_blocks.*.*.date'                      => 'Ngày không hợp lệ',
         'room_time_blocks.*.0.date'                      => 'Ngày không hợp lệ',
