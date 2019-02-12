@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-02-12T10:39:26.168Z",
+	"__export_date": "2019-02-12T10:46:14.286Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -8629,7 +8629,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1548915174997,
+			"modified": 1549968266151,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_eb2d232902cd4531a4dceeab8a585130",
@@ -8639,7 +8639,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}rooms",
+			"url": "{{ merchant_url }}rooms?discount=1",
 			"_type": "request"
 		},
 		{
