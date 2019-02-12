@@ -10,7 +10,7 @@ namespace App\Repositories\Topic;
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Repositories\SubTopic\Subtopic;
+use App\Repositories\SubTopic\SubTopic;
 
 class Topic extends Entity
 {

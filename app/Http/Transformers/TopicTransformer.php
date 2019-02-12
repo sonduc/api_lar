@@ -20,7 +20,7 @@ class TopicTransformer extends TransformerAbstract
         'sub'
     ];
 
-    public function transform(Topic $topic= null)
+    public function transform(Topic $topic = null)
     {
         if (is_null($topic)) {
             return [];
@@ -46,6 +46,6 @@ class TopicTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->collection($topic->subs, new SubTopicTransformer);
+        return $this->collection($topic->subs(), new SubTopicTransformer);
     }
 }
