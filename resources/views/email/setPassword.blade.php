@@ -1,383 +1,361 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 
-<!doctype html>
-<html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Westay.org</title>
-    <style>
-        /* -------------------------------------
-            GLOBAL RESETS
-        ------------------------------------- */
-
-        /*All the styling goes here*/
-
-        img {
-            border: none;
-            -ms-interpolation-mode: bicubic;
-            max-width: 100%;
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Westay - Xác thực tài khoản</title>
+    <style type="text/css">
+        #outlook a {
+            padding: 0;
         }
 
         body {
-            background-color: #f6f6f6;
-            font-family: sans-serif;
-            -webkit-font-smoothing: antialiased;
-            font-size: 14px;
-            line-height: 1.4;
+            width: 100% !important;
+            -webkit-text-size-adjust: 100%;
+            -ms-text-size-adjust: 100%;
             margin: 0;
             padding: 0;
-            -ms-text-size-adjust: 100%;
-            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        table {
-            border-collapse: separate;
-            mso-table-lspace: 0pt;
-            mso-table-rspace: 0pt;
-            width: 100%; }
-        table td {
-            font-family: sans-serif;
-            font-size: 14px;
-            vertical-align: top;
-        }
-
-        /* -------------------------------------
-            BODY & CONTAINER
-        ------------------------------------- */
-
-        .body {
-            background-color: #f6f6f6;
+        .ExternalClass {
             width: 100%;
         }
 
-        /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
-        .container {
+        .ExternalClass,
+        .ExternalClass p,
+        .ExternalClass span,
+        .ExternalClass font,
+        .ExternalClass td,
+        .ExternalClass div,
+        .ExternalClass blockquote {
+            line-height: 100%;
+        }
+
+        .ExternalClass p,
+        .ExternalClass blockquote {
+            margin-bottom: 0;
+            margin: 0;
+        }
+
+        #backgroundTable {
+            margin: 0;
+            padding: 0;
+            width: 100% !important;
+            line-height: 100% !important;
+        }
+
+        img {
+            outline: none;
+            text-decoration: none;
+            -ms-interpolation-mode: bicubic;
+        }
+
+        a img {
+            border: none;
+        }
+
+        .image_fix {
             display: block;
-            Margin: 0 auto !important;
-            /* makes it centered */
-            max-width: 580px;
-            padding: 10px;
-            width: 580px;
         }
 
-        /* This should also be a block element, so that it will fill 100% of the .container */
-        .content {
-            box-sizing: border-box;
-            display: block;
-            Margin: 0 auto;
-            max-width: 580px;
-            padding: 10px;
+        p {
+            margin: 1em 0;
         }
 
-        /* -------------------------------------
-            HEADER, FOOTER, MAIN
-        ------------------------------------- */
-        .main {
-            background: #ffffff;
-            border-radius: 3px;
-            width: 100%;
-        }
-
-        .wrapper {
-            box-sizing: border-box;
-            padding: 20px;
-        }
-
-        .content-block {
-            padding-bottom: 10px;
-            padding-top: 10px;
-        }
-
-        .footer {
-            clear: both;
-            Margin-top: 10px;
-            text-align: center;
-            width: 100%;
-        }
-        .footer td,
-        .footer p,
-        .footer span,
-        .footer a {
-            color: #999999;
-            font-size: 12px;
-            text-align: center;
-        }
-
-        /* -------------------------------------
-            TYPOGRAPHY
-        ------------------------------------- */
         h1,
         h2,
         h3,
-        h4 {
-            color: #000000;
-            font-family: sans-serif;
-            font-weight: 400;
-            line-height: 1.4;
-            margin: 0;
-            margin-bottom: 30px;
+        h4,
+        h5,
+        h6 {
+            color: black !important;
         }
 
-        h1 {
-            font-size: 35px;
-            font-weight: 300;
-            text-align: center;
-            text-transform: capitalize;
+        h1 a,
+        h2 a,
+        h3 a,
+        h4 a,
+        h5 a,
+        h6 a {
+            color: black;
         }
 
-        p,
-        ul,
-        ol {
-            font-family: sans-serif;
-            font-size: 14px;
-            font-weight: normal;
-            margin: 0;
-            margin-bottom: 15px;
+        h1 a:active,
+        h2 a:active,
+        h3 a:active,
+        h4 a:active,
+        h5 a:active,
+        h6 a:active {
+            color: black;
         }
-        p li,
-        ul li,
-        ol li {
-            list-style-position: inside;
-            margin-left: 5px;
+
+        h1 a:visited,
+        h2 a:visited,
+        h3 a:visited,
+        h4 a:visited,
+        h5 a:visited,
+        h6 a:visited {
+            color: black;
+        }
+
+        table td {
+            border-collapse: collapse;
+        }
+
+        table {
+            border-collapse: collapse;
+            mso-table-lspace: 0pt;
+            mso-table-rspace: 0pt;
         }
 
         a {
             color: #3498db;
-            text-decoration: underline;
         }
 
-        /* -------------------------------------
-            BUTTONS
-        ------------------------------------- */
-        .btn {
-            box-sizing: border-box;
-            width: 100%; }
-        .btn > tbody > tr > td {
-            padding-bottom: 15px; }
-        .btn table {
-            width: auto;
-        }
-        .btn table td {
-            background-color: #ffffff;
-            border-radius: 5px;
-            text-align: center;
-        }
-        .btn a {
-            background-color: #ffffff;
-            border: solid 1px #3498db;
-            border-radius: 5px;
-            box-sizing: border-box;
-            color: #3498db;
-            cursor: pointer;
-            display: inline-block;
-            font-size: 14px;
-            font-weight: bold;
-            margin: 0;
-            padding: 12px 25px;
-            text-decoration: none;
-            text-transform: capitalize;
-        }
-
-        .btn-primary table td {
-            background-color: #3498db;
-        }
-
-        .btn-primary a {
-            background-color: #3498db;
-            border-color: #3498db;
-            color: #ffffff;
-        }
-
-        /* -------------------------------------
-            OTHER STYLES THAT MIGHT BE USEFUL
-        ------------------------------------- */
-        .last {
-            margin-bottom: 0;
-        }
-
-        .first {
-            margin-top: 0;
-        }
-
-        .align-center {
-            text-align: center;
-        }
-
-        .align-right {
-            text-align: right;
-        }
-
-        .align-left {
-            text-align: left;
-        }
-
-        .clear {
-            clear: both;
-        }
-
-        .mt0 {
-            margin-top: 0;
-        }
-
-        .mb0 {
-            margin-bottom: 0;
-        }
-
-        .preheader {
-            color: transparent;
-            display: none;
-            height: 0;
-            max-height: 0;
-            max-width: 0;
-            opacity: 0;
-            overflow: hidden;
-            mso-hide: all;
-            visibility: hidden;
-            width: 0;
-        }
-
-        .powered-by a {
-            text-decoration: none;
+        p.domain a {
+            color: black;
         }
 
         hr {
             border: 0;
-            border-bottom: 1px solid #f6f6f6;
-            Margin: 20px 0;
+            background-color: #d8d8d8;
+            margin: 0;
+            margin-bottom: 0;
+            height: 1px;
         }
 
-        /* -------------------------------------
-            RESPONSIVE AND MOBILE FRIENDLY STYLES
-        ------------------------------------- */
-        @media only screen and (max-width: 620px) {
-            table[class=body] h1 {
-                font-size: 28px !important;
-                margin-bottom: 10px !important;
+        @media (max-device-width: 667px) {
+
+            a[href^="tel"],
+            a[href^="sms"] {
+                text-decoration: none;
+                color: blue;
+                pointer-events: none;
+                cursor: default;
             }
-            table[class=body] p,
-            table[class=body] ul,
-            table[class=body] ol,
-            table[class=body] td,
-            table[class=body] span,
-            table[class=body] a {
+
+            .mobile_link a[href^="tel"],
+            .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: orange !important;
+                pointer-events: auto;
+                cursor: default;
+            }
+
+            h1[class="profile-name"],
+            h1[class="profile-name"] a {
+                font-size: 32px !important;
+                line-height: 38px !important;
+                margin-bottom: 14px !important;
+            }
+
+            span[class="issue-date"],
+            span[class="issue-date"] a {
+                font-size: 14px !important;
+                line-height: 22px !important;
+            }
+
+            td[class="description-before"] {
+                padding-bottom: 28px !important;
+            }
+
+            td[class="description"] {
+                padding-bottom: 14px !important;
+            }
+
+            td[class="description"] span,
+            span[class="item-text"],
+            span[class="item-text"] span {
                 font-size: 16px !important;
+                line-height: 24px !important;
             }
-            table[class=body] .wrapper,
-            table[class=body] .article {
-                padding: 10px !important;
+
+            span[class="item-link-title"] {
+                font-size: 18px !important;
+                line-height: 24px !important;
             }
-            table[class=body] .content {
-                padding: 0 !important;
+
+            span[class="item-header"] {
+                font-size: 22px !important;
             }
-            table[class=body] .container {
-                padding: 0 !important;
-                width: 100% !important;
+
+            span[class="item-link-description"],
+            span[class="item-link-description"] span {
+                font-size: 14px !important;
+                line-height: 22px !important;
             }
-            table[class=body] .main {
-                border-left-width: 0 !important;
-                border-radius: 0 !important;
-                border-right-width: 0 !important;
+
+            .link-image {
+                width: 84px !important;
+                height: 84px !important;
             }
-            table[class=body] .btn table {
-                width: 100% !important;
-            }
-            table[class=body] .btn a {
-                width: 100% !important;
-            }
-            table[class=body] .img-responsive {
-                height: auto !important;
+
+            .link-image img {
                 max-width: 100% !important;
-                width: auto !important;
+                max-height: 100% !important;
             }
+
         }
 
-        /* -------------------------------------
-            PRESERVE THESE STYLES IN THE HEAD
-        ------------------------------------- */
-        @media all {
-            .ExternalClass {
-                width: 100%;
+        @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+
+            a[href^="tel"],
+            a[href^="sms"] {
+                text-decoration: none;
+                color: blue;
+                pointer-events: none;
+                cursor: default;
             }
-            .ExternalClass,
-            .ExternalClass p,
-            .ExternalClass span,
-            .ExternalClass font,
-            .ExternalClass td,
-            .ExternalClass div {
-                line-height: 100%;
-            }
-            .apple-link a {
-                color: inherit !important;
-                font-family: inherit !important;
-                font-size: inherit !important;
-                font-weight: inherit !important;
-                line-height: inherit !important;
-                text-decoration: none !important;
-            }
-            .btn-primary table td:hover {
-                background-color: #34495e !important;
-            }
-            .btn-primary a:hover {
-                background-color: #34495e !important;
-                border-color: #34495e !important;
+
+            .mobile_link a[href^="tel"],
+            .mobile_link a[href^="sms"] {
+                text-decoration: default;
+                color: orange !important;
+                pointer-events: auto;
+                cursor: default;
             }
         }
-
     </style>
+    <!--[if gte mso 9]>
+      <style type="text/css">
+        #contentTable {
+          width: 600px;
+        }
+      </style>
+    <![endif]-->
 </head>
-<body class="">
-<table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
-    <tr>
-        <td>&nbsp;</td>
 
-        <td class="container">
-            <div class="content">
-
-                <table role="presentation" class="main">
-                    <img src="https://www.vlance.vn/uploads/portfolio/1200x630/westay-dat-phong-homestay-30345.jpeg" alt="">
-
-                    <!-- START MAIN CONTENT AREA -->
+<body style="width:100% !important;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;margin-top:0;margin-bottom:0;margin-right:0;margin-left:0;padding-top:0;padding-bottom:0;padding-right:0;padding-left:0;">
+    <table cellpadding="0" cellspacing="0" border="0" id="backgroundTable" style="margin:0; padding:0; width:100% !important; line-height: 100% !important; border-collapse:collapse; mso-table-lspace:0pt; mso-table-rspace:0pt;"
+        width="100%">
+        <tr>
+            <td width="10" valign="top">&nbsp;</td>
+            <td valign="top" align="center">
+                <!--[if (gte mso 9)|(IE)]>
+            <table width="600" align="center" cellpadding="0" cellspacing="0" border="0" style="background-color: #FFF; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;">
+              <tr>
+                <td>
+                <![endif]-->
+                <table cellpadding="0" cellspacing="0" border="0" align="center" style="width: 100%; max-width: 600px; background-color: #FFF; border-collapse:collapse;mso-table-lspace:0pt;mso-table-rspace:0pt;"
+                    id="contentTable">
                     <tr>
-                        <td class="wrapper">
-
-                            <table role="presentation" border="0" cellpadding="0" cellspacing="0">
+                        <td width="600" valign="top" align="center" style="border-collapse:collapse;">
+                            <table align='center' border='0' cellpadding='0' cellspacing='0' style='border: 1px solid #E0E4E8;'
+                                width='100%'>
                                 <tr>
-                                    <td>
-                                        <p style="font-size: 25px;"><b>Chào {!! !empty($user->data->name) ? $user->data->name : $user->data->email !!}  </b></p>
-                                        <p> Bạn có thể đăng ký tài khoản trên hệ thống WESTAY để có thể nhân được nhiều ưu đãi và các chương trình khuyến mãi hơn từ hệ thống <br /></p>
-                                        <p> Bằng cách nhấp vào link dưới đây của hệ thống </p>
-
-                                        <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
-                                            <tbody>
-                                            <tr>
-                                                <td align="left">
-                                                    <table role="presentation" border="0" cellpadding="0" cellspacing="0">
-                                                        <tbody>
-                                                        <tr>
-                                                            <td style="margin: 0 auto">
-                                                                <a href="{!! $url.'/set-password/'. $user->data->timeSubmit.'?token='.$user->data->token !!}">Set Password</a>
-                                                            </td>
-                                                        </tr>
-                                                        </tbody>
-                                                    </table>
-                                                </td>
-                                            </tr>
-                                            </tbody>
-                                        </table>
+                                    <td align='left' style='padding: 56px 56px 28px 56px;' valign='top'>
+                                        <div style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 18px; color: #333;font-weight:bold;'>Xin
+                                            chào!</div>
                                     </td>
                                 </tr>
-                            </table>
+                                <tr>
+                                    <td align='left' style='padding: 0 56px 28px 56px;' valign='top'>
+                                        <div style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 18px; color: #333;'>Để nhận được nhiều ưu đãi cũng như thông tin hữu ích, bạn có thể đăng ký tài khoản tại Westay chỉ với 1 cú nhấp chuột bằng cách nhấn vào nút dưới đây!
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td align='left' style='padding: 0 56px;' valign='top'>
+                                        <div>
+                                            <!--[if mso]>
+                                <v:roundrect xmlns:v="urn:schemas-microsoft-com:vml" xmlns:w="urn:schemas-microsoft-com:office:word"
+                                href="#"
+                                style="height:44px;v-text-anchor:middle;width:250px;" arcsize="114%" stroke="f"
+                                fillcolor="#E15718">
+                                  <w:anchorlock/>
+                                <![endif]-->
+                                            <form>
+                                                <table role="presentation" border="0" cellpadding="0" cellspacing="0"
+                                                    class="btn btn-primary">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td align="left">
+                                                                <table role="presentation" border="0" cellpadding="0"
+                                                                    cellspacing="0">
+                                                                    <tbody>
+
+                                                                        <tr>
+                                                                            <td style="margin: 0 auto">
+                                                                                <a href="{!! $url.'/set-password/'. $user->data->timeSubmit.'?token='.$user->data->token !!}" style="
+                                                                                background-color:#F5A623;
+                                                                                color:#ffffff;
+                                                                                display:inline-block;
+                                                                                font-family: &#39;lato&#39;, &#39;Helvetica Neue&#39;, Helvetica, Arial, sans-serif;
+                                                                                line-height:30px;
+                                                                                text-align:center;
+                                                                                box-shadow:none;
+                                                                                display: inline-block;
+                                                                                margin-bottom: 0;
+                                                                                text-align: center;
+                                                                                text-transform: uppercase;
+                                                                                vertical-align: middle;
+                                                                                cursor: pointer;
+                                                                                background-image: none;
+                                                                                whitespace: nowrap;
+                                                                                padding: 6px 12px;
+                                                                                font-size: 0.9rem;
+                                                                                border-radius: 9px;
+                                                                                border: 1px solid transparent;
+                                                                                text-decoration: none;
+                                                                                user-select: none;
+                                                                                text-decoration:none;
+                                                                                width:184px; 
+                                                                                -webkit-text-size-adjust:none;">Tạo tài khoản</a>
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </form>
+                                            <!--[if mso]>
+                                </v:roundrect>
+                              <![endif]-->
+                                        </div>
+                                    </td>
+                                <tr>
+                                    <td align='left' style='padding: 28px 56px 28px 56px;' valign='top'></td>
+                                </tr>
+                    </tr>
+                </table>
+                <table align='center' border='0' cellpadding='0' cellspacing='0' width='100%'>
+                    <tr>
+                        <td align='center' style='padding: 30px 56px 28px 56px;' valign='middle'>
+                            <span style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 16px; color: #A7ADB5; vertical-align: middle;'>Nếu
+                                bạn không phải là người đăng ký, <a href="mailto:support@westay.org"> hãy cho chúng tôi
+                                    biết</a>!</span>
+
                         </td>
                     </tr>
-
-                    <!-- END MAIN CONTENT AREA -->
+                    <tr>
+                        <td align='center' style='padding: 0 56px 28px 56px;' valign='middle'>
+                            <a style="border: 0;" href="https://westay.org">
+                                <img alt="Revue" width="70" height="28" style="vertical-align: middle;" src="http://westay.org/images/Logo-westay.png" />
+                            </a>
+                        </td>
+                    </tr>
                 </table>
-
-                <!-- END CENTERED WHITE CONTAINER -->
-            </div>
-        </td>
-        <td>&nbsp;</td>
+            </td>
+        </tr>
+    </table>
+    <!--[if (gte mso 9)|(IE)]>
+                </td>
+              </tr>
+            </table>
+          <![endif]-->
+    </td>
+    <td width="10" valign="top">&nbsp;</td>
     </tr>
-</table>
+    </table>
+
 </body>
+
 </html>
+
+
+
+
