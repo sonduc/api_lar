@@ -25,8 +25,7 @@ class TicketController extends ApiController
             'title'                         => 'required|v_title',
             'content'                       => 'required',
             'topic_id'                      => 'integer|exists:topics,id',
-            'subtopic_id'                   => 'integer|exists:topics,id',
-
+            'subtopic_id'                   => 'nullable|integer|exists:sub_topics,id',
 
         ];
     protected $validationMessages
