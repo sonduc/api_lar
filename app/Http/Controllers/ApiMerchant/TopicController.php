@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\ApiMerchant;
 
 use App\Http\Controllers\ApiController;
-use App\Http\Transformers\TopicTransformer;
+use App\Http\Transformers\Merchant\TopicTransformer;
 use App\Repositories\Topic\TopicRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
