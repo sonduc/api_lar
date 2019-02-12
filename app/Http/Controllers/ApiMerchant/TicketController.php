@@ -8,7 +8,6 @@
 
 namespace App\Http\Controllers\ApiMerchant;
 
-
 use App\Http\Controllers\ApiController;
 use App\Http\Transformers\TicketTransformer;
 use App\Repositories\_Merchant\TicketLogic;
@@ -25,7 +24,7 @@ class TicketController extends ApiController
             'title'                         => 'required|v_title',
             'content'                       => 'required',
             'topic_id'                      => 'integer|exists:topics,id',
-            'subtopic_id'                   => 'integer|exists:topics,id',
+            'subtopic_id'                   => 'integer|exists:sub_topics,id',
         ];
     protected $validationMessages
         = [
@@ -63,7 +62,7 @@ class TicketController extends ApiController
         try {
             $id   =  Auth::user()->id;
             $pageSize    = $request->get('size');
-            $data = $this->model->getTicket($id, $request->all(),$pageSize);
+            $data = $this->model->getTicket($id, $request->all(), $pageSize);
             return $this->successResponse($data);
         } catch (AuthorizationException $f) {
             return $this->forbidden([
@@ -111,7 +110,15 @@ class TicketController extends ApiController
         DB::beginTransaction();
         DB::enableQueryLog();
         try {
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+            if ($request->topic_id == 10) {
+                $validate = array_only($this->validationRules, [
+                    'topic_id',
+                ]);
+            } else {
+                $validate = $this->validationRules;
+            }
+
+            $this->validate($request, $validate, $this->validationMessages);
             $model = $this->model->store($request->all());
             // dd(DB::getQueryLog());
             DB::commit();
@@ -159,7 +166,7 @@ class TicketController extends ApiController
                 'supporter_id','rosolve'
             ]);
             $this->validate($request, $validate, $this->validationMessages);
-            $model = $this->model->update($id,$request->all(),['supporter_id','rosolve']);
+            $model = $this->model->update($id, $request->all(), ['supporter_id','rosolve']);
             //dd(DB::getQueryLog());
             DB::commit();
             logs('ticket', 'Cập nhật ticket' . $model->id, $model);
@@ -245,5 +252,4 @@ class TicketController extends ApiController
             throw $t;
         }
     }
-
 }

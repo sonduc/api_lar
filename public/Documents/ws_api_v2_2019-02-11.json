@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-02-11T02:01:56.618Z",
+	"__export_date": "2019-02-12T03:18:10.046Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,7 +201,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjgwZjBmZGY4NWFlNGFhMWFiMGRmNzU4MWE5YTg0ZDRhNjQ0YmZhY2M4MGFkNGE0NDk5YzUyNjRkM2JhMTI0OTM4ZTQwZGJhMmJiODIzZjEzIn0.eyJhdWQiOiI0IiwianRpIjoiODBmMGZkZjg1YWU0YWExYWIwZGY3NTgxYTlhODRkNGE2NDRiZmFjYzgwYWQ0YTQ0OTljNTI2NGQzYmExMjQ5MzhlNDBkYmEyYmI4MjNmMTMiLCJpYXQiOjE1NDg4NDQyOTMsIm5iZiI6MTU0ODg0NDI5MywiZXhwIjoxNTgwMzgwMjkyLCJzdWIiOiI3NTIiLCJzY29wZXMiOltdfQ.IcN7HhiulxwtIkyPYn4YO1QqNjgDI-VFz3Ok76yu88Hlnj4tTKPfzj0DWxq_tGT41fTtBCZJn2h4j1Xib1Kqe1LB4nhbJkK6wMEYzlS8ysMCfI6Evfolpe1REW1by7u5yTwbAHoPODhj4kz88fz8DOf1rMb_YDsPvYu_oQ2lwCVrGRLzi5byHQwxDsrsA5U5p5Y_A97sRq6u-WxFirc_M78fPgXZ3HQqfecv1E20G3emzXBxoCXDgiJbCJScsM6ljkUxBESM0pWeNAC3iasJJeKDp807oKJNpnPknzL4_P2s6RdVGUPFmzTNdt_ZKypxJEEiR9Cm4wzck8XWOr4AHVdrpSy5NoiBwlOw1SGzPE4m08OdTkFKrJLGBRJtGsKdma56hFIz38CjDyxXC72M2Qe2Jc-4PzalWQZqww7uvFC6K86SPye2r-BG0vF4wIPwzgGqDirImo9IBVdXKpDCDVLrktzC7bZxnFtDnW1FlemJnsE5yI4Eg-RZSqN_6wet3Oqq6Ur3YOxznS5gIqfoB00YRaIAEmPsGc6wFHi5Ew_WIjGar8lCHI0pL0v_73OY8bZyRR_58H0h3W5Urd-rTjo42LdlU5SeRXAn0QYuef36G5CFC_gQS0o3oJrwMSXazPc9S31Szew9H2qLOVfJSdrhy46SwwzHt3DJgQUibgk"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ1Mzg3YTVkMTYzMGM0MGFlMTVjMjFhNjI2ZTQ5N2ZkMmI0ZTVkNGIyOTFiYjVlODFkNmQ2ZWJkZDEzOGFhMzk3NjU2OGRiZjE1NjU0M2E2In0.eyJhdWQiOiI0IiwianRpIjoiNDUzODdhNWQxNjMwYzQwYWUxNWMyMWE2MjZlNDk3ZmQyYjRlNWQ0YjI5MWJiNWU4MWQ2ZDZlYmRkMTM4YWEzOTc2NTY4ZGJmMTU2NTQzYTYiLCJpYXQiOjE1NDk4Njc4MDMsIm5iZiI6MTU0OTg2NzgwMywiZXhwIjoxNTgxNDAzODAzLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.3yDDLYR1iktNtHbdNnr1yPFr6uoJkgVuU1LOiAq1fFeafGV2rutQmqY7uRaBBjooLM0r_0IoahL0JSryl09q9xhziBFhYEaOtgHaYhlgTAWTCSfsc7mtooyrfGjbV5dJnZJ-o-kV4HVbxBClygNV9WtOjdseEfiLBH4cW0uhYeBj4D-3-hK7hL30Tg_Q3_yb4sEGWCiX26mA4HuAA5t_F8VjmSkecIt3QchZwr6YYOipvxz_te8n46JJQwHEPiFI0MQcSAErj2LegxJXL-fVEBQbeeTkjf-jxYIJkqD6_Gk6-0Um-7pnJHRApHRFBBYomq8gO6LPwM4znoVWPcaWMF2X3E2MdmGZubZ8_Au4rpjSJDsnBvDU16o96-P2SQ9zat5d3ZYjuLAPbYncQFumdEWrd8uIXam86BFfRwbdJDIwl5gaYyJfMLcLw7kEweHyNzuXMC7QupSzCyohHhbXCbCG_ISSoxAwLgnxOx-N-EmGsSPhycvJFpAes4mYLGI6zp0LcIrwGXPsXcIRI8OKcvjSPUmeMrwR12DQ_scVytlTviomCF889O0pSAaA8-B683XGvoTtBVb5GN9F-FvUBd2WuZejxY6Tlm1H9IoB_2VMkpkXcpNneQBE7Pp67BC8u5nQ2iXCQaObzgrG06OsqBfsxvstidxEJgJ8t4s0EuY"
 				},
 				"url": "http://ws-api.lc/",
 				"username": "admin@westay.org",
@@ -209,7 +209,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1548844937374,
+			"modified": 1549867820654,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -225,7 +225,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImYyYTc4NmJmYmNkZDQ0MGFjNTY5ZTc1ZjcwMWY5ZDExOWM0YWQ3ZTYxYzQ0MTUwOTgzMGMxOGEwM2VjMGZlNmMxMmJlYzE2YTgwNTk2OWRkIn0.eyJhdWQiOiI4IiwianRpIjoiZjJhNzg2YmZiY2RkNDQwYWM1NjllNzVmNzAxZjlkMTE5YzRhZDdlNjFjNDQxNTA5ODMwYzE4YTAzZWMwZmU2YzEyYmVjMTZhODA1OTY5ZGQiLCJpYXQiOjE1NDg4NDUxMTAsIm5iZiI6MTU0ODg0NTExMCwiZXhwIjoxNTgwMzgxMTEwLCJzdWIiOiI3NTIiLCJzY29wZXMiOltdfQ.iUFIn8sc2N0BKPS53cMVgdHD_fm_o_dQEmknGX_lktvzTVgH0xXRlR2u4-o7DY3XjI7vpzyph9a2TRnCGN5eaj247HnnWbV7gQpFaJHENEMf2z4jrqCBhnipu_yySDq2JggUWPBH9dYk11xF0nIT7Cr-GXvTn9qOT8GtOZDG6gOFcZFPs87QXOWgFdZp0BuQMcrrXNq1LtPTQhSpJK6ZEbsFkTkHzGuxI4BlMGOKtBxi4kPbk_VVJFwS42vDvqzMyF8fvtZFt-Xy15v6bzQ-V8uCYMjK6qXQlDu5r-5GVTKq2cpXolU9Mb00539S7bot6NWAYJDQFpEgvoGxPOBJ_CIBuL9Aa9bQfqRiHQk520PR8kc2y71fh_NR990oiKmAMVJQJrJxkuQvt2gP4pFf4UGnTISFygam4tqmP1tUiQ_2VcLdmTAq_fPZOTmCR9b1isfiPw5ykQvCGI983yzulqApugkbL4DKqctAaNlBqEGa6rSED7tljLOgCMWgDhiM_BCeo7LHqqQy0eD46ehYS9nnoRI53V-Am2ECX_DYFnY3S7HdST_lw84FA46VMgCtOBjYuRu1Bc_IH5Yhv3fachjZXEqKBI4EGONQKmnqit2bffQtgV1pAUGqz1OiiSeay7ZYxlxDvupZqDYSnpsxQp97qcMJa9WomdfnZWxe7oo"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM3YWZjNGZmNGZjNTk2NjI4ODdkNTI4ODQ3YTEyNmNhOWExMWQ3YzU1MzMxZmU2Mjk1NDhkODlkYjQ4NmQwNDBhZmViNmI4OTJhYmVmYzY0In0.eyJhdWQiOiI0IiwianRpIjoiMzdhZmM0ZmY0ZmM1OTY2Mjg4N2Q1Mjg4NDdhMTI2Y2E5YTExZDdjNTUzMzFmZTYyOTU0OGQ4OWRiNDg2ZDA0MGFmZWI2Yjg5MmFiZWZjNjQiLCJpYXQiOjE1NDk4NTM2OTYsIm5iZiI6MTU0OTg1MzY5NiwiZXhwIjoxNTgxMzg5Njk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZBnA_bcyp3rd3dTpnbWEv7zCOH4svoEVltDUl2QN6jJZWsFkBhuOdO87ENh-xR2tsL2kO6XcsQ4qIoxVPpM-SYg42FqIdgDze_oROiIOVhfqks6mqqqz_5eOIbjTf6-D85KGWwhpNpHt8ZE2ublHttKhI5HdcT6GFAes7nOZSaE7fPXdkNhQQ_z1hnH8luJNizSxafGlpstH2J95cTpXsgCjT48hz6YJltN2JauQ-iFUUHn7aopleVGWh41w337p-_KrPTBtt0AygYLNhFM6ybwKBwJ9QnANWWX30veKVE9dhwoEnQgg32p8Ob_Wage1ph6NFWDieTHm1wEn9xOCbudKog7KfpHALooiEDF_xfu8s7bd6qw0MvKl2D6rpsgUSaNz8KIW5Af69TfEpmu-E6WzIHNiaw5vLVyDs3EKmr9TLiEPSpRJeul30CUxJQLo8A_wTc9y4CQTVa4i5qzEEUrH1_zWEgfAh9Mt1A4bcSx6H4hHaysQ7m-M_2N9D4nVgb20bt3nZMAv_6gQYSDDSdKSnJZnUKzo4pz30xdR2ZVx0gwitkmoodEboLMbG_D5w_lxRxQ_1gKipLkmpxJDpg6aNnxhQZHMfd7dHeHyzxh2WjuXyVKLIX1LpI4KqieEvARD5dSBPOnoSvB4CoC3J0gE3ZKJQwJUHSqN8IYA5iM"
 				},
 				"url": "https://somethingapi.club/",
 				"username": "admin@westay.org",
@@ -233,7 +233,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1548845122111,
+			"modified": 1549853706185,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -814,6 +814,17 @@
 			"metaSortKey": -1548662842967,
 			"modified": 1548662842967,
 			"name": "Host-Reviews",
+			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_8db7b595fa554936bb5db93e0c1c74d2",
+			"created": 1549851562188,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1532570298271,
+			"modified": 1549852963593,
+			"name": "Convert Database (do not use)",
 			"parentId": "fld_8807a7b8ac5242708cdf2c5eb6c15ae9",
 			"_type": "request_group"
 		},
@@ -6568,6 +6579,142 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_47b53f4d586b4a5c8921850968005693",
+			"authentication": {},
+			"body": {},
+			"created": 1549851389238,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1532570298981.9375,
+			"method": "GET",
+			"modified": 1549851579261,
+			"name": "update-merchant-role-db",
+			"parameters": [],
+			"parentId": "fld_8db7b595fa554936bb5db93e0c1c74d2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}update-merchant-role-db",
+			"_type": "request"
+		},
+		{
+			"_id": "req_aeedc36c15d14231b0a17362f72ab91a",
+			"authentication": {},
+			"body": {},
+			"created": 1549851534794,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1532570298931.9375,
+			"method": "GET",
+			"modified": 1549851571581,
+			"name": "update-image-room-media",
+			"parameters": [],
+			"parentId": "fld_8db7b595fa554936bb5db93e0c1c74d2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}update-image-room-media",
+			"_type": "request"
+		},
+		{
+			"_id": "req_3405419b001f4040855735aa952e0722",
+			"authentication": {},
+			"body": {},
+			"created": 1549851860732,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1532232648070.4688,
+			"method": "GET",
+			"modified": 1549851867638,
+			"name": "update-room-reviews",
+			"parameters": [],
+			"parentId": "fld_8db7b595fa554936bb5db93e0c1c74d2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}update-room-reviews",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9b4e732294d24097998db648409ad999",
+			"authentication": {},
+			"body": {},
+			"created": 1549853312307,
+			"description": "## Validation\n```\n\n            'details.*.*.name'                   => 'required|min:10|max:255|v_title',\n            'comforts.*'                         => 'nullable|numeric|exists:comforts,id,deleted_at,NULL|distinct',\n            'merchant_id'                        => 'required|numeric|exists:users,id,deleted_at,NULL',\n            'max_guest'                          => 'required|numeric|min:1',\n            'max_additional_guest'               => 'numeric|nullable',\n            'number_bed'                         => 'required|numeric|min:1',\n            'number_room'                        => 'required|numeric|min:1',\n            'city_id'                            => 'numeric|nullable|exists:cities,id,deleted_at,NULL',\n            'district_id'                        => 'numeric|nullable|exists:districts,id,deleted_at,NULL',\n            // 'room_type_id'                                   => 'required|numeric',\n            'checkin'                            => 'required|date_format:\"H:i\"',\n            'checkout'                           => 'required|date_format:\"H:i\"',\n            'price_day'                          => 'required|numeric',\n            'price_hour'                         => 'numeric|nullable',\n            'price_after_hour'                   => 'numeric|required_with:price_hour',\n            'price_charge_guest'                 => 'numeric|nullable',\n            'cleaning_fee'                       => 'numeric|nullable',\n            'standard_point'                     => 'numeric|nullable',\n            'is_manager'                         => 'numeric|nullable',\n            'hot'                                => 'numeric',\n            'new'                                => 'numeric',\n            'latest_deal'                        => 'numeric|nullable',\n            'rent_type'                          => 'numeric',\n            // 'longitude'                                      => 'required',\n            // 'latitude'                                       => 'required',\n            'details.*.*.address'                => 'required|v_title',\n            'note'                               => 'nullable|v_title',\n            'sale_id'                            => 'numeric|nullable|exists:users,id,deleted_at,NULL',\n            'lang_id'                            => 'numeric|exists:languages,id',\n            'status'                             => 'numeric',\n            'weekday_price.*.price_day'          => 'numeric|nullable',\n            'weekday_price.*.price_hour'         => 'numeric|nullable',\n            'weekday_price.*.price_after_hour'   => 'numeric|nullable|required_with:weekday_price.*.price_hour',\n            'weekday_price.*.price_charge_guest' => 'numeric|nullable',\n            'weekday_price.*.status'             => 'boolean|nullable',\n            'weekday_price.*.weekday'            => 'required|numeric|distinct|between:1,7',\n            'optional_prices.days.*'             => 'nullable|date_format:Y-m-d|distinct',\n            'optional_prices.price_day'          => 'numeric|nullable',\n            'optional_prices.price_hour'         => 'numeric|nullable',\n            'optional_prices.price_after_hour'   => 'numeric|nullable|required_with:optional_prices.price_hour',\n            'optional_prices.price_charge_guest' => 'numeric|nullable',\n            'optional_prices.status'             => 'boolean|nullable',\n            'room_time_blocks.*'                 => 'date_format:Y-m-d|distinct',\n        \n```",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				},
+				{
+					"id": "pair_3caeb27772574c56a9e2ba6e1bf57591",
+					"name": "Content-Type",
+					"value": "application/json"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1532063822639.7344,
+			"method": "GET",
+			"modified": 1549853316520,
+			"name": "generate-westay-calendar",
+			"parameters": [],
+			"parentId": "fld_8db7b595fa554936bb5db93e0c1c74d2",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}generate-westay-calendar",
+			"_type": "request"
+		},
+		{
 			"_id": "req_5273cdbc22434831baf9178ca3c5bdf4",
 			"authentication": {},
 			"body": {},
@@ -6612,7 +6759,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745389,
 			"method": "GET",
-			"modified": 1548754739754,
+			"modified": 1549856936448,
 			"name": "room_recommend ",
 			"parameters": [
 				{
@@ -6629,7 +6776,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}rooms/room_recommend/700?include=media",
+			"url": "{{ customer_url }}rooms/room_recommend/90",
 			"_type": "request"
 		},
 		{
@@ -9850,6 +9997,17 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_cad1d47df69a474da8e7625013ed0c03",
+			"created": 1549940692782,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1549940692782,
+			"modified": 1549940692782,
+			"name": "Topic",
+			"parentId": "fld_2297398f65fb4a39931696b057040f4a",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_a8d95db95e414530b524819e33db8a40",
 			"authentication": {},
 			"body": {},
@@ -11169,7 +11327,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1547787675335,
-			"description": "\n```\n\n",
+			"description": "```\ninclude: sub (các subtopic của topic)\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
@@ -11180,7 +11338,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098040.5938,
 			"method": "GET",
-			"modified": 1547791745227,
+			"modified": 1549941258398,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
@@ -11235,7 +11393,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1547830396054,
-			"description": "\n```\n\n",
+			"description": "```\ninclude: sub (các subtopic của topic)\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
@@ -11246,7 +11404,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098039.8125,
 			"method": "GET",
-			"modified": 1547830403609,
+			"modified": 1549941272271,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
@@ -12029,7 +12187,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997367.2812,
 			"method": "GET",
-			"modified": 1547088022786,
+			"modified": 1549866826768,
 			"name": "bank-list",
 			"parameters": [
 				{
@@ -12046,7 +12204,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}bank-list/DlM2ZvxV",
+			"url": "{{ customer_url  }}bank-list/96rmyk8b",
 			"_type": "request"
 		},
 		{
@@ -12073,7 +12231,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997364.1562,
 			"method": "POST",
-			"modified": 1547088636021,
+			"modified": 1549866847326,
 			"name": "payment",
 			"parameters": [
 				{
@@ -12090,7 +12248,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}payment/EwbMN5xV",
+			"url": "{{ customer_url  }}payment/96rmyk8b",
 			"_type": "request"
 		},
 		{
@@ -12145,7 +12303,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997339.1562,
 			"method": "GET",
-			"modified": 1546442400777,
+			"modified": 1549866942796,
 			"name": "cancel",
 			"parameters": [
 				{
@@ -12162,7 +12320,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}cancel/b1Bn331W",
+			"url": "{{ customer_url  }}cancel/96rmyk8b",
 			"_type": "request"
 		},
 		{
@@ -12878,7 +13036,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"topic_id\": 1,\n\t\"subtopic_id\": 1,\n\t\"title\": \"Tôi muốn thuê phòng theo tháng\",\n\t\"content\": \"Tôi muốn thuê phòng theo tháng, không biết giá như thế nào\"\t\n}"
+				"text": "{\n\t\"topic_id\": 1,\n\n\t\"title\": \"Tôi muốn thuê phòng theo tháng\",\n\t\"content\": \"Tôi muốn thuê phòng theo tháng, không biết giá như thế nào\"\t\n}"
 			},
 			"created": 1547958999435,
 			"description": "## Validation\n```\n \t\t   'title'                         => 'required|v_title',\n            'content'                       => 'required',\n            'topic_id'                      => 'integer|exists:topics,id',\n            'subtopic_id'                   => 'integer|exists:topics,id'        \n```",
@@ -12897,7 +13055,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098137.4688,
 			"method": "POST",
-			"modified": 1548038201755,
+			"modified": 1549939969208,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_0d0dcaf0319b42498f600825a898dbdb",
@@ -13108,6 +13266,64 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ merchant_url }}comment-tickets/12",
+			"_type": "request"
+		},
+		{
+			"_id": "req_53c2547fea80420b95bb514d0720aec4",
+			"authentication": {},
+			"body": {},
+			"created": 1549940708298,
+			"description": "\n```\ninclude: sub (các subtopic của topic)\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832098040.2031,
+			"method": "GET",
+			"modified": 1549941348171,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_cad1d47df69a474da8e7625013ed0c03",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}topic?include=sub",
+			"_type": "request"
+		},
+		{
+			"_id": "req_cd85826fa7504bd0b012409ee794a08b",
+			"authentication": {},
+			"body": {},
+			"created": 1549940713206,
+			"description": "```\ninclude: sub (các subtopic của topic)\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_405d4d4e41d244f786b6f81a760cbc7b",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539832097990.2031,
+			"method": "GET",
+			"modified": 1549941285242,
+			"name": "show",
+			"parameters": [],
+			"parentId": "fld_cad1d47df69a474da8e7625013ed0c03",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ merchant_url }}topic/1",
 			"_type": "request"
 		}
 	]

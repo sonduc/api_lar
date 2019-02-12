@@ -1,13 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: DUCCHIEN-PC
- * Date: 1/18/2019
- * Time: 3:35 PM
- */
 
 namespace App\Repositories\SubTopic;
-
 
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,5 +24,4 @@ class SubTopic extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
 }

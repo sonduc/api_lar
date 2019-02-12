@@ -121,3 +121,5 @@ $router->post('forget-password', 'ForgetPasswordController@forgetPassword');
 //resource('/test', 'TestController', $router);
 
 $router->get('test', 'HostReviewController@test');
+
+resource('/topic', 'TopicController', $router);

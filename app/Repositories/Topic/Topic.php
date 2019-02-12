@@ -8,9 +8,9 @@
 
 namespace App\Repositories\Topic;
 
-
 use App\Repositories\Entity;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use App\Repositories\SubTopic\Subtopic;
 
 class Topic extends Entity
 {
@@ -31,6 +31,9 @@ class Topic extends Entity
      * @var array
      */
     protected $casts = ['permissions' => 'array'];
-
-
+    
+    public function subTopics()
+    {
+        return $this->hasMany(SubTopic::class, 'topic_id');
+    }
 }

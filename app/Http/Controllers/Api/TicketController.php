@@ -22,7 +22,7 @@ class TicketController extends ApiController
             'title'                         => 'required|v_title',
             'content'                       => 'required',
             'topic_id'                      => 'integer|exists:topics,id',
-            'subtopic_id'                   => 'integer|exists:topics,id',
+            'subtopic_id'                   => 'integer|exists:sub_topics,id',
             'supporter_id'                  => 'integer|exists:users,id',
 
         ];
