@@ -88,7 +88,6 @@ class PaymentHistoryController extends ApiController
                 event(new BookingEvent($booking));
                 event(new CreateBookingTransactionEvent($booking));
                 return redirect(env('PAYMENT_FAIL_REDIRECT'));
-)
                 // return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             }
         } catch (\Illuminate\Validation\ValidationException $validationException) {
