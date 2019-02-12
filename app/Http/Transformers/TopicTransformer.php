@@ -11,14 +11,16 @@ namespace App\Http\Transformers;
 use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Topic\Topic;
 use League\Fractal\TransformerAbstract;
+use App\Http\Transformers\SubTopicTransformer;
+
 class TopicTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-
+        'sub'
     ];
 
-    public function transform(Topic $topic= null)
+    public function transform(Topic $topic = null)
     {
         if (is_null($topic)) {
             return [];
@@ -29,5 +31,21 @@ class TopicTransformer extends TransformerAbstract
             'name'              => $topic->name,
         ];
     }
+    
+    /**
+    *
+    * @author HarikiRito <nxh0809@gmail.com>
+    *
+    * @param Topic|null $topic
+    *
+    * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+    */
+    public function includeSub(Topic $topic = null)
+    {
+        if (is_null($topic)) {
+            return $this->null();
+        }
 
+        return $this->collection($topic->subs, new SubTopicTransformer);
+    }
 }

@@ -14,7 +14,7 @@ class AddColumnMerchantStatusRoomsTable extends Migration
     public function up()
     {
         Schema::table('rooms', function (Blueprint $table) {
-            $table->string('merchant_status')->after('status')->nullable();
+            $table->integer('merchant_status')->after('status')->nullable();
         });
     }
 

@@ -255,7 +255,7 @@
                                     <td align='left' style='padding: 0 56px 28px 56px;' valign='top'>
                                         <div style='font-family: "lato", "Helvetica Neue", Helvetica, Arial, sans-serif; line-height: 28px;font-size: 18px; color: #333;'>Vui
                                             lòng click vào nút "Xác thực tài khoản" phía dưới để kích hoạt tài khoản
-                                            <strong>{!! $data->email !!}</strong>
+                                            <strong>{!! $data->email !!}</strong> 
                                             . Mọi thông đặt phòng của bạn sẽ được cập nhật qua địa chỉ E-Mail này!</div>
                                     </td>
                                 </tr>

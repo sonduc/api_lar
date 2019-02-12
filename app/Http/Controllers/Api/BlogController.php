@@ -58,7 +58,6 @@ class BlogController extends ApiController
     public function __construct(BlogLogic $blog)
     {
         $this->model = $blog;
-        ;
         $this->setTransformer(new BlogTransformer);
     }
 

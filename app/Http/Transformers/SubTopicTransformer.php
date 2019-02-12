@@ -11,6 +11,7 @@ namespace App\Http\Transformers;
 use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\SubTopic\SubTopic;
 use League\Fractal\TransformerAbstract;
+
 class SubTopicTransformer extends TransformerAbstract
 {
     use FilterTrait;
@@ -18,7 +19,7 @@ class SubTopicTransformer extends TransformerAbstract
 
     ];
 
-    public function transform(SubTopic $subTopic= null)
+    public function transform(SubTopic $subTopic)
     {
         if (is_null($subTopic)) {
             return [];
@@ -30,5 +31,4 @@ class SubTopicTransformer extends TransformerAbstract
             'topic_id'          => $subTopic->topic_id,
         ];
     }
-
 }

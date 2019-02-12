@@ -31,10 +31,10 @@ class TicketTransformer extends TransformerAbstract
 
         return [
             'id'                => $ticket->id,
-            'subtopic_id'       => $ticket->subtopic_id ?? "Không xác định",
             'topic_id'          => $ticket->topic_id,
             'user_create_id'    => $ticket->user_create_id,
             'supporter_id'      => $ticket->supporter_id,
+            'subtopic_id'       => $ticket->subtopic_id ?? "Không xác định",
             'title'             => $ticket->title,
             'content'           => $ticket->content,
             'resolve'           => $ticket->resolve ?? 0,

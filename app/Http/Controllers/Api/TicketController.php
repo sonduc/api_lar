@@ -22,7 +22,7 @@ class TicketController extends ApiController
             'title'                         => 'required|v_title',
             'content'                       => 'required',
             'topic_id'                      => 'integer|exists:topics,id',
-            'subtopic_id'                   => 'integer|exists:topics,id',
+            'subtopic_id'                   => 'nullable|integer|exists:sub_topics,id',
             'supporter_id'                  => 'integer|exists:users,id',
 
         ];
@@ -37,7 +37,7 @@ class TicketController extends ApiController
             'subtopic_id.integer'           => "Mã topic phải là kiểu số",
             'subtopic_id.exists'            => "Mã topic không tồn tại",
 
-            'supporter_id.integer'          => "Mã topic phải là kiểu số",
+            'supporter_id.integer'          => "Mã supporter phải là kiểu số",
             'supporter_id.exists'           => "Mã supporter không tồn tại",
 
             'resolve.integer'               => "Trường này phải là kiểu số",
@@ -320,6 +320,7 @@ class TicketController extends ApiController
             ]);
             $this->validate($request, $validate, $this->validationMessages);
             $this->model->checkValidSupporter($request->only('supporter_id'));
+            // Thêm supporter vào ticket
             $data = $this->model->minorUpdate($id, $request->only('supporter_id'));
             DB::commit();
             logs('Supporter', 'cập nhâp Suporter cho ticket' . $data->id, $data);

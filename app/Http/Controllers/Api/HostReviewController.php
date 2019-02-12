@@ -140,6 +140,4 @@ class HostReviewController extends ApiController
             throw $t;
         }
     }
-
-
 }

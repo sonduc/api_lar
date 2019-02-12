@@ -23,6 +23,7 @@ class BookingReviewsListener implements ShouldQueue
 
     public function handle(Booking_Reviews_Event $event)
     {
+        // dd($event->name->email);
         $this->email->mailReviewsBooking($event);
     }
 }

@@ -238,6 +238,7 @@ class RoomLogic extends BaseLogic
 
     public function generateWestayRoomCalendar($room)
     {
+        // $rooms = $this->model->get();
         $room            = $this->model->getById($room->id);
         $created_at      = $room->created_at;
         $hash_string     = $room->room_type . $room->merchant_id;

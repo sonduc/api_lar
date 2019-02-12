@@ -194,7 +194,6 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ->where('checkout', '>=', $dateNow_timestamp)
             ->where('checkin', '<', $tomorrow_timestamp)
             ->whereIn('status', [
-                BookingConstant::BOOKING_NEW,
                 BookingConstant::BOOKING_CONFIRM,
                 BookingConstant::BOOKING_USING,
             ])
@@ -203,20 +202,19 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
     }
 
     /**
-     * Lấy tất cả các bản ghi qua ngày checkout trong khoảng 24h
+     * Lấy tất cả các bản ghi qua ngày checkout trong khoảng 36h
      * @author sonduc <ndson1998@gmail.com>
      */
     public function getAllBookingCheckoutOneDay()
     {
         $dateNow             = Carbon::now();
         $dateNow_timestamp   = Carbon::now()->timestamp;
-        $yesterday_timestamp = $dateNow->subHours(27)->timestamp;
+        $yesterday_timestamp = $dateNow->subHours(36)->timestamp;
         $data                = $this->model
             ->where('checkout', '<', $dateNow_timestamp)
             ->where('checkout', '>', $yesterday_timestamp)
             ->where('status', BookingConstant::BOOKING_COMPLETE)
             ->get();
-        // dd($data);
         return $data;
     }
 
@@ -1841,5 +1839,22 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
             ];
         }
         return $convertBooking;
+    }
+
+    /**
+     * Lấy tất cả các bản ghi booking đã qua ngày checkin
+     * @author sonduc <ndson1998@gmail.com>
+     */
+    public function getAllBookingPast($dateNow_timestamp)
+    {
+        $data               = $this->model
+            ->where('checkin', '<=', $dateNow_timestamp)
+            ->whereIn('status', [
+                BookingConstant::BOOKING_CONFIRM,
+                BookingConstant::BOOKING_USING,
+            ])
+            ->get();
+        // dd(count($data));
+        return $data;
     }
 }

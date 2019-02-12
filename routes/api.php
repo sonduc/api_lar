@@ -286,3 +286,5 @@ $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
 
 $router->get('update-merchant-role-db', 'RoleController@updateMerchantRole');
 $router->get('update-image-room-media', 'RoleController@updateImage');
+$router->get('update-room-reviews', 'RoomController@updateRoomReviews');
+$router->get('generate-westay-calendar', 'RoomController@generateWestayRoomCalendar');
