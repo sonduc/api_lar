@@ -34,6 +34,6 @@ class Topic extends Entity
     
     public function subs()
     {
-        return $this->hasMany(SubTopic::class, 'topic_id');
+        return $this->hasMany(SubTopic::class, 'topic_id', 'id');
     }
 }

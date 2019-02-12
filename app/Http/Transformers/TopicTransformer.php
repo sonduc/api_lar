@@ -46,6 +46,6 @@ class TopicTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->collection($topic->subs(), new SubTopicTransformer);
+        return $this->collection($topic->subs, new SubTopicTransformer);
     }
 }
