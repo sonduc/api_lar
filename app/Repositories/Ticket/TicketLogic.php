@@ -13,6 +13,7 @@ use App\Repositories\BaseLogic;
 use App\Repositories\CommentTicket\CommentTicketRepositoryInterafae;
 use App\Repositories\Roles\Role;
 use App\Repositories\Users\UserRepositoryInterface;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -56,7 +57,9 @@ class TicketLogic extends BaseLogic
 
         }
 
-        if ($user_id == $ticket->user_create_id)
+
+        // Chỉ có superadmin mới có quyền thêm supporter vào ticket
+        if ($user_id == 1)
         {
             $data                   = array_except($data,$except);
             $data_ticket            = parent::update($id,$data);
@@ -64,7 +67,7 @@ class TicketLogic extends BaseLogic
 
         }else
         {
-            throw new \Exception('Bạn không có quyền chỉnh sửa  thẻ này');
+            throw new \Exception('Chỉ có admin mới có quyền chỉ định các suppoerter vào các ticket để hỗ trợ');
         }
     }
 
