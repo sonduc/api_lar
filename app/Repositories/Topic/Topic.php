@@ -32,7 +32,7 @@ class Topic extends Entity
      */
     protected $casts = ['permissions' => 'array'];
     
-    public function subTopics()
+    public function subs()
     {
         return $this->hasMany(SubTopic::class, 'topic_id');
     }

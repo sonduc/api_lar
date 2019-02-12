@@ -11,7 +11,7 @@ namespace App\Http\Transformers\Merchant;
 use App\Http\Transformers\Traits\FilterTrait;
 use App\Repositories\Topic\Topic;
 use League\Fractal\TransformerAbstract;
-use App\Http\Transformers\SubTopicTransformer;
+use App\Http\Transformers\Merchant\SubTopicTransformer;
 
 class TopicTransformer extends TransformerAbstract
 {
@@ -46,6 +46,6 @@ class TopicTransformer extends TransformerAbstract
             return $this->null();
         }
 
-        return $this->collection($topic->subTopics, new SubTopicTransformer);
+        return $this->collection($topic->subs, new SubTopicTransformer);
     }
 }
