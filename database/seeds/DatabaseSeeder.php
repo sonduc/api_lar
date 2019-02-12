@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
         $this->call('TransactionTypeSeeder');
         $this->call('SubTopicTicketSeeder');
         $this->call('TopicTicketSeeder');
+        $this->call('BlogCategorySeeder');
     }
 }

@@ -142,3 +142,19 @@ $router->get('/cancel/{code}', 'PaymentHistoryController@cancel');
 /* Settings*/
 
 resource('/settings', 'SettingController', $router);
+
+/**
+ * Blogs Resource
+ */
+$router->get('/blogs/status-list', 'BlogController@statusList');
+$router->get('/blogs/hot-list', 'BlogController@hotList');
+$router->get('/blogs/new-list', 'BlogController@newList');
+resource('/blogs', 'BlogController', $router);
+
+/**
+ * Category Resource
+ */
+$router->get('/categories/status-list', 'CategoryController@statusList');
+$router->get('/categories/hot-list', 'CategoryController@hotList');
+$router->get('/categories/new-list', 'CategoryController@hotList');
+resource('/categories', 'CategoryController', $router);
