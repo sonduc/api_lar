@@ -8,7 +8,6 @@
 
 namespace App\Repositories\_Merchant;
 
-
 use App\Repositories\BaseLogic;
 use App\Repositories\Places\PlaceLogicTrait;
 use App\Repositories\Places\PlaceRepositoryInterface;
@@ -18,12 +17,11 @@ class PlaceLogic extends BaseLogic
 {
     use PlaceLogicTrait;
 
-
     public function __construct(
         PlaceRepositoryInterface $place,
-        RoomRepositoryInterface $room) {
+        RoomRepositoryInterface $room
+    ) {
         $this->model          = $place;
         $this->room           = $room;
     }
-
 }
