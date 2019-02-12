@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-02-12T03:18:10.046Z",
+	"__export_date": "2019-02-12T06:58:05.943Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -225,7 +225,7 @@
 				"password": "admin",
 				"token": {
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM3YWZjNGZmNGZjNTk2NjI4ODdkNTI4ODQ3YTEyNmNhOWExMWQ3YzU1MzMxZmU2Mjk1NDhkODlkYjQ4NmQwNDBhZmViNmI4OTJhYmVmYzY0In0.eyJhdWQiOiI0IiwianRpIjoiMzdhZmM0ZmY0ZmM1OTY2Mjg4N2Q1Mjg4NDdhMTI2Y2E5YTExZDdjNTUzMzFmZTYyOTU0OGQ4OWRiNDg2ZDA0MGFmZWI2Yjg5MmFiZWZjNjQiLCJpYXQiOjE1NDk4NTM2OTYsIm5iZiI6MTU0OTg1MzY5NiwiZXhwIjoxNTgxMzg5Njk2LCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.ZBnA_bcyp3rd3dTpnbWEv7zCOH4svoEVltDUl2QN6jJZWsFkBhuOdO87ENh-xR2tsL2kO6XcsQ4qIoxVPpM-SYg42FqIdgDze_oROiIOVhfqks6mqqqz_5eOIbjTf6-D85KGWwhpNpHt8ZE2ublHttKhI5HdcT6GFAes7nOZSaE7fPXdkNhQQ_z1hnH8luJNizSxafGlpstH2J95cTpXsgCjT48hz6YJltN2JauQ-iFUUHn7aopleVGWh41w337p-_KrPTBtt0AygYLNhFM6ybwKBwJ9QnANWWX30veKVE9dhwoEnQgg32p8Ob_Wage1ph6NFWDieTHm1wEn9xOCbudKog7KfpHALooiEDF_xfu8s7bd6qw0MvKl2D6rpsgUSaNz8KIW5Af69TfEpmu-E6WzIHNiaw5vLVyDs3EKmr9TLiEPSpRJeul30CUxJQLo8A_wTc9y4CQTVa4i5qzEEUrH1_zWEgfAh9Mt1A4bcSx6H4hHaysQ7m-M_2N9D4nVgb20bt3nZMAv_6gQYSDDSdKSnJZnUKzo4pz30xdR2ZVx0gwitkmoodEboLMbG_D5w_lxRxQ_1gKipLkmpxJDpg6aNnxhQZHMfd7dHeHyzxh2WjuXyVKLIX1LpI4KqieEvARD5dSBPOnoSvB4CoC3J0gE3ZKJQwJUHSqN8IYA5iM"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ3Y2U5YjdkOGU0MTc2N2Y4Mzg0MjMxMDI0NDg0NWU4ZGIxMTk1Y2Y1OTI0MDg4YzUxOTYwOWM0N2NiOWE2ODM2ZjVkYWFkZTc3ZmQ2NjJjIn0.eyJhdWQiOiI2IiwianRpIjoiNDdjZTliN2Q4ZTQxNzY3ZjgzODQyMzEwMjQ0ODQ1ZThkYjExOTVjZjU5MjQwODhjNTE5NjA5YzQ3Y2I5YTY4MzZmNWRhYWRlNzdmZDY2MmMiLCJpYXQiOjE1NDk5NDM3NTAsIm5iZiI6MTU0OTk0Mzc1MCwiZXhwIjoxNTgxNDc5NzUwLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.0h1vV-H3gDxUUWtHvPWMREw6riyQX4MMoqS0273v9RygSrkfQx4gwgZiQ36PYadt9an6qoTT77xzfcqFVz-4cynTPrqCmpGS3snOgJPlxSOE-OQ5LIDCY8MYFWeMyUvtfGm4m7MjjkEqhUI3L-MIrIY7XUIBq_Y07Y-D-BQaYUHfJ56KBEfLnlKNSvjFuGEq3SsUYpabfSDFMpzTFM9_7Y1wsuP84e8ZDzL7G8p4yHWcrGSTlbVyqffFIHFb3pkp2qVGVtFLLGpTURmi1vAVFHIHZb7C-FnnHirrUgA0ye2S-GEt6CwHLJqsdBLU5jGIWsSCWob-9-cYuo1IFYixI76y6b_7jQCYRSk1fTUSaO1Bh6hGeVMPsce3SfUxEKT73KF06RBemXk4krNqJ7tOl7Ush25WiPyMrmKHT_Q9T2gi_O6oekOm0J9Kkx7Cw3tMksEE4GmgcX3FNGEAOpC-AE-emt6Eph0YsabUwxgMtmhdHJmEwV79Mp-fHLbPGvH6Iya2vlVmGiI30MgzGydkyXTbXbpqdacSjedxcu0yDR_ozHs2XG6oBq8rwG3KWIhYX5UrbXdpAJdvPGJrjWUixE12Fi17NWEWUQf6RSHPq7Nw0cd6CJi0J9XBkfa2oZPaPSiyFE9HoLGNz0d4Gdw6V8sfh5C5HumFc9i__RLzbvY"
 				},
 				"url": "https://somethingapi.club/",
 				"username": "admin@westay.org",
@@ -233,7 +233,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1540878661984,
-			"modified": 1549853706185,
+			"modified": 1549943758634,
 			"name": "server",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -972,6 +972,28 @@
 			"_type": "request_group"
 		},
 		{
+			"_id": "fld_b8ce949b4fbd4486b5c55563a00c811b",
+			"created": 1549953857475,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1548181083429.5,
+			"modified": 1549953873131,
+			"name": "Blogs",
+			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_e5a1745c93034013b29d3a6f97405a67",
+			"created": 1549954517910,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1548181083423.25,
+			"modified": 1549954535275,
+			"name": "Categories",
+			"parentId": "fld_964cd79172dc4e5badbcf14a3daccefd",
+			"_type": "request_group"
+		},
+		{
 			"_id": "req_eea54c414ed2434ab65e4ac168950450",
 			"authentication": {},
 			"body": {},
@@ -1631,7 +1653,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1535522130713.5,
 			"method": "GET",
-			"modified": 1548832359705,
+			"modified": 1549946634288,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_6b5855ca85814c9ba8627ae2665796b3",
@@ -1641,7 +1663,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}rooms?new=1",
+			"url": "{{ api_url  }}rooms?name=Chi's Villa",
 			"_type": "request"
 		},
 		{
@@ -2995,7 +3017,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"01993777832\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"ta_sa_b_ssdsc_d222o@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 703,\n\t\"checkin\": \"2019-05-08 15:31:00\",\n\t\"checkout\": \"2019-05-10 20:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\":2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
+				"text": "{\n\t\"name\": \"Some Guy\",\n\t\"phone\": \"019937929292\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"ta_sa_b_fdgfdgssdsc_d222o@gmail.com\",\n\t\"email_received\":\"yolo12@gmail.com\",\n\t\"name_received\": \"Some Girl\",\n\t\"phone_received\": \"01555555511\",\n\t\"room_id\": 703,\n\t\"checkin\": \"2029-05-08 15:31:00\",\n\t\"checkout\": \"2029-05-10 20:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": null,\n\t\"note\": \"Ai wanna săm wai\",\n\t\"status\":1,\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\":2,\n\t\"payment_method\":4,\n\t\"payment_status\":0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\n\t\"confirm\": 1,\n\t\"staff_id\": 1,\n\t\"staff_status\":0,\n\t\"staff_note\": \"YOLOYLYOYOYOYO\"\n}"
 			},
 			"created": 1536131277766,
 			"description": "## Validation\n```\n        'name'             => 'required|v_title',\n        'name_received'    => 'required|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'merchant_id'      => 'required|integer|exists:users,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'price_original'   => 'required|integer|min:0',\n        'additional_fee'   => 'required|integer|min:0',\n        'price_discount'   => 'required|integer|min:0',\n        'service_fee'      => 'nullable|integer',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'required|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:0,1',\n        'type'             => 'required|integer|between:1,2',\n        'booking_type'     => 'required|integer|between:1,2',\n        'payment_method'   => 'required|integer|between:1,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'required|integer|between:0,1',\n```\n",
@@ -3014,7 +3036,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360526,
 			"method": "POST",
-			"modified": 1548306401598,
+			"modified": 1549943036298,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_da28139bf047495eb0a9a123be91efde",
@@ -3365,7 +3387,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1537755377277,
-			"description": "## INCLUDE\n```\n'users',\n'details',\n'categories',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
+			"description": "## INCLUDE\n```\n'users',\n'categories',\n'categories.details',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_8609246a0e354df5b5e461990d3d1899",
@@ -3376,7 +3398,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531890329019,
 			"method": "GET",
-			"modified": 1547605680222,
+			"modified": 1549954506349,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_16bdb12f5b0e4d739f093e31b36fbbe1",
@@ -3386,7 +3408,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}blogs?q=mua",
+			"url": "{{ api_url  }}blogs?include=categories",
 			"_type": "request"
 		},
 		{
@@ -3394,7 +3416,7 @@
 			"authentication": {},
 			"body": {},
 			"created": 1537755377293,
-			"description": "",
+			"description": "## INCLUDE\n```\n'users',\n'categories',\n'categories.details',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
 			"headers": [
 				{
 					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
@@ -3405,7 +3427,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531886360576,
 			"method": "GET",
-			"modified": 1546928432298,
+			"modified": 1549954510781,
 			"name": "show",
 			"parameters": [
 				{
@@ -4526,7 +4548,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"code\": \"GIAM5\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1000,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"all_day\": 0,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t\t\"rooms\",\n\t\t\t\"min_price\"\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3143,\n\t\t\t3142,\n\t\t\t3001,\n\t\t\t3508\n\t\t],\n\t\t\"cities\": [\n\t\t\t3,\n\t\t\t2\n\t\t],\n\t\t\"districts\": [\n\t\t\t891,\n\t\t\t890\n\t\t],\n\t\t\"days\": [\n\t\t\t\"2019-11-18\",\n\t\t\t\"2020-11-18\"\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [\n\t\t\t\"2018-12-01\",\n\t\t\t\"2018-12-31\"\n\t\t],\n\t\t\"booking_stay\": [\n\t\t\t\"2019-12-01\",\n\t\t\t\"2019-12-31\"\n\t\t],\n\t\t\"merchants\": [\n\t\t\t2,\n\t\t\t3,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"users\": [\n\t\t\t1\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\t2,\n\t\t\t4,\n\t\t\t5\n\t\t],\n\t\t\"room_type\": [\n\t\t\t1,\n\t\t\t3,\n\t\t\t4\n\t\t],\n\t\t\"min_price\": 200000,\n\t\t\"date_start\": \"2018-12-16\",\n\t\t\"date_end\": \"2019-02-20\"\n\t},\n\t\"promotion_id\": 1\n}"
+				"text": "{\n\t\"code\": \"GIAM5\",\n\t\"discount\": \"5\",\n\t\"max_discount\": \"50000\",\n\t\"usable\": 1000,\n\t\"used\": 0,\n\t\"status\": 1,\n\t\"all_day\": 0,\n\t\"settings\": {\n\t\t\"bind\": [\n\t\t],\n\t\t\"rooms\": [\n\t\t\t3457\n\t\t],\n\t\t\"cities\": [\n\t\t\n\t\t],\n\t\t\"districts\": [\n\t\t\n\t\t],\n\t\t\"days\": [\n\n\t\t],\n\t\t\"booking_type\": 1,\n\t\t\"booking_create\": [\n\t\t\n\t\t],\n\t\t\"booking_stay\": [\n\n\t\t],\n\t\t\"merchants\": [\n\n\t\t],\n\t\t\"users\": [\n\t\t\n\t\t],\n\t\t\"days_of_week\": [\n\t\t\n\t\t],\n\t\t\"room_type\": [\n\n\t\t],\n\t\t\"min_price\": 200000,\n\t\t\"date_start\": \"2019-02-10\",\n\t\t\"date_end\": \"2020-10-20\"\n\t},\n\t\"promotion_id\": null\n}"
 			},
 			"created": 1541398458512,
 			"description": "~~~php\n        'code'                          =>  'required|min:4|unique:coupons,code',\n        'discount'                      =>  'required|integer|between:0,100',\n        'max_discount'                  =>  'integer|min:0',\n        'usable'                        =>  'integer|min:0',\n        'used'                          =>  'integer|min:0',\n        'status'                        =>  'required|integer|between:0,1',\n        'settings'                      =>  'min:1',\n        'settings.rooms.*'              =>  'distinct|exists:rooms,id,deleted_at,NULL',\n        'settings.cities.*'             =>  'distinct|exists:cities,id,deleted_at,NULL',\n        'settings.districts.*'          =>  'distinct|exists:districts,id,deleted_at,NULL',\n        'settings.days.*'               =>  'distinct|date|after:now',\n        'promotion_id'                  =>  'required|integer|exists:promotions,id,deleted_at,NULL',\n~~~",
@@ -4545,7 +4567,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1531888344797.5,
 			"method": "POST",
-			"modified": 1548732883636,
+			"modified": 1549942149280,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_ccbe31e3a3db4681bad90e7fad21ccf8",
@@ -6730,7 +6752,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540893745339,
 			"method": "GET",
-			"modified": 1549849555695,
+			"modified": 1549946616174,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6740,7 +6762,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms?discount=1",
+			"url": "{{ customer_url  }}rooms?name=Chi's Villa",
 			"_type": "request"
 		},
 		{
@@ -6832,7 +6854,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540581649570.2031,
 			"method": "GET",
-			"modified": 1549849282760,
+			"modified": 1549946603867,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_f1b9c088a15149cdbef53c2ad8de501c",
@@ -6842,7 +6864,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}rooms/795",
+			"url": "{{ customer_url  }}rooms/205?include=details",
 			"_type": "request"
 		},
 		{
@@ -7390,7 +7412,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"6311225288899\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"asd2_a_b12_1_99_asd93_0_1_213asd@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\": 795,\n\t\"checkin\": \"2019-09-15 06:00:00\",\n\t\"checkout\": \"2019-09-16 10:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\": 4,\n\t\"payment_status\": 0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
+				"text": "{\n\t\"name\": \"Tuan Anh\",\n\t\"phone\": \"000028878899\",\n\t\"sex\": 1,\n\t\"birthday\": \"1998-10-18\",\n\t\"email\": \"as_d2_a_b12_1_9_9_asd_93_0_1_213asd@gmail.com\",\n\t\"email_received\": null,\n\t\"phone_received\": \"\",\n\t\"room_id\": 795,\n\t\"checkin\": \"2023-09-09 06:00:00\",\n\t\"checkout\": \"2023-09-10 10:00:00\",\n\t\"additional_fee\": 100000,\n\t\"money_received\": 0,\n\t\"price_discount\": 0,\n\t\"coupon\": \"GIAM2252\",\n\t\"note\": \"Ai wanna săm wai\",\n\t\"number_of_guests\": 1,\n\t\"type\": 2,\n\t\"booking_type\": 2,\n\t\"payment_method\": 4,\n\t\"payment_status\": 0,\n\t\"source\": 4,\n\t\"exchange_rate\": 23000,\n\t\"customer_id\": 1,\n\t\"status\": 1,\n\t\"confirm\": 1\n}"
 			},
 			"created": 1542181954384,
 			"description": "## Validation\n```\n         'name'             => 'required|v_title',\n        'name_received'    => 'nullable|v_title',\n        'phone'            => 'required|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'phone_received'   => 'nullable|between:10,14|regex:/^\\+?[0-9-]*$/',\n        'sex'              => 'nullable|integer|between:0,3',\n        'birthday'         => 'nullable|date_format:Y-m-d',\n        'email'            => 'required|email',\n        'email_received'   => 'nullable|email',\n        'room_id'          => 'required|integer|exists:rooms,id,deleted_at,NULL',\n        'staff_id'         => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'staff_note'       => 'nullable|v_title',\n        'checkin'          => 'required|date|after:now',\n        'checkout'         => 'required|date|after:checkin',\n        'additional_fee'   => 'filled|integer|min:0',\n        'price_discount'   => 'filled|integer|min:0',\n        'coupon'           => 'nullable|string',\n        'note'             => 'nullable|v_title',\n        'number_of_guests' => 'bail|required|guest_check|integer|min:1',\n        'customer_id'      => 'nullable|integer|exists:users,id,deleted_at,NULL',\n        'status'           => 'required|integer|between:1,5',\n        'booking_type'     => 'bail|required|integer|between:1,2|booking_type_check',\n        'payment_method'   => 'required|integer|between:2,5',\n        'payment_status'   => 'required|integer|between:0,3',\n        'source'           => 'required|integer|between:1,6',\n        'exchange_rate'    => 'nullable|integer',\n        'money_received'   => 'integer|filled|min:0',\n        'confirm'          => 'integer|between:0,1',\n```\n",
@@ -7409,7 +7431,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1549093825771,
+			"modified": 1549943304036,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_984614e73eab48d3a1f54e08bd3f4dd7",
@@ -8421,6 +8443,158 @@
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
 			"url": "{{ customer_url }}reviews",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_dffa48c4abd249d7a98eafbd1515d575",
+			"created": 1549953857489,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1539287077027,
+			"modified": 1549953857489,
+			"name": "List",
+			"parentId": "fld_b8ce949b4fbd4486b5c55563a00c811b",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_053f0a8cb14e4e729bbff9af958e8f5e",
+			"authentication": {},
+			"body": {},
+			"created": 1549953857538,
+			"description": "## INCLUDE\n```\n'users',\n'categories',\n'categories.details',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890329019,
+			"method": "GET",
+			"modified": 1549954475656,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_b8ce949b4fbd4486b5c55563a00c811b",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}blogs?include=tags",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e151d746168041a9a88bb04ca109e256",
+			"authentication": {},
+			"body": {},
+			"created": 1549953857549,
+			"description": "## INCLUDE\n```\n'users',\n'categories',\n'categories.details',\n'tags',\n\n```\n\n## SCOPE PARAMS\n\n```params\ndate: String (date_start=2018-10-03&date_end=2018-10-12)\nuser: Int\nhot: Int\nnew: Int\ntag: Int\nstatus:Int\ncategory: Int\nq: string\n\n```\n\n",
+			"headers": [
+				{
+					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531886360576,
+			"method": "GET",
+			"modified": 1549954489816,
+			"name": "show",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_b8ce949b4fbd4486b5c55563a00c811b",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}blogs/75?include=categories.details",
+			"_type": "request"
+		},
+		{
+			"_id": "fld_780f2eac82ba4808893ed5f9de6ca5f8",
+			"created": 1549954517918,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1539288254468,
+			"modified": 1549954517918,
+			"name": "List",
+			"parentId": "fld_e5a1745c93034013b29d3a6f97405a67",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_1f8e2139b2d440109607ee8f29c15056",
+			"authentication": {},
+			"body": {},
+			"created": 1549954517965,
+			"description": "## INCLUDE\n```\n'details',\n'blogs',\n```\n## SCOPE PARAMS\n\n```params\nnew: Int\nhot: Int\nnew: Int\n\n```\n\n\n",
+			"headers": [
+				{
+					"id": "pair_8609246a0e354df5b5e461990d3d1899",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531890329019,
+			"method": "GET",
+			"modified": 1549954572361,
+			"name": "index",
+			"parameters": [],
+			"parentId": "fld_e5a1745c93034013b29d3a6f97405a67",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}categories?hot=0",
+			"_type": "request"
+		},
+		{
+			"_id": "req_35c7ee766aca4c9f8251208aca04b3d1",
+			"authentication": {},
+			"body": {},
+			"created": 1549954517980,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_b729cfa974a94fc09e4f874a56ce0436",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1531886360576,
+			"method": "GET",
+			"modified": 1549954552627,
+			"name": "show",
+			"parameters": [
+				{
+					"disabled": true,
+					"id": "pair_296f9c30381d476b8bd845c4a2d46f59",
+					"name": "include",
+					"value": "roles"
+				}
+			],
+			"parentId": "fld_e5a1745c93034013b29d3a6f97405a67",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}categories/1?include=blogs",
 			"_type": "request"
 		},
 		{
@@ -9585,7 +9759,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1548612660554,
+			"modified": 1549943472903,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_9a4c8cfbc055441eabb0d5d0c0a91a55",
@@ -11338,7 +11512,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098040.5938,
 			"method": "GET",
-			"modified": 1549941258398,
+			"modified": 1549943770413,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_71904dd032de44edb9e7930ac91daee5",
@@ -11348,7 +11522,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ api_url  }}topic",
+			"url": "{{ api_url  }}topic?include=sub",
 			"_type": "request"
 		},
 		{
@@ -12801,6 +12975,180 @@
 			"_type": "request"
 		},
 		{
+			"_id": "req_98ff5ad0129c474a8766ef5e348249e1",
+			"authentication": {},
+			"body": {},
+			"created": 1549953857499,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_b47c953144b2489daf0ab3ce6f5043b7",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539287098368,
+			"method": "GET",
+			"modified": 1549953920304,
+			"name": "status-list",
+			"parameters": [],
+			"parentId": "fld_dffa48c4abd249d7a98eafbd1515d575",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}blogs/status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_921c7be735f24383ab1f9fc3e84d8f7b",
+			"authentication": {},
+			"body": {},
+			"created": 1549953857510,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_4caa1be297eb41cca74eb5ea2fe7133e",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539287260598,
+			"method": "GET",
+			"modified": 1549953916470,
+			"name": "hot-list",
+			"parameters": [],
+			"parentId": "fld_dffa48c4abd249d7a98eafbd1515d575",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}blogs/hot-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_c28ba07f70854246949718dd55950a4d",
+			"authentication": {},
+			"body": {},
+			"created": 1549953857521,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_b47c953144b2489daf0ab3ce6f5043b7",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1537753232864,
+			"method": "GET",
+			"modified": 1549953924060,
+			"name": "new-list",
+			"parameters": [],
+			"parentId": "fld_dffa48c4abd249d7a98eafbd1515d575",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}blogs/new-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_e4c145e5aade46bdac303b446353282a",
+			"authentication": {},
+			"body": {},
+			"created": 1549954517927,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9c208d0ecb26490394cb125fb60f0634",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539288400614,
+			"method": "GET",
+			"modified": 1549954517927,
+			"name": "hot-list",
+			"parameters": [],
+			"parentId": "fld_780f2eac82ba4808893ed5f9de6ca5f8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}categories/new-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a2ed78b77064402db9e1ab29ce4293f5",
+			"authentication": {},
+			"body": {},
+			"created": 1549954517938,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_5aa98d2eff1a43aa9b413cb8ae5877f2",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539288419655,
+			"method": "GET",
+			"modified": 1549954517938,
+			"name": "status-list",
+			"parameters": [],
+			"parentId": "fld_780f2eac82ba4808893ed5f9de6ca5f8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}categories/status-list",
+			"_type": "request"
+		},
+		{
+			"_id": "req_0b458f9184d4403ba67ef54267116a15",
+			"authentication": {},
+			"body": {},
+			"created": 1549954517951,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_9c208d0ecb26490394cb125fb60f0634",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1539287830606,
+			"method": "GET",
+			"modified": 1549954517951,
+			"name": "new-list",
+			"parameters": [],
+			"parentId": "fld_780f2eac82ba4808893ed5f9de6ca5f8",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ api_url  }}categories/new-list",
+			"_type": "request"
+		},
+		{
 			"_id": "req_9880b4715f704ad7a5654c417abaad3c",
 			"authentication": {},
 			"body": {},
@@ -13284,7 +13632,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832098040.2031,
 			"method": "GET",
-			"modified": 1549941348171,
+			"modified": 1549945072896,
 			"name": "index",
 			"parameters": [],
 			"parentId": "fld_cad1d47df69a474da8e7625013ed0c03",
@@ -13313,7 +13661,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1539832097990.2031,
 			"method": "GET",
-			"modified": 1549941285242,
+			"modified": 1549944154827,
 			"name": "show",
 			"parameters": [],
 			"parentId": "fld_cad1d47df69a474da8e7625013ed0c03",
@@ -13323,7 +13671,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ merchant_url }}topic/1",
+			"url": "{{ merchant_url }}topic/2?include=sub",
 			"_type": "request"
 		}
 	]
