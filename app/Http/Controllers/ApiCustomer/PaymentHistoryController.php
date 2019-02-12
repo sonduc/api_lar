@@ -87,8 +87,9 @@ class PaymentHistoryController extends ApiController
                 logs('payment_history', 'đã thêm thanh toán cho booking mã ' . $booking->code, $data);
                 event(new BookingEvent($booking));
                 event(new CreateBookingTransactionEvent($booking));
-
-                return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
+                return redirect(env('PAYMENT_FAIL_REDIRECT'));
+)
+                // return response()->json(['message' => 'Cám ơn bạn đã sử dụng dich vụ của WESTAY']);
             }
         } catch (\Illuminate\Validation\ValidationException $validationException) {
             DB::rollBack();
@@ -111,12 +112,8 @@ class PaymentHistoryController extends ApiController
      */
     public function cancel($code)
     {
-        $response = [
-            'code'    => $code,
-            'status'  => 'error',
-            'message' => 'Thanh toán thất bại',
-        ];
-        logs('payment_history', 'Thanh toán thất bại' . $code);
-        return response()->json($response);
+        logs('payment_history', 'Thanh toán thất bại cho mã: '. $code);
+        return redirect(env('PAYMENT_FAIL_REDIRECT'));
+        // return response()->json($response);
     }
 }
