@@ -58,7 +58,10 @@ $router->group([
     $router->get('/reviews/reviews-cleanliness-list', 'RoomReviewController@reviewCleanlinessList');
     $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
     $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
-    resource('/reviews', 'RoomReviewController', $router);
+
+    $router->get('/reviews/{id}', 'RoomReviewController@linkReview');
+    $router->post('/reviews', 'RoomReviewController@store');
+    //resource('/reviews', 'RoomReviewController', $router);
 });
 
 /*

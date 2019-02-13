@@ -620,7 +620,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getRoomForReview($id)
     {
-        return $this->model->select('rooms.id', 'room_translates.name', 'room_medias.image')
+        return $this->model->select('rooms.id','rooms.price_day','rooms.price_hour','rooms.avg_avg_rating','room_translates.name','room_medias.image')
                     ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
                     ->join('room_medias', 'rooms.id', '=', 'room_medias.room_id')
                     ->where('rooms.id', '=', $id)
@@ -658,4 +658,5 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         // dd($rooms->get(10));
         return $rooms->take($limit)->get();
     }
+
 }

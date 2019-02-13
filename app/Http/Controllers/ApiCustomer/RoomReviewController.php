@@ -236,4 +236,29 @@ class RoomReviewController extends ApiController
         }
     }
 
+    /**
+     * Tọa ta link Review (có dữ liệu thông tin phòng đó)
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function linkReview(Request $request,$booking_id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $this->model->getRoom($booking_id);
+            return $this->successResponse(['data' => $data],false);
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
+
 }
