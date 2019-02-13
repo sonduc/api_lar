@@ -104,7 +104,12 @@ class RoleController extends ApiController
     {
         try {
             $this->authorize('role.update');
-            $this->validate($request, $this->validationRules, $this->validationMessages);
+            $validate = array_only($this->validationRules, [
+                'permissions',
+                'slug'
+            ]);
+
+            $this->validate($request, $validate, $this->validationMessages);
             $model = $this->model->update($id, $request->all());
 
             return $this->successResponse($model);

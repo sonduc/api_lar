@@ -166,7 +166,8 @@ trait RoomLogicTrait
      */
     public function updateRoomSettings($data)
     {
-        $data['settings']= $this->model->checkValidRefund($data['settings']);
+        $data['settings']= $this->model->checkValidRefund($data);
+        // dd($data['settings']);
         return parent::update($data['room_id'], $data);
     }
 
