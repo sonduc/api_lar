@@ -100,12 +100,14 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         }
 
         if (isset($data['settings']['no_booking_cancel'])) {
-            if (!empty($data['settings']['no_booking_cancel']) && $data['settings']['no_booking_cancel'] == 1) {
-                $refund = [
+            if (!empty($data['settings']['no_booking_cancel']) && $data['settings']['no_booking_cancel'] == BookingConstant::BOOKING_CANCEL_UNAVAILABLE) {
+                $refund = [['days' => 14, 'amount' => 100]];
+                $refunds = [
+                    'refunds'           => $refund,
                     'no_booking_cancel' => BookingConstant::BOOKING_CANCEL_UNAVAILABLE,
                 ];
 
-                return json_encode($refund);
+                return json_encode($refunds);
             }
         }
         // set măc định 1 mức cho hủy phòng.
