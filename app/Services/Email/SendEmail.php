@@ -301,11 +301,11 @@ class SendEmail
             $room   = $this->room->getRoomForReview($booking['room_id']);
             $merchant = $this->user->getUserById($booking['merchant_id']);
             $email  = $booking['email'];
-            ;
+            
             try {
                 Mail::send($template, ['data_booking' => $booking,'data_room' => $room, 'data_merchant' => $merchant], function ($message) use ($email, $room) {
                     $message->from(env('MAIL_TEST'));
-                    $message->to($email)->subject('Vui lòng cho chúng tôi biết trải nghiệm của bạn về kỳ nghỉ tại' . $room->name);
+                    $message->to($email)->subject('Vui lòng cho chúng tôi biết cảm nhận của bạn về ' . $booking->name);
                 });
             } catch (\Exception $e) {
                 logs('emails', 'Email gửi thất bại '.$email);
