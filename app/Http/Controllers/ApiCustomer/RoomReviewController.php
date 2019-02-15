@@ -73,9 +73,11 @@ class RoomReviewController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
+
             event(new AverageRoomRating($data->room_id, $data));
             // dd($data->room_id);
             DB::commit();
+
             logs('room-review', 'thêm mới review từ host cho hệ thống' . $data->id, $data);
             return $this->successResponse(['message' => 'Hoàn thành Review'],false);
         }catch (AuthorizationException $f) {
