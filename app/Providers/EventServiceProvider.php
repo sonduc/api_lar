@@ -73,5 +73,9 @@ class EventServiceProvider extends ServiceProvider
         \App\Events\GenerateWestayRoomCalendarEvent::class => [
             \App\Listeners\GenerateWestayRoomCalendarListener::class,
         ],
+        // Notification for host
+        \App\Events\Booking_Host_Notification_Event::class => [
+            \App\Listeners\SendMail\BookingHostNotificationListener::class,
+        ],
     ];
 }

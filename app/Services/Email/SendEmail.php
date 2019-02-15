@@ -315,6 +315,25 @@ class SendEmail
     }
 
     /**
+     * Email thông báo cho khách trước 48h
+     *
+     */
+    public function mailNotificationBookingHost($data, $template = 'email.reminder_host')
+    {
+        $email = $data->name->email;
+        $data  = $data->name;
+        try {
+            Mail::send($template, ['data' => $data], function ($message) use ($email, $data) {
+                $message->from(env('MAIL_TEST'));
+                $message->to($email)->subject('Căn hộ'.$data->room->roomTrans[0]->name.' của bạn sắp có khách!');
+            });
+        } catch (\Exception $e) {
+            logs('emails', 'Email gửi thất bại '.$email);
+            throw $e;
+        }
+    }
+
+    /**
      *
      * @author ducchien0612 <ducchien0612@gmail.com>
      *

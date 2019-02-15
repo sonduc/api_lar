@@ -468,25 +468,13 @@ float:right !important;
                                                   <tr>
                                                     <td valign="top" style="padding:10px">
                                                       <div style="text-align:left;font-family:Verdana, Geneva, sans-serif;font-size:16px;color:#000000;line-height:24px;mso-line-height:exactly;mso-text-raise:4px">
-                                                        <h2 style="font-family:Verdana, Geneva, sans-serif; font-size: 24px; color: #000000; font-weight: normal; line-height: 36px; mso-line-height: exactly; mso-text-raise: 6px; padding: 0; margin: 0;"><span
-                                                            class="mso-font-fix-verdana"><span style="font-size:16px;"><span
-                                                                style="background-color: transparent;">Cảm ơn</span><br><strong
-                                                                style="background-color: transparent;">{{ $data->name }}</strong></span></span></h2>
                                                         <p style="padding: 0; margin: 0;"><br><span style="font-size:14px;"><span
                                                               style="font-size:16px;">C</span>hỉ còn chưa đầy 2 ngày
-                                                            nữa là tới chuyến đi của bạn đến {{$data->room->roomTrans[0]->name}}</span></p>
+                                                            nữa {{ $data->name }} sẽ tới nghỉ tại căn hộ  {{$data->room->roomTrans[0]->name}} của bạn</span></p>
                                                         <p style="padding: 0; margin: 0;text-align: center;">&nbsp;</p>
-                                                        <p style="padding: 0; margin: 0;"><span style="font-size:14px;"><img
-                                                              src="https://ci5.googleusercontent.com/proxy/c_8BxBHXwVx19OOcwH4tU2CX5qp3BAsDPiWwjgudQ_BhMOOG3E4KTKG3LHGyvohlQKjb-bnS7PFL0HP-dBJHYaUpFx0=s0-d-e1-ft#https://r.bstatic.com/static/img/mg/checkmark.png"
-                                                              style="outline:none;text-decoration:none;border:none;width:16px;min-width:16px;height:13px"
-                                                              width="16" height="13" border="0" class="CToWUd"> {{$data->room->roomTrans[0]->name}} đang chờ bạn đến vào ngày {{  date('H:i d-m-Y', $data->checkin)  }}<br><a
-                                                              href="http://westay.org" target="_blank" style="color: #000000 !important; text-decoration: underline !important;">
-                                                              <font style=" color:#000000;"><img src="https://ci5.googleusercontent.com/proxy/c_8BxBHXwVx19OOcwH4tU2CX5qp3BAsDPiWwjgudQ_BhMOOG3E4KTKG3LHGyvohlQKjb-bnS7PFL0HP-dBJHYaUpFx0=s0-d-e1-ft#https://r.bstatic.com/static/img/mg/checkmark.png"
-                                                                  style="outline:none;text-decoration:none;border:none;width:16px;min-width:16px;height:13px"
-                                                                  width="16" height="13" border="0" class="CToWUd">
-                                                                Nhấp vào đây để biết thêm
-                                                                chi tiết về đặt phòng của bạn</font>
-                                                            </a></span></p>
+
+                                                        <p style="padding: 0; margin: 0;"><span style="font-size:14px;">
+
                                                         <p style="padding: 0; margin: 0;text-align: center;">&nbsp;</p>
                                                       </div>
                                                     </td>
@@ -634,20 +622,32 @@ float:right !important;
                                                                       <td valign="top" style="padding:10px">
                                                                         <div style="text-align:left;font-family:Verdana, Geneva, sans-serif;font-size:16px;color:#000000;line-height:24px;mso-line-height:exactly;mso-text-raise:4px">
                                                                           <h3 style="font-family:Verdana, Geneva, sans-serif; font-size: 16px; color: #000000; font-weight: normal; line-height: 24px; mso-line-height: exactly; mso-text-raise: 3px; padding: 0; margin: 0;text-align: center;"><span
-                                                                              class="mso-font-fix-verdana"><strong>Thông
-                                                                                tin đặt phòng của bạn</strong></span></h3>
+                                                                              class="mso-font-fix-verdana"><strong>Thông tin đặt phòng</strong></span></h3>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">&nbsp;</p>
-                                                                          <a href="{{'https://westayreact.xyz/room/'.$data->room->id}}" style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->name}} </a>
+                                                                          <a href="{{'https://westay.org/room/'.$data->room->id}}" style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->name}} </a>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">{{$data->room->roomTrans[0]->address}}</p>
-                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">{{ $data->merchant->phone  }}</p>
+                                                                          <hr/>
+                                                                          @if($data->name_received === '')
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Khách : {{ $data->name }}</p>
+                                                                          <br />
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">SĐT: {{ $data->phone }}</p>
+                                                                          <br />
+                                                                          @else
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Khách : {{ $data->name_received }}</p>
+                                                                          <br />
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">SĐT: {{ $data->phone_received }}</p>
+                                                                          <br />
+                                                                          @endif
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Số người: {{ $data->number_of_guests }}</p>
                                                                           <br />
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">Nhận
-                                                                            phòng</p>
-                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Ngày {{  date('H:i d-m-Y', $data->checkin)  }}</p>
+                                                                            phòng: {{  date('H:i d-m-Y', $data->checkin)  }}</p>
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;">Trả
-                                                                            phòng</p>
-                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Ngày {{ date('H:i d-m-Y', $data->checkout) }}</p>
+                                                                            phòng: {{ date('H:i d-m-Y', $data->checkout) }}</p>
+                                                                            
                                                                           <p style="font-size: 14px; padding: 0; margin: 0;text-align: center;">&nbsp;</p>
+                                                                          
+                                                                          <p style="font-size: 14px; padding: 0; margin: 0;">Ghi chú của khách: {{$data->note !== null ? $data->note : ''}}</p>
                                                                         </div>
                                                                       </td>
                                                                     </tr>
@@ -792,10 +792,9 @@ float:right !important;
                                                     <td valign="top" style="padding:10px">
                                                       <div style="text-align:left;font-family:Verdana, Geneva, sans-serif;font-size:16px;color:#000000;line-height:24px;mso-line-height:exactly;mso-text-raise:4px">
                                                         <p style="padding: 0; margin: 0;text-align: center;"><strong>Hãy
-                                                            lên kế hoạch trước để có chuyến đi tuyệt vời nhất</strong></p>
+                                                            lên kế hoạch trước để khách của bạn có một trải nghiệm tuyệt vời nhất nhé!</strong></p>
                                                         <p style="padding: 0; margin: 0;text-align: right;">&nbsp;</p>
-                                                        <p style="padding: 0; margin: 0;text-align: right;"><span style="font-size:14px;">Chúc
-                                                            bạn một chuyến đi vui vẻ!</span></p>
+                                                        <p style="padding: 0; margin: 0;text-align: right;"><span style="font-size:14px;">Cảm ơn bạn vì đã là một chủ nhà của chúng tôi!</span></p>
                                                         <p style="padding: 0; margin: 0;text-align: right;"><span style="font-size:14px;">-
                                                             Đội ngũ nhân viên Westay.org</span></p>
                                                         <p style="padding: 0; margin: 0;text-align: center;">&nbsp;</p>
@@ -866,7 +865,7 @@ float:right !important;
                               <div style="text-align:left;font-family:Verdana, Geneva, sans-serif;font-size:14px;color:#000000;line-height:20px;mso-line-height:exactly;mso-text-raise:3px">
                                 <p style="padding: 0; margin: 0;text-align: center;">©Westay - 102 Thai Thinh Street,
                                   Dong Da , Ha Noi, Viet Nam</p>
-                                <p style="padding: 0; margin: 0;text-align: center;">Bạn nhận được Email này bởi bạn đã tạo một đặt phòng tại Westay.org</p>
+                          
                                 <p style="padding: 0; margin: 0;text-align: center;">&nbsp;</p>
                                 <!-- <p style="padding: 0; margin: 0;text-align: center;"><a href="http://y" style="color: #000000 !important; text-decoration: underline !important;"
                                     target="_blank">

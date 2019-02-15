@@ -23,6 +23,7 @@ class Kernel extends ConsoleKernel
             'App\Console\Commands\CreateMerchantBonusTransaction',
             'App\Console\Commands\TransactionCombine',
             'App\Console\Commands\HostReviews',
+            'App\Console\Commands\HostBookingReminder',
         ];
 
     /**
@@ -35,6 +36,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('booking:reminder')->everyThirtyMinutes();
+        $schedule->command('booking:hostreminder')->dailyAt('10:00:00');
         $schedule->command('booking:status')->everyMinute();
         $schedule->command('booking:review')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');

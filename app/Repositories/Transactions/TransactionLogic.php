@@ -36,21 +36,39 @@ class TransactionLogic extends BaseLogic
     public function createBookingTransaction($dataBooking)
     {
         $dataBooking = $dataBooking->data;
-
+        $refund_date = Carbon::now()->addDay()->toDateString();
         $room_id     = $dataBooking['room_id'];
         $merchant_id = $dataBooking['merchant_id'];
+        $customer_id = $dataBooking['customer_id'];
         $date        = Carbon::parse($dataBooking['checkin'])->toDateString();
         $booking_id  = $dataBooking['id'];
         $comission   = $this->room->getRoomComission($room_id);
         $type        = TransactionType::TRANSACTION_BOOKING;
         $credit      = $dataBooking['total_fee'];
         $bonus       = 0;
-
-        $credit = ($dataBooking['status'] == BookingConstant::BOOKING_CANCEL) ? ($dataBooking['total_fee'] - $dataBooking['total_refund']) : 0;
+        // dd($dataBooking['status']);
+        $credit = ($dataBooking['status'] == BookingConstant::BOOKING_CANCEL) ? ($dataBooking['total_refund'] < $dataBooking['total_fee'] ? ($dataBooking['total_fee'] - $dataBooking['total_refund']) : $dataBooking['total_fee']) : 0 ;
 
         $debit = ($dataBooking['status'] == BookingConstant::BOOKING_NEW || $dataBooking['status'] == BookingConstant::BOOKING_CONFIRM) ? $dataBooking['total_fee'] : 0;
+        if ($dataBooking['status'] == BookingConstant::BOOKING_CANCEL) {
+            $type_refund = TransactionType::TRANSACTION_REFUND_CUSTOMER;
+            $dataTransactionRefund = [
+                'type'          => $type_refund,
+                'date_create'   => $refund_date,
+                'user_id'       => $customer_id,
+                'room_id'       => $room_id,
+                'booking_id'    => $booking_id,
+                'credit'        => (int) ceil($dataBooking['total_refund']),
+                'debit'         => (int) ceil($debit),
+                'bonus'         => 0,
+                'status'        => 0,
+                'comission'     => 0
+            ];
 
-        $dataTransaction = [
+            parent::store($dataTransactionRefund);
+        }
+
+        $dataTransactionBooking = [
             'type'          => $type,
             'date_create'   => $date,
             'user_id'       => $merchant_id,
@@ -63,7 +81,7 @@ class TransactionLogic extends BaseLogic
             'comission'     => $comission
         ];
         
-        return parent::store($dataTransaction);
+        return parent::store($dataTransactionBooking);
     }
 
     public function createBonusTransaction()
@@ -186,6 +204,7 @@ class TransactionLogic extends BaseLogic
                 TransactionType::TRANSACTION_BOOK_AIRBNB,
                 TransactionType::TRANSACTION_BOOK_BOOKING,
                 TransactionType::TRANSACTION_BOOK_AGODA,
+                TransactionType::TRANSACTION_REFUND_CUSTOMER
             ];
 
         if ($data == null) {
@@ -267,5 +286,56 @@ class TransactionLogic extends BaseLogic
                 $this->compare->storeCompareChecking($date, $total_debit, $total_credit, $total_bonus, $data['user_id']);
             }
         }
+    }
+
+    public function hostCancelBookingTransaction($dataBooking)
+    {
+        $dataBooking = $dataBooking->data;
+        $refund_date = Carbon::now()->addDay()->toDateString();
+        $room_id     = $dataBooking['room_id'];
+        $merchant_id = $dataBooking['merchant_id'];
+        $customer_id = $dataBooking['customer_id'];
+        $date        = Carbon::parse($dataBooking['checkin'])->toDateString();
+        $booking_id  = $dataBooking['id'];
+        $comission   = $this->room->getRoomComission($room_id);
+        $type        = TransactionType::TRANSACTION_BOOKING;
+        $credit      = $dataBooking['total_fee'];
+        $bonus       = 0;
+        // dd($dataBooking['status']);
+        $credit = ($dataBooking['status'] == BookingConstant::BOOKING_CANCEL) ? ($dataBooking['total_refund'] < $dataBooking['total_fee'] ? ($dataBooking['total_fee'] - $dataBooking['total_refund']) : $dataBooking['total_fee']) : 0 ;
+
+        $debit = ($dataBooking['status'] == BookingConstant::BOOKING_NEW || $dataBooking['status'] == BookingConstant::BOOKING_CONFIRM) ? $dataBooking['total_fee'] : 0;
+        if ($dataBooking['status'] == BookingConstant::BOOKING_CANCEL) {
+            $type_refund = TransactionType::TRANSACTION_REFUND_CUSTOMER;
+            $dataTransactionRefund = [
+                'type'          => $type_refund,
+                'date_create'   => $refund_date,
+                'user_id'       => $customer_id,
+                'room_id'       => $room_id,
+                'booking_id'    => $booking_id,
+                'credit'        => (int) ceil($credit),
+                'debit'         => (int) ceil($debit),
+                'bonus'         => 0,
+                'status'        => 0,
+                'comission'     => 0
+            ];
+
+            parent::store($dataTransactionRefund);
+        }
+
+        $dataTransactionBooking = [
+            'type'          => $type,
+            'date_create'   => $date,
+            'user_id'       => $merchant_id,
+            'room_id'       => $room_id,
+            'booking_id'    => $booking_id,
+            'credit'        => (int) ceil($credit),
+            'debit'         => (int) ceil($debit),
+            'bonus'         => $bonus,
+            'status'        => 0,
+            'comission'     => $comission
+        ];
+        
+        return parent::store($dataTransactionBooking);
     }
 }
