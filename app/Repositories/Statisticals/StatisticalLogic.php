@@ -385,9 +385,6 @@ class StatisticalLogic extends BaseLogic
                     $series_arr[$k]['data'][]     = $v['total_booking'];
                     $series_arr[$k]['success'][]  = (int)$v['success'];
                     $series_arr[$k]['cancel'][]   = (int)$v['cancel'];
-                    $series_arr[$k]['pending'][]  = (int)$v['pending'];
-                    $series_arr[$k]['is_using'][] = (int)$v['is_using'];
-                    $series_arr[$k]['confirm'][]  = (int)$v['confirm'];
                 }
             }
         }
