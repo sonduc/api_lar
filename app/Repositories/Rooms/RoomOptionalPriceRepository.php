@@ -30,7 +30,6 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
      */
     public function updateRoomOptionalPrice($room, $data = [])
     {
-
         $this->deleteRoomOptionalPriceByRoomID($room);
         $this->storeRoomOptionalPrice($room, $data);
     }
@@ -56,7 +55,6 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
      */
     public function storeRoomOptionalPrice($room, $data = [], $list = [])
     {
-
         if (!empty($data)) {
             if (isset($data['weekday_price'])) {
                 $roomWeekPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
@@ -68,9 +66,8 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
                 $list          = array_merge($list, $roomDayPrices);
             }
         }
-
-         parent::storeArray($list);
-
+        
+        parent::storeArray($list);
     }
 
     /**
@@ -102,8 +99,11 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
      */
     public function storeRoomOptionalDayPrice($room, $data = [], $list = [])
     {
+        
+        // dd($data);
         $price_day        =
-            array_key_exists('price_day',
+            array_key_exists(
+                'price_day',
                 $data['optional_prices']
             ) ? $data['optional_prices']['price_day'] : 0;
         $price_hour       =
@@ -124,8 +124,11 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
             $obj['price_day']        = $price_day;
             $obj['price_hour']       = $price_hour;
             $obj['price_after_hour'] = $price_after_hour;
+            $obj                     = array_except($obj, 'option');
+            $obj                     = array_except($obj, 'optional_prices');
             $list[]                  = $obj;
         }
+        // dd($list);
 
         return $list;
     }
@@ -162,5 +165,27 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
             }
         }
         return [];
+    }
+
+    public function updateSeparateOptionalPrice($room, $data = [])
+    {
+        // dd(isset($data['option']));
+        if (isset($data['option'])) {
+            if ($data['option'] === 'optional_prices') {
+                $optionalPrices = $this->storeRoomOptionalDayPrice($room, $data);
+                foreach ($optionalPrices as $optional_price) {
+                    return $this->model->updateOrCreate(['day' => $optional_price['day']], $optional_price);
+                }
+            } elseif ($data['option'] === 'weekday_price') {
+                $optionalPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
+                foreach ($optionalPrices as $optional_price) {
+                    return $this->model->updateOrCreate(['weekday' => $optional_price['weekday']], $optional_price);
+                }
+            }
+            // dd($optionalPrices);
+        }
+        if (!isset($data['option'])  || (isset($data['option']) && $data['option'] === 'all')) {
+            return $this->updateRoomOptionalPrice($room, $data);
+        }
     }
 }

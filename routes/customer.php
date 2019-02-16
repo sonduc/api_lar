@@ -65,6 +65,7 @@ $router->group([
  * Rooms Router
  */
 $router->get('/rooms/type', 'RoomController@getRoomType');
+$router->get('/rooms/rent-type', 'RoomController@roomRentType');
 $router->get('/rooms/room-lat-long', 'RoomController@getRoomLatLong');
 
 $router->get('/rooms/schedule/{id}', 'RoomController@getRoomSchedule');

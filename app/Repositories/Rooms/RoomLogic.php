@@ -172,7 +172,7 @@ class RoomLogic extends BaseLogic
     {
         \DB::enableQueryLog();
         $room = $this->model->getById($room_id)->with('reviews')->first();
-        $denominator    = sizeof($room['reviews']);
+        $denominator    = sizeof($room['reviews']) !== 0 ? sizeof($room['reviews']) : 1;
 
         $current_cleanliness    = $room->avg_cleanliness * $denominator;
         $current_service        = $room->avg_service * $denominator;
@@ -181,14 +181,14 @@ class RoomLogic extends BaseLogic
         $current_valuable       = $room->avg_valuable * $denominator;
         $current_recommend      = $room->total_recommend;
 
-        foreach ($reviews as $key => $value) {
-            $current_cleanliness    += $value->cleanliness;
-            $current_service        += $value->service;
-            $current_quality        += $value->quality;
-            $current_avg_rating     += $value->avg_rating;
-            $current_valuable       += $value->valuable;
-            $current_recommend      += $value->recommend;
-        }
+        // foreach ($reviews as $key => $value) {
+        $current_cleanliness    += $reviews->cleanliness;
+        $current_service        += $reviews->service;
+        $current_quality        += $reviews->quality;
+        $current_avg_rating     += $reviews->avg_rating;
+        $current_valuable       += $reviews->valuable;
+        $current_recommend      += $reviews->recommend;
+        // }
         \DB::beginTransaction();
         try {
             $room->update([

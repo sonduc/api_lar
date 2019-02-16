@@ -288,4 +288,23 @@ class RoomController extends ApiController
             throw $e;
         }
     }
+    
+    /**
+     * Lấy kiểu thuê phòng
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function roomRentType()
+    {
+        try {
+            $data = $this->simpleArrayToObject(Room::ROOM_RENT_TYPE);
+            return response()->json($data);
+        } catch (\Exception $e) {
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
 }

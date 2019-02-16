@@ -252,4 +252,21 @@ class RoomLogic extends BaseLogic
     {
         return parent::update($id, $data);
     }
+
+    /**
+     *
+     * @author tuananhpham1402 <tuananhpham1402@gmail.com>
+     *
+     * @param $id
+     * @param array $data
+     * @return \App\Repositories\Eloquent
+     * @throws \Exception
+     */
+
+    public function updateSeparateOptionalPrice($data)
+    {
+        $room    = $this->model->getById($data['room_id']);
+        $this->roomOptionalPrice->updateSeparateOptionalPrice($room, $data);
+        return $room;
+    }
 }

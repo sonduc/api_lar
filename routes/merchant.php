@@ -73,7 +73,8 @@ $router->group([
 
     $router->put('/rooms/update-block', 'RoomController@updateRoomTimeBlock');
     $router->put('/rooms/update-setting', 'RoomController@updateRoomSettings');
-    $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
+    // $router->put('/rooms/update-optional-prices', 'RoomController@updateRoomOptionalPrice');
+    $router->put('/rooms/update-optional-prices', 'RoomController@updateSeparateOptionalPrice');
     $router->put('/rooms/update-airbnb-calendar', 'RoomController@updateAirbnbCalendar');
     $router->get('get-calendar/{id}', 'RoomCalendarController@getRoomCalendar');
 
