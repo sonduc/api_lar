@@ -174,14 +174,15 @@ class RoomOptionalPriceRepository extends BaseRepository implements RoomOptional
             if ($data['option'] === 'optional_prices') {
                 $optionalPrices = $this->storeRoomOptionalDayPrice($room, $data);
                 foreach ($optionalPrices as $optional_price) {
-                    return $this->model->updateOrCreate(['day' => $optional_price['day']], $optional_price);
+                    $this->model->updateOrCreate(['day' => $optional_price['day']], $optional_price);
                 }
             } elseif ($data['option'] === 'weekday_price') {
                 $optionalPrices = $this->storeRoomOptionalWeekdayPrice($room, $data);
                 foreach ($optionalPrices as $optional_price) {
-                    return $this->model->updateOrCreate(['weekday' => $optional_price['weekday']], $optional_price);
+                    $this->model->updateOrCreate(['weekday' => $optional_price['weekday']], $optional_price);
                 }
             }
+            return $optionalPrices;
             // dd($optionalPrices);
         }
         if (!isset($data['option'])  || (isset($data['option']) && $data['option'] === 'all')) {
