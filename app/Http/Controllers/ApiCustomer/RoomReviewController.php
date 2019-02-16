@@ -73,9 +73,11 @@ class RoomReviewController extends ApiController
         try {
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
-            event(new AverageRoomRating($data->room_id, $data));
+
+            //event(new AverageRoomRating($data->room_id, $data));
             // dd($data->room_id);
             DB::commit();
+
             logs('room-review', 'thêm mới review từ host cho hệ thống' . $data->id, $data);
             return $this->successResponse(['message' => 'Hoàn thành Review'],false);
         }catch (AuthorizationException $f) {
@@ -235,5 +237,30 @@ class RoomReviewController extends ApiController
             throw $e;
         }
     }
+
+    /**
+     * Tọa ta link Review (có dữ liệu thông tin phòng đó)
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \Throwable
+     */
+    public function linkReview(Request $request,$booking_id)
+    {
+        DB::beginTransaction();
+        try {
+            $data = $this->model->getRoom($booking_id);
+            return $this->successResponse(['data' => $data],false);
+        } catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        } catch (\Throwable $t) {
+            throw $t;
+        }
+    }
+
 
 }

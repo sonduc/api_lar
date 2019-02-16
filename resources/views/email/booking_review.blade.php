@@ -21,6 +21,20 @@
                                     <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
                                         <tbody>
                                             <tr>
+                                                <td class="m_8929900420942917308strip" background="https://ci6.googleusercontent.com/proxy/CGDnXfm0TRI2eFFVIKy-vkvFlJX_SYFRM8BY7bB-7Dtr-XPeNYyfe6af3tBijmzCucCD9Uof5_Zj0BfzaQqBD84cV_i7tuv7LIRwIlhV5HhI5Pmz_XGICDRUUs7XYqwCjg=s0-d-e1-ft#https://s3-ap-southeast-1.amazonaws.com/traveloka/asset/images/email/strip.png"
+                                                    style="background:#1ba0e2 url('https://ci6.googleusercontent.com/proxy/CGDnXfm0TRI2eFFVIKy-vkvFlJX_SYFRM8BY7bB-7Dtr-XPeNYyfe6af3tBijmzCucCD9Uof5_Zj0BfzaQqBD84cV_i7tuv7LIRwIlhV5HhI5Pmz_XGICDRUUs7XYqwCjg=s0-d-e1-ft#https://s3-ap-southeast-1.amazonaws.com/traveloka/asset/images/email/strip.png') repeat-x;border-collapse:collapse;display:block;height:4px;margin:0;padding:0;width:100%"
+                                                    bgcolor="#1ba0e2"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border-collapse:collapse">
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:collapse">
+                                        <tbody>
+                                            <tr>
+                                                <td align="left" style="border-collapse:collapse;width:70px"></td>
                                                 <td align="center" valign="top" style="border-collapse:collapse"> <img
                                                         style="border:0 none;height:auto;line-height:100%;outline:none;padding-bottom:25px;padding-top:30px;text-decoration:none;width:120px"
                                                         src="http://westay.org/images/Logo-westay.png"

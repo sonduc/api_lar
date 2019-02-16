@@ -47,7 +47,7 @@ class Room extends Entity
 
     const ROOM_TYPE = [
         self::PRIVATE_HOUSE => 'Nhà riêng',
-        self::APARTMENT     => 'Căn hộ/ Chung cư',
+        self::APARTMENT     => 'Căn hộ-Chung cư',
         self::VILLA         => 'Biệt thự',
         self::PRIVATE_ROOM  => 'Phòng riêng',
         self::HOTEL         => 'Khách sạn',

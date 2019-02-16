@@ -36,7 +36,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('booking:reminder')->everyThirtyMinutes();
-        $schedule->command('booking:hostreminder')->dailyAt('10:00:00');
         $schedule->command('booking:status')->everyMinute();
         $schedule->command('booking:review')->dailyAt('14:00:00');
         $schedule->command('coupon:validate')->dailyAt('23:59:59');
@@ -44,8 +43,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('transaction:bonus')->dailyAt('02:30:00');
         $schedule->command('airbnb:sync')->twiceDaily(3, 14);
         $schedule->command('transaction:combine')->dailyAt('01:00:00');
-
         $schedule->command('hosts:review')->dailyAt('16:00:00');
+        $schedule->command('booking:hostreminder')->dailyAt('10:00:00');
     }
 
     // protected function commands()
