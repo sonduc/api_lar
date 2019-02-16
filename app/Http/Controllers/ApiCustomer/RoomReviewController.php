@@ -74,7 +74,7 @@ class RoomReviewController extends ApiController
             $this->validate($request, $this->validationRules, $this->validationMessages);
             $data = $this->model->store($request->all());
 
-            //event(new AverageRoomRating($data->room_id, $data));
+            event(new AverageRoomRating($data->room_id, $data));
             // dd($data->room_id);
             DB::commit();
 
