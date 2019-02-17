@@ -500,4 +500,24 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
     }
 
+    /**
+     * Kiểm tra thời gian tồn tại của đường link review
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $code
+     *
+     * @throws \Exception
+     */
+    public function checkTimeReview($code, $data = [])
+    {
+        $timeNow    = Carbon::now();
+        $timeSubmit = base64_decode($code);
+        $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
+        $minutes    = $timeNow->diffInMinutes($timeSubmit);
+        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy đồng thời
+        if ($minutes > 43200) {
+            throw new \Exception('Đường dẫn không tồn tại ');
+        }
+    }
+
 }

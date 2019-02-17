@@ -254,10 +254,13 @@ class RoomReviewController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $data_request = $request->all();
-            dd($data_request['token']);
-            $this->user->checkTime();
-            $data = $this->model->getRoom($booking_id,$request->all());
+            // Kiểm tra token có trùng với token trong database user không
+            $data   = $request->only('token', 'time');
+            $user   = $this->user->checkValidToken($data);
+            // Kiểm tra sự tồn tại của đường link review
+            $this->user->checkTimeReview($data['time']);
+
+            $data = $this->model->getRoom($booking_id,$user);
             return $this->successResponse(['data' => $data],false);
         } catch (\Exception $e) {
             return $this->errorResponse([

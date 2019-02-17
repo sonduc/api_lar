@@ -29,13 +29,14 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
      * @param $id
      * @return mixed
      */
-    public function checkReview($data_booking)
+    public function checkReview($data_booking,$user)
     {
         $data    = $this->model->where([
             ['booking_id',$data_booking->id],
         ])->first();
 
-        $customer_id = Auth::user()->id;
+        $customer_id = $user->id;
+
 
         if ($customer_id != $data_booking->customer_id)
         {
@@ -45,7 +46,7 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
         if (!empty($data)) {
             throw  new \Exception('Phòng này bạn đã đánh giá rồi !!!');
         }
-        return $data;
+
     }
 
 
