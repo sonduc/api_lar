@@ -211,9 +211,9 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         $dateNow_timestamp   = Carbon::now()->timestamp;
         $yesterday_timestamp = $dateNow->subHours(36)->timestamp;
         $data                = $this->model
-            ->where('checkout', '<', $dateNow_timestamp)
-            ->where('checkout', '>', $yesterday_timestamp)
-            ->where('status', BookingConstant::BOOKING_COMPLETE)
+            //->where('checkout', '<', $dateNow_timestamp)
+            //->where('checkout', '>', $yesterday_timestamp)
+            //->where('status', BookingConstant::BOOKING_COMPLETE)
             ->get();
         return $data;
     }

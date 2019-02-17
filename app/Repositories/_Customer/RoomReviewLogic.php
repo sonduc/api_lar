@@ -74,7 +74,6 @@ class RoomReviewLogic extends BaseLogic
         $data_room['room_type_text']=Room::ROOM_TYPE[$data_room['room_type']] ? Room::ROOM_TYPE[$data_room['room_type']] : 'Không xác định';
         $data_room['booking_id']    = $booking_id;
         return $data_room;
-
     }
 
 }

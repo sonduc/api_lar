@@ -11,6 +11,7 @@ namespace App\Http\Controllers\ApiCustomer;
 
 use App\Repositories\_Customer\RoomReviewLogic;
 use App\Repositories\Rooms\RoomReview;
+use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -54,9 +55,12 @@ class RoomReviewController extends ApiController
      *
      * @param RoomReviewLogic $review
      */
-    public function __construct(RoomReviewLogic $review)
+
+    protected $user;
+    public function __construct(RoomReviewLogic $review,UserRepositoryInterface $user)
     {
         $this->model = $review;
+        $this->user  = $user;
     }
 
     /**
@@ -250,7 +254,10 @@ class RoomReviewController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $data = $this->model->getRoom($booking_id);
+            $data_request = $request->all();
+            dd($data_request['token']);
+            $this->user->checkTime();
+            $data = $this->model->getRoom($booking_id,$request->all());
             return $this->successResponse(['data' => $data],false);
         } catch (\Exception $e) {
             return $this->errorResponse([

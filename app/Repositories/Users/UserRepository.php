@@ -478,4 +478,26 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return parent::getById($id);
 
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return mixed
+     */
+
+    public function getUserToken($id)
+    {
+        $data_user = parent::getById($id)->toArray();
+        if ($data_user['token'] == null )
+        {
+            $data_user['token']          = Hash::make(str_random(60));
+            $data_user                   = parent::update($id, $data_user);
+            return $data_user->token;
+        }
+        return $data_user['token'];
+
+    }
+
 }
