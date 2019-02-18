@@ -171,7 +171,7 @@ trait BookingLogicTrait
             $blocked_schedule = $this->getBlockedScheduleDayByRoomId($room->id);
         }
 
-//        dd($blocked_schedule);
+        // dd($blocked_schedule);
 
         $period           = CarbonPeriod::between($checkin, $checkout);
         $days             = [];

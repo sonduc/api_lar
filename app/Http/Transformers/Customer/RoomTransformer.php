@@ -14,7 +14,7 @@ class RoomTransformer extends TransformerAbstract
     use FilterTrait;
     protected $availableIncludes = [
         'media', 'details', 'comforts', 'user', 'reviews', 'city','district', 'prices',
-        'places','blocks'
+        'places','blocks','merchant'
     ];
 
     public function transform(Room $room = null)
@@ -231,5 +231,23 @@ class RoomTransformer extends TransformerAbstract
         $data = $this->pagination($params, $room->blocks());
 
         return $this->collection($data, new RoomTimeBlockTransformer);
+    }
+
+    /**
+     * Include Merchant
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param Room|null     $room
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
+    public function includeMerchant(Room $room = null, ParamBag $params = null)
+    {
+        if (is_null($room)) {
+            return $this->null();
+        }
+
+        return $this->item($room->user, new MerchantTransformer);
     }
 }

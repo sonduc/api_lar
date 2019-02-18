@@ -103,8 +103,8 @@ trait RoomLogicTrait
             // Lấy ra danh sach các giờ bị khóa thời thời gian checkin của booking theo ngày
             $CO                 = Carbon::createFromTimestamp($item->checkout);
             $list[]             = [
-                'start' => $CO->format('Y-m-d H:i:s'),
-                'end'   => $CO->StartOfDay()->format('Y-m-d H:i:s')
+                'end'   => $CO->format('Y-m-d H:i:s'),
+                'start' => $CO->StartOfDay()->format('Y-m-d H:i:s')
             ];
         }
 
@@ -213,6 +213,7 @@ trait RoomLogicTrait
                 $list[] = $day;
             }
         }
+        // dd($data_booking_type_day);
 
         foreach ($data_booking_type_hour as $item) {
             $CI_h = Carbon::createFromTimestamp($item->checkin)->startOfDay();
@@ -232,6 +233,7 @@ trait RoomLogicTrait
                 $list[] = $day;
             }
         }
+        // dd($list);
 
         $list = array_map(function (Carbon $item) {
             if ($item >= Carbon::now()) {
