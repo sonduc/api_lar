@@ -17,7 +17,7 @@ class CreateRoomsTable extends Migration
             $table->bigIncrements('id');
             $table->integer('merchant_id')->nullable();
             $table->tinyInteger('max_guest')->nullable();
-            $table->tinyInteger('max_additional_guest')->nullable()->default(0);
+            $table->tinyInteger('max_additional_guest')->default(0);
             $table->tinyInteger('number_bed')->nullable();
             $table->tinyInteger('number_room')->nullable();
             $table->integer('city_id')->nullable();

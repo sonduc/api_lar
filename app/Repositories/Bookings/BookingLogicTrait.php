@@ -43,6 +43,7 @@ trait BookingLogicTrait
         $checkin              = Carbon::parse($data['checkin']);
         $checkout             = Carbon::parse($data['checkout']);
         $room_optional_prices = $this->op->getOptionalPriceByRoomId($room->id);
+        $charge_additional_hour = 0;
         
         // Kiểm tra thời gian booking theo giờ  xem có trùng với thời gian checkin, checkout mặc định của phòng không
         //Nếu trùng trong khoảng chechin , checkout thì tính giá 2 ngày
@@ -64,7 +65,6 @@ trait BookingLogicTrait
                 $money += $room->price_day * ($days - $totalDay);
             }
         }
-        
         if ($data['booking_type'] == BookingConstant::BOOKING_TYPE_HOUR) {
             if ($this->checkBookTimeByCheckInOrCheckOut($room, $data, $checkin, $checkout) == true) {
                 $days             = BookingConstant::PRICE_TYPE_HOUR_SPECICAL;
@@ -99,15 +99,19 @@ trait BookingLogicTrait
                     }
                 }
             }
+            $charge_additional_hour = ($hours - BookingConstant::TIME_BLOCK) * $room->price_after_hour;
         }
-
         // Tính tiền dựa theo số khách
+        $charge_additional_guest = 0;
         if (($additional_guest = $data['number_of_guests'] - $room->max_guest) > 0) {
             $money += $additional_guest * $room->price_charge_guest;
+            $charge_additional_guest += $additional_guest * $room->price_charge_guest;
         }
 
-        $data['price_original'] = $money;
-        $data['service_fee']    = $room->cleaning_fee;
+        $data['price_original']             = $money;
+        $data['service_fee']                = $room->cleaning_fee !== null ? $room->cleaning_fee : 0;
+        $data['charge_additional_guest']    = $charge_additional_guest;
+        $data['charge_additional_hour']     = $charge_additional_hour;
         if (!empty($data['coupon'])) {
             $coupon              = $this->cp->getCouponByCode($data['coupon']);
             $data['city_id']     = $room->city_id;

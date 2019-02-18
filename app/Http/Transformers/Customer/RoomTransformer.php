@@ -28,6 +28,7 @@ class RoomTransformer extends TransformerAbstract
             'room_type'             => $room->room_type,
             'room_type_txt'         => $room->roomType(),
             'max_guest'             => $room->max_guest,
+            'max_additional_guest'   => $room->max_additional_guest,
             'number_bed'            => $room->number_bed,
             'number_room'           => $room->number_room,
             'price_day'             => $room->price_day ?? 0,
@@ -57,6 +58,8 @@ class RoomTransformer extends TransformerAbstract
             'is_discount_txt'      => $room->discountStatus(),
             'price_day_discount'   => $room->price_day_discount,
             'price_hour_discount'  => $room->price_hour_discount,
+            'price_charge_guest'   => $room->price_charge_guest,
+            'price_after_hour'     => $room->price_after_hour,
         ];
     }
 

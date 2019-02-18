@@ -57,7 +57,7 @@ SELECT
     id,
     client_id AS merchant_id,
     number_people AS max_guest,
-    NULL AS max_additional_guest,
+    charge_guest AS max_additional_guest,
     number_bed,
     bedroom AS number_room,
     city_id,
