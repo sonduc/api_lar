@@ -62,7 +62,7 @@ class BookingReviews extends Command
             $checkout_timestamp     = Carbon::parse($checkout)->addHours(28)->timestamp;
             $checkin_date           = Carbon::parse($checkin);
             $checkout_date          = Carbon::parse($checkout);
-            if (isset($booking)) {
+            if ($checkout_timestamp->diffInHours($current_day) <= 36 && $booking->status == 4 && $booking->email_reviews == 0) {
                 $booking_review_url = env('API_URL_CUSTOMER') . '/reviews/'. $booking->id . '?token=' . $userToken . '&time='.$timeSubmit;
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_DAY) {
                     $dataTime['read_timeCheckin']  = $checkin_date->isoFormat('LL');
@@ -73,6 +73,7 @@ class BookingReviews extends Command
                     $dataTime['valid_time']        = Carbon::now()->addDays(25)->isoFormat('LL');
                     event(new Booking_Reviews_Event($booking, $dataTime));
                     $booking->email_reviews = 1;
+                    $booking->review_url    = '?token=' . $userToken . '&time='.$timeSubmit;
                     $booking->save();
                 }
                 if ($booking->booking_type == BookingConstant::BOOKING_TYPE_HOUR) {
@@ -83,6 +84,7 @@ class BookingReviews extends Command
                     $dataTime['valid_time']        = Carbon::now()->addDays(25)->isoFormat('LL');
                     event(new Booking_Reviews_Event($booking, $dataTime));
                     $booking->email_reviews = 1;
+                    $booking->review_url    = '?token=' . $userToken . '&time='.$timeSubmit;
                     $booking->save();
                 }
             }

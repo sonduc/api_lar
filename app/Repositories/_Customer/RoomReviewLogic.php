@@ -49,14 +49,19 @@ class RoomReviewLogic extends BaseLogic
      */
     public function store($data)
     {
-        $data_booking=$this->booking->checkBooking($data['booking_id']);
+        $data_booking=$this->booking->checkBooking($data['booking_id'])->toArray();
 
         if (!empty($data)) {
-            $data['user_id']        = $data_booking->customer_id;
-            $data['room_id']        = $data_booking->room_id;
-            $data['booking_id']     = $data_booking->id;
+            $data['user_id']        = $data_booking['customer_id'];
+            $data['room_id']        = $data_booking['room_id'];
+            $data['booking_id']     = $data_booking['id'];
         }
-        return parent::store($data);
+        $room_review = parent::store($data);
+
+        // Cập nhậttrạng thái đã review của booking
+        $data_booking['status_reviews'] = 1;
+        $this->booking->updateBooking($room_review->booking_id,$data_booking);
+        return $room_review;
     }
 
     /**

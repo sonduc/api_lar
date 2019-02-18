@@ -50,6 +50,7 @@ $router->group([
     resource('/comment-tickets', 'CommentTicketController', $router);
 
     //resource('/reviews', 'RoomReviewController', $router);
+    $router->get('/reviews/show-reviews/{id}', 'RoomReviewController@show');
 });
 
 

@@ -14,6 +14,7 @@ use App\Repositories\Rooms\RoomReview;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Events\AverageRoomRating;
 
@@ -102,6 +103,17 @@ class RoomReviewController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
+    }
+
+    public function show(Request $request,$id)
+    {
+        $data    = $this->model->getById($id);
+        if ($data->user_id != Auth::user()->id)
+        {
+            throw new \Exception('Bạn không có quyền xem review này');
+        }
+        return $this->successResponse(['data' => $data],false);
+
     }
     /**
      * Type Like
