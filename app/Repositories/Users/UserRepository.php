@@ -478,4 +478,46 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
         return parent::getById($id);
 
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @return mixed
+     */
+
+    public function getUserToken($id)
+    {
+        $data_user = parent::getById($id)->toArray();
+        if ($data_user['token'] == null )
+        {
+            $data_user['token']          = Hash::make(str_random(60));
+            $data_user                   = parent::update($id, $data_user);
+            return $data_user->token;
+        }
+        return $data_user['token'];
+
+    }
+
+    /**
+     * Kiểm tra thời gian tồn tại của đường link review
+     * @author HarikiRito <nxh0809@gmail.com>
+     *
+     * @param $code
+     *
+     * @throws \Exception
+     */
+    public function checkTimeReview($code, $data = [])
+    {
+        $timeNow    = Carbon::now();
+        $timeSubmit = base64_decode($code);
+        $timeSubmit = Carbon::createFromTimestamp($timeSubmit)->toDateTimeString();
+        $minutes    = $timeNow->diffInMinutes($timeSubmit);
+        // Nếu sao 24 h khách hàng không phản hồi thì đường dẫn bị hủy đồng thời
+        if ($minutes > 43200) {
+            throw new \Exception('Đường dẫn không tồn tại ');
+        }
+    }
+
 }

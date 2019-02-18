@@ -1852,4 +1852,17 @@ class BookingRepository extends BaseRepository implements BookingRepositoryInter
         // dd(count($data));
         return $data;
     }
+
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param $data
+     * @return \App\Repositories\Eloquent
+     */
+    public function updateBooking($id,$data)
+    {
+        return parent::update($id,$data);
+    }
 }

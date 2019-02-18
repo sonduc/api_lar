@@ -11,8 +11,10 @@ namespace App\Http\Controllers\ApiCustomer;
 
 use App\Repositories\_Customer\RoomReviewLogic;
 use App\Repositories\Rooms\RoomReview;
+use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Events\AverageRoomRating;
 
@@ -54,9 +56,12 @@ class RoomReviewController extends ApiController
      *
      * @param RoomReviewLogic $review
      */
-    public function __construct(RoomReviewLogic $review)
+
+    protected $user;
+    public function __construct(RoomReviewLogic $review,UserRepositoryInterface $user)
     {
         $this->model = $review;
+        $this->user  = $user;
     }
 
     /**
@@ -98,6 +103,17 @@ class RoomReviewController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
+    }
+
+    public function show(Request $request,$id)
+    {
+        $data    = $this->model->getById($id);
+        if ($data->user_id != Auth::user()->id)
+        {
+            throw new \Exception('Bạn không có quyền xem review này');
+        }
+        return $this->successResponse(['data' => $data],false);
+
     }
     /**
      * Type Like
@@ -250,7 +266,13 @@ class RoomReviewController extends ApiController
     {
         DB::beginTransaction();
         try {
-            $data = $this->model->getRoom($booking_id);
+            // Kiểm tra token có trùng với token trong database user không
+            $data   = $request->only('token', 'time');
+            $user   = $this->user->checkValidToken($data);
+            // Kiểm tra sự tồn tại của đường link review
+            $this->user->checkTimeReview($data['time']);
+
+            $data = $this->model->getRoom($booking_id,$user);
             return $this->successResponse(['data' => $data],false);
         } catch (\Exception $e) {
             return $this->errorResponse([

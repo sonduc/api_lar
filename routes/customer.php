@@ -49,20 +49,23 @@ $router->group([
      */
     resource('/comment-tickets', 'CommentTicketController', $router);
 
-    /**
-     * Room Review Resource
-     */
-    $router->get('/reviews/reviews-like-list', 'RoomReviewController@reviewLikeList');
-    $router->get('/reviews/reviews-service-list', 'RoomReviewController@reviewServiceList');
-    $router->get('/reviews/reviews-quality-list', 'RoomReviewController@reviewQualityList');
-    $router->get('/reviews/reviews-cleanliness-list', 'RoomReviewController@reviewCleanlinessList');
-    $router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
-    $router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
-
-    $router->get('/reviews/{id}', 'RoomReviewController@linkReview');
-    $router->post('/reviews', 'RoomReviewController@store');
     //resource('/reviews', 'RoomReviewController', $router);
+    $router->get('/reviews/show-reviews/{id}', 'RoomReviewController@show');
 });
+
+
+/**
+ * Room Review Resource
+ */
+$router->get('/reviews/reviews-like-list', 'RoomReviewController@reviewLikeList');
+$router->get('/reviews/reviews-service-list', 'RoomReviewController@reviewServiceList');
+$router->get('/reviews/reviews-quality-list', 'RoomReviewController@reviewQualityList');
+$router->get('/reviews/reviews-cleanliness-list', 'RoomReviewController@reviewCleanlinessList');
+$router->get('/reviews/reviews-valuable-list', 'RoomReviewController@reviewValuableList');
+$router->get('/reviews/reviews-recommend-list', 'RoomReviewController@reviewRecommendList');
+
+$router->get('/reviews/{id}', 'RoomReviewController@linkReview');
+$router->post('/reviews', 'RoomReviewController@store');
 
 /*
  * Rooms Router
