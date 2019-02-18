@@ -44,7 +44,7 @@ trait RoomLogicTrait
             $CI     = Carbon::createFromTimestamp($item->checkin);
             $CO     = Carbon::createFromTimestamp($item->checkout);
             $period = CarbonPeriod::between($CI->copy()->addDays(1), $CO);
-
+           
             foreach ($period as $day) {
                 $list[] = $day;
             }

@@ -53,7 +53,7 @@ class CreateBookingsTable extends Migration
             $table->double('total_refund')->nullable()->default(0);
             $table->longText('settings')->nullable();
             $table->longText('review_url')->nullable();
-            $table->longText('status_reviews')->nullable();
+            $table->tinyInteger('status_reviews')->nullable()->default(0);
             $table->softDeletes();
             $table->timestamps();
         });
