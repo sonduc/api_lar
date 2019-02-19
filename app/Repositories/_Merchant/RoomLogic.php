@@ -150,11 +150,12 @@ class RoomLogic extends BaseLogic
      */
     public function update($id, $data, $excepts = [], $only = [])
     {
+        $room    = $this->model->getById($id);
+        $percent = $room->percent;
         if (isset($data['basic']) & !empty($data['basic'])) {
-            $list = $data['basic'];
-            $list['percent'] = $this->model->calculation_percent($data);
+            $list            = $data['basic'];
+            $list['percent'] = ($percent != 100 && $percent < $this->model->calculation_percent($data)) ? $this->model->calculation_percent($data) : $percent;
         }
-
 
         if (isset($data['prices']) & !empty($data['prices'])) {
             $list = array_merge($list, $data['prices']);
