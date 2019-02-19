@@ -51,6 +51,7 @@ $router->group([
 
     //resource('/reviews', 'RoomReviewController', $router);
     $router->get('/reviews/show-reviews/{id}', 'RoomReviewController@show');
+    $router->get('/get-room-for-review/{id}', 'RoomReviewController@getRoomForReview');
 });
 
 

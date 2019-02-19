@@ -1,7 +1,7 @@
 {
 	"_type": "export",
 	"__export_format": 3,
-	"__export_date": "2019-02-18T05:17:30.669Z",
+	"__export_date": "2019-02-19T05:42:59.809Z",
 	"__export_source": "insomnia.desktop.app:v6.3.2",
 	"resources": [
 		{
@@ -201,7 +201,7 @@
 				"token": {
 					"access_token": "",
 					"key": "Authorization",
-					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6ImEzYjBhYjgxODQ5ZWY1NTRiNzdiNWE0MmJiMTBmNWI0YmZhOGRlY2IxNmZlNzhmNTdiZjE5ZTAwMDJlM2FhYTg5NTlkMGQwMjliM2I4NjkyIn0.eyJhdWQiOiI2IiwianRpIjoiYTNiMGFiODE4NDllZjU1NGI3N2I1YTQyYmIxMGY1YjRiZmE4ZGVjYjE2ZmU3OGY1N2JmMTllMDAwMmUzYWFhODk1OWQwZDAyOWIzYjg2OTIiLCJpYXQiOjE1NTA0NjYzNjQsIm5iZiI6MTU1MDQ2NjM2NCwiZXhwIjoxNTgyMDAyMzYzLCJzdWIiOiI1MzIyIiwic2NvcGVzIjpbXX0.JqizAks14YSlcJiiYUutPBAF33Dw1dqKnsNM3Q0fmxjr8VIBj83EwLqX3Hu7Qg1J81xXk7LLGbYNkvx5Av8z5joOxCEVDH-cJbBFurpXs1yKrnH5H3gLAt1dEXKfZvpUP4kKcS8CP3VEU8o3x1UE_GNZxM5EyKLTR4OCn-a1g3K-7gwjp7CNud_9kmHFlE2nW1a8f3mxHRFtmsdn5xBgyoCaSuZUynMix7GPPT4sS0vaY9hG94EsXLUS41h9JFBV3o62yzcgQldO6CXfvDTDIEbVzL7R2AhTKZ_GiJBFwxrCxYk-Kmpff4jKFRKnZoc3_83rd8xMBXw3tkg-avCn6otj4jQqR_81LblQK8K1kQ3GSCVjt8gf9mOLVFXkvhFS3Bz1KWkhAvHY_nJiVPid5yvhlstau7kaklkfoMTR_LhtB0_AlDbbFZsL1jucNmjtCb5OCUB_1sP6J8lrBlZLsx9NVXQFS1A5PrerbJMqKOLritnuGu9lzVi4CU7iDERFBnJQhwWlUC2ccfgc7s5H1josvQRLNbbpZNXKzPkn1hpL2QDB9S9hC3hsJBz3VRjqHb6DR9_ijlGYMHKaPYg7pZq86EVbm3660KF8TNMD8F7Pu3lHFhABPun--cLLQkEaFfWsGhNpz6WI9QKPJjc_zybPPGfr9t5TTC1EyimnJY0"
+					"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjZhNzE1MDlkODAwZGVlM2Y5MTc3YjUxNzZlNzAyNzI2MmQ1ODE0N2YzNmZmNzBiMTZkNjRhNmRmYzBmZDE2MmY4MjU4MmZmODI0ZTRjYjQzIn0.eyJhdWQiOiI0IiwianRpIjoiNmE3MTUwOWQ4MDBkZWUzZjkxNzdiNTE3NmU3MDI3MjYyZDU4MTQ3ZjM2ZmY3MGIxNmQ2NGE2ZGZjMGZkMTYyZjgyNTgyZmY4MjRlNGNiNDMiLCJpYXQiOjE1NTA0Nzc4NjYsIm5iZiI6MTU1MDQ3Nzg2NiwiZXhwIjoxNTgyMDEzODY2LCJzdWIiOiI1MzIzIiwic2NvcGVzIjpbXX0.Qd1_z5lLL3BvOowQSspO79-9SBxbQC2whMp4v64zMOhF-aUAl5T-9N5KGbpd3Si4zsLZKsCX7L7Z5REKaWaznBzKD5OaaGJN2dciq59W9nkMtBLL-kMKHX8cnGSIjRK4fbbDMXxPVFyPVbGaRS7UykjKe4ILYxpVDa4eCoG2MmQ208KKbbBbLE7LDNs--S9tKUywLMJ8MbbiL4nC0HCZtRmhii_MgB50q8b__iIu0Z2a7Dt-VTT03IsLVjkBEw6qFl7M_zd2fEfKt9WBhUx_WKjTpaj616_nHBpLhG1PnOsMRmtcbAppAX1r1kWqjHGEgFI4MOuU3hovnYyTdtCcW9JZwGY9Vlu7djqA6cUt0RHQWd9dFPyuZpM0QUKbrWkAqvdHSuD1_GBgrJEG5Nol-3emVjPTp26-fUwZEG4u73E5_JIXmy_0XPZr682w7KheHvsUgC6IdddwNmK_cakiWBxVRjM3_T5G07O9-iCNv31G2vR9_1sf-9PXcGlp8mDbwo3_faWjB6gRB3B06kiPwodcM8a0VU-9MXayb5Zx2VwuOwS362PmSj5dV_4aQnWzhGu5KsIIn5uxBqYOfBfokOTWwz22bkQkr4AOvfIAYSWX-Y4HyoQg0AA4LSkDAfKXMsC5DzmHk-BTw_uO0F5P4qW9eGeYAP-d0JwHTr37aF8"
 				},
 				"url": "http://westay.test/",
 				"username": "admin@westay.org",
@@ -209,7 +209,7 @@
 			},
 			"isPrivate": false,
 			"metaSortKey": 1532661382116,
-			"modified": 1550466387713,
+			"modified": 1550477891051,
 			"name": "local_admin",
 			"parentId": "env_a7687c0b121f48bc9818db5b2055934a",
 			"_type": "environment"
@@ -7102,7 +7102,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538327115081.2656,
 			"method": "POST",
-			"modified": 1550466319818,
+			"modified": 1550469889334,
 			"name": "login",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -7120,7 +7120,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"email\": \"test01@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\"\n}"
+				"text": "{\n\t\"email\": \"test100@gmail.com\",\n\t\"password\": \"123456\",\n\t\"password_confirmation\": \"123456\"\n}"
 			},
 			"created": 1541470127670,
 			"description": "         'email'                 => 'required|email|max:255|unique:users,email',\n        'password'              => 'required|min:6|max:255',\n        'password_confirmation' => 'required|min:6|max:255|same:password',\n        'type'                  => 'numeric|between:0,1'|filled,\n        'status'                => 'numeric|between:0,1|filled',\n      ",
@@ -7139,7 +7139,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997348.5312,
 			"method": "POST",
-			"modified": 1550466358425,
+			"modified": 1550477862957,
 			"name": "register",
 			"parameters": [],
 			"parentId": "fld_006b46360b4142a48b42c99b8c36575e",
@@ -7567,7 +7567,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1538900997361.0312,
 			"method": "GET",
-			"modified": 1549094250200,
+			"modified": 1550470759557,
 			"name": "show",
 			"parameters": [
 				{
@@ -7584,7 +7584,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url  }}bookings/795",
+			"url": "{{ customer_url  }}bookings/1",
 			"_type": "request"
 		},
 		{
@@ -8405,7 +8405,7 @@
 			"authentication": {},
 			"body": {
 				"mimeType": "application/json",
-				"text": "{\n\t\"booking_id\": 252,\n\t\"cleanliness\":3,\n\t\"quality\": 2,\n\t\"service\": 4,\n\t\"valuable\": 4,\n\t\"avg_rating\": 4,\n\t\"comment\": \"\",\n\t\"like\": 1\n}"
+				"text": "{\n\t\"booking_id\": 2,\n\t\"cleanliness\":3,\n\t\"quality\": 2,\n\t\"service\": 4,\n\t\"valuable\": 4,\n\t\"avg_rating\": 4,\n\t\"comment\": \"\",\n\t\"like\": 1\n}"
 			},
 			"created": 1548953433418,
 			"description": "        'cleanliness'   => 'nullable|integer|between:1,5',\n        'service'       => 'nullable|integer|between:1,5',\n        'quality'       => 'nullable|integer|between:1,5',\n        'valuable'      => 'nullable|integer|between:1,5',\n        'avg_rating'    => 'nullable|numeric|between:1,5',\n        'recommend'     => 'nullable|integer|between:0,1',\n        'like'          => 'nullable|integer|between:0,1',\n        'status_reviews'=> 'nullable|integer|between:0,1',\n       'booking_id'     => 'required|integer|exists:bookings,id,deleted_at,NULL',",
@@ -8424,7 +8424,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540269553801.4062,
 			"method": "POST",
-			"modified": 1550281680587,
+			"modified": 1550543107071,
 			"name": "create",
 			"parameters": [],
 			"parentId": "fld_4999b32abef04667a619718bb7bcbfe4",
@@ -8453,7 +8453,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540269553776.4062,
 			"method": "GET",
-			"modified": 1550453768028,
+			"modified": 1550471492183,
 			"name": "link-review",
 			"parameters": [],
 			"parentId": "fld_4999b32abef04667a619718bb7bcbfe4",
@@ -8463,7 +8463,7 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}reviews/252?token=$2y$10$DUa6ebCL2i4YLC/kwIJdzO4JLPqQNjePf1KsQZlA.R32dPUWwPzHK&time=MTU1MDQ1MzM2NA==",
+			"url": "{{ customer_url }}reviews/1?token=$2y$10$K8.auo.RFugYXJgVG6ayBOaLxvYRari2XmtuKUs0KfgVXIJQr57y.&time=MTU1MDQ2ODA0MQ==",
 			"_type": "request"
 		},
 		{
@@ -8482,7 +8482,7 @@
 			"isPrivate": false,
 			"metaSortKey": -1540269553763.9062,
 			"method": "GET",
-			"modified": 1550462019065,
+			"modified": 1550544104306,
 			"name": "show-review",
 			"parameters": [],
 			"parentId": "fld_4999b32abef04667a619718bb7bcbfe4",
@@ -8492,7 +8492,36 @@
 			"settingRebuildPath": true,
 			"settingSendCookies": true,
 			"settingStoreCookies": true,
-			"url": "{{ customer_url }}reviews/show-reviews/2",
+			"url": "{{ customer_url }}reviews/show-reviews/1",
+			"_type": "request"
+		},
+		{
+			"_id": "req_88859c125e134f399c0061bcd1be4857",
+			"authentication": {},
+			"body": {},
+			"created": 1550548582028,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_93b480a96dc94b9aaa53d2d2d9aad350",
+					"name": "{{ token.key  }}",
+					"value": "{{ token.value  }}"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1540269553757.6562,
+			"method": "GET",
+			"modified": 1550548604649,
+			"name": "get-room-for-review",
+			"parameters": [],
+			"parentId": "fld_4999b32abef04667a619718bb7bcbfe4",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingMaxTimelineDataSize": 1000,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "{{ customer_url }}get-room-for-review/1",
 			"_type": "request"
 		},
 		{

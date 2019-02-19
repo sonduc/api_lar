@@ -10,6 +10,9 @@ namespace App\Http\Controllers\ApiCustomer;
 
 
 use App\Repositories\_Customer\RoomReviewLogic;
+use App\Repositories\Bookings\BookingRepositoryInterface;
+use App\Repositories\Rooms\Room;
+use App\Repositories\Rooms\RoomRepositoryInterface;
 use App\Repositories\Rooms\RoomReview;
 use App\Repositories\Users\UserRepositoryInterface;
 use Illuminate\Auth\Access\AuthorizationException;
@@ -58,10 +61,12 @@ class RoomReviewController extends ApiController
      */
 
     protected $user;
-    public function __construct(RoomReviewLogic $review,UserRepositoryInterface $user)
+    protected $booking;
+    public function __construct(RoomReviewLogic $review,UserRepositoryInterface $user,BookingRepositoryInterface $booking)
     {
-        $this->model = $review;
-        $this->user  = $user;
+        $this->model    = $review;
+        $this->user     = $user;
+        $this->booking  = $booking;
     }
 
     /**
@@ -107,12 +112,22 @@ class RoomReviewController extends ApiController
 
     public function show(Request $request,$id)
     {
-        $data    = $this->model->getById($id);
-        if ($data->user_id != Auth::user()->id)
+        try
         {
-            throw new \Exception('Bạn không có quyền xem review này');
+            $data_booking = $this->booking->getBookingById($id);
+
+            $data    = $this->model->show($data_booking->id);
+            if ($data->user_id != Auth::user()->id)
+            {
+                throw new \Exception('Bạn không có quyền xem review này');
+            }
+            return $this->successResponse(['data' => $data],false);
+        }catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
         }
-        return $this->successResponse(['data' => $data],false);
 
     }
     /**
@@ -282,6 +297,22 @@ class RoomReviewController extends ApiController
         } catch (\Throwable $t) {
             throw $t;
         }
+    }
+
+    public function getRoomForReview(Request $request,$room_id)
+    {
+        try
+        {
+            $data                       =  $this->model->getRoomForShowReview($room_id);
+            return $this->successResponse(['data' => $data],false);
+        }catch (\Exception $e) {
+            return $this->errorResponse([
+                'error' => $e->getMessage(),
+            ]);
+            throw $e;
+        }
+
+
     }
 
 

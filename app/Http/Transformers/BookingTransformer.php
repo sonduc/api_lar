@@ -86,6 +86,8 @@ class BookingTransformer extends TransformerAbstract
             'age_range_txt'      => $booking->getAgeRange(),
             'exchange_rate'      => $booking->exchange_rate,
             'total_refund'       =>  $booking->total_refund,
+            'review_url'         =>  $booking->review_url,
+            'status_reviews'     =>  $booking->status_reviews,
             'total_txt'          =>  $booking->getTotalRefund($booking),
             'settings'           =>  json_decode($booking->settings),
             'created_at'         => $booking->created_at ? $booking->created_at->format('Y-m-d H:i:s') : null,
