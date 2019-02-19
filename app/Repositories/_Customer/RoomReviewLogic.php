@@ -81,4 +81,23 @@ class RoomReviewLogic extends BaseLogic
         return $data_room;
     }
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $booking_id
+     * @return mixed
+     */
+    public function show($booking_id)
+    {
+       return $this->model->getRoomReviewByBookingId($booking_id);
+    }
+
+    public function getRoomForShowReview($room_id)
+    {
+        $data_room = $this->room->getRoomForReview($room_id)->toArray();
+        $data_room['room_type_text']=Room::ROOM_TYPE[$data_room['room_type']] ? Room::ROOM_TYPE[$data_room['room_type']] : 'Không xác định';
+        return $data_room;
+    }
+
 }

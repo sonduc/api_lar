@@ -622,7 +622,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getRoomForReview($id)
     {
-        return $this->model->select('rooms.id','rooms.room_type', 'room_translates.name', 'room_medias.image')
+        return $this->model->select('rooms.id','rooms.price_day','rooms.price_hour','rooms.room_type', 'room_translates.name', 'room_medias.image')
                     ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
                     ->join('room_medias', 'rooms.id', '=', 'room_medias.room_id')
                     ->where('rooms.id', '=', $id)

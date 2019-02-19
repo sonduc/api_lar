@@ -49,5 +49,21 @@ class RoomReviewRepository extends BaseRepository implements RoomReviewRepositor
 
     }
 
+    /**
+     *
+     * @author ducchien0612 <ducchien0612@gmail.com>
+     *
+     * @param $id
+     * @param bool $trash
+     * @param bool $useHash
+     * @return Eloquent
+     */
+
+    public function getRoomReviewByBookingId($id)
+    {
+        return $this->model->where('booking_id',$id)->first();
+
+    }
+
 
 }
