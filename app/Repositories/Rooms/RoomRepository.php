@@ -221,12 +221,13 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function calculation_percent($data)
     {
         // Tính số phần trăm hoàn thành
-        $data   = array_only($data, ['weekday_price', 'room_time_blocks', 'optional_prices', 'basic', 'details', 'comforts', 'images', 'prices', 'settings']);
-        $except = ['weekday_price', 'room_time_blocks', 'optional_prices'];
+        $data   = array_only($data, ['weekday_price', 'room_time_blocks', 'optional_prices', 'basic', 'details', 'comforts', 'images', 'prices','settings']);
+        $except = ['weekday_price', 'room_time_blocks', 'optional_prices','settings'];
         empty($data['comforts']) ? array_push($except, 'comforts') : null;
         empty($data['images']) ? array_push($except, 'images') : null;
 
         $count   = array_except($data, $except);
+
         $percent = count($count) / Room::FINISHED * 100;
         return round($percent);
     }
