@@ -42,7 +42,7 @@ class Place extends Entity
      */
     public function guidebookcategory()
     {
-        return $this->belongsTo(GuidebookCategory::class, 'guidebook_category_id', 'id');
+        return $this->belongsTo(GuidebookCategory::class, 'guidebook_category_id');
     }
 
     /**

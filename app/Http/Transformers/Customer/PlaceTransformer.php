@@ -11,7 +11,7 @@ class PlaceTransformer extends TransformerAbstract
 {
     use FilterTrait;
     protected $availableIncludes = [
-
+        'guidebook'
     ];
 
     public function transform(Place $place = null)
@@ -28,4 +28,21 @@ class PlaceTransformer extends TransformerAbstract
         ];
     }
 
+    /**
+     * Include GuideBook
+     * @author tuananhpham1402 <tuananhpham1402@gmail.com>
+     *
+     * @param Place|null     $place
+     * @param ParamBag|null $params
+     *
+     * @return \League\Fractal\Resource\Item|\League\Fractal\Resource\NullResource
+     */
+    public function includeGuidebook(Place $place = null, ParamBag $params = null)
+    {
+        if (is_null($place)) {
+            return $this->null();
+        }
+
+        return $this->item($place->guidebookcategory, new GuidebookCategoryTransformer);
+    }
 }

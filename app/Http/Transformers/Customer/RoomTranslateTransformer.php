@@ -21,6 +21,8 @@ class RoomTranslateTransformer extends TransformerAbstract
             'name'            => $room->name,
             'address'         => $room->address,
             'description'     => $room->description,
+            'space'           => $room->space,
+            'note'            => $room->note
         ];
     }
 

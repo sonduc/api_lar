@@ -165,3 +165,9 @@ $router->get('/categories/status-list', 'CategoryController@statusList');
 $router->get('/categories/hot-list', 'CategoryController@hotList');
 $router->get('/categories/new-list', 'CategoryController@hotList');
 resource('/categories', 'CategoryController', $router);
+
+
+/**
+ * Place Resource
+ */
+resource('/places', 'PlaceController', $router);
