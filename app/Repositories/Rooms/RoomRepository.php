@@ -164,7 +164,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
         // Thành phố, quận huyện, đặt phòng nhanh, giá tương tự, số khách, hot, total_booking, total_reviews
         $room = $this->model->find($id);
         $rooms = $this->model->where(
-                [
+            [
                     ['city_id', $room->city_id],
                     // ['district_id', $room->district_id],
                     ['max_guest','>=', $room->max_guest],
@@ -510,14 +510,15 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
     public function getRoomNameUserForSearch($data, $request, $count)
     {
         $result_room_name = $this->model
-             ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address', 'rooms.id', 'rooms.room_type')
-             ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
-             ->where('room_translates.name', 'like', "%$request->key%")
-             ->orWhere(\DB::raw("REPLACE(room_translates.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
-             ->where('rooms.status', Room::AVAILABLE)
-             ->where('rooms.merchant_status', Room::AVAILABLE)
-             ->orderBy('rooms.hot', 'DESC')
-             ->limit(SearchConstant::SEARCH_SUGGESTIONS-$count)->get()->toArray();
+            ->with('city')
+            ->select('room_translates.name', 'rooms.hot', 'rooms.status', 'room_translates.address', 'rooms.id', 'rooms.room_type')
+            ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
+            ->where('room_translates.name', 'like', "%$request->key%")
+            ->orWhere(\DB::raw("REPLACE(room_translates.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
+            ->where('rooms.status', Room::AVAILABLE)
+            ->where('rooms.merchant_status', Room::AVAILABLE)
+            ->orderBy('rooms.hot', 'DESC')
+            ->limit(SearchConstant::SEARCH_SUGGESTIONS-$count)->get()->toArray();
 
         $result_room_name = array_map(function ($item) {
             return [
@@ -528,6 +529,8 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
                 'room_type_text'    => Room::ROOM_TYPE[$item['room_type']],
                 'type'              => SearchConstant::ROOM_NAME,
                 'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::ROOM_NAME],
+                'city'              => $item['city'] != null ? $item['city']['name'] : null,
+                'country'           => 'Việt Nam'
             ];
         }, $result_room_name);
 
@@ -623,7 +626,7 @@ class RoomRepository extends BaseRepository implements RoomRepositoryInterface
      */
     public function getRoomForReview($id)
     {
-        return $this->model->select('rooms.id','rooms.price_day','rooms.price_hour','rooms.room_type', 'room_translates.name', 'room_medias.image')
+        return $this->model->select('rooms.id', 'rooms.price_day', 'rooms.price_hour', 'rooms.room_type', 'room_translates.name', 'room_medias.image')
                     ->join('room_translates', 'rooms.id', '=', 'room_translates.room_id')
                     ->join('room_medias', 'rooms.id', '=', 'room_medias.room_id')
                     ->where('rooms.id', '=', $id)

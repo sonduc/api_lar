@@ -80,9 +80,10 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
     public function getDistrictUsedForSerach($data, $request)
     {
         $result_district =  $this->model
+                ->with('city')
                 ->select('districts.id', 'districts.city_id', 'districts.name', 'districts.hot', 'districts.status')
                 ->where('districts.name', 'like', '%' . $request->key. '%')
-                 ->orWhere(\DB::raw("REPLACE(districts.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
+                ->orWhere(\DB::raw("REPLACE(districts.name, ' ', '')"), 'LIKE', '%' . $request->key. '%')
                 ->where('districts.status', District::AVAILABLE)
                 ->orderBy('districts.hot', 'desc')
                 ->orderBy('districts.priority', 'desc')
@@ -95,7 +96,9 @@ class DistrictRepository extends BaseRepository implements DistrictRepositoryInt
             'hot'               => $item['hot'],
             'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
             'type'              => SearchConstant::DISTRICT,
-            'description'      => SearchConstant::SEARCH_TYPE[SearchConstant::DISTRICT],
+            'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::DISTRICT],
+            'city'              => $item['city']['name'],
+            'country'           => 'Việt Nam'
         ];
         }, $result_district);
 

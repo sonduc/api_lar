@@ -106,6 +106,8 @@ class CityRepository extends BaseRepository implements CityRepositoryInterface
                 'hot_txt'           => ($item['hot'] == 1) ? 'Phổ biến' : null,
                 'type'              => SearchConstant::CITY,
                 'description'       => SearchConstant::SEARCH_TYPE[SearchConstant::CITY],
+                'city'              => $item['name'],
+                'country'           => 'Việt Nam',
 
             ];
         }, $result);
