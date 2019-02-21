@@ -44,16 +44,20 @@ class HostReviewRepository extends BaseRepository implements HostReviewRepositor
      */
     public function store($data = [])
     {
-        $data_booking = $this->booking->getBookingById($data['booking_id']);
+        $data_booking = $this->booking->getBookingById($data['booking_id'])->toArray();
         $this->checkReview($data_booking);
 
-        $data['customer_id']    = $data_booking->customer_id;
-        $data['room_id']        = $data_booking->room_id;
-        $data['merchant_id']    = $data_booking->merchant_id;
-        $data['booking_id']     = $data_booking->id;
-        $data['checkin']        = $data_booking->checkin;
-        $data['checkout']       = $data_booking->checkout;
+        $data['customer_id']    = $data_booking['customer_id'];
+        $data['room_id']        = $data_booking['room_id'];
+        $data['merchant_id']    = $data_booking['merchant_id'];
+        $data['booking_id']     = $data_booking['id'];
+        $data['checkin']        = $data_booking['checkin'];
+        $data['checkout']       = $data_booking['checkout'];
         $data_host_reviews      = parent::store($data);
+
+        // Cập nhậttrạng thái đã review của booking
+        $data_booking['status_host_reviews'] = 1;
+        $this->booking->updateBooking($data_host_reviews->booking_id,$data_booking);
 
         return $data_host_reviews;
     }
@@ -83,12 +87,12 @@ class HostReviewRepository extends BaseRepository implements HostReviewRepositor
     public function checkReview($data_booking)
     {
         $merchant_id = Auth::user()->id;
-        if ($merchant_id != $data_booking->merchant_id)
+        if ($merchant_id != $data_booking['merchant_id'])
         {
             throw new \Exception('Bạn không có quyền review về khách hàng này');
         }
 
-        $data    = $this->model->where('booking_id',$data_booking->id  )->first();
+        $data    = $this->model->where('booking_id',$data_booking['id']  )->first();
         //dd($data);
         if (!empty($data)) {
             throw new \Exception('Bạn không thể reviews thêm về khách hàng này được nữa');
